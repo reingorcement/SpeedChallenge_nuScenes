@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bisect import bisect_right
+from collections import OrderedDict
 import json
 import math
 from pathlib import Path
@@ -17,6 +19,7 @@ class NuScenesCanBusAdapter:
         if not self.can_bus_root.exists():
             raise FileNotFoundError(f"CAN bus root not found: {self.can_bus_root}")
         self._message_cache: dict[tuple[str, str], List[dict]] = {}
+        self._timestamp_cache: dict[tuple[str, str], List[int]] = {}
 
     def available_scene_names(self) -> List[str]:
         return sorted({p.name[:10] for p in self.can_bus_root.glob("scene-*_*.json")})
@@ -34,22 +37,26 @@ class NuScenesCanBusAdapter:
             messages = json.load(f)
         if not isinstance(messages, list):
             self._message_cache[cache_key] = []
+            self._timestamp_cache[cache_key] = []
             return []
+        messages = sorted(messages, key=lambda r: int(r.get("utime", 0)))
         self._message_cache[cache_key] = messages
+        self._timestamp_cache[cache_key] = [int(r.get("utime", 0)) for r in messages]
         return messages
 
-    @staticmethod
-    def _select_latest_before(records: Sequence[dict], timestamp_us: int) -> Optional[dict]:
-        candidates = [r for r in records if r.get("utime", 0) <= timestamp_us]
-        if not candidates:
+    def _select_latest_before(self, scene_name: str, message_name: str, timestamp_us: int) -> Optional[dict]:
+        records = self.load_messages(scene_name, message_name)
+        timestamps = self._timestamp_cache.get((scene_name, message_name), [])
+        idx = bisect_right(timestamps, timestamp_us) - 1
+        if idx < 0:
             return None
-        return max(candidates, key=lambda r: r["utime"])
+        return records[idx]
 
     def extract_feature_vector(self, scene_name: str, timestamp_us: int) -> Tuple[torch.Tensor, float]:
-        pose = self._select_latest_before(self.load_messages(scene_name, "pose"), timestamp_us)
-        monitor = self._select_latest_before(self.load_messages(scene_name, "vehicle_monitor"), timestamp_us)
-        wheel = self._select_latest_before(self.load_messages(scene_name, "zoe_veh_info"), timestamp_us)
-        steer = self._select_latest_before(self.load_messages(scene_name, "steeranglefeedback"), timestamp_us)
+        pose = self._select_latest_before(scene_name, "pose", timestamp_us)
+        monitor = self._select_latest_before(scene_name, "vehicle_monitor", timestamp_us)
+        wheel = self._select_latest_before(scene_name, "zoe_veh_info", timestamp_us)
+        steer = self._select_latest_before(scene_name, "steeranglefeedback", timestamp_us)
 
         vehicle_speed = 0.0
         odom_speed = 0.0
@@ -144,6 +151,7 @@ class NuScenesChassisFusionDataset(Dataset):
         can_bus_root: Optional[str | Path] = None,
         allow_pose_fallback: bool = False,
         scene_indices: Optional[Sequence[int]] = None,
+        image_cache_size: int = 0,
     ) -> None:
         from nuscenes.nuscenes import NuScenes
 
@@ -155,6 +163,8 @@ class NuScenesChassisFusionDataset(Dataset):
         self.cam_channel = cam_channel
         self.allow_pose_fallback = allow_pose_fallback
         self.can_bus_adapter = NuScenesCanBusAdapter(can_bus_root) if can_bus_root else None
+        self.image_cache_size = max(int(image_cache_size), 0)
+        self._image_cache: OrderedDict[str, torch.Tensor] = OrderedDict()
         self.samples: List[dict] = []
         self.scene_names: List[str] = []
 
@@ -232,6 +242,24 @@ class NuScenesChassisFusionDataset(Dataset):
             ]
         )
 
+    def _load_frame_tensor(self, token: str) -> torch.Tensor:
+        if self.image_cache_size > 0 and token in self._image_cache:
+            frame = self._image_cache.pop(token)
+            self._image_cache[token] = frame
+            return frame
+
+        img_path = Path(self.nusc.get_sample_data_path(token))
+        if not img_path.is_file():
+            raise FileNotFoundError(f"Image file not found: {img_path}")
+        with Image.open(img_path) as img:
+            frame = self.transform(img.convert("L")).float()
+
+        if self.image_cache_size > 0:
+            self._image_cache[token] = frame
+            if len(self._image_cache) > self.image_cache_size:
+                self._image_cache.popitem(last=False)
+        return frame
+
     @staticmethod
     def _scene_names_for_split(version: str, split: str) -> set[str]:
         from nuscenes.utils.splits import create_splits_scenes
@@ -300,15 +328,8 @@ class NuScenesChassisFusionDataset(Dataset):
     def __getitem__(self, idx: int):
         sample = self.samples[idx]
         tokens = sample["tokens"]
-        frames = []
-        for token in tokens:
-            img_path = Path(self.nusc.get_sample_data_path(token))
-            if not img_path.is_file():
-                raise FileNotFoundError(f"Image file not found: {img_path}")
-            with Image.open(img_path) as img:
-                frames.append(self.transform(img.convert("L")))
-
-        stacked_frames = torch.stack(frames).float()
+        frames = [self._load_frame_tensor(token) for token in tokens]
+        stacked_frames = torch.stack(frames)
         speed_label = self._compute_speed_label(sample["center_token"])
 
         if self.can_bus_adapter is not None:

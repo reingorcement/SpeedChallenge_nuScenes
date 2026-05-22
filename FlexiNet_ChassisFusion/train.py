@@ -107,6 +107,7 @@ def main() -> None:
         cam_channel=cfg["data"]["cam_channel"],
         can_bus_root=cfg["data"]["can_bus_root"],
         allow_pose_fallback=bool(cfg["data"]["allow_pose_fallback"]),
+        image_cache_size=int(cfg["data"].get("image_cache_size", 0)),
     )
     val_set = NuScenesChassisFusionDataset(
         dataroot=cfg["data"]["dataroot"],
@@ -117,12 +118,29 @@ def main() -> None:
         cam_channel=cfg["data"]["cam_channel"],
         can_bus_root=cfg["data"]["can_bus_root"],
         allow_pose_fallback=bool(cfg["data"]["allow_pose_fallback"]),
+        image_cache_size=int(cfg["data"].get("image_cache_size", 0)),
     )
     print(f"Train scenes: {len(train_set.scene_names)} | Train samples: {len(train_set)}")
     print(f"Val scenes: {len(val_set.scene_names)} | Val samples: {len(val_set)}")
 
-    train_loader = DataLoader(train_set, batch_size=int(cfg["train"]["batch_size"]), shuffle=True, num_workers=int(cfg["train"]["num_workers"]))
-    val_loader = DataLoader(val_set, batch_size=int(cfg["train"]["batch_size"]), shuffle=False, num_workers=int(cfg["train"]["num_workers"]))
+    num_workers = int(cfg["train"]["num_workers"])
+    use_persistent_workers = num_workers > 0
+    train_loader = DataLoader(
+        train_set,
+        batch_size=int(cfg["train"]["batch_size"]),
+        shuffle=bool(cfg["train"].get("shuffle_train", True)),
+        num_workers=num_workers,
+        pin_memory=device.type == "cuda",
+        persistent_workers=use_persistent_workers,
+    )
+    val_loader = DataLoader(
+        val_set,
+        batch_size=int(cfg["train"]["batch_size"]),
+        shuffle=False,
+        num_workers=num_workers,
+        pin_memory=device.type == "cuda",
+        persistent_workers=use_persistent_workers,
+    )
 
     model = FlexiNetChassisFusion(
         input_channels=1,

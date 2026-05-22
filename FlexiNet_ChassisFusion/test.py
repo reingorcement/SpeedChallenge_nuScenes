@@ -35,9 +35,18 @@ def main() -> None:
         cam_channel=cfg["data"]["cam_channel"],
         can_bus_root=cfg["data"]["can_bus_root"],
         allow_pose_fallback=bool(cfg["data"]["allow_pose_fallback"]),
+        image_cache_size=int(cfg["data"].get("image_cache_size", 0)),
     )
     print(f"Eval scenes: {len(dataset.scene_names)} | Eval samples: {len(dataset)}")
-    loader = DataLoader(dataset, batch_size=int(cfg["train"]["batch_size"]), shuffle=False, num_workers=int(cfg["train"]["num_workers"]))
+    num_workers = int(cfg["train"]["num_workers"])
+    loader = DataLoader(
+        dataset,
+        batch_size=int(cfg["train"]["batch_size"]),
+        shuffle=False,
+        num_workers=num_workers,
+        pin_memory=device.type == "cuda",
+        persistent_workers=num_workers > 0,
+    )
 
     model = FlexiNetChassisFusion(
         input_channels=1,

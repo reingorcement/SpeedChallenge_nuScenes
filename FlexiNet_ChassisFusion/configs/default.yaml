@@ -12,6 +12,7 @@ data:
   cam_channel: CAM_FRONT
   can_bus_root: /mnt/sda2/zy/nuscenes/can_bus
   allow_pose_fallback: false
+  image_cache_size: 4096
 
 model:
   pretrained_path: ../FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth
@@ -22,9 +23,10 @@ model:
   freeze_backbone: true
 
 train:
-  batch_size: 4
-  num_workers: 4
-  epochs: 40
+  batch_size: 16
+  num_workers: 1
+  epochs: 5
+  shuffle_train: false
   learning_rate_head: 0.001
   learning_rate_backbone: 0.00003
   weight_decay: 0.0001
