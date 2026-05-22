@@ -14,18 +14,36 @@ env/
 .vscode/
 .idea/
 
-# Large compressed packages
+# Compressed packages
 *.zip
 *.tar
 *.tar.gz
 *.rar
 *.7z
 
-# Large video files
-*.mp4
-*.avi
-*.mov
-
-# Temporary logs/cache
+# Intermediate processed data / cache
+*.npy
+*.npz
+*.cache
 *.tmp
-*.log
+
+processed_data/
+features/
+temp/
+cache/
+
+# Large raw datasets if they appear later
+data/raw/
+datasets/raw/
+nuscenes/
+KITTI/
+kitti/
+samples/
+sweeps/
+maps/
+v1.0-mini/
+v1.0-trainval/
+
+# OS files
+.DS_Store
+Thumbs.db
