@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# environments
+.venv/
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# datasets
+data/
+dataset/
+datasets/
+nuscenes/
+v1.0-mini/
+v1.0-trainval/
+samples/
+sweeps/
+maps/
+archives/
+
+# compressed files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# model weights / checkpoints
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.pkl
+
+# runtime outputs
+runs/
+outputs/
+checkpoints/
+weights/
+logs/
+
+# keep small results if needed
+!results_git/
+!results_git/**
