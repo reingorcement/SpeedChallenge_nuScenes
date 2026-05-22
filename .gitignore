@@ -1,10 +1,10 @@
-# Python
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# environments
+# Python environments
 .venv/
 venv/
 env/
@@ -14,39 +14,18 @@ env/
 .vscode/
 .idea/
 
-# datasets
-data/
-dataset/
-datasets/
-nuscenes/
-v1.0-mini/
-v1.0-trainval/
-samples/
-sweeps/
-maps/
-archives/
-
-# compressed files
+# Large compressed packages
 *.zip
 *.tar
 *.tar.gz
 *.rar
 *.7z
 
-# model weights / checkpoints
-*.pth
-*.pt
-*.ckpt
-*.onnx
-*.pkl
+# Large video files
+*.mp4
+*.avi
+*.mov
 
-# runtime outputs
-runs/
-outputs/
-checkpoints/
-weights/
-logs/
-
-# keep small results if needed
-!results_git/
-!results_git/**
+# Temporary logs/cache
+*.tmp
+*.log
