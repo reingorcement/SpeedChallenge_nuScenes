@@ -25,7 +25,7 @@ model:
 train:
   batch_size: 16
   num_workers: 1
-  epochs: 5
+  epochs: 10
   shuffle_train: false
   learning_rate_head: 0.001
   learning_rate_backbone: 0.00003
