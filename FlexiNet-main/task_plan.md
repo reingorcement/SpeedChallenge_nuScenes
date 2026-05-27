@@ -17,6 +17,7 @@ Add a clean validation-only nuScenes baseline pipeline in `FlexiNet-main` that e
 - Keep `FlexiNet` as a pure image-only model and load `checkpoint_epoch_100_nuimage_L1_best.pth`.
 - Filter scenes by CAN bus availability only to align sample order with `FlexiNet_ChassisFusion`; do not feed CAN data to the model.
 - Use validation sample index as the x-axis for comparison plots.
+- Match `FlexiNet_ChassisFusion/configs/default.yaml` for nuScenes data roots: `/mnt/sda2/zy/nuscenes` and `/mnt/sda2/zy/nuscenes/can_bus`.
 
 ## Errors Encountered
 - Runtime import check failed because the current Python interpreter has no `torch` module installed. Syntax checks still passed with `py_compile`.
