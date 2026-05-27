@@ -10,8 +10,6 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from dataset.kitti import KITTIDataset
-from dataset.nuimages import NuImagesDataset
 from dataset.nuscenes_vision_eval import NuScenesVisionEvalDataset
 from model.FlexiNet import FlexiNet
 from utils.checkpoint import load_model_checkpoint
@@ -144,6 +142,9 @@ def run_nuscenes_baseline(params: list[str]) -> None:
 
 
 def run_legacy_test(params: list[str]) -> None:
+    from dataset.kitti import KITTIDataset
+    from dataset.nuimages import NuImagesDataset
+
     parser = argparse.ArgumentParser(description="Legacy FlexiNet KITTI/nuImages testing")
     parser.add_argument("--data", type=str, required=True, help="Path of test data")
     parser.add_argument("--dataset", type=str, default="Kitti", help="Dataset to use: Kitti, nuImages")

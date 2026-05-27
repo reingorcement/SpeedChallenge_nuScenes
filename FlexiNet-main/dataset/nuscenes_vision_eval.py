@@ -1,14 +1,56 @@
 from __future__ import annotations
 
 import math
+import runpy
+import sys
 from collections import OrderedDict
 from pathlib import Path
 from typing import Optional, Sequence, Tuple
 
+import json
 import torch
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
+
+
+class NuScenesTableStore:
+    """Minimal nuScenes table reader that avoids importing nuscenes-devkit runtime modules."""
+
+    def __init__(self, version: str, dataroot: str | Path) -> None:
+        self.version = version
+        self.dataroot = Path(dataroot)
+        self.table_root = self.dataroot / version
+        if not self.table_root.is_dir():
+            raise FileNotFoundError(f"nuScenes metadata directory not found: {self.table_root}")
+
+        self.scene = self._load_table("scene")
+        self._tables = {
+            "scene": {row["token"]: row for row in self.scene},
+            "sample": self._load_table_by_token("sample"),
+            "sample_data": self._load_table_by_token("sample_data"),
+            "ego_pose": self._load_table_by_token("ego_pose"),
+        }
+
+    def _load_table(self, table_name: str) -> list[dict]:
+        path = self.table_root / f"{table_name}.json"
+        if not path.is_file():
+            raise FileNotFoundError(f"nuScenes table not found: {path}")
+        with path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+
+    def _load_table_by_token(self, table_name: str) -> dict[str, dict]:
+        return {row["token"]: row for row in self._load_table(table_name)}
+
+    def get(self, table_name: str, token: str) -> dict:
+        try:
+            return self._tables[table_name][token]
+        except KeyError as exc:
+            raise KeyError(f"nuScenes record not found: table={table_name!r}, token={token!r}") from exc
+
+    def get_sample_data_path(self, sample_data_token: str) -> str:
+        sample_data = self.get("sample_data", sample_data_token)
+        return str(self.dataroot / sample_data["filename"])
 
 
 class NuScenesVisionEvalDataset(Dataset):
@@ -27,8 +69,6 @@ class NuScenesVisionEvalDataset(Dataset):
         scene_indices: Optional[Sequence[int]] = None,
         image_cache_size: int = 0,
     ) -> None:
-        from nuscenes.nuscenes import NuScenes
-
         self.version = version
         self.split = split
         self.dataroot = Path(dataroot)
@@ -36,7 +76,7 @@ class NuScenesVisionEvalDataset(Dataset):
         self.cam_channel = cam_channel
         self.image_cache_size = max(int(image_cache_size), 0)
         self._image_cache: OrderedDict[str, torch.Tensor] = OrderedDict()
-        self.nusc = NuScenes(version=version, dataroot=str(self.dataroot), verbose=False)
+        self.nusc = NuScenesTableStore(version=version, dataroot=self.dataroot)
         self.samples: list[dict] = []
         self.scene_names: list[str] = []
 
@@ -120,9 +160,7 @@ class NuScenesVisionEvalDataset(Dataset):
 
     @staticmethod
     def _scene_names_for_split(version: str, split: str) -> set[str]:
-        from nuscenes.utils.splits import create_splits_scenes
-
-        splits = create_splits_scenes()
+        splits = _create_splits_scenes_without_importing_nuscenes()
         split = split.lower()
 
         if version == "v1.0-mini":
@@ -197,3 +235,30 @@ class NuScenesVisionEvalDataset(Dataset):
             "center_token": sample["center_token"],
             "center_timestamp": torch.tensor(sample["center_timestamp"], dtype=torch.long),
         }
+
+
+def _create_splits_scenes_without_importing_nuscenes() -> dict[str, list[str]]:
+    splits_py = _find_nuscenes_splits_file()
+    namespace = runpy.run_path(str(splits_py))
+    create_splits_scenes = namespace.get("create_splits_scenes")
+    if create_splits_scenes is None:
+        raise RuntimeError(f"create_splits_scenes() not found in {splits_py}")
+    return create_splits_scenes()
+
+
+def _find_nuscenes_splits_file() -> Path:
+    candidates = []
+    for entry in sys.path:
+        if not entry:
+            entry = "."
+        path = Path(entry) / "nuscenes" / "utils" / "splits.py"
+        candidates.append(path)
+        if path.is_file():
+            return path
+
+    searched = "\n".join(str(path) for path in candidates)
+    raise FileNotFoundError(
+        "Could not find nuscenes/utils/splits.py without importing nuscenes-devkit. "
+        "Install nuscenes-devkit or provide an environment where the package files are visible. "
+        f"Searched:\n{searched}"
+    )
