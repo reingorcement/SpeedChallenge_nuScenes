@@ -30,7 +30,10 @@ class NuScenesTableStore:
             "sample": self._load_table_by_token("sample"),
             "sample_data": self._load_table_by_token("sample_data"),
             "ego_pose": self._load_table_by_token("ego_pose"),
+            "calibrated_sensor": self._load_table_by_token("calibrated_sensor"),
+            "sensor": self._load_table_by_token("sensor"),
         }
+        self._sample_data_by_sample_and_channel = self._build_sample_data_channel_index()
 
     def _load_table(self, table_name: str) -> list[dict]:
         path = self.table_root / f"{table_name}.json"
@@ -51,6 +54,25 @@ class NuScenesTableStore:
     def get_sample_data_path(self, sample_data_token: str) -> str:
         sample_data = self.get("sample_data", sample_data_token)
         return str(self.dataroot / sample_data["filename"])
+
+    def get_sample_data_token(self, sample_token: str, channel: str) -> str:
+        try:
+            return self._sample_data_by_sample_and_channel[sample_token][channel]
+        except KeyError as exc:
+            raise KeyError(f"sample_data not found for sample_token={sample_token!r}, channel={channel!r}") from exc
+
+    def has_sample_data_channel(self, sample_token: str, channel: str) -> bool:
+        return channel in self._sample_data_by_sample_and_channel.get(sample_token, {})
+
+    def _build_sample_data_channel_index(self) -> dict[str, dict[str, str]]:
+        index: dict[str, dict[str, str]] = {}
+        for sample_data in self._tables["sample_data"].values():
+            calibrated_sensor = self.get("calibrated_sensor", sample_data["calibrated_sensor_token"])
+            sensor = self.get("sensor", calibrated_sensor["sensor_token"])
+            channel = sensor["channel"]
+            sample_token = sample_data["sample_token"]
+            index.setdefault(sample_token, {})[channel] = sample_data["token"]
+        return index
 
 
 class NuScenesVisionEvalDataset(Dataset):
@@ -112,11 +134,11 @@ class NuScenesVisionEvalDataset(Dataset):
                 continue
 
             first_sample = self.nusc.get("sample", scene["first_sample_token"])
-            if cam_channel not in first_sample["data"]:
+            if not self.nusc.has_sample_data_channel(first_sample["token"], cam_channel):
                 skipped_missing_camera += 1
                 continue
 
-            current_cam_token = first_sample["data"][cam_channel]
+            current_cam_token = self.nusc.get_sample_data_token(first_sample["token"], cam_channel)
             scene_tokens: list[str] = []
             while current_cam_token:
                 scene_tokens.append(current_cam_token)
