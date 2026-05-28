@@ -2,7 +2,7 @@
 
 ## 1. 汇报标题和整体定位
 
-**建议标题：**  
+**建议标题：**
 **基于 FlexiNet 视觉时序特征与 CAN Bus 底盘先验融合的 nuScenes 自车速度估计方法**
 
 本项目不是单纯的视觉速度估计，而是一个面向 nuScenes ego vehicle speed estimation 的多模态融合项目。视觉侧使用已经汇报过的 FlexiNet 作为时序视觉特征提取器；底盘侧引入 CAN bus 中的车辆速度、轮速、加速度、横摆角速度、转向、油门、刹车等车辆自身运动状态信息；最终通过特征融合与残差修正实现更稳定、更准确的自车速度估计。
@@ -53,24 +53,24 @@
 
 底盘输入为 16 维向量，来自 `NuScenesCanBusAdapter.extract_feature_vector()`。特征顺序如下：
 
-| 维度 | 特征名 | 物理含义 |
-|---:|---|---|
-| 0 | `vehicle_speed` | vehicle_monitor 中的车辆速度，代码中由 km/h 转为 m/s |
-| 1 | `odom_speed` | 轮速/里程计速度，代码中由 km/h 转为 m/s |
-| 2 | `pose_speed` | CAN pose 速度向量的平面模长 |
-| 3 | `yaw_rate` | 横摆角速度，代码中转为 rad/s |
-| 4 | `throttle` | 油门开度，按 1000 归一化 |
-| 5 | `brake` | 刹车量，按 126 归一化 |
-| 6 | `steering` | 转向输入，按 780 归一化 |
-| 7 | `steering_feedback` | 转向反馈，按 7.7 归一化 |
-| 8 | `longitudinal_accel` | 纵向加速度 |
-| 9 | `transversal_accel` | 横向加速度 |
-| 10 | `wheel_speed_mean` | 四轮轮速均值 |
-| 11 | `wheel_speed_std` | 四轮轮速标准差，可反映轮间不一致 |
-| 12 | `accel_x` | pose 中 x 方向加速度 |
-| 13 | `accel_y` | pose 中 y 方向加速度 |
-| 14 | `rotation_rate_z` | z 轴旋转角速度 |
-| 15 | `base_speed` | 底盘速度先验 |
+| 维度 | 特征名                 | 物理含义                                             |
+| ---: | ---------------------- | ---------------------------------------------------- |
+|    0 | `vehicle_speed`      | vehicle_monitor 中的车辆速度，代码中由 km/h 转为 m/s |
+|    1 | `odom_speed`         | 轮速/里程计速度，代码中由 km/h 转为 m/s              |
+|    2 | `pose_speed`         | CAN pose 速度向量的平面模长                          |
+|    3 | `yaw_rate`           | 横摆角速度，代码中转为 rad/s                         |
+|    4 | `throttle`           | 油门开度，按 1000 归一化                             |
+|    5 | `brake`              | 刹车量，按 126 归一化                                |
+|    6 | `steering`           | 转向输入，按 780 归一化                              |
+|    7 | `steering_feedback`  | 转向反馈，按 7.7 归一化                              |
+|    8 | `longitudinal_accel` | 纵向加速度                                           |
+|    9 | `transversal_accel`  | 横向加速度                                           |
+|   10 | `wheel_speed_mean`   | 四轮轮速均值                                         |
+|   11 | `wheel_speed_std`    | 四轮轮速标准差，可反映轮间不一致                     |
+|   12 | `accel_x`            | pose 中 x 方向加速度                                 |
+|   13 | `accel_y`            | pose 中 y 方向加速度                                 |
+|   14 | `rotation_rate_z`    | z 轴旋转角速度                                       |
+|   15 | `base_speed`         | 底盘速度先验                                         |
 
 底盘速度先验 `base_speed` 的代码优先级为：先使用 `vehicle_speed`；如果当前 base_speed 为 0 且存在轮速消息，则使用 `odom_speed`；如果仍为 0 且存在 pose 消息，则使用 `pose_speed`；否则为 0。汇报时可简化为 `vehicle_speed -> odom_speed -> pose_speed -> 0`。但严谨地说，代码以“当前值是否等于 0”为 fallback 条件，因此真实静止状态下如果后续信号非零，可能会触发替代。
 
@@ -167,13 +167,13 @@ direct 模式的优点是形式更自由，不强制模型围绕 `base_speed` �
 
 实际模型 `FlexiNetChassisFusion` 包含以下模块：
 
-| 模块 | 代码位置 | 功能 |
-|---|---|---|
-| FlexiNet backbone | `model/flexinet_backbone.py` | 将 `[B,13,1,64,64]` 图像序列编码为 `[B,256]` 视觉特征 |
-| ChassisEncoder | `model/fusion_model.py` | 将 16 维底盘特征映射为 16 维 embedding |
-| FusionHead | `model/fusion_model.py` | 两层 MLP + dropout，用于速度回归 |
-| residual_speed_head | `model/fusion_model.py` | residual 模式下预测 `delta_v` |
-| direct_speed_head | `model/fusion_model.py` | direct 模式下直接预测速度 |
+| 模块                | 代码位置                       | 功能                                                      |
+| ------------------- | ------------------------------ | --------------------------------------------------------- |
+| FlexiNet backbone   | `model/flexinet_backbone.py` | 将 `[B,13,1,64,64]` 图像序列编码为 `[B,256]` 视觉特征 |
+| ChassisEncoder      | `model/fusion_model.py`      | 将 16 维底盘特征映射为 16 维 embedding                    |
+| FusionHead          | `model/fusion_model.py`      | 两层 MLP + dropout，用于速度回归                          |
+| residual_speed_head | `model/fusion_model.py`      | residual 模式下预测 `delta_v`                           |
+| direct_speed_head   | `model/fusion_model.py`      | direct 模式下直接预测速度                                 |
 
 默认配置中 `freeze_backbone: true`，即训练时冻结 FlexiNet 视觉骨干，只训练底盘编码器和融合回归头。这样设计的原因是：
 
@@ -188,29 +188,29 @@ direct 模式的优点是形式更自由，不强制模型围绕 `base_speed` �
 
 默认实验配置如下：
 
-| 类别 | 参数 | 默认值 |
-|---|---|---|
-| 数据版本 | `version` | `v1.0-trainval` |
-| 训练/验证划分 | train.py | train split / val split |
-| 相机 | `cam_channel` | `CAM_FRONT` |
-| 图像序列长度 | `seq_len` | 13 |
-| 图像大小 | `img_height`, `img_width` | 64, 64 |
-| 底盘输入维度 | `chassis_input_dim` | 16 |
-| 底盘 embedding 维度 | `chassis_feature_dim` | 16 |
-| 融合特征维度 | visual 256 + chassis 16 | 272 |
-| 隐藏层维度 | `hidden_dim` | 128 |
-| Dropout | `dropout` | 0.3 |
-| 融合模式 | `fusion_mode` | residual |
-| 冻结视觉骨干 | `freeze_backbone` | true |
-| batch size | `batch_size` | 16 |
-| epoch | `epochs` | 10 |
-| head 学习率 | `learning_rate_head` | 0.001 |
-| backbone 学习率 | `learning_rate_backbone` | 0.00003 |
-| weight decay | `weight_decay` | 0.0001 |
-| loss | `loss` | SmoothL1Loss |
-| AMP | `use_amp` | true |
-| 梯度裁剪 | `grad_clip` | 2.0 |
-| 随机种子 | `seed` | 42 |
+| 类别                | 参数                          | 默认值                  |
+| ------------------- | ----------------------------- | ----------------------- |
+| 数据版本            | `version`                   | `v1.0-trainval`       |
+| 训练/验证划分       | train.py                      | train split / val split |
+| 相机                | `cam_channel`               | `CAM_FRONT`           |
+| 图像序列长度        | `seq_len`                   | 13                      |
+| 图像大小            | `img_height`, `img_width` | 64, 64                  |
+| 底盘输入维度        | `chassis_input_dim`         | 16                      |
+| 底盘 embedding 维度 | `chassis_feature_dim`       | 16                      |
+| 融合特征维度        | visual 256 + chassis 16       | 272                     |
+| 隐藏层维度          | `hidden_dim`                | 128                     |
+| Dropout             | `dropout`                   | 0.3                     |
+| 融合模式            | `fusion_mode`               | residual                |
+| 冻结视觉骨干        | `freeze_backbone`           | true                    |
+| batch size          | `batch_size`                | 16                      |
+| epoch               | `epochs`                    | 10                      |
+| head 学习率         | `learning_rate_head`        | 0.001                   |
+| backbone 学习率     | `learning_rate_backbone`    | 0.00003                 |
+| weight decay        | `weight_decay`              | 0.0001                  |
+| loss                | `loss`                      | SmoothL1Loss            |
+| AMP                 | `use_amp`                   | true                    |
+| 梯度裁剪            | `grad_clip`                 | 2.0                     |
+| 随机种子            | `seed`                      | 42                      |
 
 损失函数默认使用 Smooth L1，也可理解为 Huber 型回归损失。它比 MSE 对异常误差更稳健，同时比纯 L1 在小误差区域更平滑，适合速度回归任务。
 
@@ -232,10 +232,10 @@ checkpoint 逻辑为：每个 epoch 保存 `checkpoints/last.pth`；当验证 lo
 
 结果来自 `outputs/FlexiNet_ChassisFusion/eval/val_metrics.json` 与 `results_git/FlexiNet_ChassisFusion/test_eval/val_metrics.json`，两者一致。逐样本统计来自 `outputs/FlexiNet_ChassisFusion/eval/val_predictions.csv`，共 33,148 个样本。
 
-| 方法 | MAE (m/s) | MAE (km/h) | RMSE (m/s) | RMSE (km/h) | R2 | 相对 base 的变化 |
-|---|---:|---:|---:|---:|---:|---|
-| base_speed baseline | 0.1995 | 0.7180 | 0.2813 | 1.0126 | 0.9936* | 直接使用底盘先验 |
-| FlexiNet + Chassis residual fusion | 0.0895 | 0.3223 | 0.1246 | 0.4485 | 0.9987 | MAE 降低 0.1099 m/s，RMSE 降低 0.1567 m/s |
+| 方法                               | MAE (m/s) | MAE (km/h) | RMSE (m/s) | RMSE (km/h) |      R2 | 相对 base 的变化                          |
+| ---------------------------------- | --------: | ---------: | ---------: | ----------: | ------: | ----------------------------------------- |
+| base_speed baseline                |    0.1995 |     0.7180 |     0.2813 |      1.0126 | 0.9936* | 直接使用底盘先验                          |
+| FlexiNet + Chassis residual fusion |    0.0895 |     0.3223 |     0.1246 |      0.4485 |  0.9987 | MAE 降低 0.1099 m/s，RMSE 降低 0.1567 m/s |
 
 说明：baseline 的 R2 是根据预测 CSV 额外计算得到，原始 metrics JSON 只保存模型 R2。
 
@@ -243,13 +243,13 @@ checkpoint 逻辑为：每个 epoch 保存 `checkpoints/last.pth`；当验证 lo
 
 ### 9.3 不同速度段结果
 
-| 真实速度段 (m/s) | 样本数 | base MAE (m/s) | 模型 MAE (m/s) | 提升 (m/s) | 解读 |
-|---|---:|---:|---:|---:|---|
-| 0-2 | 7,709 | 0.0891 | 0.0339 | 0.0551 | 低速段误差本来较小，模型继续压低误差 |
-| 2-5 | 6,808 | 0.2638 | 0.1077 | 0.1561 | 提升最明显，说明视觉与底盘融合对常见低中速很有效 |
-| 5-10 | 15,771 | 0.2193 | 0.1056 | 0.1137 | 样本最多的速度段稳定优于 baseline |
-| 10-15 | 2,860 | 0.2343 | 0.1074 | 0.1269 | 较高速段仍有明显收益 |
-| 15+ | 0 | - | - | - | 当前验证/测试输出中没有该速度段样本 |
+| 真实速度段 (m/s) | 样本数 | base MAE (m/s) | 模型 MAE (m/s) | 提升 (m/s) | 解读                                             |
+| ---------------- | -----: | -------------: | -------------: | ---------: | ------------------------------------------------ |
+| 0-2              |  7,709 |         0.0891 |         0.0339 |     0.0551 | 低速段误差本来较小，模型继续压低误差             |
+| 2-5              |  6,808 |         0.2638 |         0.1077 |     0.1561 | 提升最明显，说明视觉与底盘融合对常见低中速很有效 |
+| 5-10             | 15,771 |         0.2193 |         0.1056 |     0.1137 | 样本最多的速度段稳定优于 baseline                |
+| 10-15            |  2,860 |         0.2343 |         0.1074 |     0.1269 | 较高速段仍有明显收益                             |
+| 15+              |      0 |              - |              - |          - | 当前验证/测试输出中没有该速度段样本              |
 
 结论是：融合模型不是只在某个局部速度段有效，而是在当前有样本的 0-15 m/s 区间内均优于 base_speed baseline。
 
@@ -311,18 +311,18 @@ checkpoint 逻辑为：每个 epoch 保存 `checkpoints/last.pth`；当验证 lo
 
 ## 11. 8-12 页 PPT 建议结构
 
-| 页码 | 标题 | 核心内容 | 建议图表 |
-|---:|---|---|---|
-| 1 | 项目定位 | FlexiNet 视觉时序特征 + CAN bus 底盘先验的多模态速度估计；本次不展开 FlexiNet 内部 | 一句话 pipeline 图 |
-| 2 | 问题动机 | 纯视觉受环境影响，底盘信号有物理意义但有噪声和延迟；融合二者互补 | 视觉/底盘优缺点对比表 |
-| 3 | 任务定义与数据输入 | 输入 13 帧前视灰度图 + 16 维底盘特征，输出中心帧附近速度 | 数据流示意 |
-| 4 | 样本构造与时间对齐 | ego pose 速度标签；CAN 取 `utime <= center_timestamp`；base_speed 来源 | 时间轴图 |
-| 5 | 算法总体结构 | FlexiNet backbone、chassis encoder、concat fusion、速度头 | Mermaid 结构图 |
-| 6 | Residual Fusion | `pred = base_speed + delta_v`；为什么比 direct 更适合作主线 | 公式 + delta_v 分布图 |
-| 7 | 训练设置 | 冻结 backbone、SmoothL1、AdamW、CosineAnnealingLR、AMP、grad clip、checkpoint | 配置表 + loss 曲线 |
-| 8 | 定量结果 | MAE/RMSE/R2；与 base_speed baseline 对比；约 55% 误差降低 | 结果表 |
-| 9 | 诊断图分析 | 散点图、速度段 MAE、残差图说明模型在哪些情况有效 | `val_pred_vs_target.png` 和 `val_speed_bin_mae.png` |
-| 10 | 总结与展望 | 技术亮点、局限、后续 direct/residual 消融、visual-only/chassis-only 对比、时序底盘建模 | 亮点和后续工作列表 |
+| 页码 | 标题               | 核心内容                                                                               | 建议图表                                                |
+| ---: | ------------------ | -------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+|    1 | 项目定位           | FlexiNet 视觉时序特征 + CAN bus 底盘先验的多模态速度估计；本次不展开 FlexiNet 内部     | 一句话 pipeline 图                                      |
+|    2 | 问题动机           | 纯视觉受环境影响，底盘信号有物理意义但有噪声和延迟；融合二者互补                       | 视觉/底盘优缺点对比表                                   |
+|    3 | 任务定义与数据输入 | 输入 13 帧前视灰度图 + 16 维底盘特征，输出中心帧附近速度                               | 数据流示意                                              |
+|    4 | 样本构造与时间对齐 | ego pose 速度标签；CAN 取 `utime <= center_timestamp`；base_speed 来源               | 时间轴图                                                |
+|    5 | 算法总体结构       | FlexiNet backbone、chassis encoder、concat fusion、速度头                              | Mermaid 结构图                                          |
+|    6 | Residual Fusion    | `pred = base_speed + delta_v`；为什么比 direct 更适合作主线                          | 公式 + delta_v 分布图                                   |
+|    7 | 训练设置           | 冻结 backbone、SmoothL1、AdamW、CosineAnnealingLR、AMP、grad clip、checkpoint          | 配置表 + loss 曲线                                      |
+|    8 | 定量结果           | MAE/RMSE/R2；与 base_speed baseline 对比；约 55% 误差降低                              | 结果表                                                  |
+|    9 | 诊断图分析         | 散点图、速度段 MAE、残差图说明模型在哪些情况有效                                       | `val_pred_vs_target.png` 和 `val_speed_bin_mae.png` |
+|   10 | 总结与展望         | 技术亮点、局限、后续 direct/residual 消融、visual-only/chassis-only 对比、时序底盘建模 | 亮点和后续工作列表                                      |
 
 ## 12. 8-10 分钟汇报讲稿
 
@@ -380,34 +380,34 @@ checkpoint 逻辑为：每个 epoch 保存 `checkpoints/last.pth`；当验证 lo
 
 ## 15. 老师可能追问的问题与回答
 
-**Q1：为什么不直接使用 CAN bus 的车速？**  
+**Q1：为什么不直接使用 CAN bus 的车速？**
 A：CAN bus 车速是很强的 baseline，但不是完全准确。当前结果中，直接使用 base_speed 的 MAE 是 0.1995 m/s，而融合模型 MAE 是 0.0895 m/s，误差约降低 55.1%。这说明 CAN 速度先验存在可修正偏差，视觉时序信息和其他底盘特征可以帮助补偿。
 
-**Q2：视觉信息到底起到了什么作用？**  
+**Q2：视觉信息到底起到了什么作用？**
 A：在 residual 设计中，视觉不是从零估计速度，而是和底盘特征一起预测 `delta_v`。当 base_speed 与 pose 标签存在偏差时，视觉时序特征提供场景运动线索，帮助模型判断应该向上还是向下修正。delta_v 分布显示模型主要是在底盘先验附近做有限幅度修正。
 
-**Q3：为什么选择 residual fusion，而不是 direct fusion？**  
+**Q3：为什么选择 residual fusion，而不是 direct fusion？**
 A：因为底盘速度本身是强物理先验。Residual fusion 把学习目标从“完整速度”变为“相对底盘先验的误差补偿”，回归难度更低，也更容易解释。Direct fusion 可作为消融，但主线更推荐 residual。
 
-**Q4：底盘特征是否使用了未来信息？**  
+**Q4：底盘特征是否使用了未来信息？**
 A：代码中 CAN bus 对齐只选择 `utime <= center_timestamp` 的最新消息，因此底盘分支不使用中心时刻之后的 CAN 信息。但视觉输入是中心窗口，包含中心帧之后图像，所以当前实验不是严格在线设置，而是中心帧附近速度估计。后续若面向在线部署，需要把视觉序列改成历史窗口。
 
-**Q5：速度标签为什么不用 CAN bus，而用 ego pose？**  
+**Q5：速度标签为什么不用 CAN bus，而用 ego pose？**
 A：如果标签也直接来自 CAN 速度，模型可能只是拟合输入中的同源信号。当前标签由中心帧到下一帧 ego pose 位移除以时间差得到，与 CAN 速度先验来源不同，更适合评价模型是否能校正底盘速度。
 
-**Q6：冻结 FlexiNet backbone 会不会限制性能？**  
+**Q6：冻结 FlexiNet backbone 会不会限制性能？**
 A：会有一定限制，但当前阶段冻结有三个好处：保留预训练视觉表征、降低过拟合风险、提高训练稳定性。后续可以在 residual 训练稳定后，以较小学习率解冻 backbone 做微调，并与冻结版本对比。
 
-**Q7：当前模型是否真正超过了 baseline？**  
+**Q7：当前模型是否真正超过了 baseline？**
 A：是的。当前测试结果中，base_speed baseline 的 MAE/RMSE 分别为 0.1995/0.2813 m/s，融合模型为 0.0895/0.1246 m/s。不同速度段 0-2、2-5、5-10、10-15 m/s 中，模型 MAE 都低于 baseline。
 
-**Q8：为什么 R2 已经很高，还要看 MAE 和 RMSE？**  
+**Q8：为什么 R2 已经很高，还要看 MAE 和 RMSE？**
 A：速度序列本身变化范围较大时，R2 容易接近 1，但这不一定说明绝对误差足够小。车辆速度估计更关心实际误差大小，所以 MAE、RMSE 和 km/h 单位更直观。R2 用来辅助说明整体趋势拟合。
 
-**Q9：当前结果有没有可能是模型过度依赖 base_speed？**  
+**Q9：当前结果有没有可能是模型过度依赖 base_speed？**
 A：模型确实利用 base_speed 作为强先验，这是 residual 设计的目的。但结果中模型显著优于直接使用 base_speed，说明它不是简单复制 base_speed，而是学习到了有效修正。后续可通过去掉视觉分支、去掉部分底盘特征、direct/residual 消融进一步量化各部分贡献。
 
-**Q10：下一步最应该补哪个实验？**  
+**Q10：下一步最应该补哪个实验？**
 A：优先补三组对比：visual-only、chassis-only、visual+chassis residual。其次补 direct fusion 与 residual fusion 消融。这两组实验最能回答“视觉有没有贡献”和“残差设计是否必要”。
 
 ## 16. 汇报时的一句话结论
