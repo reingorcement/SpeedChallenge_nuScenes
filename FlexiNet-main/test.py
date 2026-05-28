@@ -32,6 +32,9 @@ def load_config_from_yaml(path: Path) -> dict:
 
 
 def resolve_project_path(value: str | Path) -> Path:
+    value_str = str(value)
+    if os.name == "nt" and value_str.startswith("/") and not value_str.startswith("//"):
+        return Path(value_str)
     path = Path(value)
     if path.is_absolute():
         return path
