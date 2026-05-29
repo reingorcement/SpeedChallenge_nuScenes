@@ -1,65 +1,88 @@
 {
-  "vision_rows": 33148,
-  "fusion_rows": 33148,
-  "aligned_rows": 33148,
-  "aligned_fraction_vs_vision": 1.0,
-  "aligned_fraction_vs_fusion": 1.0,
-  "max_target_speed_diff_after_alignment_mps": 0.0,
-  "aligned_metrics": {
-    "pure_vision": {
-      "mae_mps": 4.709653003098167,
-      "rmse_mps": 5.465477350836519,
-      "r2": -1.4171616491398473,
-      "mae_kmh": 16.954750811153403,
-      "rmse_kmh": 19.675718463011467
+  "generated_on": "2026-05-29",
+  "sources": {
+    "pure_vision_predictions_csv": "FlexiNet-main/outputs/FlexiNet-main/chassis_aligned_eval/val_predictions.csv",
+    "pure_vision_metrics_json": "FlexiNet-main/outputs/FlexiNet-main/chassis_aligned_eval/val_metrics.json",
+    "chassisfusion_predictions_csv": "FlexiNet_ChassisFusion/outputs/FlexiNet_ChassisFusion/eval/val_predictions.csv",
+    "chassisfusion_metrics_json": "FlexiNet_ChassisFusion/outputs/FlexiNet_ChassisFusion/eval/val_metrics.json"
+  },
+  "alignment": {
+    "vision_row_count": 33148,
+    "fusion_row_count": 33148,
+    "aligned_count": 33148,
+    "alignment_key": "center_token",
+    "ordered_by": "ChassisFusion CSV order",
+    "max_target_speed_diff_mps": 0.0,
+    "all_target_speeds_match": true
+  },
+  "methods": {
+    "pure_vision_flexinet_latest": {
+      "mae_mps": 1.2856327912067347,
+      "mae_kmh": 4.628278048344245,
+      "rmse_mps": 1.8809224675416212,
+      "rmse_kmh": 6.771320883149836,
+      "r2": 0.7137198174441426,
+      "mean_error_mps": -0.8054491431481262,
+      "p50_abs_error_mps": 0.8367314338684082,
+      "p90_abs_error_mps": 3.08915205001831,
+      "p95_abs_error_mps": 4.040178453922266,
+      "p99_abs_error_mps": 6.593668438196176,
+      "max_abs_error_mps": 10.570929884910583
     },
-    "base_speed": {
-      "mae_mps": 0.19945334928572794,
+    "base_speed_baseline": {
+      "mae_mps": 0.19945334928572797,
+      "mae_kmh": 0.7180320574286208,
       "rmse_mps": 0.28127116773141786,
+      "rmse_kmh": 1.0125762038331043,
       "r2": 0.9935982320231328,
-      "mae_kmh": 0.7180320574286206,
-      "rmse_kmh": 1.0125762038331043
+      "mean_error_mps": -0.08219840176980034,
+      "p50_abs_error_mps": 0.15119147300720215,
+      "p90_abs_error_mps": 0.4606164216995239,
+      "p95_abs_error_mps": 0.5874981403350829,
+      "p99_abs_error_mps": 0.8832169723510731,
+      "max_abs_error_mps": 1.6873111724853516
     },
-    "chassis_fusion": {
-      "mae_mps": 0.08953227021197699,
+    "flexinet_chassisfusion": {
+      "mae_mps": 0.08953227021197697,
+      "mae_kmh": 0.32231617276311714,
       "rmse_mps": 0.12457486090447013,
+      "rmse_kmh": 0.4484694992560925,
       "r2": 0.9987442293770206,
-      "mae_kmh": 0.3223161727631172,
-      "rmse_kmh": 0.4484694992560925
+      "mean_error_mps": 0.012511705639918982,
+      "p50_abs_error_mps": 0.06711065769195557,
+      "p90_abs_error_mps": 0.20654296875,
+      "p95_abs_error_mps": 0.25742104053497306,
+      "p99_abs_error_mps": 0.3693561220169066,
+      "max_abs_error_mps": 0.8995141983032227
     }
   },
-  "improvements_vs_base": {
-    "mae_gain_mps": 0.10992107907375095,
-    "rmse_gain_mps": 0.15669630682694774,
-    "mae_reduction_percent": 55.111172345510695,
-    "rmse_reduction_percent": 55.71004951939297
-  },
-  "error_quantiles_mps": {
-    "pure_vision": {
-      "p50": 4.912092089653015,
-      "p90": 8.448424458503723,
-      "p95": 9.103801906108853,
-      "p99": 10.297392061948775
+  "improvements": {
+    "fusion_vs_base": {
+      "mae_gain_mps": 0.109921079073751,
+      "mae_reduction_percent": 55.11117234551071,
+      "rmse_gain_mps": 0.15669630682694774,
+      "rmse_reduction_percent": 55.71004951939297
     },
-    "base_speed": {
-      "p50": 0.15119147300720215,
-      "p90": 0.4606164216995239,
-      "p95": 0.5874981403350829,
-      "p99": 0.8832169723510731
+    "fusion_vs_latest_pure_vision": {
+      "mae_gain_mps": 1.1961005209947577,
+      "mae_reduction_percent": 93.03593756908306,
+      "rmse_gain_mps": 1.756347606637151,
+      "rmse_reduction_percent": 93.37692738248322
     },
-    "chassis_fusion": {
-      "p50": 0.06711065769195557,
-      "p90": 0.20654296875,
-      "p95": 0.25742104053497306,
-      "p99": 0.3693561220169066
+    "base_vs_latest_pure_vision": {
+      "mae_gain_mps": 1.0861794419210067,
+      "mae_reduction_percent": 84.48597837190238,
+      "rmse_gain_mps": 1.5996512998102033,
+      "rmse_reduction_percent": 85.04610516460886
     }
   },
-  "delta_v_summary_mps": {
+  "delta_v_mps": {
     "mean": 0.09471010740971932,
-    "std": 0.22256082361711263,
+    "std": 0.2225574665140871,
     "min": -1.220695972442627,
     "max": 1.1644394397735596,
     "p05": -0.29261095225811,
+    "p50": 0.09237337112426758,
     "p95": 0.47051627635955806
   }
 }
