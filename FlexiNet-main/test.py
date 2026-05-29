@@ -53,7 +53,7 @@ def resolve_config_path(value: str | Path) -> Path:
 
 def run_nuscenes_baseline(params: list[str]) -> None:
     parser = argparse.ArgumentParser(description="Pure-vision FlexiNet nuScenes evaluation")
-    parser.add_argument("--config", type=str, default="configs/test.yaml")
+    parser.add_argument("--config", type=str, default="configs/test_chassis_aligned.yaml")
     parser.add_argument("--checkpoint", type=str, default=None)
     parser.add_argument("--dataroot", type=str, default=None)
     parser.add_argument("--can_bus_root", type=str, default=None)
@@ -65,7 +65,12 @@ def run_nuscenes_baseline(params: list[str]) -> None:
     parser.add_argument("--batch_size", type=int, default=None)
     parser.add_argument("--num_workers", type=int, default=None)
     parser.add_argument("--cpu", action="store_true", help="Force CPU evaluation")
-    parser.add_argument("--include_predictions_in_results", action="store_true")
+    parser.add_argument(
+        "--include_predictions_in_results",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Copy val_predictions.csv into results_dir for later analysis.",
+    )
     args = parser.parse_args(params)
 
     cfg = load_config_from_yaml(resolve_config_path(args.config))
