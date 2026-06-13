@@ -13,14 +13,30 @@ data:
   can_bus_root: /mnt/sda2/zy/nuscenes/can_bus
   allow_pose_fallback: false
   image_cache_size: 4096
+  target_mode: velocity_xy
+  chassis_mode: fair_chassis
+  chassis_window_sec: 1.0
+  chassis_hz: 20.0
+  online_mode: false
+  image_mode: gray
+  flow_mode: none
+  flow_root:
+  geometry_mode: basic
+  base_velocity_source: zero_lateral
+  eovm_base_root:
 
 model:
   pretrained_path: ../FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth
   fusion_mode: residual
+  output_dim: 2
   chassis_feature_dim: 16
+  chassis_sequence_model: gru
   hidden_dim: 128
   dropout: 0.3
   freeze_backbone: true
+  flow_feature_dim: 0
+  geometry_input_dim: 4
+  geometry_feature_dim: 8
 
 train:
   batch_size: 16
@@ -35,5 +51,8 @@ train:
   log_dir: runs/FlexiNet_ChassisFusion
   results_dir: results_git/FlexiNet_ChassisFusion
   save_dir: checkpoints
-  loss: smoothl1
+  loss: velocity_smoothl1
+  sigma_vx: 5.0
+  sigma_vy: 0.5
+  speed_loss_weight: 0.1
   grad_clip: 2.0

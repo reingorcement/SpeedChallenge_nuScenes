@@ -6,7 +6,7 @@ from pathlib import Path
 import torch
 from torch.utils.data import DataLoader
 
-from dataset.nuscenes_chassis import NuScenesChassisFusionDataset
+from dataset.nuscenes_chassis import FAIR_CHASSIS_DIM, POSE_ASSISTED_CHASSIS_DIM, NuScenesChassisFusionDataset
 from model.fusion_model import FlexiNetChassisFusion
 from train import build_criterion, load_config_from_yaml, run_eval
 from utils.evaluation import copy_small_results_for_git, write_evaluation_artifacts
@@ -36,6 +36,16 @@ def main() -> None:
         can_bus_root=cfg["data"]["can_bus_root"],
         allow_pose_fallback=bool(cfg["data"]["allow_pose_fallback"]),
         image_cache_size=int(cfg["data"].get("image_cache_size", 0)),
+        chassis_mode=str(cfg["data"].get("chassis_mode", "fair_chassis")),
+        chassis_window_sec=float(cfg["data"].get("chassis_window_sec", 0.0)),
+        chassis_hz=float(cfg["data"].get("chassis_hz", 1.0)),
+        online_mode=bool(cfg["data"].get("online_mode", False)),
+        image_mode=str(cfg["data"].get("image_mode", "gray")),
+        flow_mode=str(cfg["data"].get("flow_mode", "none")),
+        flow_root=cfg["data"].get("flow_root"),
+        geometry_mode=str(cfg["data"].get("geometry_mode", "basic")),
+        base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
+        eovm_base_root=cfg["data"].get("eovm_base_root"),
     )
     print(f"Eval scenes: {len(dataset.scene_names)} | Eval samples: {len(dataset)}")
     num_workers = int(cfg["train"]["num_workers"])
@@ -48,28 +58,46 @@ def main() -> None:
         persistent_workers=num_workers > 0,
     )
 
+    chassis_mode = str(cfg["data"].get("chassis_mode", "fair_chassis"))
+    chassis_input_dim = POSE_ASSISTED_CHASSIS_DIM if chassis_mode == "pose_assisted" else FAIR_CHASSIS_DIM
+    input_channels = 3 if str(cfg["data"].get("image_mode", "gray")) == "rgb" else 1
+    geometry_input_dim = 4 if str(cfg["data"].get("geometry_mode", "basic")) == "basic" else 0
+    flow_enabled = str(cfg["data"].get("flow_mode", "none")) == "precomputed"
     model = FlexiNetChassisFusion(
-        input_channels=1,
-        chassis_input_dim=16,
+        input_channels=input_channels,
+        chassis_input_dim=int(cfg["model"].get("chassis_input_dim", chassis_input_dim)),
         chassis_feature_dim=int(cfg["model"]["chassis_feature_dim"]),
         hidden_dim=int(cfg["model"]["hidden_dim"]),
         dropout=float(cfg["model"]["dropout"]),
         fusion_mode=str(cfg["model"]["fusion_mode"]),
+        output_dim=int(cfg["model"].get("output_dim", 2)),
+        chassis_sequence_model=str(cfg["model"].get("chassis_sequence_model", "gru")),
+        flow_input_channels=2 if flow_enabled else 0,
+        flow_feature_dim=int(cfg["model"].get("flow_feature_dim", 0)) if flow_enabled else 0,
+        geometry_input_dim=int(cfg["model"].get("geometry_input_dim", geometry_input_dim)),
+        geometry_feature_dim=int(cfg["model"].get("geometry_feature_dim", 0)),
     )
     checkpoint = torch.load(args.checkpoint, map_location="cpu")
     model.load_state_dict(checkpoint["model"], strict=True)
     model.to(device)
 
-    criterion = build_criterion(str(cfg["train"]["loss"]))
+    criterion = build_criterion(
+        str(cfg["train"]["loss"]),
+        sigma_vx=float(cfg["train"].get("sigma_vx", 1.0)),
+        sigma_vy=float(cfg["train"].get("sigma_vy", 1.0)),
+        speed_weight=float(cfg["train"].get("speed_loss_weight", 0.0)),
+    )
     result = run_eval(model, loader, criterion, device)
     metrics = write_evaluation_artifacts(result, args.output_dir, prefix="val")
     copy_small_results_for_git(args.output_dir, args.results_dir, include_predictions=False)
     print(f"Loss: {metrics['loss']:.4f}")
-    print(f"MAE: {metrics['mae_mps']:.4f} m/s ({metrics['mae_kmh']:.4f} km/h)")
-    print(f"RMSE: {metrics['rmse_mps']:.4f} m/s ({metrics['rmse_kmh']:.4f} km/h)")
-    print(f"Base MAE: {metrics['base_mae_mps']:.4f} m/s ({metrics['base_mae_kmh']:.4f} km/h)")
-    print(f"Base RMSE: {metrics['base_rmse_mps']:.4f} m/s ({metrics['base_rmse_kmh']:.4f} km/h)")
-    print(f"MAE gain vs base: {metrics['mae_gain_vs_base_mps']:.4f} m/s")
+    print(f"MAE vx: {metrics['mae_vx_mps']:.4f} m/s")
+    print(f"MAE vy: {metrics['mae_vy_mps']:.4f} m/s")
+    print(f"Vector endpoint error: {metrics['vector_endpoint_error_mps']:.4f} m/s")
+    print(f"Base MAE vx: {metrics.get('base_mae_vx_mps', 0.0):.4f} m/s")
+    print(f"Base MAE vy: {metrics.get('base_mae_vy_mps', 0.0):.4f} m/s")
+    print(f"Gain vs base vx: {metrics.get('gain_vs_base_vx_mps', 0.0):.4f} m/s")
+    print(f"Gain vs base vy: {metrics.get('gain_vs_base_vy_mps', 0.0):.4f} m/s")
     print(f"Saved evaluation artifacts to: {Path(args.output_dir)}")
     print(f"Copied small analysis artifacts to: {Path(args.results_dir)}")
 
