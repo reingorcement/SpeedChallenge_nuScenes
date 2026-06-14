@@ -84,7 +84,13 @@ def _model_forward_from_batch(model: nn.Module, batch: dict, device: torch.devic
     return pred, velocity, base_velocity
 
 
-def run_eval(model: nn.Module, loader: DataLoader, criterion: nn.Module, device: torch.device) -> EvaluationResult:
+def run_eval(
+    model: nn.Module,
+    loader: DataLoader,
+    criterion: nn.Module,
+    device: torch.device,
+    max_batches: int = 0,
+) -> EvaluationResult:
     model.eval()
     losses = []
     preds: list[list[float]] = []
@@ -95,7 +101,9 @@ def run_eval(model: nn.Module, loader: DataLoader, criterion: nn.Module, device:
     center_timestamps: list[int] = []
     yaw_rates: list[float] = []
     with torch.no_grad():
-        for batch in tqdm(loader, desc="Eval", leave=False):
+        for eval_step, batch in enumerate(tqdm(loader, desc="Eval", leave=False)):
+            if max_batches and eval_step >= max_batches:
+                break
             pred, velocity, base_velocity = _model_forward_from_batch(model, batch, device)
             loss = criterion(pred, velocity)
             losses.append(loss.item())
@@ -164,6 +172,7 @@ def main() -> None:
         base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
         eovm_base_root=cfg["data"].get("eovm_base_root"),
         frame_cache_root=cfg["data"].get("frame_cache_root"),
+        max_scenes=cfg["data"].get("max_scenes"),
     )
     val_set = NuScenesChassisFusionDataset(
         dataroot=cfg["data"]["dataroot"],
@@ -186,6 +195,7 @@ def main() -> None:
         base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
         eovm_base_root=cfg["data"].get("eovm_base_root"),
         frame_cache_root=cfg["data"].get("frame_cache_root"),
+        max_scenes=cfg["data"].get("max_scenes"),
     )
     print(f"Train scenes: {len(train_set.scene_names)} | Train samples: {len(train_set)}")
     print(f"Val scenes: {len(val_set.scene_names)} | Val samples: {len(val_set)}")
@@ -270,6 +280,8 @@ def main() -> None:
     epochs = int(cfg["train"]["epochs"])
     eval_every = max(int(cfg["train"].get("eval_every", 1)), 1)
     log_interval = max(int(cfg["train"].get("log_interval", 20)), 1)
+    limit_train_batches = max(int(cfg["train"].get("limit_train_batches", 0)), 0)
+    limit_eval_batches = max(int(cfg["train"].get("limit_eval_batches", 0)), 0)
 
     for epoch in range(epochs):
         model.train()
@@ -277,6 +289,8 @@ def main() -> None:
         num_batches = 0
         bar = tqdm(train_loader, desc=f"Epoch {epoch+1}/{epochs}")
         for step, batch in enumerate(bar):
+            if limit_train_batches and step >= limit_train_batches:
+                break
             optimizer.zero_grad(set_to_none=True)
             with torch.autocast(device_type="cuda", enabled=scaler is not None):
                 pred, velocity, base_velocity = _model_forward_from_batch(model, batch, device)
@@ -304,7 +318,7 @@ def main() -> None:
             scheduler.step()
             print(f"Epoch {epoch+1}: train_loss={train_loss:.4f} (val skipped; eval_every={eval_every})")
             continue
-        val_result = run_eval(model, val_loader, criterion, device)
+        val_result = run_eval(model, val_loader, criterion, device, max_batches=limit_eval_batches)
         val_metrics = compute_metrics(
             val_result.preds,
             val_result.targets,

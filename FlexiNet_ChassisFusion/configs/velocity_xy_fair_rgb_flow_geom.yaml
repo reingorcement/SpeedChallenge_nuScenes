@@ -24,7 +24,7 @@ data:
   geometry_mode: basic
   base_velocity_source: zero_lateral
   eovm_base_root:
-  frame_cache_root:
+  frame_cache_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_frames/CAM_FRONT_64x64_rgb
 
 model:
   pretrained_path: ../FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth

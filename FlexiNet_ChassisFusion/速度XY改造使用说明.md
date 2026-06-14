@@ -367,6 +367,37 @@ conda run -n speedXY_py310 python scripts/profile_training_step.py --config conf
   --frame_cache_root /mnt/sda2/zy/nuscenes/precomputed_frames/CAM_FRONT_64x64_gray
 ```
 
+### 4.2.3 小规模冒烟测试（先验证路径与流程跑通）
+
+正式全量训练前，建议先用极小规模验证：缓存路径是否正确、`Dataset` 能否读缓存、模型前向/反向/评估/存档能否跑通。相关开关：
+
+- `data.max_scenes`：只用前 N 个 scene（train/val 各取前 N）。
+- `train.limit_train_batches` / `train.limit_eval_batches`：每个 epoch 只跑前 N 个 batch。
+
+配套已提供 `configs/smoke_velocity_xy_fair_gray.yaml`（3 个 scene、batch=4、各 ~10 个 batch、独立输出目录），它指向独立的小缓存 `…/CAM_FRONT_64x64_gray_smoke`，**不依赖也不干扰**正在跑的全量预计算。
+
+步骤（服务器，环境 `zy_speedest`）：
+
+```bash
+cd FlexiNet_ChassisFusion
+# 1) 生成小缓存：train 和 val 各取前 3 个 scene，写入同一目录（脚本支持增量合并）
+python scripts/precompute_frames.py \
+  --dataroot /media/ps/AC78E69278E65B1A/zy/nuscenes \
+  --version v1.0-trainval --split train --limit_scenes 3 --image_mode gray \
+  --output_root /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_frames/CAM_FRONT_64x64_gray_smoke
+python scripts/precompute_frames.py \
+  --dataroot /media/ps/AC78E69278E65B1A/zy/nuscenes \
+  --version v1.0-trainval --split val --limit_scenes 3 --image_mode gray \
+  --output_root /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_frames/CAM_FRONT_64x64_gray_smoke
+
+# 2) 冒烟训练（秒级~分钟级完成）
+python train.py --config configs/smoke_velocity_xy_fair_gray.yaml
+```
+
+只要能看到训练打印 `train_loss` / `val_mae_vx` 并在 `checkpoints/smoke` 写出 `last.pth`，就说明整条链路（缓存→数据集→模型→评估→存档）通畅。确认无误后，等全量 `CAM_FRONT_64x64_gray` 预计算完成，再跑正式配置即可。
+
+> `max_scenes` 用的是按 split 过滤后的前 N 个 scene，和 `precompute_frames.py --split <同一split> --limit_scenes N` 的取景顺序一致，所以缓存与训练用到的 scene 能对上。
+
 ### 4.3 预计算光流
 
 光流不建议在 `Dataset.__getitem__()` 中实时计算，服务器上先预计算：

@@ -310,6 +310,7 @@ class NuScenesChassisFusionDataset(Dataset):
         base_velocity_source: str = "zero_lateral",
         eovm_base_root: Optional[str | Path] = None,
         frame_cache_root: Optional[str | Path] = None,
+        max_scenes: Optional[int] = None,
     ) -> None:
         from nuscenes.nuscenes import NuScenes
 
@@ -362,6 +363,9 @@ class NuScenesChassisFusionDataset(Dataset):
                 if idx >= len(self.nusc.scene):
                     break
                 scenes.append(self.nusc.scene[idx])
+
+        if max_scenes is not None and int(max_scenes) > 0:
+            scenes = scenes[: int(max_scenes)]
 
         if not scenes:
             raise ValueError(f"No scenes found for version={version!r}, split={split!r}.")

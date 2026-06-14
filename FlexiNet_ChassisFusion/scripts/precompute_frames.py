@@ -89,13 +89,46 @@ def main() -> None:
     if args.limit_scenes > 0:
         scenes = scenes[: args.limit_scenes]
 
-    manifest_scenes: dict[str, list[str]] = {}
-    labels: dict[str, list[float]] = {}
+    # Incrementally merge with an existing cache in the same directory so multiple
+    # runs (e.g. one per split, or resuming an interrupted run) accumulate instead
+    # of overwriting each other's manifest/labels.
+    manifest_path = output_root / "manifest.json"
+    labels_path = output_root / "labels.json"
+    existing_scenes: dict[str, list[str]] = {}
+    existing_labels: dict[str, list[float]] = {}
+    if manifest_path.is_file() and not args.overwrite:
+        with manifest_path.open("r", encoding="utf-8") as f:
+            prior = json.load(f)
+        prior_cfg = (
+            int(prior.get("img_height", -1)),
+            int(prior.get("img_width", -1)),
+            str(prior.get("image_mode")),
+            str(prior.get("version")),
+            str(prior.get("cam_channel")),
+        )
+        this_cfg = (args.height, args.width, args.image_mode, args.version, args.cam_channel)
+        if prior_cfg != this_cfg:
+            raise ValueError(
+                f"Existing cache at {output_root} was built with {prior_cfg} but this run uses "
+                f"{this_cfg}. Use a different --output_root or pass --overwrite."
+            )
+        existing_scenes = prior.get("scenes", {})
+        if labels_path.is_file():
+            with labels_path.open("r", encoding="utf-8") as f:
+                existing_labels = json.load(f)
+
+    manifest_scenes: dict[str, list[str]] = dict(existing_scenes)
+    labels: dict[str, list[float]] = dict(existing_labels)
     saved_scenes = 0
     total_frames = 0
 
     for scene in tqdm(scenes, desc="Precompute frames", unit="scene"):
         scene_name = scene["name"]
+        scene_path = output_root / f"{scene_name}.npy"
+        if not args.overwrite and scene_path.is_file() and scene_name in existing_scenes:
+            total_frames += len(existing_scenes[scene_name])
+            continue
+
         first_sample = nusc.get("sample", scene["first_sample_token"])
         if args.cam_channel not in first_sample["data"]:
             continue
@@ -129,11 +162,6 @@ def main() -> None:
                 vx_ego, vy_ego = _rotate_global_velocity_to_ego(vx_global, vy_global, center_pose["rotation"])
                 labels[tok] = [float(vx_ego), float(vy_ego)]
 
-        scene_path = output_root / f"{scene_name}.npy"
-        if scene_path.is_file() and not args.overwrite:
-            total_frames += len(tokens)
-            continue
-
         frames = []
         for tok in tokens:
             img_path = Path(nusc.get_sample_data_path(tok))
@@ -155,10 +183,10 @@ def main() -> None:
         "num_frames": total_frames,
         "scenes": manifest_scenes,
     }
-    with (output_root / "manifest.json").open("w", encoding="utf-8") as f:
+    with manifest_path.open("w", encoding="utf-8") as f:
         json.dump(manifest, f)
     if not args.no_labels:
-        with (output_root / "labels.json").open("w", encoding="utf-8") as f:
+        with labels_path.open("w", encoding="utf-8") as f:
             json.dump(labels, f)
 
     print(
