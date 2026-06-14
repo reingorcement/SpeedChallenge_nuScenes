@@ -66,14 +66,14 @@ def _optional_batch_tensor(batch: dict, key: str, device: torch.device) -> torch
     value = batch.get(key)
     if not isinstance(value, torch.Tensor) or value.numel() == 0:
         return None
-    return value.to(device)
+    return value.to(device, non_blocking=True)
 
 
 def _model_forward_from_batch(model: nn.Module, batch: dict, device: torch.device) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
-    images = batch["images"].to(device)
-    chassis = batch["chassis"].to(device)
-    base_velocity = batch["base_velocity"].to(device)
-    velocity = batch["velocity"].to(device)
+    images = batch["images"].to(device, non_blocking=True)
+    chassis = batch["chassis"].to(device, non_blocking=True)
+    base_velocity = batch["base_velocity"].to(device, non_blocking=True)
+    velocity = batch["velocity"].to(device, non_blocking=True)
     pred = model(
         images,
         chassis,
@@ -163,6 +163,7 @@ def main() -> None:
         geometry_mode=str(cfg["data"].get("geometry_mode", "basic")),
         base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
         eovm_base_root=cfg["data"].get("eovm_base_root"),
+        frame_cache_root=cfg["data"].get("frame_cache_root"),
     )
     val_set = NuScenesChassisFusionDataset(
         dataroot=cfg["data"]["dataroot"],
@@ -184,6 +185,7 @@ def main() -> None:
         geometry_mode=str(cfg["data"].get("geometry_mode", "basic")),
         base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
         eovm_base_root=cfg["data"].get("eovm_base_root"),
+        frame_cache_root=cfg["data"].get("frame_cache_root"),
     )
     print(f"Train scenes: {len(train_set.scene_names)} | Train samples: {len(train_set)}")
     print(f"Val scenes: {len(val_set.scene_names)} | Val samples: {len(val_set)}")
@@ -265,11 +267,16 @@ def main() -> None:
     best_val = float("inf")
     history: list[dict[str, float]] = []
 
-    for epoch in range(int(cfg["train"]["epochs"])):
+    epochs = int(cfg["train"]["epochs"])
+    eval_every = max(int(cfg["train"].get("eval_every", 1)), 1)
+    log_interval = max(int(cfg["train"].get("log_interval", 20)), 1)
+
+    for epoch in range(epochs):
         model.train()
-        running = 0.0
-        bar = tqdm(train_loader, desc=f"Epoch {epoch+1}/{cfg['train']['epochs']}")
-        for batch in bar:
+        running = torch.zeros((), device=device)
+        num_batches = 0
+        bar = tqdm(train_loader, desc=f"Epoch {epoch+1}/{epochs}")
+        for step, batch in enumerate(bar):
             optimizer.zero_grad(set_to_none=True)
             with torch.autocast(device_type="cuda", enabled=scaler is not None):
                 pred, velocity, base_velocity = _model_forward_from_batch(model, batch, device)
@@ -286,10 +293,17 @@ def main() -> None:
                 torch.nn.utils.clip_grad_norm_(model.parameters(), float(cfg["train"]["grad_clip"]))
                 optimizer.step()
 
-            running += loss.item()
-            bar.set_postfix(loss=f"{loss.item():.4f}")
+            running += loss.detach()
+            num_batches += 1
+            if step % log_interval == 0:
+                bar.set_postfix(loss=f"{loss.item():.4f}")
 
-        train_loss = running / max(len(train_loader), 1)
+        train_loss = float(running.item()) / max(num_batches, 1)
+        run_validation = ((epoch + 1) % eval_every == 0) or (epoch + 1 == epochs)
+        if not run_validation:
+            scheduler.step()
+            print(f"Epoch {epoch+1}: train_loss={train_loss:.4f} (val skipped; eval_every={eval_every})")
+            continue
         val_result = run_eval(model, val_loader, criterion, device)
         val_metrics = compute_metrics(
             val_result.preds,

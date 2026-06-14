@@ -292,7 +292,42 @@ model:
   pretrained_path: ../FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth
 ```
 
-### 4.2 跑 fair_chassis 灰度 baseline
+### 4.2 预计算图像帧缓存（强烈推荐，决定训练速度）
+
+`v1.0-trainval` 在 `CAM_FRONT` 的 `sample_data` 链上做步长为 1 的滑窗，会产生约 16 万个样本，每个样本要读 `seq_len` 张原图。由于窗口重叠且 `shuffle=True`，每个 epoch 实际要解码上百万次 1600×900 的 JPEG，这是服务器训练慢的主要原因。
+
+先把帧（以及速度标签）预计算成 64×64 的 uint8 小数组落盘，训练时直接读：
+
+```bash
+# 一次性覆盖 train + val（split=trainval/all 表示全部 scene）
+conda run -n speedXY_py310 python scripts/precompute_frames.py \
+  --dataroot /mnt/sda2/zy/nuscenes \
+  --version v1.0-trainval \
+  --split trainval \
+  --cam_channel CAM_FRONT \
+  --height 64 --width 64 \
+  --image_mode gray \
+  --output_root /mnt/sda2/zy/nuscenes/precomputed_frames/CAM_FRONT_64x64_gray
+```
+
+输出：
+- `<output_root>/<scene>.npy`：每个 scene 一个 `[N, H, W]`（gray）或 `[N, H, W, 3]`（rgb）uint8 数组。
+- `<output_root>/manifest.json`：记录 `version / cam_channel / img_size / image_mode` 与各 scene 的 token 顺序（用于 token→帧映射）。
+- `<output_root>/labels.json`：每个有效中心帧的速度标签 `[vx, vy]`。
+
+然后在配置里指向该目录：
+
+```yaml
+data:
+  frame_cache_root: /mnt/sda2/zy/nuscenes/precomputed_frames/CAM_FRONT_64x64_gray
+```
+
+注意：
+- 缓存与配置的 `img_height/img_width/image_mode/version/cam_channel` 必须一致，否则训练启动时会**主动报错**（防止用错缓存）。RGB 实验（如 `velocity_xy_fair_rgb_flow_geom.yaml`，`image_mode: rgb`）需要单独用 `--image_mode rgb` 生成一份缓存。
+- 缓存包含 `labels.json` 且底盘走 CAN bus 时，DataLoader worker 不再需要加载几个 GB 的 NuScenes 元数据，可显著降低内存并加快 worker 启动。
+- 不设置 `frame_cache_root` 时完全走原 JPEG 路径，结果可复现。
+
+### 4.2.1 跑 fair_chassis 灰度 baseline
 
 ```bash
 conda run -n speedXY_py310 python train.py --config configs/velocity_xy_fair_gray.yaml
@@ -304,6 +339,32 @@ conda run -n speedXY_py310 python train.py --config configs/velocity_xy_fair_gra
 runs/FlexiNet_ChassisFusion_velocity_xy/fair_gray
 checkpoints/velocity_xy_fair_gray
 results_git/FlexiNet_ChassisFusion_velocity_xy/fair_gray
+```
+
+### 4.2.2 训练加速相关参数
+
+`train` 段新增两个可选项（默认保持原行为）：
+
+```yaml
+train:
+  eval_every: 1     # 每 N 个 epoch 才跑全量 val（最后一个 epoch 必评）；val 同样很费时，设 2~5 可明显提速
+  log_interval: 20  # 每 N 步刷新一次进度条 loss，避免每步 .item() 强制 GPU 同步
+```
+
+其它已内置的加速改动（无需配置）：
+
+- 训练时张量拷贝改为 `non_blocking=True`，配合 `pin_memory` 异步搬运。
+- 训练循环用 `loss.detach()` 累加，减少每步 GPU 同步。
+- 底盘特征抽取去掉重复抽取、用纯 Python 计算轮速标准差、序列一次性建张量。
+
+想量化确认瓶颈，可用分步计时脚本（分别报告 load / transfer / compute）：
+
+```bash
+# 不用缓存（原始 JPEG 路径）
+conda run -n speedXY_py310 python scripts/profile_training_step.py --config configs/velocity_xy_fair_gray.yaml --batches 50
+# 用帧缓存对比
+conda run -n speedXY_py310 python scripts/profile_training_step.py --config configs/velocity_xy_fair_gray.yaml --batches 50 \
+  --frame_cache_root /mnt/sda2/zy/nuscenes/precomputed_frames/CAM_FRONT_64x64_gray
 ```
 
 ### 4.3 预计算光流

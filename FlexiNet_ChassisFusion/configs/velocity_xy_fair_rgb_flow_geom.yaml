@@ -24,6 +24,7 @@ data:
   geometry_mode: basic
   base_velocity_source: zero_lateral
   eovm_base_root:
+  frame_cache_root:
 
 model:
   pretrained_path: ../FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth
@@ -44,6 +45,8 @@ train:
   prefetch_factor: 4
   epochs: 30
   shuffle_train: true
+  eval_every: 1
+  log_interval: 20
   learning_rate_head: 0.001
   learning_rate_backbone: 0.00002
   weight_decay: 0.0001

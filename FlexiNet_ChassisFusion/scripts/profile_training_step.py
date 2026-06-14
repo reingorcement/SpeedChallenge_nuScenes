@@ -47,6 +47,7 @@ def build_dataset(cfg: dict, split: str) -> NuScenesChassisFusionDataset:
         geometry_mode=str(cfg["data"].get("geometry_mode", "basic")),
         base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
         eovm_base_root=cfg["data"].get("eovm_base_root"),
+        frame_cache_root=cfg["data"].get("frame_cache_root"),
     )
 
 
@@ -87,9 +88,12 @@ def main() -> None:
     parser.add_argument("--batches", type=int, default=50)
     parser.add_argument("--num_workers", type=int, default=None)
     parser.add_argument("--batch_size", type=int, default=None)
+    parser.add_argument("--frame_cache_root", type=str, default=None, help="Override data.frame_cache_root for A/B profiling")
     args = parser.parse_args()
 
     cfg = load_config_from_yaml(Path(args.config))
+    if args.frame_cache_root is not None:
+        cfg["data"]["frame_cache_root"] = args.frame_cache_root or None
     set_seed(int(cfg["train"]["seed"]))
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")

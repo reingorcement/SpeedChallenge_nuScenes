@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import json
 import math
 import subprocess
 import sys
 
+import numpy as np
 import torch
 
 from dataset.nuscenes_chassis import (
@@ -172,8 +174,99 @@ def test_pose_assisted_geometry_prior_uses_base_vx_feature() -> None:
     torch.testing.assert_close(geometry, torch.tensor([0.1, 0.2, 0.3, 12.0]), atol=1.0e-6, rtol=1.0e-6)
 
 
+def _make_frame_cache(tmp_path, *, with_labels: bool = True):
+    frames = np.array(
+        [
+            [[0, 255], [128, 64]],
+            [[10, 20], [30, 40]],
+            [[1, 2], [3, 4]],
+        ],
+        dtype=np.uint8,
+    )
+    np.save(tmp_path / "scene-0001.npy", frames)
+    manifest = {
+        "version": "v1.0-mini",
+        "cam_channel": "CAM_FRONT",
+        "img_height": 2,
+        "img_width": 2,
+        "image_mode": "gray",
+        "scenes": {"scene-0001": ["t0", "t1", "t2"]},
+    }
+    (tmp_path / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+    if with_labels:
+        (tmp_path / "labels.json").write_text(json.dumps({"t1": [1.5, -0.2]}), encoding="utf-8")
+
+
+def _make_cache_dataset(tmp_path, *, can_bus_adapter):
+    dataset = object.__new__(NuScenesChassisFusionDataset)
+    dataset.frame_cache_root = tmp_path
+    dataset._frame_token_to_loc = {}
+    dataset._frame_scene_arrays = {}
+    dataset._label_cache = None
+    dataset.img_size = (2, 2)
+    dataset.image_mode = "gray"
+    dataset.version = "v1.0-mini"
+    dataset.cam_channel = "CAM_FRONT"
+    dataset.split = "train"
+    dataset.can_bus_adapter = can_bus_adapter
+    dataset.nusc = "sentinel"
+    dataset.samples = [{"tokens": ["t0", "t1", "t2"], "center_token": "t1"}]
+    dataset._load_frame_cache_manifest()
+    return dataset
+
+
+def test_frame_cache_normalization_matches_totensor_normalize(tmp_path) -> None:
+    _make_frame_cache(tmp_path)
+    dataset = _make_cache_dataset(tmp_path, can_bus_adapter=None)
+
+    frame = dataset._load_frame_from_cache("t0")
+
+    assert frame.shape == (1, 2, 2)
+    torch.testing.assert_close(frame[0, 0, 0], torch.tensor(0.0 / 255.0 * 2.0 - 1.0))
+    torch.testing.assert_close(frame[0, 0, 1], torch.tensor(255.0 / 255.0 * 2.0 - 1.0))
+    torch.testing.assert_close(frame[0, 1, 0], torch.tensor(128.0 / 255.0 * 2.0 - 1.0))
+
+
+def test_frame_cache_uses_label_cache_and_releases_nuscenes(tmp_path) -> None:
+    _make_frame_cache(tmp_path)
+    dataset = _make_cache_dataset(tmp_path, can_bus_adapter=object())
+
+    label = dataset._compute_velocity_label("t1")
+
+    torch.testing.assert_close(label, torch.tensor([1.5, -0.2]))
+    assert dataset.nusc is None
+
+
+def test_frame_cache_rejects_mismatched_manifest(tmp_path) -> None:
+    _make_frame_cache(tmp_path)
+    dataset = object.__new__(NuScenesChassisFusionDataset)
+    dataset.frame_cache_root = tmp_path
+    dataset._frame_token_to_loc = {}
+    dataset._frame_scene_arrays = {}
+    dataset._label_cache = None
+    dataset.img_size = (64, 64)  # mismatch
+    dataset.image_mode = "gray"
+    dataset.version = "v1.0-mini"
+    dataset.cam_channel = "CAM_FRONT"
+    dataset.split = "train"
+    dataset.can_bus_adapter = None
+    dataset.nusc = "sentinel"
+    dataset.samples = [{"tokens": ["t0", "t1", "t2"], "center_token": "t1"}]
+
+    try:
+        dataset._load_frame_cache_manifest()
+    except ValueError as exc:
+        assert "img_height" in str(exc)
+    else:
+        raise AssertionError("Expected ValueError for mismatched manifest")
+
+
 def test_eovm_scripts_can_show_help_without_package_install() -> None:
-    for script in ["scripts/audit_eovm_inputs.py", "scripts/precompute_eovm_base_velocity.py"]:
+    for script in [
+        "scripts/audit_eovm_inputs.py",
+        "scripts/precompute_eovm_base_velocity.py",
+        "scripts/precompute_frames.py",
+    ]:
         result = subprocess.run(
             [sys.executable, script, "--help"],
             check=False,

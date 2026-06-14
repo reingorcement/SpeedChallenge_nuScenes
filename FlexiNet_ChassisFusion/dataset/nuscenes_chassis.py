@@ -129,12 +129,12 @@ class NuScenesCanBusAdapter:
             return None
         return records[idx]
 
-    def extract_feature_vector(
+    def _feature_values(
         self,
         scene_name: str,
         timestamp_us: int,
         chassis_mode: str = "fair_chassis",
-    ) -> Tuple[torch.Tensor, float]:
+    ) -> Tuple[List[float], float]:
         pose = self._select_latest_before(scene_name, "pose", timestamp_us)
         monitor = self._select_latest_before(scene_name, "vehicle_monitor", timestamp_us)
         wheel = self._select_latest_before(scene_name, "zoe_veh_info", timestamp_us)
@@ -177,7 +177,8 @@ class NuScenesCanBusAdapter:
             ]
             wheel_speeds = [value / 1000.0 for value in raw_wheels]
             wheel_speed_mean = sum(wheel_speeds) / len(wheel_speeds)
-            wheel_speed_std = float(torch.tensor(wheel_speeds).std(unbiased=False).item())
+            variance = sum((value - wheel_speed_mean) ** 2 for value in wheel_speeds) / len(wheel_speeds)
+            wheel_speed_std = math.sqrt(variance)
             odom_speed = float(wheel.get("odom_speed", 0.0)) / 3.6
             longitudinal_accel = float(wheel.get("longitudinal_accel", 0.0))
             transversal_accel = float(wheel.get("transversal_accel", 0.0))
@@ -224,7 +225,7 @@ class NuScenesCanBusAdapter:
             raise RuntimeError(f"fair_chassis feature length mismatch: {len(fair_values)}")
 
         if chassis_mode == "fair_chassis":
-            return torch.tensor(fair_values, dtype=torch.float32), base_vx
+            return fair_values, base_vx
         if chassis_mode == "pose_assisted":
             pose_values = [
                 pose_speed,
@@ -234,8 +235,17 @@ class NuScenesCanBusAdapter:
                 accel_y,
                 rotation_rate_z,
             ]
-            return torch.tensor(fair_values + pose_values, dtype=torch.float32), base_vx
+            return fair_values + pose_values, base_vx
         raise ValueError("chassis_mode must be 'fair_chassis' or 'pose_assisted'.")
+
+    def extract_feature_vector(
+        self,
+        scene_name: str,
+        timestamp_us: int,
+        chassis_mode: str = "fair_chassis",
+    ) -> Tuple[torch.Tensor, float]:
+        values, base_vx = self._feature_values(scene_name, timestamp_us, chassis_mode=chassis_mode)
+        return torch.tensor(values, dtype=torch.float32), base_vx
 
     def extract_feature_sequence(
         self,
@@ -247,8 +257,8 @@ class NuScenesCanBusAdapter:
         online_mode: bool = False,
     ) -> Tuple[torch.Tensor, float]:
         if window_sec <= 0.0:
-            feature_vec, base_vx = self.extract_feature_vector(scene_name, center_timestamp_us, chassis_mode=chassis_mode)
-            return feature_vec.unsqueeze(0), base_vx
+            values, base_vx = self._feature_values(scene_name, center_timestamp_us, chassis_mode=chassis_mode)
+            return torch.tensor([values], dtype=torch.float32), base_vx
 
         sample_count = max(int(round(window_sec * hz)) + 1, 1)
         window_us = int(round(window_sec * 1_000_000))
@@ -268,12 +278,12 @@ class NuScenesCanBusAdapter:
                 for index in range(sample_count)
             ]
 
-        sequence = [
-            self.extract_feature_vector(scene_name, timestamp_us, chassis_mode=chassis_mode)[0]
+        rows = [
+            self._feature_values(scene_name, timestamp_us, chassis_mode=chassis_mode)[0]
             for timestamp_us in timestamps
         ]
-        _, base_vx = self.extract_feature_vector(scene_name, center_timestamp_us, chassis_mode=chassis_mode)
-        return torch.stack(sequence), base_vx
+        _, base_vx = self._feature_values(scene_name, center_timestamp_us, chassis_mode=chassis_mode)
+        return torch.tensor(rows, dtype=torch.float32), base_vx
 
 
 class NuScenesChassisFusionDataset(Dataset):
@@ -299,6 +309,7 @@ class NuScenesChassisFusionDataset(Dataset):
         geometry_mode: str = "basic",
         base_velocity_source: str = "zero_lateral",
         eovm_base_root: Optional[str | Path] = None,
+        frame_cache_root: Optional[str | Path] = None,
     ) -> None:
         from nuscenes.nuscenes import NuScenes
 
@@ -334,6 +345,11 @@ class NuScenesChassisFusionDataset(Dataset):
         self.can_bus_adapter = NuScenesCanBusAdapter(can_bus_root) if can_bus_root else None
         self.image_cache_size = max(int(image_cache_size), 0)
         self._image_cache: OrderedDict[str, torch.Tensor] = OrderedDict()
+        self.frame_cache_root = Path(frame_cache_root) if frame_cache_root else None
+        self._frame_token_to_loc: dict[str, tuple[str, int]] = {}
+        self._frame_scene_arrays: dict[str, np.ndarray] = {}
+        self._label_cache: Optional[dict[str, list[float]]] = None
+        self.img_size = tuple(img_size)
         self.samples: List[dict] = []
         self.scene_names: List[str] = []
 
@@ -417,7 +433,95 @@ class NuScenesChassisFusionDataset(Dataset):
             ]
         )
 
+        if self.frame_cache_root is not None:
+            self._load_frame_cache_manifest()
+
+    def _load_frame_cache_manifest(self) -> None:
+        assert self.frame_cache_root is not None
+        manifest_path = self.frame_cache_root / "manifest.json"
+        if not manifest_path.is_file():
+            raise FileNotFoundError(
+                f"frame_cache_root is set but manifest.json was not found: {manifest_path}. "
+                "Run scripts/precompute_frames.py first."
+            )
+        with manifest_path.open("r", encoding="utf-8") as f:
+            manifest = json.load(f)
+
+        mismatches = []
+        if int(manifest.get("img_height", -1)) != int(self.img_size[0]):
+            mismatches.append(f"img_height={manifest.get('img_height')} != {self.img_size[0]}")
+        if int(manifest.get("img_width", -1)) != int(self.img_size[1]):
+            mismatches.append(f"img_width={manifest.get('img_width')} != {self.img_size[1]}")
+        if str(manifest.get("image_mode")) != self.image_mode:
+            mismatches.append(f"image_mode={manifest.get('image_mode')} != {self.image_mode}")
+        if str(manifest.get("version")) != self.version:
+            mismatches.append(f"version={manifest.get('version')} != {self.version}")
+        if str(manifest.get("cam_channel")) != self.cam_channel:
+            mismatches.append(f"cam_channel={manifest.get('cam_channel')} != {self.cam_channel}")
+        if mismatches:
+            raise ValueError(
+                "Frame cache manifest does not match dataset config: "
+                + "; ".join(mismatches)
+                + f". Regenerate the cache at {self.frame_cache_root} with matching settings."
+            )
+
+        for scene_name, tokens in manifest.get("scenes", {}).items():
+            for idx, token in enumerate(tokens):
+                self._frame_token_to_loc[token] = (scene_name, idx)
+
+        labels_path = self.frame_cache_root / "labels.json"
+        if labels_path.is_file():
+            with labels_path.open("r", encoding="utf-8") as f:
+                self._label_cache = json.load(f)
+
+        missing = [
+            sample["tokens"][i]
+            for sample in self.samples
+            for i in range(len(sample["tokens"]))
+            if sample["tokens"][i] not in self._frame_token_to_loc
+        ]
+        if missing:
+            raise ValueError(
+                f"Frame cache is missing {len(missing)} tokens required by split={self.split!r} "
+                f"(e.g. {missing[0]}). Regenerate the cache covering this split."
+            )
+
+        # Release the heavy NuScenes metadata object so DataLoader workers do not each
+        # copy it on fork. Only safe when __getitem__ no longer needs it: frames come
+        # from the cache, labels come from labels.json, and chassis comes from the CAN
+        # adapter (the pose-fallback path still requires NuScenes).
+        if self._label_cache is not None and self.can_bus_adapter is not None:
+            missing_labels = [s["center_token"] for s in self.samples if s["center_token"] not in self._label_cache]
+            if not missing_labels:
+                self.nusc = None  # type: ignore[assignment]
+
+    def _frame_cache_enabled(self) -> bool:
+        return bool(getattr(self, "_frame_token_to_loc", None))
+
+    def _get_frame_scene_array(self, scene_name: str) -> np.ndarray:
+        array = self._frame_scene_arrays.get(scene_name)
+        if array is None:
+            assert self.frame_cache_root is not None
+            array = np.load(self.frame_cache_root / f"{scene_name}.npy", mmap_mode="r")
+            self._frame_scene_arrays[scene_name] = array
+        return array
+
+    def _load_frame_from_cache(self, token: str) -> torch.Tensor:
+        scene_name, idx = self._frame_token_to_loc[token]
+        raw = np.asarray(self._get_frame_scene_array(scene_name)[idx])
+        tensor = torch.from_numpy(raw.copy()).float().div_(255.0)
+        if self.image_mode == "gray":
+            tensor = tensor.unsqueeze(0)
+            tensor.sub_(0.5).div_(0.5)
+        else:
+            tensor = tensor.permute(2, 0, 1).contiguous()
+            tensor.sub_(0.5).div_(0.5)
+        return tensor
+
     def _load_frame_tensor(self, token: str) -> torch.Tensor:
+        if self._frame_cache_enabled():
+            return self._load_frame_from_cache(token)
+
         if self.image_cache_size > 0 and token in self._image_cache:
             frame = self._image_cache.pop(token)
             self._image_cache[token] = frame
@@ -469,6 +573,16 @@ class NuScenesChassisFusionDataset(Dataset):
         return len(self.samples)
 
     def _compute_velocity_label(self, center_token: str) -> torch.Tensor:
+        label_cache = getattr(self, "_label_cache", None)
+        if label_cache is not None:
+            cached = label_cache.get(center_token)
+            if cached is not None:
+                return torch.tensor(cached, dtype=torch.float32)
+            if self.nusc is None:
+                raise KeyError(
+                    f"Velocity label for {center_token} missing from cache and NuScenes was released. "
+                    "Regenerate the frame cache with labels."
+                )
         center_sd = self.nusc.get("sample_data", center_token)
         prev_token = center_sd.get("prev", "")
         next_token = center_sd.get("next", "")
