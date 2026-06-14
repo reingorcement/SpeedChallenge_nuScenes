@@ -7,12 +7,12 @@ data:
   version: v1.0-trainval
   split: train
   seq_len: 13
-  img_height: 128
-  img_width: 128
+  img_height: 64
+  img_width: 64
   cam_channel: CAM_FRONT
   can_bus_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/can_bus
   allow_pose_fallback: false
-  image_cache_size: 2048
+  image_cache_size: 4096
   target_mode: velocity_xy
   chassis_mode: fair_chassis
   chassis_window_sec: 1.0
@@ -29,22 +29,22 @@ model:
   pretrained_path: ../FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth
   fusion_mode: residual
   output_dim: 2
-  chassis_feature_dim: 24
+  chassis_feature_dim: 12
   chassis_sequence_model: gru
-  hidden_dim: 160
+  hidden_dim: 96
   dropout: 0.3
-  freeze_backbone: false
-  flow_feature_dim: 24
+  freeze_backbone: true
+  flow_feature_dim: 12
   geometry_input_dim: 4
-  geometry_feature_dim: 12
+  geometry_feature_dim: 8
 
 train:
-  batch_size: 8
+  batch_size: 24
   num_workers: 8
   prefetch_factor: 4
   epochs: 30
   shuffle_train: true
-  learning_rate_head: 0.0008
+  learning_rate_head: 0.001
   learning_rate_backbone: 0.00002
   weight_decay: 0.0001
   use_amp: true

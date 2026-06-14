@@ -29,9 +29,9 @@ model:
   pretrained_path: ../FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth
   fusion_mode: residual
   output_dim: 2
-  chassis_feature_dim: 16
+  chassis_feature_dim: 8
   chassis_sequence_model: gru
-  hidden_dim: 128
+  hidden_dim: 96
   dropout: 0.3
   freeze_backbone: true
   flow_feature_dim: 0
@@ -39,7 +39,7 @@ model:
   geometry_feature_dim: 0
 
 train:
-  batch_size: 16
+  batch_size: 32
   num_workers: 8
   prefetch_factor: 4
   epochs: 10
