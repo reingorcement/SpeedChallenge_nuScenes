@@ -197,6 +197,7 @@ def main() -> None:
         num_workers=num_workers,
         pin_memory=device.type == "cuda",
         persistent_workers=use_persistent_workers,
+        prefetch_factor=int(cfg["train"].get("prefetch_factor", 2)) if use_persistent_workers else None,
     )
     val_loader = DataLoader(
         val_set,
@@ -205,6 +206,7 @@ def main() -> None:
         num_workers=num_workers,
         pin_memory=device.type == "cuda",
         persistent_workers=use_persistent_workers,
+        prefetch_factor=int(cfg["train"].get("prefetch_factor", 2)) if use_persistent_workers else None,
     )
 
     chassis_mode = str(cfg["data"].get("chassis_mode", "fair_chassis"))
@@ -266,10 +268,6 @@ def main() -> None:
     for epoch in range(int(cfg["train"]["epochs"])):
         model.train()
         running = 0.0
-        train_preds: list[list[float]] = []
-        train_targets: list[list[float]] = []
-        train_base_velocities: list[list[float]] = []
-        train_yaw_rates: list[float] = []
         bar = tqdm(train_loader, desc=f"Epoch {epoch+1}/{cfg['train']['epochs']}")
         for batch in bar:
             optimizer.zero_grad(set_to_none=True)
@@ -289,23 +287,10 @@ def main() -> None:
                 optimizer.step()
 
             running += loss.item()
-            train_preds.extend(pred.detach().cpu().tolist())
-            train_targets.extend(velocity.detach().cpu().tolist())
-            train_base_velocities.extend(base_velocity.detach().cpu().tolist())
-            geometry = batch.get("geometry")
-            if isinstance(geometry, torch.Tensor) and geometry.numel() > 0:
-                train_yaw_rates.extend([float(v[0]) for v in geometry.detach().cpu().tolist()])
             bar.set_postfix(loss=f"{loss.item():.4f}")
 
         train_loss = running / max(len(train_loader), 1)
         val_result = run_eval(model, val_loader, criterion, device)
-        train_metrics = compute_metrics(
-            train_preds,
-            train_targets,
-            train_base_velocities,
-            loss=train_loss,
-            yaw_rates=train_yaw_rates if train_yaw_rates else None,
-        )
         val_metrics = compute_metrics(
             val_result.preds,
             val_result.targets,
@@ -325,9 +310,6 @@ def main() -> None:
         history_row = {
             "epoch": float(epoch + 1),
             "train_loss": train_loss,
-            "train_mae_vx_mps": train_metrics["mae_vx_mps"],
-            "train_mae_vy_mps": train_metrics["mae_vy_mps"],
-            "train_vector_endpoint_error_mps": train_metrics["vector_endpoint_error_mps"],
             "val_loss": val_result.loss,
             "val_mae_vx_mps": val_metrics["mae_vx_mps"],
             "val_mae_vy_mps": val_metrics["mae_vy_mps"],
@@ -348,7 +330,6 @@ def main() -> None:
             "optimizer": optimizer.state_dict(),
             "train_loss": train_loss,
             "val_loss": val_result.loss,
-            "train_metrics": train_metrics,
             "val_metrics": val_metrics,
             "history": history,
             "config": cfg,
