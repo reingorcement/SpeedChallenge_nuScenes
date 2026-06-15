@@ -27,7 +27,7 @@ data:
   geometry_mode: none
   base_velocity_source: zero_lateral
   eovm_base_root:
-  frame_cache_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_frames/CAM_FRONT_64x64_gray_smoke
+  frame_cache_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_frames/CAM_FRONT_64x64_gray
   max_scenes: 3
 
 model:
