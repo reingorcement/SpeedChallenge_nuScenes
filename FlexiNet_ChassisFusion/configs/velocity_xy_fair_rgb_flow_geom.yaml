@@ -43,7 +43,7 @@ train:
   batch_size: 24
   num_workers: 8
   prefetch_factor: 4
-  epochs: 30
+  epochs: 20
   shuffle_train: true
   eval_every: 1
   log_interval: 20
