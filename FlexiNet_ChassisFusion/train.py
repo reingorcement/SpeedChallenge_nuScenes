@@ -8,7 +8,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from dataset.nuscenes_chassis import FAIR_CHASSIS_DIM, POSE_ASSISTED_CHASSIS_DIM, NuScenesChassisFusionDataset
+from dataset.nuscenes_chassis import FAIR_CHASSIS_DIM, FAIR_CHASSIS_INDEX, POSE_ASSISTED_CHASSIS_DIM, NuScenesChassisFusionDataset
 from model.fusion_model import FlexiNetChassisFusion
 from utils.evaluation import (
     EvaluationResult,
@@ -100,6 +100,11 @@ def run_eval(
     center_tokens: list[str] = []
     center_timestamps: list[int] = []
     yaw_rates: list[float] = []
+    wheel_speed_stds: list[float] = []
+    longitudinal_accels: list[float] = []
+    transversal_accels: list[float] = []
+    gate_weights: list[list[float]] = []
+    gate_names: list[str] | None = None
     with torch.no_grad():
         for eval_step, batch in enumerate(tqdm(loader, desc="Eval", leave=False)):
             if max_batches and eval_step >= max_batches:
@@ -111,8 +116,30 @@ def run_eval(
             targets.extend(velocity.detach().cpu().tolist())
             base_velocities.extend(base_velocity.detach().cpu().tolist())
             geometry = batch.get("geometry")
-            if isinstance(geometry, torch.Tensor) and geometry.numel() > 0:
+            geometry_has_yaw = isinstance(geometry, torch.Tensor) and geometry.numel() > 0
+            if geometry_has_yaw:
                 yaw_rates.extend([float(v[0]) for v in geometry.detach().cpu().tolist()])
+            chassis = batch.get("chassis")
+            if isinstance(chassis, torch.Tensor) and chassis.numel() > 0:
+                center = chassis[:, chassis.shape[1] // 2, :] if chassis.dim() == 3 else chassis
+                if center.shape[1] > FAIR_CHASSIS_INDEX["wheel_speed_std"]:
+                    center_cpu = center.detach().cpu()
+                    if not geometry_has_yaw and center.shape[1] > FAIR_CHASSIS_INDEX["yaw_rate"]:
+                        yaw_rates.extend([float(v) for v in center_cpu[:, FAIR_CHASSIS_INDEX["yaw_rate"]].tolist()])
+                    longitudinal_accels.extend(
+                        [float(v) for v in center_cpu[:, FAIR_CHASSIS_INDEX["longitudinal_accel"]].tolist()]
+                    )
+                    transversal_accels.extend(
+                        [float(v) for v in center_cpu[:, FAIR_CHASSIS_INDEX["transversal_accel"]].tolist()]
+                    )
+                    wheel_speed_stds.extend(
+                        [float(v) for v in center_cpu[:, FAIR_CHASSIS_INDEX["wheel_speed_std"]].tolist()]
+                    )
+            latest_gate = getattr(model, "last_gate_weights", None)
+            latest_gate_names = getattr(model, "last_gate_names", None)
+            if isinstance(latest_gate, torch.Tensor) and latest_gate.numel() > 0 and latest_gate_names:
+                gate_weights.extend(latest_gate.detach().cpu().tolist())
+                gate_names = list(latest_gate_names)
 
             if "scene_name" in batch:
                 scene_names.extend(list(batch["scene_name"]))
@@ -134,6 +161,11 @@ def run_eval(
         center_tokens=center_tokens,
         center_timestamps=center_timestamps,
         yaw_rates=yaw_rates if yaw_rates else None,
+        wheel_speed_stds=wheel_speed_stds if wheel_speed_stds else None,
+        longitudinal_accels=longitudinal_accels if longitudinal_accels else None,
+        transversal_accels=transversal_accels if transversal_accels else None,
+        gate_weights=gate_weights if gate_weights else None,
+        gate_names=gate_names,
     )
 
 
@@ -241,6 +273,12 @@ def main() -> None:
         flow_feature_dim=int(cfg["model"].get("flow_feature_dim", 0)) if flow_enabled else 0,
         geometry_input_dim=int(cfg["model"].get("geometry_input_dim", geometry_input_dim)),
         geometry_feature_dim=int(cfg["model"].get("geometry_feature_dim", 0)),
+        use_vision_branch=bool(cfg["model"].get("use_vision_branch", True)),
+        use_kinematic_branch=bool(cfg["model"].get("use_kinematic_branch", True)),
+        use_dynamics_branch=bool(cfg["model"].get("use_dynamics_branch", False)),
+        branch_feature_dim=int(cfg["model"].get("branch_feature_dim", 64)),
+        dynamics_feature_dim=int(cfg["model"].get("dynamics_feature_dim", 8)),
+        save_gate_weights=bool(cfg["model"].get("save_gate_weights", False)),
     )
     model.load_flexinet_backbone(cfg["model"]["pretrained_path"], strict=False)
     if bool(cfg["model"]["freeze_backbone"]):
@@ -325,6 +363,9 @@ def main() -> None:
             val_result.base_velocities,
             loss=val_result.loss,
             yaw_rates=val_result.yaw_rates,
+            wheel_speed_stds=val_result.wheel_speed_stds,
+            longitudinal_accels=val_result.longitudinal_accels,
+            transversal_accels=val_result.transversal_accels,
         )
         scheduler.step()
         print(

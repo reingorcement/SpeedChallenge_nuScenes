@@ -28,6 +28,13 @@ _PREDICTION_FLOAT_FIELDS = (
     "base_endpoint_error_mps",
     "delta_vx_mps",
     "delta_vy_mps",
+    "yaw_rate_radps",
+    "longitudinal_accel_mps2",
+    "transversal_accel_mps2",
+    "wheel_speed_std_mps",
+    "gate_vision",
+    "gate_kinematic",
+    "gate_dynamics",
 )
 
 
@@ -114,6 +121,17 @@ class SpeedBinRow:
     gain_endpoint_error_mps: float
 
 
+@dataclass
+class ScenarioRow:
+    scenario: str
+    sample_count: int
+    mae_vx_mps: float
+    mae_vy_mps: float
+    endpoint_error_mps: float
+    base_endpoint_error_mps: float
+    gain_endpoint_error_mps: float
+
+
 _DEFAULT_SPEED_BINS = (
     ("0-2", 0.0, 2.0),
     ("2-5", 2.0, 5.0),
@@ -157,6 +175,73 @@ def per_speed_bin_metrics(
             )
         )
     return out
+
+
+def per_scenario_metrics(rows: Sequence[dict]) -> list[ScenarioRow]:
+    groups = _scenario_groups(rows)
+    out: list[ScenarioRow] = []
+    for scenario, indexes in groups.items():
+        items = [rows[i] for i in indexes]
+        n = len(items)
+        if n == 0:
+            continue
+        mae_vx = sum(abs(item["error_vx_mps"]) for item in items) / n
+        mae_vy = sum(abs(item["error_vy_mps"]) for item in items) / n
+        ep = sum(item["endpoint_error_mps"] for item in items) / n
+        base_ep = sum(item["base_endpoint_error_mps"] for item in items) / n
+        out.append(
+            ScenarioRow(
+                scenario=scenario,
+                sample_count=n,
+                mae_vx_mps=mae_vx,
+                mae_vy_mps=mae_vy,
+                endpoint_error_mps=ep,
+                base_endpoint_error_mps=base_ep,
+                gain_endpoint_error_mps=base_ep - ep,
+            )
+        )
+    out.sort(key=lambda row: row.endpoint_error_mps, reverse=True)
+    return out
+
+
+def _scenario_groups(rows: Sequence[dict]) -> dict[str, list[int]]:
+    groups: dict[str, list[int]] = {}
+    groups["turning"] = [
+        i for i, row in enumerate(rows) if abs(float(row.get("yaw_rate_radps", 0.0))) >= 0.1
+    ]
+    abs_vy = [abs(float(row.get("target_vy_mps", 0.0))) for row in rows]
+    if abs_vy:
+        high_lateral_threshold = _quantile_threshold(abs_vy, 0.9)
+        low_lateral_threshold = _quantile_threshold(abs_vy, 0.5)
+        groups["high_lateral"] = [i for i, value in enumerate(abs_vy) if value >= high_lateral_threshold]
+        groups["low_speed_lateral"] = [
+            i
+            for i, value in enumerate(abs_vy)
+            if float(rows[i].get("target_speed_mps", 0.0)) < 2.0 and value >= low_lateral_threshold
+        ]
+    groups["wheel_inconsistent"] = _top_row_indexes(rows, "wheel_speed_std_mps", quantile=0.9, use_abs=False)
+    groups["hard_accel"] = _top_row_indexes(rows, "longitudinal_accel_mps2", quantile=0.9, use_abs=True)
+    groups["high_lat_accel"] = _top_row_indexes(rows, "transversal_accel_mps2", quantile=0.9, use_abs=True)
+    return groups
+
+
+def _top_row_indexes(rows: Sequence[dict], key: str, quantile: float, use_abs: bool) -> list[int]:
+    values = []
+    indexes = []
+    for i, row in enumerate(rows):
+        value = row.get(key)
+        if isinstance(value, float) and not math.isnan(value):
+            values.append(abs(value) if use_abs else value)
+            indexes.append(i)
+    if not values:
+        return []
+    threshold = _quantile_threshold(values, quantile)
+    return [index for index, value in zip(indexes, values) if value >= threshold]
+
+
+def _quantile_threshold(values: Sequence[float], quantile: float) -> float:
+    sorted_values = sorted(values)
+    return sorted_values[int(quantile * (len(sorted_values) - 1))]
 
 
 def _write_dicts_csv(rows: Iterable[dict], path: Path, fieldnames: Sequence[str]) -> None:
@@ -219,6 +304,30 @@ def _format_per_bin_table(rows: Sequence[SpeedBinRow]) -> list[str]:
             + " | ".join(
                 [
                     row.bin_label,
+                    str(row.sample_count),
+                    _format_float(row.endpoint_error_mps),
+                    _format_float(row.base_endpoint_error_mps),
+                    _format_float(row.gain_endpoint_error_mps),
+                    _format_float(row.mae_vx_mps),
+                    _format_float(row.mae_vy_mps),
+                ]
+            )
+            + " |"
+        )
+    return lines
+
+
+def _format_scenario_table(rows: Sequence[ScenarioRow]) -> list[str]:
+    lines = [
+        "| Scenario | Samples | Endpoint err | Base endpoint err | Gain | MAE vx | MAE vy |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    for row in rows:
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    row.scenario,
                     str(row.sample_count),
                     _format_float(row.endpoint_error_mps),
                     _format_float(row.base_endpoint_error_mps),
@@ -311,6 +420,7 @@ def write_analysis_bundle(
     worst_samples = bad_cases(rows, top_k=bad_case_top_k)
     scene_rows = per_scene_metrics(rows)
     bin_rows = per_speed_bin_metrics(rows)
+    scenario_rows = per_scenario_metrics(rows)
 
     bad_case_path = output_dir / f"{prefix}_bad_cases_top{bad_case_top_k}.csv"
     _write_dicts_csv(
@@ -366,6 +476,21 @@ def write_analysis_bundle(
         ],
     )
 
+    scenario_path = output_dir / f"{prefix}_per_scenario_metrics.csv"
+    _write_dicts_csv(
+        [asdict(row) for row in scenario_rows],
+        scenario_path,
+        fieldnames=[
+            "scenario",
+            "sample_count",
+            "mae_vx_mps",
+            "mae_vy_mps",
+            "endpoint_error_mps",
+            "base_endpoint_error_mps",
+            "gain_endpoint_error_mps",
+        ],
+    )
+
     report_path = output_dir / f"{prefix}_report.md"
     summary_lines = [
         f"# Evaluation report ({prefix})",
@@ -379,6 +504,9 @@ def write_analysis_bundle(
         "## Performance by speed bin",
         *_format_per_bin_table(bin_rows),
         "",
+        "## Scenario Metrics",
+        *_format_scenario_table(scenario_rows),
+        "",
         f"## Worst {report_top_k} scenes (by mean endpoint error)",
         *_format_worst_scene_table(scene_rows, top_k=report_top_k),
         "",
@@ -389,6 +517,7 @@ def write_analysis_bundle(
         f"- `{bad_case_path.name}` — top-{bad_case_top_k} bad cases",
         f"- `{scene_path.name}` — per-scene aggregated metrics",
         f"- `{bin_path.name}` — per-speed-bin aggregated metrics",
+        f"- `{scenario_path.name}` — per-scenario aggregated metrics",
         "",
     ]
     report_path.write_text("\n".join(summary_lines), encoding="utf-8")
@@ -397,5 +526,6 @@ def write_analysis_bundle(
         "bad_cases": bad_case_path,
         "per_scene": scene_path,
         "per_speed_bin": bin_path,
+        "per_scenario": scenario_path,
         "report": report_path,
     }

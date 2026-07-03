@@ -70,6 +70,12 @@ def build_model(cfg: dict) -> FlexiNetChassisFusion:
         flow_feature_dim=int(cfg["model"].get("flow_feature_dim", 0)) if flow_enabled else 0,
         geometry_input_dim=int(cfg["model"].get("geometry_input_dim", geometry_input_dim)),
         geometry_feature_dim=int(cfg["model"].get("geometry_feature_dim", 0)),
+        use_vision_branch=bool(cfg["model"].get("use_vision_branch", True)),
+        use_kinematic_branch=bool(cfg["model"].get("use_kinematic_branch", True)),
+        use_dynamics_branch=bool(cfg["model"].get("use_dynamics_branch", False)),
+        branch_feature_dim=int(cfg["model"].get("branch_feature_dim", 64)),
+        dynamics_feature_dim=int(cfg["model"].get("dynamics_feature_dim", 8)),
+        save_gate_weights=bool(cfg["model"].get("save_gate_weights", False)),
     )
     model.load_flexinet_backbone(cfg["model"]["pretrained_path"], strict=False)
     if bool(cfg["model"]["freeze_backbone"]):

@@ -19,6 +19,11 @@ class EvaluationResult:
     center_tokens: list[str]
     center_timestamps: list[int]
     yaw_rates: list[float] | None = None
+    wheel_speed_stds: list[float] | None = None
+    longitudinal_accels: list[float] | None = None
+    transversal_accels: list[float] | None = None
+    gate_weights: list[list[float]] | None = None
+    gate_names: list[str] | None = None
 
 
 def mean_absolute_error(preds: Sequence[float], targets: Sequence[float]) -> float:
@@ -72,6 +77,9 @@ def compute_metrics(
     base_velocities: Sequence[float] | Sequence[Sequence[float]] | None = None,
     loss: float | None = None,
     yaw_rates: Sequence[float] | None = None,
+    wheel_speed_stds: Sequence[float] | None = None,
+    longitudinal_accels: Sequence[float] | None = None,
+    transversal_accels: Sequence[float] | None = None,
 ) -> dict[str, float]:
     pred_vecs = _as_velocity_list(preds)
     target_vecs = _as_velocity_list(targets)
@@ -117,7 +125,16 @@ def compute_metrics(
             else 0.0
         ) - metrics["vector_endpoint_error_mps"]
 
-    metrics.update(_compute_group_metrics(pred_vecs, target_vecs, yaw_rates=yaw_rates))
+    metrics.update(
+        _compute_group_metrics(
+            pred_vecs,
+            target_vecs,
+            yaw_rates=yaw_rates,
+            wheel_speed_stds=wheel_speed_stds,
+            longitudinal_accels=longitudinal_accels,
+            transversal_accels=transversal_accels,
+        )
+    )
     return metrics
 
 
@@ -125,6 +142,9 @@ def _compute_group_metrics(
     preds: Sequence[Sequence[float]],
     targets: Sequence[Sequence[float]],
     yaw_rates: Sequence[float] | None = None,
+    wheel_speed_stds: Sequence[float] | None = None,
+    longitudinal_accels: Sequence[float] | None = None,
+    transversal_accels: Sequence[float] | None = None,
 ) -> dict[str, float]:
     metrics: dict[str, float] = {}
     speeds = _speed_magnitudes(targets)
@@ -138,9 +158,19 @@ def _compute_group_metrics(
         sorted_abs_vy = sorted(abs_vy)
         threshold = sorted_abs_vy[int(0.9 * (len(sorted_abs_vy) - 1))]
         groups["high_lateral"] = [i for i, value in enumerate(abs_vy) if value >= threshold]
+        lateral_threshold = sorted_abs_vy[int(0.5 * (len(sorted_abs_vy) - 1))]
+        groups["low_speed_lateral"] = [
+            i for i, value in enumerate(abs_vy) if speeds[i] < 2.0 and value >= lateral_threshold
+        ]
     if yaw_rates is not None and len(yaw_rates) == len(targets):
         groups["turning"] = [i for i, yaw_rate in enumerate(yaw_rates) if abs(yaw_rate) >= 0.1]
         groups["straight"] = [i for i, yaw_rate in enumerate(yaw_rates) if abs(yaw_rate) < 0.1]
+    if wheel_speed_stds is not None and len(wheel_speed_stds) == len(targets):
+        groups["wheel_inconsistent"] = _top_fraction_indexes(wheel_speed_stds, fraction=0.1, use_abs=False)
+    if longitudinal_accels is not None and len(longitudinal_accels) == len(targets):
+        groups["hard_accel"] = _top_fraction_indexes(longitudinal_accels, fraction=0.1, use_abs=True)
+    if transversal_accels is not None and len(transversal_accels) == len(targets):
+        groups["high_lat_accel"] = _top_fraction_indexes(transversal_accels, fraction=0.1, use_abs=True)
 
     for name, indexes in groups.items():
         if not indexes:
@@ -148,9 +178,21 @@ def _compute_group_metrics(
         pred_subset = [preds[i] for i in indexes]
         target_subset = [targets[i] for i in indexes]
         errors = _endpoint_errors(pred_subset, target_subset)
+        metrics[f"{name}_sample_count"] = len(indexes)
+        metrics[f"{name}_mae_vx_mps"] = mean_absolute_error(_axis(pred_subset, 0), _axis(target_subset, 0))
         metrics[f"{name}_vector_endpoint_error_mps"] = sum(errors) / len(errors)
         metrics[f"{name}_mae_vy_mps"] = mean_absolute_error(_axis(pred_subset, 1), _axis(target_subset, 1))
     return metrics
+
+
+def _top_fraction_indexes(values: Sequence[float], fraction: float, use_abs: bool) -> list[int]:
+    if not values:
+        return []
+    scored = [abs(float(value)) if use_abs else float(value) for value in values]
+    sorted_scores = sorted(scored)
+    threshold_index = int((1.0 - fraction) * (len(sorted_scores) - 1))
+    threshold = sorted_scores[threshold_index]
+    return [i for i, score in enumerate(scored) if score >= threshold]
 
 
 def save_metrics_json(metrics: dict[str, float], path: str | Path) -> None:
@@ -182,6 +224,13 @@ def save_predictions_csv(result: EvaluationResult, path: str | Path) -> None:
                 "base_endpoint_error_mps",
                 "delta_vx_mps",
                 "delta_vy_mps",
+                "yaw_rate_radps",
+                "longitudinal_accel_mps2",
+                "transversal_accel_mps2",
+                "wheel_speed_std_mps",
+                "gate_vision",
+                "gate_kinematic",
+                "gate_dynamics",
             ],
         )
         writer.writeheader()
@@ -190,6 +239,7 @@ def save_predictions_csv(result: EvaluationResult, path: str | Path) -> None:
             base_endpoint_error = math.sqrt(
                 (base_velocity[0] - target[0]) ** 2 + (base_velocity[1] - target[1]) ** 2
             )
+            gate_values = _gate_values_for_row(result, i)
             writer.writerow(
                 {
                     "scene_name": _safe_get(result.scene_names, i, ""),
@@ -207,6 +257,13 @@ def save_predictions_csv(result: EvaluationResult, path: str | Path) -> None:
                     "base_endpoint_error_mps": base_endpoint_error,
                     "delta_vx_mps": pred[0] - base_velocity[0],
                     "delta_vy_mps": pred[1] - base_velocity[1],
+                    "yaw_rate_radps": _safe_optional_get(result.yaw_rates, i, ""),
+                    "longitudinal_accel_mps2": _safe_optional_get(result.longitudinal_accels, i, ""),
+                    "transversal_accel_mps2": _safe_optional_get(result.transversal_accels, i, ""),
+                    "wheel_speed_std_mps": _safe_optional_get(result.wheel_speed_stds, i, ""),
+                    "gate_vision": gate_values.get("vision", ""),
+                    "gate_kinematic": gate_values.get("kinematic", ""),
+                    "gate_dynamics": gate_values.get("dynamics", ""),
                 }
             )
 
@@ -273,6 +330,9 @@ def write_evaluation_artifacts(result: EvaluationResult, output_dir: str | Path,
         result.base_velocities,
         loss=result.loss,
         yaw_rates=result.yaw_rates,
+        wheel_speed_stds=result.wheel_speed_stds,
+        longitudinal_accels=result.longitudinal_accels,
+        transversal_accels=result.transversal_accels,
     )
     save_metrics_json(metrics, output_dir / f"{prefix}_metrics.json")
     save_predictions_csv(result, output_dir / f"{prefix}_predictions.csv")
@@ -469,6 +529,21 @@ def _plot_speed_bin_mae(
 
 def _safe_get(values: Sequence[object], index: int, default: object) -> object:
     return values[index] if index < len(values) else default
+
+
+def _safe_optional_get(values: Sequence[object] | None, index: int, default: object) -> object:
+    if values is None:
+        return default
+    return values[index] if index < len(values) else default
+
+
+def _gate_values_for_row(result: EvaluationResult, index: int) -> dict[str, float]:
+    if not result.gate_weights or not result.gate_names or index >= len(result.gate_weights):
+        return {}
+    return {
+        name: float(weight)
+        for name, weight in zip(result.gate_names, result.gate_weights[index])
+    }
 
 
 def _load_pyplot():

@@ -7,6 +7,8 @@ from typing import Optional
 import torch
 import torch.nn as nn
 
+from dataset.nuscenes_chassis import FAIR_CHASSIS_INDEX
+
 from .flexinet_backbone import FlexiNetBackbone
 
 
@@ -114,6 +116,76 @@ class GeometryEncoder(nn.Module):
         return self.net(x)
 
 
+class ProjectionBlock(nn.Module):
+    def __init__(self, input_dim: int, output_dim: int, dropout: float = 0.1) -> None:
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(input_dim, output_dim),
+            nn.ReLU(inplace=True),
+            nn.Dropout(dropout),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.net(x)
+
+
+class DynamicsProxyEncoder(nn.Module):
+    def __init__(
+        self,
+        input_dim: int = 8,
+        hidden_dim: int = 64,
+        output_dim: int = 64,
+        dropout: float = 0.1,
+    ) -> None:
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU(inplace=True),
+            nn.Dropout(dropout),
+            nn.Linear(hidden_dim, output_dim),
+            nn.ReLU(inplace=True),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.net(x)
+
+
+class ConfidenceGatedFusionHead(nn.Module):
+    def __init__(
+        self,
+        feature_dim: int,
+        branch_count: int,
+        hidden_dim: int = 128,
+        output_dim: int = 2,
+        dropout: float = 0.3,
+    ) -> None:
+        super().__init__()
+        if branch_count <= 0:
+            raise ValueError("branch_count must be positive.")
+        self.branch_count = branch_count
+        self.gate_mlp = nn.Sequential(
+            nn.Linear(feature_dim * branch_count, hidden_dim),
+            nn.ReLU(inplace=True),
+            nn.Dropout(dropout),
+            nn.Linear(hidden_dim, branch_count),
+        )
+        self.pred_head = FusionHead(
+            input_dim=feature_dim,
+            hidden_dim=hidden_dim,
+            dropout=dropout,
+            output_dim=output_dim,
+        )
+
+    def forward(self, branch_features: list[torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor]:
+        if len(branch_features) != self.branch_count:
+            raise ValueError(f"Expected {self.branch_count} branches, got {len(branch_features)}.")
+        stacked = torch.stack(branch_features, dim=1)
+        gate_logits = self.gate_mlp(stacked.flatten(1))
+        gate = torch.softmax(gate_logits, dim=1)
+        fused = (stacked * gate.unsqueeze(-1)).sum(dim=1)
+        return self.pred_head(fused), gate
+
+
 class FlexiNetChassisFusion(nn.Module):
     def __init__(
         self,
@@ -129,10 +201,33 @@ class FlexiNetChassisFusion(nn.Module):
         flow_feature_dim: int = 0,
         geometry_input_dim: int = 0,
         geometry_feature_dim: int = 0,
+        use_vision_branch: bool = True,
+        use_kinematic_branch: bool = True,
+        use_dynamics_branch: bool = False,
+        branch_feature_dim: int = 64,
+        dynamics_feature_dim: int = 8,
+        save_gate_weights: bool = False,
     ) -> None:
         super().__init__()
+        if fusion_mode not in {"residual", "direct", "residual_gated"}:
+            raise ValueError("fusion_mode must be 'residual', 'direct', or 'residual_gated'.")
+        if not any([use_vision_branch, use_kinematic_branch, use_dynamics_branch]):
+            raise ValueError("At least one of vision, kinematic, or dynamics branches must be enabled.")
+        if use_dynamics_branch and dynamics_feature_dim != 8:
+            raise ValueError("dynamics_feature_dim must be 8 for the current dynamics proxy.")
+
         self.backbone = FlexiNetBackbone(input_channels=input_channels)
         self.output_dim = output_dim
+        self.fusion_mode = fusion_mode
+        self.use_vision_branch = bool(use_vision_branch)
+        self.use_kinematic_branch = bool(use_kinematic_branch)
+        self.use_dynamics_branch = bool(use_dynamics_branch)
+        self.branch_feature_dim = int(branch_feature_dim)
+        self.dynamics_feature_dim = int(dynamics_feature_dim)
+        self.save_gate_weights = bool(save_gate_weights)
+        self.last_gate_weights: Optional[torch.Tensor] = None
+        self.last_gate_names: list[str] = []
+
         self.chassis_encoder = ChassisSequenceEncoder(
             input_dim=chassis_input_dim,
             hidden_dim=hidden_dim,
@@ -155,12 +250,32 @@ class FlexiNetChassisFusion(nn.Module):
             if geometry_input_dim > 0 and geometry_feature_dim > 0
             else None
         )
-        self.fusion_mode = fusion_mode
-        fusion_input_dim = 256 + chassis_feature_dim
+
+        self.vision_input_dim = 256
         if self.flow_encoder is not None:
-            fusion_input_dim += flow_feature_dim
+            self.vision_input_dim += flow_feature_dim
         if self.geometry_encoder is not None:
-            fusion_input_dim += geometry_feature_dim
+            self.vision_input_dim += geometry_feature_dim
+
+        fusion_input_dim = 0
+        if self.use_vision_branch:
+            fusion_input_dim += self.vision_input_dim
+        if self.use_kinematic_branch:
+            fusion_input_dim += chassis_feature_dim
+
+        self.dynamics_encoder = (
+            DynamicsProxyEncoder(
+                input_dim=dynamics_feature_dim,
+                hidden_dim=hidden_dim,
+                output_dim=self.branch_feature_dim,
+                dropout=dropout,
+            )
+            if self.use_dynamics_branch
+            else None
+        )
+        if self.dynamics_encoder is not None:
+            fusion_input_dim += self.branch_feature_dim
+
         self.residual_speed_head = FusionHead(
             input_dim=fusion_input_dim,
             hidden_dim=hidden_dim,
@@ -173,6 +288,30 @@ class FlexiNetChassisFusion(nn.Module):
             dropout=dropout,
             output_dim=output_dim,
         )
+        self.vision_projection = (
+            ProjectionBlock(self.vision_input_dim, self.branch_feature_dim, dropout=dropout)
+            if self.fusion_mode == "residual_gated" and self.use_vision_branch
+            else None
+        )
+        self.kinematic_projection = (
+            ProjectionBlock(chassis_feature_dim, self.branch_feature_dim, dropout=dropout)
+            if self.fusion_mode == "residual_gated" and self.use_kinematic_branch
+            else None
+        )
+        active_branch_count = sum(
+            [self.use_vision_branch, self.use_kinematic_branch, self.use_dynamics_branch]
+        )
+        self.gated_fusion_head = (
+            ConfidenceGatedFusionHead(
+                feature_dim=self.branch_feature_dim,
+                branch_count=active_branch_count,
+                hidden_dim=hidden_dim,
+                output_dim=output_dim,
+                dropout=dropout,
+            )
+            if self.fusion_mode == "residual_gated"
+            else None
+        )
 
     def forward(
         self,
@@ -183,9 +322,53 @@ class FlexiNetChassisFusion(nn.Module):
         flow: Optional[torch.Tensor] = None,
         geometry: Optional[torch.Tensor] = None,
     ) -> torch.Tensor:
+        self.last_gate_weights = None
+        self.last_gate_names = []
+
+        if self.fusion_mode == "residual_gated":
+            return self._forward_residual_gated(
+                images=images,
+                chassis_vec=chassis_vec,
+                base_speed=base_speed,
+                base_velocity=base_velocity,
+                flow=flow,
+                geometry=geometry,
+            )
+
+        features = []
+        if self.use_vision_branch:
+            features.append(self._encode_vision(images, flow=flow, geometry=geometry))
+        if self.use_kinematic_branch:
+            features.append(self.chassis_encoder(chassis_vec))
+        if self.dynamics_encoder is not None:
+            dynamics_input = self._build_dynamics_proxy(
+                chassis_vec=chassis_vec,
+                base_speed=base_speed,
+                base_velocity=base_velocity,
+                batch_size=images.shape[0],
+                device=images.device,
+                dtype=images.dtype,
+            )
+            features.append(self.dynamics_encoder(dynamics_input))
+        fused = torch.cat(features, dim=1)
+
+        if self.fusion_mode == "residual":
+            delta = self.residual_speed_head(fused)
+            return self._resolve_base_velocity(
+                delta=delta,
+                base_speed=base_speed,
+                base_velocity=base_velocity,
+            ) + delta
+        return self.direct_speed_head(fused)
+
+    def _encode_vision(
+        self,
+        images: torch.Tensor,
+        flow: Optional[torch.Tensor] = None,
+        geometry: Optional[torch.Tensor] = None,
+    ) -> torch.Tensor:
         visual_feat = self.backbone.forward_features(images)
-        chassis_feat = self.chassis_encoder(chassis_vec)
-        features = [visual_feat, chassis_feat]
+        features = [visual_feat]
         if self.flow_encoder is not None:
             if flow is None or flow.numel() == 0:
                 features.append(torch.zeros(images.shape[0], self.flow_encoder.output_dim, device=images.device))
@@ -196,19 +379,105 @@ class FlexiNetChassisFusion(nn.Module):
                 features.append(torch.zeros(images.shape[0], self.geometry_encoder.output_dim, device=images.device))
             else:
                 features.append(self.geometry_encoder(geometry))
-        fused = torch.cat(features, dim=1)
+        return torch.cat(features, dim=1)
 
-        if self.fusion_mode == "residual":
-            delta = self.residual_speed_head(fused)
-            if base_velocity is None:
-                if base_speed is not None and self.output_dim == 2:
-                    base_velocity = torch.cat([base_speed, torch.zeros_like(base_speed)], dim=1)
-                elif base_speed is not None:
-                    base_velocity = base_speed
-                else:
-                    base_velocity = torch.zeros_like(delta)
-            return base_velocity + delta
-        return self.direct_speed_head(fused)
+    def _forward_residual_gated(
+        self,
+        images: torch.Tensor,
+        chassis_vec: torch.Tensor,
+        base_speed: Optional[torch.Tensor] = None,
+        base_velocity: Optional[torch.Tensor] = None,
+        flow: Optional[torch.Tensor] = None,
+        geometry: Optional[torch.Tensor] = None,
+    ) -> torch.Tensor:
+        if self.gated_fusion_head is None:
+            raise RuntimeError("residual_gated mode requires gated_fusion_head.")
+        branches: list[torch.Tensor] = []
+        branch_names: list[str] = []
+
+        if self.use_vision_branch:
+            if self.vision_projection is None:
+                raise RuntimeError("vision_projection is required when vision branch is active.")
+            branches.append(self.vision_projection(self._encode_vision(images, flow=flow, geometry=geometry)))
+            branch_names.append("vision")
+        if self.use_kinematic_branch:
+            if self.kinematic_projection is None:
+                raise RuntimeError("kinematic_projection is required when kinematic branch is active.")
+            branches.append(self.kinematic_projection(self.chassis_encoder(chassis_vec)))
+            branch_names.append("kinematic")
+        if self.dynamics_encoder is not None:
+            dynamics_input = self._build_dynamics_proxy(
+                chassis_vec=chassis_vec,
+                base_speed=base_speed,
+                base_velocity=base_velocity,
+                batch_size=images.shape[0],
+                device=images.device,
+                dtype=images.dtype,
+            )
+            branches.append(self.dynamics_encoder(dynamics_input))
+            branch_names.append("dynamics")
+
+        delta, gate = self.gated_fusion_head(branches)
+        if self.save_gate_weights:
+            self.last_gate_weights = gate.detach()
+            self.last_gate_names = branch_names
+        return self._resolve_base_velocity(
+            delta=delta,
+            base_speed=base_speed,
+            base_velocity=base_velocity,
+        ) + delta
+
+    def _build_dynamics_proxy(
+        self,
+        chassis_vec: torch.Tensor,
+        base_speed: Optional[torch.Tensor],
+        base_velocity: Optional[torch.Tensor],
+        batch_size: int,
+        device: torch.device,
+        dtype: torch.dtype,
+    ) -> torch.Tensor:
+        if chassis_vec.dim() == 3:
+            center_vec = chassis_vec[:, chassis_vec.shape[1] // 2, :]
+        elif chassis_vec.dim() == 2:
+            center_vec = chassis_vec
+        else:
+            raise ValueError("chassis_vec must have shape [B,C] or [B,K,C].")
+        if center_vec.shape[1] <= FAIR_CHASSIS_INDEX["base_vx"]:
+            raise ValueError("chassis_vec does not contain the required fair chassis proxy features.")
+
+        resolved_base_velocity = self._resolve_base_velocity(
+            delta=torch.zeros(batch_size, self.output_dim, device=device, dtype=dtype),
+            base_speed=base_speed,
+            base_velocity=base_velocity,
+        )
+        return torch.stack(
+            [
+                resolved_base_velocity[:, 0],
+                resolved_base_velocity[:, 1],
+                center_vec[:, FAIR_CHASSIS_INDEX["yaw_rate"]],
+                center_vec[:, FAIR_CHASSIS_INDEX["steering"]],
+                center_vec[:, FAIR_CHASSIS_INDEX["steering_feedback"]],
+                center_vec[:, FAIR_CHASSIS_INDEX["longitudinal_accel"]],
+                center_vec[:, FAIR_CHASSIS_INDEX["transversal_accel"]],
+                center_vec[:, FAIR_CHASSIS_INDEX["wheel_speed_std"]],
+            ],
+            dim=1,
+        ).to(device=device, dtype=dtype)
+
+    def _resolve_base_velocity(
+        self,
+        delta: torch.Tensor,
+        base_speed: Optional[torch.Tensor] = None,
+        base_velocity: Optional[torch.Tensor] = None,
+    ) -> torch.Tensor:
+        if base_velocity is not None:
+            return base_velocity.to(device=delta.device, dtype=delta.dtype)
+        if base_speed is not None and self.output_dim == 2:
+            base_speed = base_speed.to(device=delta.device, dtype=delta.dtype)
+            return torch.cat([base_speed, torch.zeros_like(base_speed)], dim=1)
+        if base_speed is not None:
+            return base_speed.to(device=delta.device, dtype=delta.dtype)
+        return torch.zeros_like(delta)
 
     def load_flexinet_backbone(self, checkpoint_path: str | Path, strict: bool = False) -> None:
         checkpoint = torch.load(checkpoint_path, map_location="cpu")

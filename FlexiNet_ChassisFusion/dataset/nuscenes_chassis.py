@@ -43,6 +43,33 @@ POSE_ASSISTED_EXTRA_FEATURES = [
 ]
 FAIR_CHASSIS_DIM = len(FAIR_CHASSIS_FEATURES)
 POSE_ASSISTED_CHASSIS_DIM = FAIR_CHASSIS_DIM + len(POSE_ASSISTED_EXTRA_FEATURES)
+FAIR_CHASSIS_INDEX = {name: idx for idx, name in enumerate(FAIR_CHASSIS_FEATURES)}
+KINEMATIC_FEATURE_NAMES = [
+    "vehicle_speed",
+    "odom_speed",
+    "yaw_rate",
+    "steering",
+    "steering_feedback",
+    "longitudinal_accel",
+    "transversal_accel",
+    "fl_wheel_speed",
+    "fr_wheel_speed",
+    "rl_wheel_speed",
+    "rr_wheel_speed",
+    "wheel_speed_mean",
+    "wheel_speed_std",
+    "base_vx",
+]
+DYNAMICS_PROXY_FEATURE_NAMES = [
+    "base_vx",
+    "base_vy",
+    "yaw_rate",
+    "steering",
+    "steering_feedback",
+    "longitudinal_accel",
+    "transversal_accel",
+    "wheel_speed_std",
+]
 
 
 def _yaw_from_quaternion(rotation: Sequence[float]) -> float:

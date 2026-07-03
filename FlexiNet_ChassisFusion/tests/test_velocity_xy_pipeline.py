@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import csv
 import json
 import math
+from pathlib import Path
 import subprocess
 import sys
 
@@ -9,12 +11,14 @@ import numpy as np
 import torch
 
 from dataset.nuscenes_chassis import (
+    DYNAMICS_PROXY_FEATURE_NAMES,
     FAIR_CHASSIS_DIM,
     NuScenesCanBusAdapter,
     NuScenesChassisFusionDataset,
 )
 from model.fusion_model import FlexiNetChassisFusion
-from utils.evaluation import compute_metrics
+from scripts.path_sanity_check import build_model_from_config, load_config
+from utils.evaluation import EvaluationResult, compute_metrics, save_predictions_csv
 
 
 class FakeNuScenes:
@@ -144,6 +148,184 @@ def test_fusion_model_outputs_two_dimensional_velocity_with_optional_branches() 
     assert pred.shape == (2, 2)
 
 
+def test_direct_vision_only_model_does_not_require_kinematic_branch() -> None:
+    model = FlexiNetChassisFusion(
+        input_channels=1,
+        chassis_input_dim=FAIR_CHASSIS_DIM,
+        hidden_dim=32,
+        output_dim=2,
+        fusion_mode="direct",
+        use_vision_branch=True,
+        use_kinematic_branch=False,
+        use_dynamics_branch=False,
+    )
+    model.eval()
+
+    images = torch.randn(2, 3, 1, 32, 32)
+    chassis = torch.randn(2, 5, FAIR_CHASSIS_DIM)
+
+    with torch.no_grad():
+        pred = model(images, chassis)
+
+    assert pred.shape == (2, 2)
+
+
+def test_residual_gated_model_tracks_active_branch_gate_weights() -> None:
+    model = FlexiNetChassisFusion(
+        input_channels=1,
+        chassis_input_dim=FAIR_CHASSIS_DIM,
+        chassis_feature_dim=8,
+        hidden_dim=32,
+        output_dim=2,
+        fusion_mode="residual_gated",
+        use_vision_branch=True,
+        use_kinematic_branch=True,
+        use_dynamics_branch=True,
+        branch_feature_dim=16,
+        dynamics_feature_dim=8,
+        save_gate_weights=True,
+    )
+    model.eval()
+
+    images = torch.randn(2, 3, 1, 32, 32)
+    chassis = torch.randn(2, 5, FAIR_CHASSIS_DIM)
+    base_velocity = torch.tensor([[5.0, 0.1], [2.0, -0.2]])
+
+    with torch.no_grad():
+        pred = model(images, chassis, base_velocity=base_velocity)
+
+    assert pred.shape == (2, 2)
+    assert model.last_gate_names == ["vision", "kinematic", "dynamics"]
+    assert model.last_gate_weights is not None
+    assert model.last_gate_weights.shape == (2, 3)
+    torch.testing.assert_close(
+        model.last_gate_weights.sum(dim=1),
+        torch.ones(2),
+        atol=1.0e-6,
+        rtol=1.0e-6,
+    )
+
+
+def test_residual_gated_kd_only_omits_inactive_vision_branch() -> None:
+    model = FlexiNetChassisFusion(
+        input_channels=1,
+        chassis_input_dim=FAIR_CHASSIS_DIM,
+        chassis_feature_dim=8,
+        hidden_dim=32,
+        output_dim=2,
+        fusion_mode="residual_gated",
+        use_vision_branch=False,
+        use_kinematic_branch=True,
+        use_dynamics_branch=True,
+        branch_feature_dim=16,
+        dynamics_feature_dim=8,
+        save_gate_weights=True,
+    )
+    model.eval()
+
+    images = torch.randn(2, 3, 1, 32, 32)
+    chassis = torch.randn(2, 5, FAIR_CHASSIS_DIM)
+    base_velocity = torch.tensor([[5.0, 0.1], [2.0, -0.2]])
+
+    with torch.no_grad():
+        pred = model(images, chassis, base_velocity=base_velocity)
+
+    assert pred.shape == (2, 2)
+    assert model.last_gate_names == ["kinematic", "dynamics"]
+    assert model.last_gate_weights is not None
+    assert model.last_gate_weights.shape == (2, 2)
+
+
+def test_residual_gated_respects_save_gate_weights_flag() -> None:
+    model = FlexiNetChassisFusion(
+        input_channels=1,
+        chassis_input_dim=FAIR_CHASSIS_DIM,
+        chassis_feature_dim=8,
+        hidden_dim=32,
+        output_dim=2,
+        fusion_mode="residual_gated",
+        use_vision_branch=False,
+        use_kinematic_branch=True,
+        use_dynamics_branch=True,
+        branch_feature_dim=16,
+        dynamics_feature_dim=8,
+        save_gate_weights=False,
+    )
+    model.eval()
+
+    images = torch.randn(2, 3, 1, 32, 32)
+    chassis = torch.randn(2, 5, FAIR_CHASSIS_DIM)
+    base_velocity = torch.tensor([[5.0, 0.1], [2.0, -0.2]])
+
+    with torch.no_grad():
+        pred = model(images, chassis, base_velocity=base_velocity)
+
+    assert pred.shape == (2, 2)
+    assert model.last_gate_weights is None
+    assert model.last_gate_names == []
+
+
+def test_dynamics_proxy_feature_names_match_model_input_order() -> None:
+    assert DYNAMICS_PROXY_FEATURE_NAMES == [
+        "base_vx",
+        "base_vy",
+        "yaw_rate",
+        "steering",
+        "steering_feedback",
+        "longitudinal_accel",
+        "transversal_accel",
+        "wheel_speed_std",
+    ]
+
+
+def test_config_model_builder_passes_branch_switches() -> None:
+    cfg = {
+        "data": {
+            "chassis_mode": "fair_chassis",
+            "image_mode": "gray",
+            "flow_mode": "none",
+            "geometry_mode": "none",
+        },
+        "model": {
+            "fusion_mode": "residual_gated",
+            "output_dim": 2,
+            "chassis_feature_dim": 8,
+            "chassis_sequence_model": "gru",
+            "hidden_dim": 32,
+            "dropout": 0.3,
+            "use_vision_branch": False,
+            "use_kinematic_branch": True,
+            "use_dynamics_branch": True,
+            "branch_feature_dim": 16,
+            "dynamics_feature_dim": 8,
+            "save_gate_weights": True,
+        },
+    }
+
+    model = build_model_from_config(cfg)
+
+    assert model.fusion_mode == "residual_gated"
+    assert model.use_vision_branch is False
+    assert model.use_kinematic_branch is True
+    assert model.use_dynamics_branch is True
+    assert model.save_gate_weights is True
+
+
+def test_vkd_ablation_configs_build_models() -> None:
+    config_names = [
+        "smoke_velocity_xy_vkd_gated.yaml",
+        "velocity_xy_vision_only.yaml",
+        "velocity_xy_kd_only.yaml",
+        "velocity_xy_vision_kinematics.yaml",
+        "velocity_xy_vkd_gated.yaml",
+    ]
+
+    for config_name in config_names:
+        cfg = load_config(Path("configs") / config_name)
+        model = build_model_from_config(cfg)
+        assert model.output_dim == 2
+
+
 def test_compute_metrics_reports_vector_velocity_errors() -> None:
     metrics = compute_metrics(
         preds=[[1.0, 0.2], [2.0, -0.1]],
@@ -157,6 +339,95 @@ def test_compute_metrics_reports_vector_velocity_errors() -> None:
     assert metrics["base_mae_vy_mps"] == 0.05
     assert metrics["loss"] == 0.3
     assert "vector_endpoint_error_mps" in metrics
+
+
+def test_compute_metrics_reports_proxy_scenario_groups() -> None:
+    metrics = compute_metrics(
+        preds=[[1.0, 0.0], [1.8, 0.4], [8.0, 0.2], [12.0, -0.5]],
+        targets=[[1.1, 0.1], [1.5, 0.6], [8.5, 0.1], [11.0, -0.8]],
+        base_velocities=[[1.0, 0.0], [1.5, 0.0], [8.0, 0.0], [12.0, 0.0]],
+        yaw_rates=[0.0, 0.2, 0.05, -0.3],
+        wheel_speed_stds=[0.01, 0.2, 0.8, 1.2],
+        longitudinal_accels=[0.1, 0.2, 3.0, -4.0],
+        transversal_accels=[0.0, 0.4, 0.2, -1.5],
+    )
+
+    assert metrics["turning_sample_count"] == 2
+    assert metrics["wheel_inconsistent_sample_count"] == 2
+    assert metrics["hard_accel_sample_count"] == 2
+    assert metrics["high_lat_accel_sample_count"] == 2
+    assert "wheel_inconsistent_mae_vx_mps" in metrics
+    assert "low_speed_lateral_vector_endpoint_error_mps" in metrics
+
+
+def test_predictions_csv_writes_proxy_and_gate_columns(tmp_path) -> None:
+    result = EvaluationResult(
+        loss=0.1,
+        preds=[[1.2, 0.3]],
+        targets=[[1.0, 0.1]],
+        base_velocities=[[1.0, 0.0]],
+        scene_names=["scene-0001"],
+        center_tokens=["token"],
+        center_timestamps=[123],
+        yaw_rates=[0.2],
+        wheel_speed_stds=[0.4],
+        longitudinal_accels=[1.5],
+        transversal_accels=[-0.3],
+        gate_weights=[[0.2, 0.3, 0.5]],
+        gate_names=["vision", "kinematic", "dynamics"],
+    )
+    output_path = tmp_path / "predictions.csv"
+
+    save_predictions_csv(result, output_path)
+
+    with output_path.open("r", encoding="utf-8", newline="") as f:
+        row = next(csv.DictReader(f))
+    assert row["yaw_rate_radps"] == "0.2"
+    assert row["wheel_speed_std_mps"] == "0.4"
+    assert row["longitudinal_accel_mps2"] == "1.5"
+    assert row["transversal_accel_mps2"] == "-0.3"
+    assert row["gate_vision"] == "0.2"
+    assert row["gate_kinematic"] == "0.3"
+    assert row["gate_dynamics"] == "0.5"
+
+
+def test_postprocess_reports_per_scenario_metrics() -> None:
+    from analysis.postprocess import per_scenario_metrics
+
+    rows = [
+        {
+            "target_vx_mps": 1.0,
+            "target_vy_mps": 0.6,
+            "target_speed_mps": 1.2,
+            "error_vx_mps": 0.1,
+            "error_vy_mps": 0.2,
+            "endpoint_error_mps": 0.3,
+            "base_endpoint_error_mps": 0.5,
+            "yaw_rate_radps": 0.2,
+            "wheel_speed_std_mps": 0.8,
+            "longitudinal_accel_mps2": 0.1,
+            "transversal_accel_mps2": 1.2,
+        },
+        {
+            "target_vx_mps": 10.0,
+            "target_vy_mps": 0.1,
+            "target_speed_mps": 10.0,
+            "error_vx_mps": -0.2,
+            "error_vy_mps": 0.1,
+            "endpoint_error_mps": 0.4,
+            "base_endpoint_error_mps": 0.6,
+            "yaw_rate_radps": 0.0,
+            "wheel_speed_std_mps": 0.1,
+            "longitudinal_accel_mps2": 3.0,
+            "transversal_accel_mps2": 0.1,
+        },
+    ]
+
+    scenario_rows = per_scenario_metrics(rows)
+    scenario_names = {row.scenario for row in scenario_rows}
+    assert "turning" in scenario_names
+    assert "wheel_inconsistent" in scenario_names
+    assert "hard_accel" in scenario_names
 
 
 def test_pose_assisted_geometry_prior_uses_base_vx_feature() -> None:
