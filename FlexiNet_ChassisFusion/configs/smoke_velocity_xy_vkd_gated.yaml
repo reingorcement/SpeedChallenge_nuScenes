@@ -22,6 +22,8 @@ data:
   flow_mode: none
   flow_root:
   geometry_mode: none
+  # zero_lateral means the dynamics branch uses chassis-derived proxy features.
+  # Set eovm_ekf only after EOVM CSV generation and input audit.
   base_velocity_source: zero_lateral
   eovm_base_root:
   frame_cache_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_frames/CAM_FRONT_64x64_gray

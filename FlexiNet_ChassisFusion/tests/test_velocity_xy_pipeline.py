@@ -18,6 +18,7 @@ from dataset.nuscenes_chassis import (
 )
 from model.fusion_model import FlexiNetChassisFusion
 from scripts.path_sanity_check import build_model_from_config, load_config
+from train import KnowledgeDrivenVelocityLoss, build_criterion
 from utils.evaluation import EvaluationResult, compute_metrics, save_predictions_csv
 
 
@@ -234,6 +235,7 @@ def test_residual_gated_kd_only_omits_inactive_vision_branch() -> None:
     assert model.last_gate_names == ["kinematic", "dynamics"]
     assert model.last_gate_weights is not None
     assert model.last_gate_weights.shape == (2, 2)
+    assert model.backbone is None
 
 
 def test_residual_gated_respects_save_gate_weights_flag() -> None:
@@ -309,6 +311,7 @@ def test_config_model_builder_passes_branch_switches() -> None:
     assert model.use_kinematic_branch is True
     assert model.use_dynamics_branch is True
     assert model.save_gate_weights is True
+    assert model.backbone is None
 
 
 def test_vkd_ablation_configs_build_models() -> None:
@@ -353,11 +356,37 @@ def test_compute_metrics_reports_proxy_scenario_groups() -> None:
     )
 
     assert metrics["turning_sample_count"] == 2
-    assert metrics["wheel_inconsistent_sample_count"] == 2
-    assert metrics["hard_accel_sample_count"] == 2
-    assert metrics["high_lat_accel_sample_count"] == 2
+    assert metrics["wheel_inconsistent_sample_count"] == 1
+    assert metrics["hard_accel_sample_count"] == 1
+    assert metrics["high_lat_accel_sample_count"] == 1
     assert "wheel_inconsistent_mae_vx_mps" in metrics
     assert "low_speed_lateral_vector_endpoint_error_mps" in metrics
+
+
+def test_knowledge_velocity_loss_uses_optional_physics_terms() -> None:
+    criterion = build_criterion(
+        "knowledge_velocity",
+        sigma_vx=5.0,
+        sigma_vy=0.5,
+        speed_weight=0.1,
+        beta_loss_weight=0.05,
+        prior_loss_weight=0.01,
+        consistency_loss_weight=0.02,
+        beta_vx_eps=0.5,
+    )
+    assert isinstance(criterion, KnowledgeDrivenVelocityLoss)
+    pred = torch.tensor([[4.8, 0.2], [2.0, -0.1]], requires_grad=True)
+    target = torch.tensor([[5.0, 0.1], [2.2, -0.2]])
+    base_velocity = torch.tensor([[4.5, 0.0], [2.0, 0.0]])
+    chassis = torch.zeros(2, 3, FAIR_CHASSIS_DIM)
+    chassis[:, 1, 2] = torch.tensor([0.1, -0.05])
+    chassis[:, 1, 8] = torch.tensor([0.4, -0.1])
+
+    loss = criterion(pred, target, base_velocity=base_velocity, chassis=chassis)
+    loss.backward()
+
+    assert torch.isfinite(loss)
+    assert pred.grad is not None
 
 
 def test_predictions_csv_writes_proxy_and_gate_columns(tmp_path) -> None:

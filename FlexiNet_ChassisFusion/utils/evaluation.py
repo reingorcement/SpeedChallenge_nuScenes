@@ -188,11 +188,14 @@ def _compute_group_metrics(
 def _top_fraction_indexes(values: Sequence[float], fraction: float, use_abs: bool) -> list[int]:
     if not values:
         return []
+    if fraction <= 0.0:
+        return []
+    if fraction >= 1.0:
+        return list(range(len(values)))
     scored = [abs(float(value)) if use_abs else float(value) for value in values]
-    sorted_scores = sorted(scored)
-    threshold_index = int((1.0 - fraction) * (len(sorted_scores) - 1))
-    threshold = sorted_scores[threshold_index]
-    return [i for i, score in enumerate(scored) if score >= threshold]
+    sample_count = max(1, math.ceil(len(scored) * fraction))
+    ranked = sorted(range(len(scored)), key=lambda i: scored[i], reverse=True)
+    return sorted(ranked[:sample_count])
 
 
 def save_metrics_json(metrics: dict[str, float], path: str | Path) -> None:

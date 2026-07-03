@@ -239,7 +239,11 @@ def main() -> int:
     ok = True
     ok &= check_required_path("dataroot", cfg["data"].get("dataroot"))
     ok &= check_required_path("can_bus_root", cfg["data"].get("can_bus_root"))
-    ok &= check_required_path("pretrained_path", cfg["model"].get("pretrained_path"), prefer_file=True)
+    use_vision_branch = bool(cfg["model"].get("use_vision_branch", True))
+    if use_vision_branch:
+        ok &= check_required_path("pretrained_path", cfg["model"].get("pretrained_path"), prefer_file=True)
+    else:
+        check_required_path("pretrained_path", cfg["model"].get("pretrained_path"), prefer_file=True)
 
     if str(cfg["data"].get("flow_mode", "none")) == "precomputed":
         ok &= check_required_path("flow_root", cfg["data"].get("flow_root"))
@@ -301,10 +305,11 @@ def main() -> int:
     if not args.skip_model:
         try:
             model = build_model_from_config(cfg)
-            pretrained_raw = cfg["model"].get("pretrained_path")
-            pretrained_path, _ = resolve_existing_path(pretrained_raw, prefer_file=True)
-            assert pretrained_path is not None
-            model.load_flexinet_backbone(pretrained_path, strict=False)
+            if use_vision_branch:
+                pretrained_raw = cfg["model"].get("pretrained_path")
+                pretrained_path, _ = resolve_existing_path(pretrained_raw, prefer_file=True)
+                assert pretrained_path is not None
+                model.load_flexinet_backbone(pretrained_path, strict=False)
             model.eval()
             images, chassis, base_velocity, flow, geometry = make_dummy_inputs(cfg, sample)
             with torch.no_grad():
@@ -345,11 +350,12 @@ def main() -> int:
         if dataset is not None:
             try:
                 model = build_model_from_config(cfg)
-                pretrained_raw = cfg["model"].get("pretrained_path")
-                pretrained_path, _ = resolve_existing_path(pretrained_raw, prefer_file=True)
-                assert pretrained_path is not None
-                model.load_flexinet_backbone(pretrained_path, strict=False)
-                if bool(cfg["model"].get("freeze_backbone", True)):
+                if use_vision_branch:
+                    pretrained_raw = cfg["model"].get("pretrained_path")
+                    pretrained_path, _ = resolve_existing_path(pretrained_raw, prefer_file=True)
+                    assert pretrained_path is not None
+                    model.load_flexinet_backbone(pretrained_path, strict=False)
+                if use_vision_branch and bool(cfg["model"].get("freeze_backbone", True)):
                     model.freeze_backbone()
                 model.to(torch.device("cuda" if torch.cuda.is_available() else "cpu"))
                 if run_tiny_training_step(cfg, dataset, model):

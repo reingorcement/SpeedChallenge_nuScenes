@@ -235,8 +235,14 @@ def _top_row_indexes(rows: Sequence[dict], key: str, quantile: float, use_abs: b
             indexes.append(i)
     if not values:
         return []
-    threshold = _quantile_threshold(values, quantile)
-    return [index for index, value in zip(indexes, values) if value >= threshold]
+    top_fraction = max(0.0, min(1.0, 1.0 - quantile))
+    if top_fraction <= 0.0:
+        sample_count = 1
+    else:
+        sample_count = max(1, math.ceil(len(values) * top_fraction))
+    ranked = sorted(range(len(values)), key=lambda i: values[i], reverse=True)
+    selected = {indexes[i] for i in ranked[:sample_count]}
+    return [index for index in indexes if index in selected]
 
 
 def _quantile_threshold(values: Sequence[float], quantile: float) -> float:

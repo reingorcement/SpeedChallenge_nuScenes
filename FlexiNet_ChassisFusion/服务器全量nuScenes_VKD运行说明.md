@@ -21,16 +21,16 @@ pred_velocity   = base_velocity + delta_velocity
 
 可以。分两层理解：
 
-1. **当前 VKD gated 模型可以直接跑全量 nuScenes**  
+1. **当前 proxy-dynamics gated 模型可以直接跑全量 nuScenes**
    使用 `configs/velocity_xy_vkd_gated.yaml`。它启用：
 
    ```text
    VisionBranch + KinematicBranch + DynamicsBranch + ConfidenceGatedFusion
    ```
 
-   这里的 `DynamicsBranch` 第一版不依赖外部 EOVM 文件，而是在模型内部从 `base_velocity` 和 chassis proxy 构造 8 维动力学代理特征。因此只要服务器上有 nuScenes、CAN bus、图像帧缓存和 FlexiNet 预训练权重，就能训练。
+   这里的 `DynamicsBranch` 第一版不依赖外部 EOVM 文件，而是在模型内部从 `base_velocity` 和 chassis proxy 构造 8 维动力学代理特征；默认 `zero_lateral` 时不能把它表述为已接入 EOVM 的 VKD 主方法。因此只要服务器上有 nuScenes、CAN bus、图像帧缓存和 FlexiNet 预训练权重，就能训练。
 
-2. **真正 EOVM-EKF 物理先验也可以跑，但需要先审计和预计算**  
+2. **真正 EOVM-EKF 物理先验也可以跑，但需要先审计和预计算**
    `eovm_ekf/` 已经实现 EOVM-EKF 估计器核心，并能输出 `[vx, vy]`。但 nuScenes CAN 字段的轮速单位、转向比例、符号和车辆几何参数需要审计。审计通过后，先为每个 scene 预计算 EOVM CSV，再把配置改为：
 
    ```yaml

@@ -46,11 +46,90 @@ class VelocitySmoothL1Loss(nn.Module):
         return loss
 
 
+class KnowledgeDrivenVelocityLoss(nn.Module):
+    def __init__(
+        self,
+        sigma_vx: float = 1.0,
+        sigma_vy: float = 1.0,
+        speed_weight: float = 0.0,
+        beta_loss_weight: float = 0.0,
+        prior_loss_weight: float = 0.0,
+        smoothness_loss_weight: float = 0.0,
+        consistency_loss_weight: float = 0.0,
+        beta_vx_eps: float = 0.5,
+    ) -> None:
+        super().__init__()
+        self.velocity_loss = VelocitySmoothL1Loss(
+            sigma_vx=sigma_vx,
+            sigma_vy=sigma_vy,
+            speed_weight=speed_weight,
+        )
+        self.beta_loss_weight = float(beta_loss_weight)
+        self.prior_loss_weight = float(prior_loss_weight)
+        self.smoothness_loss_weight = float(smoothness_loss_weight)
+        self.consistency_loss_weight = float(consistency_loss_weight)
+        self.beta_vx_eps = float(beta_vx_eps)
+        self.base_loss = nn.SmoothL1Loss(beta=1.0)
+
+    def forward(
+        self,
+        pred: torch.Tensor,
+        target: torch.Tensor,
+        base_velocity: torch.Tensor | None = None,
+        chassis: torch.Tensor | None = None,
+    ) -> torch.Tensor:
+        loss = self.velocity_loss(pred, target)
+        if self.beta_loss_weight > 0.0:
+            mask = target[:, 0].abs() > self.beta_vx_eps
+            if mask.any():
+                loss = loss + self.beta_loss_weight * self.base_loss(
+                    self._sideslip_angle(pred[mask]),
+                    self._sideslip_angle(target[mask]),
+                )
+        if self.prior_loss_weight > 0.0 and base_velocity is not None and base_velocity.numel() > 0:
+            base_velocity = base_velocity.to(device=pred.device, dtype=pred.dtype)
+            loss = loss + self.prior_loss_weight * self.base_loss(pred, base_velocity)
+        if self.smoothness_loss_weight > 0.0:
+            raise ValueError("smoothness_loss_weight requires sequence predictions, but the current head outputs [B, 2].")
+        if self.consistency_loss_weight > 0.0 and chassis is not None and chassis.numel() > 0:
+            loss = loss + self.consistency_loss_weight * self._consistency_loss(pred, chassis)
+        return loss
+
+    def _sideslip_angle(self, velocity: torch.Tensor) -> torch.Tensor:
+        vx = velocity[:, 0]
+        sign = torch.where(vx >= 0.0, torch.ones_like(vx), -torch.ones_like(vx))
+        stable_vx = vx.abs().clamp_min(self.beta_vx_eps) * sign
+        return torch.atan2(velocity[:, 1], stable_vx)
+
+    def _consistency_loss(self, pred: torch.Tensor, chassis: torch.Tensor) -> torch.Tensor:
+        if chassis.dim() == 3:
+            center = chassis[:, chassis.shape[1] // 2, :]
+        elif chassis.dim() == 2:
+            center = chassis
+        else:
+            raise ValueError("chassis must have shape [B,C] or [B,K,C].")
+        required_index = max(
+            FAIR_CHASSIS_INDEX["yaw_rate"],
+            FAIR_CHASSIS_INDEX["transversal_accel"],
+        )
+        if center.shape[1] <= required_index:
+            raise ValueError("chassis does not contain yaw_rate/transversal_accel consistency features.")
+        center = center.to(device=pred.device, dtype=pred.dtype)
+        lateral_accel_pred = pred[:, 0] * center[:, FAIR_CHASSIS_INDEX["yaw_rate"]]
+        lateral_accel_target = center[:, FAIR_CHASSIS_INDEX["transversal_accel"]]
+        return self.base_loss(lateral_accel_pred, lateral_accel_target)
+
+
 def build_criterion(
     name: str,
     sigma_vx: float = 1.0,
     sigma_vy: float = 1.0,
     speed_weight: float = 0.0,
+    beta_loss_weight: float = 0.0,
+    prior_loss_weight: float = 0.0,
+    smoothness_loss_weight: float = 0.0,
+    consistency_loss_weight: float = 0.0,
+    beta_vx_eps: float = 0.5,
 ) -> nn.Module:
     name = name.lower()
     if name == "l1":
@@ -59,6 +138,17 @@ def build_criterion(
         return nn.MSELoss()
     if name in {"smoothl1", "huber", "velocity_smoothl1"}:
         return VelocitySmoothL1Loss(sigma_vx=sigma_vx, sigma_vy=sigma_vy, speed_weight=speed_weight)
+    if name in {"knowledge_velocity", "knowledge_driven", "knowledge_velocity_smoothl1"}:
+        return KnowledgeDrivenVelocityLoss(
+            sigma_vx=sigma_vx,
+            sigma_vy=sigma_vy,
+            speed_weight=speed_weight,
+            beta_loss_weight=beta_loss_weight,
+            prior_loss_weight=prior_loss_weight,
+            smoothness_loss_weight=smoothness_loss_weight,
+            consistency_loss_weight=consistency_loss_weight,
+            beta_vx_eps=beta_vx_eps,
+        )
     raise ValueError(f"Unsupported loss: {name}")
 
 
@@ -82,6 +172,20 @@ def _model_forward_from_batch(model: nn.Module, batch: dict, device: torch.devic
         geometry=_optional_batch_tensor(batch, "geometry", device),
     )
     return pred, velocity, base_velocity
+
+
+def _loss_from_batch(
+    criterion: nn.Module,
+    pred: torch.Tensor,
+    velocity: torch.Tensor,
+    base_velocity: torch.Tensor,
+    batch: dict,
+    device: torch.device,
+) -> torch.Tensor:
+    if isinstance(criterion, KnowledgeDrivenVelocityLoss):
+        chassis = batch["chassis"].to(device, non_blocking=True)
+        return criterion(pred, velocity, base_velocity=base_velocity, chassis=chassis)
+    return criterion(pred, velocity)
 
 
 def run_eval(
@@ -110,7 +214,7 @@ def run_eval(
             if max_batches and eval_step >= max_batches:
                 break
             pred, velocity, base_velocity = _model_forward_from_batch(model, batch, device)
-            loss = criterion(pred, velocity)
+            loss = _loss_from_batch(criterion, pred, velocity, base_velocity, batch, device)
             losses.append(loss.item())
             preds.extend(pred.detach().cpu().tolist())
             targets.extend(velocity.detach().cpu().tolist())
@@ -280,8 +384,11 @@ def main() -> None:
         dynamics_feature_dim=int(cfg["model"].get("dynamics_feature_dim", 8)),
         save_gate_weights=bool(cfg["model"].get("save_gate_weights", False)),
     )
-    model.load_flexinet_backbone(cfg["model"]["pretrained_path"], strict=False)
-    if bool(cfg["model"]["freeze_backbone"]):
+    if bool(cfg["model"].get("use_dynamics_branch", False)) and str(cfg["data"].get("base_velocity_source", "zero_lateral")) != "eovm_ekf":
+        print("Dynamics branch is using chassis-proxy features with zero_lateral base_velocity; EOVM-EKF prior is disabled.")
+    if bool(cfg["model"].get("use_vision_branch", True)):
+        model.load_flexinet_backbone(cfg["model"]["pretrained_path"], strict=False)
+    if bool(cfg["model"].get("use_vision_branch", True)) and bool(cfg["model"]["freeze_backbone"]):
         model.freeze_backbone()
     model.to(device)
 
@@ -290,15 +397,23 @@ def main() -> None:
         sigma_vx=float(cfg["train"].get("sigma_vx", 1.0)),
         sigma_vy=float(cfg["train"].get("sigma_vy", 1.0)),
         speed_weight=float(cfg["train"].get("speed_loss_weight", 0.0)),
+        beta_loss_weight=float(cfg["train"].get("beta_loss_weight", 0.0)),
+        prior_loss_weight=float(cfg["train"].get("prior_loss_weight", 0.0)),
+        smoothness_loss_weight=float(cfg["train"].get("smoothness_loss_weight", 0.0)),
+        consistency_loss_weight=float(cfg["train"].get("consistency_loss_weight", 0.0)),
+        beta_vx_eps=float(cfg["train"].get("beta_vx_eps", 0.5)),
     )
-    backbone_params = list(model.backbone.parameters())
+    backbone = getattr(model, "backbone", None)
+    backbone_params = list(backbone.parameters()) if backbone is not None else []
     backbone_param_ids = {id(param) for param in backbone_params}
     head_params = [param for param in model.parameters() if id(param) not in backbone_param_ids]
+    optimizer_param_groups = [{"params": head_params, "lr": float(cfg["train"]["learning_rate_head"])}]
+    if backbone_params:
+        optimizer_param_groups.append(
+            {"params": backbone_params, "lr": float(cfg["train"]["learning_rate_backbone"])}
+        )
     optimizer = torch.optim.AdamW(
-        [
-            {"params": head_params, "lr": float(cfg["train"]["learning_rate_head"])},
-            {"params": backbone_params, "lr": float(cfg["train"]["learning_rate_backbone"])},
-        ],
+        optimizer_param_groups,
         weight_decay=float(cfg["train"]["weight_decay"]),
     )
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
@@ -332,7 +447,7 @@ def main() -> None:
             optimizer.zero_grad(set_to_none=True)
             with torch.autocast(device_type="cuda", enabled=scaler is not None):
                 pred, velocity, base_velocity = _model_forward_from_batch(model, batch, device)
-                loss = criterion(pred, velocity)
+                loss = _loss_from_batch(criterion, pred, velocity, base_velocity, batch, device)
 
             if scaler is not None:
                 scaler.scale(loss).backward()

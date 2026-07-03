@@ -216,7 +216,6 @@ class FlexiNetChassisFusion(nn.Module):
         if use_dynamics_branch and dynamics_feature_dim != 8:
             raise ValueError("dynamics_feature_dim must be 8 for the current dynamics proxy.")
 
-        self.backbone = FlexiNetBackbone(input_channels=input_channels)
         self.output_dim = output_dim
         self.fusion_mode = fusion_mode
         self.use_vision_branch = bool(use_vision_branch)
@@ -227,6 +226,7 @@ class FlexiNetChassisFusion(nn.Module):
         self.save_gate_weights = bool(save_gate_weights)
         self.last_gate_weights: Optional[torch.Tensor] = None
         self.last_gate_names: list[str] = []
+        self.backbone = FlexiNetBackbone(input_channels=input_channels) if self.use_vision_branch else None
 
         self.chassis_encoder = ChassisSequenceEncoder(
             input_dim=chassis_input_dim,
@@ -237,7 +237,7 @@ class FlexiNetChassisFusion(nn.Module):
         )
         self.flow_encoder = (
             FlowEncoder(input_channels=flow_input_channels, output_dim=flow_feature_dim)
-            if flow_input_channels > 0 and flow_feature_dim > 0
+            if self.use_vision_branch and flow_input_channels > 0 and flow_feature_dim > 0
             else None
         )
         self.geometry_encoder = (
@@ -247,7 +247,7 @@ class FlexiNetChassisFusion(nn.Module):
                 hidden_dim=max(hidden_dim // 2, geometry_feature_dim, 8),
                 dropout=dropout,
             )
-            if geometry_input_dim > 0 and geometry_feature_dim > 0
+            if self.use_vision_branch and geometry_input_dim > 0 and geometry_feature_dim > 0
             else None
         )
 
@@ -367,6 +367,8 @@ class FlexiNetChassisFusion(nn.Module):
         flow: Optional[torch.Tensor] = None,
         geometry: Optional[torch.Tensor] = None,
     ) -> torch.Tensor:
+        if self.backbone is None:
+            raise RuntimeError("Vision branch is disabled, so the FlexiNet backbone is not available.")
         visual_feat = self.backbone.forward_features(images)
         features = [visual_feat]
         if self.flow_encoder is not None:
@@ -480,6 +482,8 @@ class FlexiNetChassisFusion(nn.Module):
         return torch.zeros_like(delta)
 
     def load_flexinet_backbone(self, checkpoint_path: str | Path, strict: bool = False) -> None:
+        if self.backbone is None:
+            return
         checkpoint = torch.load(checkpoint_path, map_location="cpu")
         state_dict = checkpoint.get("state_dict", checkpoint)
         cleaned = {}
@@ -501,10 +505,14 @@ class FlexiNetChassisFusion(nn.Module):
         self.backbone.load_state_dict(backbone_state, strict=strict)
 
     def freeze_backbone(self) -> None:
+        if self.backbone is None:
+            return
         for param in self.backbone.parameters():
             param.requires_grad = False
 
     def unfreeze_backbone(self) -> None:
+        if self.backbone is None:
+            return
         for param in self.backbone.parameters():
             param.requires_grad = True
 
