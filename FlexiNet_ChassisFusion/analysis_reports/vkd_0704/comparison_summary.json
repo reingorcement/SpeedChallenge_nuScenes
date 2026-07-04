@@ -1,0 +1,137 @@
+{
+  "methods": [
+    {
+      "name": "vkd_gated",
+      "label": "Vision + Kinematics + Dynamics gated",
+      "metrics_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\results_git\\FlexiNet_ChassisFusion_velocity_xy\\vkd_gated\\best_eval\\val_metrics.json",
+      "predictions_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\runs\\FlexiNet_ChassisFusion_velocity_xy\\vkd_gated\\best_eval\\val_predictions.csv"
+    },
+    {
+      "name": "kd_only",
+      "label": "Kinematics + Dynamics only",
+      "metrics_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\results_git\\FlexiNet_ChassisFusion_velocity_xy\\kd_only\\best_eval\\val_metrics.json",
+      "predictions_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\runs\\FlexiNet_ChassisFusion_velocity_xy\\kd_only\\best_eval\\val_predictions.csv"
+    },
+    {
+      "name": "vision_only",
+      "label": "Vision only",
+      "metrics_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\results_git\\FlexiNet_ChassisFusion_velocity_xy\\vision_only\\best_eval\\val_metrics.json",
+      "predictions_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\runs\\FlexiNet_ChassisFusion_velocity_xy\\vision_only\\best_eval\\val_predictions.csv"
+    },
+    {
+      "name": "vision_kinematics",
+      "label": "Vision + Kinematics",
+      "metrics_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\results_git\\FlexiNet_ChassisFusion_velocity_xy\\vision_kinematics\\best_eval\\val_metrics.json",
+      "predictions_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\runs\\FlexiNet_ChassisFusion_velocity_xy\\vision_kinematics\\best_eval\\val_predictions.csv"
+    }
+  ],
+  "alignment": {
+    "reference_method": "vkd_gated",
+    "sample_count": 33148,
+    "max_target_diff": 0.0
+  },
+  "primary_metrics": [
+    {
+      "method": "vkd_gated",
+      "label": "Vision + Kinematics + Dynamics gated",
+      "sample_count": 33148,
+      "vector_endpoint_error_mps": 0.07438193021399712,
+      "mae_vx_mps": 0.06875113771002064,
+      "mae_vy_mps": 0.017818746837557232,
+      "rmse_vx_mps": 0.10028224284231942,
+      "rmse_vy_mps": 0.026045379683949085,
+      "speed_magnitude_mae_mps": 0.06824837719102618,
+      "r2_vx": 0.9991870988362738,
+      "r2_vy": 0.5082623776518358,
+      "gain_vs_base_vector_mps": 0.1189763024091721,
+      "gain_vs_base_vx_mps": 0.11453118669705953,
+      "gain_vs_base_vy_mps": 0.020334759482950934,
+      "delta_vs_vkd_vector_endpoint_error_mps": 0.0,
+      "delta_vs_vkd_vector_endpoint_error_mps_pct": 0.0,
+      "delta_vs_vkd_mae_vx_mps": 0.0,
+      "delta_vs_vkd_mae_vx_mps_pct": 0.0,
+      "delta_vs_vkd_mae_vy_mps": 0.0,
+      "delta_vs_vkd_mae_vy_mps_pct": 0.0
+    },
+    {
+      "method": "kd_only",
+      "label": "Kinematics + Dynamics only",
+      "sample_count": 33148,
+      "vector_endpoint_error_mps": 0.0755913050573324,
+      "mae_vx_mps": 0.0699520962464001,
+      "mae_vy_mps": 0.017842873018682065,
+      "rmse_vx_mps": 0.10196707432757117,
+      "rmse_vy_mps": 0.02616212346903788,
+      "speed_magnitude_mae_mps": 0.06949886776007229,
+      "r2_vx": 0.9991595544435369,
+      "r2_vy": 0.5038442450666099,
+      "gain_vs_base_vector_mps": 0.11776692756583683,
+      "gain_vs_base_vx_mps": 0.11333022816068007,
+      "gain_vs_base_vy_mps": 0.0203106333018261,
+      "delta_vs_vkd_vector_endpoint_error_mps": 0.0012093748433352758,
+      "delta_vs_vkd_vector_endpoint_error_mps_pct": 1.5998861805838946,
+      "delta_vs_vkd_mae_vx_mps": 0.0012009585363794567,
+      "delta_vs_vkd_mae_vx_mps_pct": 1.7168299462380454,
+      "delta_vs_vkd_mae_vy_mps": 2.4126181124833196e-05,
+      "delta_vs_vkd_mae_vy_mps_pct": 0.13521466581963737
+    },
+    {
+      "method": "vision_only",
+      "label": "Vision only",
+      "sample_count": 33148,
+      "vector_endpoint_error_mps": 1.0891362378079064,
+      "mae_vx_mps": 1.088151459462995,
+      "mae_vy_mps": 0.021502581716372513,
+      "rmse_vx_mps": 1.531137068119317,
+      "rmse_vy_mps": 0.0308405195400876,
+      "speed_magnitude_mae_mps": 1.0869957669800934,
+      "r2_vx": 0.8104962494879109,
+      "r2_vy": 0.31052992320789163,
+      "gain_vs_base_vector_mps": -0.8957780051847372,
+      "gain_vs_base_vx_mps": -0.9048691350559149,
+      "gain_vs_base_vy_mps": 0.016650924604135652,
+      "delta_vs_vkd_vector_endpoint_error_mps": 1.0147543075939092,
+      "delta_vs_vkd_vector_endpoint_error_mps_pct": 93.17055776569283,
+      "delta_vs_vkd_mae_vx_mps": 1.0194003217529743,
+      "delta_vs_vkd_mae_vx_mps_pct": 93.68184115252214,
+      "delta_vs_vkd_mae_vy_mps": 0.0036838348788152814,
+      "delta_vs_vkd_mae_vy_mps_pct": 17.132058500725673
+    },
+    {
+      "method": "vision_kinematics",
+      "label": "Vision + Kinematics",
+      "sample_count": 33148,
+      "vector_endpoint_error_mps": 0.07625458742975225,
+      "mae_vx_mps": 0.0704889664504183,
+      "mae_vy_mps": 0.018148405318401686,
+      "rmse_vx_mps": 0.10350231816132473,
+      "rmse_vy_mps": 0.026855960097771213,
+      "speed_magnitude_mae_mps": 0.06992020819155916,
+      "r2_vx": 0.9991340559709043,
+      "r2_vy": 0.47717852597216504,
+      "gain_vs_base_vector_mps": 0.11710364519341698,
+      "gain_vs_base_vx_mps": 0.11279335795666187,
+      "gain_vs_base_vy_mps": 0.02000510100210648,
+      "delta_vs_vkd_vector_endpoint_error_mps": 0.001872657215755122,
+      "delta_vs_vkd_vector_endpoint_error_mps_pct": 2.4557961414193783,
+      "delta_vs_vkd_mae_vx_mps": 0.0017378287403976567,
+      "delta_vs_vkd_mae_vx_mps_pct": 2.4653911497199203,
+      "delta_vs_vkd_mae_vy_mps": 0.00032965848084445457,
+      "delta_vs_vkd_mae_vy_mps_pct": 1.8164597663586197
+    }
+  ],
+  "scenario_order": [
+    "all",
+    "low_speed",
+    "mid_speed",
+    "high_speed",
+    "turning",
+    "straight",
+    "high_lateral",
+    "low_speed_lateral",
+    "wheel_inconsistent",
+    "hard_accel",
+    "high_lat_accel"
+  ],
+  "single_seed_warning": true
+}
