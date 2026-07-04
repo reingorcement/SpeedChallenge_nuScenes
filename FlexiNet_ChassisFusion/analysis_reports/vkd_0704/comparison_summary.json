@@ -3,26 +3,26 @@
     {
       "name": "vkd_gated",
       "label": "Vision + Kinematics + Dynamics gated",
-      "metrics_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\results_git\\FlexiNet_ChassisFusion_velocity_xy\\vkd_gated\\best_eval\\val_metrics.json",
-      "predictions_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\runs\\FlexiNet_ChassisFusion_velocity_xy\\vkd_gated\\best_eval\\val_predictions.csv"
+      "metrics_path": "/home/ps/workspace/zy/09_SpeedChallenge_nuScenes_worktrees/dynkinvision-0703-isolated/FlexiNet_ChassisFusion/results_git/FlexiNet_ChassisFusion_velocity_xy/vkd_gated/best_eval/val_metrics.json",
+      "predictions_path": "/home/ps/workspace/zy/09_SpeedChallenge_nuScenes_worktrees/dynkinvision-0703-isolated/FlexiNet_ChassisFusion/runs/FlexiNet_ChassisFusion_velocity_xy/vkd_gated/best_eval/val_predictions.csv"
     },
     {
       "name": "kd_only",
       "label": "Kinematics + Dynamics only",
-      "metrics_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\results_git\\FlexiNet_ChassisFusion_velocity_xy\\kd_only\\best_eval\\val_metrics.json",
-      "predictions_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\runs\\FlexiNet_ChassisFusion_velocity_xy\\kd_only\\best_eval\\val_predictions.csv"
+      "metrics_path": "/home/ps/workspace/zy/09_SpeedChallenge_nuScenes_worktrees/dynkinvision-0703-isolated/FlexiNet_ChassisFusion/results_git/FlexiNet_ChassisFusion_velocity_xy/kd_only/best_eval/val_metrics.json",
+      "predictions_path": "/home/ps/workspace/zy/09_SpeedChallenge_nuScenes_worktrees/dynkinvision-0703-isolated/FlexiNet_ChassisFusion/runs/FlexiNet_ChassisFusion_velocity_xy/kd_only/best_eval/val_predictions.csv"
     },
     {
       "name": "vision_only",
       "label": "Vision only",
-      "metrics_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\results_git\\FlexiNet_ChassisFusion_velocity_xy\\vision_only\\best_eval\\val_metrics.json",
-      "predictions_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\runs\\FlexiNet_ChassisFusion_velocity_xy\\vision_only\\best_eval\\val_predictions.csv"
+      "metrics_path": "/home/ps/workspace/zy/09_SpeedChallenge_nuScenes_worktrees/dynkinvision-0703-isolated/FlexiNet_ChassisFusion/results_git/FlexiNet_ChassisFusion_velocity_xy/vision_only/best_eval/val_metrics.json",
+      "predictions_path": "/home/ps/workspace/zy/09_SpeedChallenge_nuScenes_worktrees/dynkinvision-0703-isolated/FlexiNet_ChassisFusion/runs/FlexiNet_ChassisFusion_velocity_xy/vision_only/best_eval/val_predictions.csv"
     },
     {
       "name": "vision_kinematics",
       "label": "Vision + Kinematics",
-      "metrics_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\results_git\\FlexiNet_ChassisFusion_velocity_xy\\vision_kinematics\\best_eval\\val_metrics.json",
-      "predictions_path": "D:\\data\\Master\\01_Master_1\\01_Research\\09_SpeedChallenge_nuScenes_worktrees\\dynkinvision-0703\\FlexiNet_ChassisFusion\\runs\\FlexiNet_ChassisFusion_velocity_xy\\vision_kinematics\\best_eval\\val_predictions.csv"
+      "metrics_path": "/home/ps/workspace/zy/09_SpeedChallenge_nuScenes_worktrees/dynkinvision-0703-isolated/FlexiNet_ChassisFusion/results_git/FlexiNet_ChassisFusion_velocity_xy/vision_kinematics/best_eval/val_metrics.json",
+      "predictions_path": "/home/ps/workspace/zy/09_SpeedChallenge_nuScenes_worktrees/dynkinvision-0703-isolated/FlexiNet_ChassisFusion/runs/FlexiNet_ChassisFusion_velocity_xy/vision_kinematics/best_eval/val_predictions.csv"
     }
   ],
   "alignment": {

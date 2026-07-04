@@ -43,8 +43,8 @@ These scenarios are computed from the aligned validation samples using the same 
 | turning | 3433 | 0.08652 | 0.08759 | 0.08959 | 1.05679 | 0.00307 |
 | high_lateral | 3316 | 0.10875 | 0.10891 | 0.11442 | 1.64905 | 0.00567 |
 | wheel_inconsistent | 3315 | 0.08503 | 0.08576 | 0.08815 | 1.13683 | 0.00312 |
-| hard_accel | 3315 | 0.08783 | 0.09194 | 0.09194 | 1.02069 | 0.00411 |
-| high_lat_accel | 3315 | 0.08660 | 0.08776 | 0.08828 | 1.17717 | 0.00168 |
+| hard_accel | 3315 | 0.08740 | 0.09148 | 0.09145 | 1.01193 | 0.00406 |
+| high_lat_accel | 3315 | 0.08736 | 0.08835 | 0.08921 | 1.17785 | 0.00185 |
 
 ## Gate Analysis
 
@@ -55,12 +55,16 @@ These scenarios are computed from the aligned validation samples using the same 
 | turning | 0.6008 | 0.2321 | 0.1671 |
 | high_lateral | 0.5816 | 0.2202 | 0.1982 |
 | wheel_inconsistent | 0.5973 | 0.2342 | 0.1685 |
-| hard_accel | 0.6124 | 0.1981 | 0.1894 |
-| high_lat_accel | 0.6008 | 0.2297 | 0.1695 |
+| hard_accel | 0.6124 | 0.1980 | 0.1896 |
+| high_lat_accel | 0.6008 | 0.2293 | 0.1699 |
 
 ## Generated Figures
 
-- Figure generation was skipped or unavailable in this environment.
+- `figures/overall_metrics.png`
+- `figures/vx_vy_mae.png`
+- `figures/scenario_endpoint_error.png`
+- `figures/error_distribution.png`
+- `figures/gate_by_scenario.png`
 
 ## Output Files
 
