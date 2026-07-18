@@ -17,7 +17,7 @@ data:
   chassis_mode: fair_chassis
   chassis_window_sec: 1.0
   chassis_hz: 20.0
-  online_mode: false
+  online_mode: true
   image_mode: gray
   flow_mode: none
   flow_root:

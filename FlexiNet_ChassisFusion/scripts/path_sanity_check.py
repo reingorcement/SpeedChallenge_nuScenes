@@ -15,7 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from dataset.nuscenes_chassis import FAIR_CHASSIS_DIM, POSE_ASSISTED_CHASSIS_DIM, NuScenesChassisFusionDataset
 from model.fusion_model import FlexiNetChassisFusion
-from train import build_criterion
+from train import KnowledgeDrivenVelocityLoss, build_criterion, validate_physics_config
 
 
 def load_config(path: Path) -> dict:
@@ -110,10 +110,15 @@ def build_model_from_config(cfg: dict) -> FlexiNetChassisFusion:
         branch_feature_dim=int(cfg["model"].get("branch_feature_dim", 64)),
         dynamics_feature_dim=int(cfg["model"].get("dynamics_feature_dim", 8)),
         save_gate_weights=bool(cfg["model"].get("save_gate_weights", False)),
+        physics_mass=float(cfg["model"].get("physics_mass", 3052.0)),
+        physics_wheelbase=float(cfg["model"].get("physics_wheelbase", 3.128)),
+        physics_lf=float(cfg["model"].get("physics_lf", 1.293)),
+        physics_front_track=float(cfg["model"].get("physics_front_track", 1.600)),
+        physics_rear_track=float(cfg["model"].get("physics_rear_track", 1.740)),
     )
 
 
-def make_dummy_inputs(cfg: dict, sample: dict | None = None) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor | None, torch.Tensor | None]:
+def make_dummy_inputs(cfg: dict, sample: dict | None = None) -> dict[str, torch.Tensor | None]:
     seq_len = int(cfg["data"]["seq_len"])
     img_h = int(cfg["data"]["img_height"])
     img_w = int(cfg["data"]["img_width"])
@@ -131,20 +136,40 @@ def make_dummy_inputs(cfg: dict, sample: dict | None = None) -> tuple[torch.Tens
     geometry = None
     if str(cfg["data"].get("geometry_mode", "basic")) == "basic":
         geometry = torch.randn(1, 4)
-    return images, chassis, base_velocity, flow, geometry
+    physics_inputs = sample["physics_inputs"].unsqueeze(0) if sample is not None else torch.zeros(1, chassis_len, 25)
+    physics_valid_mask = sample["physics_valid_mask"].unsqueeze(0) if sample is not None else torch.zeros(1, chassis_len, 25, dtype=torch.bool)
+    physics_dt = sample["physics_dt"].unsqueeze(0) if sample is not None else torch.full((1, chassis_len), 1.0 / max(float(cfg["data"].get("chassis_hz", 1.0)), 1.0))
+    if sample is None:
+        physics_inputs[:, :, 0] = 10.0
+        physics_inputs[:, :, 6:10] = 10.0
+        physics_valid_mask[:, :, :10] = True
+        physics_dt[:, 0] = 0.0
+    return {
+        "images": images,
+        "chassis": chassis,
+        "base_velocity": base_velocity,
+        "flow": flow,
+        "geometry": geometry,
+        "physics_inputs": physics_inputs,
+        "physics_valid_mask": physics_valid_mask,
+        "physics_dt": physics_dt,
+        "chassis_current_index": (
+            sample["chassis_current_index"].reshape(1)
+            if sample is not None
+            else torch.tensor([chassis_len - 1 if bool(cfg["data"].get("online_mode", False)) else chassis_len // 2])
+        ),
+    }
 
 
 def build_optimizer(cfg: dict, model: torch.nn.Module) -> torch.optim.Optimizer:
-    backbone_params = list(model.backbone.parameters())
+    backbone = getattr(model, "backbone", None)
+    backbone_params = list(backbone.parameters()) if backbone is not None else []
     backbone_param_ids = {id(param) for param in backbone_params}
     head_params = [param for param in model.parameters() if id(param) not in backbone_param_ids]
-    return torch.optim.AdamW(
-        [
-            {"params": head_params, "lr": float(cfg["train"]["learning_rate_head"])},
-            {"params": backbone_params, "lr": float(cfg["train"]["learning_rate_backbone"])},
-        ],
-        weight_decay=float(cfg["train"]["weight_decay"]),
-    )
+    groups = [{"params": head_params, "lr": float(cfg["train"]["learning_rate_head"])}]
+    if backbone_params:
+        groups.append({"params": backbone_params, "lr": float(cfg["train"]["learning_rate_backbone"])})
+    return torch.optim.AdamW(groups, weight_decay=float(cfg["train"]["weight_decay"]))
 
 
 def run_tiny_training_step(cfg: dict, dataset: NuScenesChassisFusionDataset, model: FlexiNetChassisFusion) -> bool:
@@ -162,6 +187,9 @@ def run_tiny_training_step(cfg: dict, dataset: NuScenesChassisFusionDataset, mod
         sigma_vx=float(cfg["train"].get("sigma_vx", 1.0)),
         sigma_vy=float(cfg["train"].get("sigma_vy", 1.0)),
         speed_weight=float(cfg["train"].get("speed_loss_weight", 0.0)),
+        beta_loss_weight=float(cfg["train"].get("beta_loss_weight", 0.0)),
+        physics_prior_loss_weight=float(cfg["train"].get("physics_prior_loss_weight", 0.0)),
+        physics_correction_loss_weight=float(cfg["train"].get("physics_correction_loss_weight", 0.0)),
     )
     optimizer = build_optimizer(cfg, model)
     clip_value = float(cfg["train"].get("grad_clip", 0.0))
@@ -180,6 +208,9 @@ def run_tiny_training_step(cfg: dict, dataset: NuScenesChassisFusionDataset, mod
     geometry = batch.get("geometry")
     flow_tensor = flow.to(device) if isinstance(flow, torch.Tensor) and flow.numel() > 0 else None
     geometry_tensor = geometry.to(device) if isinstance(geometry, torch.Tensor) and geometry.numel() > 0 else None
+    physics_inputs = batch["physics_inputs"].to(device)
+    physics_valid_mask = batch["physics_valid_mask"].to(device)
+    physics_dt = batch["physics_dt"].to(device)
 
     with torch.autocast(device_type="cuda", enabled=scaler is not None):
         pred = model(
@@ -188,8 +219,23 @@ def run_tiny_training_step(cfg: dict, dataset: NuScenesChassisFusionDataset, mod
             base_velocity=base_velocity,
             flow=flow_tensor,
             geometry=geometry_tensor,
+            physics_inputs=physics_inputs,
+            physics_valid_mask=physics_valid_mask,
+            physics_dt=physics_dt,
+            chassis_current_index=batch["chassis_current_index"].to(device),
         )
-        loss = criterion(pred, velocity)
+        if isinstance(criterion, KnowledgeDrivenVelocityLoss):
+            loss = criterion(
+                pred,
+                velocity,
+                chassis=chassis,
+                physics_prior=model.last_physics_prior,
+                physics_confidence=model.last_physics_confidence,
+                correction_gate=model.last_correction_gate,
+                chassis_current_index=batch["chassis_current_index"].to(device),
+            )
+        else:
+            loss = criterion(pred, velocity)
 
     if not torch.isfinite(loss):
         print("[FAIL] training loss is not finite")
@@ -232,6 +278,11 @@ def main() -> int:
     cfg = load_config(config_path)
     if args.allow_pose_fallback:
         cfg["data"]["allow_pose_fallback"] = True
+    try:
+        validate_physics_config(cfg)
+    except ValueError as exc:
+        print(f"[FAIL] {exc}")
+        return 1
 
     print(f"Config: {config_path.resolve()}")
     print(f"Working dir: {Path.cwd()}")
@@ -284,6 +335,10 @@ def main() -> int:
                 geometry_mode=str(cfg["data"].get("geometry_mode", "basic")),
                 base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
                 eovm_base_root=cfg["data"].get("eovm_base_root"),
+                physics_extra_root=cfg["data"].get("physics_extra_root"),
+                physics_units_audited=bool(cfg["data"].get("physics_units_audited", False)),
+                can_max_age_sec=float(cfg["data"].get("can_max_age_sec", 0.25)),
+                physics_extra_max_age_sec=float(cfg["data"].get("physics_extra_max_age_sec", 0.5)),
             )
             print(f"[OK] dataset init: scenes={len(dataset.scene_names)} samples={len(dataset)}")
             if len(dataset) == 0:
@@ -311,9 +366,19 @@ def main() -> int:
                 assert pretrained_path is not None
                 model.load_flexinet_backbone(pretrained_path, strict=False)
             model.eval()
-            images, chassis, base_velocity, flow, geometry = make_dummy_inputs(cfg, sample)
+            dummy = make_dummy_inputs(cfg, sample)
             with torch.no_grad():
-                output = model(images, chassis, base_velocity=base_velocity, flow=flow, geometry=geometry)
+                output = model(
+                    dummy["images"],
+                    dummy["chassis"],
+                    base_velocity=dummy["base_velocity"],
+                    flow=dummy["flow"],
+                    geometry=dummy["geometry"],
+                    physics_inputs=dummy["physics_inputs"],
+                    physics_valid_mask=dummy["physics_valid_mask"],
+                    physics_dt=dummy["physics_dt"],
+                    chassis_current_index=dummy["chassis_current_index"],
+                )
             print(f"[OK] model forward output shape: {tuple(output.shape)}")
         except Exception as exc:
             print(f"[FAIL] model probe failed: {exc}")
@@ -342,6 +407,10 @@ def main() -> int:
                     geometry_mode=str(cfg["data"].get("geometry_mode", "basic")),
                     base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
                     eovm_base_root=cfg["data"].get("eovm_base_root"),
+                    physics_extra_root=cfg["data"].get("physics_extra_root"),
+                    physics_units_audited=bool(cfg["data"].get("physics_units_audited", False)),
+                    can_max_age_sec=float(cfg["data"].get("can_max_age_sec", 0.25)),
+                    physics_extra_max_age_sec=float(cfg["data"].get("physics_extra_max_age_sec", 0.5)),
                 )
             except Exception as exc:
                 print(f"[FAIL] dataset rebuild for train step failed: {exc}")

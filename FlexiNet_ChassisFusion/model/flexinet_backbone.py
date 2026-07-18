@@ -23,13 +23,16 @@ class FlexiNetBackbone(nn.Module):
         self.dig = DynamicIntegrationGate(output_channels=256)
         self.global_pool = AdaptiveAvgPool3dStatic(mode="1")
 
-    def forward_features(self, x: torch.Tensor) -> torch.Tensor:
+    def forward_feature_map(self, x: torch.Tensor) -> torch.Tensor:
         x = x.permute(0, 2, 1, 3, 4)
         cma_out = self.cma_block(x)
         aft_out = self.aft_block(cma_out, cma_out)
         sfe_out = self.sfe_module(aft_out)
         mfe_out = self.mfe_module(aft_out)
-        integrated = self.dig(sfe_out, mfe_out)
+        return self.dig(sfe_out, mfe_out)
+
+    def forward_features(self, x: torch.Tensor) -> torch.Tensor:
+        integrated = self.forward_feature_map(x)
         pooled = self.global_pool(integrated).view(integrated.size(0), -1)
         return pooled
 

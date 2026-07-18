@@ -47,3 +47,6 @@ v1.0-trainval/
 # OS files
 .DS_Store
 Thumbs.db
+
+# MATLAB/Simulink generated artifacts
+/simulink/slprj/

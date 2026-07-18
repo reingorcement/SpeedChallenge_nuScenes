@@ -15,7 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from dataset.nuscenes_chassis import FAIR_CHASSIS_DIM, POSE_ASSISTED_CHASSIS_DIM, NuScenesChassisFusionDataset
 from model.fusion_model import FlexiNetChassisFusion
-from train import build_criterion, load_config_from_yaml
+from train import KnowledgeDrivenVelocityLoss, build_criterion, load_config_from_yaml, validate_physics_config
 from utils.seed import set_seed
 
 
@@ -47,6 +47,10 @@ def build_dataset(cfg: dict, split: str) -> NuScenesChassisFusionDataset:
         geometry_mode=str(cfg["data"].get("geometry_mode", "basic")),
         base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
         eovm_base_root=cfg["data"].get("eovm_base_root"),
+        physics_extra_root=cfg["data"].get("physics_extra_root"),
+        physics_units_audited=bool(cfg["data"].get("physics_units_audited", False)),
+        can_max_age_sec=float(cfg["data"].get("can_max_age_sec", 0.25)),
+        physics_extra_max_age_sec=float(cfg["data"].get("physics_extra_max_age_sec", 0.5)),
         frame_cache_root=cfg["data"].get("frame_cache_root"),
     )
 
@@ -76,9 +80,15 @@ def build_model(cfg: dict) -> FlexiNetChassisFusion:
         branch_feature_dim=int(cfg["model"].get("branch_feature_dim", 64)),
         dynamics_feature_dim=int(cfg["model"].get("dynamics_feature_dim", 8)),
         save_gate_weights=bool(cfg["model"].get("save_gate_weights", False)),
+        physics_mass=float(cfg["model"].get("physics_mass", 3052.0)),
+        physics_wheelbase=float(cfg["model"].get("physics_wheelbase", 3.128)),
+        physics_lf=float(cfg["model"].get("physics_lf", 1.293)),
+        physics_front_track=float(cfg["model"].get("physics_front_track", 1.600)),
+        physics_rear_track=float(cfg["model"].get("physics_rear_track", 1.740)),
     )
-    model.load_flexinet_backbone(cfg["model"]["pretrained_path"], strict=False)
-    if bool(cfg["model"]["freeze_backbone"]):
+    if bool(cfg["model"].get("use_vision_branch", True)):
+        model.load_flexinet_backbone(cfg["model"]["pretrained_path"], strict=False)
+    if bool(cfg["model"].get("use_vision_branch", True)) and bool(cfg["model"]["freeze_backbone"]):
         model.freeze_backbone()
     return model
 
@@ -98,6 +108,7 @@ def main() -> None:
     args = parser.parse_args()
 
     cfg = load_config_from_yaml(Path(args.config))
+    validate_physics_config(cfg)
     if args.frame_cache_root is not None:
         cfg["data"]["frame_cache_root"] = args.frame_cache_root or None
     set_seed(int(cfg["train"]["seed"]))
@@ -123,6 +134,9 @@ def main() -> None:
         sigma_vx=float(cfg["train"].get("sigma_vx", 1.0)),
         sigma_vy=float(cfg["train"].get("sigma_vy", 1.0)),
         speed_weight=float(cfg["train"].get("speed_loss_weight", 0.0)),
+        beta_loss_weight=float(cfg["train"].get("beta_loss_weight", 0.0)),
+        physics_prior_loss_weight=float(cfg["train"].get("physics_prior_loss_weight", 0.0)),
+        physics_correction_loss_weight=float(cfg["train"].get("physics_correction_loss_weight", 0.0)),
     )
     optimizer = torch.optim.AdamW(
         [param for param in model.parameters() if param.requires_grad],
@@ -150,14 +164,39 @@ def main() -> None:
         velocity = batch["velocity"].to(device, non_blocking=True)
         flow = _optional_batch_tensor(batch, "flow", device)
         geometry = _optional_batch_tensor(batch, "geometry", device)
+        physics_inputs = _optional_batch_tensor(batch, "physics_inputs", device)
+        physics_valid_mask = _optional_batch_tensor(batch, "physics_valid_mask", device)
+        physics_dt = _optional_batch_tensor(batch, "physics_dt", device)
+        chassis_current_index = _optional_batch_tensor(batch, "chassis_current_index", device)
         cuda_sync(device)
         transfer_end = time.perf_counter()
 
         compute_start = time.perf_counter()
         optimizer.zero_grad(set_to_none=True)
         with torch.autocast(device_type="cuda", enabled=scaler is not None):
-            pred = model(images, chassis, base_velocity=base_velocity, flow=flow, geometry=geometry)
-            loss = criterion(pred, velocity)
+            pred = model(
+                images,
+                chassis,
+                base_velocity=base_velocity,
+                flow=flow,
+                geometry=geometry,
+                physics_inputs=physics_inputs,
+                physics_valid_mask=physics_valid_mask,
+                physics_dt=physics_dt,
+                chassis_current_index=chassis_current_index,
+            )
+            if isinstance(criterion, KnowledgeDrivenVelocityLoss):
+                loss = criterion(
+                    pred,
+                    velocity,
+                    chassis=chassis,
+                    physics_prior=model.last_physics_prior,
+                    physics_confidence=model.last_physics_confidence,
+                    correction_gate=model.last_correction_gate,
+                    chassis_current_index=chassis_current_index,
+                )
+            else:
+                loss = criterion(pred, velocity)
         if scaler is not None:
             scaler.scale(loss).backward()
             scaler.step(optimizer)

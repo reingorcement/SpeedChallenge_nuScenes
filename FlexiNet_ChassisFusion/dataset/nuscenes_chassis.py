@@ -14,6 +14,13 @@ from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
 
+from dataset.physics_schema import (
+    FAIR_PHYSICS_FEATURE_COUNT,
+    PHYSICS_EXTRA_FEATURES,
+    PHYSICS_INPUT_DIM,
+    PHYSICS_INPUT_INDEX,
+)
+
 
 FAIR_CHASSIS_FEATURES = [
     "vehicle_speed",
@@ -72,6 +79,28 @@ DYNAMICS_PROXY_FEATURE_NAMES = [
 ]
 
 
+def _has_finite_field(record: Optional[dict], key: str) -> bool:
+    if record is None or key not in record:
+        return False
+    try:
+        return math.isfinite(float(record[key]))
+    except (TypeError, ValueError):
+        return False
+
+
+def _finite_field(record: Optional[dict], key: str, scale: float = 1.0) -> float:
+    if not _has_finite_field(record, key):
+        return 0.0
+    assert record is not None
+    return float(record[key]) / scale
+
+
+def _current_sequence_index(length: int, online_mode: bool) -> int:
+    if length <= 0:
+        raise ValueError("Sequence length must be positive.")
+    return length - 1 if online_mode else length // 2
+
+
 def _yaw_from_quaternion(rotation: Sequence[float]) -> float:
     if len(rotation) != 4:
         raise ValueError("nuScenes ego_pose rotation must be a quaternion [w, x, y, z].")
@@ -117,11 +146,63 @@ class PrecomputedVelocityLookup:
         return self._cache[scene_name]
 
 
+class PrecomputedPhysicsExtraLookup:
+    """Causal lookup for optional full-vehicle signals stored per scene."""
+
+    def __init__(self, root: str | Path, max_age_us: int = 500_000) -> None:
+        self.root = Path(root)
+        if max_age_us <= 0:
+            raise ValueError("max_age_us must be positive.")
+        self.max_age_us = int(max_age_us)
+        self._cache: dict[str, tuple[list[int], list[dict[str, float]]]] = {}
+
+    def lookup(self, scene_name: str, timestamp_us: int) -> tuple[list[float], list[bool]]:
+        timestamps, rows = self._load_scene(scene_name)
+        index = bisect_right(timestamps, timestamp_us) - 1
+        if index < 0 or timestamp_us - timestamps[index] > self.max_age_us:
+            return [0.0] * len(PHYSICS_EXTRA_FEATURES), [False] * len(PHYSICS_EXTRA_FEATURES)
+        row = rows[index]
+        values = [float(row.get(name, 0.0)) for name in PHYSICS_EXTRA_FEATURES]
+        valid = [name in row for name in PHYSICS_EXTRA_FEATURES]
+        return values, valid
+
+    def _load_scene(self, scene_name: str) -> tuple[list[int], list[dict[str, float]]]:
+        if scene_name in self._cache:
+            return self._cache[scene_name]
+        path = self.root / f"{scene_name}.csv"
+        if not path.is_file():
+            self._cache[scene_name] = ([], [])
+            return self._cache[scene_name]
+        timestamps: list[int] = []
+        rows: list[dict[str, float]] = []
+        with path.open("r", newline="", encoding="utf-8") as file:
+            for raw_row in csv.DictReader(file):
+                if not raw_row.get("timestamp_us"):
+                    continue
+                timestamps.append(int(raw_row["timestamp_us"]))
+                rows.append(
+                    {
+                        name: float(raw_row[name])
+                        for name in PHYSICS_EXTRA_FEATURES
+                        if _has_finite_field(raw_row, name)
+                    }
+                )
+        order = sorted(range(len(timestamps)), key=timestamps.__getitem__)
+        self._cache[scene_name] = (
+            [timestamps[index] for index in order],
+            [rows[index] for index in order],
+        )
+        return self._cache[scene_name]
+
+
 class NuScenesCanBusAdapter:
-    def __init__(self, can_bus_root: str | Path) -> None:
+    def __init__(self, can_bus_root: str | Path, max_age_us: int = 250_000) -> None:
         self.can_bus_root = Path(can_bus_root)
         if not self.can_bus_root.exists():
             raise FileNotFoundError(f"CAN bus root not found: {self.can_bus_root}")
+        if max_age_us <= 0:
+            raise ValueError("max_age_us must be positive.")
+        self.max_age_us = int(max_age_us)
         self._message_cache: dict[tuple[str, str], List[dict]] = {}
         self._timestamp_cache: dict[tuple[str, str], List[int]] = {}
 
@@ -149,12 +230,26 @@ class NuScenesCanBusAdapter:
         return messages
 
     def _select_latest_before(self, scene_name: str, message_name: str, timestamp_us: int) -> Optional[dict]:
+        record, _ = self.select_latest_before_with_age(scene_name, message_name, timestamp_us)
+        return record
+
+    def select_latest_before_with_age(
+        self,
+        scene_name: str,
+        message_name: str,
+        timestamp_us: int,
+    ) -> tuple[Optional[dict], float]:
+        """Return the latest causal record and its true age in seconds."""
+
         records = self.load_messages(scene_name, message_name)
         timestamps = self._timestamp_cache.get((scene_name, message_name), [])
         idx = bisect_right(timestamps, timestamp_us) - 1
         if idx < 0:
-            return None
-        return records[idx]
+            return None, self.max_age_us / 1_000_000.0
+        age_us = timestamp_us - timestamps[idx]
+        if age_us < 0 or age_us > self.max_age_us:
+            return None, self.max_age_us / 1_000_000.0
+        return records[idx], age_us / 1_000_000.0
 
     def _feature_values(
         self,
@@ -188,34 +283,41 @@ class NuScenesCanBusAdapter:
         base_vx = 0.0
 
         if monitor is not None:
-            vehicle_speed = float(monitor.get("vehicle_speed", 0.0)) / 3.6
-            yaw_rate = math.radians(float(monitor.get("yaw_rate", 0.0)))
-            throttle = float(monitor.get("throttle", 0.0)) / 1000.0
-            brake = float(monitor.get("brake", 0.0)) / 126.0
-            steering = float(monitor.get("steering", 0.0)) / 780.0
+            vehicle_speed = _finite_field(monitor, "vehicle_speed", 3.6)
+            yaw_rate = math.radians(_finite_field(monitor, "yaw_rate"))
+            throttle = _finite_field(monitor, "throttle", 1000.0)
+            brake = _finite_field(monitor, "brake", 126.0)
+            steering = _finite_field(monitor, "steering", 780.0)
             base_vx = vehicle_speed
 
         if wheel is not None:
+            wheel_fields = ["FL_wheel_speed", "FR_wheel_speed", "RL_wheel_speed", "RR_wheel_speed"]
             raw_wheels = [
-                float(wheel.get("FL_wheel_speed", 0.0)),
-                float(wheel.get("FR_wheel_speed", 0.0)),
-                float(wheel.get("RL_wheel_speed", 0.0)),
-                float(wheel.get("RR_wheel_speed", 0.0)),
+                _finite_field(wheel, field)
+                for field in wheel_fields
             ]
             wheel_speeds = [value / 1000.0 for value in raw_wheels]
-            wheel_speed_mean = sum(wheel_speeds) / len(wheel_speeds)
-            variance = sum((value - wheel_speed_mean) ** 2 for value in wheel_speeds) / len(wheel_speeds)
-            wheel_speed_std = math.sqrt(variance)
-            odom_speed = float(wheel.get("odom_speed", 0.0)) / 3.6
-            longitudinal_accel = float(wheel.get("longitudinal_accel", 0.0))
-            transversal_accel = float(wheel.get("transversal_accel", 0.0))
+            valid_wheel_speeds = [
+                value
+                for value, field in zip(wheel_speeds, wheel_fields)
+                if _has_finite_field(wheel, field)
+            ]
+            if valid_wheel_speeds:
+                wheel_speed_mean = sum(valid_wheel_speeds) / len(valid_wheel_speeds)
+                variance = sum((value - wheel_speed_mean) ** 2 for value in valid_wheel_speeds) / len(
+                    valid_wheel_speeds
+                )
+                wheel_speed_std = math.sqrt(variance)
+            odom_speed = _finite_field(wheel, "odom_speed", 3.6)
+            longitudinal_accel = _finite_field(wheel, "longitudinal_accel")
+            transversal_accel = _finite_field(wheel, "transversal_accel")
             if base_vx == 0.0:
                 base_vx = odom_speed
             if base_vx == 0.0:
                 base_vx = wheel_speed_mean
 
         if steer is not None:
-            steering_feedback = float(steer.get("value", 0.0)) / 7.7
+            steering_feedback = _finite_field(steer, "value", 7.7)
 
         if pose is not None:
             vel = pose.get("vel", [0.0, 0.0, 0.0])
@@ -283,10 +385,29 @@ class NuScenesCanBusAdapter:
         hz: float = 1.0,
         online_mode: bool = False,
     ) -> Tuple[torch.Tensor, float]:
-        if window_sec <= 0.0:
-            values, base_vx = self._feature_values(scene_name, center_timestamp_us, chassis_mode=chassis_mode)
-            return torch.tensor([values], dtype=torch.float32), base_vx
+        timestamps = self.sample_timestamps(
+            center_timestamp_us=center_timestamp_us,
+            window_sec=window_sec,
+            hz=hz,
+            online_mode=online_mode,
+        )
 
+        rows = [
+            self._feature_values(scene_name, timestamp_us, chassis_mode=chassis_mode)[0]
+            for timestamp_us in timestamps
+        ]
+        _, base_vx = self._feature_values(scene_name, center_timestamp_us, chassis_mode=chassis_mode)
+        return torch.tensor(rows, dtype=torch.float32), base_vx
+
+    @staticmethod
+    def sample_timestamps(
+        center_timestamp_us: int,
+        window_sec: float,
+        hz: float,
+        online_mode: bool,
+    ) -> list[int]:
+        if window_sec <= 0.0:
+            return [center_timestamp_us]
         sample_count = max(int(round(window_sec * hz)) + 1, 1)
         window_us = int(round(window_sec * 1_000_000))
         if online_mode:
@@ -296,21 +417,71 @@ class NuScenesCanBusAdapter:
             half_window = window_us // 2
             start_us = center_timestamp_us - half_window
             end_us = center_timestamp_us + (window_us - half_window)
-
         if sample_count == 1:
-            timestamps = [center_timestamp_us]
-        else:
-            timestamps = [
-                int(round(start_us + (end_us - start_us) * index / (sample_count - 1)))
-                for index in range(sample_count)
-            ]
-
-        rows = [
-            self._feature_values(scene_name, timestamp_us, chassis_mode=chassis_mode)[0]
-            for timestamp_us in timestamps
+            return [center_timestamp_us]
+        return [
+            int(round(start_us + (end_us - start_us) * index / (sample_count - 1)))
+            for index in range(sample_count)
         ]
-        _, base_vx = self._feature_values(scene_name, center_timestamp_us, chassis_mode=chassis_mode)
-        return torch.tensor(rows, dtype=torch.float32), base_vx
+
+    def extract_physics_sequence(
+        self,
+        scene_name: str,
+        center_timestamp_us: int,
+        window_sec: float,
+        hz: float,
+        online_mode: bool,
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, list[int]]:
+        timestamps = self.sample_timestamps(center_timestamp_us, window_sec, hz, online_mode)
+        inputs = torch.zeros(len(timestamps), PHYSICS_INPUT_DIM, dtype=torch.float32)
+        valid = torch.zeros(len(timestamps), PHYSICS_INPUT_DIM, dtype=torch.bool)
+        for row_index, timestamp_us in enumerate(timestamps):
+            values, _ = self._feature_values(scene_name, timestamp_us, chassis_mode="fair_chassis")
+            monitor = self._select_latest_before(scene_name, "vehicle_monitor", timestamp_us)
+            wheel = self._select_latest_before(scene_name, "zoe_veh_info", timestamp_us)
+            steer = self._select_latest_before(scene_name, "steeranglefeedback", timestamp_us)
+            inputs[row_index, :FAIR_PHYSICS_FEATURE_COUNT] = torch.tensor(
+                [
+                    values[FAIR_CHASSIS_INDEX["base_vx"]],
+                    values[FAIR_CHASSIS_INDEX["yaw_rate"]],
+                    values[FAIR_CHASSIS_INDEX["steering"]],
+                    values[FAIR_CHASSIS_INDEX["steering_feedback"]],
+                    values[FAIR_CHASSIS_INDEX["longitudinal_accel"]],
+                    values[FAIR_CHASSIS_INDEX["transversal_accel"]],
+                    values[FAIR_CHASSIS_INDEX["fl_wheel_speed"]],
+                    values[FAIR_CHASSIS_INDEX["fr_wheel_speed"]],
+                    values[FAIR_CHASSIS_INDEX["rl_wheel_speed"]],
+                    values[FAIR_CHASSIS_INDEX["rr_wheel_speed"]],
+                ],
+                dtype=torch.float32,
+            )
+            wheel_fields = ["FL_wheel_speed", "FR_wheel_speed", "RL_wheel_speed", "RR_wheel_speed"]
+            base_valid = _has_finite_field(monitor, "vehicle_speed") or _has_finite_field(wheel, "odom_speed")
+            base_valid = base_valid or any(_has_finite_field(wheel, field) for field in wheel_fields)
+            valid[row_index, PHYSICS_INPUT_INDEX["base_vx"]] = base_valid
+            valid[row_index, PHYSICS_INPUT_INDEX["yaw_rate"]] = _has_finite_field(monitor, "yaw_rate")
+            valid[row_index, PHYSICS_INPUT_INDEX["steering_command"]] = _has_finite_field(monitor, "steering")
+            valid[row_index, PHYSICS_INPUT_INDEX["steering_feedback"]] = _has_finite_field(steer, "value")
+            valid[row_index, PHYSICS_INPUT_INDEX["longitudinal_accel"]] = _has_finite_field(
+                wheel, "longitudinal_accel"
+            )
+            valid[row_index, PHYSICS_INPUT_INDEX["lateral_accel"]] = _has_finite_field(
+                wheel, "transversal_accel"
+            )
+            for offset, field in enumerate(wheel_fields):
+                valid[row_index, PHYSICS_INPUT_INDEX["wheel_speed_fl"] + offset] = _has_finite_field(
+                    wheel, field
+                )
+            inputs[row_index, ~valid[row_index]] = 0.0
+        dt = torch.empty(len(timestamps), dtype=torch.float32)
+        if len(timestamps) == 1:
+            dt[0] = 0.0
+        else:
+            dt[0] = 0.0
+            dt[1:] = torch.tensor(
+                [(timestamps[index] - timestamps[index - 1]) / 1_000_000.0 for index in range(1, len(timestamps))]
+            )
+        return inputs, valid, dt, timestamps
 
 
 class NuScenesChassisFusionDataset(Dataset):
@@ -336,8 +507,13 @@ class NuScenesChassisFusionDataset(Dataset):
         geometry_mode: str = "basic",
         base_velocity_source: str = "zero_lateral",
         eovm_base_root: Optional[str | Path] = None,
+        physics_extra_root: Optional[str | Path] = None,
+        physics_units_audited: bool = False,
+        can_max_age_sec: float = 0.25,
+        physics_extra_max_age_sec: float = 0.5,
         frame_cache_root: Optional[str | Path] = None,
         max_scenes: Optional[int] = None,
+        retain_nusc_metadata: bool = False,
     ) -> None:
         from nuscenes.nuscenes import NuScenes
 
@@ -367,13 +543,30 @@ class NuScenesChassisFusionDataset(Dataset):
         self.flow_root = Path(flow_root) if flow_root else None
         self.geometry_mode = geometry_mode
         self.base_velocity_source = base_velocity_source
+        self.physics_units_audited = bool(physics_units_audited)
+        self.physics_extra_lookup = (
+            PrecomputedPhysicsExtraLookup(
+                physics_extra_root,
+                max_age_us=int(float(physics_extra_max_age_sec) * 1_000_000),
+            )
+            if physics_extra_root
+            else None
+        )
         self.eovm_lookup = PrecomputedVelocityLookup(eovm_base_root) if eovm_base_root else None
         if base_velocity_source == "eovm_ekf" and self.eovm_lookup is None:
             raise ValueError("eovm_base_root is required when base_velocity_source='eovm_ekf'.")
-        self.can_bus_adapter = NuScenesCanBusAdapter(can_bus_root) if can_bus_root else None
+        self.can_bus_adapter = (
+            NuScenesCanBusAdapter(
+                can_bus_root,
+                max_age_us=int(float(can_max_age_sec) * 1_000_000),
+            )
+            if can_bus_root
+            else None
+        )
         self.image_cache_size = max(int(image_cache_size), 0)
         self._image_cache: OrderedDict[str, torch.Tensor] = OrderedDict()
         self.frame_cache_root = Path(frame_cache_root) if frame_cache_root else None
+        self.retain_nusc_metadata = bool(retain_nusc_metadata)
         self._frame_token_to_loc: dict[str, tuple[str, int]] = {}
         self._frame_scene_arrays: dict[str, np.ndarray] = {}
         self._label_cache: Optional[dict[str, list[float]]] = None
@@ -428,7 +621,7 @@ class NuScenesChassisFusionDataset(Dataset):
 
             for i in range(len(scene_tokens) - seq_len + 1):
                 tokens = scene_tokens[i : i + seq_len]
-                center_idx = seq_len // 2
+                center_idx = _current_sequence_index(seq_len, self.online_mode)
                 center_token = tokens[center_idx]
                 center_sd = self.nusc.get("sample_data", center_token)
                 if not center_sd.get("prev", "") or not center_sd.get("next", ""):
@@ -521,7 +714,11 @@ class NuScenesChassisFusionDataset(Dataset):
         # copy it on fork. Only safe when __getitem__ no longer needs it: frames come
         # from the cache, labels come from labels.json, and chassis comes from the CAN
         # adapter (the pose-fallback path still requires NuScenes).
-        if self._label_cache is not None and self.can_bus_adapter is not None:
+        if (
+            self._label_cache is not None
+            and self.can_bus_adapter is not None
+            and not bool(getattr(self, "retain_nusc_metadata", False))
+        ):
             missing_labels = [s["center_token"] for s in self.samples if s["center_token"] not in self._label_cache]
             if not missing_labels:
                 self.nusc = None  # type: ignore[assignment]
@@ -660,7 +857,10 @@ class NuScenesChassisFusionDataset(Dataset):
     def _compute_geometry_prior(self, chassis_sequence: torch.Tensor) -> torch.Tensor:
         if self.geometry_mode == "none":
             return torch.empty(0, dtype=torch.float32)
-        center_idx = chassis_sequence.shape[0] // 2
+        center_idx = _current_sequence_index(
+            chassis_sequence.shape[0],
+            bool(getattr(self, "online_mode", False)),
+        )
         center_vec = chassis_sequence[center_idx]
         return torch.tensor(
             [
@@ -712,8 +912,23 @@ class NuScenesChassisFusionDataset(Dataset):
                 hz=self.chassis_hz,
                 online_mode=self.online_mode,
             )
+            physics_inputs, physics_valid_mask, physics_dt, physics_timestamps = (
+                self.can_bus_adapter.extract_physics_sequence(
+                    sample["scene_name"],
+                    sample["center_timestamp"],
+                    window_sec=self.chassis_window_sec,
+                    hz=self.chassis_hz,
+                    online_mode=self.online_mode,
+                )
+            )
         elif self.allow_pose_fallback:
             kin_seq, base_vx = self._compute_pose_fallback(sample["center_token"])
+            physics_inputs = torch.zeros(kin_seq.shape[0], PHYSICS_INPUT_DIM, dtype=torch.float32)
+            physics_valid_mask = torch.zeros_like(physics_inputs, dtype=torch.bool)
+            physics_inputs[:, PHYSICS_INPUT_INDEX["base_vx"]] = base_vx
+            physics_valid_mask[:, PHYSICS_INPUT_INDEX["base_vx"]] = True
+            physics_dt = torch.zeros(kin_seq.shape[0], dtype=torch.float32)
+            physics_timestamps = [sample["center_timestamp"]] * kin_seq.shape[0]
         else:
             raise FileNotFoundError(
                 "CAN bus root is not configured. Provide --can_bus_root or enable --allow_pose_fallback."
@@ -725,6 +940,12 @@ class NuScenesChassisFusionDataset(Dataset):
         else:
             base_velocity = torch.tensor([base_vx, 0.0], dtype=torch.float32)
 
+        if self.physics_extra_lookup is not None:
+            for row_index, timestamp_us in enumerate(physics_timestamps):
+                extra_values, extra_valid = self.physics_extra_lookup.lookup(sample["scene_name"], timestamp_us)
+                physics_inputs[row_index, FAIR_PHYSICS_FEATURE_COUNT:] = torch.tensor(extra_values)
+                physics_valid_mask[row_index, FAIR_PHYSICS_FEATURE_COUNT:] = torch.tensor(extra_valid)
+
         return {
             "images": stacked_frames,
             "chassis": kin_seq,
@@ -732,6 +953,13 @@ class NuScenesChassisFusionDataset(Dataset):
             "velocity": velocity_label,
             "flow": self._load_flow_sequence(tokens),
             "geometry": self._compute_geometry_prior(kin_seq),
+            "physics_inputs": physics_inputs,
+            "physics_valid_mask": physics_valid_mask,
+            "physics_dt": physics_dt,
+            "chassis_current_index": torch.tensor(
+                _current_sequence_index(kin_seq.shape[0], self.online_mode),
+                dtype=torch.long,
+            ),
             "base_speed": torch.tensor([base_vx], dtype=torch.float32),
             "speed": torch.tensor([speed_label], dtype=torch.float32),
             "scene_name": sample["scene_name"],

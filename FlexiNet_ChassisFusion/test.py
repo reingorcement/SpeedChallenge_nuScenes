@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 
 from dataset.nuscenes_chassis import FAIR_CHASSIS_DIM, POSE_ASSISTED_CHASSIS_DIM, NuScenesChassisFusionDataset
 from model.fusion_model import FlexiNetChassisFusion
-from train import build_criterion, load_config_from_yaml, run_eval
+from train import build_criterion, load_config_from_yaml, run_eval, validate_physics_config
 from utils.evaluation import copy_small_results_for_git, write_evaluation_artifacts
 
 
@@ -22,6 +22,7 @@ def main() -> None:
     args = parser.parse_args()
 
     cfg = load_config_from_yaml(Path(args.config))
+    validate_physics_config(cfg)
     if args.allow_pose_fallback:
         cfg["data"]["allow_pose_fallback"] = True
 
@@ -46,6 +47,10 @@ def main() -> None:
         geometry_mode=str(cfg["data"].get("geometry_mode", "basic")),
         base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
         eovm_base_root=cfg["data"].get("eovm_base_root"),
+        physics_extra_root=cfg["data"].get("physics_extra_root"),
+        physics_units_audited=bool(cfg["data"].get("physics_units_audited", False)),
+        can_max_age_sec=float(cfg["data"].get("can_max_age_sec", 0.25)),
+        physics_extra_max_age_sec=float(cfg["data"].get("physics_extra_max_age_sec", 0.5)),
     )
     print(f"Eval scenes: {len(dataset.scene_names)} | Eval samples: {len(dataset)}")
     num_workers = int(cfg["train"]["num_workers"])
@@ -82,6 +87,11 @@ def main() -> None:
         branch_feature_dim=int(cfg["model"].get("branch_feature_dim", 64)),
         dynamics_feature_dim=int(cfg["model"].get("dynamics_feature_dim", 8)),
         save_gate_weights=bool(cfg["model"].get("save_gate_weights", False)),
+        physics_mass=float(cfg["model"].get("physics_mass", 3052.0)),
+        physics_wheelbase=float(cfg["model"].get("physics_wheelbase", 3.128)),
+        physics_lf=float(cfg["model"].get("physics_lf", 1.293)),
+        physics_front_track=float(cfg["model"].get("physics_front_track", 1.600)),
+        physics_rear_track=float(cfg["model"].get("physics_rear_track", 1.740)),
     )
     checkpoint = torch.load(args.checkpoint, map_location="cpu")
     model.load_state_dict(checkpoint["model"], strict=True)
@@ -92,6 +102,13 @@ def main() -> None:
         sigma_vx=float(cfg["train"].get("sigma_vx", 1.0)),
         sigma_vy=float(cfg["train"].get("sigma_vy", 1.0)),
         speed_weight=float(cfg["train"].get("speed_loss_weight", 0.0)),
+        beta_loss_weight=float(cfg["train"].get("beta_loss_weight", 0.0)),
+        prior_loss_weight=float(cfg["train"].get("prior_loss_weight", 0.0)),
+        smoothness_loss_weight=float(cfg["train"].get("smoothness_loss_weight", 0.0)),
+        consistency_loss_weight=float(cfg["train"].get("consistency_loss_weight", 0.0)),
+        physics_prior_loss_weight=float(cfg["train"].get("physics_prior_loss_weight", 0.0)),
+        physics_correction_loss_weight=float(cfg["train"].get("physics_correction_loss_weight", 0.0)),
+        beta_vx_eps=float(cfg["train"].get("beta_vx_eps", 0.5)),
     )
     result = run_eval(model, loader, criterion, device)
     metrics = write_evaluation_artifacts(result, args.output_dir, prefix="val")

@@ -321,12 +321,29 @@ def test_vkd_ablation_configs_build_models() -> None:
         "velocity_xy_kd_only.yaml",
         "velocity_xy_vision_kinematics.yaml",
         "velocity_xy_vkd_gated.yaml",
+        "velocity_xy_base.yaml",
+        "velocity_xy_chassis_only.yaml",
+        "velocity_xy_physics_only.yaml",
+        "velocity_xy_physics_feature_only.yaml",
+        "velocity_xy_vision_chassis_physics.yaml",
+        "smoke_velocity_xy_physics_hybrid.yaml",
     ]
 
     for config_name in config_names:
         cfg = load_config(Path("configs") / config_name)
         model = build_model_from_config(cfg)
         assert model.output_dim == 2
+
+
+def test_physics_feature_only_config_trains_physics_gru_without_other_branches() -> None:
+    cfg = load_config(Path("configs") / "velocity_xy_physics_feature_only.yaml")
+    model = build_model_from_config(cfg)
+
+    assert model.fusion_mode == "physics_residual_gated"
+    assert model.physics_estimator is not None
+    assert model.physics_encoder is not None
+    assert model.use_vision_branch is False
+    assert model.use_kinematic_branch is False
 
 
 def test_compute_metrics_reports_vector_velocity_errors() -> None:

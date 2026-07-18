@@ -24,6 +24,9 @@ class EvaluationResult:
     transversal_accels: list[float] | None = None
     gate_weights: list[list[float]] | None = None
     gate_names: list[str] | None = None
+    physics_priors: list[list[float]] | None = None
+    physics_confidences: list[list[float]] | None = None
+    correction_gates: list[list[float]] | None = None
 
 
 def mean_absolute_error(preds: Sequence[float], targets: Sequence[float]) -> float:
@@ -71,6 +74,10 @@ def _endpoint_errors(preds: Sequence[Sequence[float]], targets: Sequence[Sequenc
     ]
 
 
+def _sideslip_angles(values: Sequence[Sequence[float]]) -> list[float]:
+    return [math.atan2(float(value[1]), math.copysign(max(abs(float(value[0])), 0.5), float(value[0]))) for value in values]
+
+
 def compute_metrics(
     preds: Sequence[float] | Sequence[Sequence[float]],
     targets: Sequence[float] | Sequence[Sequence[float]],
@@ -80,6 +87,7 @@ def compute_metrics(
     wheel_speed_stds: Sequence[float] | None = None,
     longitudinal_accels: Sequence[float] | None = None,
     transversal_accels: Sequence[float] | None = None,
+    physics_priors: Sequence[Sequence[float]] | None = None,
 ) -> dict[str, float]:
     pred_vecs = _as_velocity_list(preds)
     target_vecs = _as_velocity_list(targets)
@@ -100,6 +108,7 @@ def compute_metrics(
         "speed_magnitude_rmse_mps": root_mean_squared_error(pred_speed, target_speed),
         "r2_vx": r2_score(pred_vx, target_vx),
         "r2_vy": r2_score(pred_vy, target_vy),
+        "sideslip_mae_rad": mean_absolute_error(_sideslip_angles(pred_vecs), _sideslip_angles(target_vecs)),
     }
     metrics["selection_metric_mps"] = metrics["mae_vx_mps"] + metrics["mae_vy_mps"]
     metrics["mae_vx_kmh"] = metrics["mae_vx_mps"] * 3.6
@@ -124,6 +133,25 @@ def compute_metrics(
             if base_vecs
             else 0.0
         ) - metrics["vector_endpoint_error_mps"]
+
+    if physics_priors is not None and len(physics_priors) == len(target_vecs):
+        physics_vecs = _as_velocity_list(physics_priors)
+        physics_vx = _axis(physics_vecs, 0)
+        physics_vy = _axis(physics_vecs, 1)
+        physics_endpoint = _endpoint_errors(physics_vecs, target_vecs)
+        metrics["physics_mae_vx_mps"] = mean_absolute_error(physics_vx, target_vx)
+        metrics["physics_rmse_vx_mps"] = root_mean_squared_error(physics_vx, target_vx)
+        metrics["physics_mae_vy_mps"] = mean_absolute_error(physics_vy, target_vy)
+        metrics["physics_rmse_vy_mps"] = root_mean_squared_error(physics_vy, target_vy)
+        metrics["physics_vector_endpoint_error_mps"] = sum(physics_endpoint) / len(physics_endpoint)
+        metrics["physics_sideslip_mae_rad"] = mean_absolute_error(
+            _sideslip_angles(physics_vecs), _sideslip_angles(target_vecs)
+        )
+        metrics["gain_vs_physics_vx_mps"] = metrics["physics_mae_vx_mps"] - metrics["mae_vx_mps"]
+        metrics["gain_vs_physics_vy_mps"] = metrics["physics_mae_vy_mps"] - metrics["mae_vy_mps"]
+        metrics["gain_vs_physics_vector_mps"] = (
+            metrics["physics_vector_endpoint_error_mps"] - metrics["vector_endpoint_error_mps"]
+        )
 
     metrics.update(
         _compute_group_metrics(
@@ -234,6 +262,12 @@ def save_predictions_csv(result: EvaluationResult, path: str | Path) -> None:
                 "gate_vision",
                 "gate_kinematic",
                 "gate_dynamics",
+                "physics_vx_mps",
+                "physics_vy_mps",
+                "physics_confidence_vx",
+                "physics_confidence_vy",
+                "correction_gate_vx",
+                "correction_gate_vy",
             ],
         )
         writer.writeheader()
@@ -243,6 +277,9 @@ def save_predictions_csv(result: EvaluationResult, path: str | Path) -> None:
                 (base_velocity[0] - target[0]) ** 2 + (base_velocity[1] - target[1]) ** 2
             )
             gate_values = _gate_values_for_row(result, i)
+            physics_prior = _safe_optional_get(result.physics_priors, i, ["", ""])
+            physics_confidence = _safe_optional_get(result.physics_confidences, i, ["", ""])
+            correction_gate = _safe_optional_get(result.correction_gates, i, ["", ""])
             writer.writerow(
                 {
                     "scene_name": _safe_get(result.scene_names, i, ""),
@@ -267,6 +304,12 @@ def save_predictions_csv(result: EvaluationResult, path: str | Path) -> None:
                     "gate_vision": gate_values.get("vision", ""),
                     "gate_kinematic": gate_values.get("kinematic", ""),
                     "gate_dynamics": gate_values.get("dynamics", ""),
+                    "physics_vx_mps": physics_prior[0],
+                    "physics_vy_mps": physics_prior[1],
+                    "physics_confidence_vx": physics_confidence[0],
+                    "physics_confidence_vy": physics_confidence[1],
+                    "correction_gate_vx": correction_gate[0],
+                    "correction_gate_vy": correction_gate[1],
                 }
             )
 
@@ -336,6 +379,7 @@ def write_evaluation_artifacts(result: EvaluationResult, output_dir: str | Path,
         wheel_speed_stds=result.wheel_speed_stds,
         longitudinal_accels=result.longitudinal_accels,
         transversal_accels=result.transversal_accels,
+        physics_priors=result.physics_priors,
     )
     save_metrics_json(metrics, output_dir / f"{prefix}_metrics.json")
     save_predictions_csv(result, output_dir / f"{prefix}_predictions.csv")

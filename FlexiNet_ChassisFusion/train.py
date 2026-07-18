@@ -29,6 +29,14 @@ def load_config_from_yaml(path: Path) -> dict:
         return yaml.safe_load(f)
 
 
+def validate_physics_config(cfg: dict) -> None:
+    fusion_mode = str(cfg.get("model", {}).get("fusion_mode", ""))
+    if fusion_mode in {"physics", "physics_residual_gated"} and not bool(
+        cfg.get("data", {}).get("physics_units_audited", False)
+    ):
+        raise ValueError("Physics modes require data.physics_units_audited=true after CAN unit auditing.")
+
+
 class VelocitySmoothL1Loss(nn.Module):
     def __init__(self, sigma_vx: float = 1.0, sigma_vy: float = 1.0, speed_weight: float = 0.0) -> None:
         super().__init__()
@@ -56,6 +64,8 @@ class KnowledgeDrivenVelocityLoss(nn.Module):
         prior_loss_weight: float = 0.0,
         smoothness_loss_weight: float = 0.0,
         consistency_loss_weight: float = 0.0,
+        physics_prior_loss_weight: float = 0.0,
+        physics_correction_loss_weight: float = 0.0,
         beta_vx_eps: float = 0.5,
     ) -> None:
         super().__init__()
@@ -68,6 +78,8 @@ class KnowledgeDrivenVelocityLoss(nn.Module):
         self.prior_loss_weight = float(prior_loss_weight)
         self.smoothness_loss_weight = float(smoothness_loss_weight)
         self.consistency_loss_weight = float(consistency_loss_weight)
+        self.physics_prior_loss_weight = float(physics_prior_loss_weight)
+        self.physics_correction_loss_weight = float(physics_correction_loss_weight)
         self.beta_vx_eps = float(beta_vx_eps)
         self.base_loss = nn.SmoothL1Loss(beta=1.0)
 
@@ -77,6 +89,10 @@ class KnowledgeDrivenVelocityLoss(nn.Module):
         target: torch.Tensor,
         base_velocity: torch.Tensor | None = None,
         chassis: torch.Tensor | None = None,
+        physics_prior: torch.Tensor | None = None,
+        physics_confidence: torch.Tensor | None = None,
+        correction_gate: torch.Tensor | None = None,
+        chassis_current_index: torch.Tensor | None = None,
     ) -> torch.Tensor:
         loss = self.velocity_loss(pred, target)
         if self.beta_loss_weight > 0.0:
@@ -92,7 +108,24 @@ class KnowledgeDrivenVelocityLoss(nn.Module):
         if self.smoothness_loss_weight > 0.0:
             raise ValueError("smoothness_loss_weight requires sequence predictions, but the current head outputs [B, 2].")
         if self.consistency_loss_weight > 0.0 and chassis is not None and chassis.numel() > 0:
-            loss = loss + self.consistency_loss_weight * self._consistency_loss(pred, chassis)
+            loss = loss + self.consistency_loss_weight * self._consistency_loss(
+                pred, chassis, chassis_current_index
+            )
+        if self.physics_prior_loss_weight > 0.0:
+            if physics_prior is None:
+                raise ValueError("physics_prior_loss_weight requires a physics-enabled model.")
+            loss = loss + self.physics_prior_loss_weight * self.velocity_loss(physics_prior, target)
+        if self.physics_correction_loss_weight > 0.0:
+            if physics_prior is None or physics_confidence is None:
+                raise ValueError("physics correction loss requires physics prior and confidence.")
+            correction = pred - physics_prior
+            confidence = physics_confidence.to(device=pred.device, dtype=pred.dtype)
+            correction_penalty = (confidence * correction.square()).mean()
+            if correction_gate is not None:
+                correction_penalty = correction_penalty + 0.1 * (
+                    confidence * correction_gate.to(device=pred.device, dtype=pred.dtype).square()
+                ).mean()
+            loss = loss + self.physics_correction_loss_weight * correction_penalty
         return loss
 
     def _sideslip_angle(self, velocity: torch.Tensor) -> torch.Tensor:
@@ -101,9 +134,14 @@ class KnowledgeDrivenVelocityLoss(nn.Module):
         stable_vx = vx.abs().clamp_min(self.beta_vx_eps) * sign
         return torch.atan2(velocity[:, 1], stable_vx)
 
-    def _consistency_loss(self, pred: torch.Tensor, chassis: torch.Tensor) -> torch.Tensor:
+    def _consistency_loss(
+        self,
+        pred: torch.Tensor,
+        chassis: torch.Tensor,
+        current_index: torch.Tensor | None,
+    ) -> torch.Tensor:
         if chassis.dim() == 3:
-            center = chassis[:, chassis.shape[1] // 2, :]
+            center = FlexiNetChassisFusion._select_chassis_frame(chassis, current_index)
         elif chassis.dim() == 2:
             center = chassis
         else:
@@ -129,6 +167,8 @@ def build_criterion(
     prior_loss_weight: float = 0.0,
     smoothness_loss_weight: float = 0.0,
     consistency_loss_weight: float = 0.0,
+    physics_prior_loss_weight: float = 0.0,
+    physics_correction_loss_weight: float = 0.0,
     beta_vx_eps: float = 0.5,
 ) -> nn.Module:
     name = name.lower()
@@ -147,6 +187,8 @@ def build_criterion(
             prior_loss_weight=prior_loss_weight,
             smoothness_loss_weight=smoothness_loss_weight,
             consistency_loss_weight=consistency_loss_weight,
+            physics_prior_loss_weight=physics_prior_loss_weight,
+            physics_correction_loss_weight=physics_correction_loss_weight,
             beta_vx_eps=beta_vx_eps,
         )
     raise ValueError(f"Unsupported loss: {name}")
@@ -170,6 +212,10 @@ def _model_forward_from_batch(model: nn.Module, batch: dict, device: torch.devic
         base_velocity=base_velocity,
         flow=_optional_batch_tensor(batch, "flow", device),
         geometry=_optional_batch_tensor(batch, "geometry", device),
+        physics_inputs=_optional_batch_tensor(batch, "physics_inputs", device),
+        physics_valid_mask=_optional_batch_tensor(batch, "physics_valid_mask", device),
+        physics_dt=_optional_batch_tensor(batch, "physics_dt", device),
+        chassis_current_index=_optional_batch_tensor(batch, "chassis_current_index", device),
     )
     return pred, velocity, base_velocity
 
@@ -181,10 +227,20 @@ def _loss_from_batch(
     base_velocity: torch.Tensor,
     batch: dict,
     device: torch.device,
+    model: nn.Module,
 ) -> torch.Tensor:
     if isinstance(criterion, KnowledgeDrivenVelocityLoss):
         chassis = batch["chassis"].to(device, non_blocking=True)
-        return criterion(pred, velocity, base_velocity=base_velocity, chassis=chassis)
+        return criterion(
+            pred,
+            velocity,
+            base_velocity=base_velocity,
+            chassis=chassis,
+            physics_prior=getattr(model, "last_physics_prior", None),
+            physics_confidence=getattr(model, "last_physics_confidence", None),
+            correction_gate=getattr(model, "last_correction_gate", None),
+            chassis_current_index=_optional_batch_tensor(batch, "chassis_current_index", device),
+        )
     return criterion(pred, velocity)
 
 
@@ -209,12 +265,15 @@ def run_eval(
     transversal_accels: list[float] = []
     gate_weights: list[list[float]] = []
     gate_names: list[str] | None = None
+    physics_priors: list[list[float]] = []
+    physics_confidences: list[list[float]] = []
+    correction_gates: list[list[float]] = []
     with torch.no_grad():
         for eval_step, batch in enumerate(tqdm(loader, desc="Eval", leave=False)):
             if max_batches and eval_step >= max_batches:
                 break
             pred, velocity, base_velocity = _model_forward_from_batch(model, batch, device)
-            loss = _loss_from_batch(criterion, pred, velocity, base_velocity, batch, device)
+            loss = _loss_from_batch(criterion, pred, velocity, base_velocity, batch, device, model)
             losses.append(loss.item())
             preds.extend(pred.detach().cpu().tolist())
             targets.extend(velocity.detach().cpu().tolist())
@@ -225,7 +284,14 @@ def run_eval(
                 yaw_rates.extend([float(v[0]) for v in geometry.detach().cpu().tolist()])
             chassis = batch.get("chassis")
             if isinstance(chassis, torch.Tensor) and chassis.numel() > 0:
-                center = chassis[:, chassis.shape[1] // 2, :] if chassis.dim() == 3 else chassis
+                center = (
+                    FlexiNetChassisFusion._select_chassis_frame(
+                        chassis,
+                        _optional_batch_tensor(batch, "chassis_current_index", chassis.device),
+                    )
+                    if chassis.dim() == 3
+                    else chassis
+                )
                 if center.shape[1] > FAIR_CHASSIS_INDEX["wheel_speed_std"]:
                     center_cpu = center.detach().cpu()
                     if not geometry_has_yaw and center.shape[1] > FAIR_CHASSIS_INDEX["yaw_rate"]:
@@ -244,6 +310,15 @@ def run_eval(
             if isinstance(latest_gate, torch.Tensor) and latest_gate.numel() > 0 and latest_gate_names:
                 gate_weights.extend(latest_gate.detach().cpu().tolist())
                 gate_names = list(latest_gate_names)
+            latest_physics = getattr(model, "last_physics_prior", None)
+            latest_confidence = getattr(model, "last_physics_confidence", None)
+            latest_correction_gate = getattr(model, "last_correction_gate", None)
+            if isinstance(latest_physics, torch.Tensor):
+                physics_priors.extend(latest_physics.detach().cpu().tolist())
+            if isinstance(latest_confidence, torch.Tensor):
+                physics_confidences.extend(latest_confidence.detach().cpu().tolist())
+            if isinstance(latest_correction_gate, torch.Tensor):
+                correction_gates.extend(latest_correction_gate.detach().cpu().tolist())
 
             if "scene_name" in batch:
                 scene_names.extend(list(batch["scene_name"]))
@@ -270,6 +345,9 @@ def run_eval(
         transversal_accels=transversal_accels if transversal_accels else None,
         gate_weights=gate_weights if gate_weights else None,
         gate_names=gate_names,
+        physics_priors=physics_priors if physics_priors else None,
+        physics_confidences=physics_confidences if physics_confidences else None,
+        correction_gates=correction_gates if correction_gates else None,
     )
 
 
@@ -280,6 +358,7 @@ def main() -> None:
     args = parser.parse_args()
 
     cfg = load_config_from_yaml(Path(args.config))
+    validate_physics_config(cfg)
     if args.allow_pose_fallback:
         cfg["data"]["allow_pose_fallback"] = True
 
@@ -307,6 +386,10 @@ def main() -> None:
         geometry_mode=str(cfg["data"].get("geometry_mode", "basic")),
         base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
         eovm_base_root=cfg["data"].get("eovm_base_root"),
+        physics_extra_root=cfg["data"].get("physics_extra_root"),
+        physics_units_audited=bool(cfg["data"].get("physics_units_audited", False)),
+        can_max_age_sec=float(cfg["data"].get("can_max_age_sec", 0.25)),
+        physics_extra_max_age_sec=float(cfg["data"].get("physics_extra_max_age_sec", 0.5)),
         frame_cache_root=cfg["data"].get("frame_cache_root"),
         max_scenes=cfg["data"].get("max_scenes"),
     )
@@ -330,6 +413,10 @@ def main() -> None:
         geometry_mode=str(cfg["data"].get("geometry_mode", "basic")),
         base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
         eovm_base_root=cfg["data"].get("eovm_base_root"),
+        physics_extra_root=cfg["data"].get("physics_extra_root"),
+        physics_units_audited=bool(cfg["data"].get("physics_units_audited", False)),
+        can_max_age_sec=float(cfg["data"].get("can_max_age_sec", 0.25)),
+        physics_extra_max_age_sec=float(cfg["data"].get("physics_extra_max_age_sec", 0.5)),
         frame_cache_root=cfg["data"].get("frame_cache_root"),
         max_scenes=cfg["data"].get("max_scenes"),
     )
@@ -383,6 +470,11 @@ def main() -> None:
         branch_feature_dim=int(cfg["model"].get("branch_feature_dim", 64)),
         dynamics_feature_dim=int(cfg["model"].get("dynamics_feature_dim", 8)),
         save_gate_weights=bool(cfg["model"].get("save_gate_weights", False)),
+        physics_mass=float(cfg["model"].get("physics_mass", 3052.0)),
+        physics_wheelbase=float(cfg["model"].get("physics_wheelbase", 3.128)),
+        physics_lf=float(cfg["model"].get("physics_lf", 1.293)),
+        physics_front_track=float(cfg["model"].get("physics_front_track", 1.600)),
+        physics_rear_track=float(cfg["model"].get("physics_rear_track", 1.740)),
     )
     if bool(cfg["model"].get("use_dynamics_branch", False)) and str(cfg["data"].get("base_velocity_source", "zero_lateral")) != "eovm_ekf":
         print("Dynamics branch is using chassis-proxy features with zero_lateral base_velocity; EOVM-EKF prior is disabled.")
@@ -401,6 +493,8 @@ def main() -> None:
         prior_loss_weight=float(cfg["train"].get("prior_loss_weight", 0.0)),
         smoothness_loss_weight=float(cfg["train"].get("smoothness_loss_weight", 0.0)),
         consistency_loss_weight=float(cfg["train"].get("consistency_loss_weight", 0.0)),
+        physics_prior_loss_weight=float(cfg["train"].get("physics_prior_loss_weight", 0.0)),
+        physics_correction_loss_weight=float(cfg["train"].get("physics_correction_loss_weight", 0.0)),
         beta_vx_eps=float(cfg["train"].get("beta_vx_eps", 0.5)),
     )
     backbone = getattr(model, "backbone", None)
@@ -447,7 +541,7 @@ def main() -> None:
             optimizer.zero_grad(set_to_none=True)
             with torch.autocast(device_type="cuda", enabled=scaler is not None):
                 pred, velocity, base_velocity = _model_forward_from_batch(model, batch, device)
-                loss = _loss_from_batch(criterion, pred, velocity, base_velocity, batch, device)
+                loss = _loss_from_batch(criterion, pred, velocity, base_velocity, batch, device, model)
 
             if scaler is not None:
                 scaler.scale(loss).backward()
@@ -481,6 +575,7 @@ def main() -> None:
             wheel_speed_stds=val_result.wheel_speed_stds,
             longitudinal_accels=val_result.longitudinal_accels,
             transversal_accels=val_result.transversal_accels,
+            physics_priors=val_result.physics_priors,
         )
         scheduler.step()
         print(

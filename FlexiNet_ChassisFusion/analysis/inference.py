@@ -27,7 +27,7 @@ from dataset.nuscenes_chassis import (  # noqa: E402  (path setup must come firs
     NuScenesChassisFusionDataset,
 )
 from model.fusion_model import FlexiNetChassisFusion  # noqa: E402
-from train import build_criterion, run_eval  # noqa: E402
+from train import build_criterion, run_eval, validate_physics_config  # noqa: E402
 from utils.evaluation import EvaluationResult  # noqa: E402
 
 
@@ -64,6 +64,10 @@ def _build_dataset(cfg: dict, split: str) -> NuScenesChassisFusionDataset:
         geometry_mode=str(cfg["data"].get("geometry_mode", "basic")),
         base_velocity_source=str(cfg["data"].get("base_velocity_source", "zero_lateral")),
         eovm_base_root=cfg["data"].get("eovm_base_root"),
+        physics_extra_root=cfg["data"].get("physics_extra_root"),
+        physics_units_audited=bool(cfg["data"].get("physics_units_audited", False)),
+        can_max_age_sec=float(cfg["data"].get("can_max_age_sec", 0.25)),
+        physics_extra_max_age_sec=float(cfg["data"].get("physics_extra_max_age_sec", 0.5)),
         frame_cache_root=cfg["data"].get("frame_cache_root"),
         max_scenes=cfg["data"].get("max_scenes"),
     )
@@ -94,6 +98,11 @@ def _build_model(cfg: dict) -> FlexiNetChassisFusion:
         branch_feature_dim=int(cfg["model"].get("branch_feature_dim", 64)),
         dynamics_feature_dim=int(cfg["model"].get("dynamics_feature_dim", 8)),
         save_gate_weights=bool(cfg["model"].get("save_gate_weights", False)),
+        physics_mass=float(cfg["model"].get("physics_mass", 3052.0)),
+        physics_wheelbase=float(cfg["model"].get("physics_wheelbase", 3.128)),
+        physics_lf=float(cfg["model"].get("physics_lf", 1.293)),
+        physics_front_track=float(cfg["model"].get("physics_front_track", 1.600)),
+        physics_rear_track=float(cfg["model"].get("physics_rear_track", 1.740)),
     )
 
 
@@ -128,6 +137,7 @@ def run_inference_from_checkpoint(
 
     if allow_pose_fallback:
         cfg["data"]["allow_pose_fallback"] = True
+    validate_physics_config(cfg)
 
     if device is None:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -154,6 +164,13 @@ def run_inference_from_checkpoint(
         sigma_vx=float(cfg["train"].get("sigma_vx", 1.0)),
         sigma_vy=float(cfg["train"].get("sigma_vy", 1.0)),
         speed_weight=float(cfg["train"].get("speed_loss_weight", 0.0)),
+        beta_loss_weight=float(cfg["train"].get("beta_loss_weight", 0.0)),
+        prior_loss_weight=float(cfg["train"].get("prior_loss_weight", 0.0)),
+        smoothness_loss_weight=float(cfg["train"].get("smoothness_loss_weight", 0.0)),
+        consistency_loss_weight=float(cfg["train"].get("consistency_loss_weight", 0.0)),
+        physics_prior_loss_weight=float(cfg["train"].get("physics_prior_loss_weight", 0.0)),
+        physics_correction_loss_weight=float(cfg["train"].get("physics_correction_loss_weight", 0.0)),
+        beta_vx_eps=float(cfg["train"].get("beta_vx_eps", 0.5)),
     )
     result = run_eval(model, loader, criterion, device, max_batches=max_eval_batches)
 
