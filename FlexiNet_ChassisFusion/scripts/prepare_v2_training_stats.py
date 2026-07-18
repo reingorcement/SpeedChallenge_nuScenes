@@ -51,15 +51,27 @@ def main() -> None:
     parser.add_argument("--audit", default="logs/v2_data_audit.json")
     parser.add_argument("--output", default="logs/v2_training_stats.json")
     parser.add_argument("--max_samples", type=int, default=0)
+    parser.add_argument("--dataroot")
+    parser.add_argument("--can_bus_root")
+    parser.add_argument("--flow_root")
+    parser.add_argument("--split_manifest")
     args = parser.parse_args()
 
     cfg = copy.deepcopy(load_config(args.config))
+    for key, value in (
+        ("dataroot", args.dataroot),
+        ("can_bus_root", args.can_bus_root),
+        ("flow_root", args.flow_root),
+        ("split_manifest_path", args.split_manifest),
+    ):
+        if value:
+            cfg["data"][key] = value
     audit = json.loads(Path(args.audit).read_text(encoding="utf-8"))
     age_limits = resolve_field_age_limits(audit)
     cfg["data"]["kinematic_stats_path"] = None
     cfg["data"]["field_max_age_sec"] = age_limits
     cfg["data"]["photometric_augmentation"] = {"enabled": False}
-    dataset = build_dataset(cfg, "train")
+    dataset = build_dataset(cfg, "train_core")
 
     sums = torch.zeros(len(KINEMATIC_VALUE_FEATURES), dtype=torch.float64)
     square_sums = torch.zeros_like(sums)
@@ -102,7 +114,7 @@ def main() -> None:
         high_lateral_count += int(high_lateral)
         sample_weights[record["token"]] = 3.0 if high_lateral else (2.0 if turning else 1.0)
     report = {
-        "source": "nuScenes train split only",
+        "source": "nuScenes train_core split only",
         "features": list(KINEMATIC_VALUE_FEATURES),
         "mean": mean.tolist(),
         "std": std.tolist(),

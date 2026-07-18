@@ -5,6 +5,7 @@ project:
 data:
   dataroot: /media/ps/AC78E69278E65B1A/zy/nuscenes
   version: v1.0-trainval
+  split_manifest_path: logs/v2_split_manifest.json
   seq_len: 5
   visual_height: 72
   visual_width: 128

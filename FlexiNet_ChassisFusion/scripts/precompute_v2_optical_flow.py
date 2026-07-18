@@ -2,12 +2,20 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
 
 import torch
 import torch.nn.functional as F
 from PIL import Image
 from tqdm import tqdm
 from torchvision.transforms import functional as TF
+
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from dataset.v2_splits import partition_scene_names  # noqa: E402
 
 
 def target_size(source_size: tuple[int, int], width: int, height: int) -> tuple[int, int]:
@@ -65,6 +73,12 @@ def main() -> None:
     parser.add_argument("--output_root", required=True)
     parser.add_argument("--version", default="v1.0-trainval")
     parser.add_argument("--split", default="trainval")
+    parser.add_argument("--split_manifest")
+    parser.add_argument(
+        "--partitions",
+        nargs="+",
+        default=["train_core", "dev", "stage1_test"],
+    )
     parser.add_argument("--cam_channel", default="CAM_FRONT")
     parser.add_argument("--width", type=int, default=512)
     parser.add_argument("--height", type=int, default=0)
@@ -94,8 +108,19 @@ def main() -> None:
     device = torch.device("cuda")
     model.eval().to(device)
     nusc = NuScenes(version=args.version, dataroot=args.dataroot, verbose=False)
-    split_scenes = create_splits_scenes()
-    scene_names = set(split_scenes.get(args.split, [scene["name"] for scene in nusc.scene]))
+    if args.split_manifest:
+        scene_names = set()
+        for partition in args.partitions:
+            scene_names.update(
+                partition_scene_names(
+                    args.split_manifest,
+                    partition,
+                    expected_version=args.version,
+                )
+            )
+    else:
+        split_scenes = create_splits_scenes()
+        scene_names = set(split_scenes.get(args.split, [scene["name"] for scene in nusc.scene]))
     output_root = Path(args.output_root)
     output_root.mkdir(parents=True, exist_ok=True)
 

@@ -3,6 +3,8 @@ from __future__ import annotations
 import math
 import json
 import random
+import sys
+import types
 
 import numpy as np
 import pytest
@@ -16,6 +18,11 @@ from dataset.v2_schema import (
     apply_sequence_photometric_augmentation,
     build_kinematic_step,
     normalize_kinematic_values,
+)
+from dataset.v2_splits import (
+    create_split_manifest,
+    load_split_manifest,
+    partition_scene_names,
 )
 from model.v2.ground_geometry import (
     RobustRoadPlaneVelocitySolver,
@@ -31,6 +38,12 @@ from model.v2.rotation_flow import rotational_flow, scale_intrinsics
 from model.v2.types import TimedSignal, V2VelocityOutput
 from scripts.prepare_v2_training_stats import resolve_field_age_limits
 from scripts.compare_v2_multiseed import compare_multiseed
+from scripts.analyze_v2_stage1 import (
+    analyze,
+    align_prediction_rows,
+    paired_scene_bootstrap,
+)
+from scripts.evaluate_v2_holdout import _modified_batch, ablation_prediction
 from train_v2 import (
     _accumulation_steps,
     _accumulation_divisor,
@@ -263,6 +276,230 @@ def test_v2_adapter_rejects_noncausal_dataset(tmp_path) -> None:
     base = type("Base", (), {"online_mode": False, "seq_len": 5})()
     with pytest.raises(ValueError, match="online_mode=True"):
         V2NuScenesDatasetAdapter(base, tmp_path, camera_height_m=1.5)
+
+
+def test_stage1_manifest_is_deterministic_disjoint_and_seals_final_test(tmp_path) -> None:
+    train = [f"scene-{index:04d}" for index in range(20)]
+    val = [f"scene-{index:04d}" for index in range(20, 30)]
+    metadata = {
+        name: {
+            "location": "boston" if index % 2 else "singapore",
+            "lighting": "night" if index % 3 == 0 else "day",
+            "weather": "rain" if index % 5 == 0 else "dry",
+            "motion_regime": "turning" if index % 4 == 0 else "straight",
+        }
+        for index, name in enumerate(train + val)
+    }
+    first = create_split_manifest(train, val, metadata, seed=42)
+    second = create_split_manifest(reversed(train), reversed(val), metadata, seed=42)
+    assert first == second
+    partitions = first["partitions"]
+    assert len(partitions["train_core"]) == 17
+    assert len(partitions["dev"]) == 3
+    assert len(partitions["stage1_test"]) == 5
+    assert len(partitions["final_system_test"]) == 5
+    sets = [set(values) for values in partitions.values()]
+    assert all(not left & right for index, left in enumerate(sets) for right in sets[index + 1 :])
+
+    path = tmp_path / "split.json"
+    path.write_text(json.dumps(first), encoding="utf-8")
+    assert load_split_manifest(path) == first
+    assert partition_scene_names(path, "stage1_test") == partitions["stage1_test"]
+    with pytest.raises(PermissionError, match="sealed"):
+        partition_scene_names(path, "final_system_test")
+    tampered = json.loads(path.read_text(encoding="utf-8"))
+    tampered["partitions"]["dev"].reverse()
+    path.write_text(json.dumps(tampered), encoding="utf-8")
+    with pytest.raises(ValueError, match="checksum mismatch"):
+        load_split_manifest(path)
+
+
+def test_dataset_scene_names_select_exact_official_scenes(monkeypatch, tmp_path) -> None:
+    class FakeNuScenes:
+        def __init__(self, **_kwargs):
+            self.scene = [
+                {"name": name, "first_sample_token": f"sample-{name}"}
+                for name in ("scene-a", "scene-b", "scene-c")
+            ]
+
+        def get(self, table, token):
+            if table == "sample":
+                scene = token.removeprefix("sample-")
+                return {"data": {"CAM_FRONT": f"{scene}-0"}}
+            if table == "sample_data":
+                scene, index_text = token.rsplit("-", 1)
+                index = int(index_text)
+                return {
+                    "prev": f"{scene}-{index - 1}" if index > 0 else "",
+                    "next": f"{scene}-{index + 1}" if index < 2 else "",
+                    "timestamp": index + 1,
+                }
+            raise KeyError(table)
+
+    nuscenes_package = types.ModuleType("nuscenes")
+    nuscenes_module = types.ModuleType("nuscenes.nuscenes")
+    nuscenes_module.NuScenes = FakeNuScenes
+    utils_module = types.ModuleType("nuscenes.utils")
+    splits_module = types.ModuleType("nuscenes.utils.splits")
+    splits_module.create_splits_scenes = lambda: {
+        "mini_train": [],
+        "mini_val": [],
+        "train": ["scene-a", "scene-b"],
+        "val": ["scene-c"],
+        "test": [],
+    }
+    monkeypatch.setitem(sys.modules, "nuscenes", nuscenes_package)
+    monkeypatch.setitem(sys.modules, "nuscenes.nuscenes", nuscenes_module)
+    monkeypatch.setitem(sys.modules, "nuscenes.utils", utils_module)
+    monkeypatch.setitem(sys.modules, "nuscenes.utils.splits", splits_module)
+    from dataset.nuscenes_chassis import NuScenesChassisFusionDataset
+
+    dataset = NuScenesChassisFusionDataset(
+        tmp_path,
+        version="v1.0-trainval",
+        split="train",
+        seq_len=1,
+        scene_names=["scene-b"],
+    )
+    assert dataset.scene_names == ["scene-b"]
+    assert {sample["scene_name"] for sample in dataset.samples} == {"scene-b"}
+    with pytest.raises(ValueError, match="outside official"):
+        NuScenesChassisFusionDataset(
+            tmp_path,
+            version="v1.0-trainval",
+            split="train",
+            seq_len=1,
+            scene_names=["scene-c"],
+        )
+
+
+def test_holdout_alignment_and_scene_bootstrap_are_reproducible() -> None:
+    left = [
+        {
+            "scene_name": scene,
+            "center_token": f"token-{index}",
+            "target_vx_mps": "5.0",
+            "target_vy_mps": "0.5",
+        }
+        for index, scene in enumerate(("scene-a", "scene-b", "scene-c"))
+    ]
+    assert len(align_prediction_rows(left, list(reversed(left)))) == 3
+    altered = [dict(row) for row in left]
+    altered[0]["target_vx_mps"] = "6.0"
+    with pytest.raises(ValueError, match="Target mismatch"):
+        align_prediction_rows(left, altered)
+    deltas = {"scene-a": -0.2, "scene-b": 0.1, "scene-c": -0.1}
+    first = paired_scene_bootstrap(deltas, samples=500, seed=42)
+    second = paired_scene_bootstrap(deltas, samples=500, seed=42)
+    assert first == second
+    assert first["scene_count"] == 3
+    assert first["ci95_low"] <= first["mean_delta"] <= first["ci95_high"]
+
+
+def test_holdout_ablation_postprocessing_and_missing_can_masks() -> None:
+    output = make_output(torch.tensor([[5.4, 0.3], [4.0, -0.1]]), torch.Size((2, 2)))
+    object.__setattr__(output, "visual_velocity", torch.tensor([[5.2, 0.2], [3.9, -0.1]]))
+    object.__setattr__(output, "geometry_velocity", torch.tensor([[5.0, 0.0], [4.0, 0.0]]))
+    object.__setattr__(output, "wheel_scale", torch.tensor([[1.04], [1.0]]))
+    object.__setattr__(output, "residual", torch.tensor([[0.2, 0.2], [-0.1, -0.1]]))
+    object.__setattr__(output, "residual_gate", torch.ones(2, 1))
+    object.__setattr__(output, "kinematic_applied_correction", torch.tensor([[0.2, 0.1], [0.1, 0.0]]))
+    _, no_kinematic = ablation_prediction(None, {}, output, "no_kinematic_correction")
+    _, no_visual = ablation_prediction(None, {}, output, "no_visual_residual")
+    _, no_wheel = ablation_prediction(None, {}, output, "no_wheel_scaling")
+    torch.testing.assert_close(no_kinematic, output.visual_velocity)
+    torch.testing.assert_close(no_visual, output.predicted_velocity - output.residual)
+    assert float(no_wheel[0, 0]) == pytest.approx(5.2)
+
+    batch = {
+        "images": torch.randn(2, 3, 3, 4, 4),
+        "kinematic_values": torch.randn(2, 21, 12),
+        "kinematic_valid": torch.ones(2, 21, 12, dtype=torch.bool),
+        "kinematic_age": torch.zeros(2, 21, 12),
+        "wheel_speed": torch.ones(2, 4),
+        "wheel_speed_valid": torch.ones(2, 4, dtype=torch.bool),
+        "wheel_speed_age_sec": torch.zeros(2, 4),
+        "angular_rate_camera": torch.ones(2, 3),
+        "angular_rate_valid": torch.ones(2, 3, dtype=torch.bool),
+        "angular_rate_age_sec": torch.zeros(2),
+    }
+    missing = _modified_batch(batch, "missing_can")
+    assert not bool(missing["kinematic_valid"].any())
+    assert not bool(missing["wheel_speed_valid"].any())
+    assert not bool(missing["angular_rate_valid"].any())
+    assert torch.count_nonzero(missing["kinematic_values"]) == 0
+
+
+def test_stage1_analyzer_accepts_consistent_three_seed_improvement(tmp_path) -> None:
+    def write_predictions(path, prediction_offset, correction=0.0):
+        rows = []
+        for index, (scene, target_vy, yaw_rate) in enumerate(
+            (("scene-a", 0.0, 0.0), ("scene-b", 1.0, 0.1), ("scene-c", -1.0, -0.1))
+        ):
+            rows.append(
+                {
+                    "variant": "baseline",
+                    "seed": 42,
+                    "scene_name": scene,
+                    "center_token": f"token-{index}",
+                    "center_timestamp_us": index,
+                    "target_vx_mps": 5.0,
+                    "target_vy_mps": target_vy,
+                    "pred_vx_mps": 5.0 + prediction_offset,
+                    "pred_vy_mps": target_vy + prediction_offset,
+                    "visual_vx_mps": 5.0 + prediction_offset,
+                    "visual_vy_mps": target_vy + prediction_offset,
+                    "geometry_vx_mps": 5.0,
+                    "geometry_vy_mps": 0.0,
+                    "geometry_valid": 1,
+                    "geometry_condition_number": 100.0,
+                    "geometry_residual_rms": 0.1,
+                    "geometry_support_count": 100,
+                    "fallback_used": 0,
+                    "wheel_scale": 1.0,
+                    "visual_residual_vx_mps": 0.0,
+                    "visual_residual_vy_mps": 0.0,
+                    "visual_residual_gate": 1.0,
+                    "kinematic_residual_vx_mps": correction,
+                    "kinematic_residual_vy_mps": correction,
+                    "kinematic_correction_vx_mps": correction,
+                    "kinematic_correction_vy_mps": correction,
+                    "kinematic_gate_vx": 0.5,
+                    "kinematic_gate_vy": 0.5,
+                    "kinematic_log_variance_vx": 0.0,
+                    "kinematic_log_variance_vy": 0.0,
+                    "kinematic_coverage": 1.0,
+                    "kinematic_available": 1,
+                    "yaw_rate_radps": yaw_rate,
+                    "wheel_relative_std": 0.0,
+                }
+            )
+        import csv
+
+        with path.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+            writer.writeheader()
+            writer.writerows(rows)
+
+    geometry = tmp_path / "geometry.csv"
+    visual = [tmp_path / f"visual-{seed}.csv" for seed in (42, 3407, 2026)]
+    joint = [tmp_path / f"joint-{seed}.csv" for seed in (42, 3407, 2026)]
+    write_predictions(geometry, 0.4)
+    for path in visual:
+        write_predictions(path, 0.2)
+    for path in joint:
+        write_predictions(path, 0.1, correction=0.1)
+    report, per_scene, ablations, bad_cases = analyze(
+        [42, 3407, 2026],
+        str(geometry),
+        [str(path) for path in visual],
+        [str(path) for path in joint],
+        high_lateral_threshold=0.5,
+        bootstrap_samples=200,
+    )
+    assert report["acceptance"]["stage1_pass"]
+    assert report["group_improved_seed_count"] == 3
+    assert per_scene and ablations and bad_cases
 
 
 def test_no_cg_correction_without_explicit_lever_arm() -> None:

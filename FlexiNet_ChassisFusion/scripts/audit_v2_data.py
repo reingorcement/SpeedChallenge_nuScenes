@@ -5,6 +5,14 @@ import json
 import math
 from pathlib import Path
 import statistics
+import sys
+
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from dataset.v2_splits import partition_scene_names  # noqa: E402
 
 
 CHANNEL_FIELDS = {
@@ -21,8 +29,15 @@ CHANNEL_FIELDS = {
 }
 
 
-def _audit_can_channel(root: Path, channel: str, fields: tuple[str, ...]) -> dict:
+def _audit_can_channel(
+    root: Path,
+    channel: str,
+    fields: tuple[str, ...],
+    scene_names: set[str] | None = None,
+) -> dict:
     files = sorted(root.glob(f"scene-*_{channel}.json"))
+    if scene_names is not None:
+        files = [path for path in files if path.name[:10] in scene_names]
     field_finite = {field: 0 for field in fields}
     record_count = 0
     intervals = []
@@ -64,18 +79,33 @@ def main() -> None:
     parser.add_argument("--can_bus_root", required=True)
     parser.add_argument("--version", default="v1.0-trainval")
     parser.add_argument("--cam_channel", default="CAM_FRONT")
+    parser.add_argument("--split_manifest")
+    parser.add_argument("--partition", default="train_core")
     parser.add_argument("--output", default="logs/v2_data_audit.json")
     args = parser.parse_args()
 
     from nuscenes.nuscenes import NuScenes
 
     nusc = NuScenes(version=args.version, dataroot=args.dataroot, verbose=False)
+    selected_scene_names = (
+        set(
+            partition_scene_names(
+                args.split_manifest,
+                args.partition,
+                expected_version=args.version,
+            )
+        )
+        if args.split_manifest
+        else None
+    )
     can_root = Path(args.can_bus_root)
     scenes_with_can = {path.name[:10] for path in can_root.glob("scene-*_vehicle_monitor.json")}
     calibration_tokens = set()
     camera_frames = 0
     timestamp_failures = 0
     for scene in nusc.scene:
+        if selected_scene_names is not None and scene["name"] not in selected_scene_names:
+            continue
         sample = nusc.get("sample", scene["first_sample_token"])
         token = sample["data"].get(args.cam_channel, "")
         while token:
@@ -88,7 +118,7 @@ def main() -> None:
 
     calibrations = [nusc.get("calibrated_sensor", token) for token in calibration_tokens]
     can_audit = {
-        channel: _audit_can_channel(can_root, channel, fields)
+        channel: _audit_can_channel(can_root, channel, fields, selected_scene_names)
         for channel, fields in CHANNEL_FIELDS.items()
     }
     report = {
@@ -99,8 +129,11 @@ def main() -> None:
         "all_camera_intrinsics_present": all(bool(row.get("camera_intrinsic")) for row in calibrations),
         "all_camera_extrinsics_present": all(bool(row.get("rotation")) and bool(row.get("translation")) for row in calibrations),
         "invalid_camera_timestamps": timestamp_failures,
-        "scene_count": len(nusc.scene),
-        "scenes_with_vehicle_monitor": len(scenes_with_can),
+        "partition": args.partition if args.split_manifest else "all",
+        "scene_count": len(selected_scene_names) if selected_scene_names is not None else len(nusc.scene),
+        "scenes_with_vehicle_monitor": len(
+            scenes_with_can & selected_scene_names if selected_scene_names is not None else scenes_with_can
+        ),
         "can_channels": can_audit,
         "full_three_axis_imu_available": False,
         "verified_cg_lever_arm_available": False,

@@ -496,6 +496,7 @@ class NuScenesChassisFusionDataset(Dataset):
         can_bus_root: Optional[str | Path] = None,
         allow_pose_fallback: bool = False,
         scene_indices: Optional[Sequence[int]] = None,
+        scene_names: Optional[Sequence[str]] = None,
         image_cache_size: int = 0,
         chassis_mode: str = "fair_chassis",
         chassis_window_sec: float = 0.0,
@@ -574,7 +575,22 @@ class NuScenesChassisFusionDataset(Dataset):
         self.samples: List[dict] = []
         self.scene_names: List[str] = []
 
-        if scene_indices is None:
+        if scene_indices is not None and scene_names is not None:
+            raise ValueError("scene_indices and scene_names are mutually exclusive.")
+        if scene_names is not None:
+            requested_scene_names = set(scene_names)
+            official_scene_names = self._scene_names_for_split(version, split)
+            outside_split = requested_scene_names - official_scene_names
+            if outside_split:
+                raise ValueError(
+                    f"Requested scenes are outside official {split!r}: {sorted(outside_split)[:3]}"
+                )
+            available = {scene["name"]: scene for scene in self.nusc.scene}
+            missing = requested_scene_names - set(available)
+            if missing:
+                raise ValueError(f"Requested scenes are absent from nuScenes metadata: {sorted(missing)[:3]}")
+            scenes = [available[name] for name in sorted(requested_scene_names)]
+        elif scene_indices is None:
             split_scene_names = self._scene_names_for_split(version, split)
             scenes = [scene for scene in self.nusc.scene if scene["name"] in split_scene_names]
         else:
@@ -586,6 +602,8 @@ class NuScenesChassisFusionDataset(Dataset):
 
         if max_scenes is not None and int(max_scenes) > 0:
             scenes = scenes[: int(max_scenes)]
+
+        expected_scene_names = {scene["name"] for scene in scenes}
 
         if not scenes:
             raise ValueError(f"No scenes found for version={version!r}, split={split!r}.")
@@ -633,6 +651,14 @@ class NuScenesChassisFusionDataset(Dataset):
                         "center_token": center_token,
                         "center_timestamp": int(center_sd["timestamp"]),
                     }
+                )
+
+        if scene_names is not None:
+            missing_built_scenes = expected_scene_names - set(self.scene_names)
+            if missing_built_scenes:
+                raise RuntimeError(
+                    "Requested manifest scenes were silently unavailable: "
+                    f"{sorted(missing_built_scenes)[:3]}. Regenerate the manifest after eligibility audit."
                 )
 
         if not self.samples:

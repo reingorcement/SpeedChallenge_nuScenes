@@ -207,8 +207,11 @@ class V2NuScenesDatasetAdapter(Dataset):
         statistics = None
         if kinematic_stats_path:
             statistics = json.loads(Path(kinematic_stats_path).read_text(encoding="utf-8"))
-            if statistics.get("source") != "nuScenes train split only":
-                raise ValueError("Kinematic statistics must be fitted from the nuScenes train split only.")
+            if statistics.get("source") not in {
+                "nuScenes train split only",
+                "nuScenes train_core split only",
+            }:
+                raise ValueError("Kinematic statistics must be fitted from nuScenes train_core only.")
             if tuple(statistics.get("features", ())) != KINEMATIC_VALUE_FEATURES:
                 raise ValueError("Kinematic statistics feature order does not match the V2 schema.")
             self._kinematic_mean = torch.tensor(statistics["mean"], dtype=torch.float32)

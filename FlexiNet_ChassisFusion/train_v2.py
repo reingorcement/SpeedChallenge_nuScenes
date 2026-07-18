@@ -17,6 +17,7 @@ from tqdm import tqdm
 
 from dataset.nuscenes_chassis import NuScenesChassisFusionDataset
 from dataset.v2_schema import KINEMATIC_VALUE_DIM, V2NuScenesDatasetAdapter
+from dataset.v2_splits import partition_scene_names
 from model.v2 import TimedSignal, V2NuScenesVelocityModel, V2VelocityLoss
 from utils.seed import set_seed
 
@@ -30,15 +31,31 @@ def build_dataset(cfg: dict, split: str) -> V2NuScenesDatasetAdapter:
     data = cfg["data"]
     if not bool(data.get("online_mode", False)):
         raise ValueError("V2 configuration must set data.online_mode=true.")
+    split_aliases = {"train": "train_core", "val": "dev"}
+    partition = split_aliases.get(split, split)
+    manifest_path = data.get("split_manifest_path")
+    if manifest_path:
+        scene_names = partition_scene_names(
+            manifest_path,
+            partition,
+            expected_version=str(data["version"]),
+        )
+        official_split = "train" if partition in {"train_core", "dev"} else "val"
+    else:
+        if partition not in {"train_core", "dev"}:
+            raise ValueError("stage1_test requires data.split_manifest_path.")
+        scene_names = None
+        official_split = "train" if partition == "train_core" else "val"
     base = NuScenesChassisFusionDataset(
         dataroot=data["dataroot"],
         version=data["version"],
-        split=split,
+        split=official_split,
         img_size=(int(data["visual_height"]), int(data["visual_width"])),
         seq_len=int(data["seq_len"]),
         cam_channel=data["cam_channel"],
         can_bus_root=data["can_bus_root"],
         allow_pose_fallback=False,
+        scene_names=scene_names,
         image_cache_size=int(data.get("image_cache_size", 0)),
         chassis_mode="fair_chassis",
         chassis_window_sec=float(data.get("chassis_window_sec", 1.0)),
@@ -51,7 +68,7 @@ def build_dataset(cfg: dict, split: str) -> V2NuScenesDatasetAdapter:
         max_scenes=data.get("max_scenes"),
         retain_nusc_metadata=True,
     )
-    augmentation = data.get("photometric_augmentation") if split == "train" else None
+    augmentation = data.get("photometric_augmentation") if partition == "train_core" else None
     return V2NuScenesDatasetAdapter(
         base,
         flow_root=data["flow_root"],
@@ -582,6 +599,15 @@ def _apply_cli_overrides(cfg: dict, args: argparse.Namespace) -> None:
         cfg["model"]["init_checkpoint"] = args.init_checkpoint
     if args.visual_baseline_metrics:
         cfg["train"]["visual_baseline_metrics"] = args.visual_baseline_metrics
+    data_overrides = {
+        "dataroot": args.dataroot,
+        "can_bus_root": args.can_bus_root,
+        "flow_root": args.flow_root,
+        "split_manifest_path": args.split_manifest,
+    }
+    for key, value in data_overrides.items():
+        if value:
+            cfg["data"][key] = value
 
 
 def main() -> None:
@@ -596,6 +622,10 @@ def main() -> None:
     parser.add_argument("--save_dir")
     parser.add_argument("--output_dir")
     parser.add_argument("--visual_baseline_metrics")
+    parser.add_argument("--dataroot")
+    parser.add_argument("--can_bus_root")
+    parser.add_argument("--flow_root")
+    parser.add_argument("--split_manifest")
     args = parser.parse_args()
     cfg = load_config(args.config)
     _apply_cli_overrides(cfg, args)
@@ -605,8 +635,8 @@ def main() -> None:
         raise RuntimeError("V2 nuScenes stages are server-only and require CUDA.")
 
     stage = str(cfg["train"]["stage"])
-    train_set = build_dataset(cfg, "train")
-    val_set = build_dataset(cfg, "val")
+    train_set = build_dataset(cfg, "train_core")
+    val_set = build_dataset(cfg, "dev")
     train_loader = _build_loader(train_set, cfg, device, shuffle=True, stage=stage)
     val_loader = _build_loader(val_set, cfg, device, shuffle=False, stage=stage)
     model = build_model(cfg)
