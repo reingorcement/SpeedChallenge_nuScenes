@@ -84,6 +84,10 @@ printf 'micro_batch_size\t%s\neffective_batch_size\t%s\n' \
   "${MICRO_BATCH_SIZE}" "${EFFECTIVE_BATCH_SIZE}" > logs/v2_resolved_batch.tsv
 
 run_stage configs/velocity_xy_v2_geometry.yaml
+run_stage configs/velocity_xy_v2_visual.yaml \
+  --max_epochs 1 --max_train_batches 1200 --max_val_batches 200 \
+  --save_dir checkpoints/velocity_xy_v2_visual_diagnostic \
+  --output_dir outputs/velocity_xy_v2_visual_diagnostic
 run_stage configs/velocity_xy_v2_visual.yaml
 run_stage configs/velocity_xy_v2_kinematic.yaml
 run_stage configs/velocity_xy_v2_visual_kinematic.yaml

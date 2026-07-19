@@ -185,14 +185,20 @@ class V2NuScenesVelocityModel(nn.Module):
         visual_base = torch.where(geometry.valid[:, None], visual_base, wheel_fallback)
 
         covariance_trace = geometry.covariance.diagonal(dim1=-2, dim2=-1).sum(dim=-1)
+        covariance_trace = torch.nan_to_num(
+            covariance_trace, nan=1.0e6, posinf=1.0e6, neginf=0.0
+        ).clamp(0.0, 1.0e6)
         condition = torch.nan_to_num(
             geometry.condition_number, nan=1.0e12, posinf=1.0e12, neginf=1.0e12
-        )
+        ).clamp(0.0, 1.0e12)
+        residual_rms = torch.nan_to_num(
+            geometry.residual_rms, nan=100.0, posinf=100.0, neginf=0.0
+        ).clamp(0.0, 100.0)
         geometry_context = torch.stack(
             (
-                torch.log1p(covariance_trace.clamp_min(0.0)),
-                torch.log1p(condition.clamp_min(0.0)),
-                geometry.residual_rms,
+                torch.log1p(covariance_trace),
+                torch.log1p(condition),
+                residual_rms,
                 geometry.valid.to(images.dtype),
             ),
             dim=-1,

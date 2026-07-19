@@ -49,12 +49,19 @@ class V2VelocityLoss(nn.Module):
     def forward(self, output: V2VelocityOutput, target: torch.Tensor) -> V2LossTerms:
         velocity = F.smooth_l1_loss(output.predicted_velocity / self.sigma, target / self.sigma)
         target_speed = torch.linalg.vector_norm(target, dim=-1)
-        beta_valid = target_speed >= self.beta_min_speed
-        predicted_beta = torch.atan2(output.predicted_velocity[:, 1], output.predicted_velocity[:, 0])
-        target_beta = torch.atan2(target[:, 1], target[:, 0])
-        beta_error = wrapped_angle_difference(predicted_beta, target_beta)
-        beta = torch.where(beta_valid, F.smooth_l1_loss(beta_error, torch.zeros_like(beta_error), reduction="none"), 0.0)
-        beta = beta.sum() / beta_valid.sum().clamp_min(1)
+        predicted_speed = torch.linalg.vector_norm(output.predicted_velocity, dim=-1)
+        beta_valid = (target_speed >= self.beta_min_speed) & (
+            predicted_speed >= self.beta_min_speed
+        )
+        if bool(beta_valid.any()):
+            predicted = output.predicted_velocity[beta_valid]
+            beta_target = target[beta_valid]
+            predicted_beta = torch.atan2(predicted[:, 1], predicted[:, 0])
+            target_beta = torch.atan2(beta_target[:, 1], beta_target[:, 0])
+            beta_error = wrapped_angle_difference(predicted_beta, target_beta)
+            beta = F.smooth_l1_loss(beta_error, torch.zeros_like(beta_error))
+        else:
+            beta = output.predicted_velocity.new_zeros(())
         geometry_error = F.smooth_l1_loss(
             output.geometry_velocity / self.sigma, target / self.sigma, reduction="none"
         ).mean(dim=-1)

@@ -19,6 +19,7 @@ from dataset.nuscenes_chassis import NuScenesChassisFusionDataset
 from dataset.v2_schema import KINEMATIC_VALUE_DIM, V2NuScenesDatasetAdapter
 from dataset.v2_splits import partition_scene_names
 from model.v2 import TimedSignal, V2NuScenesVelocityModel, V2VelocityLoss
+from model.v2.losses import V2LossTerms
 from utils.seed import set_seed
 
 
@@ -295,6 +296,98 @@ def _write_evaluation(metrics: dict[str, float], rows: list[dict], output_dir: P
             writer.writerows(rows)
 
 
+def _tensor_diagnostic(tensor: torch.Tensor) -> dict[str, object]:
+    value = tensor.detach()
+    finite = torch.isfinite(value)
+    finite_values = value[finite].float()
+    summary: dict[str, object] = {
+        "shape": list(value.shape),
+        "dtype": str(value.dtype),
+        "finite_count": int(finite.sum().item()),
+        "nonfinite_count": int((~finite).sum().item()),
+    }
+    if finite_values.numel():
+        summary.update(
+            {
+                "min": float(finite_values.min().item()),
+                "max": float(finite_values.max().item()),
+                "mean": float(finite_values.mean().item()),
+                "abs_max": float(finite_values.abs().max().item()),
+            }
+        )
+    return summary
+
+
+def _write_nonfinite_diagnostic(
+    output_dir: Path,
+    reason: str,
+    epoch: int,
+    step: int,
+    raw_batch: dict,
+    batch: dict,
+    output,
+    terms: V2LossTerms,
+    model: V2NuScenesVelocityModel,
+    scaler: torch.amp.GradScaler,
+) -> Path:
+    diagnostics_dir = output_dir / "diagnostics"
+    diagnostics_dir.mkdir(parents=True, exist_ok=True)
+    path = diagnostics_dir / f"nonfinite_epoch_{epoch + 1:03d}_batch_{step:06d}.json"
+    batch_keys = (
+        "velocity",
+        "images",
+        "flow_v2",
+        "flow_confidence",
+        "intrinsics",
+        "frame_dt",
+        "angular_rate_camera",
+        "wheel_speed",
+        "kinematic_values",
+        "kinematic_age",
+    )
+    output_keys = (
+        "predicted_velocity",
+        "visual_velocity",
+        "geometry_velocity",
+        "geometry_covariance",
+        "geometry_condition_number",
+        "geometry_residual_rms",
+        "residual",
+        "residual_gate",
+        "kinematic_residual",
+        "kinematic_log_variance",
+    )
+    gradients = {
+        name: _tensor_diagnostic(parameter.grad)
+        for name, parameter in model.named_parameters()
+        if parameter.grad is not None and not bool(torch.isfinite(parameter.grad).all())
+    }
+    report = {
+        "reason": reason,
+        "epoch": epoch + 1,
+        "batch_index": step,
+        "amp_scale": float(scaler.get_scale()),
+        "scene_name": list(raw_batch.get("scene_name", [])),
+        "center_token": list(raw_batch.get("center_token", [])),
+        "loss_terms": {
+            name: _tensor_diagnostic(getattr(terms, name))
+            for name in terms.__dataclass_fields__
+        },
+        "batch": {
+            key: _tensor_diagnostic(batch[key])
+            for key in batch_keys
+            if key in batch and torch.is_tensor(batch[key])
+        },
+        "output": {
+            key: _tensor_diagnostic(getattr(output, key))
+            for key in output_keys
+        },
+        "nonfinite_gradients": gradients,
+    }
+    path.write_text(json.dumps(report, indent=2, allow_nan=False), encoding="utf-8")
+    return path
+
+
 def _configure_trainable_modules(model: V2NuScenesVelocityModel, stage: str) -> None:
     model.freeze_backbone()
     model.set_residual_trainable(False)
@@ -490,6 +583,20 @@ def _selection_result(
     return eligible, score
 
 
+def _next_no_improve(
+    no_improve: int,
+    improved: bool,
+    stage: str,
+    epoch: int,
+    freeze_backbone_epochs: int,
+) -> int:
+    if improved:
+        return 0
+    if stage == "visual" and epoch < freeze_backbone_epochs:
+        return no_improve
+    return no_improve + 1
+
+
 def _checkpoint(
     epoch: int,
     model: V2NuScenesVelocityModel,
@@ -589,6 +696,9 @@ def _apply_cli_overrides(cfg: dict, args: argparse.Namespace) -> None:
         "batch_size": args.batch_size,
         "effective_batch_size": args.effective_batch_size,
         "seed": args.seed,
+        "epochs": args.max_epochs,
+        "max_train_batches": args.max_train_batches,
+        "max_val_batches": args.max_val_batches,
         "save_dir": args.save_dir,
         "output_dir": args.output_dir,
     }
@@ -617,6 +727,9 @@ def main() -> None:
     parser.add_argument("--batch_size", type=int, default=0)
     parser.add_argument("--effective_batch_size", type=int, default=0)
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--max_epochs", type=int, default=0)
+    parser.add_argument("--max_train_batches", type=int, default=0)
+    parser.add_argument("--max_val_batches", type=int, default=0)
     parser.add_argument("--resume")
     parser.add_argument("--init_checkpoint")
     parser.add_argument("--save_dir")
@@ -652,7 +765,11 @@ def main() -> None:
     with (output_dir / "resolved_config.yaml").open("w", encoding="utf-8") as handle:
         yaml.safe_dump(cfg, handle, sort_keys=False)
 
-    max_eval_batches = int(cfg["train"].get("smoke_val_batches", 2)) if args.smoke else 0
+    max_eval_batches = (
+        int(cfg["train"].get("smoke_val_batches", 2))
+        if args.smoke
+        else int(cfg["train"].get("max_val_batches", 0))
+    )
     if stage == "geometry_audit":
         metrics, rows = evaluate(model, val_loader, criterion, device, max_eval_batches)
         _write_evaluation(metrics, rows, output_dir / "geometry_audit")
@@ -672,7 +789,11 @@ def main() -> None:
     optimizer = torch.optim.AdamW(groups, weight_decay=0.0)
     scaler = torch.amp.GradScaler("cuda", enabled=bool(cfg["train"].get("use_amp", True)))
     epochs = 1 if args.smoke else int(cfg["train"]["epochs"])
-    train_limit = int(cfg["train"].get("smoke_train_batches", 2)) if args.smoke else 0
+    train_limit = (
+        int(cfg["train"].get("smoke_train_batches", 2))
+        if args.smoke
+        else int(cfg["train"].get("max_train_batches", 0))
+    )
     batches_per_epoch = min(len(train_loader), train_limit) if train_limit else len(train_loader)
     micro_batch = int(cfg["train"]["batch_size"])
     effective_batch = int(cfg["train"].get("effective_batch_size", micro_batch))
@@ -770,15 +891,30 @@ def main() -> None:
                 terms = criterion(output, batch["velocity"])
                 divisor = _accumulation_divisor(step, batches_per_epoch, accumulation_steps)
                 scaled_loss = terms.total / divisor
+            if not bool(torch.isfinite(terms.total)):
+                diagnostic_path = _write_nonfinite_diagnostic(
+                    output_dir, "nonfinite_loss", epoch, step, raw_batch, batch,
+                    output, terms, model, scaler
+                )
+                raise RuntimeError(f"Encountered non-finite loss. Diagnostic: {diagnostic_path}")
             scaler.scale(scaled_loss).backward()
             running_loss += float(terms.total.detach())
             batch_count += 1
             boundary = (step + 1) % accumulation_steps == 0 or step + 1 == batches_per_epoch
             if boundary:
                 scaler.unscale_(optimizer)
-                grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
-                if not bool(torch.isfinite(grad_norm)):
-                    raise RuntimeError("Encountered non-finite gradient norm.")
+                try:
+                    grad_norm = torch.nn.utils.clip_grad_norm_(
+                        model.parameters(), grad_clip, error_if_nonfinite=True
+                    )
+                except RuntimeError as error:
+                    diagnostic_path = _write_nonfinite_diagnostic(
+                        output_dir, "nonfinite_gradient", epoch, step, raw_batch, batch,
+                        output, terms, model, scaler
+                    )
+                    raise RuntimeError(
+                        f"Encountered non-finite gradient. Diagnostic: {diagnostic_path}"
+                    ) from error
                 clipped = float(grad_norm) > grad_clip
                 epoch_clipped_steps += int(clipped)
                 clipped_steps += int(clipped)
@@ -812,9 +948,9 @@ def main() -> None:
         improved = eligible and score < best_score - min_delta
         if improved:
             best_score = score
-            no_improve = 0
-        else:
-            no_improve += 1
+        no_improve = _next_no_improve(
+            no_improve, improved, stage, epoch, freeze_backbone_epochs
+        )
         checkpoint = _checkpoint(
             epoch,
             model,

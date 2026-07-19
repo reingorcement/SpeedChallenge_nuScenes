@@ -59,7 +59,10 @@ class MonotonicUncertaintyGate(nn.Module):
 
     def forward(self, covariance: torch.Tensor, valid: torch.Tensor) -> torch.Tensor:
         planar_variance = covariance[:, 0, 0] + covariance[:, 2, 2]
-        log_variance = torch.log1p(planar_variance.clamp_min(0.0))
+        planar_variance = torch.nan_to_num(
+            planar_variance, nan=1.0e6, posinf=1.0e6, neginf=0.0
+        ).clamp(0.0, 1.0e6)
+        log_variance = torch.log1p(planar_variance)
         gate = torch.sigmoid(self.sharpness * (log_variance - self.log_variance_threshold))
         gate = torch.where(valid, gate, torch.ones_like(gate))
         return gate[:, None]

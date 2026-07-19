@@ -33,7 +33,7 @@ from model.v2.lever_arm import correct_reference_to_cg
 from model.v2.kinematics import WeakKinematicEncoder
 from model.v2.losses import V2VelocityLoss
 from model.v2.model import V2NuScenesVelocityModel
-from model.v2.residual import BoundedFiLMResidual
+from model.v2.residual import BoundedFiLMResidual, MonotonicUncertaintyGate
 from model.v2.rotation_flow import rotational_flow, scale_intrinsics
 from model.v2.types import TimedSignal, V2VelocityOutput
 from scripts.prepare_v2_training_stats import resolve_field_age_limits
@@ -53,6 +53,7 @@ from train_v2 import (
     _load_initial_weights,
     load_config,
     _make_scheduler,
+    _next_no_improve,
     _parameter_groups,
     _selection_result,
     _set_epoch_training_mode,
@@ -544,11 +545,37 @@ def test_beta_loss_uses_target_angle_and_masks_low_speed() -> None:
     assert float(low_only.beta) == 0.0
 
 
+def test_beta_loss_has_finite_gradient_at_zero_prediction() -> None:
+    criterion = V2VelocityLoss(beta_weight=1.0, geometry_weight=0.0, residual_weight=0.0)
+    target = torch.tensor([[5.0, 0.5]])
+    predicted = torch.zeros(1, 2, requires_grad=True)
+
+    terms = criterion(make_output(predicted, target.shape), target)
+    terms.total.backward()
+
+    assert torch.isfinite(terms.total)
+    assert torch.isfinite(predicted.grad).all()
+    assert float(terms.beta) == 0.0
+
+
 def test_film_residual_is_bounded_per_axis() -> None:
     model = BoundedFiLMResidual(condition_dim=4, residual_limits=(2.0, 0.5))
     residual = model(torch.randn(3, 256, 2, 4, 4) * 100.0, torch.randn(3, 4) * 100.0)
     assert torch.all(residual[:, 0].abs() <= 2.0)
     assert torch.all(residual[:, 1].abs() <= 0.5)
+
+
+def test_uncertainty_gate_sanitizes_nonfinite_covariance() -> None:
+    gate = MonotonicUncertaintyGate()
+    covariance = torch.eye(3).repeat(3, 1, 1)
+    covariance[0, 0, 0] = float("nan")
+    covariance[1, 2, 2] = float("inf")
+    covariance[2, 0, 0] = -float("inf")
+
+    result = gate(covariance, torch.ones(3, dtype=torch.bool))
+
+    assert torch.isfinite(result).all()
+    assert torch.all((result >= 0.0) & (result <= 1.0))
 
 
 def test_weak_kinematic_encoder_is_bounded_and_uncertainty_gate_is_monotonic() -> None:
@@ -718,6 +745,7 @@ def test_recommended_stage_configs_lock_training_defaults() -> None:
     assert visual["loss"]["sigma_vy"] == 1.0
     assert visual["loss"]["beta_min_speed"] == 2.0
     assert visual["loss"]["geometry_weight"] == 0.0
+    assert visual["train"]["epochs"] == 15
     assert visual["train"]["freeze_backbone_epochs"] == 5
     assert kinematic["train"]["scenario_sampling"] is True
     assert joint["train"]["head_lr"] == pytest.approx(1.0e-4)
@@ -787,6 +815,33 @@ def test_stage_checkpoint_selection_matches_acceptance_constraint() -> None:
         baseline,
     )
     assert not rejected
+
+
+def test_visual_early_stopping_starts_after_backbone_unfreezes() -> None:
+    no_improve = 0
+    for epoch in range(5):
+        no_improve = _next_no_improve(
+            no_improve,
+            improved=False,
+            stage="visual",
+            epoch=epoch,
+            freeze_backbone_epochs=5,
+        )
+    assert no_improve == 0
+    assert _next_no_improve(
+        no_improve,
+        improved=False,
+        stage="visual",
+        epoch=5,
+        freeze_backbone_epochs=5,
+    ) == 1
+    assert _next_no_improve(
+        3,
+        improved=True,
+        stage="visual",
+        epoch=6,
+        freeze_backbone_epochs=5,
+    ) == 0
 
 
 def test_training_checkpoint_restores_complete_resume_state(tmp_path) -> None:
