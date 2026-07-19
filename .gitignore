@@ -32,6 +32,13 @@ features/
 temp/
 cache/
 
+# Server training artifacts
+/FlexiNet_ChassisFusion/checkpoints/
+/FlexiNet_ChassisFusion/outputs/
+/FlexiNet_ChassisFusion/logs/*.log
+/FlexiNet_ChassisFusion/logs/v2_resolved_runtime_*.tsv
+/FlexiNet_ChassisFusion/logs/v2_latest_run.txt
+
 # Large raw datasets if they appear later
 data/raw/
 datasets/raw/

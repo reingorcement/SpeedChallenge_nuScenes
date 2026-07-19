@@ -184,14 +184,43 @@ def _per_scene_rows(
     return output
 
 
+def _variant_changes_predictions(
+    baseline_rows: list[dict[str, Any]],
+    variant_rows: list[dict[str, Any]],
+    tolerance: float = 1.0e-6,
+) -> bool:
+    return any(
+        abs(float(right["pred_vx_mps"]) - float(left["pred_vx_mps"])) > tolerance
+        or abs(float(right["pred_vy_mps"]) - float(left["pred_vy_mps"])) > tolerance
+        for left, right in align_prediction_rows(baseline_rows, variant_rows)
+    )
+
+
+def _metric_change(before: float, after: float) -> dict[str, float]:
+    relative = math.nan if before == 0.0 else 100.0 * (after - before) / before
+    return {
+        "visual": before,
+        "joint": after,
+        "absolute_delta": after - before,
+        "relative_delta_percent": relative,
+    }
+
+
 def _markdown(report: dict[str, Any]) -> str:
     acceptance = report["acceptance"]
     aggregate = report["aggregate_metrics"]
+    preliminary = report["analysis_mode"] == "preliminary_single_seed"
+    pass_key = "preliminary_pass" if preliminary else "stage1_pass"
     lines = [
-        "# nuScenes Stage-1 Independent Test Report",
+        (
+            "# nuScenes Stage-1 Seed-42 Preliminary Test Report"
+            if preliminary
+            else "# nuScenes Stage-1 Independent Test Report"
+        ),
         "",
-        f"- Overall result: **{'PASS' if acceptance['stage1_pass'] else 'FAIL'}**",
-        f"- Experimental unit: scene",
+        f"- Overall result: **{'PASS' if acceptance[pass_key] else 'FAIL'}**",
+        f"- Analysis mode: `{report['analysis_mode']}`",
+        "- Experimental unit: scene",
         f"- Paired seeds: {', '.join(str(seed) for seed in report['seeds'])}",
         f"- Holdout scenes: {report['stage1_test_scene_count']}",
         "- `final_system_test` remained sealed and was not evaluated.",
@@ -210,6 +239,20 @@ def _markdown(report: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
+            "## Visual to Joint Changes",
+            "",
+            "| Metric | Visual | Joint | Absolute delta | Relative delta |",
+            "|---|---:|---:|---:|---:|",
+        ]
+    )
+    for metric, change in report["visual_to_joint_changes"].items():
+        lines.append(
+            f"| {metric} | {change['visual']:.4f} | {change['joint']:.4f} "
+            f"| {change['absolute_delta']:.4f} | {change['relative_delta_percent']:.2f}% |"
+        )
+    lines.extend(
+        [
+            "",
             "## Acceptance",
             "",
             "| Check | Result |",
@@ -217,7 +260,7 @@ def _markdown(report: dict[str, Any]) -> str:
         ]
     )
     for key, value in acceptance.items():
-        if key != "stage1_pass":
+        if key not in {"stage1_pass", "preliminary_pass"}:
             lines.append(f"| {key} | {'PASS' if value else 'FAIL'} |")
     lines.extend(["", "## Paired Scene Bootstrap", ""])
     for key, value in report["paired_scene_bootstrap"].items():
@@ -232,6 +275,12 @@ def _markdown(report: dict[str, Any]) -> str:
             "",
             "Negative paired deltas favor the joint model. Acceptance thresholds are engineering gates; "
             "the bootstrap intervals quantify scene-to-scene uncertainty and are not computed from adjacent frames as independent samples.",
+            (
+                "This single-seed bootstrap is conditional on seed 42 and does not quantify training-seed "
+                "variability or establish statistical significance across random initializations."
+                if preliminary
+                else "The paired-seed analysis includes training-seed variability from the configured runs."
+            ),
             "",
             "Ablation results, per-scene metrics, and ranked bad cases are stored beside this report.",
         ]
@@ -246,8 +295,13 @@ def analyze(
     joint_paths: list[str],
     high_lateral_threshold: float,
     bootstrap_samples: int,
+    preliminary: bool = False,
 ) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
-    if not (len(seeds) == len(visual_paths) == len(joint_paths)) or len(seeds) < 3:
+    if not (len(seeds) == len(visual_paths) == len(joint_paths)):
+        raise ValueError("Seed and visual/joint prediction counts must match.")
+    if preliminary and len(seeds) != 1:
+        raise ValueError("Preliminary Stage-1 analysis requires exactly one paired seed.")
+    if not preliminary and len(seeds) < 3:
         raise ValueError("Stage-1 analysis requires at least three paired visual/joint seeds.")
     geometry_variants = load_prediction_variants(geometry_path)
     geometry_rows = geometry_variants["baseline"]
@@ -306,6 +360,19 @@ def analyze(
         )
         for visual, joint in zip(visual_metrics, joint_metrics)
     )
+    baseline_joint_variants = joint_variants[0]
+    missing_can_metrics = (
+        metrics_from_rows(baseline_joint_variants["missing_can"], high_lateral_threshold)
+        if "missing_can" in baseline_joint_variants
+        else None
+    )
+    kinematic_ablation_changed = any(
+        variant in baseline_joint_variants
+        and _variant_changes_predictions(
+            baseline_joint_variants["baseline"], baseline_joint_variants[variant]
+        )
+        for variant in ("no_kinematic_correction", "shuffled_can")
+    )
     joint_pass = {
         "joint_epe_within_2_percent": (
             aggregate["joint"]["endpoint_error_mps"]["mean"] <= 1.02 * visual_epe
@@ -318,8 +385,42 @@ def analyze(
             for row in joint_metrics
         ),
     }
+    if preliminary:
+        joint_pass.pop("joint_group_improved_at_least_2_seeds")
+        joint_pass.update(
+            {
+                "joint_group_improved_seed42": improved_seed_count == 1,
+                "missing_can_outputs_finite": bool(
+                    missing_can_metrics and missing_can_metrics["all_outputs_finite"]
+                ),
+                "kinematic_ablation_changes_predictions": kinematic_ablation_changed,
+            }
+        )
     acceptance = {**geometry_pass, **visual_pass, **joint_pass}
-    acceptance["stage1_pass"] = all(acceptance.values())
+    pass_key = "preliminary_pass" if preliminary else "stage1_pass"
+    acceptance[pass_key] = all(acceptance.values())
+
+    visual_metric = {
+        key: statistics.fmean(float(row[key]) for row in visual_metrics)
+        for key in visual_metrics[0]
+        if all(key in row and isinstance(row[key], (int, float)) for row in visual_metrics)
+    }
+    joint_metric = {
+        key: statistics.fmean(float(row[key]) for row in joint_metrics)
+        for key in joint_metrics[0]
+        if all(key in row and isinstance(row[key], (int, float)) for row in joint_metrics)
+    }
+    visual_to_joint_changes = {
+        metric: _metric_change(float(visual_metric[metric]), float(joint_metric[metric]))
+        for metric in (
+            "endpoint_error_mps",
+            "mae_vx_mps",
+            "mae_vy_mps",
+            "turning_mae_vy_mps",
+            "high_lateral_mae_vy_mps",
+        )
+        if metric in visual_metric and metric in joint_metric
+    }
 
     per_scene = _per_scene_rows("geometry", seeds[0], geometry_rows, high_lateral_threshold)
     for seed, rows in zip(seeds, visual_rows):
@@ -367,6 +468,7 @@ def analyze(
         )
     bad_cases.sort(key=lambda row: float(row["mean_joint_endpoint_error_mps"]), reverse=True)
     report = {
+        "analysis_mode": "preliminary_single_seed" if preliminary else "formal_paired_seeds",
         "partition": "stage1_test",
         "sealed_partition_evaluated": False,
         "experimental_unit": "scene",
@@ -376,8 +478,23 @@ def analyze(
         "aggregate_metrics": aggregate,
         "per_seed_metrics": {"visual": visual_metrics, "joint": joint_metrics},
         "paired_scene_bootstrap": paired_bootstrap,
+        "bootstrap_scope": (
+            "scene_sampling_conditional_on_seed_42"
+            if preliminary
+            else "scene_sampling_aggregated_across_paired_seeds"
+        ),
+        "visual_to_joint_changes": visual_to_joint_changes,
         "group_improved_seed_count": improved_seed_count,
         "acceptance": acceptance,
+        "claim_limitations": (
+            [
+                "Single seed 42 only; training-seed stability was not evaluated.",
+                "Scene bootstrap intervals do not establish cross-seed statistical significance.",
+                "Results estimate nuScenes ego-reference velocity, not vehicle center-of-gravity velocity.",
+            ]
+            if preliminary
+            else []
+        ),
     }
     return report, per_scene, ablations, bad_cases[:100]
 
@@ -391,8 +508,11 @@ def main() -> None:
     parser.add_argument("--training_stats", default="logs/v2_training_stats.json")
     parser.add_argument("--bootstrap_samples", type=int, default=10_000)
     parser.add_argument("--output_dir", default="outputs/stage1_test_report")
+    parser.add_argument("--preliminary", action="store_true")
     parser.add_argument("--enforce", action="store_true")
     args = parser.parse_args()
+    if args.preliminary and args.enforce:
+        parser.error("--enforce requires formal analysis with at least three seeds.")
     statistics_report = json.loads(Path(args.training_stats).read_text(encoding="utf-8"))
     threshold = float(statistics_report["high_lateral_threshold_mps"])
     report, per_scene, ablations, bad_cases = analyze(
@@ -402,6 +522,7 @@ def main() -> None:
         args.joint_predictions,
         threshold,
         args.bootstrap_samples,
+        preliminary=args.preliminary,
     )
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)

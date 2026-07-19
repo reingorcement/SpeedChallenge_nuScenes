@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 import math
 import random
@@ -416,6 +417,27 @@ def _write_nonfinite_diagnostic(
     return path
 
 
+def _write_training_health_diagnostic(
+    output_dir: Path,
+    epoch: int,
+    reasons: list[str],
+    metrics: dict,
+    run_metadata: dict,
+) -> Path:
+    diagnostics_dir = output_dir / "diagnostics"
+    diagnostics_dir.mkdir(parents=True, exist_ok=True)
+    path = diagnostics_dir / f"training_health_epoch_{epoch + 1:03d}.json"
+    report = {
+        "reason": "training_health_limit",
+        "epoch": epoch + 1,
+        "errors": reasons,
+        "metrics": metrics,
+        "run_metadata": run_metadata,
+    }
+    path.write_text(json.dumps(report, indent=2, allow_nan=False), encoding="utf-8")
+    return path
+
+
 def _configure_trainable_modules(model: V2NuScenesVelocityModel, stage: str) -> None:
     model.freeze_backbone()
     model.set_residual_trainable(False)
@@ -641,6 +663,9 @@ def _checkpoint(
     clipped_steps: int,
     amp_overflow_steps: int = 0,
     consecutive_amp_overflows: int = 0,
+    consecutive_high_clip_epochs: int = 0,
+    high_clip_warning_count: int = 0,
+    last_clip_fraction: float = 0.0,
 ) -> dict:
     numpy_state = np.random.get_state()
     return {
@@ -658,6 +683,9 @@ def _checkpoint(
         "clipped_steps": clipped_steps,
         "amp_overflow_steps": amp_overflow_steps,
         "consecutive_amp_overflows": consecutive_amp_overflows,
+        "consecutive_high_clip_epochs": consecutive_high_clip_epochs,
+        "high_clip_warning_count": high_clip_warning_count,
+        "last_clip_fraction": last_clip_fraction,
         "rng_state": {
             "python": random.getstate(),
             "numpy": {
@@ -680,11 +708,14 @@ def _load_resume(
     scheduler: torch.optim.lr_scheduler.LRScheduler,
     scaler: torch.amp.GradScaler,
     stage: str,
-) -> tuple[int, list[dict], float, int, int, int, int, int]:
+    cfg: dict | None = None,
+) -> tuple[int, list[dict], float, int, int, int, int, int, int, int, float]:
     checkpoint = torch.load(path, map_location="cpu")
     checkpoint_stage = checkpoint.get("config", {}).get("train", {}).get("stage")
     if checkpoint_stage != stage:
         raise ValueError(f"Resume stage mismatch: checkpoint={checkpoint_stage}, requested={stage}.")
+    if cfg is not None and _resume_contract(checkpoint.get("config", {})) != _resume_contract(cfg):
+        raise ValueError("Resume checkpoint training contract does not match the resolved config.")
     model.load_state_dict(checkpoint["model"])
     optimizer.load_state_dict(checkpoint["optimizer"])
     scheduler.load_state_dict(checkpoint["scheduler"])
@@ -714,7 +745,110 @@ def _load_resume(
         int(checkpoint.get("clipped_steps", 0)),
         int(checkpoint.get("amp_overflow_steps", 0)),
         int(checkpoint.get("consecutive_amp_overflows", 0)),
+        int(checkpoint.get("consecutive_high_clip_epochs", 0)),
+        int(checkpoint.get("high_clip_warning_count", 0)),
+        float(checkpoint.get("last_clip_fraction", 0.0)),
     )
+
+
+def _resume_contract(cfg: dict) -> dict:
+    train = cfg.get("train", {})
+    data = cfg.get("data", {})
+    return {
+        "data": {
+            key: data.get(key)
+            for key in (
+                "dataroot",
+                "version",
+                "split_manifest_path",
+                "seq_len",
+                "visual_height",
+                "visual_width",
+                "geometry_height",
+                "geometry_width",
+                "cam_channel",
+                "can_bus_root",
+                "flow_root",
+                "flow_backend",
+                "frame_cache_root",
+                "geometry_cache_root",
+                "geometry_cache_mode",
+                "kinematic_stats_path",
+                "online_mode",
+                "chassis_window_sec",
+                "chassis_hz",
+                "field_max_age_sec",
+                "photometric_augmentation",
+                "camera_height_m",
+                "road_mask_top_fraction",
+            )
+        },
+        "model": cfg.get("model", {}),
+        "loss": cfg.get("loss", {}),
+        "train": {
+            key: train.get(key)
+            for key in (
+                "stage",
+                "batch_size",
+                "effective_batch_size",
+                "epochs",
+                "head_lr",
+                "kinematic_lr",
+                "backbone_lr",
+                "weight_decay",
+                "use_amp",
+                "amp_init_scale",
+                "amp_growth_interval",
+                "seed",
+                "grad_clip",
+                "freeze_backbone_epochs",
+                "warmup_fraction",
+                "min_lr_ratio",
+                "scenario_sampling",
+                "visual_baseline_metrics",
+                "early_stopping_patience",
+                "early_stopping_min_delta",
+            )
+        },
+    }
+
+
+def _config_fingerprint(cfg: dict) -> str:
+    payload = json.dumps(cfg, sort_keys=True, separators=(",", ":"), allow_nan=False)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def _update_clip_health(
+    clip_fraction: float,
+    warning_fraction: float,
+    hard_fraction: float,
+    max_consecutive_epochs: int,
+    consecutive_high_clip_epochs: int,
+    high_clip_warning_count: int,
+) -> tuple[int, int, str | None]:
+    if not 0.0 <= warning_fraction <= hard_fraction <= 1.0:
+        raise ValueError("Gradient clip fractions must satisfy 0 <= warning <= hard <= 1.")
+    if max_consecutive_epochs < 1:
+        raise ValueError("max_consecutive_high_clip_epochs must be at least 1.")
+    if clip_fraction > hard_fraction:
+        return (
+            consecutive_high_clip_epochs + 1,
+            high_clip_warning_count + 1,
+            f"Gradient clipping fraction {clip_fraction:.1%} exceeds hard limit "
+            f"{hard_fraction:.1%}.",
+        )
+    if clip_fraction > warning_fraction:
+        consecutive = consecutive_high_clip_epochs + 1
+        warnings = high_clip_warning_count + 1
+        if consecutive >= max_consecutive_epochs:
+            return (
+                consecutive,
+                warnings,
+                f"Gradient clipping fraction exceeded {warning_fraction:.1%} for "
+                f"{consecutive} consecutive epochs.",
+            )
+        return consecutive, warnings, None
+    return 0, high_clip_warning_count, None
 
 
 def _backoff_amp_overflow(
@@ -887,6 +1021,9 @@ def main() -> None:
     clipped_steps = 0
     amp_overflow_steps = 0
     consecutive_amp_overflows = 0
+    consecutive_high_clip_epochs = 0
+    high_clip_warning_count = 0
+    last_clip_fraction = 0.0
     if args.resume:
         (
             start_epoch,
@@ -897,7 +1034,10 @@ def main() -> None:
             clipped_steps,
             amp_overflow_steps,
             consecutive_amp_overflows,
-        ) = _load_resume(args.resume, model, optimizer, scheduler, scaler, stage)
+            consecutive_high_clip_epochs,
+            high_clip_warning_count,
+            last_clip_fraction,
+        ) = _load_resume(args.resume, model, optimizer, scheduler, scaler, stage, cfg)
 
     if not args.resume:
         initial_metrics, initial_rows = evaluate(model, val_loader, criterion, device, max_eval_batches)
@@ -934,6 +1074,18 @@ def main() -> None:
     min_delta = float(cfg["train"].get("early_stopping_min_delta", 1.0e-4))
     grad_clip = float(cfg["train"].get("grad_clip", 2.0))
     max_clip_fraction = float(cfg["train"].get("max_clip_fraction", 0.2))
+    hard_max_clip_fraction = float(cfg["train"].get("hard_max_clip_fraction", 0.3))
+    max_consecutive_high_clip_epochs = int(
+        cfg["train"].get("max_consecutive_high_clip_epochs", 2)
+    )
+    _update_clip_health(
+        0.0,
+        max_clip_fraction,
+        hard_max_clip_fraction,
+        max_consecutive_high_clip_epochs,
+        0,
+        0,
+    )
     run_metadata = {
         "git_commit": _git_commit(),
         "seed": int(cfg["train"].get("seed", 42)),
@@ -945,11 +1097,15 @@ def main() -> None:
         "amp_growth_interval": int(cfg["train"].get("amp_growth_interval", 10000)),
         "amp_overflow_steps": amp_overflow_steps,
         "amp_scale": float(scaler.get_scale()),
+        "consecutive_high_clip_epochs": consecutive_high_clip_epochs,
+        "high_clip_warning_count": high_clip_warning_count,
+        "last_clip_fraction": last_clip_fraction,
     }
     (output_dir / "run_metadata.json").write_text(
         json.dumps(run_metadata, indent=2), encoding="utf-8"
     )
 
+    stop_reason = "max_epochs"
     for epoch in range(start_epoch, epochs):
         _set_epoch_training_mode(model, stage, epoch, freeze_backbone_epochs)
         running_loss = torch.zeros((), device=device)
@@ -1048,18 +1204,22 @@ def main() -> None:
         clip_fraction = epoch_clipped_steps / max(epoch_optimizer_steps, 1)
         amp_step_count = epoch_optimizer_steps + epoch_amp_overflow_steps
         amp_overflow_fraction = epoch_amp_overflow_steps / max(amp_step_count, 1)
-        if clip_fraction > max_clip_fraction:
-            raise RuntimeError(
-                f"Gradient clipping fraction {clip_fraction:.1%} exceeds {max_clip_fraction:.1%}."
-            )
         max_amp_overflow_fraction = float(
             cfg["train"].get("max_amp_overflow_fraction", 0.005)
         )
-        if amp_overflow_fraction > max_amp_overflow_fraction:
-            raise RuntimeError(
-                f"AMP overflow fraction {amp_overflow_fraction:.2%} exceeds "
-                f"{max_amp_overflow_fraction:.2%}."
-            )
+        (
+            consecutive_high_clip_epochs,
+            high_clip_warning_count,
+            clip_health_error,
+        ) = _update_clip_health(
+            clip_fraction,
+            max_clip_fraction,
+            hard_max_clip_fraction,
+            max_consecutive_high_clip_epochs,
+            consecutive_high_clip_epochs,
+            high_clip_warning_count,
+        )
+        last_clip_fraction = clip_fraction
         metrics, rows = evaluate(model, val_loader, criterion, device, max_eval_batches)
         eligible, score = _selection_result(
             metrics, stage, visual_baseline, constrained=not args.smoke
@@ -1069,6 +1229,8 @@ def main() -> None:
                 "checkpoint_eligible": float(eligible),
                 "checkpoint_score": score,
                 "gradient_clip_fraction": clip_fraction,
+                "consecutive_high_clip_epochs": float(consecutive_high_clip_epochs),
+                "high_clip_warning_count": float(high_clip_warning_count),
                 "amp_overflow_fraction": amp_overflow_fraction,
                 "amp_overflow_steps": float(epoch_amp_overflow_steps),
                 "amp_scale": float(scaler.get_scale()),
@@ -1080,6 +1242,9 @@ def main() -> None:
                 "amp_overflow_steps": amp_overflow_steps,
                 "amp_overflow_fraction_last_epoch": amp_overflow_fraction,
                 "amp_scale": float(scaler.get_scale()),
+                "consecutive_high_clip_epochs": consecutive_high_clip_epochs,
+                "high_clip_warning_count": high_clip_warning_count,
+                "last_clip_fraction": last_clip_fraction,
             }
         )
         (output_dir / "run_metadata.json").write_text(
@@ -1108,6 +1273,9 @@ def main() -> None:
             clipped_steps,
             amp_overflow_steps,
             consecutive_amp_overflows,
+            consecutive_high_clip_epochs,
+            high_clip_warning_count,
+            last_clip_fraction,
         )
         torch.save(checkpoint, save_dir / "last.pth")
         _write_evaluation(metrics, rows, output_dir / "last_eval")
@@ -1120,11 +1288,55 @@ def main() -> None:
             f"epoch={epoch + 1} train={train_loss:.5f} val={metrics['loss']:.5f} "
             f"eligible={eligible} score={score:.5f} lr={metrics['learning_rate']:.3e}"
         )
+        if clip_fraction > max_clip_fraction:
+            print(
+                f"Gradient clipping warning at epoch={epoch + 1}: {clip_fraction:.1%} "
+                f"> {max_clip_fraction:.1%}; consecutive="
+                f"{consecutive_high_clip_epochs}/{max_consecutive_high_clip_epochs}."
+            )
+        health_errors = []
+        if clip_health_error is not None:
+            health_errors.append(clip_health_error)
+        if amp_overflow_fraction > max_amp_overflow_fraction:
+            health_errors.append(
+                f"AMP overflow fraction {amp_overflow_fraction:.2%} exceeds "
+                f"{max_amp_overflow_fraction:.2%}."
+            )
+        if health_errors:
+            diagnostic_path = _write_training_health_diagnostic(
+                output_dir, epoch, health_errors, metrics, run_metadata
+            )
+            raise RuntimeError(
+                f"{' '.join(health_errors)} Validation and checkpoint persistence completed. "
+                f"Diagnostic: {diagnostic_path}"
+            )
         if patience > 0 and no_improve >= patience:
             print(f"Early stopping after {no_improve} epochs without an eligible improvement.")
+            stop_reason = "early_stopping"
             break
     if not (save_dir / "best.pth").is_file():
         raise RuntimeError("Training produced no checkpoint satisfying the stage acceptance constraint.")
+    completion = {
+        "status": "complete",
+        "stage": stage,
+        "seed": int(cfg["train"].get("seed", 42)),
+        "git_commit": _git_commit(),
+        "config_fingerprint": _config_fingerprint(cfg),
+        "best_checkpoint": str(save_dir / "best.pth"),
+        "best_checkpoint_sha256": file_sha256(save_dir / "best.pth"),
+        "parent_checkpoint": cfg.get("model", {}).get("init_checkpoint"),
+        "parent_checkpoint_sha256": file_sha256(
+            cfg.get("model", {}).get("init_checkpoint")
+        ),
+        "visual_baseline_metrics_sha256": file_sha256(
+            cfg.get("train", {}).get("visual_baseline_metrics")
+        ),
+        "completed_epochs": max((int(row["epoch"]) for row in history), default=0),
+        "stop_reason": stop_reason,
+    }
+    (output_dir / "completed.json").write_text(
+        json.dumps(completion, indent=2, allow_nan=False), encoding="utf-8"
+    )
 
 
 if __name__ == "__main__":

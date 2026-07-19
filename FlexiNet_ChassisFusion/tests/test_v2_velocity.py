@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import math
 import json
+from pathlib import Path
 import random
 import sys
 import types
@@ -9,9 +10,10 @@ import types
 import numpy as np
 import pytest
 import torch
+import yaml
 
 from dataset.nuscenes_chassis import NuScenesCanBusAdapter
-from dataset.v2_geometry_cache import SceneGeometryCache, geometry_cache_fingerprint
+from dataset.v2_geometry_cache import SceneGeometryCache, file_sha256, geometry_cache_fingerprint
 from dataset.v2_schema import (
     KINEMATIC_VALUE_DIM,
     KINEMATIC_VALUE_FEATURES,
@@ -47,6 +49,10 @@ from scripts.analyze_v2_stage1 import (
     paired_scene_bootstrap,
 )
 from scripts.evaluate_v2_holdout import _modified_batch, ablation_prediction
+from scripts.validate_v2_seed42_artifacts import (
+    _validate_completion,
+    _validate_joint_config,
+)
 from train_v2 import (
     _accumulation_steps,
     _accumulation_divisor,
@@ -54,6 +60,7 @@ from train_v2 import (
     _build_loader,
     _checkpoint,
     _configure_trainable_modules,
+    _config_fingerprint,
     _load_resume,
     _load_initial_weights,
     load_config,
@@ -62,6 +69,7 @@ from train_v2 import (
     _parameter_groups,
     _selection_result,
     _set_epoch_training_mode,
+    _update_clip_health,
     move_batch,
 )
 
@@ -438,7 +446,7 @@ def test_holdout_ablation_postprocessing_and_missing_can_masks() -> None:
 
 
 def test_stage1_analyzer_accepts_consistent_three_seed_improvement(tmp_path) -> None:
-    def write_predictions(path, prediction_offset, correction=0.0):
+    def write_predictions(path, prediction_offset, correction=0.0, include_ablations=False):
         rows = []
         for index, (scene, target_vy, yaw_rate) in enumerate(
             (("scene-a", 0.0, 0.0), ("scene-b", 1.0, 0.1), ("scene-c", -1.0, -0.1))
@@ -481,6 +489,19 @@ def test_stage1_analyzer_accepts_consistent_three_seed_improvement(tmp_path) -> 
                     "wheel_relative_std": 0.0,
                 }
             )
+        if include_ablations:
+            baseline_rows = list(rows)
+            for variant, delta in (
+                ("no_kinematic_correction", 0.05),
+                ("missing_can", 0.02),
+                ("shuffled_can", 0.03),
+            ):
+                for row in baseline_rows:
+                    changed = dict(row)
+                    changed["variant"] = variant
+                    changed["pred_vx_mps"] += delta
+                    changed["pred_vy_mps"] += delta
+                    rows.append(changed)
         import csv
 
         with path.open("w", newline="", encoding="utf-8") as handle:
@@ -507,6 +528,23 @@ def test_stage1_analyzer_accepts_consistent_three_seed_improvement(tmp_path) -> 
     assert report["acceptance"]["stage1_pass"]
     assert report["group_improved_seed_count"] == 3
     assert per_scene and ablations and bad_cases
+
+    preliminary_joint = tmp_path / "joint-preliminary.csv"
+    write_predictions(preliminary_joint, 0.1, correction=0.1, include_ablations=True)
+    preliminary_report, _, preliminary_ablations, _ = analyze(
+        [42],
+        str(geometry),
+        [str(visual[0])],
+        [str(preliminary_joint)],
+        high_lateral_threshold=0.5,
+        bootstrap_samples=200,
+        preliminary=True,
+    )
+    assert preliminary_report["analysis_mode"] == "preliminary_single_seed"
+    assert preliminary_report["acceptance"]["preliminary_pass"]
+    assert preliminary_report["bootstrap_scope"] == "scene_sampling_conditional_on_seed_42"
+    assert preliminary_report["claim_limitations"]
+    assert len(preliminary_ablations) == 4
 
 
 def test_no_cg_correction_without_explicit_lever_arm() -> None:
@@ -913,9 +951,19 @@ def test_recommended_stage_configs_lock_training_defaults() -> None:
     geometry = load_config("configs/velocity_xy_v2_geometry.yaml")
     assert geometry["data"]["geometry_cache_mode"] == "off"
     assert kinematic["train"]["scenario_sampling"] is True
+    assert kinematic["train"]["epochs"] == 8
+    assert kinematic["train"]["early_stopping_patience"] == 3
     assert joint["train"]["head_lr"] == pytest.approx(1.0e-4)
     assert joint["train"]["kinematic_lr"] == pytest.approx(1.0e-4)
     assert joint["train"]["effective_batch_size"] == 8
+    assert joint["train"]["max_clip_fraction"] == pytest.approx(0.2)
+    assert joint["train"]["hard_max_clip_fraction"] == pytest.approx(0.3)
+    assert joint["train"]["max_consecutive_high_clip_epochs"] == 2
+    _validate_joint_config(joint)
+    invalid_joint = json.loads(json.dumps(joint))
+    invalid_joint["train"]["kinematic_lr"] = 2.0e-4
+    with pytest.raises(ValueError, match="kinematic_lr"):
+        _validate_joint_config(invalid_joint)
 
 
 def test_optimizer_groups_exclude_bias_and_norm_from_weight_decay() -> None:
@@ -1070,6 +1118,9 @@ def test_training_checkpoint_restores_complete_resume_state(tmp_path) -> None:
         1,
         4,
         2,
+        1,
+        3,
+        0.21,
     )
     expected_random = random.random()
     expected_numpy = float(np.random.rand())
@@ -1080,10 +1131,70 @@ def test_training_checkpoint_restores_complete_resume_state(tmp_path) -> None:
         next(model.parameters()).add_(1.0)
     state = _load_resume(path, model, optimizer, scheduler, scaler, "visual")
     torch.testing.assert_close(next(model.parameters()), original)
-    assert state == (3, [{"epoch": 0}], 1.0, 2, 3, 1, 4, 2)
+    assert state == (3, [{"epoch": 0}], 1.0, 2, 3, 1, 4, 2, 1, 3, 0.21)
     assert random.random() == pytest.approx(expected_random)
     assert float(np.random.rand()) == pytest.approx(expected_numpy)
     assert float(torch.rand(())) == pytest.approx(expected_torch)
+
+    incompatible = json.loads(json.dumps(cfg))
+    incompatible["train"]["head_lr"] = 1.0e-3
+    with pytest.raises(ValueError, match="training contract"):
+        _load_resume(path, model, optimizer, scheduler, scaler, "visual", incompatible)
+
+
+def test_joint_completion_marker_binds_config_and_checkpoint(tmp_path) -> None:
+    cfg = load_config("configs/velocity_xy_v2_visual_kinematic.yaml")
+    resolved = tmp_path / "resolved_config.yaml"
+    resolved.write_text(yaml.safe_dump(cfg, sort_keys=False), encoding="utf-8")
+    checkpoint = tmp_path / "best.pth"
+    checkpoint.write_bytes(b"seed-42-joint")
+    marker = tmp_path / "completed.json"
+    marker.write_text(
+        json.dumps(
+            {
+                "status": "complete",
+                "stage": "joint",
+                "seed": 42,
+                "config_fingerprint": _config_fingerprint(cfg),
+                "best_checkpoint_sha256": file_sha256(checkpoint),
+                "visual_baseline_metrics_sha256": "none",
+            }
+        ),
+        encoding="utf-8",
+    )
+    assert _validate_completion(marker, checkpoint, expected_cfg=cfg)["status"] == "complete"
+    checkpoint.write_bytes(b"changed")
+    with pytest.raises(ValueError, match="checkpoint hash"):
+        _validate_completion(marker, checkpoint)
+
+
+def test_gradient_clip_health_warns_then_stops_and_resets() -> None:
+    consecutive, warnings, error = _update_clip_health(0.211, 0.2, 0.3, 2, 0, 0)
+    assert (consecutive, warnings, error) == (1, 1, None)
+
+    consecutive, warnings, error = _update_clip_health(
+        0.205, 0.2, 0.3, 2, consecutive, warnings
+    )
+    assert consecutive == 2
+    assert warnings == 2
+    assert "2 consecutive epochs" in str(error)
+
+    consecutive, warnings, error = _update_clip_health(0.1, 0.2, 0.3, 2, 1, 2)
+    assert (consecutive, warnings, error) == (0, 2, None)
+
+    consecutive, warnings, error = _update_clip_health(0.301, 0.2, 0.3, 2, 0, 0)
+    assert consecutive == 1
+    assert warnings == 1
+    assert "hard limit" in str(error)
+
+
+def test_seed42_continuation_does_not_train_completed_stages() -> None:
+    script = Path("scripts/run_v2_seed42_continuation.sh").read_text(encoding="utf-8")
+    assert "train_v2.py" in script
+    assert "--config configs/smoke_velocity_xy_v2_visual_kinematic.yaml" in script
+    assert "--config configs/velocity_xy_v2_kinematic.yaml" not in script
+    assert "run_v2_server_pipeline.sh" not in script
+    assert "--preliminary --seeds 42" in script
 
 
 def test_amp_overflow_backoff_skips_optimizer_update() -> None:

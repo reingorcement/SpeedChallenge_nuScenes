@@ -57,7 +57,7 @@ train:
   effective_batch_size: 8
   num_workers: 8
   prefetch_factor: 2
-  epochs: 15
+  epochs: 8
   head_lr: 0.0003
   kinematic_lr: 0.0003
   backbone_lr: 0.00001
@@ -72,9 +72,11 @@ train:
   freeze_backbone_epochs: 0
   warmup_fraction: 0.05
   min_lr_ratio: 0.1
-  early_stopping_patience: 4
+  early_stopping_patience: 3
   early_stopping_min_delta: 0.0001
   max_clip_fraction: 0.2
+  hard_max_clip_fraction: 0.3
+  max_consecutive_high_clip_epochs: 2
   scenario_sampling: true
   visual_baseline_metrics: outputs/velocity_xy_v2_visual/best_eval/metrics.json
   smoke_train_batches: 2

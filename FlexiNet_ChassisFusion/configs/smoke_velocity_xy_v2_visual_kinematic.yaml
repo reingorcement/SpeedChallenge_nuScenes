@@ -75,6 +75,8 @@ train:
   early_stopping_patience: 0
   early_stopping_min_delta: 0.0001
   max_clip_fraction: 1.0
+  hard_max_clip_fraction: 1.0
+  max_consecutive_high_clip_epochs: 2
   scenario_sampling: false
   smoke_train_batches: 2
   smoke_val_batches: 2

@@ -40,3 +40,35 @@ Provide one server command that trains the nuScenes-only visual/kinematic system
 
 ## Status
 **Complete** - unattended server orchestration, independent holdout testing, ablations, scene-level statistics, reporting, documentation, and 97-test local regression verification are complete. Full nuScenes/RAFT/CUDA execution remains server-only.
+
+---
+
+# Task Plan: Seed-42 Recovery and Preliminary Evaluation
+
+## Goal
+Resume from the existing seed-42 kinematic best checkpoint, train only joint seed 42, and automatically produce online holdout, ablation, and explicitly preliminary single-seed reports without rerunning completed stages.
+
+## Phases
+- [x] Phase 1: Inspect returned artifacts, current trainer, analyzer, tests, and server pipeline
+- [x] Phase 2: Implement post-checkpoint gradient-clip health handling and resume state
+- [x] Phase 3: Implement preliminary single-seed analysis and the continuation pipeline
+- [x] Phase 4: Add focused tests and run local regression, compile, and shell checks
+- [x] Phase 5: Update the implementation report and provide the exact server handoff
+
+## Decisions Made
+- Existing visual and kinematic checkpoints remain inputs; no completed training stage is rerun.
+- Keep model, data, loss, optimizer, and joint hyperparameters unchanged.
+- Treat one clip-warning epoch as recoverable, two consecutive warning epochs or one epoch above 30% as fatal only after validation and checkpoint persistence.
+- Single-seed scene bootstrap is conditional on seed 42 and cannot establish training-seed stability.
+
+## Errors Encountered
+- The environment-declared backup worktree no longer exists; implementation uses `dynkinvision-0718`, which contains the returned server artifacts.
+- `FlexiNet_ChassisFusion/.gitignore` does not exist; generated-artifact handling must use the repository-level ignore rules and explicit script paths.
+- The expected `dataset/v2_frame_cache.py` helper does not exist; frame cache validation is implemented by the existing `NuScenesChassisFusionDataset` manifest contract.
+- The first completion-marker test serialized the YAML config through JSON, changing `backbone_lr` from the YAML string `5e-06` to a float; the fixture now uses the same `yaml.safe_dump` path as the trainer.
+- Windows `bash.exe` points to an unavailable WSL installation; Git Bash at `D:/Program Files/Git/bin/bash.exe` provides the local syntax check instead.
+- Parallel `conda run` calls contended on a Windows temporary activation file; static tools are run sequentially from the environment executable path.
+- Ruff reports one pre-existing unused `math` import in `tests/test_v2_velocity.py`; it is outside this change and was not removed.
+
+## Status
+**Complete** - seed-42 recovery, artifact validation, resumable joint training, online holdout ablations, preliminary reporting, and local verification are complete. Full nuScenes/CUDA execution remains server-only.

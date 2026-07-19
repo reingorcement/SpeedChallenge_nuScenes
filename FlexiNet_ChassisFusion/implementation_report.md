@@ -28,3 +28,21 @@
 - Real nuScenes unit and sign auditing is still required. Physics configs intentionally keep `physics_units_audited: false` until this is completed.
 - Solver_SF and CarSim are unavailable, so full Simulink closed-loop numerical parity was not run.
 - Real-data accuracy, parameter identifiability, and ablation conclusions require server-side training with valid dataset paths.
+
+## V2 Seed-42 Recovery
+- Gradient clip-rate health checks now run after validation and checkpoint persistence. One epoch above 20% warns; two consecutive epochs above 20% or one above 30% stops with a dedicated diagnostic.
+- Checkpoints persist and restore clip warning state alongside AMP state. Completed stages write a config/checkpoint-bound `completed.json` marker.
+- Kinematic reproduction is capped at 8 epochs with patience 3. Existing visual and kinematic seed-42 best checkpoints remain valid and are not retrained.
+- Added strict artifact/cache/provenance validation and a seed-42 continuation pipeline that runs joint smoke, joint training/resume, online holdout ablations, and preliminary analysis.
+- Preliminary analysis supports exactly one paired seed and labels scene-bootstrap intervals as conditional on seed 42. Formal `--enforce` analysis still requires at least three paired seeds.
+
+### Server Command
+```bash
+V2_RUN_TAG=accelerated_20260719_143555 \
+bash scripts/run_v2_seed42_continuation.sh
+```
+
+### Local Verification
+- Returned kinematic epoch-4 checkpoint: strict CPU model load passed.
+- `python -m pytest tests eovm_ekf/tests -q`: 113 passed.
+- Python compile, Ruff, Git diff check, Bash syntax, and ShellCheck passed.
