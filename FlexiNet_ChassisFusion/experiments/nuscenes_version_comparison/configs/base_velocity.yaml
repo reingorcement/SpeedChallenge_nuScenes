@@ -1,0 +1,16 @@
+algorithm:
+  name: base_velocity
+  family: reference
+  label: Base velocity [base_vx, 0]
+  source_commit: 7de2aad
+  base_config: configs/velocity_xy_kd_only.yaml
+
+overrides:
+  project:
+    name: comparison_base_velocity
+  data:
+    seq_len: 5
+    img_height: 72
+    img_width: 128
+    image_mode: rgb
+    online_mode: true

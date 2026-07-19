@@ -1,0 +1,14 @@
+algorithm:
+  name: v2_geometry
+  family: v2
+  label: V2 geometry-only
+  source_commit: 9e0dc23
+  base_config: configs/velocity_xy_v2_geometry.yaml
+
+overrides:
+  project:
+    name: comparison_v2_geometry
+  model:
+    mode: geometry_only
+  train:
+    stage: geometry_audit

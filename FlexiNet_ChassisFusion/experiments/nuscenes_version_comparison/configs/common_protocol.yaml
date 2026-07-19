@@ -1,0 +1,68 @@
+protocol:
+  name: nuscenes_version_comparison
+  legacy_reference_commit: 7de2aad
+  current_reference_commit: 9e0dc23
+  seeds: [42, 3407, 2026]
+  train_partition: train_core
+  dev_partition: dev
+  test_partition: stage1_test
+  sealed_partition: final_system_test
+  bootstrap_samples: 10000
+  bootstrap_seed: 42
+
+paths:
+  dataroot: /media/ps/AC78E69278E65B1A/zy/nuscenes
+  can_bus_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/can_bus
+  flow_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_flow_v2/CAM_FRONT
+  frame_cache_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_frames/CAM_FRONT_72x128_rgb
+  geometry_cache_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_geometry_v2/CAM_FRONT
+  split_manifest_path: logs/v2_split_manifest.json
+  kinematic_stats_path: logs/v2_training_stats.json
+  output_root: outputs/nuscenes_version_comparison
+  checkpoint_root: checkpoints/nuscenes_version_comparison
+
+data:
+  version: v1.0-trainval
+  cam_channel: CAM_FRONT
+  seq_len: 5
+  visual_height: 72
+  visual_width: 128
+  geometry_height: 288
+  geometry_width: 512
+  chassis_window_sec: 1.0
+  chassis_hz: 20.0
+  max_scenes:
+
+stress:
+  variants:
+    - clean
+    - can_missing
+    - can_stale_500ms
+    - can_dropout_250ms
+    - yaw_bias_pos
+    - yaw_bias_neg
+    - wheel_scale_low
+    - wheel_scale_high
+    - camera_frozen
+    - camera_missing
+  v2_calibration_variants:
+    - focal_scale_low
+    - focal_scale_high
+    - camera_height_low
+    - camera_height_high
+    - camera_pitch_pos
+    - camera_pitch_neg
+  yaw_bias_radps: 0.02
+  wheel_scales: [0.9, 1.1]
+  stale_seconds: 0.5
+  dropout_seconds: 0.25
+  focal_scales: [0.95, 1.05]
+  camera_height_scales: [0.9, 1.1]
+  camera_pitch_degrees: 1.0
+
+analysis:
+  turning_yaw_rate_radps: 0.1
+  low_speed_mps: 2.0
+  high_speed_mps: 10.0
+  quantile: 0.9
+  bad_case_count: 100
