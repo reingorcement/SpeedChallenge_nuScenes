@@ -62,7 +62,7 @@ train:
   effective_batch_size: 8
   num_workers: 8
   prefetch_factor: 2
-  epochs: 20
+  epochs: 15
   head_lr: 0.0003
   kinematic_lr: 0.0003
   backbone_lr: 1.0e-05
