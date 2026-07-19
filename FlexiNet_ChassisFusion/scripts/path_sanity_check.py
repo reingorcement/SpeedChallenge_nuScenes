@@ -135,16 +135,20 @@ def make_dummy_inputs(cfg: dict, sample: dict | None = None) -> tuple[torch.Tens
 
 
 def build_optimizer(cfg: dict, model: torch.nn.Module) -> torch.optim.Optimizer:
-    backbone_params = list(model.backbone.parameters())
+    backbone = getattr(model, "backbone", None)
+    backbone_params = [param for param in backbone.parameters() if param.requires_grad] if backbone is not None else []
     backbone_param_ids = {id(param) for param in backbone_params}
-    head_params = [param for param in model.parameters() if id(param) not in backbone_param_ids]
-    return torch.optim.AdamW(
-        [
-            {"params": head_params, "lr": float(cfg["train"]["learning_rate_head"])},
-            {"params": backbone_params, "lr": float(cfg["train"]["learning_rate_backbone"])},
-        ],
-        weight_decay=float(cfg["train"]["weight_decay"]),
-    )
+    head_params = [
+        param
+        for param in model.parameters()
+        if param.requires_grad and id(param) not in backbone_param_ids
+    ]
+    groups = [{"params": head_params, "lr": float(cfg["train"]["learning_rate_head"])}]
+    if backbone_params:
+        groups.append(
+            {"params": backbone_params, "lr": float(cfg["train"]["learning_rate_backbone"])}
+        )
+    return torch.optim.AdamW(groups, weight_decay=float(cfg["train"]["weight_decay"]))
 
 
 def run_tiny_training_step(cfg: dict, dataset: NuScenesChassisFusionDataset, model: FlexiNetChassisFusion) -> bool:

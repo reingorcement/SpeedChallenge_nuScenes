@@ -170,6 +170,7 @@ def _model_forward_from_batch(model: nn.Module, batch: dict, device: torch.devic
         base_velocity=base_velocity,
         flow=_optional_batch_tensor(batch, "flow", device),
         geometry=_optional_batch_tensor(batch, "geometry", device),
+        chassis_current_index=_optional_batch_tensor(batch, "chassis_current_index", device),
     )
     return pred, velocity, base_velocity
 

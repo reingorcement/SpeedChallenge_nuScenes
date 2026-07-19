@@ -72,6 +72,40 @@ DYNAMICS_PROXY_FEATURE_NAMES = [
 ]
 
 
+def _current_sequence_index(length: int, online_mode: bool) -> int:
+    if length <= 0:
+        raise ValueError("Sequence length must be positive.")
+    return length - 1 if online_mode else length // 2
+
+
+def _select_scene_records(
+    all_scenes: Sequence[dict],
+    official_scene_names: set[str],
+    scene_indices: Optional[Sequence[int]],
+    scene_names: Optional[Sequence[str]],
+) -> list[dict]:
+    if scene_indices is not None and scene_names is not None:
+        raise ValueError("scene_indices and scene_names are mutually exclusive.")
+    if scene_names is not None:
+        requested = set(scene_names)
+        outside_split = requested - official_scene_names
+        if outside_split:
+            raise ValueError(f"Requested scenes are outside official split: {sorted(outside_split)[:3]}")
+        available = {scene["name"]: scene for scene in all_scenes}
+        missing = requested - set(available)
+        if missing:
+            raise ValueError(f"Requested scenes are absent from nuScenes metadata: {sorted(missing)[:3]}")
+        return [available[name] for name in sorted(requested)]
+    if scene_indices is None:
+        return [scene for scene in all_scenes if scene["name"] in official_scene_names]
+    selected = []
+    for idx in scene_indices:
+        if idx >= len(all_scenes):
+            break
+        selected.append(all_scenes[idx])
+    return selected
+
+
 def _yaw_from_quaternion(rotation: Sequence[float]) -> float:
     if len(rotation) != 4:
         raise ValueError("nuScenes ego_pose rotation must be a quaternion [w, x, y, z].")
@@ -325,6 +359,7 @@ class NuScenesChassisFusionDataset(Dataset):
         can_bus_root: Optional[str | Path] = None,
         allow_pose_fallback: bool = False,
         scene_indices: Optional[Sequence[int]] = None,
+        scene_names: Optional[Sequence[str]] = None,
         image_cache_size: int = 0,
         chassis_mode: str = "fair_chassis",
         chassis_window_sec: float = 0.0,
@@ -381,15 +416,12 @@ class NuScenesChassisFusionDataset(Dataset):
         self.samples: List[dict] = []
         self.scene_names: List[str] = []
 
-        if scene_indices is None:
-            split_scene_names = self._scene_names_for_split(version, split)
-            scenes = [scene for scene in self.nusc.scene if scene["name"] in split_scene_names]
-        else:
-            scenes = []
-            for idx in scene_indices:
-                if idx >= len(self.nusc.scene):
-                    break
-                scenes.append(self.nusc.scene[idx])
+        scenes = _select_scene_records(
+            self.nusc.scene,
+            self._scene_names_for_split(version, split),
+            scene_indices,
+            scene_names,
+        )
 
         if max_scenes is not None and int(max_scenes) > 0:
             scenes = scenes[: int(max_scenes)]
@@ -428,7 +460,7 @@ class NuScenesChassisFusionDataset(Dataset):
 
             for i in range(len(scene_tokens) - seq_len + 1):
                 tokens = scene_tokens[i : i + seq_len]
-                center_idx = seq_len // 2
+                center_idx = _current_sequence_index(seq_len, self.online_mode)
                 center_token = tokens[center_idx]
                 center_sd = self.nusc.get("sample_data", center_token)
                 if not center_sd.get("prev", "") or not center_sd.get("next", ""):
@@ -660,7 +692,10 @@ class NuScenesChassisFusionDataset(Dataset):
     def _compute_geometry_prior(self, chassis_sequence: torch.Tensor) -> torch.Tensor:
         if self.geometry_mode == "none":
             return torch.empty(0, dtype=torch.float32)
-        center_idx = chassis_sequence.shape[0] // 2
+        center_idx = _current_sequence_index(
+            chassis_sequence.shape[0],
+            bool(getattr(self, "online_mode", False)),
+        )
         center_vec = chassis_sequence[center_idx]
         return torch.tensor(
             [
@@ -732,6 +767,10 @@ class NuScenesChassisFusionDataset(Dataset):
             "velocity": velocity_label,
             "flow": self._load_flow_sequence(tokens),
             "geometry": self._compute_geometry_prior(kin_seq),
+            "chassis_current_index": torch.tensor(
+                _current_sequence_index(kin_seq.shape[0], self.online_mode),
+                dtype=torch.long,
+            ),
             "base_speed": torch.tensor([base_vx], dtype=torch.float32),
             "speed": torch.tensor([speed_label], dtype=torch.float32),
             "scene_name": sample["scene_name"],

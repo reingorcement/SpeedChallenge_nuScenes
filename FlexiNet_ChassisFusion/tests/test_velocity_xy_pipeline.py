@@ -8,6 +8,7 @@ import subprocess
 import sys
 
 import numpy as np
+import pytest
 import torch
 
 from dataset.nuscenes_chassis import (
@@ -15,9 +16,11 @@ from dataset.nuscenes_chassis import (
     FAIR_CHASSIS_DIM,
     NuScenesCanBusAdapter,
     NuScenesChassisFusionDataset,
+    _current_sequence_index,
+    _select_scene_records,
 )
 from model.fusion_model import FlexiNetChassisFusion
-from scripts.path_sanity_check import build_model_from_config, load_config
+from scripts.path_sanity_check import build_model_from_config, build_optimizer, load_config
 from train import KnowledgeDrivenVelocityLoss, build_criterion
 from utils.evaluation import EvaluationResult, compute_metrics, save_predictions_csv
 
@@ -72,6 +75,32 @@ def test_velocity_label_uses_center_difference_in_ego_frame() -> None:
     velocity = dataset._compute_velocity_label("center_sd")
 
     torch.testing.assert_close(velocity, torch.tensor([1.0, 0.0]), atol=1.0e-6, rtol=1.0e-6)
+
+
+def test_online_sequence_uses_last_frame_and_offline_uses_center() -> None:
+    assert _current_sequence_index(5, online_mode=True) == 4
+    assert _current_sequence_index(5, online_mode=False) == 2
+
+
+def test_explicit_scene_selection_validates_official_split() -> None:
+    scenes = [{"name": "scene-a"}, {"name": "scene-b"}]
+    assert _select_scene_records(scenes, {"scene-a", "scene-b"}, None, ["scene-b"]) == [
+        {"name": "scene-b"}
+    ]
+    with pytest.raises(ValueError, match="outside official split"):
+        _select_scene_records(scenes, {"scene-a"}, None, ["scene-b"])
+    with pytest.raises(ValueError, match="absent"):
+        _select_scene_records(scenes, {"scene-a", "scene-c"}, None, ["scene-c"])
+
+
+def test_chassis_current_index_selects_per_batch_and_rejects_invalid_index() -> None:
+    chassis = torch.zeros(2, 3, FAIR_CHASSIS_DIM)
+    chassis[0, :, 2] = torch.tensor([1.0, 2.0, 3.0])
+    chassis[1, :, 2] = torch.tensor([4.0, 5.0, 6.0])
+    selected = FlexiNetChassisFusion._select_chassis_frame(chassis, torch.tensor([2, 0]))
+    torch.testing.assert_close(selected[:, 2], torch.tensor([3.0, 4.0]))
+    with pytest.raises(ValueError, match="outside"):
+        FlexiNetChassisFusion._select_chassis_frame(chassis, torch.tensor([3, 0]))
 
 
 def test_fair_chassis_excludes_pose_derived_values(tmp_path) -> None:
@@ -327,6 +356,14 @@ def test_vkd_ablation_configs_build_models() -> None:
         cfg = load_config(Path("configs") / config_name)
         model = build_model_from_config(cfg)
         assert model.output_dim == 2
+
+
+def test_kd_only_optimizer_does_not_require_a_visual_backbone() -> None:
+    cfg = load_config(Path("configs") / "velocity_xy_kd_only.yaml")
+    model = build_model_from_config(cfg)
+    optimizer = build_optimizer(cfg, model)
+    assert model.backbone is None
+    assert len(optimizer.param_groups) == 1
 
 
 def test_compute_metrics_reports_vector_velocity_errors() -> None:

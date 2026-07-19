@@ -321,6 +321,7 @@ class FlexiNetChassisFusion(nn.Module):
         base_velocity: Optional[torch.Tensor] = None,
         flow: Optional[torch.Tensor] = None,
         geometry: Optional[torch.Tensor] = None,
+        chassis_current_index: Optional[torch.Tensor] = None,
     ) -> torch.Tensor:
         self.last_gate_weights = None
         self.last_gate_names = []
@@ -333,6 +334,7 @@ class FlexiNetChassisFusion(nn.Module):
                 base_velocity=base_velocity,
                 flow=flow,
                 geometry=geometry,
+                chassis_current_index=chassis_current_index,
             )
 
         features = []
@@ -348,6 +350,7 @@ class FlexiNetChassisFusion(nn.Module):
                 batch_size=images.shape[0],
                 device=images.device,
                 dtype=images.dtype,
+                current_index=chassis_current_index,
             )
             features.append(self.dynamics_encoder(dynamics_input))
         fused = torch.cat(features, dim=1)
@@ -391,6 +394,7 @@ class FlexiNetChassisFusion(nn.Module):
         base_velocity: Optional[torch.Tensor] = None,
         flow: Optional[torch.Tensor] = None,
         geometry: Optional[torch.Tensor] = None,
+        chassis_current_index: Optional[torch.Tensor] = None,
     ) -> torch.Tensor:
         if self.gated_fusion_head is None:
             raise RuntimeError("residual_gated mode requires gated_fusion_head.")
@@ -415,6 +419,7 @@ class FlexiNetChassisFusion(nn.Module):
                 batch_size=images.shape[0],
                 device=images.device,
                 dtype=images.dtype,
+                current_index=chassis_current_index,
             )
             branches.append(self.dynamics_encoder(dynamics_input))
             branch_names.append("dynamics")
@@ -437,9 +442,10 @@ class FlexiNetChassisFusion(nn.Module):
         batch_size: int,
         device: torch.device,
         dtype: torch.dtype,
+        current_index: Optional[torch.Tensor] = None,
     ) -> torch.Tensor:
         if chassis_vec.dim() == 3:
-            center_vec = chassis_vec[:, chassis_vec.shape[1] // 2, :]
+            center_vec = self._select_chassis_frame(chassis_vec, current_index)
         elif chassis_vec.dim() == 2:
             center_vec = chassis_vec
         else:
@@ -465,6 +471,23 @@ class FlexiNetChassisFusion(nn.Module):
             ],
             dim=1,
         ).to(device=device, dtype=dtype)
+
+    @staticmethod
+    def _select_chassis_frame(
+        chassis_vec: torch.Tensor,
+        current_index: Optional[torch.Tensor],
+    ) -> torch.Tensor:
+        if current_index is None:
+            return chassis_vec[:, chassis_vec.shape[1] // 2, :]
+        indexes = current_index.to(device=chassis_vec.device, dtype=torch.long).reshape(-1)
+        if indexes.numel() == 1 and chassis_vec.shape[0] > 1:
+            indexes = indexes.expand(chassis_vec.shape[0])
+        if indexes.shape[0] != chassis_vec.shape[0]:
+            raise ValueError("chassis_current_index must contain one index per batch item.")
+        if (indexes < 0).any() or (indexes >= chassis_vec.shape[1]).any():
+            raise ValueError("chassis_current_index is outside the chassis sequence.")
+        batch_indexes = torch.arange(chassis_vec.shape[0], device=chassis_vec.device)
+        return chassis_vec[batch_indexes, indexes]
 
     def _resolve_base_velocity(
         self,
