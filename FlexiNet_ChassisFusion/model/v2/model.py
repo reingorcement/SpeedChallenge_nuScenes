@@ -137,10 +137,10 @@ class V2NuScenesVelocityModel(nn.Module):
     def forward(
         self,
         images: torch.Tensor,
-        flow: torch.Tensor,
-        flow_confidence: torch.Tensor,
-        intrinsics: torch.Tensor,
-        frame_dt: torch.Tensor,
+        flow: Optional[torch.Tensor],
+        flow_confidence: Optional[torch.Tensor],
+        intrinsics: Optional[torch.Tensor],
+        frame_dt: Optional[torch.Tensor],
         angular_rate_camera: TimedSignal,
         plane_normal_camera: torch.Tensor,
         plane_offset: torch.Tensor,
@@ -151,55 +151,88 @@ class V2NuScenesVelocityModel(nn.Module):
         wheel_speed: Optional[TimedSignal] = None,
         road_mask: Optional[torch.Tensor] = None,
         reference_lever_arm_from_cg: Optional[torch.Tensor] = None,
+        cached_geometry: Optional[dict[str, torch.Tensor]] = None,
     ) -> V2VelocityOutput:
         gyro_valid = angular_rate_camera.valid_fields(self.sensor_max_age_sec)
         gyro_value = torch.where(gyro_valid, angular_rate_camera.value, torch.zeros_like(angular_rate_camera.value))
-        with torch.autocast(device_type=flow.device.type, enabled=False):
-            geometry = self.geometry_solver(
-                flow=flow.float(),
-                confidence=flow_confidence.float(),
-                intrinsics=intrinsics.float(),
-                dt=frame_dt.float(),
-                angular_rate_camera=gyro_value.float(),
-                angular_rate_valid=gyro_valid,
-                plane_normal_camera=plane_normal_camera.float(),
-                plane_offset=plane_offset.float(),
-                rotation_ego_from_camera=rotation_ego_from_camera.float(),
-                road_mask=road_mask,
-            )
-        ego_3d = camera_to_reference_velocity(geometry.camera_velocity, rotation_ego_from_camera)
-        angular_rate_ego = torch.matmul(
-            rotation_ego_from_camera, gyro_value.unsqueeze(-1)
-        ).squeeze(-1)
-        corrected_3d, cg_applied = correct_reference_to_cg(
-            ego_3d, angular_rate_ego, reference_lever_arm_from_cg
-        )
-        if self.output_reference == "cg" and not cg_applied:
-            raise ValueError("CG output requires reference_lever_arm_from_cg calibration.")
-        geometry_velocity = corrected_3d[:, :2]
+        if cached_geometry is None:
+            if flow is None or flow_confidence is None or intrinsics is None or frame_dt is None:
+                raise ValueError("Online geometry requires flow, confidence, intrinsics, and dt.")
+            with torch.autocast(device_type=flow.device.type, enabled=False):
+                geometry = self.geometry_solver(
+                    flow=flow.float(),
+                    confidence=flow_confidence.float(),
+                    intrinsics=intrinsics.float(),
+                    dt=frame_dt.float(),
+                    angular_rate_camera=gyro_value.float(),
+                    angular_rate_valid=gyro_valid,
+                    plane_normal_camera=plane_normal_camera.float(),
+                    plane_offset=plane_offset.float(),
+                    rotation_ego_from_camera=rotation_ego_from_camera.float(),
+                    road_mask=road_mask,
+                )
+                ego_3d = camera_to_reference_velocity(
+                    geometry.camera_velocity, rotation_ego_from_camera.float()
+                )
+                angular_rate_ego = torch.matmul(
+                    rotation_ego_from_camera.float(), gyro_value.float().unsqueeze(-1)
+                ).squeeze(-1)
+                corrected_3d, cg_applied = correct_reference_to_cg(
+                    ego_3d, angular_rate_ego, reference_lever_arm_from_cg
+                )
+            if self.output_reference == "cg" and not cg_applied:
+                raise ValueError("CG output requires reference_lever_arm_from_cg calibration.")
+            geometry_velocity = corrected_3d[:, :2]
+            geometry_covariance = geometry.covariance
+            geometry_condition = geometry.condition_number
+            geometry_residual = geometry.residual_rms
+            geometry_valid = geometry.valid
+            geometry_support = geometry.support_count
+        else:
+            required = {
+                "velocity",
+                "covariance",
+                "condition_number",
+                "residual_rms",
+                "valid",
+                "support_count",
+            }
+            missing = required - set(cached_geometry)
+            if missing:
+                raise ValueError(f"Cached geometry is missing fields: {sorted(missing)}")
+            if self.output_reference != "ego_reference" or reference_lever_arm_from_cg is not None:
+                raise ValueError("Cached geometry supports ego_reference output only.")
+            geometry_velocity = cached_geometry["velocity"].float()
+            geometry_covariance = cached_geometry["covariance"].float()
+            geometry_condition = cached_geometry["condition_number"].float()
+            geometry_residual = cached_geometry["residual_rms"].float()
+            geometry_valid = cached_geometry["valid"].bool()
+            geometry_support = cached_geometry["support_count"].long()
+            if geometry_velocity.shape != (images.shape[0], 2):
+                raise ValueError("Cached geometry velocity must have shape [B,2].")
         wheel_scale, wheel_fallback, fallback_used = self._wheel_scale_and_fallback(
-            geometry_velocity, geometry.valid, wheel_speed
+            geometry_velocity, geometry_valid, wheel_speed
         )
         visual_base = geometry_velocity.clone()
         visual_base[:, 0] = visual_base[:, 0] * wheel_scale[:, 0]
-        visual_base = torch.where(geometry.valid[:, None], visual_base, wheel_fallback)
+        visual_base = torch.where(geometry_valid[:, None], visual_base, wheel_fallback)
 
-        covariance_trace = geometry.covariance.diagonal(dim1=-2, dim2=-1).sum(dim=-1)
+        covariance_trace = geometry_covariance.diagonal(dim1=-2, dim2=-1).sum(dim=-1)
         covariance_trace = torch.nan_to_num(
             covariance_trace, nan=1.0e6, posinf=1.0e6, neginf=0.0
         ).clamp(0.0, 1.0e6)
         condition = torch.nan_to_num(
-            geometry.condition_number, nan=1.0e12, posinf=1.0e12, neginf=1.0e12
+            geometry_condition, nan=1.0e12, posinf=1.0e12, neginf=1.0e12
         ).clamp(0.0, 1.0e12)
         residual_rms = torch.nan_to_num(
-            geometry.residual_rms, nan=100.0, posinf=100.0, neginf=0.0
+            geometry_residual, nan=100.0, posinf=100.0, neginf=0.0
         ).clamp(0.0, 100.0)
         geometry_context = torch.stack(
             (
                 torch.log1p(covariance_trace),
                 torch.log1p(condition),
                 residual_rms,
-                geometry.valid.to(images.dtype),
+                geometry_valid.to(images.dtype),
             ),
             dim=-1,
         )
@@ -209,7 +242,7 @@ class V2NuScenesVelocityModel(nn.Module):
         if self.mode in {"visual", "visual_kinematic"}:
             feature_map = self.backbone.forward_feature_map(images)
             residual = self.residual_model(feature_map, geometry_context)
-            residual_gate = self.uncertainty_gate(geometry.covariance, geometry.valid)
+            residual_gate = self.uncertainty_gate(geometry_covariance, geometry_valid)
             visual_velocity = visual_base + residual_gate * residual
 
         kinematic_residual = images.new_zeros(images.shape[0], 2)
@@ -239,11 +272,11 @@ class V2NuScenesVelocityModel(nn.Module):
         predicted = visual_velocity + kinematic_correction
         return V2VelocityOutput(
             geometry_velocity=geometry_velocity,
-            geometry_covariance=geometry.covariance,
-            geometry_condition_number=geometry.condition_number,
-            geometry_residual_rms=geometry.residual_rms,
-            geometry_valid=geometry.valid,
-            geometry_support_count=geometry.support_count,
+            geometry_covariance=geometry_covariance,
+            geometry_condition_number=geometry_condition,
+            geometry_residual_rms=geometry_residual,
+            geometry_valid=geometry_valid,
+            geometry_support_count=geometry_support,
             visual_velocity=visual_velocity,
             wheel_scale=wheel_scale,
             fallback_used=fallback_used,

@@ -11,6 +11,7 @@ import pytest
 import torch
 
 from dataset.nuscenes_chassis import NuScenesCanBusAdapter
+from dataset.v2_geometry_cache import SceneGeometryCache, geometry_cache_fingerprint
 from dataset.v2_schema import (
     KINEMATIC_VALUE_DIM,
     KINEMATIC_VALUE_FEATURES,
@@ -37,6 +38,8 @@ from model.v2.residual import BoundedFiLMResidual, MonotonicUncertaintyGate
 from model.v2.rotation_flow import rotational_flow, scale_intrinsics
 from model.v2.types import TimedSignal, V2VelocityOutput
 from scripts.prepare_v2_training_stats import resolve_field_age_limits
+from scripts.precompute_v2_geometry import GeometryInputView
+from scripts.profile_v2_training import select_profile_result
 from scripts.compare_v2_multiseed import compare_multiseed
 from scripts.analyze_v2_stage1 import (
     analyze,
@@ -47,6 +50,8 @@ from scripts.evaluate_v2_holdout import _modified_batch, ablation_prediction
 from train_v2 import (
     _accumulation_steps,
     _accumulation_divisor,
+    _backoff_amp_overflow,
+    _build_loader,
     _checkpoint,
     _configure_trainable_modules,
     _load_resume,
@@ -57,6 +62,7 @@ from train_v2 import (
     _parameter_groups,
     _selection_result,
     _set_epoch_training_mode,
+    move_batch,
 )
 
 
@@ -578,6 +584,155 @@ def test_uncertainty_gate_sanitizes_nonfinite_covariance() -> None:
     assert torch.all((result >= 0.0) & (result <= 1.0))
 
 
+def test_scene_geometry_cache_validates_contract_and_fields(tmp_path) -> None:
+    contract = {"geometry_size": [32, 48], "output_reference": "ego_reference"}
+    package = {
+        "velocity": torch.tensor([[5.0, 0.2]]),
+        "covariance": torch.eye(3).unsqueeze(0),
+        "condition_number": torch.tensor([10.0]),
+        "residual_rms": torch.tensor([0.5]),
+        "valid": torch.tensor([True]),
+        "support_count": torch.tensor([100]),
+    }
+    torch.save(package, tmp_path / "scene-a.pt")
+    manifest = {
+        "version": 1,
+        "fingerprint": geometry_cache_fingerprint(contract),
+        "contract": contract,
+        "scenes": {"scene-a": ["token-a"]},
+    }
+    (tmp_path / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+    cache = SceneGeometryCache(tmp_path, contract, ["token-a"])
+    estimate = cache.get("token-a")
+
+    torch.testing.assert_close(estimate["velocity"], torch.tensor([5.0, 0.2]))
+    assert bool(estimate["valid"])
+    with pytest.raises(ValueError, match="fingerprint mismatch"):
+        SceneGeometryCache(tmp_path, {"geometry_size": [64, 64]}, ["token-a"])
+    with pytest.raises(KeyError, match="missing 1 required tokens"):
+        SceneGeometryCache(tmp_path, contract, ["missing-token"])
+    (tmp_path / "scene-a.pt").unlink()
+    with pytest.raises(FileNotFoundError, match="scene-a.pt"):
+        SceneGeometryCache(tmp_path, contract, ["token-a"])
+
+
+def test_move_batch_moves_nested_cached_geometry() -> None:
+    batch = {
+        "images": torch.ones(1),
+        "cached_geometry": {"velocity": torch.tensor([[2.0, 0.1]])},
+        "scene_name": ["scene-a"],
+    }
+
+    moved = move_batch(batch, torch.device("cpu"))
+
+    assert moved["cached_geometry"]["velocity"].device.type == "cpu"
+    assert moved["scene_name"] == ["scene-a"]
+
+
+def test_v2_flow_backend_identity_rejects_stale_package(tmp_path) -> None:
+    adapter = object.__new__(V2NuScenesDatasetAdapter)
+    adapter.flow_root = tmp_path
+    adapter.flow_backend = "raft_large"
+    torch.save(
+        {
+            "flow": torch.zeros(2, 4, 6),
+            "confidence": torch.ones(1, 4, 6),
+            "target_size": (4, 6),
+            "backend": "raft_small",
+        },
+        tmp_path / "token.pt",
+    )
+
+    with pytest.raises(ValueError, match="flow backend mismatch"):
+        adapter._load_flow("token")
+
+
+def test_geometry_precompute_view_does_not_load_images_or_labels() -> None:
+    class Base:
+        samples = [
+            {
+                "scene_name": "scene-a",
+                "center_timestamp": 100,
+                "center_token": "token-a",
+            }
+        ]
+
+        def __getitem__(self, _index):
+            raise AssertionError("Geometry precompute must not load the base image item.")
+
+    class Adapter:
+        base_dataset = Base()
+        _field_max_age_sec = torch.ones(12)
+
+        @staticmethod
+        def online_geometry_inputs(_index):
+            return {"rotation_ego_from_camera": torch.eye(3)}
+
+        @staticmethod
+        def _build_kinematic_sequence(_scene, _timestamp):
+            values = torch.zeros(21, 12)
+            valid = torch.ones(21, 12, dtype=torch.bool)
+            ages = torch.zeros(21, 12)
+            return values, valid, ages, None, None, None, None
+
+    item = GeometryInputView(Adapter(), [0])[0]
+
+    assert item["center_token"] == "token-a"
+    assert item["scene_name"] == "scene-a"
+    assert torch.count_nonzero(item["angular_rate_camera"]) == 0
+
+
+def test_cached_geometry_matches_online_geometry_model_path() -> None:
+    velocity = torch.tensor([[4.0, 0.1, 0.2]])
+    flow, confidence, intrinsics, dt, normal, offset, rotation, road_mask = synthetic_flow(
+        velocity
+    )
+    model = V2NuScenesVelocityModel(mode="geometry_only")
+    gyro = TimedSignal(
+        value=torch.zeros(1, 3),
+        valid=torch.ones(1, 3, dtype=torch.bool),
+        age_sec=torch.zeros(1),
+    )
+    images = torch.zeros(1, 1)
+    online = model(
+        images=images,
+        flow=flow,
+        flow_confidence=confidence,
+        intrinsics=intrinsics,
+        frame_dt=dt,
+        angular_rate_camera=gyro,
+        plane_normal_camera=normal,
+        plane_offset=offset,
+        rotation_ego_from_camera=rotation,
+        road_mask=road_mask,
+    )
+    cached = model(
+        images=images,
+        flow=None,
+        flow_confidence=None,
+        intrinsics=None,
+        frame_dt=None,
+        angular_rate_camera=gyro,
+        plane_normal_camera=normal,
+        plane_offset=offset,
+        rotation_ego_from_camera=rotation,
+        cached_geometry={
+            "velocity": online.geometry_velocity,
+            "covariance": online.geometry_covariance,
+            "condition_number": online.geometry_condition_number,
+            "residual_rms": online.geometry_residual_rms,
+            "valid": online.geometry_valid,
+            "support_count": online.geometry_support_count,
+        },
+    )
+
+    torch.testing.assert_close(cached.predicted_velocity, online.predicted_velocity)
+    torch.testing.assert_close(cached.geometry_covariance, online.geometry_covariance)
+    assert torch.equal(cached.geometry_valid, online.geometry_valid)
+    assert torch.equal(cached.geometry_support_count, online.geometry_support_count)
+
+
 def test_weak_kinematic_encoder_is_bounded_and_uncertainty_gate_is_monotonic() -> None:
     encoder = WeakKinematicEncoder()
     values = torch.randn(2, 21, 12)
@@ -747,6 +902,16 @@ def test_recommended_stage_configs_lock_training_defaults() -> None:
     assert visual["loss"]["geometry_weight"] == 0.0
     assert visual["train"]["epochs"] == 15
     assert visual["train"]["freeze_backbone_epochs"] == 5
+    assert visual["train"]["amp_init_scale"] == 65536.0
+    assert visual["train"]["amp_growth_interval"] == 10000
+    assert visual["train"]["max_amp_overflow_fraction"] == pytest.approx(0.005)
+    assert visual["data"]["geometry_cache_mode"] == "required"
+    assert visual["data"]["flow_backend"] == "raft_large"
+    assert visual["data"]["frame_cache_root"].endswith("CAM_FRONT_72x128_rgb")
+    assert kinematic["data"]["geometry_cache_mode"] == "required"
+    assert joint["data"]["geometry_cache_mode"] == "required"
+    geometry = load_config("configs/velocity_xy_v2_geometry.yaml")
+    assert geometry["data"]["geometry_cache_mode"] == "off"
     assert kinematic["train"]["scenario_sampling"] is True
     assert joint["train"]["head_lr"] == pytest.approx(1.0e-4)
     assert joint["train"]["kinematic_lr"] == pytest.approx(1.0e-4)
@@ -790,6 +955,37 @@ def test_effective_batch_requires_integral_accumulation() -> None:
     with pytest.raises(ValueError, match="positive multiple"):
         _accumulation_steps(6, 8)
     assert [_accumulation_divisor(step, 5, 2) for step in range(5)] == [2, 2, 2, 2, 1]
+
+
+def test_validation_loader_does_not_keep_duplicate_worker_pool() -> None:
+    dataset = torch.utils.data.TensorDataset(torch.arange(8))
+    cfg = {"train": {"batch_size": 2, "num_workers": 1, "prefetch_factor": 2}}
+
+    train_loader = _build_loader(
+        dataset, cfg, torch.device("cpu"), shuffle=True, stage="visual"
+    )
+    val_loader = _build_loader(
+        dataset, cfg, torch.device("cpu"), shuffle=False, stage="visual"
+    )
+
+    assert train_loader.persistent_workers
+    assert not val_loader.persistent_workers
+
+
+def test_throughput_profile_selects_fastest_accepted_worker_count() -> None:
+    report = select_profile_result(
+        {"samples_per_second": 30.0},
+        [
+            {"status": "passed", "num_workers": 4, "samples_per_second": 35.0},
+            {"status": "passed", "num_workers": 8, "samples_per_second": 42.0},
+            {"status": "failed", "num_workers": 16, "error": "OOM"},
+        ],
+        min_speedup=1.2,
+        prefetch_factor=4,
+    )
+    assert report["selected_num_workers"] == 8
+    assert report["speedup"] == pytest.approx(1.4)
+    assert report["accepted"]
 
 
 def test_stage_checkpoint_selection_matches_acceptance_constraint() -> None:
@@ -872,6 +1068,8 @@ def test_training_checkpoint_restores_complete_resume_state(tmp_path) -> None:
         2,
         3,
         1,
+        4,
+        2,
     )
     expected_random = random.random()
     expected_numpy = float(np.random.rand())
@@ -882,10 +1080,55 @@ def test_training_checkpoint_restores_complete_resume_state(tmp_path) -> None:
         next(model.parameters()).add_(1.0)
     state = _load_resume(path, model, optimizer, scheduler, scaler, "visual")
     torch.testing.assert_close(next(model.parameters()), original)
-    assert state == (3, [{"epoch": 0}], 1.0, 2, 3, 1)
+    assert state == (3, [{"epoch": 0}], 1.0, 2, 3, 1, 4, 2)
     assert random.random() == pytest.approx(expected_random)
     assert float(np.random.rand()) == pytest.approx(expected_numpy)
     assert float(torch.rand(())) == pytest.approx(expected_torch)
+
+
+def test_amp_overflow_backoff_skips_optimizer_update() -> None:
+    parameter = torch.nn.Parameter(torch.tensor(1.0))
+    optimizer = torch.optim.SGD([parameter], lr=0.1)
+    parameter.grad = torch.tensor(float("inf"))
+
+    class FakeScaler:
+        def __init__(self) -> None:
+            self.scale = 262144.0
+            self.step_calls = 0
+
+        def is_enabled(self) -> bool:
+            return True
+
+        def get_scale(self) -> float:
+            return self.scale
+
+        def step(self, _optimizer) -> None:
+            self.step_calls += 1
+
+        def update(self) -> None:
+            self.scale /= 2.0
+
+    scaler = FakeScaler()
+    before = parameter.detach().clone()
+    scale_before, scale_after = _backoff_amp_overflow(scaler, optimizer)
+
+    torch.testing.assert_close(parameter, before)
+    assert parameter.grad is None
+    assert scaler.step_calls == 1
+    assert scale_before == 262144.0
+    assert scale_after == 131072.0
+
+
+def test_non_amp_nonfinite_gradient_remains_fatal() -> None:
+    parameter = torch.nn.Parameter(torch.tensor(1.0))
+    optimizer = torch.optim.SGD([parameter], lr=0.1)
+
+    class DisabledScaler:
+        def is_enabled(self) -> bool:
+            return False
+
+    with pytest.raises(RuntimeError, match="fatal when AMP is disabled"):
+        _backoff_amp_overflow(DisabledScaler(), optimizer)
 
 
 def test_kinematic_stage_does_not_load_random_visual_checkpoint_head(tmp_path) -> None:

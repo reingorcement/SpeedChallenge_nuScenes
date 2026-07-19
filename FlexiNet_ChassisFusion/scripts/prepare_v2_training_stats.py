@@ -55,6 +55,7 @@ def main() -> None:
     parser.add_argument("--can_bus_root")
     parser.add_argument("--flow_root")
     parser.add_argument("--split_manifest")
+    parser.add_argument("--frame_cache_root")
     args = parser.parse_args()
 
     cfg = copy.deepcopy(load_config(args.config))
@@ -63,6 +64,7 @@ def main() -> None:
         ("can_bus_root", args.can_bus_root),
         ("flow_root", args.flow_root),
         ("split_manifest_path", args.split_manifest),
+        ("frame_cache_root", args.frame_cache_root),
     ):
         if value:
             cfg["data"][key] = value
@@ -71,6 +73,8 @@ def main() -> None:
     cfg["data"]["kinematic_stats_path"] = None
     cfg["data"]["field_max_age_sec"] = age_limits
     cfg["data"]["photometric_augmentation"] = {"enabled": False}
+    cfg["data"]["geometry_cache_mode"] = "off"
+    cfg["data"]["geometry_cache_root"] = None
     dataset = build_dataset(cfg, "train_core")
 
     sums = torch.zeros(len(KINEMATIC_VALUE_FEATURES), dtype=torch.float64)

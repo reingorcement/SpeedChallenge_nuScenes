@@ -249,6 +249,7 @@ def main() -> None:
     parser.add_argument("--can_bus_root")
     parser.add_argument("--flow_root")
     parser.add_argument("--split_manifest")
+    parser.add_argument("--frame_cache_root")
     args = parser.parse_args()
     if not torch.cuda.is_available():
         raise RuntimeError("The nuScenes holdout evaluator is server-only and requires CUDA.")
@@ -259,9 +260,12 @@ def main() -> None:
         ("can_bus_root", args.can_bus_root),
         ("flow_root", args.flow_root),
         ("split_manifest_path", args.split_manifest),
+        ("frame_cache_root", args.frame_cache_root),
     ):
         if value:
             cfg["data"][key] = value
+    cfg["data"]["geometry_cache_mode"] = "off"
+    cfg["data"]["geometry_cache_root"] = None
     if args.mode:
         cfg["model"]["mode"] = args.mode
     cfg["model"]["kinematic_dropout"] = 0.0

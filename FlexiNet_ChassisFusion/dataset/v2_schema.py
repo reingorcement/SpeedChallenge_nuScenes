@@ -13,6 +13,8 @@ from torchvision.transforms import functional as TF
 
 from model.v2.rotation_flow import scale_intrinsics
 
+from .v2_geometry_cache import SceneGeometryCache
+
 
 KINEMATIC_VALUE_FEATURES = (
     "yaw_rate",
@@ -180,6 +182,10 @@ class V2NuScenesDatasetAdapter(Dataset):
         kinematic_stats_path: str | Path | None = None,
         field_max_age_sec: Sequence[float] | None = None,
         photometric_augmentation: dict[str, Any] | None = None,
+        geometry_cache_root: str | Path | None = None,
+        geometry_cache_mode: str = "off",
+        geometry_cache_contract: dict[str, Any] | None = None,
+        flow_backend: str | None = None,
     ) -> None:
         if not bool(getattr(base_dataset, "online_mode", False)):
             raise ValueError("V2 requires base_dataset.online_mode=True to prevent future-frame leakage.")
@@ -193,6 +199,7 @@ class V2NuScenesDatasetAdapter(Dataset):
                 "V2 needs nuScenes calibration metadata during __getitem__; do not use a frame cache mode that releases nusc."
             )
         self.flow_root = Path(flow_root)
+        self.flow_backend = str(flow_backend) if flow_backend else None
         self.camera_height_m = float(camera_height_m)
         if not 0.0 <= road_mask_top_fraction < 1.0:
             raise ValueError("road_mask_top_fraction must be in [0,1).")
@@ -201,6 +208,10 @@ class V2NuScenesDatasetAdapter(Dataset):
             raise ValueError("geometry_size must be a positive (height,width) pair.")
         self.geometry_size = tuple(int(value) for value in geometry_size) if geometry_size else None
         self.photometric_augmentation = dict(photometric_augmentation or {})
+        if geometry_cache_mode not in {"off", "required"}:
+            raise ValueError("geometry_cache_mode must be 'off' or 'required'.")
+        self.geometry_cache_mode = geometry_cache_mode
+        self.geometry_cache: SceneGeometryCache | None = None
         self._kinematic_mean = torch.zeros(KINEMATIC_VALUE_DIM, dtype=torch.float32)
         self._kinematic_std = torch.ones(KINEMATIC_VALUE_DIM, dtype=torch.float32)
         self._scenario_weights: dict[str, float] = {}
@@ -231,6 +242,16 @@ class V2NuScenesDatasetAdapter(Dataset):
         else:
             self._field_max_age_sec = _field_limits_tensor(DEFAULT_FIELD_MAX_AGE_SEC)
         self._metadata = self._build_metadata()
+        if self.geometry_cache_mode == "required":
+            if not geometry_cache_root or geometry_cache_contract is None:
+                raise ValueError(
+                    "Required geometry cache needs a root and resolved cache contract."
+                )
+            self.geometry_cache = SceneGeometryCache(
+                geometry_cache_root,
+                geometry_cache_contract,
+                (sample["center_token"] for sample in self.base_dataset.samples),
+            )
         if (
             bool(getattr(base_dataset, "_frame_cache_enabled", lambda: False)())
             and getattr(base_dataset, "_label_cache", None) is not None
@@ -247,10 +268,13 @@ class V2NuScenesDatasetAdapter(Dataset):
         if name in {
             "base_dataset",
             "flow_root",
+            "flow_backend",
             "camera_height_m",
             "road_mask_top_fraction",
             "geometry_size",
             "photometric_augmentation",
+            "geometry_cache_mode",
+            "geometry_cache",
             "_kinematic_mean",
             "_kinematic_std",
             "_scenario_weights",
@@ -282,18 +306,7 @@ class V2NuScenesDatasetAdapter(Dataset):
                     gamma_value,
                 )
         sample = self.base_dataset.samples[index]
-        source_token, target_token = sample["tokens"][-2:]
-        flow, confidence, source_size = self._load_flow(source_token)
-        geometry_size = self.geometry_size or tuple(int(value) for value in flow.shape[-2:])
-        geometry_h, geometry_w = geometry_size
-        flow, confidence = self._resize_flow(flow, confidence, geometry_size)
-        road_mask = torch.zeros(1, geometry_h, geometry_w, dtype=torch.bool)
-        road_mask[:, int(round(geometry_h * self.road_mask_top_fraction)) :] = True
-
         metadata = self._metadata[index]
-        intrinsics = scale_intrinsics(
-            metadata["intrinsics"], metadata["original_size"], geometry_size
-        )
         rotation_ego_from_camera = metadata["rotation_ego_from_camera"]
         rotation_camera_from_ego = rotation_ego_from_camera.T
         plane_normal_camera = metadata["plane_normal_camera"]
@@ -321,15 +334,6 @@ class V2NuScenesDatasetAdapter(Dataset):
 
         item.update(
             {
-                "flow_v2": flow,
-                "flow_confidence": confidence,
-                "road_mask": road_mask,
-                "flow_source_size": torch.tensor(source_size, dtype=torch.long),
-                "intrinsics": intrinsics,
-                "frame_dt": torch.tensor(
-                    metadata["frame_dt"],
-                    dtype=torch.float32,
-                ),
                 "angular_rate_camera": angular_rate_camera,
                 "angular_rate_valid": torch.tensor([False, False, bool(yaw_valid)], dtype=torch.bool),
                 "angular_rate_age_sec": kinematic_age[-1, 0] * self._field_max_age_sec[0],
@@ -347,7 +351,35 @@ class V2NuScenesDatasetAdapter(Dataset):
                 "output_reference": "ego_reference",
             }
         )
+        if self.geometry_cache is not None:
+            item["cached_geometry"] = self.geometry_cache.get(sample["center_token"])
+        else:
+            item.update(self.online_geometry_inputs(index))
         return item
+
+    def online_geometry_inputs(self, index: int) -> dict[str, torch.Tensor]:
+        sample = self.base_dataset.samples[index]
+        metadata = self._metadata[index]
+        source_token = sample["tokens"][-2]
+        flow, confidence, source_size = self._load_flow(source_token)
+        geometry_size = self.geometry_size or tuple(int(value) for value in flow.shape[-2:])
+        geometry_h, geometry_w = geometry_size
+        flow, confidence = self._resize_flow(flow, confidence, geometry_size)
+        road_mask = torch.zeros(1, geometry_h, geometry_w, dtype=torch.bool)
+        road_mask[:, int(round(geometry_h * self.road_mask_top_fraction)) :] = True
+        return {
+            "flow_v2": flow,
+            "flow_confidence": confidence,
+            "road_mask": road_mask,
+            "flow_source_size": torch.tensor(source_size, dtype=torch.long),
+            "intrinsics": scale_intrinsics(
+                metadata["intrinsics"], metadata["original_size"], geometry_size
+            ),
+            "frame_dt": torch.tensor(metadata["frame_dt"], dtype=torch.float32),
+            "plane_normal_camera": metadata["plane_normal_camera"],
+            "plane_offset": torch.tensor(self.camera_height_m, dtype=torch.float32),
+            "rotation_ego_from_camera": metadata["rotation_ego_from_camera"],
+        }
 
     def scenario_weights(self) -> torch.Tensor:
         if not self._scenario_weights:
@@ -463,6 +495,11 @@ class V2NuScenesDatasetAdapter(Dataset):
             package = torch.load(pt_path, map_location="cpu")
             if not isinstance(package, dict) or "flow" not in package:
                 raise ValueError(f"V2 flow package must be a dict with a flow tensor: {pt_path}")
+            if self.flow_backend and package.get("backend") != self.flow_backend:
+                raise ValueError(
+                    f"V2 flow backend mismatch in {pt_path}: "
+                    f"{package.get('backend')!r} != {self.flow_backend!r}"
+                )
             flow = torch.as_tensor(package["flow"], dtype=torch.float32)
             if flow.ndim == 3 and flow.shape[-1] == 2:
                 flow = flow.permute(2, 0, 1)
@@ -471,6 +508,10 @@ class V2NuScenesDatasetAdapter(Dataset):
             )
             source_size = tuple(int(value) for value in package.get("target_size", flow.shape[-2:]))
         elif npy_path.is_file():
+            if self.flow_backend:
+                raise ValueError(
+                    f"Legacy NPY flow has no backend identity and is not allowed: {npy_path}"
+                )
             array = np.load(npy_path)
             flow = torch.from_numpy(array).float()
             if flow.ndim == 3 and flow.shape[-1] == 2:

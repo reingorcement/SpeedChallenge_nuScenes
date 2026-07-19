@@ -83,6 +83,15 @@ class RobustRoadPlaneVelocitySolver(nn.Module):
         self.max_condition_number = float(max_condition_number)
         self.regularization = float(regularization)
 
+    def cache_contract(self) -> dict[str, float | int]:
+        return {
+            "irls_iterations": self.irls_iterations,
+            "huber_delta_px": self.huber_delta_px,
+            "min_points": self.min_points,
+            "max_condition_number": self.max_condition_number,
+            "regularization": self.regularization,
+        }
+
     def forward(
         self,
         flow: torch.Tensor,

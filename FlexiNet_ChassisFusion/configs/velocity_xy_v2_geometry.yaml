@@ -14,7 +14,10 @@ data:
   cam_channel: CAM_FRONT
   can_bus_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/can_bus
   flow_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_flow_v2/CAM_FRONT
-  frame_cache_root:
+  flow_backend: raft_large
+  frame_cache_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_frames/CAM_FRONT_72x128_rgb
+  geometry_cache_root:
+  geometry_cache_mode: "off"
   online_mode: true
   image_cache_size: 512
   chassis_window_sec: 1.0

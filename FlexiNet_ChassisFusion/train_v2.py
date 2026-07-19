@@ -16,9 +16,11 @@ from torch.utils.data import DataLoader, WeightedRandomSampler
 from tqdm import tqdm
 
 from dataset.nuscenes_chassis import NuScenesChassisFusionDataset
+from dataset.v2_geometry_cache import file_sha256
 from dataset.v2_schema import KINEMATIC_VALUE_DIM, V2NuScenesDatasetAdapter
 from dataset.v2_splits import partition_scene_names
 from model.v2 import TimedSignal, V2NuScenesVelocityModel, V2VelocityLoss
+from model.v2.ground_geometry import RobustRoadPlaneVelocitySolver
 from model.v2.losses import V2LossTerms
 from utils.seed import set_seed
 
@@ -26,6 +28,23 @@ from utils.seed import set_seed
 def load_config(path: str | Path) -> dict:
     with Path(path).open("r", encoding="utf-8") as handle:
         return yaml.safe_load(handle)
+
+
+def build_geometry_cache_contract(cfg: dict) -> dict:
+    data = cfg["data"]
+    model = cfg["model"]
+    return {
+        "dataset_version": str(data["version"]),
+        "camera_channel": str(data["cam_channel"]),
+        "flow_backend": str(data.get("flow_backend", "unspecified")),
+        "geometry_size": [int(data["geometry_height"]), int(data["geometry_width"])],
+        "camera_height_m": float(data["camera_height_m"]),
+        "road_mask_top_fraction": float(data["road_mask_top_fraction"]),
+        "sensor_max_age_sec": float(model.get("sensor_max_age_sec", 0.25)),
+        "output_reference": str(model.get("output_reference", "ego_reference")),
+        "training_stats_sha256": file_sha256(data.get("kinematic_stats_path")),
+        "solver": RobustRoadPlaneVelocitySolver().cache_contract(),
+    }
 
 
 def build_dataset(cfg: dict, split: str) -> V2NuScenesDatasetAdapter:
@@ -79,14 +98,22 @@ def build_dataset(cfg: dict, split: str) -> V2NuScenesDatasetAdapter:
         kinematic_stats_path=data.get("kinematic_stats_path"),
         field_max_age_sec=data.get("field_max_age_sec"),
         photometric_augmentation=augmentation,
+        geometry_cache_root=data.get("geometry_cache_root"),
+        geometry_cache_mode=str(data.get("geometry_cache_mode", "off")),
+        geometry_cache_contract=build_geometry_cache_contract(cfg),
+        flow_backend=data.get("flow_backend"),
     )
 
 
 def move_batch(batch: dict, device: torch.device) -> dict:
-    return {
-        key: value.to(device, non_blocking=True) if torch.is_tensor(value) else value
-        for key, value in batch.items()
-    }
+    def move(value):
+        if torch.is_tensor(value):
+            return value.to(device, non_blocking=True)
+        if isinstance(value, dict):
+            return {key: move(item) for key, item in value.items()}
+        return value
+
+    return {key: move(value) for key, value in batch.items()}
 
 
 def forward_batch(model: V2NuScenesVelocityModel, batch: dict):
@@ -102,10 +129,10 @@ def forward_batch(model: V2NuScenesVelocityModel, batch: dict):
     )
     return model(
         images=batch["images"],
-        flow=batch["flow_v2"],
-        flow_confidence=batch["flow_confidence"],
-        intrinsics=batch["intrinsics"],
-        frame_dt=batch["frame_dt"],
+        flow=batch.get("flow_v2"),
+        flow_confidence=batch.get("flow_confidence"),
+        intrinsics=batch.get("intrinsics"),
+        frame_dt=batch.get("frame_dt"),
         angular_rate_camera=gyro,
         plane_normal_camera=batch["plane_normal_camera"],
         plane_offset=batch["plane_offset"],
@@ -114,7 +141,8 @@ def forward_batch(model: V2NuScenesVelocityModel, batch: dict):
         kinematic_valid=batch["kinematic_valid"],
         kinematic_age=batch["kinematic_age"],
         wheel_speed=wheel,
-        road_mask=batch["road_mask"],
+        road_mask=batch.get("road_mask"),
+        cached_geometry=batch.get("cached_geometry"),
     )
 
 
@@ -507,6 +535,7 @@ def _build_loader(
     stage: str,
 ) -> DataLoader:
     workers = int(cfg["train"].get("num_workers", 8))
+    is_training_loader = shuffle
     sampler = None
     if shuffle and stage in {"kinematic_pretrain", "joint"} and bool(
         cfg["train"].get("scenario_sampling", True)
@@ -521,7 +550,7 @@ def _build_loader(
         sampler=sampler,
         num_workers=workers,
         pin_memory=device.type == "cuda",
-        persistent_workers=workers > 0,
+        persistent_workers=workers > 0 and is_training_loader,
         prefetch_factor=int(cfg["train"].get("prefetch_factor", 2)) if workers > 0 else None,
     )
 
@@ -610,6 +639,8 @@ def _checkpoint(
     no_improve: int,
     optimizer_steps: int,
     clipped_steps: int,
+    amp_overflow_steps: int = 0,
+    consecutive_amp_overflows: int = 0,
 ) -> dict:
     numpy_state = np.random.get_state()
     return {
@@ -625,6 +656,8 @@ def _checkpoint(
         "no_improve": no_improve,
         "optimizer_steps": optimizer_steps,
         "clipped_steps": clipped_steps,
+        "amp_overflow_steps": amp_overflow_steps,
+        "consecutive_amp_overflows": consecutive_amp_overflows,
         "rng_state": {
             "python": random.getstate(),
             "numpy": {
@@ -647,7 +680,7 @@ def _load_resume(
     scheduler: torch.optim.lr_scheduler.LRScheduler,
     scaler: torch.amp.GradScaler,
     stage: str,
-) -> tuple[int, list[dict], float, int, int, int]:
+) -> tuple[int, list[dict], float, int, int, int, int, int]:
     checkpoint = torch.load(path, map_location="cpu")
     checkpoint_stage = checkpoint.get("config", {}).get("train", {}).get("stage")
     if checkpoint_stage != stage:
@@ -679,7 +712,27 @@ def _load_resume(
         int(checkpoint.get("no_improve", 0)),
         int(checkpoint.get("optimizer_steps", 0)),
         int(checkpoint.get("clipped_steps", 0)),
+        int(checkpoint.get("amp_overflow_steps", 0)),
+        int(checkpoint.get("consecutive_amp_overflows", 0)),
     )
+
+
+def _backoff_amp_overflow(
+    scaler: torch.amp.GradScaler,
+    optimizer: torch.optim.Optimizer,
+) -> tuple[float, float]:
+    if not scaler.is_enabled():
+        raise RuntimeError("Non-finite gradients are fatal when AMP is disabled.")
+    scale_before = float(scaler.get_scale())
+    scaler.step(optimizer)
+    scaler.update()
+    scale_after = float(scaler.get_scale())
+    optimizer.zero_grad(set_to_none=True)
+    if not scale_after < scale_before:
+        raise RuntimeError(
+            f"GradScaler did not back off after overflow: {scale_before} -> {scale_after}."
+        )
+    return scale_before, scale_after
 
 
 def _git_commit() -> str:
@@ -699,6 +752,8 @@ def _apply_cli_overrides(cfg: dict, args: argparse.Namespace) -> None:
         "epochs": args.max_epochs,
         "max_train_batches": args.max_train_batches,
         "max_val_batches": args.max_val_batches,
+        "num_workers": args.num_workers,
+        "prefetch_factor": args.prefetch_factor,
         "save_dir": args.save_dir,
         "output_dir": args.output_dir,
     }
@@ -714,6 +769,9 @@ def _apply_cli_overrides(cfg: dict, args: argparse.Namespace) -> None:
         "can_bus_root": args.can_bus_root,
         "flow_root": args.flow_root,
         "split_manifest_path": args.split_manifest,
+        "frame_cache_root": args.frame_cache_root,
+        "geometry_cache_root": args.geometry_cache_root,
+        "geometry_cache_mode": args.geometry_cache_mode,
     }
     for key, value in data_overrides.items():
         if value:
@@ -730,6 +788,8 @@ def main() -> None:
     parser.add_argument("--max_epochs", type=int, default=0)
     parser.add_argument("--max_train_batches", type=int, default=0)
     parser.add_argument("--max_val_batches", type=int, default=0)
+    parser.add_argument("--num_workers", type=int, default=0)
+    parser.add_argument("--prefetch_factor", type=int, default=0)
     parser.add_argument("--resume")
     parser.add_argument("--init_checkpoint")
     parser.add_argument("--save_dir")
@@ -739,6 +799,9 @@ def main() -> None:
     parser.add_argument("--can_bus_root")
     parser.add_argument("--flow_root")
     parser.add_argument("--split_manifest")
+    parser.add_argument("--frame_cache_root")
+    parser.add_argument("--geometry_cache_root")
+    parser.add_argument("--geometry_cache_mode", choices=["off", "required"])
     args = parser.parse_args()
     cfg = load_config(args.config)
     _apply_cli_overrides(cfg, args)
@@ -787,7 +850,12 @@ def main() -> None:
     if not groups:
         raise RuntimeError("No trainable parameter groups were configured.")
     optimizer = torch.optim.AdamW(groups, weight_decay=0.0)
-    scaler = torch.amp.GradScaler("cuda", enabled=bool(cfg["train"].get("use_amp", True)))
+    scaler = torch.amp.GradScaler(
+        "cuda",
+        enabled=bool(cfg["train"].get("use_amp", True)),
+        init_scale=float(cfg["train"].get("amp_init_scale", 65536.0)),
+        growth_interval=int(cfg["train"].get("amp_growth_interval", 10000)),
+    )
     epochs = 1 if args.smoke else int(cfg["train"]["epochs"])
     train_limit = (
         int(cfg["train"].get("smoke_train_batches", 2))
@@ -817,6 +885,8 @@ def main() -> None:
     no_improve = 0
     optimizer_steps = 0
     clipped_steps = 0
+    amp_overflow_steps = 0
+    consecutive_amp_overflows = 0
     if args.resume:
         (
             start_epoch,
@@ -825,6 +895,8 @@ def main() -> None:
             no_improve,
             optimizer_steps,
             clipped_steps,
+            amp_overflow_steps,
+            consecutive_amp_overflows,
         ) = _load_resume(args.resume, model, optimizer, scheduler, scaler, stage)
 
     if not args.resume:
@@ -869,6 +941,10 @@ def main() -> None:
         "effective_batch_size": effective_batch,
         "accumulation_steps": accumulation_steps,
         "stage": stage,
+        "amp_init_scale": float(cfg["train"].get("amp_init_scale", 65536.0)),
+        "amp_growth_interval": int(cfg["train"].get("amp_growth_interval", 10000)),
+        "amp_overflow_steps": amp_overflow_steps,
+        "amp_scale": float(scaler.get_scale()),
     }
     (output_dir / "run_metadata.json").write_text(
         json.dumps(run_metadata, indent=2), encoding="utf-8"
@@ -876,12 +952,13 @@ def main() -> None:
 
     for epoch in range(start_epoch, epochs):
         _set_epoch_training_mode(model, stage, epoch, freeze_backbone_epochs)
-        running_loss = 0.0
+        running_loss = torch.zeros((), device=device)
         batch_count = 0
         epoch_optimizer_steps = 0
         epoch_clipped_steps = 0
+        epoch_amp_overflow_steps = 0
         optimizer.zero_grad(set_to_none=True)
-        bar = tqdm(train_loader, desc=f"{stage} {epoch + 1}/{epochs}")
+        bar = tqdm(train_loader, desc=f"{stage} {epoch + 1}/{epochs}", mininterval=5.0)
         for step, raw_batch in enumerate(bar):
             if step >= batches_per_epoch:
                 break
@@ -898,7 +975,7 @@ def main() -> None:
                 )
                 raise RuntimeError(f"Encountered non-finite loss. Diagnostic: {diagnostic_path}")
             scaler.scale(scaled_loss).backward()
-            running_loss += float(terms.total.detach())
+            running_loss += terms.total.detach()
             batch_count += 1
             boundary = (step + 1) % accumulation_steps == 0 or step + 1 == batches_per_epoch
             if boundary:
@@ -909,12 +986,53 @@ def main() -> None:
                     )
                 except RuntimeError as error:
                     diagnostic_path = _write_nonfinite_diagnostic(
-                        output_dir, "nonfinite_gradient", epoch, step, raw_batch, batch,
+                        output_dir,
+                        "amp_overflow" if scaler.is_enabled() else "nonfinite_gradient",
+                        epoch,
+                        step,
+                        raw_batch,
+                        batch,
                         output, terms, model, scaler
                     )
-                    raise RuntimeError(
-                        f"Encountered non-finite gradient. Diagnostic: {diagnostic_path}"
-                    ) from error
+                    if not scaler.is_enabled():
+                        raise RuntimeError(
+                            f"Encountered non-finite gradient. Diagnostic: {diagnostic_path}"
+                        ) from error
+                    try:
+                        scale_before, scale_after = _backoff_amp_overflow(scaler, optimizer)
+                    except RuntimeError as backoff_error:
+                        raise RuntimeError(
+                            f"AMP overflow recovery failed. Diagnostic: {diagnostic_path}"
+                        ) from backoff_error
+                    amp_overflow_steps += 1
+                    epoch_amp_overflow_steps += 1
+                    consecutive_amp_overflows += 1
+                    run_metadata.update(
+                        {
+                            "amp_overflow_steps": amp_overflow_steps,
+                            "amp_scale": scale_after,
+                            "last_amp_overflow_epoch": epoch + 1,
+                            "last_amp_overflow_batch": step,
+                        }
+                    )
+                    (output_dir / "run_metadata.json").write_text(
+                        json.dumps(run_metadata, indent=2), encoding="utf-8"
+                    )
+                    max_consecutive = int(
+                        cfg["train"].get("max_consecutive_amp_overflows", 3)
+                    )
+                    if consecutive_amp_overflows > max_consecutive:
+                        raise RuntimeError(
+                            f"AMP overflow repeated {consecutive_amp_overflows} times; "
+                            f"last diagnostic: {diagnostic_path}"
+                        )
+                    print(
+                        f"Recovered AMP overflow at epoch={epoch + 1} batch={step}: "
+                        f"scale {scale_before:.0f} -> {scale_after:.0f}; "
+                        f"optimizer and scheduler step skipped."
+                    )
+                    continue
+                consecutive_amp_overflows = 0
                 clipped = float(grad_norm) > grad_clip
                 epoch_clipped_steps += int(clipped)
                 clipped_steps += int(clipped)
@@ -924,12 +1042,23 @@ def main() -> None:
                 optimizer.zero_grad(set_to_none=True)
                 epoch_optimizer_steps += 1
                 optimizer_steps += 1
-            bar.set_postfix(loss=f"{float(terms.total.detach()):.4f}")
+            if step % 50 == 0:
+                bar.set_postfix(loss=f"{float(terms.total.detach()):.4f}", refresh=False)
 
         clip_fraction = epoch_clipped_steps / max(epoch_optimizer_steps, 1)
+        amp_step_count = epoch_optimizer_steps + epoch_amp_overflow_steps
+        amp_overflow_fraction = epoch_amp_overflow_steps / max(amp_step_count, 1)
         if clip_fraction > max_clip_fraction:
             raise RuntimeError(
                 f"Gradient clipping fraction {clip_fraction:.1%} exceeds {max_clip_fraction:.1%}."
+            )
+        max_amp_overflow_fraction = float(
+            cfg["train"].get("max_amp_overflow_fraction", 0.005)
+        )
+        if amp_overflow_fraction > max_amp_overflow_fraction:
+            raise RuntimeError(
+                f"AMP overflow fraction {amp_overflow_fraction:.2%} exceeds "
+                f"{max_amp_overflow_fraction:.2%}."
             )
         metrics, rows = evaluate(model, val_loader, criterion, device, max_eval_batches)
         eligible, score = _selection_result(
@@ -940,10 +1069,23 @@ def main() -> None:
                 "checkpoint_eligible": float(eligible),
                 "checkpoint_score": score,
                 "gradient_clip_fraction": clip_fraction,
+                "amp_overflow_fraction": amp_overflow_fraction,
+                "amp_overflow_steps": float(epoch_amp_overflow_steps),
+                "amp_scale": float(scaler.get_scale()),
                 "learning_rate": float(optimizer.param_groups[0]["lr"]),
             }
         )
-        train_loss = running_loss / max(batch_count, 1)
+        run_metadata.update(
+            {
+                "amp_overflow_steps": amp_overflow_steps,
+                "amp_overflow_fraction_last_epoch": amp_overflow_fraction,
+                "amp_scale": float(scaler.get_scale()),
+            }
+        )
+        (output_dir / "run_metadata.json").write_text(
+            json.dumps(run_metadata, indent=2), encoding="utf-8"
+        )
+        train_loss = float(running_loss / max(batch_count, 1))
         history.append({"epoch": epoch + 1, "train_loss": train_loss, **metrics})
         improved = eligible and score < best_score - min_delta
         if improved:
@@ -964,6 +1106,8 @@ def main() -> None:
             no_improve,
             optimizer_steps,
             clipped_steps,
+            amp_overflow_steps,
+            consecutive_amp_overflows,
         )
         torch.save(checkpoint, save_dir / "last.pth")
         _write_evaluation(metrics, rows, output_dir / "last_eval")

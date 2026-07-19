@@ -544,6 +544,40 @@ def test_frame_cache_normalization_matches_totensor_normalize(tmp_path) -> None:
     torch.testing.assert_close(frame[0, 1, 0], torch.tensor(128.0 / 255.0 * 2.0 - 1.0))
 
 
+def test_rgb_frame_cache_matches_online_tensor_normalization(tmp_path) -> None:
+    raw = np.array([[[[0, 128, 255], [255, 64, 32]]]], dtype=np.uint8)
+    np.save(tmp_path / "scene-0001.npy", raw)
+    manifest = {
+        "version": "v1.0-mini",
+        "cam_channel": "CAM_FRONT",
+        "img_height": 1,
+        "img_width": 2,
+        "image_mode": "rgb",
+        "scenes": {"scene-0001": ["t0"]},
+    }
+    (tmp_path / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+    dataset = object.__new__(NuScenesChassisFusionDataset)
+    dataset.frame_cache_root = tmp_path
+    dataset._frame_token_to_loc = {}
+    dataset._frame_scene_arrays = {}
+    dataset._label_cache = None
+    dataset.img_size = (1, 2)
+    dataset.image_mode = "rgb"
+    dataset.version = "v1.0-mini"
+    dataset.cam_channel = "CAM_FRONT"
+    dataset.split = "train"
+    dataset.can_bus_adapter = None
+    dataset.nusc = "sentinel"
+    dataset.samples = [{"tokens": ["t0"], "center_token": "t0"}]
+    dataset._load_frame_cache_manifest()
+
+    frame = dataset._load_frame_from_cache("t0")
+    expected = torch.from_numpy(raw[0].copy()).permute(2, 0, 1).float().div(255.0)
+    expected = expected.sub(0.5).div(0.5)
+
+    torch.testing.assert_close(frame, expected)
+
+
 def test_frame_cache_uses_label_cache_and_releases_nuscenes(tmp_path) -> None:
     _make_frame_cache(tmp_path)
     dataset = _make_cache_dataset(tmp_path, can_bus_adapter=object())
