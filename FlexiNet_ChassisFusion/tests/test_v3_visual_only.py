@@ -177,6 +177,23 @@ def test_v3_loss_is_finite_and_backpropagates() -> None:
     assert torch.isfinite(model.direct_head[-1].weight.grad).all()
 
 
+def test_direct_amp_placeholders_remain_finite_in_fp16() -> None:
+    model = V3VisualOnlyVelocityModel(mode="direct_pretrain").half().eval()
+    descriptor = torch.randn(2, 384, dtype=torch.float16)
+    flows = torch.zeros(2, 3, 2, 8, 12, dtype=torch.float16)
+    with torch.no_grad():
+        output = model._direct_only_output(descriptor, flows)
+    diagnostics = (
+        output.geometry_covariance,
+        output.geometry_condition_number,
+        output.pair_covariance_camera,
+        output.pair_condition_number,
+    )
+    for diagnostic in diagnostics:
+        assert diagnostic.dtype == torch.float32
+        assert torch.isfinite(diagnostic).all()
+
+
 def test_fusion_reliability_gate_and_uncertainty_have_finite_gradients() -> None:
     torch.manual_seed(4)
     model = V3VisualOnlyVelocityModel().train()

@@ -303,14 +303,20 @@ class V3VisualOnlyVelocityModel(nn.Module):
             if self.uncertainty_enabled
             else torch.zeros_like(log_variance)
         )
+        diagnostic_dtype = torch.float32
         pair_twist = descriptor.new_zeros(batch_size, pair_count, 6)
         pair_covariance = (
-            torch.eye(6, device=descriptor.device, dtype=descriptor.dtype)[
+            torch.eye(6, device=descriptor.device, dtype=diagnostic_dtype)[
                 None, None
             ].expand(batch_size, pair_count, -1, -1)
             * 1.0e6
         )
-        pair_scalar = descriptor.new_zeros(batch_size, pair_count)
+        pair_scalar = torch.zeros(
+            batch_size,
+            pair_count,
+            device=descriptor.device,
+            dtype=diagnostic_dtype,
+        )
         pair_valid = torch.zeros(
             batch_size, pair_count, device=descriptor.device, dtype=torch.bool
         )
@@ -326,24 +332,40 @@ class V3VisualOnlyVelocityModel(nn.Module):
                 batch_size, device=descriptor.device, dtype=torch.bool
             ),
             geometry_covariance=(
-                torch.eye(2, device=descriptor.device, dtype=descriptor.dtype)[
+                torch.eye(2, device=descriptor.device, dtype=diagnostic_dtype)[
                     None
                 ].expand(batch_size, -1, -1)
                 * 1.0e6
             ),
-            geometry_condition_number=descriptor.new_full((batch_size,), 1.0e12),
-            geometry_residual_rms_px=descriptor.new_zeros(batch_size),
-            geometry_support_fraction=descriptor.new_zeros(batch_size),
+            geometry_condition_number=torch.full(
+                (batch_size,),
+                1.0e12,
+                device=descriptor.device,
+                dtype=diagnostic_dtype,
+            ),
+            geometry_residual_rms_px=torch.zeros(
+                batch_size, device=descriptor.device, dtype=diagnostic_dtype
+            ),
+            geometry_support_fraction=torch.zeros(
+                batch_size, device=descriptor.device, dtype=diagnostic_dtype
+            ),
             pair_twist_camera=pair_twist,
             pair_twist_ego=pair_twist,
             pair_covariance_camera=pair_covariance,
             pair_covariance_ego=pair_covariance,
-            pair_condition_number=descriptor.new_full((batch_size, pair_count), 1.0e12),
+            pair_condition_number=torch.full(
+                (batch_size, pair_count),
+                1.0e12,
+                device=descriptor.device,
+                dtype=diagnostic_dtype,
+            ),
             pair_residual_rms_px=pair_scalar,
             pair_support_fraction=pair_scalar,
             pair_valid=pair_valid,
             pair_predicted_flow=torch.zeros_like(flows),
-            pair_dispersion=descriptor.new_zeros(batch_size),
+            pair_dispersion=torch.zeros(
+                batch_size, device=descriptor.device, dtype=diagnostic_dtype
+            ),
             reliability=descriptor.new_ones(batch_size, pair_count, 1, height, width),
             candidate_mask=torch.zeros(
                 batch_size,
