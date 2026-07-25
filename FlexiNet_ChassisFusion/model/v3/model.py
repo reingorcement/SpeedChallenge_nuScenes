@@ -159,50 +159,51 @@ class V3VisualOnlyVelocityModel(nn.Module):
             reliability = torch.ones_like(reliability)
         support_mask = self._support_mask(flows)
 
-        pair_estimates = []
-        for pair_index in range(self.pair_count):
-            pair_estimates.append(
-                self.geometry_solver(
-                    flow=flows[:, pair_index].float(),
-                    confidence=confidence[:, pair_index].float(),
-                    intrinsics=visual["intrinsics"].float(),
-                    dt=pair_dt[:, pair_index].float(),
-                    plane_normal_camera=visual["plane_normal_camera"].float(),
-                    plane_offset=visual["plane_offset"].float(),
-                    reliability=reliability[:, pair_index].float(),
-                    support_mask=support_mask[:, pair_index]
-                    if support_mask is not None
-                    else None,
+        with torch.autocast(device_type=flows.device.type, enabled=False):
+            pair_estimates = []
+            for pair_index in range(self.pair_count):
+                pair_estimates.append(
+                    self.geometry_solver(
+                        flow=flows[:, pair_index].float(),
+                        confidence=confidence[:, pair_index].float(),
+                        intrinsics=visual["intrinsics"].float(),
+                        dt=pair_dt[:, pair_index].float(),
+                        plane_normal_camera=visual["plane_normal_camera"].float(),
+                        plane_offset=visual["plane_offset"].float(),
+                        reliability=reliability[:, pair_index].float(),
+                        support_mask=support_mask[:, pair_index]
+                        if support_mask is not None
+                        else None,
+                    )
                 )
-            )
 
-        pair_twist_camera = torch.stack(
-            [item.twist_camera for item in pair_estimates], dim=1
-        )
-        pair_covariance_camera = torch.stack(
-            [item.covariance_camera for item in pair_estimates], dim=1
-        )
-        pair_twist_ego, pair_covariance_ego = transform_camera_twist_to_ego(
-            pair_twist_camera,
-            pair_covariance_camera,
-            visual["rotation_ego_from_camera"].float(),
-            visual["translation_ego_from_camera"].float(),
-        )
-        pair_valid = torch.stack([item.valid for item in pair_estimates], dim=1)
-        fused_twist, fused_covariance, geometry_valid, dispersion = (
-            fuse_twist_estimates(pair_twist_ego, pair_covariance_ego, pair_valid)
-        )
-        geometry_velocity = fused_twist[:, :2]
-        geometry_covariance = fused_covariance[:, :2, :2]
-        pair_condition = torch.stack(
-            [item.condition_number for item in pair_estimates], dim=1
-        )
-        pair_residual = torch.stack(
-            [item.residual_rms_px for item in pair_estimates], dim=1
-        )
-        pair_support = torch.stack(
-            [item.support_fraction for item in pair_estimates], dim=1
-        )
+            pair_twist_camera = torch.stack(
+                [item.twist_camera for item in pair_estimates], dim=1
+            )
+            pair_covariance_camera = torch.stack(
+                [item.covariance_camera for item in pair_estimates], dim=1
+            )
+            pair_twist_ego, pair_covariance_ego = transform_camera_twist_to_ego(
+                pair_twist_camera,
+                pair_covariance_camera,
+                visual["rotation_ego_from_camera"].float(),
+                visual["translation_ego_from_camera"].float(),
+            )
+            pair_valid = torch.stack([item.valid for item in pair_estimates], dim=1)
+            fused_twist, fused_covariance, geometry_valid, dispersion = (
+                fuse_twist_estimates(pair_twist_ego, pair_covariance_ego, pair_valid)
+            )
+            geometry_velocity = fused_twist[:, :2]
+            geometry_covariance = fused_covariance[:, :2, :2]
+            pair_condition = torch.stack(
+                [item.condition_number for item in pair_estimates], dim=1
+            )
+            pair_residual = torch.stack(
+                [item.residual_rms_px for item in pair_estimates], dim=1
+            )
+            pair_support = torch.stack(
+                [item.support_fraction for item in pair_estimates], dim=1
+            )
         diagnostics = self._diagnostics(
             geometry_velocity,
             geometry_covariance,

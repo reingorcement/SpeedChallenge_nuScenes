@@ -226,6 +226,39 @@ def test_fusion_reliability_gate_and_uncertainty_have_finite_gradients() -> None
         assert torch.isfinite(parameter.grad).all()
 
 
+def test_fusion_geometry_remains_float32_under_autocast() -> None:
+    model = V3VisualOnlyVelocityModel().eval()
+    visual = visual_batch(confidence_value=1.0)
+    twist = torch.tensor([[1.0, 0.1, 0.05, 0.01, -0.02, 0.03]])
+    depth, _ = road_plane_depth(
+        visual["intrinsics"],
+        visual["plane_normal_camera"],
+        visual["plane_offset"],
+        visual["flows"].shape[-2],
+        visual["flows"].shape[-1],
+    )
+    flow = motion_flow_from_twist(
+        twist, visual["intrinsics"], depth, visual["pair_dt"][:, 0]
+    )
+    visual["flows"] = flow[:, None].repeat(1, 3, 1, 1, 1)
+
+    with torch.no_grad(), torch.autocast("cpu", dtype=torch.bfloat16):
+        output = model(visual)
+
+    diagnostics = (
+        output.geometry_velocity,
+        output.geometry_covariance,
+        output.pair_twist_camera,
+        output.pair_twist_ego,
+        output.pair_covariance_camera,
+        output.pair_covariance_ego,
+        output.pair_condition_number,
+    )
+    for diagnostic in diagnostics:
+        assert diagnostic.dtype == torch.float32
+        assert torch.isfinite(diagnostic).all()
+
+
 class FakeNuScenes:
     def __init__(self, records: dict[tuple[str, str], dict]) -> None:
         self.records = records
