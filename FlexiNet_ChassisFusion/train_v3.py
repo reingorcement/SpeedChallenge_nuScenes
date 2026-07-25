@@ -5,7 +5,7 @@ import csv
 import json
 import math
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 import torch
 import yaml
@@ -292,6 +292,15 @@ def optimizer_state_matches(
     return current == saved
 
 
+def clip_gradient_norm(
+    parameters: Iterable[torch.Tensor], max_norm: float
+) -> torch.Tensor:
+    """Return a gradient norm so AMP can recover from transient overflows."""
+    return torch.nn.utils.clip_grad_norm_(
+        parameters, max_norm, error_if_nonfinite=False
+    )
+
+
 def geometry_audit(
     cfg: dict[str, Any],
     loader: DataLoader,
@@ -417,6 +426,8 @@ def main() -> None:
     epochs = 1 if args.smoke else int(cfg["train"].get("epochs", 20))
     train_limit = int(cfg["train"].get("smoke_train_batches", 2)) if args.smoke else 0
     grad_clip = float(cfg["train"].get("grad_clip", 2.0))
+    consecutive_amp_overflows = 0
+    max_consecutive_amp_overflows = 8
     for epoch in range(start_epoch, epochs):
         previous_trainable = {
             name for name, value in model.named_parameters() if value.requires_grad
@@ -450,11 +461,30 @@ def main() -> None:
                 )
             scaler.scale(terms.total).backward()
             scaler.unscale_(optimizer)
-            torch.nn.utils.clip_grad_norm_(
-                model.parameters(), grad_clip, error_if_nonfinite=True
-            )
+            grad_norm = clip_gradient_norm(model.parameters(), grad_clip)
+            if not bool(torch.isfinite(grad_norm)):
+                if not scaler.is_enabled():
+                    raise RuntimeError(
+                        "Non-finite V3 gradients without AMP at "
+                        f"epoch={epoch + 1}, batch={step}."
+                    )
+                scaler.step(optimizer)
+                scaler.update()
+                consecutive_amp_overflows += 1
+                print(
+                    "Skipped AMP overflow at "
+                    f"epoch={epoch + 1}, batch={step}; "
+                    f"scale={scaler.get_scale():.1f}, streak={consecutive_amp_overflows}."
+                )
+                if consecutive_amp_overflows >= max_consecutive_amp_overflows:
+                    raise RuntimeError(
+                        "V3 AMP did not recover from consecutive non-finite gradients "
+                        f"at epoch={epoch + 1}, batch={step}."
+                    )
+                continue
             scaler.step(optimizer)
             scaler.update()
+            consecutive_amp_overflows = 0
             bar.set_postfix(loss=f"{float(terms.total.detach()):.4f}", refresh=False)
         metrics, rows = evaluate(model, val_loader, criterion, device, eval_limit)
         write_evaluation(metrics, rows, output_dir / "last_eval")

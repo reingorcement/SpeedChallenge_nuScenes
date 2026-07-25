@@ -18,7 +18,7 @@ from model.v3 import (
 )
 from scripts.evaluate_v3_paired_bootstrap import bootstrap, paired_scene_deltas
 from scripts.analyze_v3_results import analyze_results
-from train_v3 import optimizer_state_matches
+from train_v3 import clip_gradient_norm, optimizer_state_matches
 
 
 def synthetic_geometry(
@@ -325,6 +325,13 @@ def test_optimizer_resume_state_detects_unfreeze_boundary() -> None:
     partial = torch.optim.AdamW([layer.weight])
     assert optimizer_state_matches(full, full.state_dict())
     assert not optimizer_state_matches(full, partial.state_dict())
+
+
+def test_gradient_clipping_reports_nonfinite_norm_without_raising() -> None:
+    parameter = torch.nn.Parameter(torch.tensor([1.0]))
+    parameter.grad = torch.tensor([float("inf")])
+    norm = clip_gradient_norm([parameter], max_norm=2.0)
+    assert not bool(torch.isfinite(norm))
 
 
 class FakeNuScenes:
