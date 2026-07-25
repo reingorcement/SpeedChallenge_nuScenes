@@ -167,14 +167,26 @@ def test_outer_can_fields_cannot_change_model_prediction() -> None:
 def test_v3_loss_is_finite_and_backpropagates() -> None:
     torch.manual_seed(3)
     model = V3VisualOnlyVelocityModel(mode="direct_pretrain").train()
-    visual = visual_batch(batch_size=2)
+    visual = {"images": visual_batch(batch_size=2)["images"]}
     output = model(visual)
     target = {
         "velocity": torch.tensor([[4.0, 0.2], [6.0, -0.1]]),
-        "angular_velocity_camera": torch.zeros(2, 3, 3),
     }
-    terms = V3VelocityLoss()(output, target, visual)
+    criterion = V3VelocityLoss()
+    for name in (
+        "geometry",
+        "rotation",
+        "reprojection",
+        "residual",
+        "support",
+        "tv",
+    ):
+        criterion.weights[name] = 0.0
+    terms = criterion(output, target, visual)
     assert torch.isfinite(terms.total)
+    assert terms.geometry == 0.0
+    assert terms.rotation == 0.0
+    assert terms.reprojection == 0.0
     terms.total.backward()
     assert model.direct_head[-1].weight.grad is not None
     assert torch.isfinite(model.direct_head[-1].weight.grad).all()
@@ -416,6 +428,19 @@ def test_dataset_is_causal_visual_only_without_can(tmp_path: Path) -> None:
         & (item.keys() | item["visual"].keys() | item["target"].keys())
     )
     assert float(item["visual"]["pair_dt"][-1]) > 0.0
+
+
+def test_direct_dataset_does_not_require_or_load_flow(tmp_path: Path) -> None:
+    dataset = V3NuScenesVisualDataset(
+        FakeBaseDataset(),
+        tmp_path / "missing-flow-root",
+        camera_height_m=1.5,
+        geometry_size=(16, 24),
+        load_flows=False,
+    )
+    item = dataset[0]
+    assert set(item["visual"]) == {"images"}
+    assert set(item["target"]) == {"velocity"}
 
 
 def test_dataset_rejects_flow_token_or_backend_mismatch(tmp_path: Path) -> None:

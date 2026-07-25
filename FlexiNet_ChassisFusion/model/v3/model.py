@@ -32,6 +32,7 @@ class V3VisualOnlyVelocityModel(nn.Module):
             "translation_ego_from_camera",
         }
     )
+    DIRECT_REQUIRED_INPUTS = frozenset({"images"})
 
     def __init__(
         self,
@@ -138,22 +139,27 @@ class V3VisualOnlyVelocityModel(nn.Module):
             self.backbone.aft_block.eval()
 
     def forward(self, visual: Mapping[str, torch.Tensor]) -> V3VelocityOutput:
-        missing = self.REQUIRED_INPUTS - visual.keys()
+        required_inputs = (
+            self.DIRECT_REQUIRED_INPUTS
+            if self.mode == "direct_pretrain"
+            else self.REQUIRED_INPUTS
+        )
+        missing = required_inputs - visual.keys()
         if missing:
             raise ValueError(f"Missing V3 visual inputs: {sorted(missing)}")
         images = visual["images"]
-        flows = visual["flows"][:, -self.pair_count :]
-        confidence = visual["flow_confidence"][:, -self.pair_count :]
-        pair_dt = visual["pair_dt"][:, -self.pair_count :]
         if images.ndim != 5 or images.shape[2] != 3:
             raise ValueError("images must have shape [B,T,3,H,W].")
-        if flows.ndim != 5 or flows.shape[2] != 2:
-            raise ValueError("flows must have shape [B,P,2,Hg,Wg].")
 
         feature_map = self.backbone.forward_feature_map(images)
         descriptor = self._descriptor(feature_map)
         if self.mode == "direct_pretrain":
-            return self._direct_only_output(descriptor, flows)
+            return self._direct_only_output(descriptor)
+        flows = visual["flows"][:, -self.pair_count :]
+        confidence = visual["flow_confidence"][:, -self.pair_count :]
+        pair_dt = visual["pair_dt"][:, -self.pair_count :]
+        if flows.ndim != 5 or flows.shape[2] != 2:
+            raise ValueError("flows must have shape [B,P,2,Hg,Wg].")
         reliability = self._reliability(feature_map, flows.shape[-2:])
         if self.support_mode != "learned":
             reliability = torch.ones_like(reliability)
@@ -288,9 +294,13 @@ class V3VisualOnlyVelocityModel(nn.Module):
         return self.region_projection(tokens).flatten(1)
 
     def _direct_only_output(
-        self, descriptor: torch.Tensor, flows: torch.Tensor
+        self, descriptor: torch.Tensor, flows: torch.Tensor | None = None
     ) -> V3VelocityOutput:
-        batch_size, pair_count, _, height, width = flows.shape
+        batch_size = descriptor.shape[0]
+        if flows is None:
+            pair_count, height, width = self.pair_count, 1, 1
+        else:
+            _, pair_count, _, height, width = flows.shape
         direct_velocity = self.direct_head(descriptor)
         if not self.direct_expert_enabled:
             direct_velocity = torch.zeros_like(direct_velocity)
@@ -363,7 +373,9 @@ class V3VisualOnlyVelocityModel(nn.Module):
             pair_residual_rms_px=pair_scalar,
             pair_support_fraction=pair_scalar,
             pair_valid=pair_valid,
-            pair_predicted_flow=torch.zeros_like(flows),
+            pair_predicted_flow=descriptor.new_zeros(
+                batch_size, pair_count, 2, height, width
+            ),
             pair_dispersion=torch.zeros(
                 batch_size, device=descriptor.device, dtype=diagnostic_dtype
             ),

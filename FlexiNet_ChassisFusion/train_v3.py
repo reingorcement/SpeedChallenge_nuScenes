@@ -70,6 +70,7 @@ def build_dataset(cfg: dict[str, Any], split: str) -> V3NuScenesVisualDataset:
         geometry_size=(int(data["geometry_height"]), int(data["geometry_width"])),
         flow_backend=data.get("flow_backend"),
         photometric_augmentation=augmentation,
+        load_flows=str(cfg["model"].get("mode", "fusion")) != "direct_pretrain",
     )
 
 
@@ -344,6 +345,9 @@ def main() -> None:
     parser.add_argument("--dataroot")
     parser.add_argument("--flow_root")
     parser.add_argument("--frame_cache_root")
+    parser.add_argument("--batch_size", type=int)
+    parser.add_argument("--num_workers", type=int)
+    parser.add_argument("--prefetch_factor", type=int)
     args = parser.parse_args()
     cfg = load_config(args.config)
     for key in ("dataroot", "flow_root", "frame_cache_root"):
@@ -360,6 +364,10 @@ def main() -> None:
         cfg["train"]["save_dir"] = args.save_dir
     if args.output_dir:
         cfg["train"]["output_dir"] = args.output_dir
+    for key in ("batch_size", "num_workers", "prefetch_factor"):
+        value = getattr(args, key)
+        if value is not None:
+            cfg["train"][key] = value
     set_seed(int(cfg["train"].get("seed", 42)))
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     train_set = build_dataset(cfg, "train_core")

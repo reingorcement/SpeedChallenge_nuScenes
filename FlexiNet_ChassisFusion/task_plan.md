@@ -100,3 +100,28 @@ Provide one server command that tests V3, trains direct and fusion models for th
 
 ## Status
 **Complete** - the unattended three-seed V3 training, independent holdout evaluation, and strict result-analysis pipeline is implemented and locally verified.
+
+---
+
+# Task Plan: V3 Training Throughput Optimization
+
+## Goal
+Remove unnecessary flow I/O and inactive loss computation from direct pretraining, and expose safe runtime controls so the RTX 5090 is used efficiently without changing V3 predictions or experiment semantics.
+
+## Phases
+- [x] Phase 1: Diagnose the server throughput bottleneck
+- [x] Phase 2: Implement a true RGB-only direct data/model/loss path
+- [x] Phase 3: Add batch and DataLoader runtime controls to the V3 pipeline
+- [x] Phase 4: Add regression tests and run V3-only verification
+
+## Decisions Made
+- Direct pretraining must not load or transfer RAFT packages.
+- Zero-weight loss terms must not execute.
+- Fusion retains the full visual flow and geometry path.
+- Default server runtime starts at batch size 16 and 8 workers, with environment overrides.
+
+## Errors Encountered
+- The initial formal run used batch size 4 and loaded three unused high-resolution flow packages per direct sample, yielding about 2.35 iterations/s and an impractical multi-stage ETA.
+
+## Status
+**Complete** - 22 V3-only tests, Ruff, Python compilation, Bash syntax, forbidden-command scan, and diff validation all pass.

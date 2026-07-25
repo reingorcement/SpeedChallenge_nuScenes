@@ -13,6 +13,10 @@ RUN_TAG="${V3_RUN_TAG:-v3_visual_only_$(date +%Y%m%d_%H%M%S)}"
 RUN_ROOT="outputs/${RUN_TAG}"
 CHECKPOINT_ROOT="checkpoints/${RUN_TAG}"
 ANALYSIS_ROOT="${RUN_ROOT}/stage1_test_analysis"
+DIRECT_BATCH_SIZE="${V3_DIRECT_BATCH_SIZE:-16}"
+FUSION_BATCH_SIZE="${V3_FUSION_BATCH_SIZE:-4}"
+NUM_WORKERS="${V3_NUM_WORKERS:-8}"
+PREFETCH_FACTOR="${V3_PREFETCH_FACTOR:-2}"
 SEEDS=(42 3407 2026)
 
 mkdir -p logs "${RUN_ROOT}" "${CHECKPOINT_ROOT}"
@@ -41,6 +45,10 @@ train_stage() {
   local initial_checkpoint="${5:-}"
   local last_checkpoint="${save_dir}/last.pth"
   local best_checkpoint="${save_dir}/best.pth"
+  local batch_size="${FUSION_BATCH_SIZE}"
+  if [[ "${stage}" == "direct_pretrain" ]]; then
+    batch_size="${DIRECT_BATCH_SIZE}"
+  fi
   local args=(
     --config "${CONFIG}"
     --stage "${stage}"
@@ -50,6 +58,9 @@ train_stage() {
     --dataroot "${DATAROOT}"
     --flow_root "${FLOW_ROOT}"
     --frame_cache_root "${FRAME_ROOT}"
+    --batch_size "${batch_size}"
+    --num_workers "${NUM_WORKERS}"
+    --prefetch_factor "${PREFETCH_FACTOR}"
   )
   if [[ -n "${initial_checkpoint}" ]]; then
     args+=(--init_checkpoint "${initial_checkpoint}")
@@ -71,6 +82,7 @@ echo "Run tag: ${RUN_TAG}"
 echo "Dataset: ${DATAROOT}"
 echo "Flow cache: ${FLOW_ROOT}"
 echo "Frame cache: ${FRAME_ROOT}"
+echo "Runtime: direct_batch=${DIRECT_BATCH_SIZE}, fusion_batch=${FUSION_BATCH_SIZE}, workers=${NUM_WORKERS}, prefetch=${PREFETCH_FACTOR}"
 require_path "${DATAROOT}"
 require_path "${FLOW_ROOT}"
 require_path "${FRAME_ROOT}"

@@ -58,6 +58,7 @@ class V3NuScenesVisualDataset(Dataset):
         geometry_size: tuple[int, int] = (288, 512),
         flow_backend: str | None = "raft_large",
         photometric_augmentation: dict[str, Any] | None = None,
+        load_flows: bool = True,
     ) -> None:
         if not bool(getattr(base_dataset, "online_mode", False)):
             raise ValueError("V3 requires a causal base dataset with online_mode=True.")
@@ -78,9 +79,10 @@ class V3NuScenesVisualDataset(Dataset):
         self.geometry_size = tuple(int(value) for value in geometry_size)
         self.flow_backend = flow_backend
         self.photometric_augmentation = photometric_augmentation
-        if not self.flow_root.is_dir():
+        self.load_flows = bool(load_flows)
+        if self.load_flows and not self.flow_root.is_dir():
             raise FileNotFoundError(f"V3 flow root not found: {self.flow_root}")
-        self._metadata = self._build_metadata()
+        self._metadata = self._build_metadata() if self.load_flows else None
         if (
             bool(getattr(base_dataset, "_frame_cache_enabled", lambda: False)())
             and getattr(base_dataset, "_label_cache", None) is not None
@@ -99,6 +101,7 @@ class V3NuScenesVisualDataset(Dataset):
             "geometry_size",
             "flow_backend",
             "photometric_augmentation",
+            "load_flows",
             "_metadata",
         }:
             raise AttributeError(name)
@@ -114,34 +117,50 @@ class V3NuScenesVisualDataset(Dataset):
         if images.ndim != 4 or images.shape[:2] != (5, 3):
             raise ValueError("V3 images must have shape [5,3,H,W].")
         images = self._augment(images)
-        metadata = self._metadata[index]
-        flows = []
-        confidences = []
-        for source_token, target_token in metadata["pair_tokens"]:
-            flow, confidence = self._load_flow(source_token, target_token)
-            flow, confidence = self._resize_flow(flow, confidence, self.geometry_size)
-            flows.append(flow)
-            confidences.append(confidence)
-
-        visual = {
-            "images": images,
-            "flows": torch.stack(flows),
-            "flow_confidence": torch.stack(confidences),
-            "pair_dt": metadata["pair_dt"],
-            "intrinsics": scale_intrinsics(
-                metadata["intrinsics"], metadata["original_size"], self.geometry_size
-            ),
-            "plane_normal_camera": metadata["plane_normal_camera"],
-            "plane_offset": torch.tensor(self.camera_height_m, dtype=torch.float32),
-            "rotation_ego_from_camera": metadata["rotation_ego_from_camera"],
-            "translation_ego_from_camera": metadata["translation_ego_from_camera"],
-        }
+        visual = {"images": images}
         target = {
             "velocity": self.base_dataset._compute_velocity_label(
                 sample["center_token"]
             ),
-            "angular_velocity_camera": metadata["angular_velocity_camera"],
         }
+        if self.load_flows:
+            if self._metadata is None:
+                raise RuntimeError("V3 flow metadata was not initialized.")
+            metadata = self._metadata[index]
+            flows = []
+            confidences = []
+            for source_token, target_token in metadata["pair_tokens"]:
+                flow, confidence = self._load_flow(source_token, target_token)
+                flow, confidence = self._resize_flow(
+                    flow, confidence, self.geometry_size
+                )
+                flows.append(flow)
+                confidences.append(confidence)
+            visual.update(
+                {
+                    "flows": torch.stack(flows),
+                    "flow_confidence": torch.stack(confidences),
+                    "pair_dt": metadata["pair_dt"],
+                    "intrinsics": scale_intrinsics(
+                        metadata["intrinsics"],
+                        metadata["original_size"],
+                        self.geometry_size,
+                    ),
+                    "plane_normal_camera": metadata["plane_normal_camera"],
+                    "plane_offset": torch.tensor(
+                        self.camera_height_m, dtype=torch.float32
+                    ),
+                    "rotation_ego_from_camera": metadata[
+                        "rotation_ego_from_camera"
+                    ],
+                    "translation_ego_from_camera": metadata[
+                        "translation_ego_from_camera"
+                    ],
+                }
+            )
+            target["angular_velocity_camera"] = metadata[
+                "angular_velocity_camera"
+            ]
         item = {
             "visual": visual,
             "target": target,

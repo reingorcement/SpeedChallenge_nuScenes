@@ -21,8 +21,13 @@ NUSCENES_ROOT=/path/to/nuscenes \
 V3_FLOW_ROOT=/path/to/flows \
 V3_FRAME_ROOT=/path/to/frames \
 V3_RUN_TAG=my_v3_run \
+V3_DIRECT_BATCH_SIZE=16 \
+V3_FUSION_BATCH_SIZE=4 \
+V3_NUM_WORKERS=8 \
 bash scripts/run_v3_visual_only_pipeline.sh
 ```
+
+Direct pretraining is RGB-only and does not read RAFT packages. Direct and fusion batch sizes are separate because online 6-DoF geometry has a different memory profile.
 
 Generated checkpoints are stored under `checkpoints/<run-tag>/`. Predictions and analysis are stored under `outputs/<run-tag>/`, and the complete console log is stored at `logs/<run-tag>.log`.
 
