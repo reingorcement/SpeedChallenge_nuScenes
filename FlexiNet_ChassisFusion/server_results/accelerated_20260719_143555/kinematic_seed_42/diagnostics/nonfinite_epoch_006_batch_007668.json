@@ -1,0 +1,341 @@
+{
+  "reason": "amp_overflow",
+  "epoch": 6,
+  "batch_index": 7668,
+  "amp_scale": 4096.0,
+  "scene_name": [
+    "scene-0467",
+    "scene-0847",
+    "scene-0227",
+    "scene-0032",
+    "scene-0856",
+    "scene-0290",
+    "scene-0735",
+    "scene-0995"
+  ],
+  "center_token": [
+    "928959bb2e184439ac4775fbf27bf899",
+    "c6ca4dc7343d4852aef7fdfe2e004f67",
+    "a38f726804ab4ce08af489257563bd13",
+    "ea5e02c006934e67878c4e5de06fb955",
+    "3ddf5562449a48de974ffb540ab90f33",
+    "a8b7c6932f4d4350b7d6c7510ea71a32",
+    "ba385e5f31f94143a47f21238dd080bf",
+    "394f795b0b3544ba8d3b18982fda1910"
+  ],
+  "loss_terms": {
+    "total": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 8.968786239624023,
+      "max": 8.968786239624023,
+      "mean": 8.968786239624023,
+      "abs_max": 8.968786239624023
+    },
+    "velocity": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.9414532780647278,
+      "max": 0.9414532780647278,
+      "mean": 0.9414532780647278,
+      "abs_max": 0.9414532780647278
+    },
+    "beta": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.02434116043150425,
+      "max": 0.02434116043150425,
+      "mean": 0.02434116043150425,
+      "abs_max": 0.02434116043150425
+    },
+    "geometry": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 1.2264448404312134,
+      "max": 1.2264448404312134,
+      "mean": 1.2264448404312134,
+      "abs_max": 1.2264448404312134
+    },
+    "residual": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.526572585105896,
+      "max": 0.526572585105896,
+      "mean": 0.526572585105896,
+      "abs_max": 0.526572585105896
+    },
+    "kinematic_nll": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 32.09450912475586,
+      "max": 32.09450912475586,
+      "mean": 32.09450912475586,
+      "abs_max": 32.09450912475586
+    },
+    "kinematic_residual": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.12709257006645203,
+      "max": 0.12709257006645203,
+      "mean": 0.12709257006645203,
+      "abs_max": 0.12709257006645203
+    }
+  },
+  "batch": {
+    "velocity": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -0.0928201973438263,
+      "max": 10.46021842956543,
+      "mean": 2.9538936614990234,
+      "abs_max": 10.46021842956543
+    },
+    "images": {
+      "shape": [
+        8,
+        5,
+        3,
+        72,
+        128
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 1105920,
+      "nonfinite_count": 0,
+      "min": -0.9843137264251709,
+      "max": 1.0,
+      "mean": -0.22430329024791718,
+      "abs_max": 1.0
+    },
+    "angular_rate_camera": {
+      "shape": [
+        8,
+        3
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 24,
+      "nonfinite_count": 0,
+      "min": -0.00017925385327544063,
+      "max": 0.08377444744110107,
+      "mean": 0.006502359174191952,
+      "abs_max": 0.08377444744110107
+    },
+    "wheel_speed": {
+      "shape": [
+        8,
+        4
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 32,
+      "nonfinite_count": 0,
+      "min": 0.0,
+      "max": 0.3303473889827728,
+      "mean": 0.18661531805992126,
+      "abs_max": 0.3303473889827728
+    },
+    "kinematic_values": {
+      "shape": [
+        8,
+        21,
+        12
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 2016,
+      "nonfinite_count": 0,
+      "min": -3.2271718978881836,
+      "max": 3.8546459674835205,
+      "mean": 0.08422029763460159,
+      "abs_max": 3.8546459674835205
+    },
+    "kinematic_age": {
+      "shape": [
+        8,
+        21,
+        12
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 2016,
+      "nonfinite_count": 0,
+      "min": 0.00014000000373926014,
+      "max": 1.0,
+      "mean": 0.3416163921356201,
+      "abs_max": 1.0
+    }
+  },
+  "output": {
+    "predicted_velocity": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -7.250217914581299,
+      "max": 44.770084381103516,
+      "mean": 5.001224517822266,
+      "abs_max": 44.770084381103516
+    },
+    "visual_velocity": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -7.490355491638184,
+      "max": 44.63758850097656,
+      "mean": 4.886675834655762,
+      "abs_max": 44.63758850097656
+    },
+    "geometry_velocity": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -8.251498222351074,
+      "max": 52.6244010925293,
+      "mean": 5.7176618576049805,
+      "abs_max": 52.6244010925293
+    },
+    "geometry_covariance": {
+      "shape": [
+        8,
+        3,
+        3
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 72,
+      "nonfinite_count": 0,
+      "min": -2.4962866973510245e-06,
+      "max": 0.015774095430970192,
+      "mean": 0.0003224484098609537,
+      "abs_max": 0.015774095430970192
+    },
+    "geometry_condition_number": {
+      "shape": [
+        8
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 8,
+      "nonfinite_count": 0,
+      "min": 8.423677444458008,
+      "max": 18.911457061767578,
+      "mean": 14.249231338500977,
+      "abs_max": 18.911457061767578
+    },
+    "geometry_residual_rms": {
+      "shape": [
+        8
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 8,
+      "nonfinite_count": 0,
+      "min": 0.17351160943508148,
+      "max": 27.212303161621094,
+      "mean": 10.986441612243652,
+      "abs_max": 27.212303161621094
+    },
+    "residual": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float16",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -1.5,
+      "max": 1.4970703125,
+      "mean": 0.1738119125366211,
+      "abs_max": 1.5
+    },
+    "residual_gate": {
+      "shape": [
+        8,
+        1
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 8,
+      "nonfinite_count": 0,
+      "min": 0.5,
+      "max": 0.5084214806556702,
+      "mean": 0.5010604858398438,
+      "abs_max": 0.5084214806556702
+    },
+    "kinematic_residual": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float16",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -0.5,
+      "max": 0.9921875,
+      "mean": 0.15659964084625244,
+      "abs_max": 0.9921875
+    },
+    "kinematic_log_variance": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float16",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -6.0,
+      "max": 0.03460693359375,
+      "mean": -3.4758033752441406,
+      "abs_max": 6.0
+    }
+  },
+  "nonfinite_gradients": {
+    "kinematic_encoder.step_encoder.0.weight": {
+      "shape": [
+        64,
+        36
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 2288,
+      "nonfinite_count": 16,
+      "min": -13.4140625,
+      "max": 13.3125,
+      "mean": 0.2698148787021637,
+      "abs_max": 13.4140625
+    },
+    "kinematic_encoder.step_encoder.0.bias": {
+      "shape": [
+        64
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 63,
+      "nonfinite_count": 1,
+      "min": -13.4140625,
+      "max": 13.3125,
+      "mean": 0.8184018731117249,
+      "abs_max": 13.4140625
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "v2_visual_saved_config_save_dir": "checkpoints/velocity_xy_v2_visual",
+  "v2_joint_saved_config_save_dir": "checkpoints/accelerated_20260719_143555/joint_seed_42",
+  "v2_visual_is_current_accelerated_checkpoint": false,
+  "v2_joint_is_current_accelerated_checkpoint": true,
+  "current_visual_to_joint_comparison_valid": false,
+  "conclusion": "The joint arm is the current accelerated checkpoint, but the visual arm is an older checkpoint. Current visual-to-joint claims are quarantined."
+}

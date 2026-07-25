@@ -1,0 +1,16 @@
+{
+  "git_commit": "df43ed489f73a2d0dda77e42382aaf94e725d96e",
+  "seed": 42,
+  "micro_batch_size": 8,
+  "effective_batch_size": 8,
+  "accumulation_steps": 1,
+  "stage": "joint",
+  "amp_init_scale": 65536.0,
+  "amp_growth_interval": 10000,
+  "amp_overflow_steps": 0,
+  "amp_scale": 65536.0,
+  "consecutive_high_clip_epochs": 0,
+  "high_clip_warning_count": 0,
+  "last_clip_fraction": 0.0,
+  "amp_overflow_fraction_last_epoch": 0.0
+}

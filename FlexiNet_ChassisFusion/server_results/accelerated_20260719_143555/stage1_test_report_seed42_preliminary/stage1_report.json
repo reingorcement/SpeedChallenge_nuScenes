@@ -1,0 +1,194 @@
+{
+  "analysis_mode": "preliminary_single_seed",
+  "partition": "stage1_test",
+  "sealed_partition_evaluated": false,
+  "experimental_unit": "scene",
+  "seeds": [
+    42
+  ],
+  "stage1_test_scene_count": 75,
+  "high_lateral_threshold_mps": 0.0825996920466423,
+  "aggregate_metrics": {
+    "geometry": {
+      "endpoint_error_mps": {
+        "mean": 0.8829955670727857,
+        "std": 0.0
+      },
+      "mae_vx_mps": {
+        "mean": 0.5836841074078879,
+        "std": 0.0
+      },
+      "mae_vy_mps": {
+        "mean": 0.44626790440216374,
+        "std": 0.0
+      }
+    },
+    "visual": {
+      "endpoint_error_mps": {
+        "mean": 0.7227539835044039,
+        "std": 0.0
+      },
+      "mae_vx_mps": {
+        "mean": 0.5228212880298387,
+        "std": 0.0
+      },
+      "mae_vy_mps": {
+        "mean": 0.3147605708516471,
+        "std": 0.0
+      }
+    },
+    "joint": {
+      "endpoint_error_mps": {
+        "mean": 0.6446438892233031,
+        "std": 0.0
+      },
+      "mae_vx_mps": {
+        "mean": 0.4714430445415901,
+        "std": 0.0
+      },
+      "mae_vy_mps": {
+        "mean": 0.2688426393004362,
+        "std": 0.0
+      }
+    }
+  },
+  "per_seed_metrics": {
+    "visual": [
+      {
+        "sample_count": 17091.0,
+        "scene_count": 75.0,
+        "mae_vx_mps": 0.5228212880298387,
+        "rmse_vx_mps": 1.0699620279133182,
+        "mae_vy_mps": 0.3147605708516471,
+        "rmse_vy_mps": 0.7668658257380117,
+        "endpoint_error_mps": 0.7227539835044039,
+        "straight_sample_count": 16555.0,
+        "straight_mae_vy_mps": 0.287011733994705,
+        "straight_endpoint_error_mps": 0.7012872789404438,
+        "turning_sample_count": 536.0,
+        "turning_mae_vy_mps": 1.1718165301178365,
+        "turning_endpoint_error_mps": 1.3857787858483586,
+        "high_lateral_sample_count": 2050.0,
+        "high_lateral_mae_vy_mps": 0.3808740833353978,
+        "high_lateral_endpoint_error_mps": 1.1498194544145945,
+        "wheel_inconsistent_sample_count": 0.0,
+        "geometry_invalid_sample_count": 0.0,
+        "fallback_sample_count": 0.0,
+        "geometry_valid_rate": 1.0,
+        "geometry_condition_median": 13.238297462463379,
+        "geometry_straight_vx_sign_agreement": 0.9994721761423616,
+        "all_outputs_finite": true,
+        "max_abs_kinematic_correction_vx_mps": 0.0,
+        "max_abs_kinematic_correction_vy_mps": 0.0
+      }
+    ],
+    "joint": [
+      {
+        "sample_count": 17091.0,
+        "scene_count": 75.0,
+        "mae_vx_mps": 0.4714430445415901,
+        "rmse_vx_mps": 1.0027795070271655,
+        "mae_vy_mps": 0.2688426393004362,
+        "rmse_vy_mps": 0.726128415561979,
+        "endpoint_error_mps": 0.6446438892233031,
+        "straight_sample_count": 16555.0,
+        "straight_mae_vy_mps": 0.24396446699838162,
+        "straight_endpoint_error_mps": 0.6251025003158189,
+        "turning_sample_count": 536.0,
+        "turning_mae_vy_mps": 1.0372346961297563,
+        "turning_endpoint_error_mps": 1.2482030186326531,
+        "high_lateral_sample_count": 2050.0,
+        "high_lateral_mae_vy_mps": 0.3168133478292559,
+        "high_lateral_endpoint_error_mps": 1.0326806775178532,
+        "wheel_inconsistent_sample_count": 0.0,
+        "geometry_invalid_sample_count": 0.0,
+        "fallback_sample_count": 0.0,
+        "geometry_valid_rate": 1.0,
+        "geometry_condition_median": 13.238297462463379,
+        "geometry_straight_vx_sign_agreement": 0.9994721761423616,
+        "all_outputs_finite": true,
+        "max_abs_kinematic_correction_vx_mps": 0.6251875162124634,
+        "max_abs_kinematic_correction_vy_mps": 0.3234676122665405
+      }
+    ]
+  },
+  "paired_scene_bootstrap": {
+    "joint_minus_visual_all_endpoint_error_mps": {
+      "scene_count": 75,
+      "mean_delta": -0.07825479263173783,
+      "ci95_low": -0.09573193769925384,
+      "ci95_high": -0.06201352754596463,
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 42
+    },
+    "joint_minus_visual_turning_mae_vy_mps": {
+      "scene_count": 40,
+      "mean_delta": -0.13429581186966263,
+      "ci95_low": -0.15911109365110745,
+      "ci95_high": -0.10918255643296507,
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 42
+    },
+    "joint_minus_visual_high_lateral_mae_vy_mps": {
+      "scene_count": 59,
+      "mean_delta": -0.08207826671494406,
+      "ci95_low": -0.10183960432175672,
+      "ci95_high": -0.06363455323811737,
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 42
+    }
+  },
+  "bootstrap_scope": "scene_sampling_conditional_on_seed_42",
+  "visual_to_joint_changes": {
+    "endpoint_error_mps": {
+      "visual": 0.7227539835044039,
+      "joint": 0.6446438892233031,
+      "absolute_delta": -0.07811009428110083,
+      "relative_delta_percent": -10.807286582132672
+    },
+    "mae_vx_mps": {
+      "visual": 0.5228212880298387,
+      "joint": 0.4714430445415901,
+      "absolute_delta": -0.051378243488248654,
+      "relative_delta_percent": -9.82711390384631
+    },
+    "mae_vy_mps": {
+      "visual": 0.3147605708516471,
+      "joint": 0.2688426393004362,
+      "absolute_delta": -0.04591793155121088,
+      "relative_delta_percent": -14.588209516513079
+    },
+    "turning_mae_vy_mps": {
+      "visual": 1.1718165301178365,
+      "joint": 1.0372346961297563,
+      "absolute_delta": -0.1345818339880802,
+      "relative_delta_percent": -11.484889530833536
+    },
+    "high_lateral_mae_vy_mps": {
+      "visual": 0.3808740833353978,
+      "joint": 0.3168133478292559,
+      "absolute_delta": -0.06406073550614189,
+      "relative_delta_percent": -16.819399982573763
+    }
+  },
+  "group_improved_seed_count": 1,
+  "acceptance": {
+    "geometry_valid_rate": true,
+    "geometry_condition": true,
+    "geometry_vx_sign": true,
+    "visual_epe_within_2_percent": true,
+    "visual_axis_mae_improved": true,
+    "joint_epe_within_2_percent": true,
+    "joint_outputs_finite": true,
+    "joint_correction_bounds": true,
+    "joint_group_improved_seed42": true,
+    "missing_can_outputs_finite": true,
+    "kinematic_ablation_changes_predictions": true,
+    "preliminary_pass": true
+  },
+  "claim_limitations": [
+    "Single seed 42 only; training-seed stability was not evaluated.",
+    "Scene bootstrap intervals do not establish cross-seed statistical significance.",
+    "Results estimate nuScenes ego-reference velocity, not vehicle center-of-gravity velocity."
+  ]
+}

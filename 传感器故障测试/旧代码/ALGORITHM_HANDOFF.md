@@ -1273,12 +1273,12 @@ max target difference across aligned methods = 0
 
 单 seed 结果，主指标 `vector_endpoint_error_mps`：
 
-| method | vector EE | MAE vx | MAE vy | R2 vx | R2 vy | gain vs base EE |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| vkd_gated | 0.07438 | 0.06875 | 0.01782 | 0.99919 | 0.50826 | 0.11898 |
-| kd_only | 0.07559 | 0.06995 | 0.01784 | 0.99916 | 0.50384 | 0.11777 |
-| vision_kinematics | 0.07625 | 0.07049 | 0.01815 | 0.99913 | 0.47718 | 0.11710 |
-| vision_only | 1.08914 | 1.08815 | 0.02150 | 0.81050 | 0.31053 | -0.89578 |
+| method            | vector EE |  MAE vx |  MAE vy |   R2 vx |   R2 vy | gain vs base EE |
+| ----------------- | --------: | ------: | ------: | ------: | ------: | --------------: |
+| vkd_gated         |   0.07438 | 0.06875 | 0.01782 | 0.99919 | 0.50826 |         0.11898 |
+| kd_only           |   0.07559 | 0.06995 | 0.01784 | 0.99916 | 0.50384 |         0.11777 |
+| vision_kinematics |   0.07625 | 0.07049 | 0.01815 | 0.99913 | 0.47718 |         0.11710 |
+| vision_only       |   1.08914 | 1.08815 | 0.02150 | 0.81050 | 0.31053 |        -0.89578 |
 
 结论边界：
 
@@ -1316,13 +1316,13 @@ high_lat_accel_vector_endpoint_error_mps   0.086761
 
 `vkd_gated` 在场景 gate 上的平均权重示例：
 
-| scenario | gate vision | gate kinematic | gate dynamics |
-| --- | ---: | ---: | ---: |
-| turning | 0.6008 | 0.2321 | 0.1671 |
-| high_lateral | 0.5816 | 0.2202 | 0.1982 |
-| wheel_inconsistent | 0.5973 | 0.2342 | 0.1685 |
-| hard_accel | 0.6124 | 0.1980 | 0.1896 |
-| high_lat_accel | 0.6008 | 0.2293 | 0.1699 |
+| scenario           | gate vision | gate kinematic | gate dynamics |
+| ------------------ | ----------: | -------------: | ------------: |
+| turning            |      0.6008 |         0.2321 |        0.1671 |
+| high_lateral       |      0.5816 |         0.2202 |        0.1982 |
+| wheel_inconsistent |      0.5973 |         0.2342 |        0.1685 |
+| hard_accel         |      0.6124 |         0.1980 |        0.1896 |
+| high_lat_accel     |      0.6008 |         0.2293 |        0.1699 |
 
 解释时要谨慎：gate 权重是模型内部融合权重，能提供解释线索，但不是严格的因果贡献证明。
 
@@ -1614,4 +1614,3 @@ tests/test_velocity_xy_pipeline.py
 
 修改代码时不要把任务改回 1 维 speed，也不要破坏 dataset batch contract。
 ```
-
