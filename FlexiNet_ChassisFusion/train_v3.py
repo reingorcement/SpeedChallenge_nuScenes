@@ -284,6 +284,14 @@ def configure_stage(
     model.set_stage_training_mode(freeze_backbone=epoch < freeze_epochs)
 
 
+def optimizer_state_matches(
+    optimizer: torch.optim.Optimizer, state: dict[str, Any]
+) -> bool:
+    current = [len(group["params"]) for group in optimizer.param_groups]
+    saved = [len(group["params"]) for group in state.get("param_groups", [])]
+    return current == saved
+
+
 def geometry_audit(
     cfg: dict[str, Any],
     loader: DataLoader,
@@ -397,7 +405,14 @@ def main() -> None:
         enabled=device.type == "cuda" and bool(cfg["train"].get("use_amp", True)),
     )
     if resume_checkpoint is not None:
-        optimizer.load_state_dict(resume_checkpoint["optimizer"])
+        optimizer_state = resume_checkpoint["optimizer"]
+        if optimizer_state_matches(optimizer, optimizer_state):
+            optimizer.load_state_dict(optimizer_state)
+        else:
+            print(
+                "Optimizer parameter set changed at the visual unfreeze boundary; "
+                "resuming model weights with a fresh optimizer."
+            )
         scaler.load_state_dict(resume_checkpoint["scaler"])
     epochs = 1 if args.smoke else int(cfg["train"].get("epochs", 20))
     train_limit = int(cfg["train"].get("smoke_train_batches", 2)) if args.smoke else 0

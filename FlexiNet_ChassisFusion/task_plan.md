@@ -72,3 +72,31 @@ Resume from the existing seed-42 kinematic best checkpoint, train only joint see
 
 ## Status
 **Complete** - seed-42 recovery, artifact validation, resumable joint training, online holdout ablations, preliminary reporting, and local verification are complete. Full nuScenes/CUDA execution remains server-only.
+
+---
+
+# Task Plan: Unattended V3 Visual-Only Pipeline
+
+## Goal
+Provide one server command that tests V3, trains direct and fusion models for three seeds, evaluates frozen checkpoints on `stage1_test`, and produces scene-level paired analysis artifacts without CAN or manual intervention.
+
+## Phases
+- [x] Phase 1: Audit current V3 training, evaluation, and bootstrap interfaces
+- [x] Phase 2: Add frozen-checkpoint stage1 holdout evaluation
+- [x] Phase 3: Add strict multi-seed result analysis bundle
+- [x] Phase 4: Add resumable one-command server orchestration and documentation
+- [x] Phase 5: Add tests and run local verification
+
+## Decisions Made
+- Direct and fusion are paired by seed: 42, 3407, and 2026.
+- Checkpoint selection remains on dev; `stage1_test` is read only after training.
+- The primary comparison is final fusion versus strict direct visual baseline.
+- Statistical resampling uses scenes, not adjacent frames, as independent units.
+- Existing completed checkpoints are skipped and interrupted runs resume from `last.pth`.
+
+## Errors Encountered
+- No V3 stage1 checkpoint evaluator or end-to-end orchestration script exists yet; both are required before a scientifically valid one-command run can be given.
+- Full nuScenes/CUDA training cannot run locally; server geometry/direct/fusion smoke results and local synthetic regression tests cover the executable paths before the formal run.
+
+## Status
+**Complete** - the unattended three-seed V3 training, independent holdout evaluation, and strict result-analysis pipeline is implemented and locally verified.

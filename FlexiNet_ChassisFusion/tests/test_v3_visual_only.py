@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import csv
 
 import pytest
 import torch
@@ -16,6 +17,8 @@ from model.v3 import (
     transform_camera_twist_to_ego,
 )
 from scripts.evaluate_v3_paired_bootstrap import bootstrap, paired_scene_deltas
+from scripts.analyze_v3_results import analyze_results
+from train_v3 import optimizer_state_matches
 
 
 def synthetic_geometry(
@@ -259,6 +262,71 @@ def test_fusion_geometry_remains_float32_under_autocast() -> None:
         assert torch.isfinite(diagnostic).all()
 
 
+def _write_v3_predictions(path: Path, error: float, seed_offset: float) -> None:
+    rows = []
+    for scene_index, scene_name in enumerate(("scene-a", "scene-b")):
+        for frame_index in range(2):
+            target_vx = 3.0 + scene_index + frame_index
+            target_vy = 0.2 * scene_index
+            rows.append(
+                {
+                    "center_token": f"{scene_name}-{frame_index}",
+                    "scene_name": scene_name,
+                    "target_vx_mps": target_vx,
+                    "target_vy_mps": target_vy,
+                    "pred_vx_mps": target_vx + error + seed_offset,
+                    "pred_vy_mps": target_vy + 0.25 * error,
+                    "log_variance_vx": 0.0,
+                    "log_variance_vy": 0.0,
+                    "geometry_valid": 1.0,
+                }
+            )
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def test_three_seed_analysis_writes_complete_bundle(tmp_path: Path) -> None:
+    direct_paths = []
+    fusion_paths = []
+    for index, seed in enumerate((42, 3407, 2026)):
+        direct = tmp_path / f"direct-{seed}.csv"
+        fusion = tmp_path / f"fusion-{seed}.csv"
+        _write_v3_predictions(direct, error=1.0, seed_offset=index * 0.02)
+        _write_v3_predictions(fusion, error=0.5, seed_offset=index * 0.02)
+        direct_paths.append(direct)
+        fusion_paths.append(fusion)
+    output_dir = tmp_path / "analysis"
+
+    report = analyze_results(
+        [42, 3407, 2026], direct_paths, fusion_paths, 200, 2026, output_dir
+    )
+
+    assert report["paired_scene_bootstrap"]["seed_count"] == 3
+    assert report["paired_scene_bootstrap"]["metrics"]["epe_mps"][
+        "significant_improvement"
+    ]
+    for relative_path in (
+        "summary.json",
+        "per-seed-metrics.csv",
+        "analysis-report.md",
+        "stats-appendix.md",
+        "figure-catalog.md",
+        "figures/figure-01-seed-comparison.png",
+        "figures/figure-02-scene-epe-deltas.png",
+    ):
+        assert (output_dir / relative_path).is_file()
+
+
+def test_optimizer_resume_state_detects_unfreeze_boundary() -> None:
+    layer = torch.nn.Linear(2, 1)
+    full = torch.optim.AdamW(layer.parameters())
+    partial = torch.optim.AdamW([layer.weight])
+    assert optimizer_state_matches(full, full.state_dict())
+    assert not optimizer_state_matches(full, partial.state_dict())
+
+
 class FakeNuScenes:
     def __init__(self, records: dict[tuple[str, str], dict]) -> None:
         self.records = records
@@ -374,3 +442,15 @@ def test_offline_scene_bootstrap_pairs_predictions_by_token(tmp_path: Path) -> N
     result = bootstrap([deltas, deltas, deltas], samples=200, random_seed=7)
     assert result["seed_count"] == 3
     assert result["metrics"]["epe_mps"]["significant_improvement"] is True
+
+
+def test_offline_scene_bootstrap_rejects_target_mismatch(tmp_path: Path) -> None:
+    header = (
+        "scene_name,center_token,target_vx_mps,target_vy_mps,pred_vx_mps,pred_vy_mps\n"
+    )
+    candidate = tmp_path / "candidate.csv"
+    baseline = tmp_path / "baseline.csv"
+    candidate.write_text(header + "scene-a,t0,5,0,5.1,0.1\n", encoding="utf-8")
+    baseline.write_text(header + "scene-a,t0,6,0,5.1,0.1\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="Target mismatch"):
+        paired_scene_deltas(candidate, baseline)

@@ -57,6 +57,19 @@ def paired_scene_deltas(
         baseline_row = baseline[token]
         if candidate_row["scene_name"] != baseline_row["scene_name"]:
             raise ValueError(f"Scene mismatch for center_token={token}.")
+        candidate_target = (
+            _value(candidate_row, "target_vx_mps", "target_vx"),
+            _value(candidate_row, "target_vy_mps", "target_vy"),
+        )
+        baseline_target = (
+            _value(baseline_row, "target_vx_mps", "target_vx"),
+            _value(baseline_row, "target_vy_mps", "target_vy"),
+        )
+        if any(
+            not math.isclose(left, right, rel_tol=0.0, abs_tol=1.0e-6)
+            for left, right in zip(candidate_target, baseline_target)
+        ):
+            raise ValueError(f"Target mismatch for center_token={token}.")
         candidate_error = _errors(candidate_row)
         baseline_error = _errors(baseline_row)
         by_scene[candidate_row["scene_name"]].append(
