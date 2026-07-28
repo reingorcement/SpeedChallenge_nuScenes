@@ -125,3 +125,30 @@ Remove unnecessary flow I/O and inactive loss computation from direct pretrainin
 
 ## Status
 **Complete** - 22 V3-only tests, Ruff, Python compilation, Bash syntax, forbidden-command scan, and diff validation all pass.
+
+---
+
+# Task Plan: Windows V3 Seed-42 Validation
+
+## Goal
+Run the existing V3 direct-then-fusion experiment for seed 42 from one resumable PowerShell command on the Windows RTX 5090 server, followed by clearly preliminary holdout analysis.
+
+## Phases
+- [x] Phase 1: Confirm the server GPU, Conda environment, dataset path, repository path, branch, and seed scope
+- [x] Phase 2: Add an explicit preliminary single-seed analysis mode
+- [x] Phase 3: Add a Windows-native resumable seed-42 pipeline
+- [x] Phase 4: Document the exact GitHub-to-server setup and launch commands
+- [x] Phase 5: Run focused tests, PowerShell syntax checks, and regression verification
+
+## Decisions Made
+- Use the existing `feature/v3-visual-only` branch and preserve the Linux pipeline.
+- Run direct pretraining before fusion because fusion initializes from the paired direct checkpoint.
+- Treat seed 42 as preliminary validation; retain the three-seed requirement for formal claims.
+- Pass `D:\Workspaces\zy\nuscenes` at launch time rather than hard-coding it in source.
+- Save checkpoints after every epoch and resume only when the same run tag is supplied.
+
+## Errors Encountered
+- The first local V3 pytest command ran from the repository root, where the project-local `dataset` package is not importable. Rerun from `FlexiNet_ChassisFusion`, matching the PowerShell pipeline.
+
+## Status
+**Complete** - the Windows seed-42 direct-to-fusion pipeline, preliminary analysis mode, tests, and server handoff are ready for GitHub transfer and RTX 5090 execution.

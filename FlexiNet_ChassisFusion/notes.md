@@ -30,3 +30,13 @@
 - Direct model forward accepts the RGB-only contract and emits compatible diagnostic placeholders.
 - Disabled loss terms are short-circuited before accessing flow or geometry tensors.
 - Runtime controls separate direct batch size from fusion batch size; defaults are 16 and 4 respectively, with 8 DataLoader workers.
+
+## Windows Seed-42 Server Target
+- Target OS: native Windows, no WSL dependency.
+- GPU: NVIDIA GeForce RTX 5090, 32 GB VRAM; driver 572.83, CUDA capability reported as 12.8.
+- Conda environment: `zy_speedest`.
+- Dataset root: `D:\Workspaces\zy\nuscenes`.
+- Repository target: `D:\Workspaces\zy\code\zhangyu\09_SpeedChallenge_nuScenes_worktrees\v3-visual-only`.
+- Branch: `feature/v3-visual-only`.
+- Validation scope: paired direct and fusion training for seed 42 only.
+- Statistical scope: scene bootstrap conditional on seed 42; no claim of training-seed stability.

@@ -331,6 +331,43 @@ def test_three_seed_analysis_writes_complete_bundle(tmp_path: Path) -> None:
         assert (output_dir / relative_path).is_file()
 
 
+def test_single_seed_analysis_requires_preliminary_mode(tmp_path: Path) -> None:
+    direct = tmp_path / "direct-42.csv"
+    fusion = tmp_path / "fusion-42.csv"
+    _write_v3_predictions(direct, error=1.0, seed_offset=0.0)
+    _write_v3_predictions(fusion, error=0.5, seed_offset=0.0)
+
+    with pytest.raises(ValueError, match="at least three paired seeds"):
+        analyze_results([42], [direct], [fusion], 200, 2026, tmp_path / "formal")
+
+
+def test_single_seed_preliminary_analysis_is_explicitly_limited(
+    tmp_path: Path,
+) -> None:
+    direct = tmp_path / "direct-42.csv"
+    fusion = tmp_path / "fusion-42.csv"
+    _write_v3_predictions(direct, error=1.0, seed_offset=0.0)
+    _write_v3_predictions(fusion, error=0.5, seed_offset=0.0)
+    output_dir = tmp_path / "preliminary"
+
+    report = analyze_results(
+        [42],
+        [direct],
+        [fusion],
+        200,
+        2026,
+        output_dir,
+        preliminary=True,
+    )
+
+    assert report["analysis_mode"] == "preliminary_single_seed"
+    assert report["bootstrap_scope"] == "scene_sampling_conditional_on_seed_42"
+    assert report["claim_limitations"]
+    analysis = (output_dir / "analysis-report.md").read_text(encoding="utf-8")
+    assert "Preliminary single-seed validation" in analysis
+    assert "cannot establish robustness to training initialization" in analysis
+
+
 def test_optimizer_resume_state_detects_unfreeze_boundary() -> None:
     layer = torch.nn.Linear(2, 1)
     full = torch.optim.AdamW(layer.parameters())

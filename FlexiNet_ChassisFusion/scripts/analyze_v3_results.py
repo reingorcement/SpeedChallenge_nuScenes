@@ -190,18 +190,51 @@ def _make_figures(
 def _write_reports(output_dir: Path, report: dict[str, Any]) -> None:
     bootstrap_metrics = report["paired_scene_bootstrap"]["metrics"]
     epe = bootstrap_metrics["epe_mps"]
-    if epe["significant_improvement"]:
+    preliminary = report["analysis_mode"] == "preliminary_single_seed"
+    preliminary_seed = report["seeds"][0] if preliminary else None
+    if preliminary and epe["significant_improvement"]:
+        decision = (
+            "For this seed, fusion improves scene-level EPE over direct visual "
+            "estimation on this split."
+        )
+        allowed = (
+            f"For seed {preliminary_seed} on this fixed split, fusion reduced EPE "
+            "versus its paired direct baseline."
+        )
+    elif preliminary:
+        decision = (
+            "For this seed, the scene-level EPE interval does not establish an "
+            "improvement."
+        )
+        allowed = (
+            f"For seed {preliminary_seed} on this fixed split, fusion and direct "
+            "performance are not distinguishable at the 95% scene-bootstrap level."
+        )
+    elif epe["significant_improvement"]:
         decision = "Fusion improves scene-level EPE over direct visual estimation."
         allowed = "Fusion reduced EPE versus the paired direct baseline on this split."
     else:
         decision = "The scene-level EPE interval does not establish an improvement."
         allowed = "Fusion and direct performance are not distinguishable at the 95% scene-bootstrap level."
+    uncertainty = (
+        "One training seed cannot quantify training-seed variability; the interval "
+        f"only resamples scenes conditional on seed {preliminary_seed}."
+        if preliminary
+        else "Paired training seeds quantify limited seed variability; the interval "
+        "resamples scenes on this fixed split."
+    )
+    mode_label = (
+        "Preliminary single-seed validation"
+        if preliminary
+        else "Formal paired multi-seed analysis"
+    )
     analysis = f"""# V3 Visual-Only Analysis Report
 
 ## Analysis Question
 Does pure-visual V3 fusion improve velocity estimation over its direct visual expert on the independent `stage1_test` split?
 
 ## Evidence
+- Analysis mode: {mode_label}
 - Seeds: {', '.join(str(seed) for seed in report['seeds'])}
 - Experimental unit: scene
 - Paired scenes: {report['paired_scene_bootstrap']['scene_count']}
@@ -215,13 +248,14 @@ Does pure-visual V3 fusion improve velocity estimation over its direct visual ex
 ## Claim Candidate
 - Allowed wording: {allowed}
 - Forbidden stronger wording: the method is generally superior on nuScenes or other datasets.
-- Uncertainty: three training seeds quantify limited seed variability; the interval resamples scenes on this fixed split.
-- Decision: {'keep' if epe['significant_improvement'] else 'weaken'}
+- Uncertainty: {uncertainty}
+- Decision: {'preliminary_keep' if preliminary and epe['significant_improvement'] else 'keep' if epe['significant_improvement'] else 'weaken'}
 
 ## Limitations
 - This report compares fusion only with its strict direct visual baseline.
 - Smoke results are excluded from the analysis.
 - No CAN, wheel-speed, IMU, kinematic, or dynamic input is evaluated.
+{'- This single-seed result cannot establish robustness to training initialization.' if preliminary else '- The paired seeds provide limited, not exhaustive, initialization evidence.'}
 """
     (output_dir / "analysis-report.md").write_text(analysis, encoding="utf-8")
 
@@ -242,13 +276,17 @@ Does pure-visual V3 fusion improve velocity estimation over its direct visual ex
             f"[{item['ci95'][0]:.6f}, {item['ci95'][1]:.6f}] | "
             f"{effect:.4f} | {item['significant_improvement']} |"
         )
-    lines.extend(
-        [
-            "",
-            "The paired Cohen dz is computed from per-scene differences averaged across seeds. ",
-            "With only three training seeds, seed-level normality tests and seed-level significance tests are not reported.",
-        ]
-    )
+    lines.extend(["", "The paired Cohen dz is computed from per-scene differences averaged across seeds."])
+    if preliminary:
+        lines.append(
+            f"This preliminary interval resamples scenes conditional on seed "
+            f"{preliminary_seed} and does not measure training-seed variability."
+        )
+    else:
+        lines.append(
+            "The available training seeds are insufficient for seed-level normality "
+            "or significance tests."
+        )
     (output_dir / "stats-appendix.md").write_text("\n".join(lines), encoding="utf-8")
 
     catalog = """# Figure Catalog
@@ -275,8 +313,11 @@ def analyze_results(
     samples: int,
     bootstrap_seed: int,
     output_dir: str | Path,
+    preliminary: bool = False,
 ) -> dict[str, Any]:
-    if len(seeds) < 3:
+    if preliminary and len(seeds) != 1:
+        raise ValueError("Preliminary V3 analysis requires exactly one paired seed.")
+    if not preliminary and len(seeds) < 3:
         raise ValueError("Formal V3 analysis requires at least three paired seeds.")
     if not (len(seeds) == len(direct_paths) == len(fusion_paths)):
         raise ValueError("Seeds, direct predictions, and fusion predictions must align.")
@@ -290,6 +331,19 @@ def analyze_results(
     bootstrap_report = bootstrap(seed_deltas, samples, bootstrap_seed)
     mean_deltas, effect_sizes = _effect_sizes(seed_deltas)
     report = {
+        "analysis_mode": (
+            "preliminary_single_seed" if preliminary else "formal_multi_seed"
+        ),
+        "bootstrap_scope": (
+            f"scene_sampling_conditional_on_seed_{seeds[0]}"
+            if preliminary
+            else "paired_scene_and_training_seed_summary"
+        ),
+        "claim_limitations": (
+            ["Single-seed validation cannot establish training-seed stability."]
+            if preliminary
+            else []
+        ),
         "seeds": seeds,
         "experimental_unit": "scene",
         "direct_per_seed": direct_metrics,
@@ -325,6 +379,11 @@ def main() -> None:
     parser.add_argument("--samples", type=int, default=10_000)
     parser.add_argument("--bootstrap_seed", type=int, default=2026)
     parser.add_argument("--output_dir", required=True)
+    parser.add_argument(
+        "--preliminary",
+        action="store_true",
+        help="Allow exactly one paired seed and label all conclusions preliminary.",
+    )
     args = parser.parse_args()
     report = analyze_results(
         args.seeds,
@@ -333,6 +392,7 @@ def main() -> None:
         args.samples,
         args.bootstrap_seed,
         args.output_dir,
+        preliminary=args.preliminary,
     )
     print(json.dumps(report, indent=2, allow_nan=True))
 
