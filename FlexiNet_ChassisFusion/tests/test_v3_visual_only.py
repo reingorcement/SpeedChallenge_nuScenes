@@ -2,11 +2,15 @@ from __future__ import annotations
 
 from pathlib import Path
 import csv
+import pickle
 
+from PIL import Image
 import pytest
 import torch
 from torch.utils.data import Dataset
+from torchvision import transforms
 
+from dataset.nuscenes_chassis import _convert_image_to_rgb
 from dataset.v3_schema import FORBIDDEN_VISUAL_KEYS, V3NuScenesVisualDataset
 from model.v2.ground_geometry import road_plane_depth
 from model.v3 import (
@@ -501,6 +505,12 @@ def test_direct_dataset_does_not_require_or_load_flow(tmp_path: Path) -> None:
     item = dataset[0]
     assert set(item["visual"]) == {"images"}
     assert set(item["target"]) == {"velocity"}
+
+
+def test_rgb_transform_is_pickleable_for_windows_workers() -> None:
+    transform = transforms.Lambda(_convert_image_to_rgb)
+    restored = pickle.loads(pickle.dumps(transform))
+    assert restored(Image.new("L", (2, 2))).mode == "RGB"
 
 
 def test_dataset_rejects_flow_token_or_backend_mismatch(tmp_path: Path) -> None:

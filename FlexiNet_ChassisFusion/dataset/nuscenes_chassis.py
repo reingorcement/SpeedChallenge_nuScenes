@@ -101,6 +101,10 @@ def _current_sequence_index(length: int, online_mode: bool) -> int:
     return length - 1 if online_mode else length // 2
 
 
+def _convert_image_to_rgb(image: Image.Image) -> Image.Image:
+    return image.convert("RGB")
+
+
 def _yaw_from_quaternion(rotation: Sequence[float]) -> float:
     if len(rotation) != 4:
         raise ValueError("nuScenes ego_pose rotation must be a quaternion [w, x, y, z].")
@@ -675,7 +679,7 @@ class NuScenesChassisFusionDataset(Dataset):
                 transforms.Resize(img_size),
                 transforms.Grayscale(num_output_channels=1)
                 if image_mode == "gray"
-                else transforms.Lambda(lambda img: img.convert("RGB")),
+                else transforms.Lambda(_convert_image_to_rgb),
                 transforms.ToTensor(),
                 transforms.Normalize(mean=[0.5], std=[0.5])
                 if image_mode == "gray"

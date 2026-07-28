@@ -45,3 +45,8 @@
 - Passing multiline Python source with embedded double quotes via `python -c $code` corrupts the quotes before `python.exe` receives the argument.
 - The observed server syntax error was reproduced locally with the same PowerShell 5.1 call shape.
 - Environment preflight and checkpoint completion checks must execute a normal Python helper file.
+
+## Windows DataLoader Spawn Failure
+- Unit tests and environment checks passed, then direct smoke failed before batch 1 while starting eight workers.
+- The exact unpickleable object is `NuScenesChassisFusionDataset.__init__.<locals>.<lambda>` stored inside `transforms.Lambda`.
+- A module-level RGB conversion function preserves the image transform while allowing Windows worker serialization.
