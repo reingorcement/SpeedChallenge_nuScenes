@@ -139,6 +139,7 @@ Run the existing V3 direct-then-fusion experiment for seed 42 from one resumable
 - [x] Phase 3: Add a Windows-native resumable seed-42 pipeline
 - [x] Phase 4: Document the exact GitHub-to-server setup and launch commands
 - [x] Phase 5: Run focused tests, PowerShell syntax checks, and regression verification
+- [x] Phase 6: Replace PowerShell 5.1-incompatible inline Python and verify the server hotfix
 
 ## Decisions Made
 - Use the existing `feature/v3-visual-only` branch and preserve the Linux pipeline.
@@ -149,6 +150,8 @@ Run the existing V3 direct-then-fusion experiment for seed 42 from one resumable
 
 ## Errors Encountered
 - The first local V3 pytest command ran from the repository root, where the project-local `dataset` package is not importable. Rerun from `FlexiNet_ChassisFusion`, matching the PowerShell pipeline.
+- Windows PowerShell 5.1 strips embedded double quotes from multiline arguments passed through `python -c`, producing an unterminated Python string during preflight. The same mechanism also affects checkpoint inspection; both checks must use a Python file instead of inline code.
+- The local regression environment lacks `pandas`; V3 does not import `pandas` or `sklearn`, so both unrelated packages were removed from the server preflight requirement.
 
 ## Status
-**Complete** - the Windows seed-42 direct-to-fusion pipeline, preliminary analysis mode, tests, and server handoff are ready for GitHub transfer and RTX 5090 execution.
+**Complete** - the PowerShell 5.1 quoting failure is reproduced, fixed without inline Python, and covered by 26 passing V3 tests plus static checks.

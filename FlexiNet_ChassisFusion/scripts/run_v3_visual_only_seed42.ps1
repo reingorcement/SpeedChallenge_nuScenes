@@ -61,17 +61,8 @@ function Invoke-Python {
 function Test-CheckpointComplete {
     param([Parameter(Mandatory = $true)][string]$Checkpoint)
 
-    $checkCode = @'
-import sys
-import torch
-import yaml
-
-checkpoint = torch.load(sys.argv[1], map_location="cpu")
-with open(sys.argv[2], encoding="utf-8") as handle:
-    config = yaml.safe_load(handle)
-sys.exit(0 if int(checkpoint["epoch"]) + 1 >= int(config["train"]["epochs"]) else 3)
-'@
-    $checkOutput = & python -c $checkCode $Checkpoint $Config 2>&1
+    $checkOutput = & python "scripts\v3_pipeline_checks.py" checkpoint `
+        --checkpoint $Checkpoint --config $Config 2>&1
     if ($LASTEXITCODE -eq 0) {
         return $true
     }
@@ -145,31 +136,10 @@ try {
         Assert-PathExists -Path $requiredPath
     }
 
-    $preflightCode = @'
-import os
-import sys
-
-import cv2
-import matplotlib
-import numpy
-import pandas
-import pytest
-import sklearn
-import torch
-import torchvision
-import tqdm
-import yaml
-from nuscenes.nuscenes import NuScenes
-
-environment = os.environ.get("CONDA_DEFAULT_ENV", "")
-if environment.lower() != "zy_speedest" and "zy_speedest" not in sys.executable.lower():
-    raise RuntimeError(f"Expected zy_speedest, got environment={environment!r}, python={sys.executable}")
-if not torch.cuda.is_available():
-    raise RuntimeError("CUDA is required for V3 training.")
-print(f"python={sys.executable}")
-print(f"torch={torch.__version__}, cuda={torch.version.cuda}, gpu={torch.cuda.get_device_name(0)}")
-'@
-    Invoke-Python -Arguments @("-c", $preflightCode)
+    Invoke-Python -Arguments @(
+        "scripts\v3_pipeline_checks.py", "environment",
+        "--expected_conda_env", "zy_speedest"
+    )
     Invoke-Python -Arguments @("-m", "pytest", "tests\test_v3_visual_only.py", "-q")
 
     $smokeRoot = Join-Path $RunRoot "smoke"

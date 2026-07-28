@@ -40,3 +40,8 @@
 - Branch: `feature/v3-visual-only`.
 - Validation scope: paired direct and fusion training for seed 42 only.
 - Statistical scope: scene bootstrap conditional on seed 42; no claim of training-seed stability.
+
+## Windows PowerShell 5.1 Quoting Failure
+- Passing multiline Python source with embedded double quotes via `python -c $code` corrupts the quotes before `python.exe` receives the argument.
+- The observed server syntax error was reproduced locally with the same PowerShell 5.1 call shape.
+- Environment preflight and checkpoint completion checks must execute a normal Python helper file.

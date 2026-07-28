@@ -17,7 +17,47 @@ The server inputs for this run are:
 - Branch: `feature/v3-visual-only`
 - Repository directory: `D:\Workspaces\zy\code\zhangyu\09_SpeedChallenge_nuScenes_worktrees\v3-visual-only`
 
-The screenshots show Anaconda Prompt (`cmd.exe`), not PowerShell. The commands below therefore use Command Prompt syntax. The target directory is currently empty; clone the branch into that folder with:
+The screenshots show Anaconda Prompt (`cmd.exe`), not PowerShell. The commands below therefore use Command Prompt syntax.
+
+### Configure Read-Only GitHub SSH Access
+
+This is a private repository. First inspect the server SSH directory:
+
+```batch
+dir /a %USERPROFILE%\.ssh
+```
+
+If `id_ed25519` or `id_ed25519.pub` already exists, do not overwrite it. Otherwise generate a key dedicated to this server:
+
+```batch
+ssh-keygen -t ed25519 -C "PUERSAI-HPC SpeedChallenge read-only"
+```
+
+Accept the default path `C:\Users\PS\.ssh\id_ed25519`. Because this key will be a repository-scoped read-only deploy key, an empty passphrase is acceptable for unattended pulls. Print only the public key:
+
+```batch
+type %USERPROFILE%\.ssh\id_ed25519.pub
+```
+
+In GitHub, open the `SpeedChallenge_nuScenes` repository rather than the personal-account SSH key page:
+
+```text
+Repository > Settings > Deploy keys > Add deploy key
+```
+
+Use a title such as `PUERSAI-HPC Windows`, paste the complete `.pub` line, and leave `Allow write access` unchecked. Never upload or share the private `id_ed25519` file.
+
+Verify the key after GitHub saves it:
+
+```batch
+ssh -T git@github.com
+```
+
+GitHub should report successful authentication and state that it does not provide shell access.
+
+### Clone the Branch
+
+The target directory is currently empty. Clone the branch into that folder with:
 
 ```batch
 cd /d D:\Workspaces\zy\code\zhangyu\09_SpeedChallenge_nuScenes_worktrees\v3-visual-only

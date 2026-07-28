@@ -18,6 +18,7 @@ from model.v3 import (
 )
 from scripts.evaluate_v3_paired_bootstrap import bootstrap, paired_scene_deltas
 from scripts.analyze_v3_results import analyze_results
+from scripts.v3_pipeline_checks import checkpoint_complete
 from train_v3 import clip_gradient_norm, optimizer_state_matches
 
 
@@ -366,6 +367,28 @@ def test_single_seed_preliminary_analysis_is_explicitly_limited(
     analysis = (output_dir / "analysis-report.md").read_text(encoding="utf-8")
     assert "Preliminary single-seed validation" in analysis
     assert "cannot establish robustness to training initialization" in analysis
+
+
+def test_pipeline_checkpoint_completion_uses_configured_epochs(
+    tmp_path: Path,
+) -> None:
+    config = tmp_path / "config.yaml"
+    config.write_text("train:\n  epochs: 20\n", encoding="utf-8")
+    checkpoint = tmp_path / "last.pth"
+    torch.save({"epoch": 18}, checkpoint)
+    assert not checkpoint_complete(checkpoint, config)
+    torch.save({"epoch": 19}, checkpoint)
+    assert checkpoint_complete(checkpoint, config)
+
+
+def test_windows_pipeline_does_not_use_inline_python() -> None:
+    script = (
+        Path(__file__).resolve().parents[1]
+        / "scripts"
+        / "run_v3_visual_only_seed42.ps1"
+    ).read_text(encoding="utf-8")
+    assert "python -c" not in script.lower()
+    assert "scripts\\v3_pipeline_checks.py" in script
 
 
 def test_optimizer_resume_state_detects_unfreeze_boundary() -> None:
