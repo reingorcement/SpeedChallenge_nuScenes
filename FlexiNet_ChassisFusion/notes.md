@@ -50,3 +50,9 @@
 - Unit tests and environment checks passed, then direct smoke failed before batch 1 while starting eight workers.
 - The exact unpickleable object is `NuScenesChassisFusionDataset.__init__.<locals>.<lambda>` stored inside `transforms.Lambda`.
 - A module-level RGB conversion function preserves the image transform while allowing Windows worker serialization.
+
+## V3 Smoke Metadata Stall
+- Direct smoke completed its two configured batches, then fusion smoke produced no log output while CPU time continued increasing and GPU remained unused.
+- `V3NuScenesVisualDataset._build_metadata()` serially traverses every base sample during construction, before the model is moved to CUDA or the training progress bar exists.
+- `--smoke` currently limits only train/evaluation iteration counts; it does not limit scene/sample construction.
+- Smoke should use a small deterministic scene subset. Full fusion must retain all scenes and report metadata construction progress.

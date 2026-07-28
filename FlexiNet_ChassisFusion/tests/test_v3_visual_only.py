@@ -23,7 +23,11 @@ from model.v3 import (
 from scripts.evaluate_v3_paired_bootstrap import bootstrap, paired_scene_deltas
 from scripts.analyze_v3_results import analyze_results
 from scripts.v3_pipeline_checks import checkpoint_complete
-from train_v3 import clip_gradient_norm, optimizer_state_matches
+from train_v3 import (
+    apply_smoke_dataset_limit,
+    clip_gradient_norm,
+    optimizer_state_matches,
+)
 
 
 def synthetic_geometry(
@@ -408,6 +412,16 @@ def test_gradient_clipping_reports_nonfinite_norm_without_raising() -> None:
     parameter.grad = torch.tensor([float("inf")])
     norm = clip_gradient_norm([parameter], max_norm=2.0)
     assert not bool(torch.isfinite(norm))
+
+
+def test_smoke_limits_dataset_construction_without_expanding_existing_limit() -> None:
+    config = {"data": {"max_scenes": None}, "train": {"smoke_max_scenes": 2}}
+    apply_smoke_dataset_limit(config)
+    assert config["data"]["max_scenes"] == 2
+
+    config["data"]["max_scenes"] = 1
+    apply_smoke_dataset_limit(config)
+    assert config["data"]["max_scenes"] == 1
 
 
 class FakeNuScenes:

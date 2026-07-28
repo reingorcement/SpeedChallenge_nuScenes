@@ -94,7 +94,7 @@ cd /d D:\Workspaces\zy\code\zhangyu\09_SpeedChallenge_nuScenes_worktrees\v3-visu
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run_v3_visual_only_seed42.ps1 -DataRoot D:\Workspaces\zy\nuscenes -RunTag v3_visual_only_seed42_20260728
 ```
 
-The command first runs V3 unit tests and a two-batch direct-to-fusion smoke chain. It then runs the full 20-epoch direct stage, the full 20-epoch fusion stage, frozen `stage1_test` evaluation, and a scene-bootstrap comparison conditional on seed 42.
+The command first runs V3 unit tests and a two-scene, two-batch direct-to-fusion smoke chain. It then runs the full 20-epoch direct stage, the full 20-epoch fusion stage, frozen `stage1_test` evaluation, and a scene-bootstrap comparison conditional on seed 42. Full fusion metadata preparation reports `v3 fusion metadata` progress before GPU training begins.
 
 For a separate minimized training window, use this from the same activated Anaconda Prompt:
 

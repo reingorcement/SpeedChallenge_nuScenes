@@ -24,6 +24,18 @@ def load_config(path: str | Path) -> dict[str, Any]:
         return yaml.safe_load(handle)
 
 
+def apply_smoke_dataset_limit(cfg: dict[str, Any]) -> None:
+    smoke_max_scenes = int(cfg["train"].get("smoke_max_scenes", 2))
+    if smoke_max_scenes <= 0:
+        raise ValueError("train.smoke_max_scenes must be positive.")
+    configured_max = cfg["data"].get("max_scenes")
+    cfg["data"]["max_scenes"] = (
+        smoke_max_scenes
+        if configured_max is None
+        else min(int(configured_max), smoke_max_scenes)
+    )
+
+
 def build_dataset(cfg: dict[str, Any], split: str) -> V3NuScenesVisualDataset:
     data = cfg["data"]
     if not bool(data.get("online_mode", False)):
@@ -368,6 +380,8 @@ def main() -> None:
         value = getattr(args, key)
         if value is not None:
             cfg["train"][key] = value
+    if args.smoke:
+        apply_smoke_dataset_limit(cfg)
     set_seed(int(cfg["train"].get("seed", 42)))
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     train_set = build_dataset(cfg, "train_core")

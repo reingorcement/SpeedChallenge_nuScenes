@@ -141,6 +141,7 @@ Run the existing V3 direct-then-fusion experiment for seed 42 from one resumable
 - [x] Phase 5: Run focused tests, PowerShell syntax checks, and regression verification
 - [x] Phase 6: Replace PowerShell 5.1-incompatible inline Python and verify the server hotfix
 - [x] Phase 7: Make the RGB dataset transform pickleable by Windows DataLoader workers
+- [x] Phase 8: Bound smoke dataset construction and expose fusion metadata progress
 
 ## Decisions Made
 - Use the existing `feature/v3-visual-only` branch and preserve the Linux pipeline.
@@ -154,6 +155,7 @@ Run the existing V3 direct-then-fusion experiment for seed 42 from one resumable
 - Windows PowerShell 5.1 strips embedded double quotes from multiline arguments passed through `python -c`, producing an unterminated Python string during preflight. The same mechanism also affects checkpoint inspection; both checks must use a Python file instead of inline code.
 - The local regression environment lacks `pandas`; V3 does not import `pandas` or `sklearn`, so both unrelated packages were removed from the server preflight requirement.
 - Windows DataLoader `spawn` cannot pickle the local RGB conversion lambda stored in `NuScenesChassisFusionDataset.transform`; replace only that stored lambda with a module-level function.
+- V3 smoke limits the training loop to two batches but still builds fusion metadata for the full train/dev sample set before showing a progress bar. Limit smoke scene construction and make full metadata preparation observable.
 
 ## Status
-**Complete** - the stored RGB transform is Windows-spawn pickleable, with 27 passing V3 tests plus Ruff, compilation, and diff checks.
+**Complete** - smoke construction is limited to two scenes per partition, full fusion metadata progress is visible, and 28 V3 tests plus static checks pass.

@@ -6,6 +6,7 @@ from typing import Any
 import torch
 import torch.nn.functional as F
 from torch.utils.data import Dataset
+from tqdm import tqdm
 
 from dataset.v2_schema import (
     apply_sequence_photometric_augmentation,
@@ -209,7 +210,11 @@ class V3NuScenesVisualDataset(Dataset):
             )
         upward_ego = torch.tensor([0.0, 0.0, 1.0], dtype=torch.float32)
         result = []
-        for sample in self.base_dataset.samples:
+        for sample in tqdm(
+            self.base_dataset.samples,
+            desc="v3 fusion metadata",
+            unit="sample",
+        ):
             tokens = sample["tokens"][-(self.pair_count + 1) :]
             pair_tokens = list(zip(tokens[:-1], tokens[1:]))
             pair_dt = []
