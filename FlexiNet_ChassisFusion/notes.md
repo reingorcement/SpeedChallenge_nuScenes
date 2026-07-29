@@ -56,3 +56,11 @@
 - `V3NuScenesVisualDataset._build_metadata()` serially traverses every base sample during construction, before the model is moved to CUDA or the training progress bar exists.
 - `--smoke` currently limits only train/evaluation iteration counts; it does not limit scene/sample construction.
 - Smoke should use a small deterministic scene subset. Full fusion must retain all scenes and report metadata construction progress.
+
+## Windows Fusion Worker Startup
+- The full train split contains 132,980 samples at 33,245 batches of four.
+- The current list-of-dictionaries layout creates about six small tensors per sample, so Windows spawn must transfer roughly 800,000 tensor objects to each worker before batch zero can complete.
+- The compact representation should use split-level contiguous tensors and derive pair tokens from `base_dataset.samples`, reducing tensor storage objects to seven independent of split size.
+- Direct pretraining sets `load_flows=False`, so this representation change does not affect its data or checkpoint contract.
+- A Windows regression test now starts a real spawn-based DataLoader worker and requires it to return the first fusion batch within 30 seconds.
+- Local verification passes 30 V3 tests, including the spawn-worker boundary, plus Ruff, formatting, Python compilation, and diff checks.

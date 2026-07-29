@@ -7,7 +7,7 @@ import pickle
 from PIL import Image
 import pytest
 import torch
-from torch.utils.data import Dataset
+from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 
 from dataset.nuscenes_chassis import _convert_image_to_rgb
@@ -508,6 +508,57 @@ def test_dataset_is_causal_visual_only_without_can(tmp_path: Path) -> None:
     assert float(item["visual"]["pair_dt"][-1]) > 0.0
 
 
+def test_fusion_metadata_is_compact_and_pickleable(tmp_path: Path) -> None:
+    write_flow_packages(tmp_path)
+    dataset = V3NuScenesVisualDataset(
+        FakeBaseDataset(), tmp_path, camera_height_m=1.5, geometry_size=(16, 24)
+    )
+    metadata = dataset._metadata
+    assert metadata is not None
+    assert set(metadata) == {
+        "pair_dt",
+        "angular_velocity_camera",
+        "intrinsics",
+        "original_size",
+        "rotation_ego_from_camera",
+        "translation_ego_from_camera",
+        "plane_normal_camera",
+    }
+    assert all(value.shape[0] == len(dataset) for value in metadata.values())
+    assert all(value.is_contiguous() for value in metadata.values())
+
+    restored = pickle.loads(pickle.dumps(dataset))
+    item = restored[0]
+    torch.testing.assert_close(item["visual"]["pair_dt"], torch.tensor([0.1, 0.1, 0.1]))
+    torch.testing.assert_close(
+        item["target"]["angular_velocity_camera"], torch.zeros(3, 3)
+    )
+    torch.testing.assert_close(item["visual"]["intrinsics"], metadata["intrinsics"][0])
+    torch.testing.assert_close(item["visual"]["rotation_ego_from_camera"], torch.eye(3))
+    torch.testing.assert_close(
+        item["visual"]["translation_ego_from_camera"], torch.zeros(3)
+    )
+    torch.testing.assert_close(
+        item["visual"]["plane_normal_camera"], torch.tensor([0.0, 0.0, 1.0])
+    )
+
+
+def test_compact_fusion_metadata_supports_spawn_worker(tmp_path: Path) -> None:
+    write_flow_packages(tmp_path)
+    dataset = V3NuScenesVisualDataset(
+        FakeBaseDataset(), tmp_path, camera_height_m=1.5, geometry_size=(16, 24)
+    )
+    loader = DataLoader(
+        dataset,
+        batch_size=1,
+        num_workers=1,
+        multiprocessing_context="spawn",
+        timeout=30,
+    )
+    batch = next(iter(loader))
+    assert batch["visual"]["flows"].shape == (1, 3, 2, 16, 24)
+
+
 def test_direct_dataset_does_not_require_or_load_flow(tmp_path: Path) -> None:
     dataset = V3NuScenesVisualDataset(
         FakeBaseDataset(),
@@ -516,6 +567,7 @@ def test_direct_dataset_does_not_require_or_load_flow(tmp_path: Path) -> None:
         geometry_size=(16, 24),
         load_flows=False,
     )
+    assert dataset._metadata is None
     item = dataset[0]
     assert set(item["visual"]) == {"images"}
     assert set(item["target"]) == {"velocity"}

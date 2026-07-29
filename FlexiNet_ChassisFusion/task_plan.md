@@ -159,3 +159,27 @@ Run the existing V3 direct-then-fusion experiment for seed 42 from one resumable
 
 ## Status
 **Complete** - smoke construction is limited to two scenes per partition, full fusion metadata progress is visible, and 28 V3 tests plus static checks pass.
+
+---
+
+# Task Plan: Compact V3 Fusion Metadata
+
+## Goal
+Remove the Windows DataLoader spawn bottleneck by storing full-split fusion metadata in a fixed number of contiguous tensors without changing per-sample values or the direct-pretraining contract.
+
+## Phases
+- [x] Phase 1: Confirm the worker startup failure mode and existing V3 data contract
+- [x] Phase 2: Replace per-sample tensor dictionaries with preallocated split-level tensors
+- [x] Phase 3: Add value, layout, and Windows serialization regression tests
+- [x] Phase 4: Run focused tests, static checks, and diff review
+
+## Decisions Made
+- Derive flow token pairs from the existing causal sample tokens instead of storing them twice.
+- Preserve every public sample key, tensor shape, dtype, and computed value.
+- Leave direct pretraining and checkpoint formats unchanged.
+
+## Errors Encountered
+- A parallel inspection command stopped when the optional project-config search returned no matches; rerun required checks independently.
+
+## Status
+**Complete** - fusion metadata now uses seven contiguous split-level tensors; 30 V3 tests, a real Windows spawn-worker test, Ruff, formatting, compilation, and diff checks pass.

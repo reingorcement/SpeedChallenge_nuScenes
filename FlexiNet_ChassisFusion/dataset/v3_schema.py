@@ -127,10 +127,11 @@ class V3NuScenesVisualDataset(Dataset):
         if self.load_flows:
             if self._metadata is None:
                 raise RuntimeError("V3 flow metadata was not initialized.")
-            metadata = self._metadata[index]
+            metadata = self._metadata
             flows = []
             confidences = []
-            for source_token, target_token in metadata["pair_tokens"]:
+            tokens = sample["tokens"][-(self.pair_count + 1) :]
+            for source_token, target_token in zip(tokens[:-1], tokens[1:]):
                 flow, confidence = self._load_flow(source_token, target_token)
                 flow, confidence = self._resize_flow(
                     flow, confidence, self.geometry_size
@@ -141,26 +142,26 @@ class V3NuScenesVisualDataset(Dataset):
                 {
                     "flows": torch.stack(flows),
                     "flow_confidence": torch.stack(confidences),
-                    "pair_dt": metadata["pair_dt"],
+                    "pair_dt": metadata["pair_dt"][index],
                     "intrinsics": scale_intrinsics(
-                        metadata["intrinsics"],
-                        metadata["original_size"],
+                        metadata["intrinsics"][index],
+                        tuple(int(value) for value in metadata["original_size"][index]),
                         self.geometry_size,
                     ),
-                    "plane_normal_camera": metadata["plane_normal_camera"],
+                    "plane_normal_camera": metadata["plane_normal_camera"][index],
                     "plane_offset": torch.tensor(
                         self.camera_height_m, dtype=torch.float32
                     ),
-                    "rotation_ego_from_camera": metadata[
-                        "rotation_ego_from_camera"
+                    "rotation_ego_from_camera": metadata["rotation_ego_from_camera"][
+                        index
                     ],
                     "translation_ego_from_camera": metadata[
                         "translation_ego_from_camera"
-                    ],
+                    ][index],
                 }
             )
-            target["angular_velocity_camera"] = metadata[
-                "angular_velocity_camera"
+            target["angular_velocity_camera"] = metadata["angular_velocity_camera"][
+                index
             ]
         item = {
             "visual": visual,
@@ -202,23 +203,40 @@ class V3NuScenesVisualDataset(Dataset):
             gamma,
         )
 
-    def _build_metadata(self) -> list[dict[str, Any]]:
+    def _build_metadata(self) -> dict[str, torch.Tensor]:
         nusc = self.base_dataset.nusc
         if nusc is None:
             raise ValueError(
                 "V3 metadata must be built before releasing nuScenes metadata."
             )
         upward_ego = torch.tensor([0.0, 0.0, 1.0], dtype=torch.float32)
-        result = []
-        for sample in tqdm(
-            self.base_dataset.samples,
-            desc="v3 fusion metadata",
-            unit="sample",
+        sample_count = len(self.base_dataset.samples)
+        result = {
+            "pair_dt": torch.empty(
+                (sample_count, self.pair_count), dtype=torch.float32
+            ),
+            "angular_velocity_camera": torch.empty(
+                (sample_count, self.pair_count, 3), dtype=torch.float32
+            ),
+            "intrinsics": torch.empty((sample_count, 3, 3), dtype=torch.float32),
+            "original_size": torch.empty((sample_count, 2), dtype=torch.int32),
+            "rotation_ego_from_camera": torch.empty(
+                (sample_count, 3, 3), dtype=torch.float32
+            ),
+            "translation_ego_from_camera": torch.empty(
+                (sample_count, 3), dtype=torch.float32
+            ),
+            "plane_normal_camera": torch.empty((sample_count, 3), dtype=torch.float32),
+        }
+        for sample_index, sample in enumerate(
+            tqdm(
+                self.base_dataset.samples,
+                desc="v3 fusion metadata",
+                unit="sample",
+            )
         ):
             tokens = sample["tokens"][-(self.pair_count + 1) :]
             pair_tokens = list(zip(tokens[:-1], tokens[1:]))
-            pair_dt = []
-            angular_velocity = []
             target_sd = nusc.get("sample_data", tokens[-1])
             calibrated = nusc.get(
                 "calibrated_sensor", target_sd["calibrated_sensor_token"]
@@ -226,7 +244,7 @@ class V3NuScenesVisualDataset(Dataset):
             rotation_ego_from_camera = quaternion_to_rotation_matrix(
                 calibrated["rotation"]
             )
-            for source_token, target_token in pair_tokens:
+            for pair_index, (source_token, target_token) in enumerate(pair_tokens):
                 source_sd = nusc.get("sample_data", source_token)
                 pair_target_sd = nusc.get("sample_data", target_token)
                 dt = (
@@ -249,26 +267,23 @@ class V3NuScenesVisualDataset(Dataset):
                 relative_camera_rotation = (
                     source_world_from_camera.T @ target_world_from_camera
                 )
-                pair_dt.append(dt)
-                angular_velocity.append(so3_log(relative_camera_rotation) / dt)
-            result.append(
-                {
-                    "pair_tokens": pair_tokens,
-                    "pair_dt": torch.tensor(pair_dt, dtype=torch.float32),
-                    "angular_velocity_camera": torch.stack(angular_velocity),
-                    "intrinsics": torch.tensor(
-                        calibrated["camera_intrinsic"], dtype=torch.float32
-                    ),
-                    "original_size": (
-                        int(target_sd["height"]),
-                        int(target_sd["width"]),
-                    ),
-                    "rotation_ego_from_camera": rotation_ego_from_camera,
-                    "translation_ego_from_camera": torch.tensor(
-                        calibrated["translation"], dtype=torch.float32
-                    ),
-                    "plane_normal_camera": rotation_ego_from_camera.T @ upward_ego,
-                }
+                result["pair_dt"][sample_index, pair_index] = dt
+                result["angular_velocity_camera"][sample_index, pair_index] = (
+                    so3_log(relative_camera_rotation) / dt
+                )
+            result["intrinsics"][sample_index] = torch.tensor(
+                calibrated["camera_intrinsic"], dtype=torch.float32
+            )
+            result["original_size"][sample_index] = torch.tensor(
+                [int(target_sd["height"]), int(target_sd["width"])],
+                dtype=torch.int32,
+            )
+            result["rotation_ego_from_camera"][sample_index] = rotation_ego_from_camera
+            result["translation_ego_from_camera"][sample_index] = torch.tensor(
+                calibrated["translation"], dtype=torch.float32
+            )
+            result["plane_normal_camera"][sample_index] = (
+                rotation_ego_from_camera.T @ upward_ego
             )
         return result
 

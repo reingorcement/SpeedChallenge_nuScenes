@@ -104,6 +104,17 @@ start "V3 seed42" /min powershell.exe -NoProfile -ExecutionPolicy Bypass -File .
 
 Use a unique run tag for a new experiment. To continue an interrupted experiment, use exactly the same run tag. The script skips completed stages and resumes an incomplete stage from its `last.pth` checkpoint.
 
+### Resume After the Compact Metadata Update
+
+The compact fusion metadata layout changes only in-memory dataset storage. It does not change sample values, model parameters, or checkpoint formats, so a completed `direct_pretrain` checkpoint remains valid. After pulling the update, rerun the pipeline with the existing run tag. For example:
+
+```batch
+git pull
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run_v3_visual_only_seed42.ps1 -DataRoot D:\Workspaces\zy\nuscenes -RunTag v3_visual_only_seed42_w1_20260728_01 -NumWorkers 1
+```
+
+The pipeline reruns the V3 regression suite, skips the completed direct stage, and starts fusion from the existing direct `best.pth`. Windows workers now receive seven contiguous metadata tensors instead of roughly six tensor objects per training sample. Start with one worker to validate the server path, then compare steady-state throughput with two or four workers if GPU utilization remains input-bound.
+
 ## Monitor and Read Results
 
 ```batch
