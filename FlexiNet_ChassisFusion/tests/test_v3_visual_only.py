@@ -26,6 +26,8 @@ from scripts.v3_pipeline_checks import checkpoint_complete
 from train_v3 import (
     apply_smoke_dataset_limit,
     clip_gradient_norm,
+    load_config,
+    next_early_stopping_count,
     optimizer_state_matches,
 )
 
@@ -387,6 +389,8 @@ def test_pipeline_checkpoint_completion_uses_configured_epochs(
     assert not checkpoint_complete(checkpoint, config)
     torch.save({"epoch": 19}, checkpoint)
     assert checkpoint_complete(checkpoint, config)
+    torch.save({"epoch": 7, "early_stopped": True}, checkpoint)
+    assert checkpoint_complete(checkpoint, config)
 
 
 def test_windows_pipeline_does_not_use_inline_python() -> None:
@@ -397,6 +401,34 @@ def test_windows_pipeline_does_not_use_inline_python() -> None:
     ).read_text(encoding="utf-8")
     assert "python -c" not in script.lower()
     assert "scripts\\v3_pipeline_checks.py" in script
+    assert "EarlyStoppingPatience" in script
+    assert "--early_stopping_patience" in script
+
+
+def test_fusion_early_stopping_starts_after_backbone_unfreezes() -> None:
+    count = 0
+    for epoch in range(5):
+        count = next_early_stopping_count(
+            count,
+            improved=False,
+            stage="fusion",
+            epoch=epoch,
+            freeze_backbone_epochs=5,
+        )
+    assert count == 0
+    assert next_early_stopping_count(0, False, "fusion", 5, 5) == 1
+    assert next_early_stopping_count(2, True, "fusion", 6, 5) == 0
+    assert next_early_stopping_count(2, False, "direct_pretrain", 0, 5) == 3
+
+
+def test_v3_config_enables_early_stopping() -> None:
+    config = load_config(
+        Path(__file__).resolve().parents[1]
+        / "configs"
+        / "velocity_xy_v3_visual_only.yaml"
+    )
+    assert config["train"]["early_stopping_patience"] == 5
+    assert config["train"]["early_stopping_min_delta"] == pytest.approx(1.0e-4)
 
 
 def test_optimizer_resume_state_detects_unfreeze_boundary() -> None:

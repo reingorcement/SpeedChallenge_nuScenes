@@ -17,7 +17,10 @@ param(
     [int]$NumWorkers = 8,
 
     [ValidateRange(1, 16)]
-    [int]$PrefetchFactor = 2
+    [int]$PrefetchFactor = 2,
+
+    [ValidateRange(0, 20)]
+    [int]$EarlyStoppingPatience = 5
 )
 
 Set-StrictMode -Version Latest
@@ -96,7 +99,8 @@ function Invoke-TrainingStage {
         "--frame_cache_root", $FrameRoot,
         "--batch_size", "$BatchSize",
         "--num_workers", "$NumWorkers",
-        "--prefetch_factor", "$PrefetchFactor"
+        "--prefetch_factor", "$PrefetchFactor",
+        "--early_stopping_patience", "$EarlyStoppingPatience"
     )
     if ($InitialCheckpoint) {
         $arguments += @("--init_checkpoint", $InitialCheckpoint)
@@ -124,7 +128,7 @@ try {
     Write-Host "Dataset: $DataRoot"
     Write-Host "Flow cache: $FlowRoot"
     Write-Host "Frame cache: $FrameRoot"
-    Write-Host "Runtime: direct_batch=$DirectBatchSize, fusion_batch=$FusionBatchSize, workers=$NumWorkers, prefetch=$PrefetchFactor"
+    Write-Host "Runtime: direct_batch=$DirectBatchSize, fusion_batch=$FusionBatchSize, workers=$NumWorkers, prefetch=$PrefetchFactor, early_stopping_patience=$EarlyStoppingPatience"
 
     foreach ($requiredPath in @(
         $DataRoot,
@@ -156,7 +160,8 @@ try {
             "--save_dir", $smokeDirectSave, "--output_dir", $smokeDirectOutput,
             "--dataroot", $DataRoot, "--flow_root", $FlowRoot,
             "--frame_cache_root", $FrameRoot, "--batch_size", "$DirectBatchSize",
-            "--num_workers", "$NumWorkers", "--prefetch_factor", "$PrefetchFactor"
+            "--num_workers", "$NumWorkers", "--prefetch_factor", "$PrefetchFactor",
+            "--early_stopping_patience", "$EarlyStoppingPatience"
         )
         $smokeDirectBest = Join-Path $smokeDirectSave "best.pth"
         Assert-PathExists -Path $smokeDirectBest
@@ -167,7 +172,8 @@ try {
             "--save_dir", $smokeFusionSave, "--output_dir", $smokeFusionOutput,
             "--dataroot", $DataRoot, "--flow_root", $FlowRoot,
             "--frame_cache_root", $FrameRoot, "--batch_size", "$FusionBatchSize",
-            "--num_workers", "$NumWorkers", "--prefetch_factor", "$PrefetchFactor"
+            "--num_workers", "$NumWorkers", "--prefetch_factor", "$PrefetchFactor",
+            "--early_stopping_patience", "$EarlyStoppingPatience"
         )
         Assert-PathExists -Path (Join-Path $smokeFusionSave "best.pth")
         New-Item -ItemType Directory -Force -Path $smokeRoot | Out-Null

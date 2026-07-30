@@ -305,6 +305,20 @@ def optimizer_state_matches(
     return current == saved
 
 
+def next_early_stopping_count(
+    current: int,
+    improved: bool,
+    stage: str,
+    epoch: int,
+    freeze_backbone_epochs: int,
+) -> int:
+    if improved:
+        return 0
+    if stage == "fusion" and epoch < freeze_backbone_epochs:
+        return current
+    return current + 1
+
+
 def clip_gradient_norm(
     parameters: Iterable[torch.Tensor], max_norm: float
 ) -> torch.Tensor:
@@ -360,6 +374,8 @@ def main() -> None:
     parser.add_argument("--batch_size", type=int)
     parser.add_argument("--num_workers", type=int)
     parser.add_argument("--prefetch_factor", type=int)
+    parser.add_argument("--early_stopping_patience", type=int)
+    parser.add_argument("--early_stopping_min_delta", type=float)
     args = parser.parse_args()
     cfg = load_config(args.config)
     for key in ("dataroot", "flow_root", "frame_cache_root"):
@@ -376,7 +392,13 @@ def main() -> None:
         cfg["train"]["save_dir"] = args.save_dir
     if args.output_dir:
         cfg["train"]["output_dir"] = args.output_dir
-    for key in ("batch_size", "num_workers", "prefetch_factor"):
+    for key in (
+        "batch_size",
+        "num_workers",
+        "prefetch_factor",
+        "early_stopping_patience",
+        "early_stopping_min_delta",
+    ):
         value = getattr(args, key)
         if value is not None:
             cfg["train"][key] = value
@@ -417,14 +439,26 @@ def main() -> None:
     if stage == "fusion" and initial_checkpoint and not args.resume:
         model.load_direct_checkpoint(initial_checkpoint)
     freeze_epochs = int(cfg["train"].get("freeze_backbone_epochs", 5))
+    early_stopping_patience = int(cfg["train"].get("early_stopping_patience", 0))
+    early_stopping_min_delta = float(
+        cfg["train"].get("early_stopping_min_delta", 1.0e-4)
+    )
+    if early_stopping_patience < 0:
+        raise ValueError("train.early_stopping_patience must be non-negative.")
+    if early_stopping_min_delta < 0.0:
+        raise ValueError("train.early_stopping_min_delta must be non-negative.")
     start_epoch = 0
     best_epe = math.inf
+    epochs_without_improvement = 0
     resume_checkpoint = None
     if args.resume:
         resume_checkpoint = torch.load(args.resume, map_location="cpu")
         model.load_state_dict(resume_checkpoint["model"])
         start_epoch = int(resume_checkpoint["epoch"]) + 1
         best_epe = float(resume_checkpoint.get("best_epe", math.inf))
+        epochs_without_improvement = int(
+            resume_checkpoint.get("epochs_without_improvement", 0)
+        )
     configure_stage(model, stage, start_epoch, freeze_epochs)
     optimizer = torch.optim.AdamW(
         [parameter for parameter in model.parameters() if parameter.requires_grad],
@@ -510,6 +544,21 @@ def main() -> None:
             bar.set_postfix(loss=f"{float(terms.total.detach()):.4f}", refresh=False)
         metrics, rows = evaluate(model, val_loader, criterion, device, eval_limit)
         write_evaluation(metrics, rows, output_dir / "last_eval")
+        current_epe = float(metrics["epe_mps"])
+        improved = current_epe < best_epe - early_stopping_min_delta
+        if improved:
+            best_epe = current_epe
+        epochs_without_improvement = next_early_stopping_count(
+            epochs_without_improvement,
+            improved,
+            stage,
+            epoch,
+            freeze_epochs,
+        )
+        early_stopped = (
+            early_stopping_patience > 0
+            and epochs_without_improvement >= early_stopping_patience
+        )
         checkpoint = {
             "epoch": epoch,
             "model": model.state_dict(),
@@ -517,14 +566,31 @@ def main() -> None:
             "scaler": scaler.state_dict(),
             "config": cfg,
             "metrics": metrics,
-            "best_epe": min(best_epe, metrics["epe_mps"]),
+            "best_epe": best_epe,
+            "epochs_without_improvement": epochs_without_improvement,
+            "early_stopped": early_stopped,
         }
         torch.save(checkpoint, save_dir / "last.pth")
-        if metrics["epe_mps"] < best_epe:
-            best_epe = metrics["epe_mps"]
+        if improved:
             torch.save(checkpoint, save_dir / "best.pth")
             write_evaluation(metrics, rows, output_dir / "best_eval")
-        print(json.dumps({"epoch": epoch + 1, **metrics}, allow_nan=True))
+        print(
+            json.dumps(
+                {
+                    "epoch": epoch + 1,
+                    **metrics,
+                    "epochs_without_improvement": epochs_without_improvement,
+                    "early_stopping_patience": early_stopping_patience,
+                },
+                allow_nan=True,
+            )
+        )
+        if early_stopped:
+            print(
+                "Early stopping after "
+                f"{epochs_without_improvement} epochs without dev EPE improvement."
+            )
+            break
 
 
 if __name__ == "__main__":

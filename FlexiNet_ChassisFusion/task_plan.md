@@ -183,3 +183,28 @@ Remove the Windows DataLoader spawn bottleneck by storing full-split fusion meta
 
 ## Status
 **Complete** - fusion metadata now uses seven contiguous split-level tensors; 30 V3 tests, a real Windows spawn-worker test, Ruff, formatting, compilation, and diff checks pass.
+
+---
+
+# Task Plan: V3 Early Stopping
+
+## Goal
+Stop V3 training after sustained dev EPE stagnation while preserving checkpoint resume behavior, the fusion unfreeze phase, and unattended pipeline completion detection.
+
+## Phases
+- [x] Phase 1: Inspect V3 training/checkpoint contracts and the existing V2 early-stopping policy
+- [x] Phase 2: Implement resumable dev-EPE early stopping in V3
+- [x] Phase 3: Expose configuration and PowerShell runtime controls and update documentation
+- [x] Phase 4: Add regression tests and run focused verification
+
+## Decisions Made
+- Monitor dev `epe_mps`; lower is better, with the repository-standard `1e-4` minimum improvement.
+- Default patience to five epochs and allow zero to disable stopping.
+- Do not accumulate fusion patience while the visual backbone is frozen.
+- Persist the patience counter and terminal early-stop flag in `last.pth`.
+
+## Errors Encountered
+- None.
+
+## Status
+**Complete** - resumable V3 early stopping, pipeline completion handling, Windows runtime controls, and documentation are implemented; 32 V3 tests and all static checks pass.

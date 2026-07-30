@@ -115,6 +115,16 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run_v3_visual_only
 
 The pipeline reruns the V3 regression suite, skips the completed direct stage, and starts fusion from the existing direct `best.pth`. Windows workers now receive seven contiguous metadata tensors instead of roughly six tensor objects per training sample. Start with one worker to validate the server path, then compare steady-state throughput with two or four workers if GPU utilization remains input-bound.
 
+### Early Stopping
+
+V3 monitors dev `epe_mps` after every complete epoch. The default patience is five epochs with a minimum improvement of `0.0001` m/s; zero disables early stopping. Fusion does not accumulate patience during its first five frozen-backbone epochs, ensuring that the visual backbone reaches its configured unfreeze phase. The no-improvement count is persisted in `last.pth`, and an early-stopped run is treated as complete by the resumable pipeline.
+
+For the long Windows fusion run, a patience of three can be selected without editing YAML:
+
+```batch
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run_v3_visual_only_seed42.ps1 -DataRoot D:\Workspaces\zy\nuscenes -RunTag v3_visual_only_seed42_w1_20260728_01 -NumWorkers 4 -PrefetchFactor 2 -EarlyStoppingPatience 3
+```
+
 ## Monitor and Read Results
 
 ```batch

@@ -46,17 +46,19 @@ def check_environment(expected_conda_env: str) -> dict[str, Any]:
     }
 
 
-def checkpoint_complete(
-    checkpoint_path: str | Path, config_path: str | Path
-) -> bool:
+def checkpoint_complete(checkpoint_path: str | Path, config_path: str | Path) -> bool:
     checkpoint = torch.load(checkpoint_path, map_location="cpu")
     with Path(config_path).open(encoding="utf-8") as handle:
         config = yaml.safe_load(handle)
-    return int(checkpoint["epoch"]) + 1 >= int(config["train"]["epochs"])
+    return bool(checkpoint.get("early_stopped", False)) or (
+        int(checkpoint["epoch"]) + 1 >= int(config["train"]["epochs"])
+    )
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Checks used by the V3 server pipeline.")
+    parser = argparse.ArgumentParser(
+        description="Checks used by the V3 server pipeline."
+    )
     subparsers = parser.add_subparsers(dest="command", required=True)
     environment = subparsers.add_parser("environment")
     environment.add_argument("--expected_conda_env", required=True)

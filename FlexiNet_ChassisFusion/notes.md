@@ -64,3 +64,10 @@
 - Direct pretraining sets `load_flows=False`, so this representation change does not affect its data or checkpoint contract.
 - A Windows regression test now starts a real spawn-based DataLoader worker and requires it to return the first fusion batch within 30 seconds.
 - Local verification passes 30 V3 tests, including the spawn-worker boundary, plus Ruff, formatting, Python compilation, and diff checks.
+
+## V3 Early Stopping Contract
+- Selection remains based on dev `epe_mps`, matching the existing V3 best-checkpoint criterion.
+- Patience must not advance during fusion's frozen-backbone warm-up; otherwise training could terminate before the visual backbone is ever unfrozen.
+- `last.pth` must persist the no-improvement count so interrupted epochs resume the same stopping state.
+- The unattended completion check must accept an explicit early-stop terminal flag as well as the configured final epoch.
+- Local verification passes 32 V3 tests plus Ruff, formatting, compilation, PowerShell parsing, and diff checks.
