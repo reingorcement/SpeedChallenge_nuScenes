@@ -1,0 +1,35 @@
+Fri Jul 31 22:12:08 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 572.83                 Driver Version: 572.83         CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                  Driver-Model | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5090      WDDM  |   00000000:01:00.0  On |                  N/A |
+| 55%   40C    P0             64W /  575W |    1408MiB /  32607MiB |      1%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2448    C+G   ...App_cw5n1h2txyewy\LockApp.exe      N/A      |
+|    0   N/A  N/A            7416    C+G   C:\Windows\explorer.exe               N/A      |
+|    0   N/A  N/A            8580    C+G   ...xyewy\ShellExperienceHost.exe      N/A      |
+|    0   N/A  N/A           14120    C+G   ...h_cw5n1h2txyewy\SearchApp.exe      N/A      |
+|    0   N/A  N/A           15008    C+G   ...ogram Files\ToDesk\ToDesk.exe      N/A      |
+|    0   N/A  N/A           15612    C+G   ...ntrolPanel\SystemSettings.exe      N/A      |
+|    0   N/A  N/A           17076    C+G   ...0.4078.105\msedgewebview2.exe      N/A      |
+|    0   N/A  N/A           18328    C+G   ...5n1h2txyewy\TextInputHost.exe      N/A      |
+|    0   N/A  N/A           20040    C+G   ...es\ikuuu_vpn\app\iKuuuVPN.exe      N/A      |
+|    0   N/A  N/A           21376    C+G   ...ray\AweSun\flutter\AweSun.exe      N/A      |
+|    0   N/A  N/A           27080    C+G   ...es\Microsoft VS Code\Code.exe      N/A      |
+|    0   N/A  N/A           30748    C+G   ...2p2nqsd0c76g0\app\ChatGPT.exe      N/A      |
+|    0   N/A  N/A           36568    C+G   ...t\Edge\Application\msedge.exe      N/A      |
+|    0   N/A  N/A           36920    C+G   ...ice\root\Office16\WINWORD.EXE      N/A      |
+|    0   N/A  N/A           38392    C+G   ...8wekyb3d8bbwe\M365Copilot.exe      N/A      |
+|    0   N/A  N/A           39204    C+G   ...paste-2.11.3-x64\Snipaste.exe      N/A      |
++-----------------------------------------------------------------------------------------+

@@ -1,0 +1,20 @@
+{
+  "mae_vx_mps": 0.4439793527126312,
+  "mae_vy_mps": 0.01848909817636013,
+  "epe_mps": 0.44566670060157776,
+  "p95_epe_mps": 1.4388031959533691,
+  "speed_mae_mps": 0.4436456263065338,
+  "sideslip_mae_deg": 0.20056837797164917,
+  "nll": -2.133251190185547,
+  "regression_calibration_error": 0.2276812493801117,
+  "risk_coverage_auc": 0.27272579073905945,
+  "geometry_valid_rate": 0.0,
+  "visual_fallback_rate": 1.0,
+  "loss": -2.1129982131579372,
+  "partition": "stage1_test",
+  "seed": 42,
+  "stage": "direct_pretrain",
+  "checkpoint": "D:\\Workspaces\\zy\\code\\zhangyu\\09_SpeedChallenge_nuScenes_worktrees\\v3-visual-only\\FlexiNet_ChassisFusion\\checkpoints\\v3_visual_only_seed42_w1_20260728_01\\direct_seed_42\\best.pth",
+  "sample_count": 17091,
+  "scene_count": 75
+}

@@ -1,0 +1,203 @@
+{
+  "analysis_mode": "preliminary_single_seed",
+  "bootstrap_scope": "scene_sampling_conditional_on_seed_42",
+  "claim_limitations": [
+    "Single-seed validation cannot establish training-seed stability."
+  ],
+  "seeds": [
+    42
+  ],
+  "experimental_unit": "scene",
+  "direct_per_seed": [
+    {
+      "mae_vx_mps": 0.44397933946155127,
+      "mae_vy_mps": 0.018489098828249444,
+      "epe_mps": 0.4456667178482954,
+      "p95_epe_mps": 1.4388032311594245,
+      "speed_mae_mps": 0.4436455802826685,
+      "sideslip_mae_deg": 0.20056836530489636,
+      "nll": -2.1332511390760684,
+      "regression_calibration_error": 0.22088614803907794,
+      "risk_coverage_auc": 0.24434199164517936,
+      "geometry_valid_rate": 0.0,
+      "visual_fallback_rate": 1.0
+    }
+  ],
+  "fusion_per_seed": [
+    {
+      "mae_vx_mps": 0.2253493183958929,
+      "mae_vy_mps": 0.018022644168469115,
+      "epe_mps": 0.22831684628174534,
+      "p95_epe_mps": 0.7433000515649378,
+      "speed_mae_mps": 0.22513021098318073,
+      "sideslip_mae_deg": 0.19536714620339574,
+      "nll": -2.5691739650961996,
+      "regression_calibration_error": 0.07774606804793341,
+      "risk_coverage_auc": 0.18074650345127394,
+      "geometry_valid_rate": 1.0,
+      "visual_fallback_rate": 0.0
+    }
+  ],
+  "direct_aggregate": {
+    "mae_vx_mps": {
+      "mean": 0.44397933946155127,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "mae_vy_mps": {
+      "mean": 0.018489098828249444,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "epe_mps": {
+      "mean": 0.4456667178482954,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "p95_epe_mps": {
+      "mean": 1.4388032311594245,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "speed_mae_mps": {
+      "mean": 0.4436455802826685,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "sideslip_mae_deg": {
+      "mean": 0.20056836530489636,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "nll": {
+      "mean": -2.1332511390760684,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "regression_calibration_error": {
+      "mean": 0.22088614803907794,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "risk_coverage_auc": {
+      "mean": 0.24434199164517936,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "geometry_valid_rate": {
+      "mean": 0.0,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "visual_fallback_rate": {
+      "mean": 1.0,
+      "std": 0.0,
+      "seed_count": 1
+    }
+  },
+  "fusion_aggregate": {
+    "mae_vx_mps": {
+      "mean": 0.2253493183958929,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "mae_vy_mps": {
+      "mean": 0.018022644168469115,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "epe_mps": {
+      "mean": 0.22831684628174534,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "p95_epe_mps": {
+      "mean": 0.7433000515649378,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "speed_mae_mps": {
+      "mean": 0.22513021098318073,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "sideslip_mae_deg": {
+      "mean": 0.19536714620339574,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "nll": {
+      "mean": -2.5691739650961996,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "regression_calibration_error": {
+      "mean": 0.07774606804793341,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "risk_coverage_auc": {
+      "mean": 0.18074650345127394,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "geometry_valid_rate": {
+      "mean": 1.0,
+      "std": 0.0,
+      "seed_count": 1
+    },
+    "visual_fallback_rate": {
+      "mean": 0.0,
+      "std": 0.0,
+      "seed_count": 1
+    }
+  },
+  "paired_scene_mean_delta": {
+    "mae_vx_mps": -0.2199448894716024,
+    "mae_vy_mps": -0.0004639195115875081,
+    "epe_mps": -0.21865888718525886
+  },
+  "paired_scene_effect_size_dz": {
+    "mae_vx_mps": -1.0171649790965251,
+    "mae_vy_mps": -0.23048277613442297,
+    "epe_mps": -1.015615764273165
+  },
+  "paired_scene_bootstrap": {
+    "scene_count": 75,
+    "seed_count": 1,
+    "bootstrap_samples": 10000,
+    "per_seed": [
+      {
+        "mae_vx_mps": -0.21994488947160235,
+        "mae_vy_mps": -0.0004639195115875081,
+        "epe_mps": -0.21865888718525875
+      }
+    ],
+    "metrics": {
+      "mae_vx_mps": {
+        "candidate_minus_baseline": -0.21994488947160235,
+        "ci95": [
+          -0.2705593011675759,
+          -0.17267997614818065
+        ],
+        "significant_improvement": true
+      },
+      "mae_vy_mps": {
+        "candidate_minus_baseline": -0.0004639195115875081,
+        "ci95": [
+          -0.0008983192666749813,
+          5.46524115053381e-06
+        ],
+        "significant_improvement": false
+      },
+      "epe_mps": {
+        "candidate_minus_baseline": -0.21865888718525875,
+        "ci95": [
+          -0.2689961681503715,
+          -0.17158401055535377
+        ],
+        "significant_improvement": true
+      }
+    }
+  }
+}

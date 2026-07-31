@@ -1,0 +1,426 @@
+{
+  "D:\\Workspaces\\zy\\code\\zhangyu\\09_SpeedChallenge_nuScenes_worktrees\\v3-visual-only\\FlexiNet_ChassisFusion\\checkpoints\\v3_visual_only_seed42_w1_20260728_01\\direct_seed_42\\best.pth": {
+    "size_bytes": 27648993,
+    "epoch": 19,
+    "metrics": {
+      "mae_vx_mps": 0.38967010378837585,
+      "mae_vy_mps": 0.01709470897912979,
+      "epe_mps": 0.3914673328399658,
+      "p95_epe_mps": 1.286151647567749,
+      "speed_mae_mps": 0.3892284035682678,
+      "sideslip_mae_deg": 0.19665177166461945,
+      "nll": -2.2776169776916504,
+      "regression_calibration_error": 0.1828014850616455,
+      "risk_coverage_auc": 0.21507036685943604,
+      "geometry_valid_rate": 0.0,
+      "visual_fallback_rate": 1.0,
+      "loss": -2.260351381929404
+    },
+    "best_epe": 0.3914673328399658,
+    "epochs_without_improvement": null,
+    "early_stopped": null,
+    "config": {
+      "project": {
+        "name": "FlexiNet_ChassisFusion_v3_visual_only",
+        "version": 3.0
+      },
+      "data": {
+        "dataroot": "D:\\Workspaces\\zy\\nuscenes",
+        "version": "v1.0-trainval",
+        "split_manifest_path": "logs/v2_split_manifest.json",
+        "seq_len": 5,
+        "visual_height": 72,
+        "visual_width": 128,
+        "geometry_height": 288,
+        "geometry_width": 512,
+        "cam_channel": "CAM_FRONT",
+        "flow_root": "D:\\Workspaces\\zy\\nuscenes\\precomputed_flow_v2\\CAM_FRONT",
+        "flow_backend": "raft_large",
+        "frame_cache_root": "D:\\Workspaces\\zy\\nuscenes\\precomputed_frames\\CAM_FRONT_72x128_rgb",
+        "online_mode": true,
+        "image_cache_size": 512,
+        "camera_height_m": 1.51,
+        "max_scenes": null,
+        "photometric_augmentation": {
+          "enabled": true,
+          "probability": 0.5,
+          "brightness": 0.1,
+          "contrast": 0.1,
+          "saturation": 0.05,
+          "hue": 0.02,
+          "gamma": [
+            0.9,
+            1.1
+          ]
+        }
+      },
+      "model": {
+        "mode": "direct_pretrain",
+        "init_checkpoint": "checkpoints/velocity_xy_v3_direct/best.pth",
+        "pair_count": 3,
+        "twist_dof": 6,
+        "support_mode": "learned",
+        "pooling": "regions",
+        "uncertainty": true,
+        "direct_expert": true,
+        "residual_limits": [
+          3.0,
+          1.5
+        ],
+        "fixed_roi_top_fraction": 0.45
+      },
+      "loss": {
+        "nll_weight": 1.0,
+        "direct_weight": 0.25,
+        "geometry_weight": 0.25,
+        "speed_weight": 0.1,
+        "beta_weight": 0.1,
+        "rotation_weight": 0.05,
+        "reprojection_weight": 0.05,
+        "residual_weight": 0.01,
+        "support_weight": 0.02,
+        "tv_weight": 0.005,
+        "sigma_vx": 5.0,
+        "sigma_vy": 1.0,
+        "beta_min_speed": 2.0,
+        "support_floor": 0.2
+      },
+      "train": {
+        "batch_size": 16,
+        "num_workers": 1,
+        "prefetch_factor": 2,
+        "epochs": 20,
+        "freeze_backbone_epochs": 5,
+        "learning_rate": 0.0001,
+        "weight_decay": 0.0001,
+        "use_amp": true,
+        "grad_clip": 2.0,
+        "seed": 42,
+        "smoke_train_batches": 2,
+        "smoke_val_batches": 2,
+        "smoke_max_scenes": 2,
+        "save_dir": "checkpoints\\v3_visual_only_seed42_w1_20260728_01\\direct_seed_42",
+        "output_dir": "outputs\\v3_visual_only_seed42_w1_20260728_01\\dev\\direct_seed_42"
+      }
+    }
+  },
+  "D:\\Workspaces\\zy\\code\\zhangyu\\09_SpeedChallenge_nuScenes_worktrees\\v3-visual-only\\FlexiNet_ChassisFusion\\checkpoints\\v3_visual_only_seed42_w1_20260728_01\\direct_seed_42\\last.pth": {
+    "size_bytes": 27648993,
+    "epoch": 19,
+    "metrics": {
+      "mae_vx_mps": 0.38967010378837585,
+      "mae_vy_mps": 0.01709470897912979,
+      "epe_mps": 0.3914673328399658,
+      "p95_epe_mps": 1.286151647567749,
+      "speed_mae_mps": 0.3892284035682678,
+      "sideslip_mae_deg": 0.19665177166461945,
+      "nll": -2.2776169776916504,
+      "regression_calibration_error": 0.1828014850616455,
+      "risk_coverage_auc": 0.21507036685943604,
+      "geometry_valid_rate": 0.0,
+      "visual_fallback_rate": 1.0,
+      "loss": -2.260351381929404
+    },
+    "best_epe": 0.3914673328399658,
+    "epochs_without_improvement": null,
+    "early_stopped": null,
+    "config": {
+      "project": {
+        "name": "FlexiNet_ChassisFusion_v3_visual_only",
+        "version": 3.0
+      },
+      "data": {
+        "dataroot": "D:\\Workspaces\\zy\\nuscenes",
+        "version": "v1.0-trainval",
+        "split_manifest_path": "logs/v2_split_manifest.json",
+        "seq_len": 5,
+        "visual_height": 72,
+        "visual_width": 128,
+        "geometry_height": 288,
+        "geometry_width": 512,
+        "cam_channel": "CAM_FRONT",
+        "flow_root": "D:\\Workspaces\\zy\\nuscenes\\precomputed_flow_v2\\CAM_FRONT",
+        "flow_backend": "raft_large",
+        "frame_cache_root": "D:\\Workspaces\\zy\\nuscenes\\precomputed_frames\\CAM_FRONT_72x128_rgb",
+        "online_mode": true,
+        "image_cache_size": 512,
+        "camera_height_m": 1.51,
+        "max_scenes": null,
+        "photometric_augmentation": {
+          "enabled": true,
+          "probability": 0.5,
+          "brightness": 0.1,
+          "contrast": 0.1,
+          "saturation": 0.05,
+          "hue": 0.02,
+          "gamma": [
+            0.9,
+            1.1
+          ]
+        }
+      },
+      "model": {
+        "mode": "direct_pretrain",
+        "init_checkpoint": "checkpoints/velocity_xy_v3_direct/best.pth",
+        "pair_count": 3,
+        "twist_dof": 6,
+        "support_mode": "learned",
+        "pooling": "regions",
+        "uncertainty": true,
+        "direct_expert": true,
+        "residual_limits": [
+          3.0,
+          1.5
+        ],
+        "fixed_roi_top_fraction": 0.45
+      },
+      "loss": {
+        "nll_weight": 1.0,
+        "direct_weight": 0.25,
+        "geometry_weight": 0.25,
+        "speed_weight": 0.1,
+        "beta_weight": 0.1,
+        "rotation_weight": 0.05,
+        "reprojection_weight": 0.05,
+        "residual_weight": 0.01,
+        "support_weight": 0.02,
+        "tv_weight": 0.005,
+        "sigma_vx": 5.0,
+        "sigma_vy": 1.0,
+        "beta_min_speed": 2.0,
+        "support_floor": 0.2
+      },
+      "train": {
+        "batch_size": 16,
+        "num_workers": 1,
+        "prefetch_factor": 2,
+        "epochs": 20,
+        "freeze_backbone_epochs": 5,
+        "learning_rate": 0.0001,
+        "weight_decay": 0.0001,
+        "use_amp": true,
+        "grad_clip": 2.0,
+        "seed": 42,
+        "smoke_train_batches": 2,
+        "smoke_val_batches": 2,
+        "smoke_max_scenes": 2,
+        "save_dir": "checkpoints\\v3_visual_only_seed42_w1_20260728_01\\direct_seed_42",
+        "output_dir": "outputs\\v3_visual_only_seed42_w1_20260728_01\\dev\\direct_seed_42"
+      }
+    }
+  },
+  "D:\\Workspaces\\zy\\code\\zhangyu\\09_SpeedChallenge_nuScenes_worktrees\\v3-visual-only\\FlexiNet_ChassisFusion\\checkpoints\\v3_visual_only_seed42_w1_20260728_01\\fusion_seed_42\\best.pth": {
+    "size_bytes": 26504665,
+    "epoch": 8,
+    "metrics": {
+      "mae_vx_mps": 0.23240742087364197,
+      "mae_vy_mps": 0.016761498525738716,
+      "epe_mps": 0.23502226173877716,
+      "p95_epe_mps": 0.753263533115387,
+      "speed_mae_mps": 0.23223093152046204,
+      "sideslip_mae_deg": 0.19354571402072906,
+      "nll": -2.55173659324646,
+      "regression_calibration_error": 0.087868832051754,
+      "risk_coverage_auc": 0.16654273867607117,
+      "geometry_valid_rate": 1.0,
+      "visual_fallback_rate": 0.0,
+      "loss": -2.4833549200184324
+    },
+    "best_epe": 0.23502226173877716,
+    "epochs_without_improvement": 0,
+    "early_stopped": false,
+    "config": {
+      "project": {
+        "name": "FlexiNet_ChassisFusion_v3_visual_only",
+        "version": 3.0
+      },
+      "data": {
+        "dataroot": "D:\\Workspaces\\zy\\nuscenes",
+        "version": "v1.0-trainval",
+        "split_manifest_path": "logs/v2_split_manifest.json",
+        "seq_len": 5,
+        "visual_height": 72,
+        "visual_width": 128,
+        "geometry_height": 288,
+        "geometry_width": 512,
+        "cam_channel": "CAM_FRONT",
+        "flow_root": "D:\\Workspaces\\zy\\nuscenes\\precomputed_flow_v2\\CAM_FRONT",
+        "flow_backend": "raft_large",
+        "frame_cache_root": "D:\\Workspaces\\zy\\nuscenes\\precomputed_frames\\CAM_FRONT_72x128_rgb",
+        "online_mode": true,
+        "image_cache_size": 512,
+        "camera_height_m": 1.51,
+        "max_scenes": null,
+        "photometric_augmentation": {
+          "enabled": true,
+          "probability": 0.5,
+          "brightness": 0.1,
+          "contrast": 0.1,
+          "saturation": 0.05,
+          "hue": 0.02,
+          "gamma": [
+            0.9,
+            1.1
+          ]
+        }
+      },
+      "model": {
+        "mode": "fusion",
+        "init_checkpoint": "checkpoints\\v3_visual_only_seed42_w1_20260728_01\\direct_seed_42\\best.pth",
+        "pair_count": 3,
+        "twist_dof": 6,
+        "support_mode": "learned",
+        "pooling": "regions",
+        "uncertainty": true,
+        "direct_expert": true,
+        "residual_limits": [
+          3.0,
+          1.5
+        ],
+        "fixed_roi_top_fraction": 0.45
+      },
+      "loss": {
+        "nll_weight": 1.0,
+        "direct_weight": 0.25,
+        "geometry_weight": 0.25,
+        "speed_weight": 0.1,
+        "beta_weight": 0.1,
+        "rotation_weight": 0.05,
+        "reprojection_weight": 0.05,
+        "residual_weight": 0.01,
+        "support_weight": 0.02,
+        "tv_weight": 0.005,
+        "sigma_vx": 5.0,
+        "sigma_vy": 1.0,
+        "beta_min_speed": 2.0,
+        "support_floor": 0.2
+      },
+      "train": {
+        "batch_size": 4,
+        "num_workers": 4,
+        "prefetch_factor": 2,
+        "epochs": 20,
+        "freeze_backbone_epochs": 5,
+        "early_stopping_patience": 3,
+        "early_stopping_min_delta": 0.0001,
+        "learning_rate": 0.0001,
+        "weight_decay": 0.0001,
+        "use_amp": true,
+        "grad_clip": 2.0,
+        "seed": 42,
+        "smoke_train_batches": 2,
+        "smoke_val_batches": 2,
+        "smoke_max_scenes": 2,
+        "save_dir": "checkpoints\\v3_visual_only_seed42_w1_20260728_01\\fusion_seed_42",
+        "output_dir": "outputs\\v3_visual_only_seed42_w1_20260728_01\\dev\\fusion_seed_42"
+      }
+    }
+  },
+  "D:\\Workspaces\\zy\\code\\zhangyu\\09_SpeedChallenge_nuScenes_worktrees\\v3-visual-only\\FlexiNet_ChassisFusion\\checkpoints\\v3_visual_only_seed42_w1_20260728_01\\fusion_seed_42\\last.pth": {
+    "size_bytes": 26504665,
+    "epoch": 11,
+    "metrics": {
+      "mae_vx_mps": 0.2437947690486908,
+      "mae_vy_mps": 0.017067331820726395,
+      "epe_mps": 0.24638940393924713,
+      "p95_epe_mps": 0.7953660488128662,
+      "speed_mae_mps": 0.2435871958732605,
+      "sideslip_mae_deg": 0.19840925931930542,
+      "nll": -2.4785654544830322,
+      "regression_calibration_error": 0.09589226543903351,
+      "risk_coverage_auc": 0.17839470505714417,
+      "geometry_valid_rate": 1.0,
+      "visual_fallback_rate": 0.0,
+      "loss": -2.4081209843742677
+    },
+    "best_epe": 0.23502226173877716,
+    "epochs_without_improvement": 3,
+    "early_stopped": true,
+    "config": {
+      "project": {
+        "name": "FlexiNet_ChassisFusion_v3_visual_only",
+        "version": 3.0
+      },
+      "data": {
+        "dataroot": "D:\\Workspaces\\zy\\nuscenes",
+        "version": "v1.0-trainval",
+        "split_manifest_path": "logs/v2_split_manifest.json",
+        "seq_len": 5,
+        "visual_height": 72,
+        "visual_width": 128,
+        "geometry_height": 288,
+        "geometry_width": 512,
+        "cam_channel": "CAM_FRONT",
+        "flow_root": "D:\\Workspaces\\zy\\nuscenes\\precomputed_flow_v2\\CAM_FRONT",
+        "flow_backend": "raft_large",
+        "frame_cache_root": "D:\\Workspaces\\zy\\nuscenes\\precomputed_frames\\CAM_FRONT_72x128_rgb",
+        "online_mode": true,
+        "image_cache_size": 512,
+        "camera_height_m": 1.51,
+        "max_scenes": null,
+        "photometric_augmentation": {
+          "enabled": true,
+          "probability": 0.5,
+          "brightness": 0.1,
+          "contrast": 0.1,
+          "saturation": 0.05,
+          "hue": 0.02,
+          "gamma": [
+            0.9,
+            1.1
+          ]
+        }
+      },
+      "model": {
+        "mode": "fusion",
+        "init_checkpoint": "checkpoints\\v3_visual_only_seed42_w1_20260728_01\\direct_seed_42\\best.pth",
+        "pair_count": 3,
+        "twist_dof": 6,
+        "support_mode": "learned",
+        "pooling": "regions",
+        "uncertainty": true,
+        "direct_expert": true,
+        "residual_limits": [
+          3.0,
+          1.5
+        ],
+        "fixed_roi_top_fraction": 0.45
+      },
+      "loss": {
+        "nll_weight": 1.0,
+        "direct_weight": 0.25,
+        "geometry_weight": 0.25,
+        "speed_weight": 0.1,
+        "beta_weight": 0.1,
+        "rotation_weight": 0.05,
+        "reprojection_weight": 0.05,
+        "residual_weight": 0.01,
+        "support_weight": 0.02,
+        "tv_weight": 0.005,
+        "sigma_vx": 5.0,
+        "sigma_vy": 1.0,
+        "beta_min_speed": 2.0,
+        "support_floor": 0.2
+      },
+      "train": {
+        "batch_size": 4,
+        "num_workers": 4,
+        "prefetch_factor": 2,
+        "epochs": 20,
+        "freeze_backbone_epochs": 5,
+        "early_stopping_patience": 3,
+        "early_stopping_min_delta": 0.0001,
+        "learning_rate": 0.0001,
+        "weight_decay": 0.0001,
+        "use_amp": true,
+        "grad_clip": 2.0,
+        "seed": 42,
+        "smoke_train_batches": 2,
+        "smoke_val_batches": 2,
+        "smoke_max_scenes": 2,
+        "save_dir": "checkpoints\\v3_visual_only_seed42_w1_20260728_01\\fusion_seed_42",
+        "output_dir": "outputs\\v3_visual_only_seed42_w1_20260728_01\\dev\\fusion_seed_42"
+      }
+    }
+  }
+}

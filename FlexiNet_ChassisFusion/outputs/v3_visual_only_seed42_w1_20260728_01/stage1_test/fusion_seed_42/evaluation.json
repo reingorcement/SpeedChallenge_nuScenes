@@ -1,0 +1,7 @@
+{
+  "partition": "stage1_test",
+  "split_manifest_path": "logs/v2_split_manifest.json",
+  "stage": "fusion",
+  "seed": 42,
+  "checkpoint": "D:\\Workspaces\\zy\\code\\zhangyu\\09_SpeedChallenge_nuScenes_worktrees\\v3-visual-only\\FlexiNet_ChassisFusion\\checkpoints\\v3_visual_only_seed42_w1_20260728_01\\fusion_seed_42\\best.pth"
+}

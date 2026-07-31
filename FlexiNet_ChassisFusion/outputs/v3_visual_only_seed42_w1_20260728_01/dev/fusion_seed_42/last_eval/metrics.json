@@ -1,0 +1,14 @@
+{
+  "mae_vx_mps": 0.2437947690486908,
+  "mae_vy_mps": 0.017067331820726395,
+  "epe_mps": 0.24638940393924713,
+  "p95_epe_mps": 0.7953660488128662,
+  "speed_mae_mps": 0.2435871958732605,
+  "sideslip_mae_deg": 0.19840925931930542,
+  "nll": -2.4785654544830322,
+  "regression_calibration_error": 0.09589226543903351,
+  "risk_coverage_auc": 0.17839470505714417,
+  "geometry_valid_rate": 1.0,
+  "visual_fallback_rate": 0.0,
+  "loss": -2.4081209843742677
+}
