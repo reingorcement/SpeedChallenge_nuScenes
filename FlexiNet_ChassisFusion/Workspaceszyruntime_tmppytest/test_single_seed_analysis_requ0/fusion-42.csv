@@ -1,0 +1,5 @@
+center_token,scene_name,target_vx_mps,target_vy_mps,pred_vx_mps,pred_vy_mps,log_variance_vx,log_variance_vy,geometry_valid
+scene-a-0,scene-a,3.0,0.0,3.5,0.125,0.0,0.0,1.0
+scene-a-1,scene-a,4.0,0.0,4.5,0.125,0.0,0.0,1.0
+scene-b-0,scene-b,4.0,0.2,4.5,0.325,0.0,0.0,1.0
+scene-b-1,scene-b,5.0,0.2,5.5,0.325,0.0,0.0,1.0
