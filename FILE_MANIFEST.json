@@ -1,0 +1,462 @@
+{
+  "schema": 1,
+  "scope": "flexinet-image-only",
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "7c691a5a7cae612fa3928bff9e6959de1420ad952e99f7096e46c0f85788429a",
+      "bytes": 197,
+      "mode": "100644"
+    },
+    {
+      "path": "README.md",
+      "sha256": "f1401f012383f52a0ed59c9042fb4b30572296a272308df35f14e1f814597377",
+      "bytes": 665,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/ARCHIVE_MAP.json",
+      "sha256": "6ae7388342bb5bc50312e44f82f06a3d3c1c092475656ae85310800776fefa65",
+      "bytes": 3198,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/BRANCHES.md",
+      "sha256": "9791986522c9e2312e295e8ef6a4e7b2d58b5617dce8393f9ceebcf71137b076",
+      "bytes": 1321,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/METHODS.md",
+      "sha256": "f750b02a2d851d219302f466c2349f546d086b127f62b1ec5b088cc2e69eda42",
+      "bytes": 2951,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/SOURCES.json",
+      "sha256": "ec1e84bf461319fa496194630274291d1c2f732c16c3eec184dbc476f411eaf9",
+      "bytes": 22164,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "sha256": "1b502e54732eb4f657740adee3ee1316d8bdd40e60fd9b572d577aceecb464fe",
+      "bytes": 1783,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/WEIGHTS.json",
+      "sha256": "f974b2637da429a3330ac644b4efab67c6a7a1ca81394dff5b074866ee7ad165",
+      "bytes": 5661,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/cnn-smoke.json",
+      "sha256": "0237eeaa41e43068848a8101f9c53dbcf286171175d21423779413933cae0a45",
+      "bytes": 150,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/compensation-tests.log",
+      "sha256": "c15e8b422f2fb646ec46faea88b217e7d2d2a52b911547b11d9e99f0489a5302",
+      "bytes": 1792,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/flexinet-smoke.json",
+      "sha256": "3e1d931a269457af56f0c719993d9214ae14efe01776c15303d99a379bc49b73",
+      "bytes": 155,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/imagexy-smoke.json",
+      "sha256": "614ed82da1630ab9b50c66e5c5291b53b2cfda693e6562182204b97ebfc6701a",
+      "bytes": 184,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/rgb-smoke-summary.json",
+      "sha256": "9575cb9147d9b3baaaeff5c5a21712debc767f5433c84889a766acafb2e711b2",
+      "bytes": 258,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/static-validation.json",
+      "sha256": "d8e0040245905c3baf8f48568539d6866f3116d237a75f6c362daed793da3074",
+      "bytes": 66,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/v3-checkpoints.json",
+      "sha256": "a41c42ca655c9645aeda195f309af816fea05a7c5ada6fbb03b44b4a2a240ba0",
+      "bytes": 714,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/v3-tests.log",
+      "sha256": "b48740843d218ca3d15c776a5e99d9d0ad945f978bf60099ac30c2a5207a374b",
+      "bytes": 99,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/v4-checkpoints.json",
+      "sha256": "9ec77b605ff18e944477a2913e9c06c7f8545ae5ace7c67bd0ea7c79c87a3580",
+      "bytes": 461,
+      "mode": "100644"
+    },
+    {
+      "path": "docs/validation/v4-tests.log",
+      "sha256": "2d4a12ba5cf051c6d821de09dd07e85e3e81c741543702bea2c2c9ed65b8c197",
+      "bytes": 100,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/LICENSE",
+      "git_blob": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/README.md",
+      "git_blob": "249a6662c3c49e369549b3f2d2c27d6e972e5a3e",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/checkpoints_chassis_aligned/best.pth",
+      "git_blob": "41aef0ef67c3f10fed8376d6d48794e177a8b641",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/checkpoints_chassis_aligned/last.pth",
+      "git_blob": "6bf5f882379250327cd0309adc3aa353e39f077f",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/configs/test.yaml",
+      "git_blob": "c4e28dfa50be8d8d47a9c9993fb0bfeca902ca04",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/configs/test_chassis_aligned.yaml",
+      "git_blob": "fe94eaf92ae4437c329ad3a80dfe3ebd80fa7b1e",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/configs/train_chassis_aligned.yaml",
+      "git_blob": "0e26f8de77116d43591746a30949b5f7e9d97aee",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/dataset/__init__.py",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/dataset/custom_transforms.py",
+      "git_blob": "84f699082c6c110af9a400c2a5da373481a23a06",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/dataset/kitti.py",
+      "git_blob": "8595ae8cb0dbf53a9d927dd7b4493397132b312d",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/dataset/nuimages.py",
+      "git_blob": "84e41484ccc52f69ef637b100a5482e68102531a",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/dataset/nuscenes_vision_eval.py",
+      "git_blob": "7e02f73f73b1e01b84cb4d50cb14df9bcc876ca5",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/img/FlexiNet.png",
+      "git_blob": "31d92d210708bff14b4b1cffe56213992472e784",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/img/nuscenes-demo-speed.gif",
+      "git_blob": "ecf2b2d21f54e2c89de42360134f95f2a5b200f1",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/model/FlexiNet.py",
+      "git_blob": "bf836c574a050b2ea44dfc68c27a29d8eb620f9a",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/model/__int__.py",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/model/modules.py",
+      "git_blob": "b1db38910b02d7612baf8804ac966a0714a3aa0d",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/onnx_export/FlexiNet2ONNX.py",
+      "git_blob": "ffefb93c39d10df6c02d855b5090b4d7832e6042",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth",
+      "git_blob": "6e5d2306ee2f5fb08ebdf96fcafd33e90e7e697c",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/pretrained_models/checkpoint_epoch_390_kitti_L1_best.pth",
+      "git_blob": "d225bf42f69b14450a8dee1685a3ab2115e3683c",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/pretrained_models/checkpoint_epoch_390_kitti_L2_best.pth",
+      "git_blob": "d225bf42f69b14450a8dee1685a3ab2115e3683c",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/pretrained_models/checkpoint_epoch_398_nuimage_L2_best.pth",
+      "git_blob": "785af9bd3d00be781c35a0e93e5d55a450eb3caa",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/requirements.txt",
+      "git_blob": "5daf09cee44a316c216c8748c1f58cfe56e9d6c1",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/run_test.sh",
+      "git_blob": "55ce361152087106702f31425942ba2f38fbb552",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/run_train.sh",
+      "git_blob": "ea9de0a17f7a288313d8e7859b5bd0869c14a077",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/test.py",
+      "git_blob": "ed811d9468a3eecfc4044a51548e7fc61bd6d276",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/train.py",
+      "git_blob": "b0df77f4203fbc6b189d79e142cb6265c7359658",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/utils/__init__.py",
+      "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/utils/checkpoint.py",
+      "git_blob": "775991206231743cda22ae4344f1e8a00eca73a0",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/utils/evaluation.py",
+      "git_blob": "1c9014ae6d1fbada15b395994b68b86ac1af2988",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/utils/plotting.py",
+      "git_blob": "687109fb959b6e7d93144f75a7e3d21c9a7aa8b2",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet-main/utils/seed.py",
+      "git_blob": "31fdcf481401ed761891a15ae999a0af23353094",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/checkpoints/velocity_xy_vision_only/best.pth",
+      "git_blob": "f608a57856c891c81756c9389b766f06067ffa76",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/checkpoints/velocity_xy_vision_only/last.pth",
+      "git_blob": "d9b3242a81d331cb7f8de52907fe6cfdcf1df107",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/configs/velocity_xy_vision_only.yaml",
+      "git_blob": "f2b9a0b75c8c10cb0a7df559208accdb7de26cd8",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/__init__.py",
+      "git_blob": "74da7932c5f2ed5059111964e712ddcb0d9f4754",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/nuscenes_chassis.py",
+      "git_blob": "4245dd7cb1afb2317e7e7a088f9ff9f5b71fdb68",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/physics_schema.py",
+      "git_blob": "61cb7603c1a0e8dad1eca728761e15f11282ce8f",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/v2_geometry_cache.py",
+      "git_blob": "f862994b698bb4437b8e74d62b171640d6af5a13",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/v2_schema.py",
+      "git_blob": "eb1fd70c5c37ca80e9ba4000efc8e06d64730ba6",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/v2_splits.py",
+      "git_blob": "3b6ea5874609e0672d6aa076f0903237ed4fe9cd",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/v3_schema.py",
+      "git_blob": "e3421a249e686cb9e23e8d9d5f5460fb72a961b4",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/__init__.py",
+      "git_blob": "fcf7b6d617f16852ee9cf2b040d21e3bd421c371",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/flexinet_backbone.py",
+      "git_blob": "853f8d8e9b633e8f6ee0958fc99da564ee07a270",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/fusion_model.py",
+      "git_blob": "08af5d834d090b9fb02402a322049bf66f749e85",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/modules.py",
+      "git_blob": "4c43c9ad27db794dbd10b9147326d5d3161f7962",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/physics_velocity.py",
+      "git_blob": "49fe3c2ac6f5d43af7dc6bd0af30dcd17f5233ee",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/__init__.py",
+      "git_blob": "5d06fe9a60b80b2bdd6e7879649d0a9dd68c6155",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/ground_geometry.py",
+      "git_blob": "afdeeed65a958d110785fb7c3dbce7e5506078cc",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/kinematics.py",
+      "git_blob": "ef79c330ccd1071574372d530ab4f9373c04b93c",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/lever_arm.py",
+      "git_blob": "701d7d99bda189e8ac6ac3a10f40fefd87a06248",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/losses.py",
+      "git_blob": "23b56552e12f99657b267e68cc5e695a4d08f05f",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/model.py",
+      "git_blob": "931501ae71a5b52f56af883978313d5857487437",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/residual.py",
+      "git_blob": "8ff808b2896035bccab8c9a4036dc4eafa5f4a99",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/rotation_flow.py",
+      "git_blob": "8b9d893eb471b1f1be5ddf1dcb14205cfceca3a9",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/types.py",
+      "git_blob": "f4e3ab2774bbe86b3df6d2deeaca9a81f3d0d586",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v3/__init__.py",
+      "git_blob": "1961e6c724c83d105f503e685312142fb95be23d",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v3/geometry.py",
+      "git_blob": "d887a44cdd7f59523556a7ecb8c22015cd853b0a",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v3/losses.py",
+      "git_blob": "6ca621f7c63d5fd33e03e4fb8bed2b0cf4865d4a",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v3/model.py",
+      "git_blob": "071896a51a38d7bcc9c72f469b0f64416da18f37",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/model/v3/types.py",
+      "git_blob": "031f6ab3bec8c321e0b4a4998fc634bc93c4b728",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/test.py",
+      "git_blob": "ab536d69109f97d9d983e0b25edb2a0dfbdb8971",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/train.py",
+      "git_blob": "a797be25aa7960409b7fb3b123f2f4dc82f2d754",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/utils/__init__.py",
+      "git_blob": "ae3bcdadfcd6e43291c63f9cb204bfe99b96520a",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/utils/evaluation.py",
+      "git_blob": "d56bb9660151e6c0dd89eadf87320ff62cc5ea9f",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/utils/metrics.py",
+      "git_blob": "6ebda8698a37700d81bbe271d579ed9c73c16c97",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/FlexiNet_ImageXY/utils/seed.py",
+      "git_blob": "65fc04dde2ba70e870b0c212efc368c552f4442e",
+      "mode": "100644"
+    },
+    {
+      "path": "methods/flexinet-image-only/README.md",
+      "sha256": "1e0f5b25bdaf5365478f83de36e45b56c71213395402c099459ce4b49a81b23f",
+      "bytes": 2122,
+      "mode": "100644"
+    },
+    {
+      "path": "tools/verify_manifest.py",
+      "sha256": "98c57dd97e306e9471c41e5b37427d20433ea0d06acb86359d7047cc7de874c6",
+      "bytes": 899,
+      "mode": "100644"
+    }
+  ],
+  "note": "FILE_MANIFEST.json excludes itself; imported remote files retain exact original Git blob IDs."
+}
