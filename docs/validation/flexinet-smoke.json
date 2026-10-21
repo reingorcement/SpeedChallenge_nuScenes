@@ -1,0 +1,11 @@
+{
+  "method": "flexinet",
+  "checkpoint": null,
+  "accuracy_evaluation": false,
+  "output_shape": [
+    2,
+    1
+  ],
+  "finite": true,
+  "passed": true
+}

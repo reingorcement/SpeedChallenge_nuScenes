@@ -1,0 +1,12 @@
+{
+  "method": "imagexy",
+  "checkpoint": null,
+  "accuracy_evaluation": false,
+  "chassis_invariance": true,
+  "output_shape": [
+    2,
+    2
+  ],
+  "finite": true,
+  "passed": true
+}

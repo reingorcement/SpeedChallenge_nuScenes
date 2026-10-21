@@ -1,0 +1,21 @@
+test_aggregation_excludes_invalid_pairs_and_uses_full_3d (test_geometry.GeometryTests.test_aggregation_excludes_invalid_pairs_and_uses_full_3d) ... ok
+test_degenerate_support_is_invalid (test_geometry.GeometryTests.test_degenerate_support_is_invalid) ... ok
+test_exact_projection_roll_pitch_motion_and_lever (test_geometry.GeometryTests.test_exact_projection_roll_pitch_motion_and_lever)
+24 combinations with known 6-DoF motion; tests sign, scale and lever. ... ok
+test_normal_loss_holds_then_falls_back (test_geometry.GeometryTests.test_normal_loss_holds_then_falls_back) ... ok
+test_pixel_center_projection (test_geometry.GeometryTests.test_pixel_center_projection) ... ok
+test_roll_constraint_and_source_frame_routing (test_geometry.GeometryTests.test_roll_constraint_and_source_frame_routing) ... ok
+test_calibration_requires_metric_scale_and_mount (test_inputs_evaluation.InputTests.test_calibration_requires_metric_scale_and_mount) ... ok
+test_evaluation_preserves_failures_and_no_time_shift (test_inputs_evaluation.InputTests.test_evaluation_preserves_failures_and_no_time_shift) ... ok
+test_invalid_timestamp_and_escaped_path (test_inputs_evaluation.InputTests.test_invalid_timestamp_and_escaped_path) ... ok
+test_visual_input_allowlist_and_content_fingerprint (test_inputs_evaluation.InputTests.test_visual_input_allowlist_and_content_fingerprint) ... ok
+test_textureless_sequence_returns_explicit_invalid (test_pipeline_failure.FailurePipelineTests.test_textureless_sequence_returns_explicit_invalid)
+No optical flow/support must not become a zero-speed success. ... 24 exact motion combinations: max velocity error 2.63e-14 m/s
+Road/normal 1/4
+Velocity 5/5 {'F_RC': 0, 'F_R': 0}
+ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 2.156s
+
+OK

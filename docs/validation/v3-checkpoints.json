@@ -1,0 +1,31 @@
+{
+  "python": "3.11.17",
+  "torch": "2.10.0+cu128",
+  "cuda_available": true,
+  "checkpoints": [
+    {
+      "path": "checkpoints/pretrained/direct_seed_42/best.pth",
+      "mode": "direct_pretrain",
+      "epoch": 19,
+      "early_stopped": false
+    },
+    {
+      "path": "checkpoints/pretrained/direct_seed_42/last.pth",
+      "mode": "direct_pretrain",
+      "epoch": 19,
+      "early_stopped": false
+    },
+    {
+      "path": "checkpoints/pretrained/fusion_seed_42/best.pth",
+      "mode": "fusion",
+      "epoch": 8,
+      "early_stopped": false
+    },
+    {
+      "path": "checkpoints/pretrained/fusion_seed_42/last.pth",
+      "mode": "fusion",
+      "epoch": 11,
+      "early_stopped": true
+    }
+  ]
+}
