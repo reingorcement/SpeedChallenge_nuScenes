@@ -1,0 +1,89 @@
+{
+  "image_size": [
+    800,
+    600
+  ],
+  "K": [
+    [
+      400.0,
+      0.0,
+      400.0
+    ],
+    [
+      0.0,
+      400.0,
+      300.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "height_m": 1.4,
+  "plane_normal_camera": [
+    0.0,
+    -0.9848077530122081,
+    -0.17364817766693036
+  ],
+  "rotation_ego_from_camera": [
+    [
+      0.0,
+      -0.17364817766693036,
+      0.9848077530122081
+    ],
+    [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      -0.9848077530122081,
+      -0.17364817766693036
+    ]
+  ],
+  "translation_ego_from_camera": [
+    0.8023665573304818,
+    2.1317952236588056e-05,
+    0.8988870024679997
+  ],
+  "ground_z0_m": 0.0,
+  "body_mount": [
+    -0.24956648158829275,
+    0.0,
+    1.4079058923965653
+  ],
+  "body_mount_rotation": [
+    [
+      0.9852609866647593,
+      0.0,
+      0.17105785032083465
+    ],
+    [
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      -0.17105785032083465,
+      0.0,
+      0.9852609866647593
+    ]
+  ],
+  "reference": "Static total CG and yaw-level axes; dynamic CG/body-frame mismatch is diagnostic only.",
+  "camera_location_note": "Virtual rigid body camera; 0.8 m ahead of static total CG. Visual vehicle shell omitted.",
+  "sensor_attributes": {
+    "image_size_x": "800",
+    "image_size_y": "600",
+    "fov": "90",
+    "sensor_tick": "0.05",
+    "motion_blur_intensity": "0.0",
+    "lens_k": "0.0",
+    "lens_kcube": "0.0",
+    "exposure_mode": "manual",
+    "fstop": "4.0",
+    "shutter_speed": "200.0",
+    "iso": "100.0"
+  }
+}

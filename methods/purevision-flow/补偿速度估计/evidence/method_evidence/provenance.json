@@ -1,0 +1,414 @@
+{
+  "inputs": [
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\development\\HW_DEV_CURVE40\\eval\\pairs.csv",
+      "sha256": "65eb4ae27dc8cacf7cf43b6001860b52ff001bacb2df389439acad5945383708"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\development\\HW_DEV_CURVE40\\eval\\predictions.csv",
+      "sha256": "6949ead6c3109348a8d0d566237319a6640b21ed611595591a8b38c83adde80e"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\development\\HW_DEV_CURVE40\\eval\\metadata.json",
+      "sha256": "398841b9c5a0d19aec43ca032d1062059c30626c031f6a8f8a28392295a4687b"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_CURVE40\\calibration.json",
+      "sha256": "14bbe2534b5f4a984d565f86f2a410ec496dc3aa56f3fd4018997d1a92772606"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_CURVE40\\frames.json",
+      "sha256": "294eade7d39c498c36c888d5417b02483bdbad965142f1b4213e4e896bc80e8a"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_labels\\HW_DEV_CURVE40\\truth_20hz.csv",
+      "sha256": "b5634e1c0a53e3f6ba505882d79899095ee1ff55cf50055e012431ebc61198dd"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\20_axis_accuracy_improvement\\development\\HW_DEV_CURVE40\\eval\\pairs.csv",
+      "sha256": "8b76322fb8e119742087a55a8d77858c141fa63b9715cfc6c96e7240963e5ad5"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\20_axis_accuracy_improvement\\development\\HW_DEV_CURVE40\\eval\\predictions.csv",
+      "sha256": "045723ab2d7b53b1ecb77d7f956448ec08d7417c5fbe534ff9e4fec93cae8103"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\20_axis_accuracy_improvement\\development\\HW_DEV_CURVE40\\eval\\metadata.json",
+      "sha256": "3430ce9947af12cddb30cca4474bf8265e0f815166b3362ab4c4022fc7c7fa13"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_CURVE40\\calibration.json",
+      "sha256": "14bbe2534b5f4a984d565f86f2a410ec496dc3aa56f3fd4018997d1a92772606"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_CURVE40\\frames.json",
+      "sha256": "294eade7d39c498c36c888d5417b02483bdbad965142f1b4213e4e896bc80e8a"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_labels\\HW_DEV_CURVE40\\truth_20hz.csv",
+      "sha256": "b5634e1c0a53e3f6ba505882d79899095ee1ff55cf50055e012431ebc61198dd"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\development\\HW_DEV_SINE40_A12\\eval\\pairs.csv",
+      "sha256": "9c408e0d01cfe510fbc6501e2a56af9f044a89ab87a90b9c6b6ace7992c127cc"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\development\\HW_DEV_SINE40_A12\\eval\\predictions.csv",
+      "sha256": "62741fb7fd360d62a7b1134fa5460c2a212ac495f0ba274b56e6dec980700756"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\development\\HW_DEV_SINE40_A12\\eval\\metadata.json",
+      "sha256": "398841b9c5a0d19aec43ca032d1062059c30626c031f6a8f8a28392295a4687b"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_SINE40_A12\\calibration.json",
+      "sha256": "40d89a0d2453da858862d131f6b1ae08e491cb42eefe1b8fefd3b6c2d9202a64"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_SINE40_A12\\frames.json",
+      "sha256": "92df977a349da6783520a8949ef98826fe7711c2ad2875231f25899d58806741"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_labels\\HW_DEV_SINE40_A12\\truth_20hz.csv",
+      "sha256": "ef0c08d33dd0414cb669f0004ea6f5fcf74a985a35ef2165fe92953c8e0b1904"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\20_axis_accuracy_improvement\\development\\HW_DEV_SINE40_A12\\eval\\pairs.csv",
+      "sha256": "1d1f7c5833fe826275779ab0023850edfba3ec1665e7516e62878b3156a87395"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\20_axis_accuracy_improvement\\development\\HW_DEV_SINE40_A12\\eval\\predictions.csv",
+      "sha256": "b5647708f284dce89cd199790b4efb655aa8e647b72494bdd1f9854fec15ee9c"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\20_axis_accuracy_improvement\\development\\HW_DEV_SINE40_A12\\eval\\metadata.json",
+      "sha256": "3430ce9947af12cddb30cca4474bf8265e0f815166b3362ab4c4022fc7c7fa13"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_SINE40_A12\\calibration.json",
+      "sha256": "40d89a0d2453da858862d131f6b1ae08e491cb42eefe1b8fefd3b6c2d9202a64"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_SINE40_A12\\frames.json",
+      "sha256": "92df977a349da6783520a8949ef98826fe7711c2ad2875231f25899d58806741"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_labels\\HW_DEV_SINE40_A12\\truth_20hz.csv",
+      "sha256": "ef0c08d33dd0414cb669f0004ea6f5fcf74a985a35ef2165fe92953c8e0b1904"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\development\\HW_DEV_SINE40_M12\\eval\\pairs.csv",
+      "sha256": "cfd16eb47e28d878797aaa7b6bc98e150ed6b901803974eac5fb226ae83cff33"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\development\\HW_DEV_SINE40_M12\\eval\\predictions.csv",
+      "sha256": "f3d22202c15646578f0724caab509b98d315dfc3171b6100dc7abac0269dfe74"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\development\\HW_DEV_SINE40_M12\\eval\\metadata.json",
+      "sha256": "398841b9c5a0d19aec43ca032d1062059c30626c031f6a8f8a28392295a4687b"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_SINE40_M12\\calibration.json",
+      "sha256": "40d89a0d2453da858862d131f6b1ae08e491cb42eefe1b8fefd3b6c2d9202a64"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_SINE40_M12\\frames.json",
+      "sha256": "aeb1cfe2264f91a1b5b7360e7ca85e2b7db8095597a4197b4bc1949f4e6be6d2"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_labels\\HW_DEV_SINE40_M12\\truth_20hz.csv",
+      "sha256": "1dfc69f82a555b822c9451a8a0597d0c61be2685acea24aadefd0818f7966c97"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\20_axis_accuracy_improvement\\development\\HW_DEV_SINE40_M12\\eval\\pairs.csv",
+      "sha256": "56b5b8568ef49bd7aa487a9486f3c0f7bf62704de5feff9544b770028be600ac"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\20_axis_accuracy_improvement\\development\\HW_DEV_SINE40_M12\\eval\\predictions.csv",
+      "sha256": "26e31841554b4b4a774eba528249789415331f0fdaa0abcef98801efc528c3e5"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\20_axis_accuracy_improvement\\development\\HW_DEV_SINE40_M12\\eval\\metadata.json",
+      "sha256": "3430ce9947af12cddb30cca4474bf8265e0f815166b3362ab4c4022fc7c7fa13"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_SINE40_M12\\calibration.json",
+      "sha256": "40d89a0d2453da858862d131f6b1ae08e491cb42eefe1b8fefd3b6c2d9202a64"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_SINE40_M12\\frames.json",
+      "sha256": "aeb1cfe2264f91a1b5b7360e7ca85e2b7db8095597a4197b4bc1949f4e6be6d2"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_labels\\HW_DEV_SINE40_M12\\truth_20hz.csv",
+      "sha256": "1dfc69f82a555b822c9451a8a0597d0c61be2685acea24aadefd0818f7966c97"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\development\\HW_DEV_SINE40_A14\\eval\\pairs.csv",
+      "sha256": "72a4ec758e5dbc94b6fc530b087c80fe93d41f890f6630c6c141d09e2b138edc"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\development\\HW_DEV_SINE40_A14\\eval\\predictions.csv",
+      "sha256": "8b47673ad1e9fe0b220f9d39555093dcc822ae311ca5cd6a7963729a06bac7d0"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\development\\HW_DEV_SINE40_A14\\eval\\metadata.json",
+      "sha256": "398841b9c5a0d19aec43ca032d1062059c30626c031f6a8f8a28392295a4687b"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_SINE40_A14\\calibration.json",
+      "sha256": "40d89a0d2453da858862d131f6b1ae08e491cb42eefe1b8fefd3b6c2d9202a64"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_SINE40_A14\\frames.json",
+      "sha256": "af28c18e92d16ad4aec644673815f71ea373d6ee2af8e9d246546857311ecc4e"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_labels\\HW_DEV_SINE40_A14\\truth_20hz.csv",
+      "sha256": "1b9125e2ff9864cc0de222921fc21bb626a4f231eaa71ce63243981afd0e4ca5"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\20_axis_accuracy_improvement\\development\\HW_DEV_SINE40_A14\\eval\\pairs.csv",
+      "sha256": "985b339c8bb598a596ca0500f60484232183e0017dfc24b39ab65c30cdd55e4a"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\20_axis_accuracy_improvement\\development\\HW_DEV_SINE40_A14\\eval\\predictions.csv",
+      "sha256": "fa69263eb194d1ad5f6625d7204851c6c37e21b48e1d73924e073398500ee01c"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\20_axis_accuracy_improvement\\development\\HW_DEV_SINE40_A14\\eval\\metadata.json",
+      "sha256": "3430ce9947af12cddb30cca4474bf8265e0f815166b3362ab4c4022fc7c7fa13"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_SINE40_A14\\calibration.json",
+      "sha256": "40d89a0d2453da858862d131f6b1ae08e491cb42eefe1b8fefd3b6c2d9202a64"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_data\\HW_DEV_SINE40_A14\\frames.json",
+      "sha256": "af28c18e92d16ad4aec644673815f71ea373d6ee2af8e9d246546857311ecc4e"
+    },
+    {
+      "path": "D:\\ZY\\02_透明底盘\\02_Roll_VisualVelocity_AB_v2\\19_new_map_validation\\pilot_labels\\HW_DEV_SINE40_A14\\truth_20hz.csv",
+      "sha256": "1b9125e2ff9864cc0de222921fc21bb626a4f231eaa71ce63243981afd0e4ca5"
+    }
+  ],
+  "checks": [
+    {
+      "case": "HW_DEV_CURVE40",
+      "version": "historical_interface",
+      "complete_grid": true,
+      "max_body_vs_unconverted_vx_difference": 0.001295168232500643,
+      "transform": [
+        [
+          0.9999965423917482,
+          0.0,
+          -0.0026296776510974294
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.002629677651097416,
+          0.0,
+          0.9999965423917482
+        ]
+      ]
+    },
+    {
+      "case": "HW_DEV_CURVE40",
+      "version": "corrected_interface",
+      "complete_grid": true,
+      "max_body_vs_unconverted_vx_difference": 0.0012705681787199552,
+      "transform": [
+        [
+          0.9999965423917482,
+          0.0,
+          -0.0026296776510974294
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.002629677651097416,
+          0.0,
+          0.9999965423917482
+        ]
+      ]
+    },
+    {
+      "case": "HW_DEV_SINE40_A12",
+      "version": "historical_interface",
+      "complete_grid": true,
+      "max_body_vs_unconverted_vx_difference": 0.002129160152943399,
+      "transform": [
+        [
+          0.9999965423917482,
+          0.0,
+          -0.0026296776510974294
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.002629677651097416,
+          0.0,
+          0.9999965423917482
+        ]
+      ]
+    },
+    {
+      "case": "HW_DEV_SINE40_A12",
+      "version": "corrected_interface",
+      "complete_grid": true,
+      "max_body_vs_unconverted_vx_difference": 0.0021241422139848254,
+      "transform": [
+        [
+          0.9999965423917482,
+          0.0,
+          -0.0026296776510974294
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.002629677651097416,
+          0.0,
+          0.9999965423917482
+        ]
+      ]
+    },
+    {
+      "case": "HW_DEV_SINE40_M12",
+      "version": "historical_interface",
+      "complete_grid": true,
+      "max_body_vs_unconverted_vx_difference": 0.0022390745607854257,
+      "transform": [
+        [
+          0.9999965423917482,
+          0.0,
+          -0.0026296776510974294
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.002629677651097416,
+          0.0,
+          0.9999965423917482
+        ]
+      ]
+    },
+    {
+      "case": "HW_DEV_SINE40_M12",
+      "version": "corrected_interface",
+      "complete_grid": true,
+      "max_body_vs_unconverted_vx_difference": 0.002226566098356031,
+      "transform": [
+        [
+          0.9999965423917482,
+          0.0,
+          -0.0026296776510974294
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.002629677651097416,
+          0.0,
+          0.9999965423917482
+        ]
+      ]
+    },
+    {
+      "case": "HW_DEV_SINE40_A14",
+      "version": "historical_interface",
+      "complete_grid": true,
+      "max_body_vs_unconverted_vx_difference": 0.0028009962642379094,
+      "transform": [
+        [
+          0.9999965423917482,
+          0.0,
+          -0.0026296776510974294
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.002629677651097416,
+          0.0,
+          0.9999965423917482
+        ]
+      ]
+    },
+    {
+      "case": "HW_DEV_SINE40_A14",
+      "version": "corrected_interface",
+      "complete_grid": true,
+      "max_body_vs_unconverted_vx_difference": 0.002798300395344455,
+      "transform": [
+        [
+          0.9999965423917482,
+          0.0,
+          -0.0026296776510974294
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.002629677651097416,
+          0.0,
+          0.9999965423917482
+        ]
+      ]
+    }
+  ],
+  "code_sha256": "6818362bf90a47b76806788262cb8018d11d8bf4427e81de39fa78fa247de271",
+  "historical_body_metric_reproduction_max_error": 4.440892098500626e-16,
+  "source_comparison": [
+    {
+      "path": "16_independent_validation/code/finite_geometry.py",
+      "v1_sha256": "29bb746ca45b272f866887dc5c6df64625f10a85449f3c48c32cd89ad26a8cbc",
+      "v2_sha256": "29bb746ca45b272f866887dc5c6df64625f10a85449f3c48c32cd89ad26a8cbc",
+      "identical": true
+    },
+    {
+      "path": "16_independent_validation/code/standalone_geometry.py",
+      "v1_sha256": "201d87d545ceb0db91001bdad0e7c1a2d498dc58e6abdcbf1d88672f5ba82e25",
+      "v2_sha256": "201d87d545ceb0db91001bdad0e7c1a2d498dc58e6abdcbf1d88672f5ba82e25",
+      "identical": true
+    },
+    {
+      "path": "08_region_release/reliable_normal.py",
+      "v1_sha256": "ca75b2c19838d99134bacdf3478fa7bc3db5f45b82a5ef3d229b342b0b20dcd1",
+      "v2_sha256": "ca75b2c19838d99134bacdf3478fa7bc3db5f45b82a5ef3d229b342b0b20dcd1",
+      "identical": true
+    },
+    {
+      "path": "16_independent_validation/code/frozen_model/model/v3/geometry.py",
+      "v1_sha256": "ad1f398476cd7bcce882ea6bd61c451c50c7c261700aab425dfc0d775e6a55c9",
+      "v2_sha256": "daf449c148f6e98b91d7633123e5923f26dda2e3d1abc0826148756675943537",
+      "identical": false
+    }
+  ],
+  "baseline": "V3_matched_R is original differential solver under common support, not original A full fusion",
+  "estimator": "3 valid-pair component mean, transformed from fixed calibrated ego to body/CG with all 3 linear components",
+  "inference_inputs": "saved inference metadata: RGB, timestamps, fixed calibration; labels used only in analysis",
+  "scope": "four development runs on same road; no heldout generalization or significance claim"
+}
