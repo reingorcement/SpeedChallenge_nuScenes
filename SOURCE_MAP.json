@@ -1,0 +1,56 @@
+[
+  {
+    "original_branch": "feature/dynkinvision-0703",
+    "commit": "75ae7e706019ea5481f8f50219934856760fd293",
+    "root_tree": "75f38eb64e78715f6cc9025bd7f4d307b7684639",
+    "snapshot_path": "snapshots/dynkinvision-0703",
+    "archive_tag": "archive/2026-10-21/feature/dynkinvision-0703",
+    "file_count": 679,
+    "commit_date": "2026-07-20T04:20:22+08:00"
+  },
+  {
+    "original_branch": "feature/dynkinvision-0718",
+    "commit": "9e0dc234174b6e808942c6f10caf1713fcc91077",
+    "root_tree": "11a62856a5b32e12a1ddb857623eb725ca657eb1",
+    "snapshot_path": "snapshots/dynkinvision-0718",
+    "archive_tag": "archive/2026-10-21/feature/dynkinvision-0718",
+    "file_count": 756,
+    "commit_date": "2026-07-19T13:07:58+08:00"
+  },
+  {
+    "original_branch": "feature/v2-seed42-recovery",
+    "commit": "26e6b69c71471b04c652916d0796d402adbfd6f6",
+    "root_tree": "84415e0f049550e44f74a3cf3803ca1511954fdc",
+    "snapshot_path": "snapshots/v2-seed42-recovery",
+    "archive_tag": "archive/2026-10-21/feature/v2-seed42-recovery",
+    "file_count": 996,
+    "commit_date": "2026-07-25T19:55:23+08:00"
+  },
+  {
+    "original_branch": "feature/v3-visual-only",
+    "commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+    "root_tree": "c6b3f1251f160ff73c7088dd1d82d7dcec8e1586",
+    "snapshot_path": "snapshots/v3-visual-only",
+    "archive_tag": "archive/2026-10-21/feature/v3-visual-only",
+    "file_count": 1110,
+    "commit_date": "2026-08-16T10:27:45+08:00"
+  },
+  {
+    "original_branch": "feature/velocity-xy-fusion",
+    "commit": "326d27cc39eeb596acec206601f9ec5d695e6fe1",
+    "root_tree": "23e30e8ae9c0633549664ed77032481cdeb6c6b9",
+    "snapshot_path": "snapshots/velocity-xy-fusion",
+    "archive_tag": "archive/2026-10-21/feature/velocity-xy-fusion",
+    "file_count": 473,
+    "commit_date": "2026-06-16T11:14:01+08:00"
+  },
+  {
+    "original_branch": "main",
+    "commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+    "root_tree": "3be125e5de95709d1eb1a19d3a8bf51a24835bd3",
+    "snapshot_path": "snapshots/main",
+    "archive_tag": "archive/2026-10-21/main",
+    "file_count": 206,
+    "commit_date": "2026-06-13T22:58:50+08:00"
+  }
+]

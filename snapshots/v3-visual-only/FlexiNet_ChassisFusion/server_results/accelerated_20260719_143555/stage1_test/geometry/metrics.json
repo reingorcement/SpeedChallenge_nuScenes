@@ -1,0 +1,36 @@
+{
+  "partition": "stage1_test",
+  "split_manifest_path": "logs/v2_split_manifest.json",
+  "mode": "geometry_only",
+  "seed": 42,
+  "high_lateral_threshold_mps": 0.0825996920466423,
+  "variants": {
+    "baseline": {
+      "sample_count": 17091.0,
+      "scene_count": 75.0,
+      "mae_vx_mps": 0.5836841074078879,
+      "rmse_vx_mps": 1.14955549568063,
+      "mae_vy_mps": 0.44626790440216374,
+      "rmse_vy_mps": 0.9861398825834616,
+      "endpoint_error_mps": 0.8829955670727857,
+      "straight_sample_count": 16555.0,
+      "straight_mae_vy_mps": 0.4015542153483404,
+      "straight_endpoint_error_mps": 0.8470140945193658,
+      "turning_sample_count": 536.0,
+      "turning_mae_vy_mps": 1.8273035803089606,
+      "turning_endpoint_error_mps": 1.9943263098375028,
+      "high_lateral_sample_count": 2050.0,
+      "high_lateral_mae_vy_mps": 0.45613423033912737,
+      "high_lateral_endpoint_error_mps": 1.3096332653709055,
+      "wheel_inconsistent_sample_count": 0.0,
+      "geometry_invalid_sample_count": 0.0,
+      "fallback_sample_count": 0.0,
+      "geometry_valid_rate": 1.0,
+      "geometry_condition_median": 13.238297462463379,
+      "geometry_straight_vx_sign_agreement": 0.9994721761423616,
+      "all_outputs_finite": true,
+      "max_abs_kinematic_correction_vx_mps": 0.0,
+      "max_abs_kinematic_correction_vy_mps": 0.0
+    }
+  }
+}

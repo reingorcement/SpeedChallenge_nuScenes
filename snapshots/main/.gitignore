@@ -1,0 +1,49 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python environments
+.venv/
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Compressed packages
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Intermediate processed data / cache
+*.npy
+*.npz
+*.cache
+*.tmp
+
+processed_data/
+features/
+temp/
+cache/
+
+# Large raw datasets if they appear later
+data/raw/
+datasets/raw/
+nuscenes/
+KITTI/
+kitti/
+samples/
+sweeps/
+maps/
+v1.0-mini/
+v1.0-trainval/
+
+# OS files
+.DS_Store
+Thumbs.db

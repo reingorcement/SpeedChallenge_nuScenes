@@ -1,0 +1,329 @@
+{
+  "reason": "amp_overflow",
+  "epoch": 8,
+  "batch_index": 15016,
+  "amp_scale": 32768.0,
+  "scene_name": [
+    "scene-0750",
+    "scene-0747",
+    "scene-0068",
+    "scene-0001",
+    "scene-0670",
+    "scene-0593",
+    "scene-0053",
+    "scene-0180"
+  ],
+  "center_token": [
+    "68cc5c175abe4c0b8e4c2ff6696fec6f",
+    "8c7c1ed2d6bc4fc0be9f2b1a750dd541",
+    "ff5f9cd477a741deaaf87c9356ecfced",
+    "4e5e6c9440c548b7948f28a0502b4641",
+    "3c401e3467394c2dbd4455012f17d639",
+    "426cb0137d7e471fa670db54b44b5c23",
+    "8501817f5cd846bbbe76c3a96afab775",
+    "19ae17cd0cf741f19595e2666ec6f50b"
+  ],
+  "loss_terms": {
+    "total": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.2929557263851166,
+      "max": 0.2929557263851166,
+      "mean": 0.2929557263851166,
+      "abs_max": 0.2929557263851166
+    },
+    "velocity": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.2824515998363495,
+      "max": 0.2824515998363495,
+      "mean": 0.2824515998363495,
+      "abs_max": 0.2824515998363495
+    },
+    "beta": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.09838198870420456,
+      "max": 0.09838198870420456,
+      "mean": 0.09838198870420456,
+      "abs_max": 0.09838198870420456
+    },
+    "geometry": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.3198133111000061,
+      "max": 0.3198133111000061,
+      "mean": 0.3198133111000061,
+      "abs_max": 0.3198133111000061
+    },
+    "residual": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.06659431755542755,
+      "max": 0.06659431755542755,
+      "mean": 0.06659431755542755,
+      "abs_max": 0.06659431755542755
+    },
+    "kinematic_nll": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "abs_max": 0.0
+    },
+    "kinematic_residual": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "abs_max": 0.0
+    }
+  },
+  "batch": {
+    "velocity": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -0.038887571543455124,
+      "max": 9.40119743347168,
+      "mean": 1.5009933710098267,
+      "abs_max": 9.40119743347168
+    },
+    "images": {
+      "shape": [
+        8,
+        5,
+        3,
+        72,
+        128
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 1105920,
+      "nonfinite_count": 0,
+      "min": -0.9215686321258545,
+      "max": 1.0,
+      "mean": -0.16926605999469757,
+      "abs_max": 1.0
+    },
+    "angular_rate_camera": {
+      "shape": [
+        8,
+        3
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 24,
+      "nonfinite_count": 0,
+      "min": -0.0003723553381860256,
+      "max": 0.4625047445297241,
+      "mean": 0.019364234060049057,
+      "abs_max": 0.4625047445297241
+    },
+    "wheel_speed": {
+      "shape": [
+        8,
+        4
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 32,
+      "nonfinite_count": 0,
+      "min": 0.0,
+      "max": 0.29415181279182434,
+      "mean": 0.09366080909967422,
+      "abs_max": 0.29415181279182434
+    },
+    "kinematic_values": {
+      "shape": [
+        8,
+        21,
+        12
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 2016,
+      "nonfinite_count": 0,
+      "min": -5.0,
+      "max": 5.0,
+      "mean": -0.039501532912254333,
+      "abs_max": 5.0
+    },
+    "kinematic_age": {
+      "shape": [
+        8,
+        21,
+        12
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 2016,
+      "nonfinite_count": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.33572468161582947,
+      "abs_max": 1.0
+    }
+  },
+  "output": {
+    "predicted_velocity": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -4.755157947540283,
+      "max": 9.880202293395996,
+      "mean": 1.2007486820220947,
+      "abs_max": 9.880202293395996
+    },
+    "visual_velocity": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -4.755157947540283,
+      "max": 9.880202293395996,
+      "mean": 1.2007486820220947,
+      "abs_max": 9.880202293395996
+    },
+    "geometry_velocity": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -4.879824638366699,
+      "max": 11.562264442443848,
+      "mean": 1.3899807929992676,
+      "abs_max": 11.562264442443848
+    },
+    "geometry_covariance": {
+      "shape": [
+        8,
+        3,
+        3
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 72,
+      "nonfinite_count": 0,
+      "min": -6.931900031759142e-08,
+      "max": 0.00024105144257191569,
+      "mean": 7.043136520223925e-06,
+      "abs_max": 0.00024105144257191569
+    },
+    "geometry_condition_number": {
+      "shape": [
+        8
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 8,
+      "nonfinite_count": 0,
+      "min": 8.249327659606934,
+      "max": 15.20396614074707,
+      "mean": 10.919960021972656,
+      "abs_max": 15.20396614074707
+    },
+    "geometry_residual_rms": {
+      "shape": [
+        8
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 8,
+      "nonfinite_count": 0,
+      "min": 0.9061684608459473,
+      "max": 52.36088943481445,
+      "mean": 9.6041841506958,
+      "abs_max": 52.36088943481445
+    },
+    "residual": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float16",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -0.068115234375,
+      "max": 0.68212890625,
+      "mean": 0.15720641613006592,
+      "abs_max": 0.68212890625
+    },
+    "residual_gate": {
+      "shape": [
+        8,
+        1
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 8,
+      "nonfinite_count": 0,
+      "min": 0.5,
+      "max": 0.5001325607299805,
+      "mean": 0.5000178813934326,
+      "abs_max": 0.5001325607299805
+    },
+    "kinematic_residual": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "abs_max": 0.0
+    },
+    "kinematic_log_variance": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "abs_max": 0.0
+    }
+  },
+  "nonfinite_gradients": {
+    "residual_model.head.0.weight": {
+      "shape": [
+        128,
+        260
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 33279,
+      "nonfinite_count": 1,
+      "min": -1.1884765625,
+      "max": 1.90234375,
+      "mean": -0.00030759378569200635,
+      "abs_max": 1.90234375
+    }
+  }
+}

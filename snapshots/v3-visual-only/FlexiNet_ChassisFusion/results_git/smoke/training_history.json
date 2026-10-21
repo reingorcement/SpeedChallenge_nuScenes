@@ -1,0 +1,14 @@
+[
+  {
+    "epoch": 1.0,
+    "train_loss": 0.010626173764467239,
+    "val_loss": 2.6590676134219394e-05,
+    "val_mae_vx_mps": 0.005462832073237678,
+    "val_mae_vy_mps": 0.0047877750475890934,
+    "val_vector_endpoint_error_mps": 0.007540000442465904,
+    "base_mae_vx_mps": 0.0012174755097589696,
+    "base_mae_vy_mps": 0.003510834730695933,
+    "gain_vs_base_vx_mps": -0.004245356563478709,
+    "gain_vs_base_vy_mps": -0.0012769403168931604
+  }
+]

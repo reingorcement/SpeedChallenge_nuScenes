@@ -1,0 +1,13 @@
+Config: /home/ps/workspace/zy/09_SpeedChallenge_nuScenes_worktrees/dynkinvision-0703-isolated/FlexiNet_ChassisFusion/configs/velocity_xy_vkd_gated.yaml
+Working dir: /home/ps/workspace/zy/09_SpeedChallenge_nuScenes_worktrees/dynkinvision-0703-isolated/FlexiNet_ChassisFusion
+[OK] dataroot: /media/ps/AC78E69278E65B1A/zy/nuscenes (dir)
+[OK] can_bus_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/can_bus (dir)
+[OK] pretrained_path: /home/ps/workspace/zy/09_SpeedChallenge_nuScenes_worktrees/dynkinvision-0703-isolated/FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth (file)
+[SKIP] flow_root: not configured
+[SKIP] eovm_base_root: not configured
+[OK] dataroot subdir: /media/ps/AC78E69278E65B1A/zy/nuscenes/samples
+[OK] dataroot subdir: /media/ps/AC78E69278E65B1A/zy/nuscenes/sweeps
+[OK] dataroot subdir: /media/ps/AC78E69278E65B1A/zy/nuscenes/maps
+[OK] dataroot version dir(s): v1.0-trainval, v1.0-mini, v1.0-test
+[OK] model forward output shape: (1, 2)
+[DONE] path sanity check passed

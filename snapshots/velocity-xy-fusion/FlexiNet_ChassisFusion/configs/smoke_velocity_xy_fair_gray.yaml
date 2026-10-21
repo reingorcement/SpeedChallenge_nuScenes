@@ -1,0 +1,68 @@
+project:
+  name: FlexiNet_ChassisFusion_smoke
+  version: 1.0
+
+# Tiny end-to-end smoke test: validates paths, frame cache, and the train/eval/
+# checkpoint loop on a handful of scenes and a few batches. Not for real training.
+
+data:
+  dataroot: /media/ps/AC78E69278E65B1A/zy/nuscenes
+  version: v1.0-trainval
+  split: train
+  seq_len: 13
+  img_height: 64
+  img_width: 64
+  cam_channel: CAM_FRONT
+  can_bus_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/can_bus
+  allow_pose_fallback: false
+  image_cache_size: 0
+  target_mode: velocity_xy
+  chassis_mode: fair_chassis
+  chassis_window_sec: 1.0
+  chassis_hz: 20.0
+  online_mode: false
+  image_mode: gray
+  flow_mode: none
+  flow_root:
+  geometry_mode: none
+  base_velocity_source: zero_lateral
+  eovm_base_root:
+  frame_cache_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_frames/CAM_FRONT_64x64_gray
+  max_scenes: 3
+
+model:
+  pretrained_path: ../FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth
+  fusion_mode: residual
+  output_dim: 2
+  chassis_feature_dim: 8
+  chassis_sequence_model: gru
+  hidden_dim: 96
+  dropout: 0.3
+  freeze_backbone: true
+  flow_feature_dim: 0
+  geometry_input_dim: 0
+  geometry_feature_dim: 0
+
+train:
+  batch_size: 4
+  num_workers: 2
+  prefetch_factor: 2
+  epochs: 1
+  shuffle_train: true
+  eval_every: 1
+  log_interval: 1
+  limit_train_batches: 10
+  limit_eval_batches: 5
+  learning_rate_head: 0.001
+  learning_rate_backbone: 0.00003
+  weight_decay: 0.0001
+  use_amp: true
+  seed: 42
+  log_dir: runs/smoke
+  results_dir: results_git/smoke
+  save_dir: checkpoints/smoke
+  loss: velocity_smoothl1
+  sigma_vx: 5.0
+  sigma_vy: 0.5
+  speed_loss_weight: 0.1
+  grad_clip: 2.0

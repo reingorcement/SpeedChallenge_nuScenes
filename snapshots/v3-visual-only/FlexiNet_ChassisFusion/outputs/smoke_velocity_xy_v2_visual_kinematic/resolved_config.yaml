@@ -1,0 +1,75 @@
+project:
+  name: FlexiNet_ChassisFusion_v2_smoke
+  version: 2.2
+data:
+  dataroot: /media/ps/AC78E69278E65B1A/zy/nuscenes
+  version: v1.0-trainval
+  split_manifest_path: logs/v2_split_manifest.json
+  seq_len: 3
+  visual_height: 72
+  visual_width: 128
+  geometry_height: 288
+  geometry_width: 512
+  cam_channel: CAM_FRONT
+  can_bus_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/can_bus
+  flow_root: /media/ps/AC78E69278E65B1A/zy/nuscenes/precomputed_flow_v2/CAM_FRONT
+  frame_cache_root: null
+  online_mode: true
+  image_cache_size: 64
+  chassis_window_sec: 1.0
+  chassis_hz: 20.0
+  kinematic_stats_path: logs/v2_training_stats.json
+  photometric_augmentation:
+    enabled: false
+  camera_height_m: 1.51
+  road_mask_top_fraction: 0.45
+  max_scenes: 2
+model:
+  mode: visual_kinematic
+  pretrained_path: ../FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth
+  init_checkpoint: null
+  output_reference: ego_reference
+  residual_limits:
+  - 3.0
+  - 1.5
+  kinematic_residual_limits:
+  - 1.0
+  - 0.5
+  wheel_scale_limit: 0.15
+  wheel_scale_jitter: 0.05
+  kinematic_dropout: 0.2
+  sensor_max_age_sec: 0.25
+loss:
+  sigma_vx: 5.0
+  sigma_vy: 1.0
+  beta_weight: 0.1
+  geometry_weight: 0.0
+  residual_weight: 0.01
+  kinematic_nll_weight: 0.25
+  kinematic_residual_weight: 0.01
+  beta_min_speed: 2.0
+train:
+  stage: joint
+  batch_size: 8
+  effective_batch_size: 8
+  num_workers: 4
+  prefetch_factor: 2
+  epochs: 1
+  head_lr: 0.0001
+  kinematic_lr: 0.0001
+  backbone_lr: 5.0e-06
+  weight_decay: 0.0001
+  use_amp: true
+  seed: 42
+  grad_clip: 2.0
+  freeze_backbone_epochs: 0
+  warmup_fraction: 0.05
+  min_lr_ratio: 0.1
+  early_stopping_patience: 0
+  early_stopping_min_delta: 0.0001
+  max_clip_fraction: 1.0
+  scenario_sampling: false
+  smoke_train_batches: 2
+  smoke_val_batches: 2
+  save_dir: checkpoints/smoke_velocity_xy_v2_visual_kinematic
+  output_dir: outputs/smoke_velocity_xy_v2_visual_kinematic

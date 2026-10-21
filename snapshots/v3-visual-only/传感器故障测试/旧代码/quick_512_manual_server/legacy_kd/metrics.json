@@ -1,0 +1,67 @@
+{
+  "clean": {
+    "sample_count": 512.0,
+    "scene_count": 75.0,
+    "mae_vx_mps": 0.07488340884447098,
+    "rmse_vx_mps": 0.1210416927933693,
+    "mae_vy_mps": 0.014926664531230927,
+    "rmse_vy_mps": 0.022493837401270866,
+    "endpoint_error_mps": 0.07957880944013596,
+    "endpoint_p90_mps": 0.18392524123191833,
+    "endpoint_p95_mps": 0.226928249001503,
+    "endpoint_p99_mps": 0.4367308020591736,
+    "speed_magnitude_mae_mps": 0.07529932260513306
+  },
+  "can_missing": {
+    "sample_count": 512.0,
+    "scene_count": 75.0,
+    "mae_vx_mps": 4.522140026092529,
+    "rmse_vx_mps": 5.825764179229736,
+    "mae_vy_mps": 0.034211479127407074,
+    "rmse_vy_mps": 0.048372622579336166,
+    "endpoint_error_mps": 4.523125648498535,
+    "endpoint_p90_mps": 9.552136421203613,
+    "endpoint_p95_mps": 10.05954647064209,
+    "endpoint_p99_mps": 10.901350021362305,
+    "speed_magnitude_mae_mps": 4.520734786987305
+  },
+  "yaw_bias_pos": {
+    "sample_count": 512.0,
+    "scene_count": 75.0,
+    "mae_vx_mps": 0.07524537295103073,
+    "rmse_vx_mps": 0.12136594951152802,
+    "mae_vy_mps": 0.014808138832449913,
+    "rmse_vy_mps": 0.02194139175117016,
+    "endpoint_error_mps": 0.0798100158572197,
+    "endpoint_p90_mps": 0.18562136590480804,
+    "endpoint_p95_mps": 0.226902574300766,
+    "endpoint_p99_mps": 0.4285518229007721,
+    "speed_magnitude_mae_mps": 0.07567422091960907
+  },
+  "wheel_scale_low": {
+    "sample_count": 512.0,
+    "scene_count": 75.0,
+    "mae_vx_mps": 0.08976536989212036,
+    "rmse_vx_mps": 0.137675940990448,
+    "mae_vy_mps": 0.014969147741794586,
+    "rmse_vy_mps": 0.02276662178337574,
+    "endpoint_error_mps": 0.09344081580638885,
+    "endpoint_p90_mps": 0.22671763598918915,
+    "endpoint_p95_mps": 0.2868736684322357,
+    "endpoint_p99_mps": 0.45172610878944397,
+    "speed_magnitude_mae_mps": 0.09021121263504028
+  },
+  "camera_missing": {
+    "sample_count": 512.0,
+    "scene_count": 75.0,
+    "mae_vx_mps": 0.07488340884447098,
+    "rmse_vx_mps": 0.1210416927933693,
+    "mae_vy_mps": 0.014926664531230927,
+    "rmse_vy_mps": 0.022493837401270866,
+    "endpoint_error_mps": 0.07957880944013596,
+    "endpoint_p90_mps": 0.18392524123191833,
+    "endpoint_p95_mps": 0.226928249001503,
+    "endpoint_p99_mps": 0.4367308020591736,
+    "speed_magnitude_mae_mps": 0.07529932260513306
+  }
+}

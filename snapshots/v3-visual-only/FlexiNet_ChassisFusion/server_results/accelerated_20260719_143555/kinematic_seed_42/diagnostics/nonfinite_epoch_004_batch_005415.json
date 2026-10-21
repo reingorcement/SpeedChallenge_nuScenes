@@ -1,0 +1,341 @@
+{
+  "reason": "amp_overflow",
+  "epoch": 4,
+  "batch_index": 5415,
+  "amp_scale": 4096.0,
+  "scene_name": [
+    "scene-0999",
+    "scene-0815",
+    "scene-0502",
+    "scene-0996",
+    "scene-0024",
+    "scene-1009",
+    "scene-1106",
+    "scene-0421"
+  ],
+  "center_token": [
+    "2e900d69af444d7c81d1e303ce126b25",
+    "864f9332f2df4a209480602fbd0ff379",
+    "9ce7d84affcf4cfa9534929b6fc2f982",
+    "cafc6d61aca44a0c88cf17820b19ddc2",
+    "038f745e076a4c2cb4e6c770a95b9b84",
+    "abf0d158b8c74988b4e5bb05de21aa97",
+    "ffe1bb7b51a64e78be14d20c61d38154",
+    "01dcd36ff30e409d980beed423a6da5e"
+  ],
+  "loss_terms": {
+    "total": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 6.132621765136719,
+      "max": 6.132621765136719,
+      "mean": 6.132621765136719,
+      "abs_max": 6.132621765136719
+    },
+    "velocity": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.5028249025344849,
+      "max": 0.5028249025344849,
+      "mean": 0.5028249025344849,
+      "abs_max": 0.5028249025344849
+    },
+    "beta": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.3848281800746918,
+      "max": 0.3848281800746918,
+      "mean": 0.3848281800746918,
+      "abs_max": 0.3848281800746918
+    },
+    "geometry": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.663502037525177,
+      "max": 0.663502037525177,
+      "mean": 0.663502037525177,
+      "abs_max": 0.663502037525177
+    },
+    "residual": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.5332334041595459,
+      "max": 0.5332334041595459,
+      "mean": 0.5332334041595459,
+      "abs_max": 0.5332334041595459
+    },
+    "kinematic_nll": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 22.363256454467773,
+      "max": 22.363256454467773,
+      "mean": 22.363256454467773,
+      "abs_max": 22.363256454467773
+    },
+    "kinematic_residual": {
+      "shape": [],
+      "dtype": "torch.float32",
+      "finite_count": 1,
+      "nonfinite_count": 0,
+      "min": 0.04997719079256058,
+      "max": 0.04997719079256058,
+      "mean": 0.04997719079256058,
+      "abs_max": 0.04997719079256058
+    }
+  },
+  "batch": {
+    "velocity": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -0.1278492510318756,
+      "max": 17.29737091064453,
+      "mean": 3.1871566772460938,
+      "abs_max": 17.29737091064453
+    },
+    "images": {
+      "shape": [
+        8,
+        5,
+        3,
+        72,
+        128
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 1105920,
+      "nonfinite_count": 0,
+      "min": -0.9843137264251709,
+      "max": 1.0,
+      "mean": -0.3726743757724762,
+      "abs_max": 1.0
+    },
+    "angular_rate_camera": {
+      "shape": [
+        8,
+        3
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 24,
+      "nonfinite_count": 0,
+      "min": -1.4937820196792018e-05,
+      "max": 0.00698120379820466,
+      "mean": 0.0003652712039183825,
+      "abs_max": 0.00698120379820466
+    },
+    "wheel_speed": {
+      "shape": [
+        8,
+        4
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 32,
+      "nonfinite_count": 0,
+      "min": 0.05024849995970726,
+      "max": 0.5436846017837524,
+      "mean": 0.1997925192117691,
+      "abs_max": 0.5436846017837524
+    },
+    "kinematic_values": {
+      "shape": [
+        8,
+        21,
+        12
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 2016,
+      "nonfinite_count": 0,
+      "min": -2.6804842948913574,
+      "max": 2.2940361499786377,
+      "mean": -0.01933208853006363,
+      "abs_max": 2.6804842948913574
+    },
+    "kinematic_age": {
+      "shape": [
+        8,
+        21,
+        12
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 2016,
+      "nonfinite_count": 0,
+      "min": 0.0004400000034365803,
+      "max": 1.0,
+      "mean": 0.36942940950393677,
+      "abs_max": 1.0
+    }
+  },
+  "output": {
+    "predicted_velocity": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -10.99203109741211,
+      "max": 17.443138122558594,
+      "mean": 1.864217758178711,
+      "abs_max": 17.443138122558594
+    },
+    "visual_velocity": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -11.04015064239502,
+      "max": 17.62157440185547,
+      "mean": 1.8213167190551758,
+      "abs_max": 17.62157440185547
+    },
+    "geometry_velocity": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -12.569981575012207,
+      "max": 21.380460739135742,
+      "mean": 2.074542760848999,
+      "abs_max": 21.380460739135742
+    },
+    "geometry_covariance": {
+      "shape": [
+        8,
+        3,
+        3
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 72,
+      "nonfinite_count": 0,
+      "min": -5.192110165808117e-06,
+      "max": 0.01612691394984722,
+      "mean": 0.0005734415026381612,
+      "abs_max": 0.01612691394984722
+    },
+    "geometry_condition_number": {
+      "shape": [
+        8
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 8,
+      "nonfinite_count": 0,
+      "min": 11.389470100402832,
+      "max": 341.2760009765625,
+      "mean": 66.39334106445312,
+      "abs_max": 341.2760009765625
+    },
+    "geometry_residual_rms": {
+      "shape": [
+        8
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 8,
+      "nonfinite_count": 0,
+      "min": 1.7948886156082153,
+      "max": 36.5662841796875,
+      "mean": 10.101312637329102,
+      "abs_max": 36.5662841796875
+    },
+    "residual": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float16",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -1.5,
+      "max": 1.498046875,
+      "mean": 0.06426525115966797,
+      "abs_max": 1.5
+    },
+    "residual_gate": {
+      "shape": [
+        8,
+        1
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 8,
+      "nonfinite_count": 0,
+      "min": 0.5000001192092896,
+      "max": 0.5093739628791809,
+      "mean": 0.501181960105896,
+      "abs_max": 0.5093739628791809
+    },
+    "kinematic_residual": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float16",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -0.26611328125,
+      "max": 0.5,
+      "mean": 0.06343865394592285,
+      "abs_max": 0.5
+    },
+    "kinematic_log_variance": {
+      "shape": [
+        8,
+        2
+      ],
+      "dtype": "torch.float16",
+      "finite_count": 16,
+      "nonfinite_count": 0,
+      "min": -6.0,
+      "max": -0.95751953125,
+      "mean": -3.898284912109375,
+      "abs_max": 6.0
+    }
+  },
+  "nonfinite_gradients": {
+    "kinematic_encoder.step_encoder.0.weight": {
+      "shape": [
+        64,
+        36
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 2269,
+      "nonfinite_count": 35,
+      "min": -14.625,
+      "max": 15.890625,
+      "mean": 0.3015197813510895,
+      "abs_max": 15.890625
+    },
+    "kinematic_encoder.step_encoder.0.bias": {
+      "shape": [
+        64
+      ],
+      "dtype": "torch.float32",
+      "finite_count": 62,
+      "nonfinite_count": 2,
+      "min": -8.3203125,
+      "max": 15.890625,
+      "mean": 0.7266053557395935,
+      "abs_max": 15.890625
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "git_commit": "dc28f0172f1957b1967a982888c33d6b7e8ed695",
+  "seed": 42,
+  "micro_batch_size": 8,
+  "effective_batch_size": 8,
+  "accumulation_steps": 1,
+  "stage": "joint"
+}

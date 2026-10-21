@@ -1,0 +1,31 @@
+project:
+  name: FlexiNet-main
+  version: pure_vision_chassis_aligned_eval
+
+data:
+  dataroot: /mnt/sda2/zy/nuscenes
+  version: v1.0-trainval
+  split: val
+  seq_len: 13
+  img_height: 64
+  img_width: 64
+  cam_channel: CAM_FRONT
+  can_bus_root: /mnt/sda2/zy/nuscenes/can_bus
+  filter_can_bus_scenes: true
+  image_cache_size: 4096
+
+model:
+  checkpoint_path: checkpoints_chassis_aligned/best.pth
+  input_channels: 1
+  num_classes: 1
+
+eval:
+  batch_size: 16
+  num_workers: 1
+  use_gpu: true
+  seed: 42
+  loss: smoothl1
+  output_dir: outputs/FlexiNet-main/chassis_aligned_eval
+  results_dir: results_git/FlexiNet-main/chassis_aligned_test_eval
+  prefix: val
+  first_n: 1000
