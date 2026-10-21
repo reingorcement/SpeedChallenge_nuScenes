@@ -1,0 +1,71 @@
+{
+  "version": "4.0.0",
+  "road": {
+    "lab_chroma_min": 8.0,
+    "lab_chroma_max": 16.0,
+    "luma_tolerance": 55.0,
+    "min_component_fraction": 0.03,
+    "confidence_fit_threshold": 0.3,
+    "homography_threshold_px": 0.8,
+    "flow_rejection_px": 2.0,
+    "min_texture_std": 1.0
+  },
+  "normal": {
+    "min_points": 120,
+    "min_inlier_fraction": 0.75,
+    "min_hull_fraction": 0.04,
+    "min_x_span_fraction": 0.3,
+    "min_y_span_fraction": 0.18,
+    "min_cells": 6,
+    "median_residual_px": 0.4,
+    "p90_residual_px": 0.9,
+    "max_nominal_angle_deg": 10.0,
+    "max_innovation_deg": 1.5,
+    "ambiguity_gap_deg": 0.5,
+    "split_consistency_deg": 0.75,
+    "confirmation_pairs": 2,
+    "innovation_weight": 0.2,
+    "max_hold_pairs": 4,
+    "max_hold_seconds": 0.2,
+    "max_pair_dt_seconds": 0.2
+  },
+  "finite_solver": {
+    "max_points": 1024,
+    "min_points": 48,
+    "huber_delta_px": 1.5,
+    "max_condition": 100000000,
+    "max_nfev": 35,
+    "max_residual_px": 2.0,
+    "min_ambiguity_gap_px": 0.05,
+    "ambiguity_rotation_deg": 2.0,
+    "ambiguity_translation_m": 0.1,
+    "covariance_floor": 1e-08
+  },
+  "preprocessing": {
+    "version": "v4_pixel_centers_1",
+    "raft_size": [
+      384,
+      512
+    ],
+    "geometry_size": [
+      288,
+      512
+    ],
+    "rgb_size": [
+      72,
+      128
+    ],
+    "raft_weights": "C_T_SKHT_V2",
+    "raft_resize": "preserve_aspect"
+  },
+  "aggregation": {
+    "mode": "mean",
+    "max_pair_dt_seconds": 0.2
+  },
+  "target": {
+    "version": "body_reference_v1",
+    "axes": "forward_left_up",
+    "units": "m/s",
+    "time": "output_frame"
+  }
+}

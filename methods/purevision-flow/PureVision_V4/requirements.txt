@@ -1,0 +1,10 @@
+# Use the existing speedest environment; no environment changes are required.
+# PyTorch / torchvision validated: 2.10.0+cu128 / 0.25.0+cu128.
+numpy==1.26.4
+scipy==1.15.3
+opencv-python-headless==4.11.0.86
+Pillow==11.1.0
+pandas==2.3.3
+pytest==9.0.3
+# Optional, only for export_nuscenes.py:
+nuscenes-devkit==1.2.0

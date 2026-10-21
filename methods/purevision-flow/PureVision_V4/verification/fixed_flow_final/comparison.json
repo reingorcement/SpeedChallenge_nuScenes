@@ -1,0 +1,87 @@
+{
+  "scope": "Historical fixed flow regression, not an accuracy test",
+  "methods": {
+    "F_RC": {
+      "valid_equal": true,
+      "max_abs_difference_mps": {
+        "vx_mps": 1.1005800153895962e-05,
+        "vy_mps": 6.698433468899957e-06
+      },
+      "passed": true
+    },
+    "F_R": {
+      "valid_equal": true,
+      "max_abs_difference_mps": {
+        "vx_mps": 1.3025904095798069e-05,
+        "vy_mps": 4.693875100100081e-06
+      },
+      "passed": true
+    },
+    "F_B": {
+      "valid_equal": true,
+      "max_abs_difference_mps": {
+        "vx_mps": 9.172333037099634e-06,
+        "vy_mps": 6.047338503600494e-06
+      },
+      "passed": true
+    }
+  },
+  "flow_hashes": {
+    "000000.pt": "a32e4790d27e70a347baada1bdd0327b2ea28f908a45adc6693eda0a74cab524",
+    "000001.pt": "281c94ac6c78899e885a6cc11ad319d4f43212aac8fbf833e2dfa6727d2bced9",
+    "000002.pt": "abc4b903b4304612305f3be7e08741702859426f80bed47394bc6e7a306a880b",
+    "000003.pt": "60c318be6029065f8f8e3d4bc4e950a81a8edc22d2cc3c9e9df9ec4d10c575d2",
+    "000004.pt": "b06c438875e4652e5e0e4ce793c606ae85601fab1e78311b5eb6fcc6f18e4f50",
+    "000005.pt": "e3d09020b002589befd1353f7883fb2877e367f6f64b4f494725346083c0f58f",
+    "000006.pt": "1c49db979c8a345285f1797d83bf66f2707347623365c1fb6a4657ccf82f7280"
+  },
+  "code": {
+    "purevision_v4/__init__.py": "55abc488c06f1032ad6c36498b051fdf05dbb96944e30f70b4ec7bf4829878b2",
+    "purevision_v4/_legacy/__init__.py": "55abc488c06f1032ad6c36498b051fdf05dbb96944e30f70b4ec7bf4829878b2",
+    "purevision_v4/_legacy/model/__init__.py": "eb2bfb035466b54f38aa13276daf1f97046c590100bdb265e434703004997716",
+    "purevision_v4/_legacy/model/flexinet_backbone.py": "3ce31001db9cb20f445db0fafa707804bfc2023d150d4b0314dd446041c1a155",
+    "purevision_v4/_legacy/model/modules.py": "78b1d491d8e3435b0492510799ad1f9774910108e16bbc2c232658b371cfcbb8",
+    "purevision_v4/_legacy/model/v2/__init__.py": "df735ea09a5c9de3f0e803cffa129bfe6771183576666305de161db5db761eaa",
+    "purevision_v4/_legacy/model/v2/ground_geometry.py": "301eec180ba9b0808ea5cb67f3cabca6f734b49159fe8e7b06e8df51cb0bc841",
+    "purevision_v4/_legacy/model/v2/lever_arm.py": "6199a93ea92fec0993713ed66e68def3c99597ec9183da1d6a923b090f3ad2e6",
+    "purevision_v4/_legacy/model/v2/rotation_flow.py": "ad43911568d207f28d93c63a7936da21c471b7fc648d48568e6a4d142a320301",
+    "purevision_v4/_legacy/model/v2/types.py": "28a05a1b7dfbcbb21d2cbc15c3e01fbedc9499b6d4ce3b9fb4aa6c7d3c80b9dd",
+    "purevision_v4/_legacy/model/v3/__init__.py": "f31d0e0385047452435ce4774372fedc71008a734a7fc5561d5f857668a04eb0",
+    "purevision_v4/_legacy/model/v3/geometry.py": "a1581444943f8eacb689abe4aba5c9bdd64a326add3318bf20813312f32bcec7",
+    "purevision_v4/_legacy/model/v3/losses.py": "61eacd558107606de66cf3f4520174bc8380c53bf3047e0b3179fcba8b62f900",
+    "purevision_v4/_legacy/model/v3/model.py": "1df1f7e75c710d452137ac74687f3a439ddcccf57fd75e9d3d84325d44aa00ee",
+    "purevision_v4/_legacy/model/v3/types.py": "f77b937e14560958e2ca76e34faeb795122821a7b8a7abfb73a77fcae2f83d6d",
+    "purevision_v4/_reference/__init__.py": "55abc488c06f1032ad6c36498b051fdf05dbb96944e30f70b4ec7bf4829878b2",
+    "purevision_v4/_reference/finite_geometry.py": "29bb746ca45b272f866887dc5c6df64625f10a85449f3c48c32cd89ad26a8cbc",
+    "purevision_v4/_reference/normal_policy.py": "2fe3a952db30b6cbff0d85b2f43fcb85321c59aace1236b9f1c22e72ae48b15e",
+    "purevision_v4/_reference/reliable_normal.py": "ca75b2c19838d99134bacdf3478fa7bc3db5f45b82a5ef3d229b342b0b20dcd1",
+    "purevision_v4/_reference/visual_support.py": "385deaedfd5cdc77d83abaeb773f9abf7e2db01fcc8d321756ff48a4b79e43ba",
+    "purevision_v4/evaluation.py": "ed9e558a08fdf87c930ad1d2cec42649afdcd60b2e81db2bcf1b2b4157d7e4fb",
+    "purevision_v4/flow.py": "3c4c3d39ed92a114266800a5c448dfd22e11175387f4789fd24bdd2b7665f6d2",
+    "purevision_v4/geometry.py": "1d2e5c8179bc0b8d6d3dd8e5d730b36924e1ff2ec3878bbcc356cada19bfd406",
+    "purevision_v4/io.py": "aa57e922b881f0c6fe2e1394e956f994232937efe6d2c271a742d84594ad5fd8",
+    "purevision_v4/model.py": "13c51cf77a15d93618f327e41d0eef67c23aeeb26f9b678346c901f1192a24b7",
+    "purevision_v4/normals.py": "becfd4546a685bce1c38990cf489814498896dc252e990e38b584497177e30aa",
+    "purevision_v4/nuscenes_export.py": "6bc70fcb3b053b1c3fbbb45b1b0805d6e8c54fc063f6b133f8fc5174a3e118c8",
+    "purevision_v4/pipeline.py": "a0119cbfd2d3248eb1227540e08bfd186c9787d1d9b2ec21018d4acbacd3a67b",
+    "purevision_v4/training.py": "16a49e993f9dcb9e941f2d901c870dbf433f755ca330a6fa48a9ef7c62e41ee6"
+  },
+  "coverage": {
+    "F_RC": {
+      "eligible": 4,
+      "valid": 4,
+      "coverage": 1.0
+    },
+    "F_R": {
+      "eligible": 4,
+      "valid": 4,
+      "coverage": 1.0
+    },
+    "F_B": {
+      "eligible": 4,
+      "valid": 4,
+      "coverage": 1.0
+    }
+  },
+  "tolerance": 0.0001
+}

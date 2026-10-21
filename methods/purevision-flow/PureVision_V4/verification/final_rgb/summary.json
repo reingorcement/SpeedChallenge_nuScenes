@@ -1,0 +1,102 @@
+{
+  "HW_DEV_CURVE40": {
+    "coverage": {
+      "F_RC": {
+        "eligible": 28,
+        "valid": 28,
+        "coverage": 1.0
+      },
+      "F_R": {
+        "eligible": 28,
+        "valid": 28,
+        "coverage": 1.0
+      }
+    },
+    "normal_status": {
+      "update": 30,
+      "hold": 0,
+      "fixed_fallback": 1
+    },
+    "elapsed_s": 9.787893132001045
+  },
+  "HW_DEV_SINE40_A12": {
+    "coverage": {
+      "F_RC": {
+        "eligible": 28,
+        "valid": 28,
+        "coverage": 1.0
+      },
+      "F_R": {
+        "eligible": 28,
+        "valid": 28,
+        "coverage": 1.0
+      }
+    },
+    "normal_status": {
+      "update": 24,
+      "hold": 0,
+      "fixed_fallback": 7
+    },
+    "elapsed_s": 7.766935601001023
+  },
+  "HW_DEV_SINE40_A14": {
+    "coverage": {
+      "F_RC": {
+        "eligible": 28,
+        "valid": 28,
+        "coverage": 1.0
+      },
+      "F_R": {
+        "eligible": 28,
+        "valid": 28,
+        "coverage": 1.0
+      }
+    },
+    "normal_status": {
+      "update": 22,
+      "hold": 0,
+      "fixed_fallback": 9
+    },
+    "elapsed_s": 7.811915016005514
+  },
+  "HW_DEV_SINE40_M12": {
+    "coverage": {
+      "F_RC": {
+        "eligible": 28,
+        "valid": 28,
+        "coverage": 1.0
+      },
+      "F_R": {
+        "eligible": 28,
+        "valid": 28,
+        "coverage": 1.0
+      }
+    },
+    "normal_status": {
+      "update": 23,
+      "hold": 4,
+      "fixed_fallback": 4
+    },
+    "elapsed_s": 8.318964685007813
+  },
+  "nuScenes_scene_0001_8frames": {
+    "coverage": {
+      "F_RC": {
+        "eligible": 4,
+        "valid": 4,
+        "coverage": 1.0
+      },
+      "F_R": {
+        "eligible": 4,
+        "valid": 4,
+        "coverage": 1.0
+      }
+    },
+    "normal_status": {
+      "update": 1,
+      "hold": 0,
+      "fixed_fallback": 6
+    },
+    "elapsed_s": 1.6918653960019583
+  }
+}

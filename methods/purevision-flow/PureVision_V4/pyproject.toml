@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "purevision-v4"
+version = "4.0.0"
+description = "Isolated visual velocity estimation with finite motion and roll compensation"
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy", "torch", "torchvision", "opencv-python-headless", "Pillow", "pandas"]
+
+[tool.setuptools.packages.find]
+include = ["purevision_v4*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:cacheprovider"
+

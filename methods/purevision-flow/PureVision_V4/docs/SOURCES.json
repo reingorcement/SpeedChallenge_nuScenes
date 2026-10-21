@@ -1,0 +1,142 @@
+[
+  {
+    "path": "purevision_v4/_legacy/model/flexinet_backbone.py",
+    "source": "PureVision_V3/model/flexinet_backbone.py",
+    "source_sha256": "3ce31001db9cb20f445db0fafa707804bfc2023d150d4b0314dd446041c1a155",
+    "current_sha256": "3ce31001db9cb20f445db0fafa707804bfc2023d150d4b0314dd446041c1a155",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_legacy/model/modules.py",
+    "source": "PureVision_V3/model/modules.py",
+    "source_sha256": "78b1d491d8e3435b0492510799ad1f9774910108e16bbc2c232658b371cfcbb8",
+    "current_sha256": "78b1d491d8e3435b0492510799ad1f9774910108e16bbc2c232658b371cfcbb8",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_legacy/model/__init__.py",
+    "source": "PureVision_V3/model/__init__.py",
+    "source_sha256": "eb2bfb035466b54f38aa13276daf1f97046c590100bdb265e434703004997716",
+    "current_sha256": "eb2bfb035466b54f38aa13276daf1f97046c590100bdb265e434703004997716",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_legacy/model/v2/ground_geometry.py",
+    "source": "PureVision_V3/model/v2/ground_geometry.py",
+    "source_sha256": "301eec180ba9b0808ea5cb67f3cabca6f734b49159fe8e7b06e8df51cb0bc841",
+    "current_sha256": "301eec180ba9b0808ea5cb67f3cabca6f734b49159fe8e7b06e8df51cb0bc841",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_legacy/model/v2/lever_arm.py",
+    "source": "PureVision_V3/model/v2/lever_arm.py",
+    "source_sha256": "6199a93ea92fec0993713ed66e68def3c99597ec9183da1d6a923b090f3ad2e6",
+    "current_sha256": "6199a93ea92fec0993713ed66e68def3c99597ec9183da1d6a923b090f3ad2e6",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_legacy/model/v2/rotation_flow.py",
+    "source": "PureVision_V3/model/v2/rotation_flow.py",
+    "source_sha256": "ad43911568d207f28d93c63a7936da21c471b7fc648d48568e6a4d142a320301",
+    "current_sha256": "ad43911568d207f28d93c63a7936da21c471b7fc648d48568e6a4d142a320301",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_legacy/model/v2/types.py",
+    "source": "PureVision_V3/model/v2/types.py",
+    "source_sha256": "28a05a1b7dfbcbb21d2cbc15c3e01fbedc9499b6d4ce3b9fb4aa6c7d3c80b9dd",
+    "current_sha256": "28a05a1b7dfbcbb21d2cbc15c3e01fbedc9499b6d4ce3b9fb4aa6c7d3c80b9dd",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_legacy/model/v2/__init__.py",
+    "source": "PureVision_V3/model/v2/__init__.py",
+    "source_sha256": "df735ea09a5c9de3f0e803cffa129bfe6771183576666305de161db5db761eaa",
+    "current_sha256": "df735ea09a5c9de3f0e803cffa129bfe6771183576666305de161db5db761eaa",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_legacy/model/v3/geometry.py",
+    "source": "PureVision_V3/model/v3/geometry.py",
+    "source_sha256": "b0207efa3ff2674aadf0729da0a529818aa62ab1a624d2594d32151fb7ebdba8",
+    "current_sha256": "a1581444943f8eacb689abe4aba5c9bdd64a326add3318bf20813312f32bcec7",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_legacy/model/v3/losses.py",
+    "source": "PureVision_V3/model/v3/losses.py",
+    "source_sha256": "61eacd558107606de66cf3f4520174bc8380c53bf3047e0b3179fcba8b62f900",
+    "current_sha256": "61eacd558107606de66cf3f4520174bc8380c53bf3047e0b3179fcba8b62f900",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_legacy/model/v3/model.py",
+    "source": "PureVision_V3/model/v3/model.py",
+    "source_sha256": "1df1f7e75c710d452137ac74687f3a439ddcccf57fd75e9d3d84325d44aa00ee",
+    "current_sha256": "1df1f7e75c710d452137ac74687f3a439ddcccf57fd75e9d3d84325d44aa00ee",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_legacy/model/v3/types.py",
+    "source": "PureVision_V3/model/v3/types.py",
+    "source_sha256": "f77b937e14560958e2ca76e34faeb795122821a7b8a7abfb73a77fcae2f83d6d",
+    "current_sha256": "f77b937e14560958e2ca76e34faeb795122821a7b8a7abfb73a77fcae2f83d6d",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_legacy/model/v3/__init__.py",
+    "source": "PureVision_V3/model/v3/__init__.py",
+    "source_sha256": "f31d0e0385047452435ce4774372fedc71008a734a7fc5561d5f857668a04eb0",
+    "current_sha256": "f31d0e0385047452435ce4774372fedc71008a734a7fc5561d5f857668a04eb0",
+    "note": "absolute imports moved to isolated namespace"
+  },
+  {
+    "path": "purevision_v4/_reference/finite_geometry.py",
+    "source": "补偿速度估计/roll_velocity/finite_geometry.py",
+    "source_sha256": "29bb746ca45b272f866887dc5c6df64625f10a85449f3c48c32cd89ad26a8cbc",
+    "current_sha256": "29bb746ca45b272f866887dc5c6df64625f10a85449f3c48c32cd89ad26a8cbc",
+    "note": "unmodified reference"
+  },
+  {
+    "path": "purevision_v4/_reference/normal_policy.py",
+    "source": "补偿速度估计/roll_velocity/normal_policy.py",
+    "source_sha256": "2fe3a952db30b6cbff0d85b2f43fcb85321c59aace1236b9f1c22e72ae48b15e",
+    "current_sha256": "2fe3a952db30b6cbff0d85b2f43fcb85321c59aace1236b9f1c22e72ae48b15e",
+    "note": "unmodified reference"
+  },
+  {
+    "path": "purevision_v4/_reference/reliable_normal.py",
+    "source": "补偿速度估计/roll_velocity/reliable_normal.py",
+    "source_sha256": "ca75b2c19838d99134bacdf3478fa7bc3db5f45b82a5ef3d229b342b0b20dcd1",
+    "current_sha256": "ca75b2c19838d99134bacdf3478fa7bc3db5f45b82a5ef3d229b342b0b20dcd1",
+    "note": "unmodified reference"
+  },
+  {
+    "path": "purevision_v4/_reference/visual_support.py",
+    "source": "补偿速度估计/roll_velocity/visual_support.py",
+    "source_sha256": "385deaedfd5cdc77d83abaeb773f9abf7e2db01fcc8d321756ff48a4b79e43ba",
+    "current_sha256": "385deaedfd5cdc77d83abaeb773f9abf7e2db01fcc8d321756ff48a4b79e43ba",
+    "note": "unmodified reference"
+  },
+  {
+    "path": "weights/v3_fusion_seed42.pth",
+    "source": "补偿速度估计/weights/fusion_seed42_best.pth",
+    "source_sha256": "56a7a5791e60decec4c5442eb0ffc86ff45d7963c0e84fbbb0925658c8192a78",
+    "current_sha256": "56a7a5791e60decec4c5442eb0ffc86ff45d7963c0e84fbbb0925658c8192a78",
+    "note": "independent copied weights"
+  },
+  {
+    "path": "weights/v3_direct_seed42.pth",
+    "source": "PureVision_V3/checkpoints/pretrained/direct_seed_42/best.pth",
+    "source_sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+    "current_sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+    "note": "independent copied weights"
+  },
+  {
+    "path": "weights/raft_large_C_T_SKHT_V2.pth",
+    "source": "补偿速度估计/weights/raft_large_C_T_SKHT_V2-ff5fadd5.pth",
+    "source_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+    "current_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+    "note": "independent copied weights"
+  }
+]
