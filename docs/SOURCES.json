@@ -8,7 +8,547 @@
     "feature/velocity-xy-fusion": "326d27cc39eeb596acec206601f9ec5d695e6fe1",
     "main": "d415109680f40a22b3b4fd1788722576dc67d6e6"
   },
-  "remote_files": {},
+  "remote_files": {
+    "methods/cnn-image-only/CNN_speed_est/optical_flow.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "4e961a160a1bbf2b0b9e064fc8b90ad48083b1db",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "CNN_speed_est/optical_flow.py"
+    },
+    "methods/cnn-image-only/CNN_speed_est/speed_model_v1.pth": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "6dd198f01d63d359e2bd44973b27d12a0ef0dfa6",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "CNN_speed_est/speed_model_v1.pth"
+    },
+    "methods/cnn-image-only/CNN_speed_est/step5_data_pipeline.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "441676e592b0c355d146eca70f44b311c71bf1f4",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "CNN_speed_est/step5_data_pipeline.py"
+    },
+    "methods/cnn-image-only/CNN_speed_est/step6_comma_model.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "4045aaedfcf770d9c5b74c3c86539311243d0b8e",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "CNN_speed_est/step6_comma_model.py"
+    },
+    "methods/cnn-image-only/CNN_speed_est/step7_train.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "6fe5bd6ed12420762a3422ad1fbe65aea4deb139",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "CNN_speed_est/step7_train.py"
+    },
+    "methods/cnn-image-only/CNN_speed_est/step8_validate.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "09dc49daf7353ef076353fb4b513bfc76958962c",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "CNN_speed_est/step8_validate.py"
+    },
+    "methods/cnn-image-only/CNN_speed_est/study_step1_check_env.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "5f42c430732866c3a4b0d623421ae9aea7ba9da3",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "CNN_speed_est/study_step1_check_env.py"
+    },
+    "methods/cnn-image-only/CNN_speed_est/study_step2_tensor_basics.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "99dd9c46b96dc82624fe28cd116c2dc33bd14df4",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "CNN_speed_est/study_step2_tensor_basics.py"
+    },
+    "methods/cnn-image-only/CNN_speed_est/study_step3_toy_model.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "bc51c8d7f42a6bd9437e16d077c01c33923b528d",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "CNN_speed_est/study_step3_toy_model.py"
+    },
+    "methods/cnn-image-only/CNN_speed_est/study_step4_read_data.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "c7186fc7ef8af9bf31c273570ad487aa0df7317e",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "CNN_speed_est/study_step4_read_data.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/LICENSE": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/LICENSE"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/README.md": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "249a6662c3c49e369549b3f2d2c27d6e972e5a3e",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/README.md"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/checkpoints_chassis_aligned/best.pth": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "41aef0ef67c3f10fed8376d6d48794e177a8b641",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/checkpoints_chassis_aligned/best.pth"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/checkpoints_chassis_aligned/last.pth": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "6bf5f882379250327cd0309adc3aa353e39f077f",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/checkpoints_chassis_aligned/last.pth"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/configs/test.yaml": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "c4e28dfa50be8d8d47a9c9993fb0bfeca902ca04",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/configs/test.yaml"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/configs/test_chassis_aligned.yaml": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "fe94eaf92ae4437c329ad3a80dfe3ebd80fa7b1e",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/configs/test_chassis_aligned.yaml"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/configs/train_chassis_aligned.yaml": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "0e26f8de77116d43591746a30949b5f7e9d97aee",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/configs/train_chassis_aligned.yaml"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/dataset/__init__.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/dataset/__init__.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/dataset/custom_transforms.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "84f699082c6c110af9a400c2a5da373481a23a06",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/dataset/custom_transforms.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/dataset/kitti.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "8595ae8cb0dbf53a9d927dd7b4493397132b312d",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/dataset/kitti.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/dataset/nuimages.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "84e41484ccc52f69ef637b100a5482e68102531a",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/dataset/nuimages.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/dataset/nuscenes_vision_eval.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "7e02f73f73b1e01b84cb4d50cb14df9bcc876ca5",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/dataset/nuscenes_vision_eval.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/img/FlexiNet.png": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "31d92d210708bff14b4b1cffe56213992472e784",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/img/FlexiNet.png"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/img/nuscenes-demo-speed.gif": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "ecf2b2d21f54e2c89de42360134f95f2a5b200f1",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/img/nuscenes-demo-speed.gif"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/model/FlexiNet.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "bf836c574a050b2ea44dfc68c27a29d8eb620f9a",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/model/FlexiNet.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/model/__int__.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/model/__int__.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/model/modules.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "b1db38910b02d7612baf8804ac966a0714a3aa0d",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/model/modules.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/onnx_export/FlexiNet2ONNX.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "ffefb93c39d10df6c02d855b5090b4d7832e6042",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/onnx_export/FlexiNet2ONNX.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "6e5d2306ee2f5fb08ebdf96fcafd33e90e7e697c",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/pretrained_models/checkpoint_epoch_390_kitti_L1_best.pth": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "d225bf42f69b14450a8dee1685a3ab2115e3683c",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/pretrained_models/checkpoint_epoch_390_kitti_L1_best.pth"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/pretrained_models/checkpoint_epoch_390_kitti_L2_best.pth": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "d225bf42f69b14450a8dee1685a3ab2115e3683c",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/pretrained_models/checkpoint_epoch_390_kitti_L2_best.pth"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/pretrained_models/checkpoint_epoch_398_nuimage_L2_best.pth": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "785af9bd3d00be781c35a0e93e5d55a450eb3caa",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/pretrained_models/checkpoint_epoch_398_nuimage_L2_best.pth"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/requirements.txt": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "5daf09cee44a316c216c8748c1f58cfe56e9d6c1",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/requirements.txt"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/run_test.sh": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "55ce361152087106702f31425942ba2f38fbb552",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/run_test.sh"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/run_train.sh": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "ea9de0a17f7a288313d8e7859b5bd0869c14a077",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/run_train.sh"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/test.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "ed811d9468a3eecfc4044a51548e7fc61bd6d276",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/test.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/train.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "b0df77f4203fbc6b189d79e142cb6265c7359658",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/train.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/utils/__init__.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/utils/__init__.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/utils/checkpoint.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "775991206231743cda22ae4344f1e8a00eca73a0",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/utils/checkpoint.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/utils/evaluation.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "1c9014ae6d1fbada15b395994b68b86ac1af2988",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/utils/evaluation.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/utils/plotting.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "687109fb959b6e7d93144f75a7e3d21c9a7aa8b2",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/utils/plotting.py"
+    },
+    "methods/flexinet-image-only/FlexiNet-main/utils/seed.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "31fdcf481401ed761891a15ae999a0af23353094",
+      "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+      "source_path": "FlexiNet-main/utils/seed.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/checkpoints/velocity_xy_vision_only/best.pth": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "f608a57856c891c81756c9389b766f06067ffa76",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/checkpoints/velocity_xy_vision_only/best.pth"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/checkpoints/velocity_xy_vision_only/last.pth": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "d9b3242a81d331cb7f8de52907fe6cfdcf1df107",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/checkpoints/velocity_xy_vision_only/last.pth"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/configs/velocity_xy_vision_only.yaml": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "f2b9a0b75c8c10cb0a7df559208accdb7de26cd8",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/configs/velocity_xy_vision_only.yaml"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/__init__.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "74da7932c5f2ed5059111964e712ddcb0d9f4754",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/dataset/__init__.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/nuscenes_chassis.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "4245dd7cb1afb2317e7e7a088f9ff9f5b71fdb68",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/dataset/nuscenes_chassis.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/physics_schema.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "61cb7603c1a0e8dad1eca728761e15f11282ce8f",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/dataset/physics_schema.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/v2_geometry_cache.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "f862994b698bb4437b8e74d62b171640d6af5a13",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/dataset/v2_geometry_cache.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/v2_schema.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "eb1fd70c5c37ca80e9ba4000efc8e06d64730ba6",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/dataset/v2_schema.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/v2_splits.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "3b6ea5874609e0672d6aa076f0903237ed4fe9cd",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/dataset/v2_splits.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/dataset/v3_schema.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "e3421a249e686cb9e23e8d9d5f5460fb72a961b4",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/dataset/v3_schema.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/__init__.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "fcf7b6d617f16852ee9cf2b040d21e3bd421c371",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/__init__.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/flexinet_backbone.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "853f8d8e9b633e8f6ee0958fc99da564ee07a270",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/flexinet_backbone.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/fusion_model.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "08af5d834d090b9fb02402a322049bf66f749e85",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/fusion_model.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/modules.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "4c43c9ad27db794dbd10b9147326d5d3161f7962",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/modules.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/physics_velocity.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "49fe3c2ac6f5d43af7dc6bd0af30dcd17f5233ee",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/physics_velocity.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/__init__.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "5d06fe9a60b80b2bdd6e7879649d0a9dd68c6155",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v2/__init__.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/ground_geometry.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "afdeeed65a958d110785fb7c3dbce7e5506078cc",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v2/ground_geometry.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/kinematics.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "ef79c330ccd1071574372d530ab4f9373c04b93c",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v2/kinematics.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/lever_arm.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "701d7d99bda189e8ac6ac3a10f40fefd87a06248",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v2/lever_arm.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/losses.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "23b56552e12f99657b267e68cc5e695a4d08f05f",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v2/losses.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/model.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "931501ae71a5b52f56af883978313d5857487437",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v2/model.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/residual.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "8ff808b2896035bccab8c9a4036dc4eafa5f4a99",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v2/residual.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/rotation_flow.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "8b9d893eb471b1f1be5ddf1dcb14205cfceca3a9",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v2/rotation_flow.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v2/types.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "f4e3ab2774bbe86b3df6d2deeaca9a81f3d0d586",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v2/types.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v3/__init__.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "1961e6c724c83d105f503e685312142fb95be23d",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v3/__init__.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v3/geometry.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "d887a44cdd7f59523556a7ecb8c22015cd853b0a",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v3/geometry.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v3/losses.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "6ca621f7c63d5fd33e03e4fb8bed2b0cf4865d4a",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v3/losses.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v3/model.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "071896a51a38d7bcc9c72f469b0f64416da18f37",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v3/model.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/model/v3/types.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "031f6ab3bec8c321e0b4a4998fc634bc93c4b728",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/model/v3/types.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/test.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "ab536d69109f97d9d983e0b25edb2a0dfbdb8971",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/test.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/train.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "a797be25aa7960409b7fb3b123f2f4dc82f2d754",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/train.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/utils/__init__.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "ae3bcdadfcd6e43291c63f9cb204bfe99b96520a",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/utils/__init__.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/utils/evaluation.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "d56bb9660151e6c0dd89eadf87320ff62cc5ea9f",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/utils/evaluation.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/utils/metrics.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "6ebda8698a37700d81bbe271d579ed9c73c16c97",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/utils/metrics.py"
+    },
+    "methods/flexinet-image-only/FlexiNet_ImageXY/utils/seed.py": {
+      "mode": "100644",
+      "type": "blob",
+      "oid": "65fc04dde2ba70e870b0c212efc368c552f4442e",
+      "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+      "source_path": "FlexiNet_ChassisFusion/utils/seed.py"
+    }
+  },
   "local_files": {
     "methods/purevision-flow/PureVision_V3/checkpoints/pretrained/direct_seed_42/best.pth": {
       "source_project": "PureVision_V3",
@@ -1103,5 +1643,5 @@
     "compensation subset manifest regenerated; original retained"
   ],
   "local_source_roots_modified": false,
-  "branch_scope": "purevision-flow"
+  "branch_scope": "main"
 }
