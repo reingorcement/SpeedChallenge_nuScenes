@@ -1,0 +1,67 @@
+project:
+  name: FlexiNet_ChassisFusion_v3_geometry_smoke
+  version: 3.0
+
+data:
+  dataroot: /data/nuscenes
+  version: v1.0-trainval
+  split_manifest_path: logs/v2_split_manifest.json
+  seq_len: 5
+  visual_height: 72
+  visual_width: 128
+  geometry_height: 288
+  geometry_width: 512
+  cam_channel: CAM_FRONT
+  flow_root: /data/nuscenes/precomputed_flow_v2/CAM_FRONT
+  flow_backend: raft_large
+  frame_cache_root: /data/nuscenes/precomputed_frames/CAM_FRONT_72x128_rgb
+  online_mode: true
+  image_cache_size: 0
+  camera_height_m: 1.51
+  max_scenes: 1
+  photometric_augmentation:
+    enabled: false
+
+model:
+  mode: geometry_audit
+  init_checkpoint:
+  pair_count: 3
+  twist_dof: 6
+  support_mode: fb_only
+  pooling: regions
+  uncertainty: true
+  direct_expert: true
+  residual_limits: [3.0, 1.5]
+  fixed_roi_top_fraction: 0.45
+
+loss:
+  nll_weight: 1.0
+  direct_weight: 0.25
+  geometry_weight: 0.25
+  speed_weight: 0.1
+  beta_weight: 0.1
+  rotation_weight: 0.05
+  reprojection_weight: 0.05
+  residual_weight: 0.01
+  support_weight: 0.02
+  tv_weight: 0.005
+  sigma_vx: 5.0
+  sigma_vy: 1.0
+  beta_min_speed: 2.0
+  support_floor: 0.2
+
+train:
+  batch_size: 1
+  num_workers: 0
+  prefetch_factor: 2
+  epochs: 1
+  freeze_backbone_epochs: 5
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  use_amp: false
+  grad_clip: 2.0
+  seed: 42
+  smoke_train_batches: 2
+  smoke_val_batches: 2
+  save_dir: checkpoints/smoke_velocity_xy_v3_geometry
+  output_dir: outputs/smoke_velocity_xy_v3_geometry

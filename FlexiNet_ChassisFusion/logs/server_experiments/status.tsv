@@ -1,9 +1,0 @@
-timestamp	experiment	status	config	exit_code	elapsed_sec	log_file
-2026-07-04 02:19:57	velocity_xy_vkd_gated	STARTED	configs/velocity_xy_vkd_gated.yaml	-	-	logs/server_experiments/velocity_xy_vkd_gated.log
-2026-07-04 06:26:05	velocity_xy_vkd_gated	PASSED	configs/velocity_xy_vkd_gated.yaml	0	14768	logs/server_experiments/velocity_xy_vkd_gated.log
-2026-07-04 06:26:05	velocity_xy_kd_only	STARTED	configs/velocity_xy_kd_only.yaml	-	-	logs/server_experiments/velocity_xy_kd_only.log
-2026-07-04 06:52:18	velocity_xy_kd_only	PASSED	configs/velocity_xy_kd_only.yaml	0	1573	logs/server_experiments/velocity_xy_kd_only.log
-2026-07-04 06:52:18	velocity_xy_vision_only	STARTED	configs/velocity_xy_vision_only.yaml	-	-	logs/server_experiments/velocity_xy_vision_only.log
-2026-07-04 10:54:29	velocity_xy_vision_only	PASSED	configs/velocity_xy_vision_only.yaml	0	14531	logs/server_experiments/velocity_xy_vision_only.log
-2026-07-04 10:54:29	velocity_xy_vision_kinematics	STARTED	configs/velocity_xy_vision_kinematics.yaml	-	-	logs/server_experiments/velocity_xy_vision_kinematics.log
-2026-07-04 15:03:09	velocity_xy_vision_kinematics	PASSED	configs/velocity_xy_vision_kinematics.yaml	0	14920	logs/server_experiments/velocity_xy_vision_kinematics.log

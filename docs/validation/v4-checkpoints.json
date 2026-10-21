@@ -1,0 +1,15 @@
+{
+  "torch": "2.10.0+cu128",
+  "torchvision": "0.25.0+cu128",
+  "numpy": "1.26.4",
+  "scipy": "1.15.3",
+  "opencv": "4.11.0",
+  "cuda": true,
+  "devices": [
+    "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+    "NVIDIA GeForce RTX 5090",
+    "NVIDIA GeForce RTX 5090"
+  ],
+  "visual_weights": "56a7a5791e60decec4c5442eb0ffc86ff45d7963c0e84fbbb0925658c8192a78",
+  "raft_weights": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322"
+}

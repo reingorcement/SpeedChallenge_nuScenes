@@ -1,7 +1,0 @@
-Using device: cuda
-Train scenes: 3 | Train samples: 658
-Val scenes: 3 | Val samples: 649
-Dynamics branch is using chassis-proxy features with zero_lateral base_velocity; EOVM-EKF prior is disabled.
-Epoch 1/1:   0%|          | 0/165 [00:00<?, ?it/s]Epoch 1/1:   0%|          | 0/165 [00:01<?, ?it/s, loss=0.0016]Epoch 1/1:   1%|          | 1/165 [00:01<03:58,  1.45s/it, loss=0.0016]Epoch 1/1:   1%|          | 1/165 [00:01<03:58,  1.45s/it, loss=0.0043]Epoch 1/1:   1%|          | 1/165 [00:01<03:58,  1.45s/it, loss=0.0035]Epoch 1/1:   1%|          | 1/165 [00:01<03:58,  1.45s/it, loss=0.0026]Epoch 1/1:   1%|          | 1/165 [00:01<03:58,  1.45s/it, loss=0.0046]Epoch 1/1:   1%|          | 1/165 [00:01<03:58,  1.45s/it, loss=0.0003]Epoch 1/1:   1%|          | 1/165 [00:01<03:58,  1.45s/it, loss=0.0037]Epoch 1/1:   4%|▍         | 7/165 [00:01<00:26,  5.97it/s, loss=0.0037]Epoch 1/1:   4%|▍         | 7/165 [00:01<00:26,  5.97it/s, loss=0.0020]Epoch 1/1:   4%|▍         | 7/165 [00:01<00:26,  5.97it/s, loss=0.0061]Epoch 1/1:   4%|▍         | 7/165 [00:01<00:26,  5.97it/s, loss=0.0032]Epoch 1/1:   6%|▌         | 10/165 [00:01<00:24,  6.21it/s, loss=0.0032]
-Eval:   0%|          | 0/163 [00:00<?, ?it/s]Eval:   1%|          | 1/163 [00:00<01:35,  1.70it/s]                                                     Epoch 1: train_loss=0.0032 val_loss=0.0010 val_mae_vx=0.1130m/s val_mae_vy=0.0170m/s base_mae_vx=0.0012m/s
-Saved new best checkpoint to checkpoints/smoke_vkd_gated/best.pth

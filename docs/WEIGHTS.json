@@ -1,0 +1,119 @@
+[
+  {
+    "path": "methods/cnn-image-only/CNN_speed_est/speed_model_v1.pth",
+    "git_blob": "6dd198f01d63d359e2bd44973b27d12a0ef0dfa6",
+    "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+    "source_path": "CNN_speed_est/speed_model_v1.pth"
+  },
+  {
+    "path": "methods/flexinet-image-only/FlexiNet-main/checkpoints_chassis_aligned/best.pth",
+    "git_blob": "41aef0ef67c3f10fed8376d6d48794e177a8b641",
+    "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+    "source_path": "FlexiNet-main/checkpoints_chassis_aligned/best.pth"
+  },
+  {
+    "path": "methods/flexinet-image-only/FlexiNet-main/checkpoints_chassis_aligned/last.pth",
+    "git_blob": "6bf5f882379250327cd0309adc3aa353e39f077f",
+    "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+    "source_path": "FlexiNet-main/checkpoints_chassis_aligned/last.pth"
+  },
+  {
+    "path": "methods/flexinet-image-only/FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth",
+    "git_blob": "6e5d2306ee2f5fb08ebdf96fcafd33e90e7e697c",
+    "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+    "source_path": "FlexiNet-main/pretrained_models/checkpoint_epoch_100_nuimage_L1_best.pth"
+  },
+  {
+    "path": "methods/flexinet-image-only/FlexiNet-main/pretrained_models/checkpoint_epoch_390_kitti_L1_best.pth",
+    "git_blob": "d225bf42f69b14450a8dee1685a3ab2115e3683c",
+    "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+    "source_path": "FlexiNet-main/pretrained_models/checkpoint_epoch_390_kitti_L1_best.pth"
+  },
+  {
+    "path": "methods/flexinet-image-only/FlexiNet-main/pretrained_models/checkpoint_epoch_390_kitti_L2_best.pth",
+    "git_blob": "d225bf42f69b14450a8dee1685a3ab2115e3683c",
+    "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+    "source_path": "FlexiNet-main/pretrained_models/checkpoint_epoch_390_kitti_L2_best.pth"
+  },
+  {
+    "path": "methods/flexinet-image-only/FlexiNet-main/pretrained_models/checkpoint_epoch_398_nuimage_L2_best.pth",
+    "git_blob": "785af9bd3d00be781c35a0e93e5d55a450eb3caa",
+    "source_commit": "d415109680f40a22b3b4fd1788722576dc67d6e6",
+    "source_path": "FlexiNet-main/pretrained_models/checkpoint_epoch_398_nuimage_L2_best.pth"
+  },
+  {
+    "path": "methods/flexinet-image-only/FlexiNet_ImageXY/checkpoints/velocity_xy_vision_only/best.pth",
+    "git_blob": "f608a57856c891c81756c9389b766f06067ffa76",
+    "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+    "source_path": "FlexiNet_ChassisFusion/checkpoints/velocity_xy_vision_only/best.pth"
+  },
+  {
+    "path": "methods/flexinet-image-only/FlexiNet_ImageXY/checkpoints/velocity_xy_vision_only/last.pth",
+    "git_blob": "d9b3242a81d331cb7f8de52907fe6cfdcf1df107",
+    "source_commit": "3c08fe6d1b0526278591353964bfb77fed8b1629",
+    "source_path": "FlexiNet_ChassisFusion/checkpoints/velocity_xy_vision_only/last.pth"
+  },
+  {
+    "path": "methods/purevision-flow/PureVision_V3/checkpoints/pretrained/direct_seed_42/best.pth",
+    "source_project": "PureVision_V3",
+    "source_path": "checkpoints/pretrained/direct_seed_42/best.pth",
+    "sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+    "bytes": 27648993
+  },
+  {
+    "path": "methods/purevision-flow/PureVision_V3/checkpoints/pretrained/direct_seed_42/last.pth",
+    "source_project": "PureVision_V3",
+    "source_path": "checkpoints/pretrained/direct_seed_42/last.pth",
+    "sha256": "6dbc84afa8ef25c0d8e9c5810f5235e7fc4baf5fc5cf7288ef56b00083074ddb",
+    "bytes": 27648993
+  },
+  {
+    "path": "methods/purevision-flow/PureVision_V3/checkpoints/pretrained/fusion_seed_42/best.pth",
+    "source_project": "PureVision_V3",
+    "source_path": "checkpoints/pretrained/fusion_seed_42/best.pth",
+    "sha256": "56a7a5791e60decec4c5442eb0ffc86ff45d7963c0e84fbbb0925658c8192a78",
+    "bytes": 26504665
+  },
+  {
+    "path": "methods/purevision-flow/PureVision_V3/checkpoints/pretrained/fusion_seed_42/last.pth",
+    "source_project": "PureVision_V3",
+    "source_path": "checkpoints/pretrained/fusion_seed_42/last.pth",
+    "sha256": "8941a6e82e9b3f88802397fb93d7f525c39fa81c3345e9e0076692cd2aa41b81",
+    "bytes": 26504665
+  },
+  {
+    "path": "methods/purevision-flow/PureVision_V4/weights/raft_large_C_T_SKHT_V2.pth",
+    "source_project": "PureVision_V4",
+    "source_path": "weights/raft_large_C_T_SKHT_V2.pth",
+    "sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+    "bytes": 21106607
+  },
+  {
+    "path": "methods/purevision-flow/PureVision_V4/weights/v3_direct_seed42.pth",
+    "source_project": "PureVision_V4",
+    "source_path": "weights/v3_direct_seed42.pth",
+    "sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+    "bytes": 27648993
+  },
+  {
+    "path": "methods/purevision-flow/PureVision_V4/weights/v3_fusion_seed42.pth",
+    "source_project": "PureVision_V4",
+    "source_path": "weights/v3_fusion_seed42.pth",
+    "sha256": "56a7a5791e60decec4c5442eb0ffc86ff45d7963c0e84fbbb0925658c8192a78",
+    "bytes": 26504665
+  },
+  {
+    "path": "methods/purevision-flow/补偿速度估计/weights/fusion_seed42_best.pth",
+    "source_project": "补偿速度估计",
+    "source_path": "weights/fusion_seed42_best.pth",
+    "sha256": "56a7a5791e60decec4c5442eb0ffc86ff45d7963c0e84fbbb0925658c8192a78",
+    "bytes": 26504665
+  },
+  {
+    "path": "methods/purevision-flow/补偿速度估计/weights/raft_large_C_T_SKHT_V2-ff5fadd5.pth",
+    "source_project": "补偿速度估计",
+    "source_path": "weights/raft_large_C_T_SKHT_V2-ff5fadd5.pth",
+    "sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+    "bytes": 21106607
+  }
+]
