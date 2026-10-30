@@ -1486,6 +1486,12 @@
       "mode": "100644"
     },
     {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/FULL_FLOW_RUN_20261030.md",
+      "sha256": "3c5c2a6b18e96afe28f159152b59cfcffa47759c4df88d30b20761b99c1a9a45",
+      "bytes": 7411,
+      "mode": "100644"
+    },
+    {
       "path": "methods/purevision-flow/PureVision_V5/docs/next/MULTISEED_PLAN_20261030.md",
       "sha256": "f15700befc7e3465fdd2b0a08798a411e5d0550bc930118fffe82a9f4893ec4b",
       "bytes": 2269,
@@ -1511,8 +1517,8 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/docs/next/README.md",
-      "sha256": "31d064c93e949b2e56af288a6cee7cd0421e3c387f682aec6f0df81fa2dfafb6",
-      "bytes": 6877,
+      "sha256": "539776f45911c27c6806d97b6dde971cc52a8f8aec167265cc0148090a8a6607",
+      "bytes": 7161,
       "mode": "100644"
     },
     {
@@ -1528,9 +1534,39 @@
       "mode": "100644"
     },
     {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/completion_20261030_full_nuscenes_front1024.py",
+      "sha256": "026892f4d72e00ccbd255a7b1e1856cde5bdfdf49269fbe67cdae9526c7dc09a",
+      "bytes": 4926,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/completion_control_20261030_full_nuscenes_front1024.json",
+      "sha256": "5bd8bc3094760b902713665dd8ccb72eef9fc19fd8e3364fefd3639f9d732206",
+      "bytes": 1187,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/completion_watcher_fix_20261030_full_nuscenes_front1024.json",
+      "sha256": "67842ee917ca35f44c9122cb062dd5e0f8026991dc35834c2f0f828a9a6843cc",
+      "bytes": 4229,
+      "mode": "100644"
+    },
+    {
       "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/full_flow_coverage_20261030.json",
       "sha256": "5f8d0bc29220946df38f6521cf236863242faa92a56f565d59e25edab241251a",
       "bytes": 4646,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/full_flow_first1000_progress_20261030.json",
+      "sha256": "cd9d545ec626e25b91be75c0ede1ac47ec42de5f3b6b9a76010d706c0a4a0ec8",
+      "bytes": 3235,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/full_flow_initial_verification_20261030.json",
+      "sha256": "d14c69b3fbfbc6ac69d4e9658b4d9ecd54e8293b5109de25f5694ac2da108151",
+      "bytes": 5769,
       "mode": "100644"
     },
     {
@@ -1543,6 +1579,18 @@
       "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/full_generation_smoke_summary_20261030.json",
       "sha256": "e94535e06b58fa178dd4569e4f02368c922040b9724efc186f1b0dd3ba4e249b",
       "bytes": 15910,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/operations_active_verification_20261030_full_nuscenes_front1024.json",
+      "sha256": "cb4dcaa9fe9ac1ff076e91dbc80d5c24f1c3b19481f83d06f57c7799f7fa7a01",
+      "bytes": 32357,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/test_completion_20261030_full_nuscenes_front1024.py",
+      "sha256": "e7238ae699105b49774393b47c7bf36baa92a595a0bdf22a37e489db09e3f585",
+      "bytes": 3968,
       "mode": "100644"
     },
     {

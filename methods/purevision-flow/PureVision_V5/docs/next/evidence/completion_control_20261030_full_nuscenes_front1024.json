@@ -1,0 +1,23 @@
+{
+  "watcher_version": 2,
+  "session": "v5next_20261030_full_nuscenes_front1024_completion_publish",
+  "pid": 3356579,
+  "pid_start_ticks": 88830201,
+  "command": [
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "/home/zhangyu/.local/share/speedest-v5-next/monitoring/completion_20261030_full_nuscenes_front1024_v2.py"
+  ],
+  "script_sha256": "026892f4d72e00ccbd255a7b1e1856cde5bdfdf49269fbe67cdae9526c7dc09a",
+  "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_completion_publish_v2.log",
+  "plan_identity": "cbc303bbcd40f1189db741cab7cce6f3938d6a3be3e3326ce182555ce95cf620",
+  "generation_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+  "initial_publication_proof": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/completion_initial_publication_20261030_full_nuscenes_front1024.json",
+    "sha256": "1e1deb0bdb8286e9cd596c2a0251474df5341372336a8075d52f5b914b6b4337",
+    "bytes": 1366
+  },
+  "retry_seconds": 300,
+  "command_timeout_seconds": 660,
+  "failure_behavior": "Timeout/OSError/nonzero/stale receipt remain pending and retry; initial remote verification is latched to this code+plan"
+}
