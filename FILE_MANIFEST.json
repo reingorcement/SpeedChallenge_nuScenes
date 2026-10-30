@@ -1295,8 +1295,14 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/collect_resolution.py",
-      "sha256": "b6d8877139c8155be286d98cfb24a645896d2628e08f0e143ad3516cb6299cf6",
-      "bytes": 20977,
+      "sha256": "45c5e530d5fcb1fbde6eb8a7e2d2b782db0d9d55ac8acf973ee077e9b59a0ceb",
+      "bytes": 21020,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/collect_resolution_multiseed.py",
+      "sha256": "d55b962a0728f56cb04444c25dc78762a07a20e5944668bfb22c231bc439ff3b",
+      "bytes": 9775,
       "mode": "100644"
     },
     {
@@ -1348,8 +1354,32 @@
       "mode": "100644"
     },
     {
+      "path": "methods/purevision-flow/PureVision_V5/configs/next/R02_raft1024_s43.json",
+      "sha256": "c395e93ee4168d1626d94da2e644a63b8da8f74bf3a4c435843e1a5e311586b4",
+      "bytes": 732,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/configs/next/R02_raft1024_s44.json",
+      "sha256": "5fe0ca7d7339f7f119431e52d7388cc9ac98c1400dfe5915578fe63f281ee8ba",
+      "bytes": 732,
+      "mode": "100644"
+    },
+    {
       "path": "methods/purevision-flow/PureVision_V5/configs/next/R02_raft512.json",
       "sha256": "d9d0f1c83319413ee3e7e2a9e40c275243e56e7d4f5ce2c0e22d46382f28750b",
+      "bytes": 731,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/configs/next/R02_raft512_s43.json",
+      "sha256": "874939fa7f177337bbe06ea5b8f69744cdb84dfaf1a4be5c05df04fbc628ff5a",
+      "bytes": 731,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/configs/next/R02_raft512_s44.json",
+      "sha256": "e55952f6ba5eb23bb665b58276e4455ca260620d643af17be52a86d7ca1e24de",
       "bytes": 731,
       "mode": "100644"
     },
@@ -1438,6 +1468,12 @@
       "mode": "100644"
     },
     {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/MULTISEED_PLAN_20261030.md",
+      "sha256": "f15700befc7e3465fdd2b0a08798a411e5d0550bc930118fffe82a9f4893ec4b",
+      "bytes": 2269,
+      "mode": "100644"
+    },
+    {
       "path": "methods/purevision-flow/PureVision_V5/docs/next/OPERATIONS.md",
       "sha256": "eddf9f4f66eb270259cdf1e1dd6b7b35b839086a1bc83471b6bb465d2eb001b9",
       "bytes": 8011,
@@ -1445,14 +1481,14 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/docs/next/PILOT_RESULTS_20261030.md",
-      "mode": "100644",
       "sha256": "eb652b06cc4d350a2392f946612dcc7e514a7492b8e5d25b35c2113d9e97631c",
-      "bytes": 2160
+      "bytes": 2160,
+      "mode": "100644"
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/docs/next/README.md",
-      "sha256": "1fbbaa7962b75e0e4dd669efee2a9007f463f3071f457e13cedab9a06191e351",
-      "bytes": 6427,
+      "sha256": "dda784568dcb674acbb8fa08605e55a176003a07adf14b063fb851c921538cb1",
+      "bytes": 6577,
       "mode": "100644"
     },
     {
@@ -1871,8 +1907,8 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/pipeline.py",
-      "sha256": "e0fd601c1654073b1123af6c90a78b955fa27c8e53bab2548ba8a90ded4d9b03",
-      "bytes": 29962,
+      "sha256": "20d66a99445e589dafac895c8668f3877846163ab979ea5eef819b851518e7a0",
+      "bytes": 30126,
       "mode": "100644"
     },
     {
@@ -2002,9 +2038,15 @@
       "mode": "100644"
     },
     {
+      "path": "methods/purevision-flow/PureVision_V5/resolution_multiseed.py",
+      "sha256": "812615f94604effd8d14e0e295831e8a8f3f88d3d72c45f80358fc5236ab8fb7",
+      "bytes": 9296,
+      "mode": "100644"
+    },
+    {
       "path": "methods/purevision-flow/PureVision_V5/resolution_pilot.py",
-      "sha256": "454af90bf81506e9aa970ef32062a3770bc6e3b8d7a063643516259a2b1f2e95",
-      "bytes": 14166,
+      "sha256": "1a21159dc4d85d370bfcace94d1870d9c6c6cb421fc206cae66a25f6fb47c376",
+      "bytes": 14237,
       "mode": "100644"
     },
     {
@@ -2107,6 +2149,12 @@
       "path": "methods/purevision-flow/PureVision_V5/tests/test_publication.py",
       "sha256": "9aa11b5df5d96bdd88a509a970e23a0d0055fcd5096528e4b5756a14d9c1e1ea",
       "bytes": 11201,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/tests/test_resolution_multiseed.py",
+      "sha256": "9bf95fc87c3ddbe51b0d7e76585e31dea4cf41c2744796113deb21b7cddfc5e0",
+      "bytes": 8125,
       "mode": "100644"
     },
     {

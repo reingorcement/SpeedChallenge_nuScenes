@@ -1,4 +1,6 @@
-# V5 下一阶段：先做分辨率预试验
+# V5 下一阶段：分辨率预试验与多 seed 复核
+
+用户已批准 [补充seed43/44](MULTISEED_PLAN_20261030.md)，当前执行四个新增小规模训练，仍未选择全量分辨率。
 
 2026-10-30（Asia/Shanghai）。开发分支 `method/purevision-v5-next`；
 报告分支 `results/purevision-v5-next`。首轮预试验已完成，见 [完成记录](PILOT_RESULTS_20261030.md)；全量仍待用户决策。本页保留执行安排与故障恢复经过。

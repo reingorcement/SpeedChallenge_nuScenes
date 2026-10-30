@@ -45,9 +45,9 @@ def validate_adopted_source(plan):
     return previous
 
 
-def collect_finished_plan(plan, plan_path):
+def collect_finished_plan(plan, plan_path, *, collector_script="collect_resolution.py", report_prefix="resolution_"):
     """A terminal queue exports a fresh report; it never chooses or restarts work."""
-    output = Path(plan["root"]) / "reports" / f"resolution_{plan['prefix']}"
+    output = Path(plan["root"]) / "reports" / f"{report_prefix}{plan['prefix']}"
     base = Path(plan_path).parent
     receipt_path, log_path = base / "collection.json", base / "collection.log"
     if any(path.exists() for path in (output, receipt_path, log_path)):
@@ -55,7 +55,7 @@ def collect_finished_plan(plan, plan_path):
                       error="Collection destination/receipt/log already exists; no existing artifact was overwritten")
         print(result, flush=True)
         return result
-    command = [plan["python"], "-B", str(Path(plan["code_root"]) / "collect_resolution.py"),
+    command = [plan["python"], "-B", str(Path(plan["code_root"]) / collector_script),
                "--plan", str(plan_path), "--output", str(output)]
     receipt = dict(schema="v5_pilot_collection_v1", status="running", started_at=now(),
                    plan_identity=plan["identity"], command=command, output=str(output), log=str(log_path))

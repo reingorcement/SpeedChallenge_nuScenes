@@ -400,6 +400,9 @@ def check_outputs(job):
 
 def check_planned_inputs(plan, job):
     """Do not silently run a replacement external manifest/selection/config."""
+    if plan.get("stage") == "raft_resolution_multiseed":
+        from resolution_multiseed import validate_multiseed_inputs
+        validate_multiseed_inputs(plan)
     if plan.get("low_run_source"):
         from resolution_pilot import validate_adopted_source
         validate_adopted_source(plan)

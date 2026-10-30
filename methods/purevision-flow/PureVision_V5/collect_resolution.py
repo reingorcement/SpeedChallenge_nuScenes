@@ -26,7 +26,7 @@ def optional(path):
     return read_json(path) if Path(path).is_file() else {}
 
 
-def inspect_run(plan, job, train_rows, dev_rows):
+def inspect_run(plan, job, train_rows, dev_rows, *, expected_seed=42):
     output = Path(job["run_dir"])
     evaluation = Path(command_value(job["commands"][1], "--output"))
     row = dict(name=job["name"], experiment="R02", run_id=output.name, status="not_started",
@@ -53,7 +53,7 @@ def inspect_run(plan, job, train_rows, dev_rows):
             return {**row, "status": "evaluation_pending"}
         config, contract = run["config"], run["contract"]
         require(config["experiment"] == run["experiment"] == "R02", "Pilot requires flow-only R02")
-        require(config["epochs"] == 40 and config["batch_size"] == 64 and config["seed"] == 42
+        require(config["epochs"] == 40 and config["batch_size"] == 64 and config["seed"] == expected_seed
                 and config.get("early_stopping") is False, "Changed pilot budget/batch/seed/stopping policy")
         require(read_json(job["config_path"]) == config and sha256(job["config_path"]) == plan["config_hashes"][job["name"]],
                 "Actual configuration differs from fixed plan")
@@ -116,7 +116,7 @@ def inspect_run(plan, job, train_rows, dev_rows):
         rule = validate_lateral_rule(config.get("lateral_rule"))
         require(run["effective_lateral_rule"] == receipt["effective_lateral_rule"] == rule, "Effective lateral rule differs")
         for index, entry in enumerate(history):
-            order_hash = epoch_order(len(train_rows), 42, index)[1]
+            order_hash = epoch_order(len(train_rows), expected_seed, index)[1]
             require(entry["sample_order_sha256"] == order_hash, "Training epoch sample order differs")
             require(entry["processed_batches"] == math.ceil(len(train_rows) / 64) * (index + 1)
                     and entry["global_step"] == entry["processed_batches"]
