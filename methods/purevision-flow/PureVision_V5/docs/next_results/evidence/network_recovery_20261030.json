@@ -1,0 +1,9 @@
+{
+  "scope": "resolution_pilot",
+  "failed_prefix": "20261030_pilot_s42",
+  "low_run_retained": "20261030_pilot_s42_R02_512",
+  "training_commit": "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
+  "reason": "Both high-resolution workers failed during real remote publication checks before RAFT initialization. HTTP timeout followed by SSH failure. No numerical/model failure.",
+  "changes": "Task private NO_PROXY includes github.com; new code adds bounded retries of actual ls-remote and explicit adoption of completed low run, without accepting cached remote SHA or modifying old run.",
+  "full_generation_authorized": false
+}

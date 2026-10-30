@@ -19,6 +19,12 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/flex_design_readonly_20261030.json",
+      "source_sha256": "6412c6f5383a1d06df9d4be3ef8cc95ebad46caf9163cbdea384a24aacb284d5",
+      "bytes": 1524,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/flow_resolution_batch_gpu0_b16.json",
       "source_sha256": "2da6b55420e30efe370a32fe57711565eee14445cdb88ecdcd125c4aa814a649",
       "bytes": 4856,
@@ -55,6 +61,12 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/network_recovery_20261030.json",
+      "source_sha256": "cca7e6a16758e8cd96340d4e2650ddc98da9b8aff27b090108e7d91dad1beab0",
+      "bytes": 625,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/operations_validation.json",
       "source_sha256": "b13430e892c0446e22450c92510405536e8f0e88dc834a6792d30c65c13215b5",
       "bytes": 3837,
@@ -64,6 +76,12 @@
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/pilot_interface_dryrun.json",
       "source_sha256": "e20d448b14a8831cfc9a33a0c9ac907aa79892c583a0fe7b3296d381836f9bd4",
       "bytes": 15448,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/recovery_interface_dryrun.json",
+      "source_sha256": "f29198b16c362f482063ebe70d4a52590d578bba9c66964de52f2bbd938722e7",
+      "bytes": 18174,
       "representation": "parsed_json"
     },
     {
@@ -82,6 +100,12 @@
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/startup/20261030_pilot_s42_R02_512/startup_proof.json",
       "source_sha256": "e71943e4a007048d5eb9a5052126ab8533c76f7c35292e2d4e0d1a4305a7cd77",
       "bytes": 14001,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/startup/20261030_pilot_s42_retry1_R02_1024/startup_proof.json",
+      "source_sha256": "cbeab830385336e923795fb39c524f00b569c964302b2b1b2522d348725fcea5",
+      "bytes": 456,
       "representation": "parsed_json"
     },
     {
@@ -127,6 +151,42 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s42_retry1/jobs/R02_1024.json",
+      "source_sha256": "4afac97579ed4a962a6ebfca2ac2a979f8de46d3cf87210445154760ea916e60",
+      "bytes": 116,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s42_retry1/jobs/flow1024_0.json",
+      "source_sha256": "1fd0148acd478c5065c6cbbbceb91264c73658b529634027ab908754c679d6a6",
+      "bytes": 1331,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s42_retry1/jobs/flow1024_1.json",
+      "source_sha256": "897c0f05da03b7b30ba220a1c097ecbf9f4fbe8be14d5bf63dc627e389e7ba4e",
+      "bytes": 1332,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s42_retry1/jobs/pack1024.json",
+      "source_sha256": "d18439d5e4be0c6dc2fa80483db569ece943e094290f13bccbd25e34d13007dd",
+      "bytes": 116,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s42_retry1/plan.json",
+      "source_sha256": "52e75aba9033d37361638180ec043c42531269e14428fed68028bad8905fe279",
+      "bytes": 18237,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s42_retry1/status.json",
+      "source_sha256": "00bb26c73fde0da7457b6b2740af1a28394b37ac45731e44873117bda8076d52",
+      "bytes": 5798,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s42_R02_512/metrics.jsonl",
       "source_sha256": "c516a2fe712a6485fa92f48ae4d52198d03eac1313ec8ee0fb8e0d8a2d3db36b",
       "bytes": 169689,
@@ -148,13 +208,18 @@
   "exports": [
     {
       "path": "README.md",
-      "export_sha256": "879e9ade29001c59d43a193e09dcfdf7770cc503b87fc6f05214f46018afff3a",
-      "bytes": 1115
+      "export_sha256": "c656d5e7d2ed63602189fc18cd4518e52ba562b21e30310acbb902e32f4f7366",
+      "bytes": 1565
     },
     {
       "path": "evidence/cuda_oldflow_protocol_v1.json",
       "export_sha256": "c5d2d36cb1b777f3f57c263ae0f9d44648ad3be16020f9456cb60b16bfaa158b",
       "bytes": 3464
+    },
+    {
+      "path": "evidence/flex_design_readonly_20261030.json",
+      "export_sha256": "6412c6f5383a1d06df9d4be3ef8cc95ebad46caf9163cbdea384a24aacb284d5",
+      "bytes": 1524
     },
     {
       "path": "evidence/flow_resolution_batch_gpu0_b16.json",
@@ -187,6 +252,11 @@
       "bytes": 7143
     },
     {
+      "path": "evidence/network_recovery_20261030.json",
+      "export_sha256": "cca7e6a16758e8cd96340d4e2650ddc98da9b8aff27b090108e7d91dad1beab0",
+      "bytes": 625
+    },
+    {
       "path": "evidence/operations_validation.json",
       "export_sha256": "b13430e892c0446e22450c92510405536e8f0e88dc834a6792d30c65c13215b5",
       "bytes": 3837
@@ -195,6 +265,11 @@
       "path": "evidence/pilot_interface_dryrun.json",
       "export_sha256": "e20d448b14a8831cfc9a33a0c9ac907aa79892c583a0fe7b3296d381836f9bd4",
       "bytes": 15448
+    },
+    {
+      "path": "evidence/recovery_interface_dryrun.json",
+      "export_sha256": "f29198b16c362f482063ebe70d4a52590d578bba9c66964de52f2bbd938722e7",
+      "bytes": 18174
     },
     {
       "path": "evidence/runtime_persistence.json",
@@ -267,6 +342,31 @@
       "bytes": 175
     },
     {
+      "path": "experiments/20261030_pilot_s42_retry1_R02_1024/job_status.json",
+      "export_sha256": "4afac97579ed4a962a6ebfca2ac2a979f8de46d3cf87210445154760ea916e60",
+      "bytes": 116
+    },
+    {
+      "path": "experiments/20261030_pilot_s42_retry1_R02_1024/startup_proof.json",
+      "export_sha256": "cbeab830385336e923795fb39c524f00b569c964302b2b1b2522d348725fcea5",
+      "bytes": 456
+    },
+    {
+      "path": "experiments/20261030_pilot_s42_retry1_flow1024_0/job_status.json",
+      "export_sha256": "1fd0148acd478c5065c6cbbbceb91264c73658b529634027ab908754c679d6a6",
+      "bytes": 1331
+    },
+    {
+      "path": "experiments/20261030_pilot_s42_retry1_flow1024_1/job_status.json",
+      "export_sha256": "897c0f05da03b7b30ba220a1c097ecbf9f4fbe8be14d5bf63dc627e389e7ba4e",
+      "bytes": 1332
+    },
+    {
+      "path": "experiments/20261030_pilot_s42_retry1_pack1024/job_status.json",
+      "export_sha256": "d18439d5e4be0c6dc2fa80483db569ece943e094290f13bccbd25e34d13007dd",
+      "bytes": 116
+    },
+    {
       "path": "plans/20261030_pilot_s42.json",
       "export_sha256": "6c4ece53fc1f88363e5d8dca263cb5801458bcee817f083b1ae415d964ad23f4",
       "bytes": 15633
@@ -277,9 +377,19 @@
       "bytes": 6129
     },
     {
+      "path": "plans/20261030_pilot_s42_retry1.json",
+      "export_sha256": "52e75aba9033d37361638180ec043c42531269e14428fed68028bad8905fe279",
+      "bytes": 18237
+    },
+    {
+      "path": "plans/20261030_pilot_s42_retry1_coordinator.json",
+      "export_sha256": "00bb26c73fde0da7457b6b2740af1a28394b37ac45731e44873117bda8076d52",
+      "bytes": 5798
+    },
+    {
       "path": "status.json",
-      "export_sha256": "17a69d1a40ebd34f4baf5d43460f2d8a58a55c9a92b73c23d6ea56c489a72861",
-      "bytes": 3960
+      "export_sha256": "4268506902e5987d231e22825af6a12b820982476da8943e10001477e5c38112",
+      "bytes": 5628
     }
   ],
   "note": "source_sha256 hashes source bytes (JSONL complete prefix); export_sha256 hashes the published representation. JSON may be reformatted; index excludes itself."
