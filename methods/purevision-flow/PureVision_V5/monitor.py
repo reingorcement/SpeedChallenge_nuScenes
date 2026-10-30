@@ -163,6 +163,34 @@ def collect_jobs(root):
     return list(by_id.values())
 
 
+def disk_fields(usage):
+    return {"total_gb": usage.total / 1e9, "free_gb": usage.free / 1e9,
+        "used_percent": 100 * usage.used / usage.total,
+        "low_space": usage.free < 10e9 or usage.free / usage.total < .02}
+
+
+def storage_volumes(root, *, device_for=None, usage_for=None):
+    """Measure the resolved cache filesystem; do not count one device twice."""
+    root = Path(root).resolve()
+    device_for = device_for or (lambda path: path.stat().st_dev)
+    usage_for = usage_for or shutil.disk_usage
+    volumes = {}
+    for role, path in (("artifact_root", root), ("flow_cache", root / "flows")):
+        if not path.exists():
+            continue
+        resolved = path.resolve()
+        device = int(device_for(resolved))
+        if device not in volumes:
+            volumes[device] = {"device_id": device, "roles": [], "paths": [], "resolved_paths": [],
+                **disk_fields(usage_for(resolved))}
+        volume = volumes[device]
+        volume["roles"].append(role)
+        volume["paths"].append(str(path))
+        if str(resolved) not in volume["resolved_paths"]:
+            volume["resolved_paths"].append(str(resolved))
+    return list(volumes.values())
+
+
 def snapshot(root):
     root = Path(root).resolve()
     jobs = [inspect_job(job, root) for job in collect_jobs(root)]
@@ -177,8 +205,7 @@ def snapshot(root):
         "time_shanghai": datetime.now(ZoneInfo("Asia/Shanghai")).isoformat(), "hostname": os.uname().nodename,
         "root": str(root), "jobs": jobs, "active_count": sum(job["status"] in ACTIVE for job in jobs),
         "all_terminal": bool(jobs) and all(job["status"] in TERMINAL for job in jobs),
-        "gpu": gpu, "disk": {"total_gb": disk.total / 1e9, "free_gb": disk.free / 1e9,
-            "used_percent": 100 * disk.used / disk.total, "low_space": disk.free < 10e9 or disk.free / disk.total < .02}}
+        "gpu": gpu, "disk": disk_fields(disk), "storage_volumes": storage_volumes(root)}
 
 
 def table(value):
@@ -194,7 +221,10 @@ def table(value):
         values = [job["job_id"], display_state, job["process"]["pid"], progress,
             job["loss"], job["validation"].get("epe"), job["checkpoint_age_s"], "; ".join(job["notes"]) or "—"]
         lines.append("| " + " | ".join(cell(item) for item in values) + " |")
-    lines.extend(["", f"活跃/排队：{value['active_count']}；磁盘剩余 {value['disk']['free_gb']:.1f} GB。", "",
+    lines.extend(["", f"活跃/排队：{value['active_count']}；artifact root 磁盘剩余 {value['disk']['free_gb']:.1f} GB。"])
+    for volume in value.get("storage_volumes", []):
+        lines.append(f"存储 {','.join(volume['roles'])}：剩余 {volume['free_gb']:.1f} GB，使用 {volume['used_percent']:.1f}%，低空间告警={volume['low_space']}。")
+    lines.extend(["",
         "异常文本、日志停更或损失波动只触发人工定位；巡视不会改代码、参数或重启作业。", ""])
     return "\n".join(lines)
 

@@ -2,6 +2,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+from types import SimpleNamespace
 
 spec = importlib.util.spec_from_file_location("v5_monitor", Path(__file__).resolve().parents[1] / "monitor.py")
 monitor = importlib.util.module_from_spec(spec)
@@ -87,3 +88,29 @@ def test_pipeline_evaluation_keeps_wrapper_lifecycle_and_fresh_train_progress(tm
     jobs = monitor.collect_jobs(tmp_path)
     assert len(jobs) == 1 and jobs[0]["status_path"] == str(wrapper)
     assert "launching" in monitor.ACTIVE
+
+
+def test_flow_symlink_reports_separate_storage_and_low_space(tmp_path):
+    root, nvme = tmp_path / "artifacts", tmp_path / "nvme"
+    root.mkdir()
+    nvme.mkdir()
+    (root / "flows").symlink_to(nvme, target_is_directory=True)
+    volumes = monitor.storage_volumes(root, device_for=lambda path: 2 if path == nvme else 1,
+        usage_for=lambda path: SimpleNamespace(total=1000e9, used=995e9 if path == nvme else 100e9,
+                                              free=5e9 if path == nvme else 900e9))
+    assert len(volumes) == 2
+    cache = next(volume for volume in volumes if "flow_cache" in volume["roles"])
+    assert cache["free_gb"] == 5 and cache["low_space"]
+    assert cache["resolved_paths"] == [str(nvme)]
+    assert cache["paths"] == [str(root / "flows")]
+
+
+def test_storage_deduplicates_same_device(tmp_path):
+    (tmp_path / "flows").mkdir()
+    calls = []
+    def usage(path):
+        calls.append(path)
+        return SimpleNamespace(total=1000e9, used=100e9, free=900e9)
+    volumes = monitor.storage_volumes(tmp_path, device_for=lambda path: 1, usage_for=usage)
+    assert len(volumes) == 1 and len(calls) == 1
+    assert volumes[0]["roles"] == ["artifact_root", "flow_cache"]

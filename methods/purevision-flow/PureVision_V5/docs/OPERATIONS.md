@@ -4,15 +4,15 @@
 
 ## 训练会话与恢复
 
-每个作业对应唯一 run ID、tmux session 和独立日志。`runs/<run_id>/launch.json` 记录 PID/session/device，建议同时保存 `/proc/<pid>/stat` 的 start_ticks，供巡视排除 PID 重用。`run.json` 记录 commit、配置、数据/特征/标签版本；`status.json` 保存步数及终态；`metrics.jsonl` 保存训练和验证指标。
+每个作业对应唯一 run ID、tmux session 和独立日志。队列启动记录在 `pipeline/<prefix>/plan.json`，每个作业的 PID、child PID、start_ticks 和实际命令在 `pipeline/<prefix>/jobs/<job>.json`；会话名与日志路径也进入 `monitoring/jobs.json`。`runs/<run_id>/run.json` 记录 commit、配置、数据/特征/标签版本；`status.json` 保存步数及终态；`metrics.jsonl` 保存训练和验证指标。
 
 ```bash
 tmux list-sessions
-tmux attach -t <launch.json中的session>
-tail -f /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/<run_id>/stdout.log
+tmux attach -t <plan.json中的session>
+tail -f /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/<run_id>.log
 ```
 
-人工确认需要停止时，向 **launch.json 中经核实的训练 PID** 发送 `kill -TERM <pid>`。训练器捕获 TERM/INT 后先保存可恢复的 `last.pt`，然后将状态写为 `interrupted`。等待 checkpoint 更新时间和退出状态确认；不直接 kill 整个 tmux 会话。巡视本身永不发送停止信号。
+人工需要停止时，核实 `jobs/<job>.json` 中的 `child_pid`、start_ticks 和实际命令，再向训练子进程发送 `kill -TERM <child_pid>`。训练器捕获 TERM/INT 后先保存可恢复的 `last.pt`，然后将状态写为 `interrupted`；wrapper 识别中断并不启动评价。等待 checkpoint 更新时间和退出状态确认；不直接 kill 整个 tmux 会话。巡视本身永不发送停止信号。
 
 恢复由人工启动为新 run ID，沿用兼容任务/配置/标签/模型语义，记录原 run ID：
 
