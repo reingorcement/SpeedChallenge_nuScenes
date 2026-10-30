@@ -1,6 +1,6 @@
 {
-  "status": "running",
-  "updated_at": "2026-10-30T14:17:06.875197+00:00",
+  "status": "completed",
+  "updated_at": "2026-10-30T14:17:11.876768+00:00",
   "launch_count": 1,
   "reason": null,
   "launched_at_epoch": 1793369698.8212035,
@@ -47,5 +47,7 @@
     "bias_vy": -0.00437567345996132,
     "p95_abs_vy": 0.0657102707773447,
     "zero_vy_mae": 0.042481431586388715
-  }
+  },
+  "exit_code": 0,
+  "finished_at": "2026-10-30T14:17:11.876732+00:00"
 }

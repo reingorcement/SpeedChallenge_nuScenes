@@ -1,7 +1,7 @@
 {
   "run_id": "20261030_pilot_s43s44_R02_512_s43",
   "experiment": "R02",
-  "status": "running",
+  "status": "completed",
   "started_at": "2026-10-30T14:15:48.457013+00:00",
   "code": {
     "commit": "252fb5f44c290c0d894faf8373329ba27105604e",
@@ -282,5 +282,6 @@
   "stopping_policy": {
     "early_stopping": false,
     "complete_epoch_budget": 40
-  }
+  },
+  "finished_at": "2026-10-30T14:17:20.083584+00:00"
 }

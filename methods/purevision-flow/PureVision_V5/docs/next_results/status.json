@@ -188,25 +188,44 @@
       "run_id": "20261030_pilot_s43s44_R02_512_s43",
       "name": "R02_512_s43",
       "experiment": "R02",
-      "status": "running",
+      "status": "completed",
       "kind": "training",
       "training_commit": "252fb5f44c290c0d894faf8373329ba27105604e",
       "plan": "20261030_pilot_s43s44",
       "device": "cuda:1",
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s43s44_R02_512_s43.log",
-      "training_status": "running",
+      "training_status": "completed",
       "progress": {
-        "epoch": 33,
-        "global_step": 3900,
-        "optimizer_updates": 3900,
+        "epoch": 40,
+        "global_step": 4600,
+        "optimizer_updates": 4600,
         "amp_skips": 0,
         "best_epe": 1.0100648945304322,
         "best_epoch": 17
       },
+      "evaluation_status": "completed",
+      "dev_metrics": {
+        "count": 1826,
+        "epe": 1.0100648945304322,
+        "mae_vx": 1.0071560741360572,
+        "rmse_vx": 1.7186000003637498,
+        "bias_vx": -0.3147698218022483,
+        "p95_abs_vx": 4.563903093338013,
+        "mae_vy": 0.03186076393450639,
+        "rmse_vy": 0.04186676119029543,
+        "bias_vy": -0.016258544866691524,
+        "p95_abs_vy": 0.08181401761248708,
+        "zero_vy_mae": 0.042481431586388715
+      },
+      "predictions": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s43s44_R02_512_s43/predictions.csv",
+        "sha256": "c1cd9c2e9309b7d25c1ffdd365784429649e9ad26e6708755e3fc2de55d4d0b5",
+        "representation": "full_csv"
+      },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s43/last.pt",
-          "sha256": "6d8c52e41d9c3fc4404a333cb93c5911d8ce4bea67c910265c756739f9405adf",
+          "sha256": "db00dbbfbcb22245fe535ae7d58db5c0fa665cd178773c75463dd2f4799316ab",
           "size_bytes": 929583,
           "representation": "hash_only"
         },
@@ -222,7 +241,7 @@
       "run_id": "20261030_pilot_s43s44_R02_1024_s43",
       "name": "R02_1024_s43",
       "experiment": "R02",
-      "status": "running",
+      "status": "completed",
       "kind": "training",
       "training_commit": "252fb5f44c290c0d894faf8373329ba27105604e",
       "plan": "20261030_pilot_s43s44",
@@ -236,6 +255,25 @@
         "amp_skips": 0,
         "best_epe": 0.8563112247326278,
         "best_epoch": 36
+      },
+      "evaluation_status": "completed",
+      "dev_metrics": {
+        "count": 1826,
+        "epe": 0.8563112247326278,
+        "mae_vx": 0.8540202417955653,
+        "rmse_vx": 1.5124920123085572,
+        "bias_vx": -0.20554398301240187,
+        "p95_abs_vx": 4.145358502864838,
+        "mae_vy": 0.024198965972020335,
+        "rmse_vy": 0.034026906950057126,
+        "bias_vy": 0.008150355748866717,
+        "p95_abs_vy": 0.06133023963775486,
+        "zero_vy_mae": 0.042481431586388715
+      },
+      "predictions": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s43s44_R02_1024_s43/predictions.csv",
+        "sha256": "c1fba85d27ef67bda5d41a71993a653a1029a87f52da2909e4f7213b75f523e9",
+        "representation": "full_csv"
       },
       "checkpoint_hashes": {
         "last.pt": {
@@ -256,26 +294,110 @@
       "run_id": "20261030_pilot_s43s44_R02_512_s44",
       "name": "R02_512_s44",
       "experiment": "R02",
-      "status": "queued",
+      "status": "completed",
       "kind": "training",
       "training_commit": "252fb5f44c290c0d894faf8373329ba27105604e",
       "plan": "20261030_pilot_s43s44",
       "device": "cuda:1",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s43s44_R02_512_s44.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s43s44_R02_512_s44.log",
+      "training_status": "completed",
+      "progress": {
+        "epoch": 40,
+        "global_step": 4600,
+        "optimizer_updates": 4600,
+        "amp_skips": 0,
+        "best_epe": 0.9168585051180084,
+        "best_epoch": 31
+      },
+      "evaluation_status": "completed",
+      "dev_metrics": {
+        "count": 1826,
+        "epe": 0.9168585051180084,
+        "mae_vx": 0.9144202522924162,
+        "rmse_vx": 1.5111952714733674,
+        "bias_vx": -0.1765752046352499,
+        "p95_abs_vx": 4.035905122756958,
+        "mae_vy": 0.024958546415877237,
+        "rmse_vy": 0.034356621963804714,
+        "bias_vy": 0.0022138051368959318,
+        "p95_abs_vy": 0.06309022847563028,
+        "zero_vy_mae": 0.042481431586388715
+      },
+      "predictions": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s43s44_R02_512_s44/predictions.csv",
+        "sha256": "a7f3bb494d257fb59fde1f116cf24df7fdbd94acea50d2992fef07e2a5507f8c",
+        "representation": "full_csv"
+      },
+      "checkpoint_hashes": {
+        "last.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s44/last.pt",
+          "sha256": "b4e17d9ad6079232a6713a6ead0618128d01bdd453fca56329cb8f0c6cd79383",
+          "size_bytes": 929647,
+          "representation": "hash_only"
+        },
+        "best.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s44/best.pt",
+          "sha256": "8e7777b83993f6a959fab5f95bd6f6bee744d7ac77645705f1d4f0e7deacd36f",
+          "size_bytes": 929647,
+          "representation": "hash_only"
+        }
+      }
     },
     {
       "run_id": "20261030_pilot_s43s44_R02_1024_s44",
       "name": "R02_1024_s44",
       "experiment": "R02",
-      "status": "queued",
+      "status": "completed",
       "kind": "training",
       "training_commit": "252fb5f44c290c0d894faf8373329ba27105604e",
       "plan": "20261030_pilot_s43s44",
       "device": "cuda:2",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s43s44_R02_1024_s44.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s43s44_R02_1024_s44.log",
+      "training_status": "completed",
+      "progress": {
+        "epoch": 40,
+        "global_step": 4600,
+        "optimizer_updates": 4600,
+        "amp_skips": 0,
+        "best_epe": 0.8205532018835945,
+        "best_epoch": 39
+      },
+      "evaluation_status": "completed",
+      "dev_metrics": {
+        "count": 1826,
+        "epe": 0.8205532018835945,
+        "mae_vx": 0.8185043492037362,
+        "rmse_vx": 1.4914468484356502,
+        "bias_vx": -0.22911751946832282,
+        "p95_abs_vx": 4.273151278495789,
+        "mae_vy": 0.024651430055779532,
+        "rmse_vy": 0.034616742305409065,
+        "bias_vy": 0.0005004371265039335,
+        "p95_abs_vy": 0.06386364880017936,
+        "zero_vy_mae": 0.042481431586388715
+      },
+      "predictions": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s43s44_R02_1024_s44/predictions.csv",
+        "sha256": "50b80d0b853ace9154938835148607b0d2a4d9d7d62b5818ba5d2f52e47b37bc",
+        "representation": "full_csv"
+      },
+      "checkpoint_hashes": {
+        "last.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s44/last.pt",
+          "sha256": "f5cf70638e16fd2438807235579d7ed64764ee0e1f7655005b4f74c98853f7cf",
+          "size_bytes": 930223,
+          "representation": "hash_only"
+        },
+        "best.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s44/best.pt",
+          "sha256": "a9a191610c8e113eda20568b75ed34dca1e848ddfd93918df8c05e20e7f965d4",
+          "size_bytes": 930223,
+          "representation": "hash_only"
+        }
+      }
     }
   ],
-  "all_terminal": false,
+  "all_terminal": true,
   "limits": [
     "PLANAR_PROXY labels; dev selection and dev recomputation are not held-out testing.",
     "Checkpoint hashes identify server files; weights are not uploaded.",
