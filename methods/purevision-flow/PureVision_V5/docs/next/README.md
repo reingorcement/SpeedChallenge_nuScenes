@@ -1,7 +1,7 @@
 # V5 下一阶段：先做分辨率预试验
 
 2026-10-30（Asia/Shanghai）。开发分支 `method/purevision-v5-next`；
-报告分支 `results/purevision-v5-next`。本页记录当前授权和执行安排，不是完成结果。
+报告分支 `results/purevision-v5-next`。首轮预试验已完成，见 [完成记录](PILOT_RESULTS_20261030.md)；全量仍待用户决策。本页保留执行安排与故障恢复经过。
 旧六组结果及旧运行目录保持不变。
 
 ## 当前执行边界

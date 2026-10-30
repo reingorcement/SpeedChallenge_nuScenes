@@ -2,7 +2,7 @@
 
 本页为开发检查，不能当作正式训练成绩。范围仍是 PLANAR_PROXY、原 train_core/dev。
 
-- 全套 CPU 测试：170 passed / 7.37 s（后续 startup CLI 的 pilot 兼容修复另有针对性复测）。
+- 最后全套 CPU 测试：186 passed / 8.61 s，包含startup CLI、网络重试、恢复引用及发布修复。
 - 真实 CUDA：旧缓存 R02 64 train / 64 dev，18 步中断后新目录恢复至32步/2轮；32次实际更新，0 AMP skips。参数发生变化，best重新加载的dev CSV字节及指标一致。证据 `smoke/cuda_oldflow_protocol_v1/receipt.json`。
 - RAFT32对小批：512×288 GPU0 batch16 约11.65对/s；1024×576 GPU0 batch4约5.64对/s、batch16约3.41对/s；GPU2 batch8约3.40对/s。并行CPU/I/O条件不同，不将这些数值当作严格batch优劣比较。正式pilot生成均batch8，记录实际耗时及峰值。
 - 高分辨率已检查真实帧对、有符号位移、缩放及warp方向；三对图像的warp误差下降仅说明接口合理，不是测速收益或光流真值评价。
