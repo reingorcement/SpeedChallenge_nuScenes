@@ -1,0 +1,58 @@
+{
+  "schema": "v5_resolution_multiseed_decision_v1",
+  "created_at": "2026-10-30T14:23:03.397719+00:00",
+  "source": "/home/zhangyu/.local/share/speedest-v5-next/reports/resolution_multiseed_20261030_pilot_s43s44/summary.json",
+  "source_sha256": "26d351a3eb0b3d9edfe188a544fc7c040e64b2d6f1e51bee4b96ffbeddba0ec9",
+  "status": "completed_analysis_pending_user_choice",
+  "decision": null,
+  "recommendation": "provisionally select 1024x576 for the next full-development-data stage, with lateral limitations explicitly open",
+  "requires_user_choice": true,
+  "full_generation_started": false,
+  "flex_training_started": false,
+  "r03_training_started": false,
+  "mean_epe_relative_improvement_percent": 11.051727626649756,
+  "three_seeds_improve": true,
+  "scenes_improved_on_mean": 7,
+  "side_rows": [
+    {
+      "seed": 42,
+      "low_epe": 0.6627435016110117,
+      "high_epe": 1.4613294707730995,
+      "low_mae_vy": 0.18008696173246092,
+      "high_mae_vy": 0.18300569917146975,
+      "delta_mae_vy": 0.002918737439008834
+    },
+    {
+      "seed": 43,
+      "low_epe": 1.160438707775055,
+      "high_epe": 1.1340476883999273,
+      "low_mae_vy": 0.1605234042956279,
+      "high_mae_vy": 0.18103055627300188,
+      "delta_mae_vy": 0.02050715197737399
+    },
+    {
+      "seed": 44,
+      "low_epe": 0.29894066390557306,
+      "high_epe": 1.5063998537846262,
+      "low_mae_vy": 0.1784210973061048,
+      "high_mae_vy": 0.18586854808605635,
+      "delta_mae_vy": 0.007447450779951542
+    }
+  ],
+  "unique_nonzero_windows": 13,
+  "unique_nonzero_scenes": 1,
+  "full_lateral_acceptance": false,
+  "training_commit": "252fb5f44c290c0d894faf8373329ba27105604e",
+  "core_identity": "2d72677406091cf1a35d9529843e2d1ef26e7a2d25e29d9d34ff02d8c87365b8",
+  "selection_identity": "83abcfc4565b80a06547aef4ad6bb3c0cd8b4d6a3156c5164653d47f91302b5f",
+  "new_raft_pairs": 0,
+  "new_training_runs": 4,
+  "tests_passed": 192,
+  "cost_estimate": {
+    "source": "measured previous 9270-pair pilot, linearly extrapolated to 158513; not a measured full run",
+    "native_and_compact_gib": 880.23,
+    "packed_gib": 8.16,
+    "two_gpu_minutes_approx": 129,
+    "storage_proposal": "native/compact on HDD, packed on NVMe, preserve old cache; deduplicate/reuse existing pilot pairs"
+  }
+}
