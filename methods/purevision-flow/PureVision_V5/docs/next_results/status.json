@@ -5,25 +5,44 @@
       "run_id": "20261030_pilot_s42_R02_512",
       "name": "R02_512",
       "experiment": "R02",
-      "status": "running",
+      "status": "completed",
       "kind": "training",
       "training_commit": "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
       "plan": "20261030_pilot_s42",
       "device": "cuda:1",
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_R02_512.log",
-      "training_status": "running",
+      "training_status": "completed",
       "progress": {
-        "epoch": 32,
-        "global_step": 3700,
-        "optimizer_updates": 3700,
+        "epoch": 40,
+        "global_step": 4600,
+        "optimizer_updates": 4600,
         "amp_skips": 0,
         "best_epe": 0.9466885675627843,
         "best_epoch": 26
       },
+      "evaluation_status": "completed",
+      "dev_metrics": {
+        "count": 1826,
+        "epe": 0.9466885675627843,
+        "mae_vx": 0.944315280729624,
+        "rmse_vx": 1.609639985911511,
+        "bias_vx": -0.1631678899820302,
+        "p95_abs_vx": 4.489131808280945,
+        "mae_vy": 0.025546066867219688,
+        "rmse_vy": 0.035050271873017666,
+        "bias_vy": 0.0010899375088343694,
+        "p95_abs_vy": 0.06619581114500761,
+        "zero_vy_mae": 0.042481431586388715
+      },
+      "predictions": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s42_R02_512/predictions.csv",
+        "sha256": "d506369e2a187856d04bb226a0e4f2e739d9ca1de329ce37f79606f0ea8171f2",
+        "representation": "full_csv"
+      },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s42_R02_512/last.pt",
-          "sha256": "5c5460653bfba6bbbf104a1c4f0f0460c20ec31d84a0068b5f5a8313a5e57393",
+          "sha256": "8b19889f7004c851fc3e12487685ae36a700a2e6f29b75500239a061aac15f2b",
           "size_bytes": 929711,
           "representation": "hash_only"
         },
@@ -80,7 +99,7 @@
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_R02_1024.log"
     }
   ],
-  "all_terminal": false,
+  "all_terminal": true,
   "limits": [
     "PLANAR_PROXY labels; dev selection and dev recomputation are not held-out testing.",
     "Checkpoint hashes identify server files; weights are not uploaded.",

@@ -4,7 +4,7 @@
 
 | run ID | 阶段作业 | 状态 | training commit | dev EPE |
 |---|---|---|---|---|
-| 20261030_pilot_s42_R02_512 | R02_512 | running | `946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9` | — |
+| 20261030_pilot_s42_R02_512 | R02_512 | completed | `946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9` | 0.9466885675627843 |
 | 20261030_pilot_s42_flow1024_0 | flow1024_0 | failed | `946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9` | — |
 | 20261030_pilot_s42_flow1024_1 | flow1024_1 | failed | `946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9` | — |
 | 20261030_pilot_s42_pack1024 | pack1024 | blocked | `946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9` | — |
