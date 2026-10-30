@@ -465,8 +465,18 @@
     "crontab_observed": "\n17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261030_full_nuscenes_front1024.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER\n*/5 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5/scripts/server_check.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_SERVER\n*/30 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ASTRA\n",
     "server": {
       "frequency": "*/5 * * * *",
-      "state": "installed; fixed server wrapper manual verified; first natural scheduled trigger pending",
-      "next_expected_shanghai": "2026-10-30 23:15"
+      "state": "verified natural */5 scheduled invocation at 2026-10-30 23:15:02 Asia/Shanghai",
+      "observed_at_utc": "2026-10-30T15:15:02.101822+00:00",
+      "snapshot": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/snapshots/20261030T151502.201600Z.json",
+        "sha256": "8b7d25e602ea57aecf6f6863b4c1733eb86b4a8840d74d8b7de4fe542c1e87f3"
+      },
+      "cron_stdout_log": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log",
+        "contains_exact_snapshot_time": true
+      },
+      "active_count": 5,
+      "all_terminal": false
     },
     "astra": {
       "frequency": "*/30 * * * *",
