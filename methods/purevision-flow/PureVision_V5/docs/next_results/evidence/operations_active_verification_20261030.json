@@ -453,14 +453,15 @@
       "expression": "17 * * * *",
       "actual_real_cron_probe_verified": true,
       "regular_hour17_trigger_observed": false,
-      "current_status": "installed_pending_final_retry",
+      "current_status": "auto_removed_after_verified_terminal_remote_push",
       "successful_actual_cron_receipt": {
         "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_actual_cron_success_20261030.json",
         "sha256": "10463d83b2e088ae5c0d43a073d8da11113c2306ff514df1fa233bc404ae68e2",
         "bytes": 642
       },
       "successful_report_commit": "84a7f3760d5d5431c972fbece61b074802a73b06",
-      "limit": "21:48 actual cron published running state; completion publish later encountered transient SSH connection timeout. Final publication must independently verify remote commit and all_terminal."
+      "limit": "21:48 actual cron published running state; completion publish later encountered transient SSH connection timeout. Final publication must independently verify remote commit and all_terminal.",
+      "verified_terminal_result_commit": "4601651d207aa0dfe803ab89d44c44d13bc3ddef"
     }
   },
   "schedule_receipts": {
@@ -562,7 +563,8 @@
     "session_current_status": "exited_after_first_attempt; hourly fallback retained",
     "attach_command": "tmux attach -t v5next_20261030_pilot_s42_retry1_publish_finish",
     "log_command": "tail -n 100 /home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_retry1_completion_publish.log",
-    "retry_command": "/usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/be327b7f91f5/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command.json manual"
+    "retry_command": "/usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/be327b7f91f5/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command.json manual",
+    "subsequent_recovery": "Manual retry published completed comparison and decision summary successfully; original failed completion receipt retained unchanged."
   },
   "training_control": {
     "run_id": "20261030_pilot_s42_retry1_R02_1024",
@@ -579,6 +581,11 @@
     "Astra is read-only; confirmed bugs fixed in development and new pushed commit, never mutating fixed training worktree.",
     "Astra actual cron probe read two running high-flow workers plus queued downstream jobs. Training-specific startup Astra separately verified actual high training run.",
     "Small resolution pilot completion is not full R00-R05 programme completion; resolution choice remains pending user approval.",
-    "5/30 monitoring automatically stopped on terminal observation; publisher remains until verified final remote publication."
-  ]
+    "All monitoring and publishing cron entries were removed after completed pilot and verified final remote publication; no automatic follow-up work remains."
+  ],
+  "closure_updated_at": "2026-10-30T13:56:07.989027+00:00",
+  "closure_receipt": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/operations_terminal_verification_20261030.json",
+    "sha256": "4a9bdc690f5abde65fc5afee61f4e2c9358ce1e21f3a035b0ccac8a7aa2c82e6"
+  }
 }

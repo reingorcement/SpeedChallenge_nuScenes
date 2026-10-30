@@ -92,8 +92,14 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/operations_active_verification_20261030.json",
-      "source_sha256": "9c7d80cf6a37e42df1324cc227cc0130881ecc2918786dc3fa13ccffc97f1f7c",
-      "bytes": 29169,
+      "source_sha256": "a52cd388189bbcb8c81c2acca459cbd0969c092d8705102f903d067069d608b7",
+      "bytes": 29753,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/operations_terminal_verification_20261030.json",
+      "source_sha256": "4a9bdc690f5abde65fc5afee61f4e2c9358ce1e21f3a035b0ccac8a7aa2c82e6",
+      "bytes": 2392,
       "representation": "parsed_json"
     },
     {
@@ -366,8 +372,13 @@
     },
     {
       "path": "evidence/operations_active_verification_20261030.json",
-      "export_sha256": "9c7d80cf6a37e42df1324cc227cc0130881ecc2918786dc3fa13ccffc97f1f7c",
-      "bytes": 29169
+      "export_sha256": "a52cd388189bbcb8c81c2acca459cbd0969c092d8705102f903d067069d608b7",
+      "bytes": 29753
+    },
+    {
+      "path": "evidence/operations_terminal_verification_20261030.json",
+      "export_sha256": "4a9bdc690f5abde65fc5afee61f4e2c9358ce1e21f3a035b0ccac8a7aa2c82e6",
+      "bytes": 2392
     },
     {
       "path": "evidence/operations_validation.json",

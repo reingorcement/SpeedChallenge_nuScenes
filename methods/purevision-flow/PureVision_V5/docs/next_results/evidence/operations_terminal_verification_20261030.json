@@ -1,0 +1,46 @@
+{
+  "schema": "v5_terminal_operations_receipt_v1",
+  "captured_at": "2026-10-30T13:56:07.989027+00:00",
+  "fixed_operations_commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
+  "publication_verified": {
+    "report_commit": "4601651d207aa0dfe803ab89d44c44d13bc3ddef",
+    "remote_base": "84a7f3760d5d5431c972fbece61b074802a73b06",
+    "started_at": "2026-10-30T13:55:07.637431+00:00",
+    "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
+    "branch": "results/purevision-v5-next",
+    "status": "published",
+    "trigger": "manual",
+    "changed": true,
+    "training_commits": [
+      "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
+      "be327b7f91f5f7e5ba46b70dede116a21c551652"
+    ],
+    "verified_remote_commit": "4601651d207aa0dfe803ab89d44c44d13bc3ddef",
+    "finished_at": "2026-10-30T13:55:21.919973+00:00",
+    "all_terminal": true
+  },
+  "cron_returncode": 0,
+  "crontab": "\n",
+  "tmux_returncode": 1,
+  "tmux_sessions": [],
+  "registered_monitoring_removed": true,
+  "hourly_publisher_removed_after_verified_terminal_push": true,
+  "all_task_tmux_exited": true,
+  "comparison": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/resolution_20261030_pilot_s42_retry1/summary.json",
+    "sha256": "64466ef5d2ca8ba9a5dc1cd11d13892d6e80d00cfa0cdabb46cfc05e17ebdc27"
+  },
+  "decision": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/resolution_decision_20261030/summary.json",
+    "sha256": "5b1b252e3006a57fbc83e88901c4d2d4b252d4c5e8983d0711bc0d9a0f6bf0bf",
+    "status": "pending_user_choice"
+  },
+  "training_state": "Both resolution pilot training and dev evaluation completed; no followup training automatically authorized or started.",
+  "publication_note": "Verified result commit contains completed comparison, decision brief and active patrol evidence. This closing receipt will be appended in a subsequent ordinary report commit; neither training nor numerical results changed.",
+  "history_preserved": {
+    "completion_first_attempt": "pending_hourly_retry after transient SSH timeout; original receipt unchanged",
+    "cron_actual_running_publication": "84a7f3760d5d5431c972fbece61b074802a73b06",
+    "crlf_recovery": "1c1cba8d946a034c3f1276dcfdacba8f9166fd38"
+  },
+  "next_monitoring": "Install matching fixed-plan monitoring only after a newly authorized run is registered; no empty Astra cron remains."
+}
