@@ -1,24 +1,24 @@
 {
   "status": "running",
   "started_at_utc": "2026-10-30T15:03:27.855101+00:00",
-  "pairs_processed": 1456,
+  "pairs_processed": 6848,
   "total": 77623,
   "expected_pairs": 77623,
   "target_pairs": 77623,
   "all_total": 232239,
-  "remaining_pairs": 76167,
-  "estimated_remaining_s": 47424.57234331126,
+  "remaining_pairs": 70775,
+  "estimated_remaining_s": 45463.35150749527,
   "counts": {
-    "created": 1456,
+    "created": 6848,
     "reused": 0,
     "recovered": 0,
     "adopted": 0
   },
-  "elapsed_s": 906.562912177993,
-  "pairs_per_second": 1.6060661432773586,
-  "throughput": 1.6060661432773586,
-  "bytes": 8681490272,
-  "bytes_written": 8681490272,
+  "elapsed_s": 4398.912484964007,
+  "pairs_per_second": 1.5567484062043195,
+  "throughput": 1.5567484062043195,
+  "bytes": 40831624576,
+  "bytes_written": 40831624576,
   "cuda_peak_allocated_bytes": 9452956672,
   "arguments": {
     "index": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/index/index.json",
@@ -35,7 +35,7 @@
     "limit": 0,
     "require_pushed": false
   },
-  "processed_pair_sha256": "5e70df68911b2259cdd4b1589df5c01ba7a6abcf088c9e900bbd80fb02bed4dc",
+  "processed_pair_sha256": "da28de2106f581f981915c4ebb16f5baf3c8558e439e4ddb062c533295d26f70",
   "sample_receipts": [
     {
       "outcome": "created",
@@ -97,55 +97,55 @@
       "outcome": "created",
       "bytes": 5962562,
       "bytes_written": 5962562,
-      "native_sha256": "51eae22bac12e7153a00bad6fa64ba6f1ac33560324adcb5ff678c59e013dd71",
-      "compact_sha256": "a4e3ef176397dc5ab020e2553938e0892f4dc3f2872f61751c17c2a273618a88",
-      "identity": "99d351cd2356809c34556779aaff168fa49d6c07ec00c89e2989e74e0346898d",
+      "native_sha256": "3c5c53daf9d10c6132bfbc11db7b6bf0a71e734f68aa2769acba46f5a7be0831",
+      "compact_sha256": "a504ce05d63abc38cf7b2180e34120957cd8576fae8b528c42b07410e2d7604a",
+      "identity": "42f2bb2999653c42be94cff014a509b4cf152193069a05293053666a77401e50",
       "generation_code": {
         "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
         "dirty": false,
         "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
       },
-      "source": "d2f609b7394446a3951e30ba5c8d0ee2",
-      "target": "6c364d98d2384b368fe6faad5703c847",
+      "source": "b32c393fb8c346ab9ef4c5db603afc44",
+      "target": "dcb2c4e8c2694b4681c4755e4c38702c",
       "version": "v1.0-test",
       "camera": "CAM_FRONT",
-      "scene": "scene-0114"
+      "scene": "scene-0609"
     },
     {
       "outcome": "created",
       "bytes": 5962562,
       "bytes_written": 5962562,
-      "native_sha256": "4fed1c5c8174f1892f99f1d887ffd814a47d871509d8c40792e27a89434b95fc",
-      "compact_sha256": "28a373e87fffaae1c0c24d2eaddb75473fe023be8f8cef569eab9a8a342234c9",
-      "identity": "160eaf8e783946cbbe82647e98a9ed8e78d7828faf8ee592c25a966c92fc2e6a",
+      "native_sha256": "ae407da3dd551ea1d0719d4489afc6e4bf625ba4d276222c0301e5e60259f4e0",
+      "compact_sha256": "fe88ea3a19cec89ab988f67646d364bc85d3ce2b385b7588fbe9a701ebc9b38e",
+      "identity": "26849287ac4e47f0cad5a96620ea0df97b8efdedbf67dc26ab81969e6cc7ccd4",
       "generation_code": {
         "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
         "dirty": false,
         "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
       },
-      "source": "6c364d98d2384b368fe6faad5703c847",
-      "target": "a0de4188bb70447bb983fa893ad3fc97",
+      "source": "dcb2c4e8c2694b4681c4755e4c38702c",
+      "target": "35e6a7a7943741bb9a6ae5043c5f6575",
       "version": "v1.0-test",
       "camera": "CAM_FRONT",
-      "scene": "scene-0114"
+      "scene": "scene-0609"
     },
     {
       "outcome": "created",
       "bytes": 5962562,
       "bytes_written": 5962562,
-      "native_sha256": "c6bfa40952622aaeded5c2f950f073820a60b5f7eca66a03fb904b02457a85fd",
-      "compact_sha256": "d2baac9fbe935643ff5a8cddcec16b9c0df17f15293abc4e482c250ea683b509",
-      "identity": "344824a45f7f5077f010b9d07657b70f34eea062e672326d52a2da24da592534",
+      "native_sha256": "e8457b7bca5f6032ae01b2b25b70df5f6b8a91659e2b78b8254acd5bbc8cb828",
+      "compact_sha256": "f0cc01c08bfd1fda154f948832f1d734fedecff1fc582f047f9577e363a579f8",
+      "identity": "61e732cd21a14a0517b46b55a0fed70c91dc0d20351813c49064c85d45f99828",
       "generation_code": {
         "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
         "dirty": false,
         "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
       },
-      "source": "a0de4188bb70447bb983fa893ad3fc97",
-      "target": "da472a34b009457d8e8abc88e2828b6c",
+      "source": "35e6a7a7943741bb9a6ae5043c5f6575",
+      "target": "56f079d3898d475eb0d94e4e7f212b77",
       "version": "v1.0-test",
       "camera": "CAM_FRONT",
-      "scene": "scene-0114"
+      "scene": "scene-0609"
     }
   ],
   "code": {
@@ -230,10 +230,10 @@
     "dt": "positive_seconds_separate_not_divided_into_flow"
   },
   "last_pair": {
-    "source": "a0de4188bb70447bb983fa893ad3fc97",
-    "target": "da472a34b009457d8e8abc88e2828b6c",
+    "source": "35e6a7a7943741bb9a6ae5043c5f6575",
+    "target": "56f079d3898d475eb0d94e4e7f212b77",
     "version": "v1.0-test",
     "camera": "CAM_FRONT",
-    "scene": "scene-0114"
+    "scene": "scene-0609"
   }
 }

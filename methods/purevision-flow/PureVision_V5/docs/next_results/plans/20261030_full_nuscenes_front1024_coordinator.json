@@ -1,6 +1,6 @@
 {
   "status": "running",
-  "updated_at": "2026-10-30T15:19:00.665157+00:00",
+  "updated_at": "2026-10-30T16:17:03.309545+00:00",
   "plan_identity": "cbc303bbcd40f1189db741cab7cce6f3938d6a3be3e3326ce182555ce95cf620",
   "code": {
     "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
@@ -10,7 +10,7 @@
   "jobs": {
     "flow1024_0": {
       "status": "running",
-      "updated_at": "2026-10-30T15:18:56.240436+00:00",
+      "updated_at": "2026-10-30T16:17:02.128889+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793372602.056493,
@@ -50,31 +50,31 @@
       "expected_pairs": 77623,
       "total": 77623,
       "target_pairs": 77623,
-      "pairs_processed": 1456,
+      "pairs_processed": 6848,
       "counts": {
-        "created": 1456,
+        "created": 6848,
         "reused": 0,
         "recovered": 0,
         "adopted": 0
       },
-      "elapsed_s": 906.562912177993,
-      "pairs_per_second": 1.6060661432773586,
-      "throughput": 1.6060661432773586,
-      "bytes": 8681490272,
-      "bytes_written": 8681490272,
+      "elapsed_s": 4398.912484964007,
+      "pairs_per_second": 1.5567484062043195,
+      "throughput": 1.5567484062043195,
+      "bytes": 40831624576,
+      "bytes_written": 40831624576,
       "cuda_peak_allocated_bytes": 9452956672,
-      "completed": 1456,
+      "completed": 6848,
       "last_pair": {
-        "source": "a0de4188bb70447bb983fa893ad3fc97",
-        "target": "da472a34b009457d8e8abc88e2828b6c",
+        "source": "35e6a7a7943741bb9a6ae5043c5f6575",
+        "target": "56f079d3898d475eb0d94e4e7f212b77",
         "version": "v1.0-test",
         "camera": "CAM_FRONT",
-        "scene": "scene-0114"
+        "scene": "scene-0609"
       }
     },
     "flow1024_1": {
       "status": "running",
-      "updated_at": "2026-10-30T15:18:56.027763+00:00",
+      "updated_at": "2026-10-30T16:17:01.998176+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793372602.0702586,
@@ -114,31 +114,31 @@
       "expected_pairs": 77277,
       "total": 77277,
       "target_pairs": 77277,
-      "pairs_processed": 1504,
+      "pairs_processed": 7096,
       "counts": {
-        "created": 1504,
+        "created": 7096,
         "reused": 0,
         "recovered": 0,
         "adopted": 0
       },
-      "elapsed_s": 905.4354720909614,
-      "pairs_per_second": 1.66107916727268,
-      "throughput": 1.66107916727268,
-      "bytes": 8967693248,
-      "bytes_written": 8967693248,
+      "elapsed_s": 4411.894237698056,
+      "pairs_per_second": 1.6083794437698034,
+      "throughput": 1.6083794437698034,
+      "bytes": 42310339952,
+      "bytes_written": 42310339952,
       "cuda_peak_allocated_bytes": 9452956672,
-      "completed": 1504,
+      "completed": 7096,
       "last_pair": {
-        "source": "4d52bb0d66404cdc8b341c4dfed7c847",
-        "target": "56dce0fe724c40da8b2e192dcf663a3c",
+        "source": "dc149c4fae614f1ea7a0b0725c5ab0aa",
+        "target": "6c2648099e7740cf99013748a23a12e9",
         "version": "v1.0-test",
         "camera": "CAM_FRONT",
-        "scene": "scene-0115"
+        "scene": "scene-0613"
       }
     },
     "flow1024_2": {
       "status": "running",
-      "updated_at": "2026-10-30T15:18:56.120286+00:00",
+      "updated_at": "2026-10-30T16:17:01.987751+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793372602.0826333,
@@ -178,26 +178,26 @@
       "expected_pairs": 77339,
       "total": 77339,
       "target_pairs": 77339,
-      "pairs_processed": 1504,
+      "pairs_processed": 7200,
       "counts": {
-        "created": 1504,
+        "created": 7200,
         "reused": 0,
         "recovered": 0,
         "adopted": 0
       },
-      "elapsed_s": 897.5853105849819,
-      "pairs_per_second": 1.675606744299102,
-      "throughput": 1.675606744299102,
-      "bytes": 8967693248,
-      "bytes_written": 8967693248,
+      "elapsed_s": 4409.453657394974,
+      "pairs_per_second": 1.6328553511215789,
+      "throughput": 1.6328553511215789,
+      "bytes": 42930446400,
+      "bytes_written": 42930446400,
       "cuda_peak_allocated_bytes": 9452956672,
-      "completed": 1504,
+      "completed": 7200,
       "last_pair": {
-        "source": "b3d18db642b44010904f69e18e597acd",
-        "target": "dd6c23727af648149582bc9b63e6ee28",
+        "source": "ccf5c48aa2374ae1910d8a124cad50e4",
+        "target": "04effec9ce834bdf9f15546d11f2e557",
         "version": "v1.0-test",
         "camera": "CAM_FRONT",
-        "scene": "scene-0116"
+        "scene": "scene-0617"
       }
     },
     "pack_train_dev": {
