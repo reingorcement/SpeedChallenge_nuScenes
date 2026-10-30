@@ -447,29 +447,29 @@
       "device": "cuda:0",
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_flow1024_0.log",
       "progress": {
-        "completed": 18104,
+        "completed": 31056,
         "total": 77623,
         "target_pairs": 77623,
         "expected_pairs": 77623,
-        "pairs_processed": 18104,
+        "pairs_processed": 31056,
         "counts": {
-          "created": 17651,
+          "created": 30374,
           "reused": 0,
           "recovered": 0,
-          "adopted": 453
+          "adopted": 682
         },
-        "elapsed_s": 11605.621457747999,
-        "pairs_per_second": 1.559933698157425,
-        "throughput": 1.559933698157425,
-        "bytes": 107946222448,
-        "bytes_written": 107946222448,
+        "elapsed_s": 18799.63256778894,
+        "pairs_per_second": 1.6519471797130212,
+        "throughput": 1.6519471797130212,
+        "bytes": 185173325472,
+        "bytes_written": 185173325472,
         "cuda_peak_allocated_bytes": 9452956672,
         "last_pair": {
-          "source": "19df33feb74f4b54b73b4e8bd8997bb3",
-          "target": "8604406fab554d739c526eb6f314edfe",
+          "source": "086301c86d844f0f82094eb89538d331",
+          "target": "0a1ba58914704986b0f46cbe4b00f703",
           "version": "v1.0-trainval",
           "camera": "CAM_FRONT",
-          "scene": "scene-0102"
+          "scene": "scene-0318"
         }
       },
       "progress_report_status": "running"
@@ -485,29 +485,29 @@
       "device": "cuda:1",
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_flow1024_1.log",
       "progress": {
-        "completed": 18400,
+        "completed": 31552,
         "total": 77277,
         "target_pairs": 77277,
         "expected_pairs": 77277,
-        "pairs_processed": 18400,
+        "pairs_processed": 31552,
         "counts": {
-          "created": 17716,
+          "created": 30181,
           "reused": 0,
           "recovered": 0,
-          "adopted": 684
+          "adopted": 1371
         },
-        "elapsed_s": 11593.125883987988,
-        "pairs_per_second": 1.5871474341026024,
-        "throughput": 1.5871474341026024,
-        "bytes": 109711140800,
-        "bytes_written": 109711140800,
+        "elapsed_s": 18814.900268282043,
+        "pairs_per_second": 1.6769687614656148,
+        "throughput": 1.6769687614656148,
+        "bytes": 188130756224,
+        "bytes_written": 188130756224,
         "cuda_peak_allocated_bytes": 9452956672,
         "last_pair": {
-          "source": "bfb60f954cc1493baf6de4fbf20fb3b3",
-          "target": "8c2c06c5dd4f4c7ca1e4962da47126f4",
+          "source": "f34fa6b1d4bd42d1946bc14521961c34",
+          "target": "f8b2d39d2b204627bb10c5dd4657274b",
           "version": "v1.0-trainval",
           "camera": "CAM_FRONT",
-          "scene": "scene-0106"
+          "scene": "scene-0345"
         }
       },
       "progress_report_status": "running"
@@ -523,29 +523,29 @@
       "device": "cuda:2",
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_flow1024_2.log",
       "progress": {
-        "completed": 18504,
+        "completed": 31752,
         "total": 77339,
         "target_pairs": 77339,
         "expected_pairs": 77339,
-        "pairs_processed": 18504,
+        "pairs_processed": 31752,
         "counts": {
-          "created": 18047,
+          "created": 30371,
           "reused": 0,
           "recovered": 0,
-          "adopted": 457
+          "adopted": 1381
         },
-        "elapsed_s": 11592.103300523013,
-        "pairs_per_second": 1.596259067081048,
-        "throughput": 1.596259067081048,
-        "bytes": 110331247248,
-        "bytes_written": 110331247248,
+        "elapsed_s": 18815.588301173993,
+        "pairs_per_second": 1.687536923733543,
+        "throughput": 1.687536923733543,
+        "bytes": 189323268624,
+        "bytes_written": 189323268624,
         "cuda_peak_allocated_bytes": 9452956672,
         "last_pair": {
-          "source": "e64628b75ed14f9fbfa709cf5093c789",
-          "target": "ca4074b3690c470a9fe598a3ef8a0794",
+          "source": "1f291db7845d4d8da679ecad30f7844a",
+          "target": "5d8f97c556fc46d0a4045d1e82975524",
           "version": "v1.0-trainval",
           "camera": "CAM_FRONT",
-          "scene": "scene-0110"
+          "scene": "scene-0349"
         }
       },
       "progress_report_status": "running"
