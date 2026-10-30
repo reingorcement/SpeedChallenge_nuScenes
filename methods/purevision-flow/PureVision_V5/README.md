@@ -61,6 +61,8 @@ contracts. Checkpoints store optimizer, scheduler, AMP, RNG and batch progress.
 /home/zhangyu/.conda/envs/speedest/bin/python -B -m pytest -q -p no:cacheprovider tests
 ```
 
-Operational commands, concrete commits and real experiment status are recorded
-as implementation and training are verified; a passed unit test is not a trained
+See the [first run record](docs/RUN_20261030.md), [operations](docs/OPERATIONS.md)
+and [verification evidence](docs/VALIDATION.md) for concrete versions, commands
+and artifact locations. `collect_results.py` exports status and independently
+verified metrics from a fixed pipeline plan. A passed unit test is not a trained
 model result.
