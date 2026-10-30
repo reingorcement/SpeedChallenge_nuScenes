@@ -17,6 +17,7 @@ def module(name, path):
 publisher = module("v5_publisher", SOURCE / "publish_results.py")
 secure = module("v5_secure", SOURCE / "scripts/secure_exec.py")
 reader = module("v5_reader", SOURCE / "scripts/patrol_read.py")
+preparer = module("v5_patrol_preparer", SOURCE / "scripts/prepare_patrol.py")
 
 
 def test_proxy_json_is_whitelisted_data_not_shell(tmp_path, monkeypatch):
@@ -41,6 +42,46 @@ def test_reader_emits_real_file_bytes_and_refuses_escape(tmp_path, capsys):
     request["targets"][0]["path"] = str(tmp_path.parent / "secret")
     with pytest.raises(ValueError, match="outside"):
         reader.read_targets(request)
+    private = tmp_path / "network.json"
+    private.write_text('{"not_progress":"must not read"}')
+    alias = tmp_path / "progress_alias.json"
+    alias.symlink_to(private)
+    request["targets"][0]["path"] = str(alias)
+    with pytest.raises(ValueError, match="private"):
+        reader.read_targets(request)
+
+
+def test_flow_patrol_requires_current_report_and_preserves_snapshot_progress(tmp_path, capsys):
+    prefix, report = tmp_path / "patrol", tmp_path / "flow_progress.json"
+    report.write_text('{"pairs_processed":7,"total":10,"counts":{"reused":2}}')
+    job = dict(job_id="full_flow_0", kind="flow", status="running", progress_path=str(report),
+               progress={"pairs_processed": 7, "total": 10})
+    snapshot = dict(jobs=[job], storage_volumes=[{"roles": ["job_cache"], "free_gb": 18000}])
+    prefix.with_suffix(".snapshot.json").write_text(json.dumps(snapshot))
+    request = preparer.prepare(tmp_path, prefix, snapshot)
+    assert any(t["path"] == str(report) and t["run_id"] == "full_flow_0" for t in request["targets"])
+    reader.read_targets(request)
+    content = [json.loads(line.removeprefix("V5_FILE_CONTENT ")) for line in capsys.readouterr().out.splitlines()
+               if line.startswith("V5_FILE_CONTENT ")]
+    assert content[0]["content"]["jobs"][0]["kind"] == "flow"
+    assert content[0]["content"]["jobs"][0]["progress"]["pairs_processed"] == 7
+    assert content[0]["content"]["storage_volumes"][0]["free_gb"] == 18000
+    report.unlink()
+    request = preparer.prepare(tmp_path, prefix, snapshot)
+    with pytest.raises(FileNotFoundError):
+        reader.read_targets(request)
+    job["status"] = "queued"
+    request = preparer.prepare(tmp_path, prefix, snapshot)
+    assert not any(t.get("run_id") for t in request["targets"])
+    job.update(status="running", progress_path=str(tmp_path.parent / "private.json"))
+    with pytest.raises(ValueError, match="outside"):
+        preparer.prepare(tmp_path, prefix, snapshot)
+    private = tmp_path / "network.json"
+    private.write_text('{"not_progress":"must not read"}')
+    report.symlink_to(private)
+    job["progress_path"] = str(report)
+    with pytest.raises(ValueError, match="private"):
+        preparer.prepare(tmp_path, prefix, snapshot)
 
 
 def make_plan(root):
@@ -211,3 +252,44 @@ def test_completed_prediction_crlf_bytes_survive_real_git_publication(tmp_path):
     summary = json.loads((repo / publisher.REPORT_DIRECTORY / "status.json").read_text())
     assert summary["rows"][0]["predictions"]["sha256"] == publisher.checksum(copied)
     assert publisher.git(repo, "status", "--porcelain") == ""
+
+
+def test_flow_only_report_publication_and_external_cache_exclusion(tmp_path):
+    root, outside = tmp_path / "artifacts", tmp_path / "cache"
+    root.mkdir(); outside.mkdir()
+    base = root / "pipeline/full_flow"
+    base.mkdir(parents=True)
+    worker, progress = base / "worker.json", base / "progress.json"
+    worker.write_text('{"status":"running","completed":9}')
+    progress.write_text('{"status":"complete","pairs_processed":10,"total":10,"counts":{"created":10},"bytes":1234}')
+    (outside / "large.pt").write_bytes(b"never export")
+    job = dict(job_id="full_flow_shard0", name="shard0", kind="flow", status_path=str(worker),
+               progress_path=str(progress), expected_pairs=10, storage_paths=[str(outside)])
+    plan = base / "plan.json"
+    plan.write_text(json.dumps(dict(prefix="full_flow", code={"commit": "b" * 40}, jobs=[job])))
+    report = root / "reports/full_flow_new"
+    report.mkdir(parents=True)
+    (report / "summary.json").write_text('{"pairs":10}')
+    (report / "summary.md").write_text("Full flow progress\n")
+    other = root / "reports/unrelated"
+    other.mkdir(); (other / "summary.json").write_text('{"private":true}')
+    files, summary = publisher.collect(root, [plan])
+    assert not summary["all_terminal"]  # A report complete is not a completed worker.
+    assert summary["rows"][0]["progress"]["bytes"] == 1234
+    assert "experiments/full_flow_shard0/progress_report.json" in files
+    assert "comparisons/full_flow_new/summary.json" in files and "comparisons/full_flow_new/summary.md" in files
+    assert not any("large.pt" in name or "unrelated" in name for name in files)
+    source = next(x for x in json.loads(files["source_index.json"])["sources"] if x["path"] == str(progress))
+    assert source["source_sha256"] == publisher.checksum(progress)
+    worker.write_text('{"status":"completed","completed":10}')
+    remote, repo = tmp_path / "remote.git", root / "report-worktree"
+    subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)
+    subprocess.run(["git", "init", "-b", publisher.REPORT_BRANCH, str(repo)], check=True, capture_output=True)
+    (repo / "README.md").write_text("test\n")
+    publisher.git(repo, "add", "README.md"); publisher.git(repo, "commit", "-m", "initial")
+    receipt = publisher.publish(root, repo, [plan], push_url=str(remote))
+    assert receipt["all_terminal"] and receipt["verified_remote_commit"] == receipt["report_commit"]
+    job["progress_path"] = str(outside / "progress.json")
+    plan.write_text(json.dumps(dict(prefix="full_flow", code={"commit": "b" * 40}, jobs=[job])))
+    with pytest.raises(ValueError, match="escaped"):
+        publisher.collect(root, [plan])

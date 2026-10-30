@@ -18,7 +18,7 @@ import subprocess
 import sys
 import time
 
-from monitor import process_info, write_json
+from monitor import FLOW_PROGRESS_FIELDS, process_info, write_json
 from purevision_v5.common import ROOT, code_version, now, object_hash, sha256
 
 
@@ -168,6 +168,7 @@ def register(plan, job, state):
             raise ValueError(f"Registry job already belongs to another launch: {job['job_id']}")
         by_id[job["job_id"]] = {**old,**{key:job[key] for key in
             ("job_id","kind","device","run_dir","log_path","status_path","session")},
+            **{key:job[key] for key in ("progress_path", "storage_paths", "expected_pairs") if job.get(key) is not None},
             "pipeline_id":plan["prefix"],"plan_identity":plan["identity"],"commit":plan["code"]["commit"],
             **{key:state.get(key) for key in ("status","pid","pid_start_ticks","child_pid","child_pid_start_ticks","exit_code","observation_path")}}
         # Preserve all external rows and unrelated registry top-level fields.
@@ -400,6 +401,9 @@ def check_outputs(job):
 
 def check_planned_inputs(plan, job):
     """Do not silently run a replacement external manifest/selection/config."""
+    if plan.get("stage") == "full_nuscenes_flow":
+        from full_flow_pipeline import validate_inputs
+        validate_inputs(plan)
     if plan.get("stage") == "raft_resolution_multiseed":
         from resolution_multiseed import validate_multiseed_inputs
         validate_multiseed_inputs(plan)
@@ -419,6 +423,17 @@ def check_planned_inputs(plan, job):
     if plan.get("low_flow_index_sha256"):
         if sha256(Path(plan["low_flow_root"]) / "packed_index.json") != plan["low_flow_index_sha256"]:
             raise ValueError("Reused low-resolution cache index changed since planning")
+
+
+def copy_worker_progress(state, progress, job):
+    """Copy measured progress without replacing the worker's process/lifecycle state."""
+    fields = ("epoch", "global_step", "loss", "validation") + FLOW_PROGRESS_FIELDS
+    state.update({key: progress[key] for key in fields if key in progress})
+    if "pairs_processed" in progress:
+        state["completed"] = progress["pairs_processed"]
+    if job.get("expected_pairs") is not None:
+        state["expected_pairs"] = job["expected_pairs"]
+        state.setdefault("total", job["expected_pairs"])
 
 
 def worker(plan_path, name):
@@ -470,12 +485,12 @@ def worker(plan_path, name):
                         if stopped and time.monotonic() - stop_time > 60:
                             os.killpg(child.pid,signal.SIGKILL)
                         progress = read_json(job["progress_path"],{}) if job["progress_path"] else {}
-                        state.update({key:progress[key] for key in ("epoch","global_step","loss","validation","completed","total","elapsed_seconds") if key in progress})
-                        if "pairs_processed" in progress:
-                            state["completed"] = progress["pairs_processed"]
+                        copy_worker_progress(state, progress, job)
                         state["updated_at"] = now()
                         write_json(job["status_path"],state)
                         time.sleep(5)
+                    if job.get("progress_path"):
+                        copy_worker_progress(state, read_json(job["progress_path"], {}), job)
                     if stopped:
                         raise InterruptedError("Worker stopped; no automatic training resume")
                     if child.returncode != 0:

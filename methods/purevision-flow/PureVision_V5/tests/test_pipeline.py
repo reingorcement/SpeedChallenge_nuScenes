@@ -72,6 +72,44 @@ def test_initial_flow_jobs_do_not_wait_for_features_and_repeated_tick_is_idempot
         assert row["launch_count"]==1 and "pid_start_ticks" not in row
 
 
+def test_flow_progress_and_external_storage_are_registered_without_lifecycle_override(plan):
+    from pipeline import copy_worker_progress
+    selected = job(plan, "forward0")
+    selected.update(storage_paths=["/dataset/nuscenes/flow-cache"], expected_pairs=123)
+    register(plan, selected, {"status": "running", "pid": 41})
+    row = next(x for x in read_json(Path(plan["root"]) / "monitoring/jobs.json")["jobs"]
+               if x["job_id"] == selected["job_id"])
+    assert row["progress_path"] == selected["progress_path"]
+    assert row["storage_paths"] == selected["storage_paths"] and row["expected_pairs"] == 123
+    state = {"status": "running", "pid": 41}
+    copy_worker_progress(state, {"status": "complete", "pid": 99, "pairs_processed": 123,
+        "total": 123, "target_pairs": 123, "counts": {"created": 100, "reused": 23},
+        "elapsed_s": 20., "throughput": 6.15, "pairs_per_second": 6.15,
+        "bytes": 4567, "bytes_written": 4000, "cuda_peak_allocated_bytes": 9000}, selected)
+    assert state["status"] == "running" and state["pid"] == 41
+    assert state["completed"] == state["expected_pairs"] == state["total"] == 123
+    assert state["counts"]["reused"] == 23 and state["bytes_written"] == 4000
+    assert state["elapsed_s"] == 20. and state["throughput"] == 6.15
+
+
+def test_full_flow_stage_validates_its_bound_inputs_without_affecting_other_stages(plan, monkeypatch):
+    import sys
+    from types import SimpleNamespace
+    from pipeline import check_planned_inputs
+    calls = []
+    monkeypatch.setitem(sys.modules, "full_flow_pipeline", SimpleNamespace(validate_inputs=lambda value: calls.append(value)))
+    check_planned_inputs(plan, job(plan, "forward0"))
+    assert calls == []
+    plan["stage"] = "full_nuscenes_flow"
+    check_planned_inputs(plan, job(plan, "forward0"))
+    assert calls == [plan]
+    def rejected(value):
+        raise ValueError("Immutable full-flow index changed")
+    monkeypatch.setitem(sys.modules, "full_flow_pipeline", SimpleNamespace(validate_inputs=rejected))
+    with pytest.raises(ValueError, match="index changed"):
+        check_planned_inputs(plan, job(plan, "forward0"))
+
+
 def test_software_queue_edges_are_soft_and_failed_rgb_does_not_block_flow_only(plan):
     path=initialize(plan);tmux=MockTmux()
     features(plan,"failed")

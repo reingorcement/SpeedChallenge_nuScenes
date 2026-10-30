@@ -16,6 +16,10 @@ DEFAULT_ROOT = Path("/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5
 PYTHON = "/home/zhangyu/.conda/envs/speedest/bin/python"
 TERMINAL = {"completed", "failed", "interrupted", "cancelled", "blocked"}
 ACTIVE = {"launching", "running", "running_unverified", "queued", "preparing", "not_started", "unknown"}
+FLOW_PROGRESS_FIELDS = ("completed", "total", "target_pairs", "expected_pairs", "pairs", "pairs_processed",
+                        "counts", "scenes", "progress", "elapsed_s", "elapsed_seconds", "seconds_per_pair",
+                        "pairs_per_second", "throughput", "bytes", "bytes_written", "last_batch_s",
+                        "cuda_peak_allocated_bytes", "last_pair")
 ERROR_PATTERN = re.compile(r"Traceback|(?:Runtime|Value|FileNotFound|Assertion)Error|CUDA.*out of memory|non.?finite|Segmentation fault|(?:^|[\s:=,])(nan|[+-]?inf)(?:$|[\s,}])", re.I)
 
 
@@ -118,6 +122,8 @@ def last_metric(path):
 
 
 def inspect_job(job, root):
+    root = Path(root).resolve()
+    notes = []
     run_dir = Path(job["run_dir"]) if job.get("run_dir") else None
     if run_dir is not None and not run_dir.is_absolute():
         run_dir = root / run_dir
@@ -127,7 +133,32 @@ def inspect_job(job, root):
     status = read_json(status_path) if status_path else {}
     status_unreadable = bool(status_path and not status and (status_path.exists() or job.get("status") in {"running", "preparing", "launching", "unknown"}))
     training_status = read_json(run_dir / "status.json") if run_dir and job.get("kind", "training") == "training" else {}
-    progress_status = {**status, **training_status}
+    progress_path, flow_progress = None, {}
+    if job.get("progress_path"):
+        candidate = Path(job["progress_path"])
+        candidate = candidate if candidate.is_absolute() else root / candidate
+        resolved = candidate.resolve()
+        if not resolved.is_relative_to(root) or resolved.name in {"network.json", "network.env"}:
+            notes.append("progress_path_outside_artifacts_or_private_requires_recheck")
+        else:
+            progress_path = candidate
+            try:
+                if candidate.stat().st_size > 16 * 1024 * 1024:
+                    raise ValueError("oversized progress report")
+                flow_progress = json.loads(candidate.read_text())
+                if not isinstance(flow_progress, dict):
+                    raise ValueError("progress report is not an object")
+            except (OSError, ValueError):
+                flow_progress = {}
+                if status.get("status") not in {"queued", "not_started", "launching"}:
+                    notes.append("progress_report_missing_or_unreadable_requires_recheck")
+    progress_status = {**status, **flow_progress, **training_status}
+    if "pairs_processed" in flow_progress:
+        progress_status["completed"] = flow_progress["pairs_processed"]
+    if job.get("expected_pairs") is not None:
+        progress_status["expected_pairs"] = job["expected_pairs"]
+        if flow_progress.get("total") not in (None, job["expected_pairs"]):
+            notes.append("progress_total_differs_from_planned_pairs_requires_recheck")
     state = status.get("status", run.get("status", job.get("status", "not_started")))
     state = {"done": "completed", "complete": "completed", "pending": "queued"}.get(state, state)
     if state not in ACTIVE | TERMINAL:
@@ -141,7 +172,6 @@ def inspect_job(job, root):
     log = Path(job.get("log_path", str(run_dir / "stdout.log") if run_dir else "/nonexistent"))
     checkpoint = Path(job.get("checkpoint_path", str(run_dir / "last.pt") if run_dir else "/nonexistent"))
     metric = last_metric(run_dir / "metrics.jsonl") if run_dir else {}
-    notes = []
     if state == "blocked":
         notes.append(str(status.get("reason", job.get("reason", "dependency_blocked"))))
     confirmation = confirmed_pipeline_terminal(job, root, status)
@@ -171,11 +201,15 @@ def inspect_job(job, root):
             notes.append("no_recovery_checkpoint_after_5min")
     if state in ACTIVE and process["alive"] and status_path and age_seconds(status_path) is not None and age_seconds(status_path) > 900:
         notes.append("progress_status_unchanged_over_15min")
+    if state in ACTIVE and process["alive"] and progress_path and age_seconds(progress_path) is not None and age_seconds(progress_path) > 900:
+        notes.append("progress_report_unchanged_over_15min")
     anomalies = [line[-500:] for line in tail(log) if ERROR_PATTERN.search(line)][-8:]
     if anomalies:
         notes.append("anomaly_text_in_log_requires_diagnosis")
     if status.get("error") or run.get("error"):
         notes.append(str(status.get("error", run.get("error")))[:500])
+    if flow_progress.get("error"):
+        notes.append(str(flow_progress["error"])[:500])
     validation = progress_status.get("validation") or metric.get("validation", {}).get("overall", {})
     return {"job_id": job["job_id"], "kind": job.get("kind", "training"), "status": state,
         "run_dir": str(run_dir) if run_dir else None, "session": launch.get("session", job.get("session")),
@@ -185,7 +219,9 @@ def inspect_job(job, root):
         "commit": run.get("code", {}).get("commit", job.get("commit")),
         "epoch": progress_status.get("epoch", metric.get("epoch")), "global_step": progress_status.get("global_step", metric.get("global_step")),
         "loss": progress_status.get("loss", metric.get("train_loss")), "validation": validation,
-        "progress": {k: status[k] for k in ("completed", "total", "pairs", "pairs_processed", "counts", "scenes", "progress") if k in status},
+        "progress": {k: progress_status[k] for k in FLOW_PROGRESS_FIELDS if k in progress_status},
+        "progress_path": str(progress_path) if progress_path else None,
+        "progress_report_status": flow_progress.get("status"), "progress_age_s": age_seconds(progress_path) if progress_path else None,
         "status_age_s": age_seconds(status_path) if status_path else None,
         "log_path": str(log) if log.exists() else None, "log_age_s": age_seconds(log),
         "checkpoint": str(checkpoint) if checkpoint.exists() else None,
@@ -219,23 +255,34 @@ def disk_fields(usage):
         "low_space": usage.free < 10e9 or usage.free / usage.total < .02}
 
 
-def storage_volumes(root, *, device_for=None, usage_for=None):
+def storage_volumes(root, *, jobs=(), device_for=None, usage_for=None):
     """Measure the resolved cache filesystem; do not count one device twice."""
     root = Path(root).resolve()
     device_for = device_for or (lambda path: path.stat().st_dev)
     usage_for = usage_for or shutil.disk_usage
     volumes = {}
-    for role, path in (("artifact_root", root), ("flow_cache", root / "flows")):
-        if not path.exists():
+    paths = [("artifact_root", root), ("flow_cache", root / "flows")]
+    for job in jobs:
+        configured = job.get("storage_paths", [])
+        if not isinstance(configured, list) or any(not isinstance(p, str) or not Path(p).is_absolute() for p in configured):
+            raise ValueError("Registered storage_paths must be a list of absolute paths")
+        paths.extend(("job_cache", Path(p)) for p in configured)
+    for role, path in paths:
+        if not path.exists() and role != "job_cache":
             continue
+        # A not-yet-created output still consumes its existing parent's filesystem.
         resolved = path.resolve()
+        while not resolved.exists() and resolved != resolved.parent:
+            resolved = resolved.parent
         device = int(device_for(resolved))
         if device not in volumes:
             volumes[device] = {"device_id": device, "roles": [], "paths": [], "resolved_paths": [],
                 **disk_fields(usage_for(resolved))}
         volume = volumes[device]
-        volume["roles"].append(role)
-        volume["paths"].append(str(path))
+        if role not in volume["roles"]:
+            volume["roles"].append(role)
+        if str(path) not in volume["paths"]:
+            volume["paths"].append(str(path))
         if str(resolved) not in volume["resolved_paths"]:
             volume["resolved_paths"].append(str(resolved))
     return list(volumes.values())
@@ -243,7 +290,8 @@ def storage_volumes(root, *, device_for=None, usage_for=None):
 
 def snapshot(root):
     root = Path(root).resolve()
-    jobs = [inspect_job(job, root) for job in collect_jobs(root)]
+    registered = collect_jobs(root)
+    jobs = [inspect_job(job, root) for job in registered]
     gpu = {}
     try:
         result = subprocess.run(["nvidia-smi", "--query-gpu=index,name,utilization.gpu,memory.used,memory.total,temperature.gpu", "--format=csv,noheader,nounits"], capture_output=True, text=True, timeout=10)
@@ -256,7 +304,7 @@ def snapshot(root):
         "root": str(root), "jobs": jobs, "active_count": sum(job["status"] in ACTIVE for job in jobs),
         "unknown_count": sum(job["status"] == "unknown" for job in jobs),
         "all_terminal": bool(jobs) and all(job["status"] in TERMINAL for job in jobs),
-        "gpu": gpu, "disk": disk_fields(disk), "storage_volumes": storage_volumes(root)}
+        "gpu": gpu, "disk": disk_fields(disk), "storage_volumes": storage_volumes(root, jobs=registered)}
 
 
 def table(value):

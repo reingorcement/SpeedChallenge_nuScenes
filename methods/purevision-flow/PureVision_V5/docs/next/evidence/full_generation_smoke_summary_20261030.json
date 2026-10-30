@@ -1,0 +1,417 @@
+{
+  "scope": "bounded_smoke_evidence_not_full_generation_or_new_training_results",
+  "recorded_at": "2026-10-30T14:59:58.738778+00:00",
+  "code": {
+    "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+    "dirty": true,
+    "verified_remote_commit": null
+  },
+  "full_index": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/index/index.json",
+  "full_index_sha256": "b42d3c541d65ecd372bae62026a1fd1e537f533d56b66632ca8eef1be66f0816",
+  "full_pairs": 232239,
+  "pilot_reusable_pairs": 9270,
+  "new_pairs_after_adoption": 222969,
+  "adoption_plan": "/home/zhangyu/.local/share/speedest-v5-next/plans/full_nuscenes_adoption_20261030.json",
+  "adoption_plan_sha256": "e2049d5252414a3fe60d00fa5ce8d99433747369739f7dc15fad5720a8db1d93",
+  "cpu_adoption": {
+    "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_cpu_adoption_smoke_20261030.json",
+    "sha256": "1e1c721f13afb9d9156fbc233b8182c1acd3599517cca4118395497ddeb88ed9",
+    "cross_filesystem": true,
+    "native_bytes_identical": true,
+    "compact_bytes_identical": true,
+    "model_instantiated": false,
+    "elapsed_s": {
+      "adopt": 0.12834641605149955,
+      "reuse": 0.02209414297249168,
+      "recovery": 0.0262571950443089
+    },
+    "outcomes": [
+      "adopted",
+      "reused",
+      "recovered"
+    ]
+  },
+  "experiments": {
+    "smoke": [
+      {
+        "status": "sample_complete",
+        "code": {
+          "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+          "dirty": true,
+          "verified_remote_commit": null
+        },
+        "pairs_processed": 32,
+        "total": 77623,
+        "all_total": 232239,
+        "counts": {
+          "created": 32,
+          "reused": 0,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 19.635864458046854,
+        "pairs_per_second": 1.6298003114761477,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "bytes": 190801984,
+        "bytes_written": 190801984,
+        "processed_pair_sha256": "5e33bc4525feb2e20a6975a6b024495bc9b9f5d2f7efe01d572c9e33cdb6da49",
+        "gpu": 0,
+        "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu0_smoke_20261030.json",
+        "report_sha256": "37506f046bfc619e03b427bc73b148c37484f6138184aade6dd7325785d4dad0",
+        "digest_independently_verified": true,
+        "post_first_batch_pairs_per_second": 1.9257016500998474
+      },
+      {
+        "status": "sample_complete",
+        "code": {
+          "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+          "dirty": true,
+          "verified_remote_commit": null
+        },
+        "pairs_processed": 32,
+        "total": 77277,
+        "all_total": 232239,
+        "counts": {
+          "created": 32,
+          "reused": 0,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 19.8052345829783,
+        "pairs_per_second": 1.6158355389238972,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "bytes": 190801984,
+        "bytes_written": 190801984,
+        "processed_pair_sha256": "deeb9577957ff1e574b2897bfaae441fc2571339bef33b2c31eb65944e003e6f",
+        "gpu": 1,
+        "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu1_smoke_20261030.json",
+        "report_sha256": "b323b4570786c18e076bc07e761fc31c347efb90767f0c630215aee40f04f0fb",
+        "digest_independently_verified": true,
+        "post_first_batch_pairs_per_second": 1.9169086071655748
+      },
+      {
+        "status": "sample_complete",
+        "code": {
+          "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+          "dirty": true,
+          "verified_remote_commit": null
+        },
+        "pairs_processed": 32,
+        "total": 77339,
+        "all_total": 232239,
+        "counts": {
+          "created": 32,
+          "reused": 0,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 19.807579950080253,
+        "pairs_per_second": 1.6156370171074355,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "bytes": 190801984,
+        "bytes_written": 190801984,
+        "processed_pair_sha256": "66d97ccd3ddd32aae8e4cbf7bf01fb4bc22b54025749b083fc3056fba22de976",
+        "gpu": 2,
+        "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu2_smoke_20261030.json",
+        "report_sha256": "0be10cbf71e431341c5e70a72d5e48fe87bff3de8cefdc0abedbbd8ee5fbe522",
+        "digest_independently_verified": true,
+        "post_first_batch_pairs_per_second": 1.9027010582874417
+      }
+    ],
+    "resume_smoke": [
+      {
+        "status": "sample_complete",
+        "code": {
+          "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+          "dirty": true,
+          "verified_remote_commit": null
+        },
+        "pairs_processed": 32,
+        "total": 77623,
+        "all_total": 232239,
+        "counts": {
+          "created": 0,
+          "reused": 32,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 2.2934521859278902,
+        "pairs_per_second": 13.959199699617267,
+        "cuda_peak_allocated_bytes": 0,
+        "bytes": 190801984,
+        "bytes_written": 0,
+        "processed_pair_sha256": "5e33bc4525feb2e20a6975a6b024495bc9b9f5d2f7efe01d572c9e33cdb6da49",
+        "gpu": 0,
+        "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu0_resume_smoke_20261030.json",
+        "report_sha256": "269b2eb534098055e77d24be5fc8ee02719687689b3f8a9ddc2f38f689985e5a",
+        "digest_independently_verified": true
+      },
+      {
+        "status": "sample_complete",
+        "code": {
+          "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+          "dirty": true,
+          "verified_remote_commit": null
+        },
+        "pairs_processed": 32,
+        "total": 77277,
+        "all_total": 232239,
+        "counts": {
+          "created": 0,
+          "reused": 32,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 2.405297697056085,
+        "pairs_per_second": 13.315449607806002,
+        "cuda_peak_allocated_bytes": 0,
+        "bytes": 190801984,
+        "bytes_written": 0,
+        "processed_pair_sha256": "deeb9577957ff1e574b2897bfaae441fc2571339bef33b2c31eb65944e003e6f",
+        "gpu": 1,
+        "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu1_resume_smoke_20261030.json",
+        "report_sha256": "feff843bb26b3ebf5cbd325b393ec6d3e45bf8062dd67c324e3a8a61e50735f0",
+        "digest_independently_verified": true
+      },
+      {
+        "status": "sample_complete",
+        "code": {
+          "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+          "dirty": true,
+          "verified_remote_commit": null
+        },
+        "pairs_processed": 32,
+        "total": 77339,
+        "all_total": 232239,
+        "counts": {
+          "created": 0,
+          "reused": 32,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 2.373502078000456,
+        "pairs_per_second": 13.487954204828661,
+        "cuda_peak_allocated_bytes": 0,
+        "bytes": 190801984,
+        "bytes_written": 0,
+        "processed_pair_sha256": "66d97ccd3ddd32aae8e4cbf7bf01fb4bc22b54025749b083fc3056fba22de976",
+        "gpu": 2,
+        "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu2_resume_smoke_20261030.json",
+        "report_sha256": "53bddb9d190882736761da36e02583c5a7d81d785665d7bafbf450a8c44861de",
+        "digest_independently_verified": true
+      }
+    ],
+    "twocard_smoke": [
+      {
+        "status": "sample_complete",
+        "code": {
+          "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+          "dirty": true,
+          "verified_remote_commit": null
+        },
+        "pairs_processed": 64,
+        "total": 77623,
+        "all_total": 232239,
+        "counts": {
+          "created": 32,
+          "reused": 32,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 15.94822139304597,
+        "pairs_per_second": 4.013152810120241,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "bytes": 381603968,
+        "bytes_written": 190801984,
+        "processed_pair_sha256": "6bad173d73ce85a066b5ed1d637e7349fdde24eba85eee1c6ff781d0e6517b36",
+        "gpu": 0,
+        "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu0_twocard_smoke_20261030.json",
+        "report_sha256": "aa679d4bb8335f4e5b567c8b0db9ece8fd371fa13d96b73aed1e82b9ec8cb665",
+        "digest_independently_verified": true,
+        "new_segment_pairs_per_second": 2.3916879320504414
+      },
+      {
+        "status": "sample_complete",
+        "code": {
+          "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+          "dirty": true,
+          "verified_remote_commit": null
+        },
+        "pairs_processed": 64,
+        "total": 77339,
+        "all_total": 232239,
+        "counts": {
+          "created": 32,
+          "reused": 32,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 15.831343537080102,
+        "pairs_per_second": 4.0428338468443705,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "bytes": 381603968,
+        "bytes_written": 190801984,
+        "processed_pair_sha256": "d2552de86532b95fda9504b4005636734b8f8eb1ea8c2ba06ee86aca44757c3a",
+        "gpu": 2,
+        "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu2_twocard_smoke_20261030.json",
+        "report_sha256": "f81fd6ae68b084d928a980391af8f4433dc5653965b6a7db2f2aede20f67836e",
+        "digest_independently_verified": true,
+        "new_segment_pairs_per_second": 2.3639657871320088
+      }
+    ],
+    "io_probe": [
+      {
+        "status": "sample_complete",
+        "code": {
+          "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+          "dirty": true,
+          "verified_remote_commit": null
+        },
+        "pairs_processed": 32,
+        "total": 77623,
+        "all_total": 232239,
+        "counts": {
+          "created": 32,
+          "reused": 0,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 21.465861920034513,
+        "pairs_per_second": 1.4908212773852931,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "bytes": 190801984,
+        "bytes_written": 190801984,
+        "processed_pair_sha256": "5e33bc4525feb2e20a6975a6b024495bc9b9f5d2f7efe01d572c9e33cdb6da49",
+        "gpu": 0,
+        "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu0_io_probe_20261030.json",
+        "report_sha256": "e13392d33e1ade1aec21dcd73e72bfc8bc6aed2c99e9e7d433752a71e4e4b1ba",
+        "digest_independently_verified": true,
+        "post_first_batch_pairs_per_second": 1.711002219995592
+      },
+      {
+        "status": "sample_complete",
+        "code": {
+          "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+          "dirty": true,
+          "verified_remote_commit": null
+        },
+        "pairs_processed": 32,
+        "total": 77277,
+        "all_total": 232239,
+        "counts": {
+          "created": 32,
+          "reused": 0,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 21.2751362870913,
+        "pairs_per_second": 1.5042045478213533,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "bytes": 190801984,
+        "bytes_written": 190801984,
+        "processed_pair_sha256": "deeb9577957ff1e574b2897bfaae441fc2571339bef33b2c31eb65944e003e6f",
+        "gpu": 1,
+        "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu1_io_probe_20261030.json",
+        "report_sha256": "049817d25154b8a565ae77c9156c31b140fd2d9c4f5f25ecdfbea4fd5b1f6ccb",
+        "digest_independently_verified": true,
+        "post_first_batch_pairs_per_second": 1.7141434387838164
+      },
+      {
+        "status": "sample_complete",
+        "code": {
+          "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+          "dirty": true,
+          "verified_remote_commit": null
+        },
+        "pairs_processed": 32,
+        "total": 77339,
+        "all_total": 232239,
+        "counts": {
+          "created": 32,
+          "reused": 0,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 21.493106742971577,
+        "pairs_per_second": 1.488930224337778,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "bytes": 190801984,
+        "bytes_written": 190801984,
+        "processed_pair_sha256": "66d97ccd3ddd32aae8e4cbf7bf01fb4bc22b54025749b083fc3056fba22de976",
+        "gpu": 2,
+        "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu2_io_probe_20261030.json",
+        "report_sha256": "197f19e55ee80e49309fea257d71da81684b6eeaabe8324553210aa6490aab0b",
+        "digest_independently_verified": true,
+        "post_first_batch_pairs_per_second": 1.7156134562093759
+      }
+    ]
+  },
+  "io": {
+    "write_MB_s": {
+      "mean": 32.52582503360375,
+      "minimum": 20.327276776392683,
+      "maximum": 43.89070389298989
+    },
+    "await_ms": {
+      "mean": 14.899066485903287,
+      "minimum": 10.39,
+      "maximum": 23.551020408163264
+    },
+    "write_await_ms": {
+      "mean": 14.923306957032391,
+      "minimum": 10.39,
+      "maximum": 23.551020408163264
+    },
+    "util_pct": {
+      "mean": 75.27433330287799,
+      "minimum": 45.47709626774881,
+      "maximum": 86.52478789762331
+    },
+    "avg_queue": {
+      "mean": 2.617973199296982,
+      "minimum": 1.6061460010346646,
+      "maximum": 4.596709117035323
+    },
+    "active_samples": 17,
+    "sample_intervals": 25,
+    "ntfs_cpu_pct_mean": 15.11712888607303,
+    "ntfs_cpu_pct_max": 18.216694732906987,
+    "source": "1-second /sys/block/sdb/stat and /proc PID stat deltas; iostat not installed",
+    "report": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_ntfs_io_probe_20261030.json",
+    "report_sha256": "1b993437b7dc2292128b3171fbc8b463ddf00ec03ccf4d4d5a64d515cd7ceb21",
+    "gpu_utilization_pct_across_active_samples": {
+      "mean": 9.784313725490197,
+      "maximum": 100,
+      "zero_fraction": 0.9019607843137255
+    }
+  },
+  "storage": {
+    "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/full_generation_smoke_20261030": {
+      "packet_files": 322,
+      "bytes": 959972482,
+      "native_pairs": 161
+    },
+    "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/full_generation_io_probe_20261030": {
+      "packet_files": 192,
+      "bytes": 572405952,
+      "native_pairs": 96
+    }
+  },
+  "throughput_comparison": {
+    "three_gpu_post_first_batch_pairs_s": 5.745311315552864,
+    "three_gpu_io_probe_post_first_batch_pairs_s": 5.140759114988784,
+    "two_gpu_new_segment_pairs_s": 4.75565371918245,
+    "provisional_new_generation_hours_range": [
+      10.78023973490692,
+      13.023621354832537
+    ]
+  },
+  "recommendation": "Keep one batch-8 job on each of GPUs 0/1/2; measured three-card throughput is not worse than two-card. This HDD/FUSE workload is dominated by synchronous writes; more jobs on a card will not help. Update ETA from the first full 1000 pairs.",
+  "limits": [
+    "Small samples, warm JPEG page cache and startup effects; these timings do not establish full-run throughput.",
+    "Two-card trial included 32 existing pairs followed by 32 new pairs; throughput excludes the existing segment but includes model startup.",
+    "Smoke outputs are isolated and use dirty unpushed code; they must never be adopted into the formal full cache.",
+    "Original pilot and training caches were not modified; no formal full generation or new training was started by these smoke tests.",
+    "GPU utilization measurements are 1-second nvidia-smi observations and disk metrics are block-layer interval deltas, not kernel profiling."
+  ]
+}

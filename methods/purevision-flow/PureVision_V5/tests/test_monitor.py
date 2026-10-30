@@ -3,6 +3,7 @@ import json
 import os
 from pathlib import Path
 from types import SimpleNamespace
+import pytest
 
 spec = importlib.util.spec_from_file_location("v5_monitor", Path(__file__).resolve().parents[1] / "monitor.py")
 monitor = importlib.util.module_from_spec(spec)
@@ -196,3 +197,51 @@ def test_storage_deduplicates_same_device(tmp_path):
     volumes = monitor.storage_volumes(tmp_path, device_for=lambda path: 1, usage_for=usage)
     assert len(volumes) == 1 and len(calls) == 1
     assert volumes[0]["roles"] == ["artifact_root", "flow_cache"]
+
+
+def test_external_job_cache_disk_is_observed_once_without_traversal(tmp_path, monkeypatch):
+    root, disk = tmp_path / "private", tmp_path / "dataset"
+    root.mkdir(); disk.mkdir()
+    jobs = [{"storage_paths": [str(disk / "new/cache")]}, {"storage_paths": [str(disk / "other")]}]
+    calls = []
+    def usage(path):
+        calls.append(path)
+        return SimpleNamespace(total=1000e9, used=995e9 if path == disk else 10e9,
+                               free=5e9 if path == disk else 990e9)
+    monkeypatch.setattr(Path, "rglob", lambda *args: (_ for _ in ()).throw(AssertionError("no recursive scan")))
+    result = monitor.storage_volumes(root, jobs=jobs, device_for=lambda path: 2 if path == disk else 1, usage_for=usage)
+    assert calls == [root, disk]
+    external = next(x for x in result if x["device_id"] == 2)
+    assert external["roles"] == ["job_cache"] and external["low_space"]
+    assert external["resolved_paths"] == [str(disk)]
+    assert external["paths"] == [str(disk / "new/cache"), str(disk / "other")]
+    with pytest.raises(ValueError, match="absolute"):
+        monitor.storage_volumes(root, jobs=[{"storage_paths": ["relative"]}])
+
+
+def test_flow_report_is_fresh_progress_but_not_worker_terminal_status(tmp_path):
+    wrapper, report = tmp_path / "worker.json", tmp_path / "progress.json"
+    wrapper.write_text(json.dumps({"status": "running", "pid": os.getpid(), "completed": 3}))
+    report.write_text(json.dumps({"status": "complete", "pairs_processed": 10, "total": 10,
+        "counts": {"created": 8, "reused": 2}, "throughput": 5., "bytes_written": 100}))
+    job = dict(job_id="flow", kind="flow", pipeline_id="flow_only", status_path=str(wrapper),
+               progress_path=str(report), expected_pairs=10)
+    observed = monitor.inspect_job(job, tmp_path)
+    assert observed["status"] == "running" and observed["checkpoint"] is None
+    assert observed["progress"]["pairs_processed"] == 10 and observed["progress"]["counts"]["reused"] == 2
+    assert observed["progress"]["completed"] == 10  # Fresh report supersedes a slower wrapper heartbeat.
+    assert observed["progress"]["bytes_written"] == 100 and observed["progress_path"] == str(report)
+    assert observed["progress_report_status"] == "complete"
+    report.unlink()
+    missing = monitor.inspect_job(job, tmp_path)
+    assert missing["status"] == "running" and missing["progress_path"] == str(report)
+    assert "progress_report_missing_or_unreadable_requires_recheck" in missing["notes"]
+    job["progress_path"] = str(tmp_path.parent / "private.json")
+    refused = monitor.inspect_job(job, tmp_path)
+    assert refused["status"] == "running" and refused["progress_path"] is None
+    assert "progress_path_outside_artifacts_or_private_requires_recheck" in refused["notes"]
+    private = tmp_path / "network.json"
+    private.write_text('{"not_progress":"must not read"}')
+    report.symlink_to(private)
+    job["progress_path"] = str(report)
+    assert monitor.inspect_job(job, tmp_path)["progress_path"] is None

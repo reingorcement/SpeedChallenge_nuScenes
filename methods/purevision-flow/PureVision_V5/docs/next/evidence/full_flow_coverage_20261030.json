@@ -1,0 +1,153 @@
+{
+  "schema": "v5_full_flow_coverage_v1",
+  "created_at": "2026-10-30T14:48:51.327506+00:00",
+  "status": "verified_index_only_no_raft",
+  "index": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/index/index.json",
+  "index_sha256": "b42d3c541d65ecd372bae62026a1fd1e537f533d56b66632ca8eef1be66f0816",
+  "index_identity": "1f33c9939baaec4d41ad0b084923787f50acc71f73e988eb3e6d0bdb1e7f8246",
+  "generation": {
+    "code": {
+      "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+      "dirty": true,
+      "verified_remote_commit": null
+    },
+    "implementation_sha256": "d7f3546d522dd46e67c6f36a198b9bb86dbff7ceba9306c27e720f2f6d108c64",
+    "kind": "index_only_no_raft_or_labels"
+  },
+  "dataroot": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes",
+  "versions": {
+    "v1.0-test": {
+      "scenes": 150,
+      "frames": 34924,
+      "pairs": 34774
+    },
+    "v1.0-trainval": {
+      "scenes": 850,
+      "frames": 198315,
+      "pairs": 197465
+    }
+  },
+  "cameras": [
+    "CAM_FRONT"
+  ],
+  "counts": {
+    "groups": 1000,
+    "frames": 233239,
+    "pairs": 232239
+  },
+  "partitions": {
+    "official_test_cache_only": {
+      "scenes": 150,
+      "frames": 34924,
+      "pairs": 34774
+    },
+    "train_core": {
+      "scenes": 582,
+      "frames": 135888,
+      "pairs": 135306
+    },
+    "final_system_test": {
+      "scenes": 75,
+      "frames": 17482,
+      "pairs": 17407
+    },
+    "dev": {
+      "scenes": 103,
+      "frames": 23995,
+      "pairs": 23892
+    },
+    "stage1_test": {
+      "scenes": 75,
+      "frames": 17466,
+      "pairs": 17391
+    },
+    "unassigned_cache_only": {
+      "scenes": 15,
+      "frames": 3484,
+      "pairs": 3469
+    }
+  },
+  "physical_CAM_FRONT_files": {
+    "samples": 40157,
+    "sweeps": 193082
+  },
+  "metadata_sha256": {
+    "v1.0-test": {
+      "scene.json": "92bb751d8fb3ff292a59892754d530ba8b89bb9ddd009fff5ae02cf2c090e034",
+      "sample.json": "c20c37aaeb4ea5a603b338c815c3466c2e955c45a73d72ab60d1df969dfd3200",
+      "sample_data.json": "ea3983384a0bae7c047602c188d8183db99c89ffd642bc045dccff760cd997cc",
+      "sensor.json": "4d5c96570e2d8b09b88ce4c605e40ee43c4909f97bea5741185f18f92eb491ae",
+      "calibrated_sensor.json": "5fc825769008aa903f931bf66d2daa1156f5668b1deeffb19abccdb325c8c92c"
+    },
+    "v1.0-trainval": {
+      "scene.json": "bdc3211bfbfda652d5e9dab73c45c7132925ca84f869bf45e8e14edeafb1d20b",
+      "sample.json": "6035ac58b6e971622be2bb1be15b917e7cb4e05ae984d6b339c27c1699c4ad9d",
+      "sample_data.json": "6dcad49f0b9bd7b1cef04e2a0ff2ac2879b46b938e8d48153f00693cebb4de21",
+      "sensor.json": "4d5c96570e2d8b09b88ce4c605e40ee43c4909f97bea5741185f18f92eb491ae",
+      "calibrated_sensor.json": "67781a5dd7b2504b046ef89d6dcb267b12d1cc91af21f1ec5758624588e99865"
+    }
+  },
+  "partition_source": {
+    "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+    "manifest_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+    "split_sha256": "d48ae71d98534c72d51d4629a6c1bcf775e1f5896ae5f324e2a262245e49e931",
+    "role": "partition_mapping_only"
+  },
+  "original_window_required_pairs": {
+    "train_core": 134724,
+    "final_system_test": 17332,
+    "dev": 23789,
+    "stage1_test": 17316
+  },
+  "original_train_dev_window_pairs": 158513,
+  "new_pairs_beyond_original_train_dev": 73726,
+  "old_supervised_frames_unchanged": true,
+  "all_original_sequence_sha_verified": true,
+  "all_original_camera_frame_paths_times_tokens_identical": true,
+  "group_checksums_verified": 1000,
+  "unique_frame_tokens": 233239,
+  "min_dt_s": 0.043823957443237305,
+  "max_dt_s": 0.30000805854797363,
+  "metadata_dimensions_hw": [
+    900,
+    1600
+  ],
+  "source_image_existence_verified": true,
+  "full_pixel_decode_performed": false,
+  "labels_generated": false,
+  "pose_tables_read": false,
+  "all_nonstraining_groups_cache_only": true,
+  "index_total_file_bytes": 46917512,
+  "shards": {
+    "2": [
+      {
+        "index": 0,
+        "groups": 500,
+        "pairs": 116034
+      },
+      {
+        "index": 1,
+        "groups": 500,
+        "pairs": 116205
+      }
+    ],
+    "3": [
+      {
+        "index": 0,
+        "groups": 334,
+        "pairs": 77623
+      },
+      {
+        "index": 1,
+        "groups": 333,
+        "pairs": 77277
+      },
+      {
+        "index": 2,
+        "groups": 333,
+        "pairs": 77339
+      }
+    ]
+  },
+  "scope": "All available v1.0-trainval and v1.0-test CAM_FRONT scenes only. Cache-only does not authorize training/model-selection on heldout, unassigned, or official-test scenes."
+}

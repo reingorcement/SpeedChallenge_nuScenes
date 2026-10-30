@@ -11,7 +11,8 @@ def read_targets(request):
     root = Path(request["root"]).resolve()
     for target in request["targets"]:
         path = Path(target["path"])
-        if not path.resolve().is_relative_to(root) or path.name in {"network.env", "network.json"}:
+        resolved = path.resolve()
+        if not resolved.is_relative_to(root) or resolved.name in {"network.env", "network.json"}:
             raise ValueError("Read target is outside task artifacts or is a private control file")
         with path.open("rb") as stream:
             info = os.fstat(stream.fileno())
@@ -28,7 +29,9 @@ def read_targets(request):
         content = blob.decode("utf-8", errors="replace")
         if mode == "json_summary":
             content = json.loads(content)
-            content["jobs"] = [{k: j.get(k) for k in ("job_id", "status", "phase", "process", "child_process", "epoch", "global_step", "loss", "validation", "checkpoint_age_s", "notes")} for j in content.get("jobs", [])]
+            content["jobs"] = [{k: j.get(k) for k in ("job_id", "kind", "status", "phase", "process", "child_process",
+                "epoch", "global_step", "loss", "validation", "checkpoint_age_s", "progress", "progress_path",
+                "progress_report_status", "progress_age_s", "notes")} for j in content.get("jobs", [])]
         print("V5_FILE_CONTENT " + json.dumps({"path": str(path), "content": content}, ensure_ascii=False), flush=True)
 
 

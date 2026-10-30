@@ -11,10 +11,13 @@ import subprocess
 
 def prepare(root, prefix, snapshot, *, startup=None):
     targets = []
-    def add(path, run_id=None, mode="head"):
+    def add(path, run_id=None, mode="head", *, required=False):
         path = Path(path)
-        if path.is_file():
-            targets.append(dict(path=str(path.resolve()), run_id=run_id, mode=mode))
+        resolved = path.resolve()
+        if not resolved.is_relative_to(root.resolve()) or resolved.name in {"network.json", "network.env"}:
+            raise ValueError("Patrol target is outside task artifacts or is a private control file")
+        if required or path.is_file():
+            targets.append(dict(path=str(resolved), run_id=run_id, mode=mode))
     add(prefix.with_suffix(".snapshot.json"), mode="json_summary")
     if startup:
         proof = json.loads(startup.read_text())
@@ -37,6 +40,12 @@ def prepare(root, prefix, snapshot, *, startup=None):
                 add(Path(job["run_dir"]) / "status.json", run_id)
             if job.get("status_path"):
                 add(job["status_path"], run_id)
+            if job.get("progress_path"):
+                progress = Path(job["progress_path"])
+                if progress.is_file() or job["status"] not in {"queued", "not_started", "launching"}:
+                    # A missing running-job report must fail the actual read instead
+                    # of silently turning a partial patrol into a success receipt.
+                    add(progress, run_id, required=True)
             if job.get("log_path"):
                 add(job["log_path"], run_id, "tail")
         # A no-job probe still verifies a real local task artifact, the host snapshot.
@@ -58,6 +67,7 @@ def prepare(root, prefix, snapshot, *, startup=None):
 必须先执行下面这条完整命令（原样运行，不要重定向或包在其他Python代码中），它实际读取本次指定工件并输出文件内容和读取收据。不能仅复述提示词或把其他run的状态当作目标run通过。若命令失败或缺文件，报告失败，不写成功结束语。
 %s
 宿主机快照是PID/GPU/磁盘检查的依据；sandbox的/proc或GPU不可见不能推断宿主进程死亡。核查目标run ID、训练步数与验证指标、日志异常、checkpoint更新时间、GPU/磁盘；unknown必须保留为待核实，不能算终止。正常损失波动不触发修改。报告实际读取路径、进展、异常及人工定位建议。明确host确定性检查与本次AI诊断分别是什么；不声称修改了bug。
+对于flow/cache/pack等非训练作业，核对已处理对数/计划总数、created/reused/recovered/adopted计数、吞吐、缓存字节和报告更新时间；读取指定progress报告及真实缓存所在磁盘，不要求训练loss或模型checkpoint。进度报告complete不能替代worker/DAG终态；sample_complete也不等于全量完成。
 若目标包含startup_proof，交叉核对同run步骤1/2/3、首次验证、恢复状态与commit/contract；不要自行加载大checkpoint。
 只把简短中文报告放在最终回答。只有命令成功且完成目标读取后，以独立一行 ASTRA_PATROL_OK 结束。
 """ % shlex.join(command)

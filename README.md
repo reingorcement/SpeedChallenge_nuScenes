@@ -1,6 +1,6 @@
 # SpeedChallenge_nuScenes
 
-**当前下一阶段：** [分辨率小规模预试验与执行边界](methods/purevision-flow/PureVision_V5/docs/next/README.md)。开发在 `method/purevision-v5-next`，实时报告发布到 [results/purevision-v5-next](https://github.com/reingorcement/SpeedChallenge_nuScenes/tree/results/purevision-v5-next)。用户选择分辨率前，不生成全量高分辨率光流。
+**当前下一阶段：** 用户已批准全部1000场景、仅CAM_FRONT的1024×576光流，见 [全量范围与操作记录](methods/purevision-flow/PureVision_V5/docs/next/FULL_FLOW_20261030.md)。开发在 `method/purevision-v5-next`，实际状态发布到 [results/purevision-v5-next](https://github.com/reingorcement/SpeedChallenge_nuScenes/tree/results/purevision-v5-next)。[三seed预试验](methods/purevision-flow/PureVision_V5/docs/next/MULTISEED_RESULTS_20261030.md)已完成；全量缓存不等于新的模型训练完成。
 
 **V5 GitHub 审核入口：** [AI 审核导航](methods/purevision-flow/PureVision_V5/AI_REVIEW.md) · [完整交接](methods/purevision-flow/PureVision_V5/docs/HANDOFF_20261030.md) · [六组正式结果](methods/purevision-flow/PureVision_V5/docs/RESULT_20261030_S2.md) · [实验凭证](methods/purevision-flow/PureVision_V5/docs/review_evidence/20261030_s2/README.md) · [用户原计划](methods/purevision-flow/PureVision_V5/docs/V5_EXECUTION_PLAN_USER.md)。2026-10-30 首轮 R00—R05 均已完成；结果仍限于单种子、冻结 RGB 的 PLANAR_PROXY 开发集比较。完整数据、缓存和本轮新 checkpoint 位于服务器，不随文档上传。
 

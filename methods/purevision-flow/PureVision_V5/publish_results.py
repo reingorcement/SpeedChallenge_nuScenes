@@ -12,6 +12,8 @@ from pathlib import Path
 import re
 import subprocess
 
+from monitor import FLOW_PROGRESS_FIELDS
+
 REPORT_DIRECTORY = Path("methods/purevision-flow/PureVision_V5/docs/next_results")
 REPORT_BRANCH = "results/purevision-v5-next"
 TERMINAL = {"completed", "failed", "interrupted", "cancelled", "blocked"}
@@ -125,6 +127,20 @@ def collect(root, plans):
                 files[f"experiments/{run_id}/job_status.json"] = encoded(raw)
                 sources.append(source)
             if job["kind"] != "training":
+                row["progress"] = {k: raw[k] for k in FLOW_PROGRESS_FIELDS if raw and k in raw}
+                if job.get("progress_path"):
+                    progress, progress_origin = read_source(root, job["progress_path"])
+                    if progress is not None:
+                        if not isinstance(progress, dict):
+                            raise ValueError("Non-training progress report must be an object")
+                        files[f"experiments/{run_id}/progress_report.json"] = encoded(progress)
+                        sources.append(progress_origin)
+                        row["progress"].update({k: progress[k] for k in FLOW_PROGRESS_FIELDS if k in progress})
+                        if "pairs_processed" in progress:
+                            row["progress"]["completed"] = progress["pairs_processed"]
+                        row["progress_report_status"] = progress.get("status")
+                if job.get("expected_pairs") is not None:
+                    row["progress"]["expected_pairs"] = job["expected_pairs"]
                 rows.append(row)
                 continue
             directory = source_path(root, job["run_dir"])
@@ -183,7 +199,8 @@ def collect(root, plans):
         value, origin = read_source(root, evidence)
         files[f"evidence/{evidence.name}"] = encoded(value)
         sources.append(origin)
-    for report in sorted(root.glob("reports/resolution*/summary.*")):
+    reports = {*root.glob("reports/resolution*/summary.*"), *root.glob("reports/full_flow_*/summary.*")}
+    for report in sorted(reports):
         if report.suffix not in {".json", ".md"}:
             continue
         if report.suffix == ".json":
@@ -207,10 +224,12 @@ def collect(root, plans):
                            "Checkpoint hashes identify server files; weights are not uploaded.",
                            "Source records are read snapshots, not an independent model rerun."])
     files["status.json"] = encoded(summary)
-    lines = ["# V5 下一阶段实验状态", "", "这是自动发布的工件快照；算法决策由用户确认。训练源码与结果发布提交分别记录。", "", "| run ID | 阶段作业 | 状态 | training commit | dev EPE |", "|---|---|---|---|---|"]
+    lines = ["# V5 下一阶段实验状态", "", "这是自动发布的工件快照；算法决策由用户确认。作业源码与结果发布提交分别记录。", "", "| run ID | 阶段作业 | 状态 | 代码 commit | 光流已处理/总数 | dev EPE |", "|---|---|---|---|---|---|"]
     for row in rows:
-        lines.append(f"| {row['run_id']} | {row['name']} | {row['status']} | `{row['training_commit']}` | {row.get('dev_metrics', {}).get('epe', '—')} |")
-    lines += ["", "每个 run 目录包含实际配置、完整 epoch JSONL、状态与可用的 dev 评价。原始大日志、数据/光流和权重不上传。", "`source_index.json` 记录所读文件与摘要；`status.json` 记录 checkpoint 哈希和预测公开形式。", "没有结果的组仍是未开始/运行中/失败，不能按计划填入指标。", ""]
+        progress = row.get("progress", {})
+        pairs = "—" if row["kind"] == "training" else f"{progress.get('completed', '—')}/{progress.get('total', progress.get('expected_pairs', '—'))}"
+        lines.append(f"| {row['run_id']} | {row['name']} | {row['status']} | `{row['training_commit']}` | {pairs} | {row.get('dev_metrics', {}).get('epe', '—')} |")
+    lines += ["", "训练作业目录包含实际配置、完整 epoch JSONL、状态与可用的 dev 评价；非训练作业包含 worker 状态及已生成的 progress_report.json。原始大日志、数据/光流和权重不上传。", "`source_index.json` 记录所读文件与摘要；`status.json` 记录 checkpoint 哈希和预测公开形式。", "没有结果的组仍是未开始/运行中/失败，不能按计划填入指标。", ""]
     files["README.md"] = "\n".join(lines).encode()
     files["source_index.json"] = encoded(dict(
         sources=sorted(sources, key=lambda v: v["path"]),

@@ -1,0 +1,17 @@
+{
+  "schema": "v5_full_flow_config_v1",
+  "versions": ["v1.0-test", "v1.0-trainval"],
+  "cameras": ["CAM_FRONT"],
+  "direction": "forward",
+  "raft_size_hw": [576, 1024],
+  "model_size_hw": [72, 128],
+  "batch_size": 8,
+  "devices": ["cuda:0", "cuda:1", "cuda:2"],
+  "threads_per_worker": 4,
+  "pack_partitions": ["train_core", "dev"],
+  "estimated_bytes_per_pair": 5962562,
+  "disk_reserve_bytes": 53687091200,
+  "storage_estimate_margin": 1.15,
+  "permission": "user_selected_all_1000_scenes_CAM_FRONT_1024x576",
+  "labels": "unchanged_not_used_for_generation"
+}
