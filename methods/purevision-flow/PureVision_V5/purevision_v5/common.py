@@ -62,6 +62,21 @@ def git(*arguments, timeout=45):
 def proxy_ssh_command():
     """Build scoped SSH arguments without copying proxy credentials into argv."""
     ssh = ["ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=15", "-o", "ConnectionAttempts=1"]
+    # GitHub is the only network SSH host used here. Respect the same bypass
+    # policy as Git/libcurl; otherwise an explicit ProxyCommand ignores NO_PROXY.
+    bypass = False
+    for item in (os.environ.get("NO_PROXY", "") + "," + os.environ.get("no_proxy", "")).split(","):
+        host = item.strip().lower()
+        if ":" in host:
+            host, port = host.rsplit(":", 1)
+            if port != "22":
+                continue
+        host = host.lstrip(".")
+        if host == "*" or (host and ("github.com" == host or "github.com".endswith("." + host))):
+            bypass = True
+            break
+    if bypass:
+        return shlex.join(ssh)
     proxy = urlsplit(os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy") or "")
     if proxy.scheme == "http" and proxy.hostname and not proxy.username and not proxy.password:
         proxy_command = shlex.join(["nc", "-X", "connect", "-x",

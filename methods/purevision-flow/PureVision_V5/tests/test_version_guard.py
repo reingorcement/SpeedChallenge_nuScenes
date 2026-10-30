@@ -39,6 +39,8 @@ def test_https_failure_uses_scoped_proxy_ssh_and_does_not_accept_stale_cache(mon
             raise subprocess.TimeoutExpired("git", 25)
         return "a" * 40 + "\trefs/heads/method/purevision-v5-next"
     monkeypatch.setattr(common, "git", call)
+    monkeypatch.delenv("NO_PROXY", raising=False)
+    monkeypatch.delenv("no_proxy", raising=False)
     monkeypatch.setenv("HTTPS_PROXY", "http://127.0.0.1:7900")
     assert common.pushed_refs("a" * 40)
     assert len(calls) == 2
@@ -58,3 +60,22 @@ def test_authenticated_proxy_not_copied_to_command(monkeypatch):
     with pytest.raises(OSError):
         common.pushed_refs("a" * 40)
     assert "do_not_expose" not in repr(calls)
+
+
+@pytest.mark.parametrize("key,bypass", [("NO_PROXY", "localhost,github.com"), ("no_proxy", ".github.com"),
+                                        ("NO_PROXY", "*"), ("NO_PROXY", "github.com:22")])
+def test_github_no_proxy_bypasses_ssh_proxy_without_removing_other_proxy_environment(monkeypatch, key, bypass):
+    monkeypatch.delenv("NO_PROXY", raising=False)
+    monkeypatch.delenv("no_proxy", raising=False)
+    monkeypatch.setenv("HTTPS_PROXY", "http://127.0.0.1:7900")
+    monkeypatch.setenv(key, bypass)
+    assert "ProxyCommand=" not in common.proxy_ssh_command()
+    assert common.os.environ["HTTPS_PROXY"] == "http://127.0.0.1:7900"
+
+
+@pytest.mark.parametrize("bypass", ["notgithub.com", "github.com:443", "example.com"])
+def test_unrelated_or_other_port_no_proxy_does_not_silently_bypass_ssh(monkeypatch, bypass):
+    monkeypatch.delenv("no_proxy", raising=False)
+    monkeypatch.setenv("NO_PROXY", bypass)
+    monkeypatch.setenv("HTTPS_PROXY", "http://127.0.0.1:7900")
+    assert "ProxyCommand=" in common.proxy_ssh_command()
