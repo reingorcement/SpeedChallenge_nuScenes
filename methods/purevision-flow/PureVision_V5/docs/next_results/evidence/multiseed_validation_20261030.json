@@ -1,0 +1,12 @@
+{
+  "schema": "v5_multiseed_validation_v1",
+  "tests_passed": 192,
+  "seconds": 9.47,
+  "command": "CUDA_VISIBLE_DEVICES='' /home/zhangyu/.conda/envs/speedest/bin/python -B -m pytest -q -p no:cacheprovider",
+  "worktree": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev",
+  "numerical_core_changed": false,
+  "independent_review": "next_flow: passed",
+  "real_plan_dryrun": "multiseed_interface_dryrun.json",
+  "cuda_smoke": "multiseed_cuda_smoke_20261030.json",
+  "scope": "precommit development validation"
+}

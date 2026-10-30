@@ -1,0 +1,16 @@
+{
+  "run_id": "20261030_pilot_s43s44_R02_512_s43",
+  "experiment": "R02",
+  "status": "running",
+  "updated_at": "2026-10-30T14:17:07.351673+00:00",
+  "epoch": 33,
+  "global_step": 3900,
+  "processed_batches": 3900,
+  "optimizer_updates": 3900,
+  "amp_skips": 0,
+  "amp_scale": 131072.0,
+  "best_epe": 1.0100648945304322,
+  "best_epoch": 17,
+  "elapsed_seconds": 78.89085808896925,
+  "loss": 0.0032043526880443096
+}

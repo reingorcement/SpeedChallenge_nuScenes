@@ -1,0 +1,551 @@
+{
+  "schema": "v5_pipeline_v1",
+  "scope": "resolution_pilot",
+  "stage": "raft_resolution_multiseed",
+  "root": "/home/zhangyu/.local/share/speedest-v5-next",
+  "code_root": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5",
+  "python": "/home/zhangyu/.conda/envs/speedest/bin/python",
+  "prefix": "20261030_pilot_s43s44",
+  "code": {
+    "commit": "86ff37b64c1b77edd6d6f7b710ad833e9e85f06a",
+    "dirty": true,
+    "verified_remote_commit": null
+  },
+  "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+  "manifest_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+  "selection_path": "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+  "selection": {
+    "schema": "v5_scene_selection_v1",
+    "scope": "resolution_pilot",
+    "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+    "seed": 42,
+    "policy": "ascending_sha256_of_canonical_json_seed_partition_scene_v1",
+    "scenes": {
+      "train_core": [
+        "scene-0002",
+        "scene-0011",
+        "scene-0027",
+        "scene-0053",
+        "scene-0076",
+        "scene-0191",
+        "scene-0192",
+        "scene-0238",
+        "scene-0239",
+        "scene-0243",
+        "scene-0253",
+        "scene-0352",
+        "scene-0389",
+        "scene-0406",
+        "scene-0433",
+        "scene-0514",
+        "scene-0535",
+        "scene-0577",
+        "scene-0639",
+        "scene-0648",
+        "scene-0657",
+        "scene-0670",
+        "scene-0686",
+        "scene-0803",
+        "scene-0804",
+        "scene-0866",
+        "scene-0868",
+        "scene-0875",
+        "scene-0998",
+        "scene-1049",
+        "scene-1058",
+        "scene-1090"
+      ],
+      "dev": [
+        "scene-0048",
+        "scene-0072",
+        "scene-0195",
+        "scene-0236",
+        "scene-0402",
+        "scene-0566",
+        "scene-0584",
+        "scene-1013"
+      ]
+    },
+    "counts": {
+      "train_core": {
+        "scenes": 32,
+        "frames": 7484,
+        "windows": 7324
+      },
+      "dev": {
+        "scenes": 8,
+        "frames": 1866,
+        "windows": 1826
+      }
+    },
+    "identity": "83abcfc4565b80a06547aef4ad6bb3c0cd8b4d6a3156c5164653d47f91302b5f"
+  },
+  "selection_sha256": "a2b85aed7f705978095cc8da8c8b92f357adc2c282eb36deb64ce1fe34119712",
+  "features": null,
+  "features_status": null,
+  "low_flow_root": "/home/zhangyu/.cache/speedest-v5/flows_20261030/forward_packed",
+  "low_flow_index_sha256": "fa4b8176efea6c1d1ef1ba918cdf78e4cfefa2456037e52a57325d9a87f57499",
+  "locked_packs": {
+    "512": {
+      "root": "/home/zhangyu/.cache/speedest-v5/flows_20261030/forward_packed",
+      "index_sha256": "fa4b8176efea6c1d1ef1ba918cdf78e4cfefa2456037e52a57325d9a87f57499",
+      "identity": "bde7b57e60866d01f080c95d11554ff480a24a069feca1ba290ab60c07c04c1f"
+    },
+    "1024": {
+      "root": "/home/zhangyu/.local/share/speedest-v5-next/flows/20261030_pilot_s42_retry1_raft1024_packed",
+      "index_sha256": "e39519528c01fb526d1f921257b317e02bb5a993f8941428b02eaa85590257b1",
+      "identity": "d12865d604781c25e251dc0213914030346fcdea97493a462e8c159a7f29d177"
+    }
+  },
+  "full_generation_authorized": false,
+  "raft_generation_authorized": false,
+  "new_training_seeds": [
+    43,
+    44
+  ],
+  "all_training_seeds": [
+    42,
+    43,
+    44
+  ],
+  "seed42_source": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s42_retry1/plan.json",
+    "sha256": "52e75aba9033d37361638180ec043c42531269e14428fed68028bad8905fe279",
+    "identity": "7ec4f11b0f864f5b36d2d073ce71f9f8c72bbc6a6eedbbeff48d140c650a9851",
+    "code": {
+      "commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
+      "dirty": false,
+      "verified_remote_commit": "be327b7f91f5f7e5ba46b70dede116a21c551652"
+    },
+    "computation": {
+      "files": {
+        "train.py": "855452c168edf54855e9d9ec8fc94aef7d702e7b1c03d09350cf3d0190f6535e",
+        "evaluate.py": "a3760c6ab67262039e859516e826272fd9185039ab6c1e60e18a17c57135da94",
+        "purevision_v5/model.py": "88606db13a6d8f7babb616d3e30c4ce77121ed2372acdb1d065c5e1a2f866adc",
+        "purevision_v5/training.py": "370c5edab0c74f24e7331372d40c6b15b46c96c4f8691f964a7a9e06aa827433",
+        "purevision_v5/datasets.py": "a356650ffeb87b70381741d22f9943f5abd38637c21cce5f353e96b4289ca894",
+        "purevision_v5/selection.py": "363255dcfcfeb1059fe2e0c9e88823613860082275ee0a71cdeebb0d1feac451",
+        "purevision_v5/labels.py": "381a758f59e6f59e2ecd8c97b39870eaf158a454fe9dd1a941bede10223148fe",
+        "purevision_v5/flow.py": "132a1074a13c3dc2abedf165d663713de7a67269aebc382853485bed23c9bdb3",
+        "purevision_v5/packed_flow.py": "d44eb0a0f599a91a34c478c3d667bb315d6ad03093aed09d463ca69cc1154dc4",
+        "purevision_v5/evaluation.py": "5bb0e89dc7eb52cd40a3ab2fa729e0f4908b315137b549094e203c027ae3e2d9"
+      },
+      "identity": "2d72677406091cf1a35d9529843e2d1ef26e7a2d25e29d9d34ff02d8c87365b8",
+      "excluded_non_numerical": [
+        "purevision_v5/common.py network/provenance helpers",
+        "queue/monitoring/reporting tools"
+      ]
+    },
+    "rows": {
+      "R02_512": {
+        "run_id": "20261030_pilot_s42_R02_512",
+        "training_commit": "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
+        "best_checkpoint_sha256": "107aa4173ee24254189986e55380005925cb80944537ddc99ae98de7f24cd067",
+        "predictions_sha256": "d506369e2a187856d04bb226a0e4f2e739d9ca1de329ce37f79606f0ea8171f2",
+        "target_identity": "4e6f761ac669dfa5e9cd62ec16ac457931046c2443e8fb921b64b4cc1ad8f2d2",
+        "config": {
+          "experiment": "R02",
+          "seed": 42,
+          "epochs": 40,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "loss_scales_m_s": [
+            5.0,
+            1.0
+          ],
+          "loss_beta": 1.0,
+          "amp": true,
+          "grad_clip": 2.0,
+          "patience": 5,
+          "min_delta": 0.0,
+          "log_steps": 20,
+          "checkpoint_steps": 250,
+          "rgb_policy": "frozen_v3_direct",
+          "selection_metric": "dev_epe",
+          "lateral_rule": {
+            "max_relative_mae_increase": 0.05,
+            "max_absolute_mae_increase_m_s": 0.01,
+            "nonzero_threshold_m_s": 0.2,
+            "min_subset_windows": 100,
+            "min_subset_scenes": 5
+          },
+          "early_stopping": false,
+          "expected_flow": {
+            "raft_size_hw": [
+              288,
+              512
+            ],
+            "model_size_hw": [
+              72,
+              128
+            ]
+          }
+        }
+      },
+      "R02_1024": {
+        "run_id": "20261030_pilot_s42_retry1_R02_1024",
+        "training_commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
+        "best_checkpoint_sha256": "d84141d3b49932d35dfd5ae107425e783cbe349b0f4c54332f815dbe7faea23f",
+        "predictions_sha256": "461c3b796b1e2ae53aa73d8376ebb8bf67a906e9dd402a8438d1dcab0e19207c",
+        "target_identity": "4e6f761ac669dfa5e9cd62ec16ac457931046c2443e8fb921b64b4cc1ad8f2d2",
+        "config": {
+          "experiment": "R02",
+          "seed": 42,
+          "epochs": 40,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "loss_scales_m_s": [
+            5.0,
+            1.0
+          ],
+          "loss_beta": 1.0,
+          "amp": true,
+          "grad_clip": 2.0,
+          "patience": 5,
+          "min_delta": 0.0,
+          "log_steps": 20,
+          "checkpoint_steps": 250,
+          "rgb_policy": "frozen_v3_direct",
+          "selection_metric": "dev_epe",
+          "lateral_rule": {
+            "max_relative_mae_increase": 0.05,
+            "max_absolute_mae_increase_m_s": 0.01,
+            "nonzero_threshold_m_s": 0.2,
+            "min_subset_windows": 100,
+            "min_subset_scenes": 5
+          },
+          "early_stopping": false,
+          "expected_flow": {
+            "raft_size_hw": [
+              576,
+              1024
+            ],
+            "model_size_hw": [
+              72,
+              128
+            ]
+          }
+        }
+      }
+    }
+  },
+  "config_hashes": {
+    "R02_512_s43": "874939fa7f177337bbe06ea5b8f69744cdb84dfaf1a4be5c05df04fbc628ff5a",
+    "R02_1024_s43": "c395e93ee4168d1626d94da2e644a63b8da8f74bf3a4c435843e1a5e311586b4",
+    "R02_512_s44": "e55952f6ba5eb23bb665b58276e4455ca260620d643af17be52a86d7ca1e24de",
+    "R02_1024_s44": "5fe0ca7d7339f7f119431e52d7388cc9ac98c1400dfe5915578fe63f281ee8ba"
+  },
+  "jobs": [
+    {
+      "name": "R02_512_s43",
+      "job_id": "20261030_pilot_s43s44_R02_512_s43",
+      "kind": "training",
+      "device": "cuda:1",
+      "experiment": "R02",
+      "training_seed": 43,
+      "raft_width": 512,
+      "requires": [],
+      "after": [],
+      "config_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/configs/next/R02_raft512_s43.json",
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/configs/next/R02_raft512_s43.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--selection",
+          "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+          "--flow",
+          "/home/zhangyu/.cache/speedest-v5/flows_20261030/forward_packed",
+          "--device",
+          "cuda:1",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s43"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s43/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--selection",
+          "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+          "--flow",
+          "/home/zhangyu/.cache/speedest-v5/flows_20261030/forward_packed",
+          "--device",
+          "cuda:1",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s43s44_R02_512_s43"
+        ]
+      ],
+      "session": "v5next_20261030_pilot_s43s44_R02_512_s43",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s43s44_R02_512_s43.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s43s44/jobs/R02_512_s43.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s43/status.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s43",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s43",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s43/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s43s44_R02_512_s43/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s43/last.pt"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s43/best.pt"
+        }
+      ]
+    },
+    {
+      "name": "R02_1024_s43",
+      "job_id": "20261030_pilot_s43s44_R02_1024_s43",
+      "kind": "training",
+      "device": "cuda:2",
+      "experiment": "R02",
+      "training_seed": 43,
+      "raft_width": 1024,
+      "requires": [],
+      "after": [],
+      "config_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/configs/next/R02_raft1024_s43.json",
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/configs/next/R02_raft1024_s43.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--selection",
+          "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+          "--flow",
+          "/home/zhangyu/.local/share/speedest-v5-next/flows/20261030_pilot_s42_retry1_raft1024_packed",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s43"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s43/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--selection",
+          "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+          "--flow",
+          "/home/zhangyu/.local/share/speedest-v5-next/flows/20261030_pilot_s42_retry1_raft1024_packed",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s43s44_R02_1024_s43"
+        ]
+      ],
+      "session": "v5next_20261030_pilot_s43s44_R02_1024_s43",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s43s44_R02_1024_s43.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s43s44/jobs/R02_1024_s43.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s43/status.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s43",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s43",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s43/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s43s44_R02_1024_s43/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s43/last.pt"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s43/best.pt"
+        }
+      ]
+    },
+    {
+      "name": "R02_512_s44",
+      "job_id": "20261030_pilot_s43s44_R02_512_s44",
+      "kind": "training",
+      "device": "cuda:1",
+      "experiment": "R02",
+      "training_seed": 44,
+      "raft_width": 512,
+      "requires": [],
+      "after": [
+        "R02_512_s43"
+      ],
+      "config_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/configs/next/R02_raft512_s44.json",
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/configs/next/R02_raft512_s44.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--selection",
+          "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+          "--flow",
+          "/home/zhangyu/.cache/speedest-v5/flows_20261030/forward_packed",
+          "--device",
+          "cuda:1",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s44"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s44/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--selection",
+          "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+          "--flow",
+          "/home/zhangyu/.cache/speedest-v5/flows_20261030/forward_packed",
+          "--device",
+          "cuda:1",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s43s44_R02_512_s44"
+        ]
+      ],
+      "session": "v5next_20261030_pilot_s43s44_R02_512_s44",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s43s44_R02_512_s44.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s43s44/jobs/R02_512_s44.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s44/status.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s44",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s44",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s44/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s43s44_R02_512_s44/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s44/last.pt"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s44/best.pt"
+        }
+      ]
+    },
+    {
+      "name": "R02_1024_s44",
+      "job_id": "20261030_pilot_s43s44_R02_1024_s44",
+      "kind": "training",
+      "device": "cuda:2",
+      "experiment": "R02",
+      "training_seed": 44,
+      "raft_width": 1024,
+      "requires": [],
+      "after": [
+        "R02_1024_s43"
+      ],
+      "config_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/configs/next/R02_raft1024_s44.json",
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/configs/next/R02_raft1024_s44.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--selection",
+          "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+          "--flow",
+          "/home/zhangyu/.local/share/speedest-v5-next/flows/20261030_pilot_s42_retry1_raft1024_packed",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s44"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s44/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--selection",
+          "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+          "--flow",
+          "/home/zhangyu/.local/share/speedest-v5-next/flows/20261030_pilot_s42_retry1_raft1024_packed",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s43s44_R02_1024_s44"
+        ]
+      ],
+      "session": "v5next_20261030_pilot_s43s44_R02_1024_s44",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s43s44_R02_1024_s44.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s43s44/jobs/R02_1024_s44.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s44/status.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s44",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s44",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s44/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261030_pilot_s43s44_R02_1024_s44/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s44/last.pt"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s44/best.pt"
+        }
+      ]
+    }
+  ],
+  "identity": "07be12e3ef22647ca2cb622dbfab653c08a0bde3c2549822b62b554192baabf2"
+}

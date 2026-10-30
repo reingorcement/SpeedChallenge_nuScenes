@@ -1,0 +1,130 @@
+{
+  "status": "running",
+  "updated_at": "2026-10-30T14:17:00.467554+00:00",
+  "plan_identity": "b62f1d7603333b0ba15314c19997d90bc5d4da8c930e6ab8a85a531830f4885b",
+  "code": {
+    "commit": "252fb5f44c290c0d894faf8373329ba27105604e",
+    "dirty": false,
+    "verified_remote_commit": "252fb5f44c290c0d894faf8373329ba27105604e"
+  },
+  "jobs": {
+    "R02_512_s43": {
+      "status": "running",
+      "updated_at": "2026-10-30T14:16:56.052840+00:00",
+      "launch_count": 1,
+      "reason": null,
+      "launched_at_epoch": 1793369698.80781,
+      "pid": 3330942,
+      "pid_start_ticks": 88461430,
+      "started_at": "2026-10-30T14:15:00.103915+00:00",
+      "commit": "252fb5f44c290c0d894faf8373329ba27105604e",
+      "phase": "training",
+      "command_index": 0,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/252fb5f44c29/methods/purevision-flow/PureVision_V5/train.py",
+        "--config",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/252fb5f44c29/methods/purevision-flow/PureVision_V5/configs/next/R02_raft512_s43.json",
+        "--manifest",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+        "--selection",
+        "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+        "--flow",
+        "/home/zhangyu/.cache/speedest-v5/flows_20261030/forward_packed",
+        "--device",
+        "cuda:1",
+        "--workers",
+        "4",
+        "--output",
+        "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_512_s43"
+      ],
+      "child_pid": 3331093,
+      "child_pid_start_ticks": 88461651,
+      "epoch": 28,
+      "global_step": 3260,
+      "loss": 0.001794113079085946,
+      "elapsed_seconds": 67.54170693096239,
+      "validation": {
+        "count": 1826,
+        "epe": 1.0720400763766915,
+        "mae_vx": 1.0698741656283535,
+        "rmse_vx": 1.7878177741708026,
+        "bias_vx": -0.12427583783852812,
+        "p95_abs_vx": 4.792845897376537,
+        "mae_vy": 0.02643649438067921,
+        "rmse_vy": 0.03564211183158202,
+        "bias_vy": 0.003595261075893819,
+        "p95_abs_vy": 0.06706120166927576,
+        "zero_vy_mae": 0.042481431586388715
+      }
+    },
+    "R02_1024_s43": {
+      "status": "running",
+      "updated_at": "2026-10-30T14:16:56.032052+00:00",
+      "launch_count": 1,
+      "reason": null,
+      "launched_at_epoch": 1793369698.8212035,
+      "pid": 3330947,
+      "pid_start_ticks": 88461432,
+      "started_at": "2026-10-30T14:15:00.149526+00:00",
+      "commit": "252fb5f44c290c0d894faf8373329ba27105604e",
+      "phase": "training",
+      "command_index": 0,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/252fb5f44c29/methods/purevision-flow/PureVision_V5/train.py",
+        "--config",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/252fb5f44c29/methods/purevision-flow/PureVision_V5/configs/next/R02_raft1024_s43.json",
+        "--manifest",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+        "--selection",
+        "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+        "--flow",
+        "/home/zhangyu/.local/share/speedest-v5-next/flows/20261030_pilot_s42_retry1_raft1024_packed",
+        "--device",
+        "cuda:2",
+        "--workers",
+        "4",
+        "--output",
+        "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s43s44_R02_1024_s43"
+      ],
+      "child_pid": 3331092,
+      "child_pid_start_ticks": 88461650,
+      "epoch": 38,
+      "global_step": 4370,
+      "elapsed_seconds": 80.63259205804206,
+      "loss": 0.0008151297806762159,
+      "validation": {
+        "count": 1826,
+        "epe": 0.8712630182728455,
+        "mae_vx": 0.8689736786430835,
+        "rmse_vx": 1.5340865752136439,
+        "bias_vx": -0.2885015042586875,
+        "p95_abs_vx": 4.180963754653931,
+        "mae_vy": 0.025503577122575134,
+        "rmse_vy": 0.03486055541568634,
+        "bias_vy": -0.00437567345996132,
+        "p95_abs_vy": 0.0657102707773447,
+        "zero_vy_mae": 0.042481431586388715
+      }
+    },
+    "R02_512_s44": {
+      "status": "queued",
+      "updated_at": "2026-10-30T14:14:58.702983+00:00",
+      "launch_count": 0,
+      "reason": null
+    },
+    "R02_1024_s44": {
+      "status": "queued",
+      "updated_at": "2026-10-30T14:14:58.703531+00:00",
+      "launch_count": 0,
+      "reason": null
+    },
+    "features": {
+      "status": "not_required"
+    }
+  },
+  "gpu_probe_error": null
+}

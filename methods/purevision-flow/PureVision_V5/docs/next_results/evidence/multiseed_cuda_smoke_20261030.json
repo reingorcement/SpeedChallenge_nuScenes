@@ -1,0 +1,51 @@
+{
+  "schema": "v5_multiseed_cuda_smoke_v1",
+  "scope": "synthetic_smoke_not_formal_result",
+  "time": "2026-10-30T14:06:41.460394+00:00",
+  "code": {
+    "commit": "86ff37b64c1b77edd6d6f7b710ad833e9e85f06a",
+    "dirty": true,
+    "verified_remote_commit": null
+  },
+  "device": "cuda:0",
+  "device_name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+  "numerical_code": {
+    "files": {
+      "train.py": "855452c168edf54855e9d9ec8fc94aef7d702e7b1c03d09350cf3d0190f6535e",
+      "evaluate.py": "a3760c6ab67262039e859516e826272fd9185039ab6c1e60e18a17c57135da94",
+      "purevision_v5/model.py": "88606db13a6d8f7babb616d3e30c4ce77121ed2372acdb1d065c5e1a2f866adc",
+      "purevision_v5/training.py": "370c5edab0c74f24e7331372d40c6b15b46c96c4f8691f964a7a9e06aa827433",
+      "purevision_v5/datasets.py": "a356650ffeb87b70381741d22f9943f5abd38637c21cce5f353e96b4289ca894",
+      "purevision_v5/selection.py": "363255dcfcfeb1059fe2e0c9e88823613860082275ee0a71cdeebb0d1feac451",
+      "purevision_v5/labels.py": "381a758f59e6f59e2ecd8c97b39870eaf158a454fe9dd1a941bede10223148fe",
+      "purevision_v5/flow.py": "132a1074a13c3dc2abedf165d663713de7a67269aebc382853485bed23c9bdb3",
+      "purevision_v5/packed_flow.py": "d44eb0a0f599a91a34c478c3d667bb315d6ad03093aed09d463ca69cc1154dc4",
+      "purevision_v5/evaluation.py": "5bb0e89dc7eb52cd40a3ab2fa729e0f4908b315137b549094e203c027ae3e2d9"
+    },
+    "identity": "2d72677406091cf1a35d9529843e2d1ef26e7a2d25e29d9d34ff02d8c87365b8",
+    "excluded_non_numerical": [
+      "purevision_v5/common.py network/provenance helpers",
+      "queue/monitoring/reporting tools"
+    ]
+  },
+  "rows": [
+    {
+      "seed": 43,
+      "pair_initialization_equal": true,
+      "initial_state_sha256": "ae81c805f2356c25093580fe850863b8db71cbbb46d71740ce306c34dd7b02ef",
+      "updated_state_sha256": "1e60add93dbf44eb1685debd2f508546192567f8ac65c5fe6a347f2142eeb90a",
+      "loss": 0.011749904602766037,
+      "all_parameter_gradients_finite_nonzero": true,
+      "actual_parameters_changed": true
+    },
+    {
+      "seed": 44,
+      "pair_initialization_equal": true,
+      "initial_state_sha256": "40533f7331ce592891d1a06d26ed88db43e3e3887f42cacadc390aa8b2a1404a",
+      "updated_state_sha256": "41ed1c601980957f688f09a570f118ccdce1c0be8373fe213a0b035bd42d967a",
+      "loss": 0.011936254799365997,
+      "all_parameter_gradients_finite_nonzero": true,
+      "actual_parameters_changed": true
+    }
+  ]
+}
