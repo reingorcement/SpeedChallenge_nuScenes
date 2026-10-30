@@ -1,0 +1,86 @@
+{
+  "schema": "v5_completion_watcher_fix_v1",
+  "time_utc": "2026-10-30T15:16:26.617640+00:00",
+  "reason": [
+    "Uncaught subprocess timeout could terminate old watcher",
+    "Pending receipt replaced initial success and prevented autonomous retry"
+  ],
+  "scope": "Only this auxiliary completion tmux was replaced; no coordinator, flow worker, cron or fixed generation code changed",
+  "old_script": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/completion_20261030_full_nuscenes_front1024.py",
+    "sha256": "c0c64a13773bb24cc89bd8f5179ce4644c108e8cf0e7888c59807112411d8334",
+    "bytes": 3263
+  },
+  "new_script": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/completion_20261030_full_nuscenes_front1024_v2.py",
+    "sha256": "026892f4d72e00ccbd255a7b1e1856cde5bdfdf49269fbe67cdae9526c7dc09a",
+    "bytes": 4926
+  },
+  "old_pid": 3354738,
+  "new_control": {
+    "watcher_version": 2,
+    "session": "v5next_20261030_full_nuscenes_front1024_completion_publish",
+    "pid": 3356579,
+    "pid_start_ticks": 88830201,
+    "command": [
+      "/home/zhangyu/.conda/envs/speedest/bin/python",
+      "-B",
+      "/home/zhangyu/.local/share/speedest-v5-next/monitoring/completion_20261030_full_nuscenes_front1024_v2.py"
+    ],
+    "script_sha256": "026892f4d72e00ccbd255a7b1e1856cde5bdfdf49269fbe67cdae9526c7dc09a",
+    "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_completion_publish_v2.log",
+    "plan_identity": "cbc303bbcd40f1189db741cab7cce6f3938d6a3be3e3326ce182555ce95cf620",
+    "generation_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+    "initial_publication_proof": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/completion_initial_publication_20261030_full_nuscenes_front1024.json",
+      "sha256": "1e1deb0bdb8286e9cd596c2a0251474df5341372336a8075d52f5b914b6b4337",
+      "bytes": 1366
+    },
+    "retry_seconds": 300,
+    "command_timeout_seconds": 660,
+    "failure_behavior": "Timeout/OSError/nonzero/stale receipt remain pending and retry; initial remote verification is latched to this code+plan"
+  },
+  "test_source": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/test_completion_20261030_full_nuscenes_front1024_v2.py",
+    "sha256": "e7238ae699105b49774393b47c7bf36baa92a595a0bdf22a37e489db09e3f585",
+    "bytes": 3968
+  },
+  "isolated_tests": {
+    "result": "3 passed in 0.39s",
+    "cases": [
+      "Timeout is recorded and retried after 300s",
+      "Pending receipt cannot reset initial verified latch",
+      "Zero exit with stale receipt is not publication success"
+    ],
+    "no_actual_publish_or_git_called": true,
+    "log": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/completion_v2_test_20261030_full_nuscenes_front1024.log",
+      "sha256": "fc99c56adf2cb5702a4564ceead9e104cf6db01c3cd1a15756b5c9630e644ce6",
+      "bytes": 98
+    }
+  },
+  "flow_pids_unchanged": {
+    "v5next_20261030_full_nuscenes_front1024_flow1024_0": "3353547",
+    "v5next_20261030_full_nuscenes_front1024_flow1024_1": "3353552",
+    "v5next_20261030_full_nuscenes_front1024_flow1024_2": "3353557"
+  },
+  "actual_watcher_status": {
+    "time_utc": "2026-10-30T15:16:26.551418+00:00",
+    "prefix": "20261030_full_nuscenes_front1024",
+    "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+    "plan_identity": "cbc303bbcd40f1189db741cab7cce6f3938d6a3be3e3326ce182555ce95cf620",
+    "watcher_version": 2,
+    "status": "waiting",
+    "command": [
+      "bash",
+      "/home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh",
+      "/home/zhangyu/.local/share/speedest-v5-next",
+      "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261030_full_nuscenes_front1024.json",
+      "manual"
+    ],
+    "initial_publication_latched": true,
+    "initial_verified_remote_commit": "890c2a173162ac0d0191170c8fc7028e463e04a6"
+  },
+  "repository_snapshot": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5/docs/next/evidence/completion_20261030_full_nuscenes_front1024.py",
+  "snapshot_bytes_identical": true
+}

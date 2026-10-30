@@ -1,6 +1,6 @@
 {
   "status": "running",
-  "updated_at": "2026-10-30T15:04:35.906279+00:00",
+  "updated_at": "2026-10-30T15:17:06.094573+00:00",
   "launch_count": 1,
   "reason": null,
   "launched_at_epoch": 1793372602.0826333,
@@ -40,25 +40,25 @@
   "expected_pairs": 77339,
   "total": 77339,
   "target_pairs": 77339,
-  "pairs_processed": 104,
+  "pairs_processed": 1360,
   "counts": {
-    "created": 104,
+    "created": 1360,
     "reused": 0,
     "recovered": 0,
     "adopted": 0
   },
-  "elapsed_s": 58.842415631050244,
-  "pairs_per_second": 1.7674325379857585,
-  "throughput": 1.7674325379857585,
-  "bytes": 620106448,
-  "bytes_written": 620106448,
+  "elapsed_s": 812.9066185479751,
+  "pairs_per_second": 1.6730088905282265,
+  "throughput": 1.6730088905282265,
+  "bytes": 8109084320,
+  "bytes_written": 8109084320,
   "cuda_peak_allocated_bytes": 9452956672,
-  "completed": 104,
+  "completed": 1360,
   "last_pair": {
-    "source": "b451a2d3e123447dbb3c5e88ca004151",
-    "target": "a51cec8e4c5d4b8fa4fc1c3ef9c93857",
+    "source": "700e03d27e814a9fac84201f06e358a2",
+    "target": "5428be5e9cd141c295039c161929f157",
     "version": "v1.0-test",
     "camera": "CAM_FRONT",
-    "scene": "scene-0079"
+    "scene": "scene-0113"
   }
 }

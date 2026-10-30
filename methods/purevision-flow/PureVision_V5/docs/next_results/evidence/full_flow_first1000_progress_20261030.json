@@ -1,0 +1,88 @@
+{
+  "schema": "v5_full_flow_progress_snapshot_v1",
+  "observed_at": "2026-10-30T15:09:23.647593+00:00",
+  "status": "running",
+  "code": {
+    "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+    "dirty": false,
+    "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+  },
+  "plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/plan.json",
+  "plan_identity": "cbc303bbcd40f1189db741cab7cce6f3938d6a3be3e3326ce182555ce95cf620",
+  "jobs": [
+    {
+      "status": "running",
+      "pairs_processed": 552,
+      "total": 77623,
+      "counts": {
+        "created": 552,
+        "reused": 0,
+        "recovered": 0,
+        "adopted": 0
+      },
+      "elapsed_s": 335.48217549792025,
+      "pairs_per_second": 1.6453929308784454,
+      "remaining_pairs": 77071,
+      "estimated_remaining_s": 46840.4832387685,
+      "bytes": 3291334224,
+      "bytes_written": 3291334224,
+      "cuda_peak_allocated_bytes": 9452956672,
+      "job": "flow1024_0",
+      "device": "cuda:0",
+      "report": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_0.json",
+      "report_sha256": "2a5aa9be5d8aea49c6892d621c69fb2e44b0ca2aabb2f5873d9059f0c5dfd72d"
+    },
+    {
+      "status": "running",
+      "pairs_processed": 600,
+      "total": 77277,
+      "counts": {
+        "created": 600,
+        "reused": 0,
+        "recovered": 0,
+        "adopted": 0
+      },
+      "elapsed_s": 353.98491355299484,
+      "pairs_per_second": 1.6949874896580146,
+      "remaining_pairs": 76677,
+      "estimated_remaining_s": 45237.502027504976,
+      "bytes": 3577537200,
+      "bytes_written": 3577537200,
+      "cuda_peak_allocated_bytes": 9452956672,
+      "job": "flow1024_1",
+      "device": "cuda:1",
+      "report": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_1.json",
+      "report_sha256": "789cc8e981f5ec2f242dd93f0fe7700a1e568078aad74fee862381c0c54e4c45"
+    },
+    {
+      "status": "running",
+      "pairs_processed": 560,
+      "total": 77339,
+      "counts": {
+        "created": 560,
+        "reused": 0,
+        "recovered": 0,
+        "adopted": 0
+      },
+      "elapsed_s": 331.3240569930058,
+      "pairs_per_second": 1.6901881652735573,
+      "remaining_pairs": 76779,
+      "estimated_remaining_s": 45426.30316404642,
+      "bytes": 3339034720,
+      "bytes_written": 3339034720,
+      "cuda_peak_allocated_bytes": 9452956672,
+      "job": "flow1024_2",
+      "device": "cuda:2",
+      "report": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_2.json",
+      "report_sha256": "cc0aa93462b12a63f922e6807cbc479197487eaa53bc551f9ce8e30e42419c25"
+    }
+  ],
+  "completed_pairs": 1712,
+  "total_pairs": 232239,
+  "bytes_written": 10207906144,
+  "aggregate_pairs_per_second": 5.030568585810017,
+  "estimated_generation_remaining_hours": 13.011245344102361,
+  "estimated_generation_finish_utc": "2026-10-31T04:10:04.130832+00:00",
+  "eta_limit": "Measured cumulative startup throughput, not a completion guarantee; still excludes final packing and independent verification.",
+  "data_disk_free_bytes": 18820172414976
+}
