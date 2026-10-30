@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from pipeline import (build_plan, dependency_state, initialize, lock, read_json,
-                      register, tick, validate_plan, write_json)
+                      process_observation, register, tick, validate_plan, write_json)
 
 
 @pytest.fixture
@@ -69,7 +69,7 @@ def test_initial_flow_jobs_do_not_wait_for_features_and_repeated_tick_is_idempot
     assert next(row for row in registry["jobs"] if row["job_id"]==external["job_id"])==external
     for name in launched:
         row=read_json(job(plan,name)["status_path"])
-        assert row["launch_count"]==1 and row["pid_start_ticks"]==12345
+        assert row["launch_count"]==1 and "pid_start_ticks" not in row
 
 
 def test_software_queue_edges_are_soft_and_failed_rgb_does_not_block_flow_only(plan):
@@ -141,7 +141,9 @@ def test_immutable_plan_singleton_lock_and_missing_state_never_restarts(plan):
     assert path.read_text()==original
     target=Path(job(plan,"forward0")["status_path"]);target.unlink()
     initialize(plan)
-    assert read_json(target)["status"]=="interrupted"
+    assert not target.exists()  # Never manufacture a terminal worker state from a missing observation.
+    assert next(row for row in read_json(Path(plan["root"])/"monitoring/jobs.json")["jobs"]
+                if row["job_id"]==job(plan,"forward0")["job_id"])["status"]=="unknown"
     with lock(Path(plan["root"])/"lock"):
         with pytest.raises(BlockingIOError):
             with lock(Path(plan["root"])/"lock"):
@@ -151,9 +153,118 @@ def test_immutable_plan_singleton_lock_and_missing_state_never_restarts(plan):
 def test_dead_worker_is_terminal_not_automatically_restarted(plan):
     path=initialize(plan);features(plan,"running");tmux=MockTmux()
     mark(plan,"forward0","running",pid=9999,pid_start_ticks=10)
-    _,launched=tick(plan,path,tmux=tmux,gpu_probe=lambda:set(),alive=lambda *args:{"alive":False})
+    probe=lambda *args:{"alive":False,"verdict":"dead"}
+    _,launched=tick(plan,path,tmux=tmux,gpu_probe=lambda:set(),alive=probe)
     assert "forward0" not in launched
-    assert read_json(job(plan,"forward0")["status_path"])["status"]=="interrupted"
+    assert read_json(job(plan,"fb0")["status_path"])["status"]=="queued"
+    tick(plan,path,tmux=tmux,gpu_probe=lambda:set(),alive=probe)
+    # Worker-owned JSON remains intact; the separate confirmed observation drives dependencies.
+    assert read_json(job(plan,"forward0")["status_path"])["status"]=="running"
+    assert read_json(job(plan,"fb0")["status_path"])["status"]=="blocked"
+    state=read_json(Path(plan["root"])/"pipeline"/plan["prefix"]/"status.json")
+    assert state["jobs"]["forward0"]["status"]=="interrupted"
+
+
+@pytest.mark.parametrize("failure", ["legacy_false", "unknown", "missing", "malformed"])
+def test_transient_observation_never_blocks_live_preparation_descendants(plan,failure):
+    path=initialize(plan);features(plan,"running");tmux=MockTmux()
+    mark(plan,"forward1","running",pid=9999,pid_start_ticks=10)
+    target=Path(job(plan,"forward1")["status_path"])
+    original=target.read_text()
+    if failure=="missing":
+        target.unlink()
+    elif failure=="malformed":
+        target.write_text("{")
+    probe=lambda *args:{"alive":False,**({"verdict":"unknown","reason":"read error"} if failure=="unknown" else {})}
+    tick(plan,path,tmux=tmux,gpu_probe=lambda:{"cuda:0","cuda:1","cuda:2"},alive=probe)
+    assert all(read_json(job(plan,name)["status_path"])["status"]=="queued"
+               for name in ("forward_pack","R01","R03","R02","fb1","fb_pack","R04","R05"))
+    target.write_text(original)
+    run_tick(plan,path,tmux,busy=["cuda:0","cuda:1","cuda:2"])
+    assert read_json(job(plan,"forward_pack")["status_path"])["status"]=="queued"
+
+
+def test_live_child_or_worker_lock_corroborates_worker_survival(plan):
+    path=initialize(plan);features(plan,"running");tmux=MockTmux()
+    mark(plan,"forward1","running",pid=9999,pid_start_ticks=10,child_pid=8888)
+    def probe(pid,*args):
+        return {"alive":pid==8888,"verdict":"alive" if pid==8888 else "dead"}
+    for _ in range(3):
+        tick(plan,path,tmux=tmux,gpu_probe=lambda:{"cuda:0","cuda:1","cuda:2"},alive=probe)
+    assert read_json(job(plan,"forward_pack")["status_path"])["status"]=="queued"
+    mark(plan,"forward1","running",pid=9999,child_pid=None)
+    with lock(Path(plan["root"])/"pipeline/locks"/f"job_{job(plan,'forward1')['job_id']}.lock"):
+        for _ in range(3):
+            tick(plan,path,tmux=tmux,gpu_probe=lambda:{"cuda:0","cuda:1","cuda:2"},alive=probe)
+    assert read_json(job(plan,"forward_pack")["status_path"])["status"]=="queued"
+
+
+def test_changed_heartbeat_resets_death_confirmation(plan):
+    path=initialize(plan);tmux=MockTmux();features(plan,"running")
+    mark(plan,"forward1","running",pid=9999,updated_at="first")
+    for heartbeat in ("first","second","third"):
+        mark(plan,"forward1","running",pid=9999,updated_at=heartbeat)
+        tick(plan,path,tmux=tmux,gpu_probe=lambda:{"cuda:0","cuda:1","cuda:2"},
+             alive=lambda *args:{"alive":False,"verdict":"dead"})
+    assert read_json(job(plan,"forward_pack")["status_path"])["status"]=="queued"
+
+
+def test_recovery_adopts_exact_running_forward_jobs_without_launch_or_registry_overwrite(plan):
+    old_path=initialize(plan)
+    mark(plan,"forward0","running",pid=111,launch_count=1)
+    mark(plan,"forward1","running",pid=222,launch_count=1)
+    register(plan,job(plan,"forward0"),read_json(job(plan,"forward0")["status_path"]))
+    old_row=next(row for row in read_json(Path(plan["root"])/"monitoring/jobs.json")["jobs"]
+                 if row["job_id"]==job(plan,"forward0")["job_id"])
+    new_version={"commit":"b"*40,"dirty":False,"verified_remote_commit":"b"*40}
+    recovery=build_plan(plan["root"],plan["manifest"],plan["features"],"test_s42_r1",new_version,preparation_plan=old_path)
+    assert len(recovery["jobs"])==10 and len(recovery["external_preparation"])==2
+    assert {row["job_id"] for row in recovery["external_preparation"]}=={"test_s42_forward0","test_s42_forward1"}
+    assert recovery["preparation_source"]["code"]==plan["code"]
+    new_path=initialize(recovery);tmux=MockTmux();features(recovery,"completed")
+    assert run_tick(recovery,new_path,tmux,busy=["cuda:0","cuda:2"])[1]==["R00"]
+    current=next(row for row in read_json(Path(plan["root"])/"monitoring/jobs.json")["jobs"]
+                 if row["job_id"]==old_row["job_id"])
+    assert current==old_row
+    assert all(row["name"] not in {"forward0","forward1"} for row in tmux.launched)
+    mark(plan,"forward0","completed");mark(plan,"forward1","completed")
+    assert set(run_tick(recovery,new_path,tmux)[1])=={"fb0","forward_pack"}
+    assert all(row["job_id"].startswith("test_s42_r1_") for row in recovery["jobs"])
+
+
+def test_process_probe_distinguishes_absence_from_read_failure(monkeypatch):
+    def inaccessible(*args, **kwargs):
+        raise PermissionError("test permission failure")
+    monkeypatch.setattr(Path,"read_text",inaccessible)
+    assert process_observation(123,1)["verdict"]=="unknown"
+    def absent(*args, **kwargs):
+        raise FileNotFoundError("test disappearance")
+    monkeypatch.setattr(Path,"read_text",absent)
+    assert process_observation(123,1)["verdict"]=="dead"
+
+
+def test_failed_startup_needs_two_observations_and_keeps_worker_status(plan):
+    path=initialize(plan);features(plan,"running");tmux=MockTmux()
+    mark(plan,"forward1","launching",launched_at_epoch=0,launch_count=1)
+    for expected in ("queued","blocked"):
+        tick(plan,path,tmux=tmux,gpu_probe=lambda:{"cuda:0","cuda:1","cuda:2"},
+             alive=lambda *args:{"alive":None,"verdict":"unknown"})
+        assert read_json(job(plan,"forward_pack")["status_path"])["status"]==expected
+    assert read_json(job(plan,"forward1")["status_path"])["status"]=="launching"
+
+
+def test_launch_never_overwrites_worker_first_status(plan):
+    path=initialize(plan);features(plan,"running")
+    class FastWorker(MockTmux):
+        def launch(self,path,plan,selected):
+            result=super().launch(path,plan,selected)
+            mark(plan,selected["name"],"running",pid=123,pid_start_ticks=456)
+            return result
+    tmux=FastWorker()
+    run_tick(plan,path,tmux,busy=["cuda:1"])
+    for name in ("forward0","forward1"):
+        state=read_json(job(plan,name)["status_path"])
+        assert state["status"]=="running" and state["pid"]==123 and state["pid_start_ticks"]==456
 
 
 def test_plan_declares_evaluation_and_packing_reference_and_rejects_tampering(plan):

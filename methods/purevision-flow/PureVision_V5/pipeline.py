@@ -45,7 +45,8 @@ def resolve_input(root, value):
     return (path if path.is_absolute() else root / path).resolve()
 
 
-def build_plan(root, manifest, features, prefix, version, *, code_root=ROOT, python=sys.executable):
+def build_plan(root, manifest, features, prefix, version, *, code_root=ROOT, python=sys.executable,
+               preparation_plan=None):
     if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", prefix) is None:
         raise ValueError("run-prefix must be 1-64 letters, digits, underscores or hyphens")
     root, code_root = Path(root).resolve(), Path(code_root).resolve()
@@ -116,6 +117,31 @@ def build_plan(root, manifest, features, prefix, version, *, code_root=ROOT, pyt
                 prefix=prefix, code=version, manifest=str(manifest), manifest_sha256=sha256(manifest),
                 features=str(features), features_status=str(features / "status.json"),
                 config_hashes=config_hashes, jobs=jobs)
+    if preparation_plan is not None:
+        source = Path(preparation_plan).resolve()
+        previous = read_json(source)
+        validate_plan(previous)
+        if (previous["root"] != str(root) or previous["manifest_sha256"] != plan["manifest_sha256"]
+                or previous["prefix"] == prefix):
+            raise ValueError("Preparation adoption requires same artifact root/manifest and a new prefix")
+        adopted = []
+        for name in ("forward0", "forward1"):
+            old = next(row for row in previous["jobs"] if row["name"] == name)
+            new = next(row for row in jobs if row["name"] == name)
+            old_args, new_args = old["commands"][0][3:], new["commands"][0][3:]
+            # Only the per-plan report path may differ; numerical extraction inputs must match.
+            def without_report(args):
+                position = args.index("--report")
+                return args[:position] + args[position + 2:]
+            if (old["kind"] != "flow" or old["device"] != new["device"]
+                    or len(old["commands"]) != 1 or without_report(old_args) != without_report(new_args)):
+                raise ValueError(f"Incompatible adopted preparation job: {name}")
+            adopted.append({**old, "source_commit": previous["code"]["commit"],
+                            "source_plan_identity": previous["identity"]})
+        plan["jobs"] = [row for row in jobs if row["name"] not in {"forward0", "forward1"}]
+        plan["external_preparation"] = adopted
+        plan["preparation_source"] = {"path": str(source), "sha256": sha256(source),
+                                      "identity": previous["identity"], "code": previous["code"]}
     return {**plan,"identity":object_hash(plan)}
 
 
@@ -143,7 +169,7 @@ def register(plan, job, state):
         by_id[job["job_id"]] = {**old,**{key:job[key] for key in
             ("job_id","kind","device","run_dir","log_path","status_path","session")},
             "pipeline_id":plan["prefix"],"plan_identity":plan["identity"],"commit":plan["code"]["commit"],
-            **{key:state.get(key) for key in ("status","pid","pid_start_ticks","child_pid","child_pid_start_ticks","exit_code")}}
+            **{key:state.get(key) for key in ("status","pid","pid_start_ticks","child_pid","child_pid_start_ticks","exit_code","observation_path")}}
         # Preserve all external rows and unrelated registry top-level fields.
         result = {**value,"jobs":list(by_id.values())} if isinstance(value,dict) else list(by_id.values())
         write_json(root / "monitoring/jobs.json",result)
@@ -161,26 +187,111 @@ def initialize(plan):
     for job in plan["jobs"]:
         state = read_json(job["status_path"])
         if state is None:
-            state = dict(status="queued" if existing is None else "interrupted",updated_at=now(),launch_count=0,
+            state = dict(status="queued" if existing is None else "unknown",updated_at=now(),launch_count=0,
                          reason=None if existing is None else "Missing state for an already registered pipeline")
-            write_json(job["status_path"],state)
+            if existing is None:
+                write_json(job["status_path"],state)
         register(plan,job,state)
     return path
 
 
 def external_features(plan):
-    status = read_json(plan["features_status"],{"status":"not_started"})
+    try:
+        status = read_json(plan["features_status"],{"status":"unknown"})
+    except (OSError, ValueError) as error:
+        return {"status": "unknown", "read_error": f"{type(error).__name__}: {error}"}
     if status.get("status") == "completed":
-        index = read_json(Path(plan["features"]) / "index.json",{})
-        if index.get("contract",{}).get("dataset_sha256") != plan["manifest_sha256"]:
+        try:
+            index = read_json(Path(plan["features"]) / "index.json",{})
+        except (OSError, ValueError) as error:
+            return dict(status="unknown",reason=f"Cannot observe feature index: {type(error).__name__}: {error}")
+        dataset = index.get("contract",{}).get("dataset_sha256")
+        if dataset is None:
+            return dict(status="unknown",reason="Completed features index is not yet observable")
+        if dataset != plan["manifest_sha256"]:
             return dict(status="failed",reason="External features missing matching manifest contract")
-    if status.get("status") == "running":
-        _,rows = registry_rows(plan["root"])
-        for job in rows:
-            if job.get("status_path") == plan["features_status"] or job.get("run_dir") == plan["features"]:
-                if job.get("pid") and not process_info(job["pid"],job.get("pid_start_ticks"))["alive"]:
-                    return dict(status="interrupted",reason="External feature process disappeared")
     return status
+
+
+def process_observation(pid, expected_start=None):
+    """Distinguish verified disappearance from a failed /proc observation."""
+    if not pid:
+        return {"alive": None, "verdict": "unknown", "reason": "pid unavailable"}
+    try:
+        fields = (Path("/proc") / str(int(pid)) / "stat").read_text().rsplit(")", 1)[1].split()
+        start = int(fields[19])
+        present = fields[0] not in {"Z", "X"} and (expected_start is None or int(expected_start) == start)
+        return {"alive": present, "verdict": "alive" if present else "dead", "start_ticks": start,
+                "reason": "verified process identity" if present else "zombie or reused process identity"}
+    except FileNotFoundError:
+        return {"alive": False, "verdict": "dead", "reason": "proc stat absent"}
+    except (OSError, ValueError, IndexError) as error:
+        return {"alive": None, "verdict": "unknown", "reason": f"{type(error).__name__}: {error}"}
+
+
+def worker_lock_free(root, job):
+    path = Path(root) / "pipeline/locks" / f"job_{job['job_id']}.lock"
+    try:
+        if not path.exists():
+            return True
+        with path.open("a") as stream:
+            try:
+                fcntl.flock(stream.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                return False
+        return True
+    except OSError:
+        return None
+
+
+def observe_job(plan, job, tmux, alive):
+    """Keep observations separate from worker-owned state; uncertain reads never fail a DAG."""
+    base = Path(plan["root"]) / "pipeline" / plan["prefix"] / "observations"
+    path = base / f"{job['name']}.json"
+    previous = read_json(path, {})
+    try:
+        raw = read_json(job["status_path"])
+        if not isinstance(raw, dict) or "status" not in raw:
+            raise ValueError("Worker status is missing or invalid")
+    except (OSError, ValueError) as error:
+        observation = {"status": "unknown", "read_error": f"{type(error).__name__}: {error}",
+                       "updated_at": now(), "dead_observations": 0,
+                       "last_worker_state": previous.get("last_worker_state")}
+        write_json(path, observation)
+        return {"status": "unknown", "observation_path": str(path), "reason": observation["read_error"]}
+    observation = {"updated_at": now(), "last_worker_state": raw, "dead_observations": 0}
+    effective = dict(raw)
+    if raw["status"] in ACTIVE:
+        wrapper = alive(raw.get("pid"), raw.get("pid_start_ticks"))
+        if (raw["status"] == "launching" and not raw.get("pid")
+                and time.time() - raw.get("launched_at_epoch", time.time()) > 30):
+            wrapper = {"alive": False, "verdict": "dead", "reason": "launch has no recorded pid after startup grace"}
+        child = alive(raw.get("child_pid"), raw.get("child_pid_start_ticks")) if raw.get("child_pid") else {"verdict": "dead", "reason": "no child recorded"}
+        try:
+            session = tmux.exists(job["session"])
+        except (OSError, subprocess.SubprocessError):
+            session = None
+        free = worker_lock_free(plan["root"], job)
+        observation.update(wrapper=wrapper, child=child, tmux_exists=session, worker_lock_free=free)
+        # A bare alive=False from legacy probing is unknown, never proof of death.
+        dead = wrapper.get("verdict") == "dead" and child.get("verdict") == "dead" and session is False and free is True
+        if dead:
+            unchanged = previous.get("last_worker_state") == raw
+            count = previous.get("dead_observations", 0) + 1 if unchanged else 1
+            observation["dead_observations"] = count
+            if count >= 2:
+                effective.update(status="interrupted", reason="Two observations confirm absent worker/child/tmux and released job lock",
+                                 observation_path=str(path))
+        elif wrapper.get("alive") is not True:
+            # A surviving child, tmux session, lock, or inconclusive /proc read prevents terminal propagation.
+            effective.update(status="unknown", reason="Worker liveness is not yet confirmed", observation_path=str(path))
+        if wrapper.get("alive") is not True:
+            base.mkdir(parents=True, exist_ok=True)
+            with (base / "incidents.jsonl").open("a") as stream:
+                stream.write(json.dumps({"job": job["name"], **observation}) + "\n")
+    observation["effective_status"] = effective["status"]
+    write_json(path, observation)
+    return effective
 
 
 def dependency_state(job, states):
@@ -218,26 +329,19 @@ class Tmux:
         return None  # A very short worker may already have written its terminal state.
 
 
-def tick(plan, plan_path, *, tmux=None, gpu_probe=busy_gpus, alive=process_info):
+def tick(plan, plan_path, *, tmux=None, gpu_probe=busy_gpus, alive=process_observation):
     tmux = tmux or Tmux()
-    states = {job["name"]:read_json(job["status_path"],{"status":"interrupted"}) for job in plan["jobs"]}
+    observed_jobs = plan["jobs"] + plan.get("external_preparation", [])
+    states = {job["name"]:observe_job(plan, job, tmux, alive) for job in observed_jobs}
     states["features"] = external_features(plan)
-    for job in plan["jobs"]:
-        state = states[job["name"]]
-        if state["status"] == "running" and state.get("pid") and not alive(state["pid"],state.get("pid_start_ticks"))["alive"]:
-            state.update(status="interrupted",reason="Worker disappeared; automatic restart is disabled",updated_at=now())
-            write_json(job["status_path"],state)
-        elif (state["status"] == "launching" and time.time() - state.get("launched_at_epoch",time.time()) > 30
-              and not tmux.exists(job["session"])):
-            state.update(status="interrupted",reason="Worker never established a live tmux session",updated_at=now())
-            write_json(job["status_path"],state)
     probe_error = None
     try:
         occupied = set(gpu_probe())
     except (OSError,subprocess.SubprocessError) as error:
         occupied = {"cuda:0","cuda:1","cuda:2"}
         probe_error = str(error)
-    occupied.update(job["device"] for job in plan["jobs"] if job["device"] and states[job["name"]]["status"] in ACTIVE)
+    occupied.update(job["device"] for job in observed_jobs
+                    if job["device"] and states[job["name"]]["status"] in ACTIVE | {"unknown"})
     launched = []
     for job in plan["jobs"]:
         state = states[job["name"]]
@@ -258,13 +362,15 @@ def tick(plan, plan_path, *, tmux=None, gpu_probe=busy_gpus, alive=process_info)
                              launched_at_epoch=time.time(),updated_at=now())
                 write_json(job["status_path"],state)
                 try:
-                    pid = tmux.launch(plan_path,plan,job)
-                    # Do not overwrite a status written by an already-started worker.
-                    current = read_json(job["status_path"],state)
-                    if current["status"] == "launching" and pid is not None:
-                        info = alive(pid)
-                        current.update(pid=pid,pid_start_ticks=info.get("start_ticks"))
-                        write_json(job["status_path"],current)
+                    tmux.launch(plan_path,plan,job)
+                    # The worker alone records its PID. A read/modify/write here
+                    # could overwrite its concurrent running or completed state.
+                    try:
+                        current = read_json(job["status_path"],state)
+                        if not isinstance(current, dict) or "status" not in current:
+                            current = state
+                    except (OSError, ValueError):
+                        current = state  # Observe uncertainty on the next tick; launch already succeeded.
                     state = states[job["name"]] = current
                     launched.append(job["name"])
                     if job["device"]:
@@ -382,6 +488,8 @@ def main():
     parser.add_argument("--manifest")
     parser.add_argument("--features")
     parser.add_argument("--run-prefix")
+    parser.add_argument("--preparation-plan", type=Path,
+                        help="Adopt only forward0/forward1 from an immutable previous plan; never restart them")
     parser.add_argument("--dry-run",action="store_true")
     parser.add_argument("--worker",action="store_true",help=argparse.SUPPRESS)
     parser.add_argument("--plan",type=Path,help=argparse.SUPPRESS)
@@ -393,7 +501,8 @@ def main():
         raise SystemExit(worker(args.plan,args.job))
     if not all((args.root,args.manifest,args.features,args.run_prefix)):
         parser.error("root, manifest, features and run-prefix are required")
-    plan = build_plan(args.root,args.manifest,args.features,args.run_prefix,code_version(require_pushed=not args.dry_run))
+    plan = build_plan(args.root,args.manifest,args.features,args.run_prefix,code_version(require_pushed=not args.dry_run),
+                      preparation_plan=args.preparation_plan)
     if args.dry_run:
         print(json.dumps(plan,indent=2))
         return

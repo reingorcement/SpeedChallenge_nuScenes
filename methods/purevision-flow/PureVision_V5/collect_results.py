@@ -145,7 +145,7 @@ def inspect_completed(row, run, status, receipt, plan, job):
                rgb_identity=object_hash(feature) if feature else None, data=data)
 
 
-def collect_row(plan, job):
+def collect_row(plan, job, coordinator=None):
     name, output = job["name"], Path(job["run_dir"])
     evaluation = Path(command_value(job["commands"][1], "--output"))
     row = dict(experiment=name, status="not_started", metrics=None, reason=None, best_epoch=None,
@@ -157,15 +157,18 @@ def collect_row(plan, job):
         job_state = optional_json(job["status_path"])
         run, status = optional_json(output / "run.json"), optional_json(output / "status.json")
         receipt = optional_json(evaluation / "evaluation.json")
+        effective = (coordinator or {}).get("jobs", {}).get(name, {})
         row["observed_status"] = dict(job=job_state.get("status"), training=status.get("status"),
-                                      run=run.get("status"), evaluation=receipt.get("status"))
+                                      run=run.get("status"), evaluation=receipt.get("status"),
+                                      coordinator=effective.get("status"))
+        row["coordinator_observation"] = effective.get("observation_path")
         row["progress"] = {k: status[k] for k in ("epoch", "global_step", "updated_at") if k in status}
         if run:
             row.update(trainable_parameters=run.get("trainable_parameters"), commit=run.get("code", {}).get("commit"))
         if run.get("smoke") or run.get("contract", {}).get("execution", {}).get("smoke"):
             row.update(status="excluded_smoke", reason="Smoke checks are not formal experiment results")
         elif any(s in {"failed", "interrupted", "cancelled", "blocked"} for s in row["observed_status"].values()):
-            row.update(status="failed", reason=job_state.get("error") or job_state.get("reason") or receipt.get("error")
+            row.update(status="failed", reason=effective.get("reason") or job_state.get("error") or job_state.get("reason") or receipt.get("error")
                        or status.get("error") or "A job/training/evaluation record is failed, interrupted or blocked")
         elif run.get("status") == status.get("status") == "completed":
             row["status"] = "evaluation_pending"
@@ -246,7 +249,10 @@ def collect(plan_path):
             "Pipeline label contract mismatch")
     jobs = {j["name"]: j for j in plan["jobs"] if j["name"] in EXPERIMENTS}
     require(set(jobs) == set(EXPERIMENTS), "Pipeline must declare all six experiments")
-    rows = [collect_row(plan, jobs[name]) for name in EXPERIMENTS]
+    coordinator = optional_json(Path(plan["root"]) / "pipeline" / plan["prefix"] / "status.json")
+    if coordinator.get("plan_identity") != plan["identity"]:
+        coordinator = {}  # Never import terminal observations from another plan.
+    rows = [collect_row(plan, jobs[name], coordinator) for name in EXPERIMENTS]
     by_name = {r["experiment"]: r for r in rows}
     for row in rows[1:]:
         row["vs_R00"] = compare(row, rows[0])

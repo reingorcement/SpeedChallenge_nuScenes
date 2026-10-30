@@ -190,3 +190,18 @@ def test_manifest_changes_abort_collection_and_output_cannot_touch_runs(records)
     manifest_path.write_text(manifest_path.read_text() + "\n")
     with pytest.raises(ValueError, match="manifest checksum"):
         collect(path)
+
+
+@pytest.mark.parametrize("matching", [True, False])
+def test_confirmed_coordinator_failure_keeps_raw_worker_evidence(records, matching):
+    plan, path, complete = records
+    job, _, evaluation = complete("R00")
+    write_json(job["status_path"], dict(status="running"))
+    (evaluation / "evaluation.json").unlink()
+    write_json(path.parent / "status.json", dict(plan_identity=plan["identity"] if matching else "another-plan",
+        jobs={"R00": dict(status="interrupted", reason="Confirmed absent worker/child/tmux; lock released",
+                          observation_path=str(path.parent / "observations/R00.json"))}))
+    row = collect(path)["rows"][0]
+    assert row["observed_status"]["job"] == "running" and row["metrics"] is None
+    assert row["status"] == ("failed" if matching else "evaluation_pending")
+    assert row["observed_status"]["coordinator"] == ("interrupted" if matching else None)

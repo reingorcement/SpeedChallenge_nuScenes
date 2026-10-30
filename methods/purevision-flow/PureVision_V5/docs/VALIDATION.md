@@ -2,6 +2,13 @@
 
 These checks establish executable interfaces, not scientific performance.
 
+Additional real packed-cache integration used four train and four dev windows:
+R03/R04/R05 each completed 20 CPU steps, and independent evaluation matched the
+selected metrics and prediction CSV exactly. Forward/FB packing preserved all
+14 numerical flow/valid pairs exactly. Full recovery states loaded strictly.
+Evidence: `smoke/packed_real_cpu_20261030/verification.json`; these remain smoke
+results and are excluded from formal reports.
+
 - Six model paths passed CPU forward/backward and state roundtrip checks. R03--R05
   have identical parameter shapes; with all-reliable masks they agree exactly.
   R04/R05 differ only in masking unreliable numerical flow.
