@@ -1,0 +1,28 @@
+{
+  "experiment": "R02",
+  "seed": 42,
+  "epochs": 20,
+  "batch_size": 64,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "loss_scales_m_s": [
+    5.0,
+    1.0
+  ],
+  "loss_beta": 1.0,
+  "amp": true,
+  "grad_clip": 2.0,
+  "patience": 5,
+  "min_delta": 0.0001,
+  "log_steps": 20,
+  "checkpoint_steps": 250,
+  "rgb_policy": "frozen_v3_direct",
+  "selection_metric": "dev_epe",
+  "lateral_rule": {
+    "max_relative_mae_increase": 0.05,
+    "max_absolute_mae_increase_m_s": 0.01,
+    "nonzero_threshold_m_s": 0.2,
+    "min_subset_windows": 100,
+    "min_subset_scenes": 5
+  }
+}

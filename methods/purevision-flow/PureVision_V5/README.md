@@ -1,0 +1,66 @@
+# PureVision V5: S2 image/flow feature fusion
+
+Five causal CAM_FRONT images and their four adjacent flow fields predict one
+`[vx, vy]` vector in m/s. The current target is **PLANAR_PROXY**, expressed in the
+current yaw frame at the **nuScenes rear axle midpoint**. It is not a verified
+three-dimensional body/centre-of-mass velocity target.
+
+The first comparison asks whether explicit flow helps the same **frozen V3 RGB
+representation**. It does not establish superiority over a fully trained image
+model. The RGB representation itself includes CMA absolute image differences;
+the numerical signed flow branch never passes through CMA.
+
+| Config | Computation |
+|---|---|
+| R00 | Frozen RGB descriptor + four measured historical dt values -> 2D head |
+| R01 | Add fixed spatial-grid pooled flow/validity + linear projection |
+| R02 | Independent spatial/temporal flow encoder + dt, without RGB |
+| R03 | Independent spatial CNN + four-pair temporal convolution + RGB feature concatenation |
+| R04 | R03 with binary FB reliability hint; retain every legal forward flow |
+| R05 | Same hint/threshold as R04; additionally zero FB-rejected flow |
+
+See [model design](docs/MODEL_DESIGN.md), [data evidence](docs/DATA_AUDIT.md) and
+[flow evidence](docs/FLOW_AUDIT.md). Configurations share the downstream trainer;
+there are no independent speed predictors to fuse. R03--R05 have identical
+parameter shapes. RAFT is frozen. No segmentation, geometry loss, depth or
+dynamic ground-normal module is included in this first round.
+
+## Initial training and acceptance policy
+
+Seed 42; AdamW lr 1e-3, weight decay 1e-4; batch 64; at most 20 epochs; cosine
+learning rate to 1e-4; patience 5 on dev EPE (minimum decrease 1e-4 m/s).
+SmoothL1 operates on errors divided by fixed `[5,1]` m/s scales, beta 1. All
+reported predictions and metrics remain in m/s. RGB/RAFT weights and BN are
+frozen; downstream models train from fresh same-policy random initialization.
+
+Before observing candidate results, the lateral acceptance rule is fixed:
+reject an improvement claim if dev MAE(vy) exceeds R00 by more than
+`max(0.01 m/s, 5% of R00 MAE(vy))`, either overall or on `abs(target_vy)>=0.2 m/s`.
+The latter needs at least 100 windows and 5 scenes; otherwise report insufficient
+evidence, not a pass. EPE gain alone is insufficient. These are exploratory
+engineering tolerances, not measured statistical significance or label accuracy.
+
+The original scene split remains 582 train / 103 dev / 75 historical diagnostic
+holdout / 75 final holdout. It is not log-disjoint. Both holdouts remain sealed in
+this implementation. Historical label/model results do not populate the V5 table.
+
+## Environment and storage
+
+Use `/home/zhangyu/.conda/envs/speedest/bin/python`, Python 3.11, PyTorch
+2.10.0+cu128 and torchvision 0.25.0+cu128. The shell's default Python is a
+different environment. Raw data, flow caches, descriptor caches, logs and
+checkpoints remain outside Git, under
+`/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/`.
+
+Formal training requires clean detached code whose exact commit is present on
+the remote V5 branch or immutable `v5-code-<12hex>` tag. Run directories must be
+new. Resume also uses a new run ID and rejects changed code/data/label/loss
+contracts. Checkpoints store optimizer, scheduler, AMP, RNG and batch progress.
+
+```bash
+/home/zhangyu/.conda/envs/speedest/bin/python -B -m pytest -q -p no:cacheprovider tests
+```
+
+Operational commands, concrete commits and real experiment status are recorded
+as implementation and training are verified; a passed unit test is not a trained
+model result.
