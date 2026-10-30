@@ -1,0 +1,30 @@
+{
+  "schema": "v5_resolution_decision_brief_v1",
+  "time_utc": "2026-10-30T13:54:47.143214+00:00",
+  "source": "/home/zhangyu/.local/share/speedest-v5-next/reports/resolution_20261030_pilot_s42_retry1/summary.json",
+  "source_sha256": "64466ef5d2ca8ba9a5dc1cd11d13892d6e80d00cfa0cdabb46cfc05e17ebdc27",
+  "status": "pending_user_choice",
+  "recommendation": "Reuse existing pilot caches and compare two additional training seeds before choosing full-cache resolution. Four short trainings, no RAFT recomputation.",
+  "alternatives": [
+    "Provisionally select RAFT1024x576/model128x72 and extend reusable cache on HDD; validate on full data next.",
+    "Select RAFT512x288/model128x72 and reuse existing full cache; prioritize next encoder comparison."
+  ],
+  "epe_reduction_percent": 7.1327358272233345,
+  "scenes_improved": 6,
+  "scenes_total": 8,
+  "lateral_overall": "pass",
+  "lateral_nonzero": "insufficient_data; 13 windows in one scene, subset EPE worsens from 0.662744 to 1.461329 m/s",
+  "full_generation_authorized": false,
+  "training_commits": {
+    "R02_512": "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
+    "R02_1024": "be327b7f91f5f7e5ba46b70dede116a21c551652"
+  },
+  "full_cost_estimate": {
+    "native_and_view_gib": 880.23,
+    "packed_gib": 8.16,
+    "dual_gpu_minutes": 129,
+    "caveat": "Linear extrapolation from pilot, not a measured full run. HDD IO must be short-tested. Pilot reuse reduces incremental bytes.",
+    "storage_recommendation": "Native cache on /mnt/sdb2 (~18TiB free); packed on NVMe. Do not fill current NVMe (about905GiB free)."
+  },
+  "next_entry_condition": "User chooses resolution or authorizes the extra-seed pilot; no dependent full-cache or Flex/R03 formal run yet."
+}

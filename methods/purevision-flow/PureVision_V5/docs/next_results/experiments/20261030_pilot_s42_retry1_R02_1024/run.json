@@ -1,0 +1,308 @@
+{
+  "run_id": "20261030_pilot_s42_retry1_R02_1024",
+  "experiment": "R02",
+  "status": "completed",
+  "started_at": "2026-10-30T13:49:10.071226+00:00",
+  "code": {
+    "commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
+    "dirty": false,
+    "verified_remote_commit": "be327b7f91f5f7e5ba46b70dede116a21c551652"
+  },
+  "config": {
+    "experiment": "R02",
+    "seed": 42,
+    "epochs": 40,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "loss_scales_m_s": [
+      5.0,
+      1.0
+    ],
+    "loss_beta": 1.0,
+    "amp": true,
+    "grad_clip": 2.0,
+    "patience": 5,
+    "min_delta": 0.0,
+    "log_steps": 20,
+    "checkpoint_steps": 250,
+    "rgb_policy": "frozen_v3_direct",
+    "selection_metric": "dev_epe",
+    "lateral_rule": {
+      "max_relative_mae_increase": 0.05,
+      "max_absolute_mae_increase_m_s": 0.01,
+      "nonzero_threshold_m_s": 0.2,
+      "min_subset_windows": 100,
+      "min_subset_scenes": 5
+    },
+    "early_stopping": false,
+    "expected_flow": {
+      "raft_size_hw": [
+        576,
+        1024
+      ],
+      "model_size_hw": [
+        72,
+        128
+      ]
+    }
+  },
+  "contract": {
+    "config": {
+      "experiment": "R02",
+      "seed": 42,
+      "epochs": 40,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "loss_scales_m_s": [
+        5.0,
+        1.0
+      ],
+      "loss_beta": 1.0,
+      "amp": true,
+      "grad_clip": 2.0,
+      "patience": 5,
+      "min_delta": 0.0,
+      "log_steps": 20,
+      "checkpoint_steps": 250,
+      "rgb_policy": "frozen_v3_direct",
+      "selection_metric": "dev_epe",
+      "lateral_rule": {
+        "max_relative_mae_increase": 0.05,
+        "max_absolute_mae_increase_m_s": 0.01,
+        "nonzero_threshold_m_s": 0.2,
+        "min_subset_windows": 100,
+        "min_subset_scenes": 5
+      },
+      "early_stopping": false,
+      "expected_flow": {
+        "raft_size_hw": [
+          576,
+          1024
+        ],
+        "model_size_hw": [
+          72,
+          128
+        ]
+      }
+    },
+    "data": {
+      "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+      "label": {
+        "version": "nuscenes_rear_axle_planar_nonuniform3_v1",
+        "mode": "PLANAR_PROXY",
+        "reference_point": "nuscenes_rear_axle_midpoint",
+        "reference_source": "https://www.nuscenes.org/data-format",
+        "axes": "x_forward_y_left_in_current_yaw_frame",
+        "units": "m/s",
+        "time": "current_camera_timestamp",
+        "derivative": "nonuniform_three_point_quadratic_world_xy_then_current_yaw",
+        "neighbors": "previous_current_next_CAM_FRONT_sample_data_in_same_scene",
+        "smoothing": "none_beyond_three_point_derivative",
+        "endpoints": "excluded",
+        "lever_arm": "none_ego_pose_already_at_rear_axle_midpoint",
+        "future_pose": "offline_supervision_only_never_inference",
+        "limitations": "planar_localization_z_zero_not_true_3D_body_velocity"
+      },
+      "features": null,
+      "flow_root": "/home/zhangyu/.local/share/speedest-v5-next/flows/20261030_pilot_s42_retry1_raft1024_packed",
+      "flow": {
+        "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+        "native_contract": {
+          "version": "v5_raft_native_v2",
+          "prediction": "frozen_raft_not_ground_truth",
+          "raft_size": [
+            576,
+            1024
+          ],
+          "input": "RGB",
+          "resize": "bilinear",
+          "antialias": false,
+          "range": [
+            -1.0,
+            1.0
+          ],
+          "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+          "num_flow_updates": 12,
+          "compute_dtype": "float32",
+          "tf32": false,
+          "flow_units": "pixels_at_raft_resolution",
+          "component_order": [
+            "u_right",
+            "v_down"
+          ],
+          "valid": "finite_vector_and_endpoint_inside_target",
+          "fb_rule": "squared_relative",
+          "fb_alpha": 0.01,
+          "fb_beta_px2": 0.5,
+          "warp_align_corners": true
+        },
+        "derived_contract": {
+          "version": "v5_flow_view_v2",
+          "model_size": [
+            72,
+            128
+          ],
+          "native_size": [
+            576,
+            1024
+          ],
+          "model_flow_units": "pixels_at_model_resolution",
+          "flow_resize": "bilinear_align_corners_false_vector_scaled",
+          "vector_scale_uv": [
+            0.125,
+            0.125
+          ],
+          "mask_resize": "nearest",
+          "invalid_model_flow": "zero",
+          "flow_dtype": "float16",
+          "mask_dtype": "bool",
+          "dt": "positive_seconds_separate_not_divided_into_flow"
+        },
+        "schema": "v5_flow_v2",
+        "packed_index_sha256": "e39519528c01fb526d1f921257b317e02bb5a993f8941428b02eaa85590257b1"
+      },
+      "scene_selection": {
+        "schema": "v5_scene_selection_v1",
+        "scope": "resolution_pilot",
+        "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+        "seed": 42,
+        "policy": "ascending_sha256_of_canonical_json_seed_partition_scene_v1",
+        "scenes": {
+          "train_core": [
+            "scene-0002",
+            "scene-0011",
+            "scene-0027",
+            "scene-0053",
+            "scene-0076",
+            "scene-0191",
+            "scene-0192",
+            "scene-0238",
+            "scene-0239",
+            "scene-0243",
+            "scene-0253",
+            "scene-0352",
+            "scene-0389",
+            "scene-0406",
+            "scene-0433",
+            "scene-0514",
+            "scene-0535",
+            "scene-0577",
+            "scene-0639",
+            "scene-0648",
+            "scene-0657",
+            "scene-0670",
+            "scene-0686",
+            "scene-0803",
+            "scene-0804",
+            "scene-0866",
+            "scene-0868",
+            "scene-0875",
+            "scene-0998",
+            "scene-1049",
+            "scene-1058",
+            "scene-1090"
+          ],
+          "dev": [
+            "scene-0048",
+            "scene-0072",
+            "scene-0195",
+            "scene-0236",
+            "scene-0402",
+            "scene-0566",
+            "scene-0584",
+            "scene-1013"
+          ]
+        },
+        "counts": {
+          "train_core": {
+            "scenes": 32,
+            "frames": 7484,
+            "windows": 7324
+          },
+          "dev": {
+            "scenes": 8,
+            "frames": 1866,
+            "windows": 1826
+          }
+        },
+        "identity": "83abcfc4565b80a06547aef4ad6bb3c0cd8b4d6a3156c5164653d47f91302b5f"
+      }
+    },
+    "train_selection": "dbf2252d3368e4efe8a474f730f4001669c16b7cdfe0990a804264ff5fe08813",
+    "dev_selection": "6794842c6c824c104b18fe7266c3e9e58885fc894ef7525aeaff9ceda86203ca",
+    "execution": {
+      "smoke": false,
+      "max_batches": 0,
+      "scope": "resolution_pilot",
+      "scene_selection_identity": "83abcfc4565b80a06547aef4ad6bb3c0cd8b4d6a3156c5164653d47f91302b5f"
+    }
+  },
+  "contract_hash": "e0c1bbbdd323cc149f961fefeca0f11ff318364a0ede26badef54d0b1925ac74",
+  "smoke": false,
+  "parent_run": null,
+  "resume": null,
+  "runtime": {
+    "config": "/home/zhangyu/.local/share/speedest-v5-next/code/be327b7f91f5/methods/purevision-flow/PureVision_V5/configs/next/R02_raft1024.json",
+    "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+    "output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s42_retry1_R02_1024",
+    "features": null,
+    "flow": "/home/zhangyu/.local/share/speedest-v5-next/flows/20261030_pilot_s42_retry1_raft1024_packed",
+    "selection": "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+    "device": "cuda:1",
+    "workers": 4,
+    "threads": 4,
+    "resume": null,
+    "smoke": false,
+    "limit_scenes": 0,
+    "limit_windows": 0,
+    "max_batches": 0,
+    "stop_after_steps": 0
+  },
+  "environment": {
+    "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+    "executable": "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "hostname": "ps",
+    "cuda_visible_devices": null,
+    "gpu": [
+      "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+      "NVIDIA GeForce RTX 5090",
+      "NVIDIA GeForce RTX 5090"
+    ]
+  },
+  "train_windows": 7324,
+  "dev_windows": 1826,
+  "train_scenes": 32,
+  "dev_scenes": 8,
+  "trainable_parameters": 74354,
+  "step_semantics": "global_step = processed_batches = optimizer_updates + amp_skips",
+  "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s42_retry1_R02_1024/last.pt",
+  "scope": "resolution_pilot",
+  "initialization": {
+    "policy": "seeded_fresh_model_v1",
+    "seed": 42,
+    "model_state_sha256": "0f7dbcb8202b320c0e5e2d31ce9be6755cdcba25fe9393217256225a67c4f841"
+  },
+  "sample_order": {
+    "policy": "torch_randperm_seed_plus_zero_based_epoch_v1",
+    "seed": 42,
+    "training_samples_sha256": "c65e08e059a4bc60aa90579abeacb0672b70cddd42b9767020c861da7ee575cb",
+    "epoch_index_dtype": "little_endian_int64"
+  },
+  "effective_lateral_rule": {
+    "max_relative_mae_increase": 0.05,
+    "max_absolute_mae_increase_m_s": 0.01,
+    "nonzero_threshold_m_s": 0.2,
+    "min_subset_windows": 100,
+    "min_subset_scenes": 5
+  },
+  "stopping_policy": {
+    "early_stopping": false,
+    "complete_epoch_budget": 40
+  },
+  "finished_at": "2026-10-30T13:50:24.455326+00:00"
+}
