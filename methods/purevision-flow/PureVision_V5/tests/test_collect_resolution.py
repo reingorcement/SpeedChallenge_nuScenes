@@ -1,6 +1,7 @@
 import copy
 import csv
 import json
+import shutil
 from pathlib import Path
 
 import pytest
@@ -13,7 +14,7 @@ from purevision_v5.flow import PREPROCESSING, RAFT_SHA256, SCHEMA, CONFIGURABLE_
 from purevision_v5.labels import LABEL_CONTRACT
 from purevision_v5.selection import label_rows, make_selection
 from purevision_v5.training import epoch_order
-from resolution_pilot import build_plan
+from resolution_pilot import COMPUTATION_FILES, build_plan, collect_finished_plan, validate_adopted_source
 from test_training import make_case
 
 
@@ -27,6 +28,9 @@ def pilot_records(tmp_path):
     write_json(selection_path, selection)
     for width in (512, 1024):
         write_json(code / f"configs/next/R02_raft{width}.json", read_json(ROOT / f"configs/next/R02_raft{width}.json"))
+    for name in COMPUTATION_FILES:
+        (code / name).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT / name, code / name)
     low = root / "low"
 
     def pack(path, width):
@@ -138,3 +142,82 @@ def test_different_initialization_prevents_resolution_attribution(pilot_records)
     rows = collect(plan)["rows"]
     rows["R02_1024"]["initialization"]["model_state_sha256"] = "f"*64
     assert compare_rows(rows)["status"] == "incomparable"
+
+
+def recovery_plan(plan_path, **kwargs):
+    source = read_json(plan_path)
+    return build_plan(source["root"], source["manifest"], source["selection_path"], source["low_flow_root"], "recovery",
+                      dict(commit="b"*40, dirty=False, verified_remote_commit="b"*40),
+                      code_root=kwargs.get("code_root", source["code_root"]), reuse_low_plan=plan_path)
+
+
+def test_adopt_completed_low_preserves_source_and_actual_commit(pilot_records):
+    source_path, complete = pilot_records
+    output, _, job = complete(512)
+    original_status = Path(job["status_path"]).read_bytes()
+    plan = recovery_plan(source_path)
+    assert "R02_512" not in {j["name"] for j in plan["jobs"]}
+    assert plan["external_preparation"][0]["run_dir"] == str(output)
+    assert plan["external_preparation"][0]["source_commit"] == "a"*40
+    path = source_path.parent.parent / "recovery/plan.json"
+    write_json(path, plan)
+    report = collect(path)
+    assert report["rows"]["R02_512"]["status"] == "completed"
+    assert report["rows"]["R02_512"]["training_commit"] == "a"*40
+    assert report["rows"]["R02_1024"]["training_commit"] == "b"*40
+    assert Path(job["status_path"]).read_bytes() == original_status
+    assert report["comparison"]["status"] == "pending"
+
+
+def test_adoption_rejects_failed_or_changed_protocol_and_mutated_source(pilot_records, tmp_path):
+    source_path, complete = pilot_records
+    _, _, job = complete(512)
+    write_json(job["status_path"], dict(status="failed", error="fixture failure"))
+    with pytest.raises(ValueError, match="not a verified completed"):
+        recovery_plan(source_path)
+    complete(512)
+    source = read_json(source_path)
+    changed_code = tmp_path / "changed_code"
+    shutil.copytree(source["code_root"], changed_code)
+    for width in (512, 1024):
+        path = changed_code / f"configs/next/R02_raft{width}.json"
+        value = read_json(path); value["learning_rate"] /= 2; write_json(path, value)
+    with pytest.raises(ValueError, match="configuration differs"):
+        recovery_plan(source_path, code_root=changed_code)
+    plan = recovery_plan(source_path)
+    source["prefix"] = "mutated"
+    source["identity"] = object_hash({k:v for k,v in source.items() if k != "identity"})
+    write_json(source_path, source)
+    with pytest.raises(ValueError, match="source plan bytes changed"):
+        validate_adopted_source(plan)
+
+
+def test_coordinator_collection_has_a_receipt_and_never_overwrites(pilot_records, monkeypatch):
+    from types import SimpleNamespace
+    import resolution_pilot
+    path, _ = pilot_records
+    plan = read_json(path)
+    def successful_collect(command, **kwargs):
+        output = Path(command[-1])
+        write_json(output / "summary.json", dict(plan_identity=plan["identity"],
+                   comparison=dict(status="pending", decision="pending_user_choice")))
+        return SimpleNamespace(returncode=0)
+    monkeypatch.setattr(resolution_pilot.subprocess, "run", successful_collect)
+    result = collect_finished_plan(plan, path)
+    assert result["status"] == "completed" and result["decision"] == "pending_user_choice"
+    receipt = (path.parent / "collection.json").read_bytes()
+    repeat = collect_finished_plan(plan, path)
+    assert repeat["status"] == "failed"
+    assert (path.parent / "collection.json").read_bytes() == receipt
+
+
+def test_coordinator_collection_failure_is_not_comparison_success(pilot_records, monkeypatch):
+    from types import SimpleNamespace
+    import resolution_pilot
+    path, _ = pilot_records
+    plan = read_json(path)
+    monkeypatch.setattr(resolution_pilot.subprocess, "run", lambda *args, **kwargs: SimpleNamespace(returncode=2))
+    result = collect_finished_plan(plan, path)
+    assert result["status"] == "failed" and result["exit_code"] == 2
+    assert "comparison_status" not in result
+    assert read_json(path.parent / "collection.json")["status"] == "failed"

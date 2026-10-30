@@ -67,3 +67,18 @@
 
 最新状态、run ID、training commit、可信指标和 report commit 请看报告分支的
 `methods/purevision-flow/PureVision_V5/docs/next_results/`。
+
+## 首次试验与网络恢复（21:34）
+
+固定 `946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9` 于21:31启动。
+`20261030_pilot_s42_R02_512` 已完成40轮/4600真实更新/0 AMP skips，并完成同dev重算。
+两个高分辨率分片在RAFT计算前的GitHub版本复核因网络超时失败；其下游被blocked。
+该失败记录保留。网络恢复方案只增加有界真实远端重试，不接受缓存SHA代替远端证明。
+恢复队列明确引用已完成低组，保留其原training commit/run ID；仅高分片及依赖项使用新ID。
+引用前核验原计划身份、完整低组证据及数值相关源码SHA一致，不能借恢复静默改变模型/训练协议。
+
+本页只记事件；指标、最终对照和最新巡视状态以报告分支 `docs/next_results/` 为准。
+
+自动发布曾因标准CRLF预测CSV被Git空白检查误报而中止。修复仅为本次diff检查允许CR行尾，
+不转换CSV或更换来源哈希；原生成报告经来源哈希核对后人工恢复提交，失败收据保留。
+新的恢复队列结束时自动收集对照；自动发布只导出实际结果，决策状态仍为 `pending_user_choice`。

@@ -8,6 +8,7 @@ import platform
 import shlex
 import subprocess
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -98,9 +99,18 @@ def pushed_refs(commit):
         return git("-c", "http.lowSpeedLimit=1", "-c", "http.lowSpeedTime=15",
                    "ls-remote", "origin", *refs, timeout=25).splitlines()
     except (subprocess.SubprocessError, OSError):
-        return git("-c", "url.git@github.com:.insteadOf=https://github.com/",
-                   "-c", f"core.sshCommand={proxy_ssh_command()}",
-                   "ls-remote", "origin", *refs, timeout=25).splitlines()
+        pass
+    # GitHub can transiently time out even when the immutable tag was just
+    # pushed. Retry real remote observations, never substitute a cached SHA.
+    for attempt in range(3):
+        try:
+            return git("-c", "url.git@github.com:.insteadOf=https://github.com/",
+                       "-c", f"core.sshCommand={proxy_ssh_command()}",
+                       "ls-remote", "origin", *refs, timeout=25).splitlines()
+        except (subprocess.SubprocessError, OSError):
+            if attempt == 2:
+                raise
+            time.sleep(2 * (attempt + 1))
 
 
 def code_version(require_pushed=False):

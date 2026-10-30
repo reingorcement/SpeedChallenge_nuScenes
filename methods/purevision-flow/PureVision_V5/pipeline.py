@@ -400,6 +400,9 @@ def check_outputs(job):
 
 def check_planned_inputs(plan, job):
     """Do not silently run a replacement external manifest/selection/config."""
+    if plan.get("low_run_source"):
+        from resolution_pilot import validate_adopted_source
+        validate_adopted_source(plan)
     if sha256(plan["manifest"]) != plan["manifest_sha256"]:
         raise ValueError("Manifest changed since the immutable plan was created")
     if plan.get("selection_path"):

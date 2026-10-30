@@ -284,7 +284,10 @@ def publish(root, worktree, plans, *, push_url=None, branch=REPORT_BRANCH, stop_
                 staged = git(worktree, "diff", "--cached", "--name-only").splitlines()
                 if any(not p.startswith(str(REPORT_DIRECTORY) + "/") for p in staged):
                     raise ValueError("Unexpected staged file outside results allowlist")
-                git(worktree, "diff", "--cached", "--check")
+                # csv.DictWriter produces CRLF. Preserve the original prediction
+                # bytes/hash while treating that line ending as valid for this check.
+                git(worktree, "-c", "core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol",
+                    "diff", "--cached", "--check")
                 git(worktree, "commit", "-m", "docs(v5-next): publish experiment progress")
             report_commit = git(worktree, "rev-parse", "HEAD")
             receipt.update(report_commit=report_commit, remote_base=remote_sha or local_sha,

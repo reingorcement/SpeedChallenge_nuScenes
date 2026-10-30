@@ -19,6 +19,7 @@ from purevision_v5.flow import validate_flow_contract
 from purevision_v5.labels import LABEL_CONTRACT
 from purevision_v5.selection import label_rows, load_selection
 from purevision_v5.training import epoch_order, validate_expected_flow
+from resolution_pilot import computation_identity, validate_adopted_source
 
 
 def optional(path):
@@ -148,6 +149,7 @@ def inspect_run(plan, job, train_rows, dev_rows):
                    processed_batches=last["processed_batches"], optimizer_updates=last["optimizer_updates"], amp_skips=last["amp_skips"],
                    elapsed_seconds=status["elapsed_seconds"], common_config_identity=object_hash({k: v for k, v in config.items() if k != "expected_flow"}),
                    packed_bytes=sum((pack_path.parent / a["file"]).stat().st_size for a in pack["arrays"].values()))
+        row["computation"] = computation_identity(plan["code_root"])
     except Exception as error:
         row.update(status="invalid", metrics=None, reason=f"{type(error).__name__}: {error}")
     return row
@@ -159,14 +161,17 @@ def compare_rows(rows):
     if low["status"] != "completed" or high["status"] != "completed":
         return result
     try:
-        for key in ("common_config_identity", "target_identity", "initialization", "sample_order", "epoch_order_sha256", "training_commit", "trainable_parameters"):
+        for key in ("common_config_identity", "target_identity", "initialization", "sample_order", "epoch_order_sha256", "computation", "trainable_parameters"):
             require(low[key] == high[key], f"Resolution comparison differs in {key}")
         for key in ("dataset_sha256", "label", "scene_selection"):
             require(low["data"][key] == high["data"][key], f"Resolution comparison differs in {key}")
         rule = validate_lateral_rule(low["config"]["lateral_rule"])
         result.update(status="comparable", delta_high_minus_low={key: high["metrics"]["overall"][key] - low["metrics"]["overall"][key]
                       for key in ("epe", "mae_vx", "mae_vy", "rmse_vx", "rmse_vy", "bias_vx", "bias_vy")},
-                      lateral_acceptance=lateral_acceptance(high["metrics"], low["metrics"], rule))
+                      lateral_acceptance=lateral_acceptance(high["metrics"], low["metrics"], rule),
+                      training_commits={r["name"]: r["training_commit"] for r in (low, high)},
+                      numerical_code_byte_identical=True,
+                      commit_note="Actual commits are reported per run; numerical code hashes match. Network/queue/reporting recovery may differ.")
     except (KeyError, ValueError, TypeError) as error:
         result.update(status="incomparable", reason=str(error))
     return result
@@ -183,9 +188,23 @@ def collect(plan_path):
     require(selection == plan["selection"], "Plan scene selection differs")
     train_rows, _ = label_rows(plan["manifest"], "train_core", plan["selection_path"])
     dev_rows, _ = label_rows(plan["manifest"], "dev", plan["selection_path"])
-    jobs = [job for job in plan["jobs"] if job["kind"] == "training"]
+    jobs = [job for job in plan["jobs"] + plan.get("external_preparation", []) if job["kind"] == "training"]
     require({j["name"] for j in jobs} == {"R02_512", "R02_1024"} and len(jobs) == 2, "Expected exactly two pilot training jobs")
-    rows = {job["name"]: inspect_run(plan, job, train_rows, dev_rows) for job in jobs}
+    source = validate_adopted_source(plan)
+    rows = {}
+    for job in jobs:
+        if job["name"] == "R02_512" and source is not None:
+            old = next(j for j in source["jobs"] if j["name"] == "R02_512")
+            require(all(job.get(k) == v for k, v in old.items()), "Adopted job fields differ from original source")
+            row = inspect_run(source, old, train_rows, dev_rows)
+            if row["status"] == "completed":
+                require(row["best_checkpoint_sha256"] == plan["low_run_source"]["best_checkpoint_sha256"]
+                        and row["predictions_sha256"] == plan["low_run_source"]["predictions_sha256"], "Adopted low evidence changed")
+            row["adopted_from_plan"] = plan["low_run_source"]
+        else:
+            row = inspect_run(plan, job, train_rows, dev_rows)
+        rows[job["name"]] = row
+    rows = {name: rows[name] for name in ("R02_512", "R02_1024")}
     rule = validate_lateral_rule(read_json(jobs[0]["config_path"])["lateral_rule"])
     baselines = baseline_report(plan["manifest"], plan["selection_path"], rule,
                                 [r["predictions"] for r in rows.values() if r["status"] == "completed"])
@@ -206,7 +225,8 @@ def collect(plan_path):
         costs["native_and_view_file_bytes"] = sum(p.stat().st_size for root in roots for p in Path(root).rglob("*") if p.is_file())
     return dict(schema="v5_resolution_pilot_report_v1", generated_at=now(), scope="resolution_pilot",
                 plan=str(Path(plan_path).resolve()), plan_sha256=sha256(plan_path), plan_identity=plan["identity"],
-                training_commit=plan["code"]["commit"], collector_sha256=sha256(__file__), selection=selection,
+                training_commit=plan["code"]["commit"], training_commits={k:r["training_commit"] for k,r in rows.items()},
+                low_run_source=plan.get("low_run_source"), collector_sha256=sha256(__file__), selection=selection,
                 rows=rows, comparison=compare_rows(rows), lateral_baselines=baselines, high_flow_cost=costs,
                 low_flow_cost=dict(source="existing_512x288_cache_reused", incremental_raft_generation_seconds=0,
                                    note="Earlier generation cost is not measured by this pilot"),
@@ -220,7 +240,7 @@ def collect(plan_path):
 
 def markdown(report):
     counts = report["selection"]["counts"]
-    lines = ["# R02 resolution pilot", "", f"Training commit: `{report['training_commit']}`.",
+    lines = ["# R02 resolution pilot", "", "Actual training commits: " + "; ".join(f"{k} `{v}`" for k,v in report["training_commits"].items()) + ".",
              "", f"Scope: fixed {counts['train_core']['scenes']} train / {counts['dev']['scenes']} dev scene pilot, seed 42, 40 complete epochs, batch 64.", "",
              "| Run | Status | Dev EPE | MAE vx | MAE vy | Best epoch | Updates / AMP skips | Seconds |",
              "|---|---|---:|---:|---:|---:|---:|---:|"]

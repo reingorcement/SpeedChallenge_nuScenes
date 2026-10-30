@@ -180,3 +180,34 @@ def test_git_proxy_is_scoped_to_transport_command(tmp_path, monkeypatch):
     assert any(v.startswith("core.sshCommand=") for v in calls[0])
     assert not any(v.startswith("core.sshCommand=") for v in calls[1])
     assert not any("--global" in command or "config" in command for command in calls)
+
+
+def test_completed_prediction_crlf_bytes_survive_real_git_publication(tmp_path):
+    root = tmp_path / "artifacts"
+    root.mkdir()
+    path = make_plan(root)
+    plan = json.loads(path.read_text())
+    job = plan["jobs"][0]
+    evaluation = root / "evaluations/pilot_R02_512"
+    evaluation.mkdir(parents=True)
+    job["commands"] = [["python", "/fixed/evaluate.py", "--output", str(evaluation)]]
+    path.write_text(json.dumps(plan))
+    Path(job["status_path"]).write_text('{"status":"completed"}')
+    (Path(job["run_dir"]) / "status.json").write_text('{"status":"completed","epoch":40}')
+    (evaluation / "evaluation.json").write_text('{"status":"completed"}')
+    (evaluation / "metrics.json").write_text('{"overall":{"epe":0.1}}')
+    original = b"scene,token,vx,vy\r\nscene-one,token-one,1.0,0.1\r\n"
+    (evaluation / "predictions.csv").write_bytes(original)
+    remote, repo = tmp_path / "remote.git", root / "report-worktree"
+    subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)
+    subprocess.run(["git", "init", "-b", publisher.REPORT_BRANCH, str(repo)], check=True, capture_output=True)
+    (repo / "README.md").write_text("test\n")
+    publisher.git(repo, "add", "README.md")
+    publisher.git(repo, "commit", "-m", "initial")
+    receipt = publisher.publish(root, repo, [path], push_url=str(remote))
+    assert receipt["status"] == "published" and receipt["all_terminal"]
+    copied = repo / publisher.REPORT_DIRECTORY / "experiments/pilot_R02_512/evaluation/predictions.csv"
+    assert copied.read_bytes() == original
+    summary = json.loads((repo / publisher.REPORT_DIRECTORY / "status.json").read_text())
+    assert summary["rows"][0]["predictions"]["sha256"] == publisher.checksum(copied)
+    assert publisher.git(repo, "status", "--porcelain") == ""

@@ -56,6 +56,7 @@ def test_authenticated_proxy_not_copied_to_command(monkeypatch):
             raise OSError("unavailable")
         raise OSError("still unavailable")
     monkeypatch.setattr(common, "git", call)
+    monkeypatch.setattr(common.time, "sleep", lambda _: None)
     monkeypatch.setenv("HTTPS_PROXY", "http://user:do_not_expose@127.0.0.1:7900")
     with pytest.raises(OSError):
         common.pushed_refs("a" * 40)
@@ -79,3 +80,29 @@ def test_unrelated_or_other_port_no_proxy_does_not_silently_bypass_ssh(monkeypat
     monkeypatch.setenv("NO_PROXY", bypass)
     monkeypatch.setenv("HTTPS_PROXY", "http://127.0.0.1:7900")
     assert "ProxyCommand=" in common.proxy_ssh_command()
+
+
+def test_transient_remote_failures_retry_actual_remote_before_accepting(monkeypatch):
+    calls = []
+    monkeypatch.setattr(common.time, "sleep", lambda _: None)
+    def network(*args, **kwargs):
+        calls.append(args)
+        if len(calls) < 3:
+            raise OSError("temporary network failure")
+        return "a" * 40 + "\trefs/tags/v5-code-" + "a" * 12
+    monkeypatch.setattr(common, "git", network)
+    assert common.pushed_refs("a" * 40) == ["a" * 40 + "\trefs/tags/v5-code-" + "a" * 12]
+    assert len(calls) == 3
+    assert all("ls-remote" in call for call in calls)
+
+
+def test_remote_retries_are_bounded_and_never_accept_stale_evidence(monkeypatch):
+    calls = []
+    monkeypatch.setattr(common.time, "sleep", lambda _: None)
+    def network(*args, **kwargs):
+        calls.append(args)
+        raise OSError("offline")
+    monkeypatch.setattr(common, "git", network)
+    with pytest.raises(OSError, match="offline"):
+        common.pushed_refs("a" * 40)
+    assert len(calls) == 4
