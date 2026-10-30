@@ -1,4 +1,6 @@
-# 分辨率预试验已完成，等待用户决定
+# 分辨率预试验：seed42 历史结果
+
+后续状态：用户已批准补充训练 seed43/44，见 [实施记录](MULTISEED_PLAN_20261030.md)。本页保存作出该决定之前的单 seed 结果；当前结论以多 seed 完成记录及报告分支为准。
 
 2026-10-30，Asia/Shanghai。32 train / 8 dev场景，seed42，两组各40完整轮。
 
@@ -17,6 +19,6 @@
 [成本、局部退化与待决策选项](https://github.com/reingorcement/SpeedChallenge_nuScenes/tree/results/purevision-v5-next/methods/purevision-flow/PureVision_V5/docs/next_results/comparisons/resolution_decision_20261030)。
 [巡视、发布及控制命令证据](https://github.com/reingorcement/SpeedChallenge_nuScenes/tree/results/purevision-v5-next/methods/purevision-flow/PureVision_V5/docs/next_results/evidence/operations_active_verification_20261030.json)。
 
-推荐先使用现成缓存补seed43/44的四个短训练，再决定全量分辨率。也可由用户选择临时采用1024×576，或成本优先保留512×288。**尚未批准/执行这些后续选项；没有开始全量高分辨率缓存、Flex或R03正式训练。**
+当时推荐先使用现成缓存补seed43/44的四个短训练，再决定全量分辨率。用户随后批准此项；全量高分辨率缓存、Flex及R03正式训练仍未开始。
 
 初次高缓存网络前置失败保留，恢复时没有重训低组；CSV发布CRLF误报已修复。新代码最终186测试通过。工件、日志、完整恢复checkpoint均在私有ART下，GitHub保存报告/预测及权重哈希，权重原件没有上传。
