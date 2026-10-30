@@ -53,7 +53,8 @@ def atomic_save(path, value):
 
 def git(*arguments):
     repo = ROOT.parents[2]
-    return subprocess.check_output(["git", "-c", f"safe.directory={repo}", "-C", str(repo), *arguments], text=True).strip()
+    return subprocess.check_output(["git", "-c", f"safe.directory={repo}", "-C", str(repo), *arguments],
+                                   text=True, timeout=45).strip()
 
 
 def code_version(require_pushed=False):
@@ -63,7 +64,9 @@ def code_version(require_pushed=False):
     if require_pushed:
         if dirty:
             raise ValueError("Formal training requires a clean fixed checkout")
-        lines = git("-c", "http.proxy=", "ls-remote", "origin", "refs/heads/method/purevision-v5",
+        lines = git("-c", "url.git@github.com:.insteadOf=https://github.com/",
+                    "-c", "core.sshCommand=ssh -o BatchMode=yes -o ConnectTimeout=15 -o ConnectionAttempts=1",
+                    "ls-remote", "origin", "refs/heads/method/purevision-v5",
                     f"refs/tags/v5-code-{commit[:12]}").splitlines()
         if not any(line.split()[0] == commit for line in lines):
             raise ValueError("Formal training commit must match a pushed V5 branch tip or immutable code tag")
