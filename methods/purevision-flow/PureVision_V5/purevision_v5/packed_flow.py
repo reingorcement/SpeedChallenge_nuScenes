@@ -17,8 +17,8 @@ from numpy.lib.format import open_memmap
 import torch
 
 from .common import code_version, now, object_hash, read_json, sha256, write_json
-from .flow import (MODEL_SIZE, PREPROCESSING, RAFT_SHA256, SCHEMA,
-                   _tensor, _validate_metadata, cache_path)
+from .flow import (MODEL_SIZE, _tensor, _validate_metadata, cache_path,
+                   packet_contract, validate_flow_contract)
 
 
 PACK_SCHEMA = "v5_packed_flow_v1"
@@ -45,7 +45,7 @@ def _checksum_unchanged_file(path_string, size, mtime_ns):
     return digest
 
 
-def _manifest_pairs(manifest_path, partitions):
+def _manifest_pairs(manifest_path, partitions, selection_path=None):
     manifest_path = Path(manifest_path).resolve()
     manifest = read_json(manifest_path)
     if manifest.get("schema") != "v5_dataset_v1" or manifest.get("seq_len") != 5:
@@ -53,8 +53,14 @@ def _manifest_pairs(manifest_path, partitions):
     if not partitions or not set(partitions) <= {"train_core", "dev"}:
         raise ValueError("Only the declared train_core/dev preparation partitions are allowed")
     pairs = {}
+    selection = None
+    if selection_path is not None:
+        from .selection import load_selection
+        selection = load_selection(manifest_path, selection_path)
     for record in manifest["sequences"]:
         if record["partition"] not in partitions:
+            continue
+        if selection is not None and record["scene"] not in selection["scenes"].get(record["partition"], []):
             continue
         path = (manifest_path.parent / record["file"]).resolve()
         if not path.is_relative_to(manifest_path.parent) or record.get("sha256") != sha256(path):
@@ -98,7 +104,7 @@ def _verified_compact(path, pair, require_fb):
         raise ValueError("Invalid compact FB semantics")
     if (values["flow"].masked_select(~values["valid"].expand_as(values["flow"])) != 0).any():
         raise ValueError("Invalid compact flow must already be zero")
-    return values, bool(packet["fb_available"])
+    return values, bool(packet["fb_available"]), packet_contract(packet)
 
 
 class PackedFlow:
@@ -112,9 +118,10 @@ class PackedFlow:
         if self.index.get("schema") != PACK_SCHEMA or identity != object_hash({k: v for k, v in self.index.items() if k != "identity"}):
             raise ValueError("Packed index schema/identity mismatch")
         contract = self.index["contract"]
-        if (contract.get("flow_schema") != SCHEMA or contract.get("raft_sha256") != RAFT_SHA256
-                or contract.get("preprocessing") != PREPROCESSING):
-            raise ValueError("Packed flow frontend contract mismatch")
+        self.flow_contract = {key:contract[key] for key in ("raft_sha256", "preprocessing", "native_contract", "derived_contract")
+                              if key in contract}
+        self.flow_contract["schema"] = contract.get("flow_schema")
+        validate_flow_contract(self.flow_contract)
         if dataset_sha256 is not None and contract.get("dataset_sha256") != dataset_sha256:
             raise ValueError("Packed flow belongs to another dataset")
         if require_fb and not contract.get("fb_available"):
@@ -188,14 +195,14 @@ class PackedFlow:
 
 
 def pack(manifest_path, source_root, output, *, partitions=("train_core", "dev"),
-         require_fb=False, reference_pack=None):
+         require_fb=False, reference_pack=None, selection_path=None):
     manifest_path, source_root, output = (Path(p).resolve() for p in (manifest_path, source_root, output))
     if output.exists():
         raise FileExistsError("Packed output must be a new immutable directory")
     if (output.is_relative_to(source_root) or source_root.is_relative_to(output)
             or manifest_path.is_relative_to(output)):
         raise ValueError("Packed output must be separate from source caches and dataset inputs")
-    pairs = _manifest_pairs(manifest_path, partitions)
+    pairs = _manifest_pairs(manifest_path, partitions, selection_path=selection_path)
     dataset_hash = sha256(manifest_path)
     reference = PackedFlow(reference_pack, dataset_sha256=dataset_hash) if reference_pack else None
     if reference is not None and not require_fb:
@@ -203,19 +210,24 @@ def pack(manifest_path, source_root, output, *, partitions=("train_core", "dev")
     output.mkdir(parents=True)
     arrays = {name: open_memmap(output / f"{name}.npy.partial", mode="w+", dtype=dtype,
                                 shape=(len(pairs), *shape)) for name, (dtype, shape) in ARRAY_SPECS.items()}
-    rows, fb_available = [], None
+    rows, fb_available, flow_contract = [], None, None
     start = time.monotonic()
     for row_number, pair in enumerate(pairs):
         path = cache_path(source_root, *pair[:2])
         original_stat = _stat(path)
-        values, available = _verified_compact(path, pair, require_fb)
+        values, available, actual_contract = _verified_compact(path, pair, require_fb)
         source_digest = sha256(path)
         if _stat(path) != original_stat:
             raise ValueError("Compact cache changed during packing")
         if fb_available is not None and available != fb_available:
             raise ValueError("Forward-only and bidirectional packets cannot share one pack")
         fb_available = available
+        if flow_contract is not None and flow_contract != actual_contract:
+            raise ValueError("A packed cache cannot mix native/derived flow contracts")
+        flow_contract = actual_contract
         if reference is not None:
+            if reference.flow_contract != flow_contract:
+                raise ValueError("Forward equality requires the same native/derived flow contract")
             old_flow, old_valid, _ = reference.load_pairs([pair])
             if not torch.equal(old_flow[0], values["flow"].float()) or not torch.equal(old_valid[0], values["valid"]):
                 raise ValueError("Bidirectional preparation changed forward flow/valid values")
@@ -231,10 +243,13 @@ def pack(manifest_path, source_root, output, *, partitions=("train_core", "dev")
         (output / f"{name}.npy.partial").replace(path)
         array_info[name] = dict(file=path.name, sha256=sha256(path), shape=[len(pairs), *shape], dtype=dtype.name)
     arrays.clear()
-    index = dict(schema=PACK_SCHEMA, created_at=now(), code=code_version(),
-                 contract=dict(flow_schema=SCHEMA, raft_sha256=RAFT_SHA256, preprocessing=PREPROCESSING,
-                               dataset_sha256=dataset_hash, partitions=list(partitions), source_root=str(source_root),
-                               fb_available=fb_available),
+    contract = {key:value for key,value in flow_contract.items() if key != "schema"}
+    contract.update(flow_schema=flow_contract["schema"], dataset_sha256=dataset_hash,
+                    partitions=list(partitions), source_root=str(source_root), fb_available=fb_available)
+    if selection_path is not None:
+        from .selection import load_selection
+        contract.update(selection=load_selection(manifest_path, selection_path), selection_sha256=sha256(selection_path))
+    index = dict(schema=PACK_SCHEMA, created_at=now(), code=code_version(), contract=contract,
                  arrays=array_info, pairs=rows)
     if reference is not None:
         index["forward_equality"] = dict(reference_index_sha256=reference.index_sha256,

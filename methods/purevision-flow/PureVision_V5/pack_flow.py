@@ -12,6 +12,7 @@ def main():
     parser.add_argument("--source-root", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--partitions", nargs="+", default=["train_core", "dev"])
+    parser.add_argument("--selection", help="Validated scene selection used for the pilot; full manifest identity is retained")
     parser.add_argument("--require-fb", action="store_true")
     parser.add_argument("--reference-pack", help="Verify every forward flow/valid value against this earlier forward-only pack")
     parser.add_argument("--threads", type=int, default=4)
@@ -20,7 +21,7 @@ def main():
         parser.error("--threads must be positive")
     torch.set_num_threads(args.threads)
     pack(args.manifest, args.source_root, args.output, partitions=args.partitions,
-         require_fb=args.require_fb, reference_pack=args.reference_pack)
+         require_fb=args.require_fb, reference_pack=args.reference_pack, selection_path=args.selection)
 
 
 if __name__ == "__main__":

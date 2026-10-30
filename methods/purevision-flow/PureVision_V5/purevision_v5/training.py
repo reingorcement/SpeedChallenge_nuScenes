@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 import random
 import shutil
@@ -16,7 +17,7 @@ from torch.utils.data import DataLoader, Subset
 
 from .common import ROOT, atomic_save, code_version, environment, git, now, object_hash, read_json, write_json
 from .datasets import VelocityDataset
-from .evaluation import summarize
+from .evaluation import summarize, validate_lateral_rule
 from .model import VelocityModel
 
 
@@ -26,6 +27,32 @@ def seed_everything(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
 
+
+def model_state_sha256(model):
+    digest = hashlib.sha256()
+    for name, value in sorted(model.state_dict().items()):
+        tensor = value.detach().cpu().contiguous()
+        digest.update(json.dumps([name, str(tensor.dtype), list(tensor.shape)], separators=(",", ":")).encode())
+        digest.update(tensor.numpy().tobytes())
+    return digest.hexdigest()
+
+
+def epoch_order(count, seed, epoch):
+    order = torch.randperm(count, generator=torch.Generator().manual_seed(seed + epoch))
+    identity = hashlib.sha256(order.numpy().astype("<i8", copy=False).tobytes()).hexdigest()
+    return order.tolist(), identity
+
+
+def validate_expected_flow(config, data_contract):
+    expected = config.get("expected_flow")
+    if expected is None:
+        return
+    flow = data_contract.get("flow") or {}
+    native = flow.get("native_contract", flow.get("preprocessing", {}))
+    view = flow.get("derived_contract", flow.get("preprocessing", {}))
+    actual = dict(raft_size_hw=native.get("raft_size"), model_size_hw=view.get("model_size"))
+    if expected != actual:
+        raise ValueError(f"Expected optical-flow resolution contract differs: {expected} != {actual}")
 
 def rng_state():
     value = np.random.get_state()
@@ -82,7 +109,7 @@ def move_inputs(batch, device):
     return {key: value.to(device, non_blocking=True) for key, value in batch["inputs"].items()}
 
 
-def evaluate_model(model, dataset, device, batch_size=64, workers=4, max_batches=0):
+def evaluate_model(model, dataset, device, batch_size=64, workers=4, max_batches=0, lateral_rule=None):
     loader = DataLoader(dataset, batch_size=batch_size, num_workers=workers, shuffle=False,
                         pin_memory=str(device).startswith("cuda"), generator=torch.Generator().manual_seed(0))
     predictions, targets, scenes, tokens, times = [], [], [], [], []
@@ -106,7 +133,7 @@ def evaluate_model(model, dataset, device, batch_size=64, workers=4, max_batches
                 pixel_count += valid.numel()
                 if "fb_mask" in batch["inputs"]:
                     fb_sum += int(batch["inputs"]["fb_mask"].sum())
-    summary = summarize(predictions, targets, scenes)
+    summary = summarize(predictions, targets, scenes, lateral_rule=lateral_rule)
     if pixel_count:
         summary["flow_coverage"] = dict(valid_fraction=valid_sum/pixel_count,
                                         fb_fraction=fb_sum/pixel_count if dataset.experiment in {"R04", "R05"} else None)
@@ -125,6 +152,10 @@ def write_predictions(path, rows):
 
 def train(args):
     config = read_json(args.config)
+    lateral_rule = validate_lateral_rule(config.get("lateral_rule"))
+    early_stopping = config.get("early_stopping", True)
+    if not isinstance(early_stopping, bool):
+        raise ValueError("early_stopping must be explicitly boolean")
     for key in ("epochs", "batch_size", "log_steps", "checkpoint_steps", "patience"):
         if not isinstance(config[key], int) or config[key] < 1:
             raise ValueError(f"{key} must be a positive integer")
@@ -148,6 +179,8 @@ def train(args):
             raise ValueError("Formal outputs must live outside the immutable training checkout")
     protected = [Path(args.manifest).resolve(), config_path]
     protected.extend(Path(value).resolve() for value in (args.features, args.flow) if value)
+    if getattr(args, "selection", None):
+        protected.append(Path(args.selection).resolve())
     if any(path.is_relative_to(output) or output.is_relative_to(path) for path in protected):
         raise ValueError("Output must not contain or overwrite any input/configuration path")
     version = code_version(require_pushed=not args.smoke)
@@ -155,19 +188,30 @@ def train(args):
     seed_everything(config["seed"])
     device = torch.device(args.device)
     limits = dict(limit_scenes=args.limit_scenes, limit_windows=args.limit_windows)
+    selection_path = getattr(args, "selection", None)
+    if selection_path and (args.smoke or args.limit_scenes or args.limit_windows or args.max_batches):
+        raise ValueError("An explicit resolution pilot cannot use smoke or ad hoc subset limits")
     if not args.smoke and (args.limit_scenes or args.limit_windows or args.max_batches):
         raise ValueError("Subset/batch limits are smoke-only, not formal experiment results")
-    train_data = VelocityDataset(args.manifest, "train_core", experiment, args.features, args.flow, **limits)
-    dev_data = VelocityDataset(args.manifest, "dev", experiment, args.features, args.flow, **limits)
+    train_data = VelocityDataset(args.manifest, "train_core", experiment, args.features, args.flow, selection_path=selection_path, **limits)
+    dev_data = VelocityDataset(args.manifest, "dev", experiment, args.features, args.flow, selection_path=selection_path, **limits)
     if train_data.scene_names & dev_data.scene_names or train_data.source_tokens & dev_data.source_tokens:
         raise ValueError("Training/validation overlap")
     if train_data.contract != dev_data.contract:
         raise ValueError("Training and validation data contracts differ")
+    validate_expected_flow(config, train_data.contract)
     contract = dict(config=config, data=train_data.contract, train_selection=train_data.selection_hash,
                     dev_selection=dev_data.selection_hash,
                     execution=dict(smoke=bool(args.smoke), max_batches=args.max_batches))
+    if train_data.scene_selection:
+        contract["execution"].update(scope="resolution_pilot", scene_selection_identity=train_data.scene_selection["identity"])
     contract_hash = object_hash(contract)
     model = VelocityModel(experiment=experiment).to(device)
+    initialization = dict(policy="seeded_fresh_model_v1", seed=config["seed"], model_state_sha256=model_state_sha256(model))
+    sample_order = dict(policy="torch_randperm_seed_plus_zero_based_epoch_v1", seed=config["seed"],
+                        training_samples_sha256=object_hash([[i["scene"], i["token"], i["time_s"], i["target"].tolist()]
+                                                             for i in train_data.items]),
+                        epoch_index_dtype="little_endian_int64")
     optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"], weight_decay=config["weight_decay"])
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=config["epochs"], eta_min=config["learning_rate"]*.1)
     amp = bool(config["amp"] and device.type == "cuda")
@@ -198,7 +242,7 @@ def train(args):
         running_loss, running_count = checkpoint["running_loss"], checkpoint["running_count"]
         parent_run = checkpoint["run_id"]
         restore_rng(checkpoint["rng"])
-        if epoch >= config["epochs"] or bad_epochs >= config["patience"]:
+        if epoch >= config["epochs"] or (early_stopping and bad_epochs >= config["patience"]):
             raise ValueError("Resume rejected: the saved run already exhausted its stopping condition")
         if best_epoch is not None:
             inherited_best = Path(args.resume).resolve().parent / "best.pt"
@@ -228,6 +272,9 @@ def train(args):
                trainable_parameters=sum(p.numel() for p in model.parameters() if p.requires_grad),
                step_semantics="global_step = processed_batches = optimizer_updates + amp_skips",
                checkpoint=str(output / "last.pt"))
+    run.update(scope="resolution_pilot" if train_data.scene_selection else ("smoke" if args.smoke else "full_train_dev"),
+               initialization=initialization, sample_order=sample_order, effective_lateral_rule=lateral_rule,
+               stopping_policy=dict(early_stopping=early_stopping, complete_epoch_budget=config["epochs"]))
     write_json(output / "run.json", run)
     stop_requested = [False]
     previous_handlers = {sig: signal.getsignal(sig) for sig in (signal.SIGINT, signal.SIGTERM)}
@@ -248,6 +295,7 @@ def train(args):
                     contract_hash=contract_hash, contract=contract, config=config,
                     model=model.state_dict(), optimizer=optimizer.state_dict(), scheduler=scheduler.state_dict(),
                     scaler=scaler.state_dict(), rng=rng_state(), epoch=epoch_value, next_batch=batch_value,
+                    initialization=initialization, sample_order=sample_order, effective_lateral_rule=lateral_rule,
                     global_step=global_step, best_epe=best_epe, best_epoch=best_epoch, bad_epochs=bad_epochs,
                     processed_batches=global_step, optimizer_updates=optimizer_updates, amp_skips=amp_skips,
                     running_loss=running_loss, running_count=running_count))
@@ -256,8 +304,7 @@ def train(args):
     try:
         while epoch < config["epochs"]:
             model.train()
-            generator = torch.Generator().manual_seed(config["seed"] + epoch)
-            order = torch.randperm(len(train_data), generator=generator).tolist()
+            order, order_sha256 = epoch_order(len(train_data), config["seed"], epoch)
             offset = next_batch * config["batch_size"]
             loader = DataLoader(Subset(train_data, order[offset:]), batch_size=config["batch_size"],
                                 shuffle=False, num_workers=args.workers, pin_memory=device.type == "cuda",
@@ -301,7 +348,8 @@ def train(args):
                     run.update(status="interrupted", finished_at=now())
                     write_json(output / "run.json", run)
                     return output
-            summary, rows = evaluate_model(model, dev_data, device, config["batch_size"], args.workers, args.max_batches)
+            summary, rows = evaluate_model(model, dev_data, device, config["batch_size"], args.workers, args.max_batches,
+                                           lateral_rule=lateral_rule)
             epe = summary["overall"]["epe"]
             improved = epe < best_epe - config["min_delta"]
             if improved:
@@ -309,6 +357,7 @@ def train(args):
             else:
                 bad_epochs += 1
             entry = dict(epoch=epoch, global_step=global_step, train_loss=running_loss/max(running_count, 1),
+                         sample_order_sha256=order_sha256,
                          processed_batches=global_step, optimizer_updates=optimizer_updates, amp_skips=amp_skips,
                          amp_scale=scaler.get_scale(),
                          learning_rate=optimizer.param_groups[0]["lr"], validation=summary, time=now())
@@ -325,9 +374,9 @@ def train(args):
             # Commit the resumable epoch state only after all best artifacts exist.
             save(output / "last.pt", epoch, 0)
             state("running", validation=summary["overall"])
-            if bad_epochs >= config["patience"]:
+            if early_stopping and bad_epochs >= config["patience"]:
                 break
-        state("completed", stop_reason="early_stopping" if bad_epochs >= config["patience"] else "epoch_budget")
+        state("completed", stop_reason="early_stopping" if early_stopping and bad_epochs >= config["patience"] else "epoch_budget")
         run["status"], run["finished_at"] = "completed", now()
         write_json(output / "run.json", run)
         return output
@@ -347,6 +396,7 @@ def main():
         parser.add_argument("--"+name, required=True)
     parser.add_argument("--features")
     parser.add_argument("--flow")
+    parser.add_argument("--selection", help="Immutable explicit resolution-pilot scene selection JSON")
     parser.add_argument("--device", default="cuda:1")
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--threads", type=int, default=4)

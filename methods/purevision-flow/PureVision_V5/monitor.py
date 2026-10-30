@@ -15,7 +15,7 @@ from zoneinfo import ZoneInfo
 DEFAULT_ROOT = Path("/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5")
 PYTHON = "/home/zhangyu/.conda/envs/speedest/bin/python"
 TERMINAL = {"completed", "failed", "interrupted", "cancelled", "blocked"}
-ACTIVE = {"launching", "running", "running_unverified", "queued", "preparing", "not_started"}
+ACTIVE = {"launching", "running", "running_unverified", "queued", "preparing", "not_started", "unknown"}
 ERROR_PATTERN = re.compile(r"Traceback|(?:Runtime|Value|FileNotFound|Assertion)Error|CUDA.*out of memory|non.?finite|Segmentation fault|(?:^|[\s:=,])(nan|[+-]?inf)(?:$|[\s,}])", re.I)
 
 
@@ -57,7 +57,7 @@ def age_seconds(path, now=None):
 
 def process_info(pid, expected_start=None):
     if not pid:
-        return {"pid": None, "alive": None, "identity_verified": False}
+        return {"pid": None, "alive": None, "verdict": "unknown", "identity_verified": False, "reason": "pid unavailable"}
     try:
         pid = int(pid)
         stat = (Path("/proc") / str(pid) / "stat").read_text()
@@ -65,10 +65,45 @@ def process_info(pid, expected_start=None):
         start_ticks = int(fields[19])
         alive = fields[0] not in {"Z", "X"}
         identity_matches = expected_start is None or int(expected_start) == start_ticks
-        return {"pid": pid, "alive": alive and identity_matches, "start_ticks": start_ticks,
+        return {"pid": pid, "alive": alive and identity_matches,
+            "verdict": "alive" if alive and identity_matches else "dead", "start_ticks": start_ticks,
             "identity_verified": expected_start is not None, "pid_reused": not identity_matches}
-    except (OSError, ValueError, IndexError):
-        return {"pid": pid, "alive": False, "identity_verified": expected_start is not None}
+    except FileNotFoundError:
+        return {"pid": pid, "alive": False, "verdict": "dead", "identity_verified": expected_start is not None,
+                "reason": "proc stat absent"}
+    except (OSError, ValueError, IndexError) as error:
+        return {"pid": pid, "alive": None, "verdict": "unknown", "identity_verified": False,
+                "reason": type(error).__name__}
+
+
+def confirmed_pipeline_terminal(job, root, raw):
+    """Reuse the coordinator's existing two-observation proof; never mutate worker state."""
+    prefix = job.get("pipeline_id")
+    if not prefix or raw.get("status") in TERMINAL:
+        return None
+    base = (root / "pipeline" / prefix).resolve()
+    pipeline = read_json(base / "status.json")
+    plan = read_json(base / "plan.json")
+    if not plan.get("identity") or pipeline.get("plan_identity") != plan["identity"]:
+        return None
+    names = [entry["name"] for entry in plan.get("jobs", []) if entry.get("job_id") == job["job_id"]]
+    if len(names) != 1:
+        return None
+    effective = pipeline.get("jobs", {}).get(names[0], {})
+    path = effective.get("observation_path")
+    if effective.get("status") != "interrupted" or not path:
+        return None
+    expected = base / "observations" / f"{names[0]}.json"
+    if Path(path).resolve() != expected.resolve():
+        return None
+    observed = read_json(expected)
+    if (observed.get("effective_status") == "interrupted" and observed.get("dead_observations", 0) >= 2
+            and observed.get("last_worker_state") == raw
+            and observed.get("wrapper", {}).get("verdict") == "dead"
+            and observed.get("child", {}).get("verdict") == "dead"
+            and observed.get("tmux_exists") is False and observed.get("worker_lock_free") is True):
+        return str(expected)
+    return None
 
 
 def last_metric(path):
@@ -90,10 +125,13 @@ def inspect_job(job, root):
     run = read_json(run_dir / "run.json") if run_dir else {}
     status_path = Path(job["status_path"]) if job.get("status_path") else (run_dir / "status.json" if run_dir else None)
     status = read_json(status_path) if status_path else {}
+    status_unreadable = bool(status_path and not status and (status_path.exists() or job.get("status") in {"running", "preparing", "launching", "unknown"}))
     training_status = read_json(run_dir / "status.json") if run_dir and job.get("kind", "training") == "training" else {}
     progress_status = {**status, **training_status}
     state = status.get("status", run.get("status", job.get("status", "not_started")))
     state = {"done": "completed", "complete": "completed", "pending": "queued"}.get(state, state)
+    if state not in ACTIVE | TERMINAL:
+        state = "unknown"
     if job.get("pipeline_id"):
         # The wrapper owns training AND its following independent evaluation.
         process = process_info(status.get("pid") or job.get("pid"), status.get("pid_start_ticks") or job.get("pid_start_ticks"))
@@ -106,12 +144,21 @@ def inspect_job(job, root):
     notes = []
     if state == "blocked":
         notes.append(str(status.get("reason", job.get("reason", "dependency_blocked"))))
-    if state in {"running", "preparing"} and process["alive"] is False:
-        state = "failed" if launch.get("exit_code", job.get("exit_code", 0)) else "interrupted"
-        notes.append("process_missing_without_terminal_status")
-    elif state == "running" and process["alive"] is None:
-        state = "running_unverified"
-        notes.append("launch_pid_not_recorded")
+    confirmation = confirmed_pipeline_terminal(job, root, status)
+    if status_unreadable:
+        state = "unknown"
+        notes.append("status_missing_or_unreadable_requires_recheck")
+    elif state in ACTIVE and confirmation:
+        state = "interrupted"
+        notes.append("coordinator_confirmed_two_absent_worker_child_tmux_and_released_lock")
+    elif state in {"running", "preparing", "running_unverified", "unknown"} and process["alive"] is not True:
+        state = "unknown"
+        notes.append("worker_liveness_unknown_keep_monitoring")
+        if child_process["alive"] is True:
+            notes.append("child_process_alive")
+    if state in TERMINAL and any(p.get("alive") is True and p.get("identity_verified") for p in (process, child_process)):
+        state = "unknown"
+        notes.append("terminal_status_but_verified_process_still_alive")
     if process.get("pid_reused"):
         notes.append("pid_reused")
     if state in ACTIVE and process["alive"] and age_seconds(log) is not None and age_seconds(log) > 900:
@@ -134,6 +181,7 @@ def inspect_job(job, root):
         "run_dir": str(run_dir) if run_dir else None, "session": launch.get("session", job.get("session")),
         "device": launch.get("device", job.get("device")), "process": process, "child_process": child_process,
         "phase": status.get("phase"), "training_status": training_status.get("status"),
+        "status_path": str(status_path) if status_path else None, "terminal_observation": confirmation,
         "commit": run.get("code", {}).get("commit", job.get("commit")),
         "epoch": progress_status.get("epoch", metric.get("epoch")), "global_step": progress_status.get("global_step", metric.get("global_step")),
         "loss": progress_status.get("loss", metric.get("train_loss")), "validation": validation,
@@ -145,7 +193,9 @@ def inspect_job(job, root):
 
 
 def collect_jobs(root):
-    registry = read_json(root / "monitoring/jobs.json", {"jobs": []})
+    registry_path = root / "monitoring/jobs.json"
+    # A malformed/inaccessible registry must fail the check, never hide active jobs.
+    registry = json.loads(registry_path.read_text()) if registry_path.exists() else {"jobs": []}
     jobs = registry if isinstance(registry, list) else registry.get("jobs", [])
     if isinstance(jobs, dict):
         jobs = [{"job_id": name, **value} for name, value in jobs.items()]
@@ -204,6 +254,7 @@ def snapshot(root):
     return {"schema": "v5_patrol_snapshot_v1", "time_utc": timestamp(),
         "time_shanghai": datetime.now(ZoneInfo("Asia/Shanghai")).isoformat(), "hostname": os.uname().nodename,
         "root": str(root), "jobs": jobs, "active_count": sum(job["status"] in ACTIVE for job in jobs),
+        "unknown_count": sum(job["status"] == "unknown" for job in jobs),
         "all_terminal": bool(jobs) and all(job["status"] in TERMINAL for job in jobs),
         "gpu": gpu, "disk": disk_fields(disk), "storage_volumes": storage_volumes(root)}
 
@@ -233,12 +284,13 @@ def cron_marker(root):
     return "PUREVISION_V5_" + hashlib.sha256(str(Path(root).resolve()).encode()).hexdigest()[:12]
 
 
-def filter_crontab(text, marker, probe_only=False):
-    suffix = marker + "_PROBE" if probe_only else marker
-    return "\n".join(line for line in text.splitlines() if suffix not in line) + "\n"
+def filter_crontab(text, marker, probe_only=False, publisher_only=False):
+    suffixes = ("_PUBLISHER",) if publisher_only else (("_PROBE",) if probe_only else ("_PROBE", "_SERVER", "_ASTRA"))
+    # Monitoring cleanup must not remove the final, still-pending result publication.
+    return "\n".join(line for line in text.splitlines() if not any(marker + suffix in line for suffix in suffixes)) + "\n"
 
 
-def modify_cron(root, additions=None, probe_only=False):
+def modify_cron(root, additions=None, probe_only=False, publisher_only=False):
     root = Path(root).resolve()
     result = subprocess.run(["crontab", "-l"], capture_output=True, text=True, check=False)
     if result.returncode not in (0, 1):
@@ -247,7 +299,7 @@ def modify_cron(root, additions=None, probe_only=False):
     backup = root / "monitoring/crontab_backups" / (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ") + ".txt")
     backup.parent.mkdir(parents=True, exist_ok=True)
     backup.write_text(existing)
-    updated = filter_crontab(existing, cron_marker(root), probe_only)
+    updated = filter_crontab(existing, cron_marker(root), probe_only, publisher_only)
     if additions:
         updated += "\n".join(additions) + "\n"
     subprocess.run(["crontab", "-"], input=updated, text=True, check=True)
@@ -276,7 +328,7 @@ def install_cron(root, code_root, probe=False):
         return f"{env} /usr/bin/bash {quote(str(code_root / 'scripts' / script))} {quote(str(root))} {trigger} >> {quote(str(root / 'monitoring/cron.log'))} 2>&1"
     lines = [f"* * * * * {command('astra_patrol.sh', 'cron_probe')} # {marker}_PROBE"] if probe else [
         f"*/5 * * * * {command('server_check.sh', 'scheduled')} # {marker}_SERVER",
-        f"0 * * * * {command('astra_patrol.sh', 'scheduled')} # {marker}_ASTRA"]
+        f"*/30 * * * * {command('astra_patrol.sh', 'scheduled')} # {marker}_ASTRA"]
     backup = modify_cron(root, lines, probe_only=probe)
     record = {"installed_at": timestamp(), "code_root": str(code_root), "commit": commit,
         "probe": probe, "crontab_backup": str(backup), "lines": lines,
@@ -285,15 +337,91 @@ def install_cron(root, code_root, probe=False):
     return record
 
 
+def install_publisher(root, code_root, command_file):
+    import shlex
+    root, code_root, command_file = Path(root).resolve(), Path(code_root).resolve(), Path(command_file).resolve()
+    repository = code_root.parents[2]
+    base = ["git", "-c", f"safe.directory={repository}", "-C", str(repository)]
+    if subprocess.check_output(base + ["rev-parse", "--abbrev-ref", "HEAD"], text=True).strip() != "HEAD":
+        raise ValueError("Publisher requires a detached fixed code worktree")
+    if subprocess.check_output(base + ["status", "--porcelain", "--untracked-files=no"], text=True).strip():
+        raise ValueError("Publisher code worktree contains tracked modifications")
+    if not command_file.is_relative_to(root / "monitoring") or not command_file.is_file():
+        raise ValueError("Publisher command file must exist under task monitoring directory")
+    command = json.loads(command_file.read_text()).get("command", [])
+    if command[:3] != [PYTHON, "-B", str(code_root / "publish_results.py")]:
+        raise ValueError("Publisher command must target the fixed script")
+    if command_file.stat().st_uid != os.getuid() or command_file.stat().st_mode & 0o077:
+        raise ValueError("Publisher command file must be task-owned and private")
+    env = "/usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai"
+    command_line = f"{env} /usr/bin/bash {shlex.quote(str(code_root / 'scripts/publish_results.sh'))} {shlex.quote(str(root))} {shlex.quote(str(command_file))} scheduled >> {shlex.quote(str(root / 'monitoring/publisher_cron.log'))} 2>&1"
+    lines = [f"17 * * * * {command_line} # {cron_marker(root)}_PUBLISHER"]
+    backup = modify_cron(root, lines, publisher_only=True)
+    record = dict(installed_at=timestamp(), code_root=str(code_root),
+                  commit=subprocess.check_output(base + ["rev-parse", "HEAD"], text=True).strip(),
+                  lines=lines, crontab_backup=str(backup), command_file=str(command_file),
+                  status="installed_pending_observed_trigger")
+    write_json(root / "monitoring/publisher_schedule.json", record)
+    return record
+
+
+def normalized_command(command):
+    import shlex
+    try:
+        args = shlex.split(command)
+        if args and Path(args[0]).name in {"bash", "sh"} and len(args) >= 3 and args[1] in {"-lc", "-c"}:
+            args = shlex.split(args[2])
+        return args
+    except ValueError:
+        return []
+
+
+def patrol_evidence(prefix, log_text):
+    """Require successful CLI command events for the exact deterministic read helper."""
+    request_path = prefix.with_suffix(".request.json")
+    request = read_json(request_path)
+    if not request or not request.get("command"):
+        return {"verified": False, "reason": "missing_read_request", "reads": []}
+    matches = []
+    for line in log_text.splitlines():
+        try:
+            event = json.loads(line)
+        except ValueError:
+            continue
+        item = event.get("item", {})
+        if (event.get("type") != "item.completed" or item.get("type") != "command_execution"
+                or item.get("exit_code") != 0 or item.get("status") != "completed"
+                or normalized_command(item.get("command", "")) != request["command"]):
+            continue
+        for output in item.get("aggregated_output", "").splitlines():
+            if not output.startswith("V5_FILE_READ_RECEIPT "):
+                continue
+            try:
+                receipt = json.loads(output[len("V5_FILE_READ_RECEIPT "):])
+            except ValueError:
+                continue
+            if receipt.get("request_id") == request.get("request_id"):
+                matches.append(receipt)
+    expected = {(t["path"], t.get("run_id")) for t in request.get("targets", [])}
+    reads = [r for r in matches if r.get("status") == "read_success" and r.get("bytes_read", 0) > 0 and r.get("sha256")]
+    observed = {(r.get("path"), r.get("run_id")) for r in reads}
+    return {"verified": bool(expected) and expected <= observed,
+            "request_id": request.get("request_id"), "required_targets": request.get("targets", []),
+            "code": request.get("code"), "reads": reads, "missing": [list(v) for v in sorted(expected - observed, key=str)]}
+
+
 def record_patrol(root, prefix, exit_code, trigger):
     prefix = Path(prefix)
     answer = prefix.with_suffix(".txt")
     log = prefix.with_suffix(".log")
     answer_text = answer.read_text() if answer.exists() else ""
     log_text = log.read_text(errors="replace") if log.exists() else ""
-    success = exit_code == 0 and "ASTRA_PATROL_OK" in answer_text and "\nexec\n" in log_text
+    evidence = patrol_evidence(prefix, log_text)
+    success = exit_code == 0 and "ASTRA_PATROL_OK" in answer_text.splitlines() and evidence["verified"]
     record = {"time_utc": timestamp(), "trigger": trigger, "model": "gpt-6-astra", "exit_code": exit_code,
-        "success": success, "actual_shell_read_observed": "\nexec\n" in log_text, "answer": str(answer), "log": str(log)}
+        "success": success, "actual_shell_read_observed": evidence["verified"], "read_evidence": evidence,
+        "run_ids": sorted({r["run_id"] for r in evidence.get("reads", []) if r.get("run_id")}),
+        "answer": str(answer), "log": str(log), "evidence_schema": "v5_patrol_read_evidence_v2"}
     write_json(prefix.with_suffix(".meta.json"), record)
     write_json(Path(root) / "monitoring/last_astra.json", record)
     schedule_path = Path(root) / "monitoring" / ("probe_schedule.json" if trigger == "cron_probe" else "schedule.json")
@@ -315,10 +443,21 @@ def main():
     parser.add_argument("--install-cron", type=Path)
     parser.add_argument("--install-probe", type=Path)
     parser.add_argument("--remove-cron", action="store_true")
+    parser.add_argument("--install-publisher", type=Path)
+    parser.add_argument("--publisher-command-file", type=Path)
+    parser.add_argument("--remove-publisher", action="store_true")
     parser.add_argument("--patrol-result", type=Path)
     parser.add_argument("--patrol-exit-code", type=int, default=0)
     parser.add_argument("--trigger", default="manual")
     args = parser.parse_args()
+    if args.install_publisher:
+        if args.publisher_command_file is None:
+            parser.error("--install-publisher requires --publisher-command-file")
+        print(json.dumps(install_publisher(args.root, args.install_publisher, args.publisher_command_file), indent=2))
+        return
+    if args.remove_publisher:
+        print(modify_cron(args.root, publisher_only=True))
+        return
     if args.install_cron or args.install_probe:
         print(json.dumps(install_cron(args.root, args.install_cron or args.install_probe, bool(args.install_probe)), indent=2))
         return
@@ -326,8 +465,9 @@ def main():
         print(modify_cron(args.root))
         return
     if args.patrol_result:
-        print(json.dumps(record_patrol(args.root, args.patrol_result, args.patrol_exit_code, args.trigger)))
-        return
+        record = record_patrol(args.root, args.patrol_result, args.patrol_exit_code, args.trigger)
+        print(json.dumps(record))
+        raise SystemExit(0 if record["success"] else 1)
     value = snapshot(args.root)
     if args.write:
         monitoring = args.root / "monitoring"

@@ -11,11 +11,12 @@ from torch.utils.data import Dataset
 from .common import object_hash, read_json, sha256
 from .labels import LABEL_CONTRACT, LABEL_SHA256
 from .model import EXPERIMENTS
+from .selection import select_records
 
 
 class VelocityDataset(Dataset):
     def __init__(self, manifest_path, partition, experiment, feature_root=None, flow_root=None,
-                 limit_scenes=0, limit_windows=0):
+                 limit_scenes=0, limit_windows=0, selection_path=None):
         self.manifest_path = Path(manifest_path).resolve()
         manifest = read_json(self.manifest_path)
         if manifest.get("schema") != "v5_dataset_v1" or manifest.get("seq_len") != 5:
@@ -42,7 +43,9 @@ class VelocityDataset(Dataset):
             if feature_index["contract"]["dataset_sha256"] != self.manifest_hash:
                 raise ValueError("Descriptor cache belongs to another dataset")
             self.feature_contract = feature_index["contract"]
-        records = [r for r in manifest["sequences"] if r["partition"] == partition]
+        records, self.scene_selection = select_records(self.manifest_path, partition, selection_path)
+        if self.scene_selection and (limit_scenes or limit_windows):
+            raise ValueError("An explicit pilot selection cannot be combined with smoke subset limits")
         if limit_scenes:
             records = records[:limit_scenes]
         for record in records:
@@ -103,12 +106,12 @@ class VelocityDataset(Dataset):
             raise ValueError("Flow experiments require a cache root")
         flow_contract = None
         if experiment != "R00":
-            from .flow import PREPROCESSING, RAFT_SHA256, SCHEMA, cache_path
-            flow_contract = dict(schema=SCHEMA, raft_sha256=RAFT_SHA256, preprocessing=PREPROCESSING)
+            from .flow import cache_path, packet_contract
             from .packed_flow import INDEX_NAME, PackedFlow
             if (self.flow_root / INDEX_NAME).exists():
                 self.packed_flow = PackedFlow(self.flow_root, dataset_sha256=self.manifest_hash,
                                               require_fb=experiment in {"R04", "R05"})
+                flow_contract = dict(self.packed_flow.flow_contract)
                 flow_contract["packed_index_sha256"] = self.packed_flow.index_sha256
             for pair in sorted({pair for item in self.items for pair in item["pairs"]}):
                 if self.packed_flow is not None:
@@ -116,11 +119,18 @@ class VelocityDataset(Dataset):
                     continue
                 path = cache_path(self.flow_root, *pair[:2])
                 self.flow_checksums[pair] = sha256(path)
+                current_contract = packet_contract(torch.load(path, map_location="cpu", weights_only=True))
+                if flow_contract is None:
+                    flow_contract = current_contract
+                elif flow_contract != current_contract:
+                    raise ValueError("Mixed optical-flow frontend/view contracts in one dataset")
                 stat = path.stat()
                 self.flow_file_stats[pair] = (stat.st_size, stat.st_mtime_ns)
         self.contract = dict(dataset_sha256=self.manifest_hash, label=self.label_contract,
                              features=self.feature_contract, flow_root=str(self.flow_root) if self.flow_root else None,
                              flow=flow_contract)
+        if self.scene_selection:
+            self.contract["scene_selection"] = self.scene_selection
         self.selection_hash = object_hash(dict(tokens=[item["token"] for item in self.items],
                                                flow_packets=[[*pair, digest] for pair, digest in self.flow_checksums.items()]))
 

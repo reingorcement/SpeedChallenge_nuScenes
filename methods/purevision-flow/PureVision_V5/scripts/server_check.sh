@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+umask 077
 V5_ARTIFACT_ROOT="${1:-/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5}"
 V5_CODE_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 V5_PYTHON=/home/zhangyu/.conda/envs/speedest/bin/python

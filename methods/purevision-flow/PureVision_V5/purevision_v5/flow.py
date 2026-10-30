@@ -23,6 +23,7 @@ from .common import object_hash, sha256
 
 
 SCHEMA = "v5_flow_v1"
+CONFIGURABLE_SCHEMA = "v5_flow_v2"
 RAFT_SIZE = (288, 512)
 MODEL_SIZE = (72, 128)
 RAFT_SHA256 = "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322"
@@ -37,6 +38,60 @@ PREPROCESSING = {
     "fb_rule": "squared_relative", "fb_alpha": 0.01, "fb_beta_px2": 0.5,
     "warp_align_corners": True, "invalid_model_flow": "zero",
 }
+
+
+def native_contract(raft_size=RAFT_SIZE) -> dict:
+    """Prediction contract, independent of any derived training resolution.
+
+    Sizes are always (height, width). This stage supports the two approved
+    nuScenes 16:9 frontends; a different aspect/padding policy is a new contract.
+    """
+    if tuple(raft_size) not in (RAFT_SIZE, (576, 1024)):
+        raise ValueError("Supported RAFT sizes are HxW 288x512 and 576x1024")
+    return dict(version="v5_raft_native_v2", prediction="frozen_raft_not_ground_truth",
+                raft_size=list(raft_size), input="RGB", resize="bilinear", antialias=False,
+                range=[-1.0, 1.0], transforms=PREPROCESSING["transforms"],
+                num_flow_updates=12, compute_dtype="float32", tf32=False,
+                flow_units="pixels_at_raft_resolution", component_order=["u_right", "v_down"],
+                valid="finite_vector_and_endpoint_inside_target",
+                fb_rule="squared_relative", fb_alpha=0.01, fb_beta_px2=0.5,
+                warp_align_corners=True)
+
+
+def derived_contract(raft_size=RAFT_SIZE) -> dict:
+    """The fixed 72x128 model view; vector scaling is explicitly dimensional."""
+    native_contract(raft_size)
+    return dict(version="v5_flow_view_v2", model_size=list(MODEL_SIZE),
+                native_size=list(raft_size), model_flow_units="pixels_at_model_resolution",
+                flow_resize="bilinear_align_corners_false_vector_scaled",
+                vector_scale_uv=[MODEL_SIZE[1] / raft_size[1], MODEL_SIZE[0] / raft_size[0]],
+                mask_resize="nearest", invalid_model_flow="zero", flow_dtype="float16",
+                mask_dtype="bool", dt="positive_seconds_separate_not_divided_into_flow")
+
+
+def validate_flow_contract(contract: dict) -> None:
+    """Accept the exact legacy contract or the independently versioned v2 parts."""
+    if contract.get("raft_sha256") != RAFT_SHA256:
+        raise ValueError("Flow weight/preprocessing contract mismatch")
+    if contract.get("schema") == SCHEMA:
+        expected = dict(schema=SCHEMA, raft_sha256=RAFT_SHA256, preprocessing=PREPROCESSING)
+    elif contract.get("schema") == CONFIGURABLE_SCHEMA:
+        size = contract.get("native_contract", {}).get("raft_size", ())
+        expected = dict(schema=CONFIGURABLE_SCHEMA, raft_sha256=RAFT_SHA256,
+                        native_contract=native_contract(size), derived_contract=derived_contract(size))
+    else:
+        raise ValueError("Unknown flow cache schema")
+    if contract != expected:
+        raise ValueError("Flow weight/preprocessing contract mismatch")
+
+
+def packet_contract(packet: dict) -> dict:
+    """Actual input contract for loaders; never infer resolution from a default."""
+    provenance = _validate_metadata(packet, "model_view")
+    if packet["schema"] == SCHEMA:
+        return dict(schema=SCHEMA, raft_sha256=RAFT_SHA256, preprocessing=provenance["preprocessing"])
+    return dict(schema=CONFIGURABLE_SCHEMA, raft_sha256=RAFT_SHA256,
+                native_contract=provenance["native_contract"], derived_contract=packet["derived_contract"])
 
 
 def atomic_save(value: dict, path: str | Path) -> None:
@@ -56,13 +111,20 @@ def atomic_save(value: dict, path: str | Path) -> None:
             tmp.unlink(missing_ok=True)
 
 
-def cache_path(root: str | Path, source_token: str, target_token: str) -> Path:
+def cache_path(root: str | Path, source_token: str, target_token: str, *, schema: str | None = None) -> Path:
     for token in (source_token, target_token):
         if not isinstance(token, str) or re.fullmatch(r"[A-Za-z0-9_-]{1,128}", token) is None:
             raise ValueError("Unsafe or missing image token")
     if source_token == target_token:
         raise ValueError("A flow pair requires distinct frame tokens")
-    return Path(root) / SCHEMA / source_token[:2] / f"{source_token}_{target_token}.pt"
+    root = Path(root)
+    present = [s for s in (SCHEMA, CONFIGURABLE_SCHEMA) if (root / s).exists()]
+    if len(present) > 1 or (schema is not None and present and schema not in present):
+        raise ValueError("A cache root cannot mix legacy and configurable schemas")
+    schema = schema or (present[0] if present else SCHEMA)
+    if schema not in (SCHEMA, CONFIGURABLE_SCHEMA):
+        raise ValueError("Unknown flow cache schema")
+    return root / schema / source_token[:2] / f"{source_token}_{target_token}.pt"
 
 
 def native_path(path: str | Path) -> Path:
@@ -129,13 +191,30 @@ def resize_mask(mask: torch.Tensor, size: tuple[int, int] = MODEL_SIZE) -> torch
 
 
 def _validate_metadata(packet: dict, kind: str) -> dict:
-    if packet.get("schema") != SCHEMA or packet.get("kind") != kind:
+    schema = packet.get("schema")
+    if schema not in (SCHEMA, CONFIGURABLE_SCHEMA) or packet.get("kind") != kind:
         raise ValueError("Unexpected flow cache schema or kind")
     provenance = packet.get("provenance", {})
-    if packet.get("identity") != object_hash(provenance):
+    expected_identity = object_hash(provenance)
+    if schema == CONFIGURABLE_SCHEMA and kind == "model_view":
+        if packet.get("native_identity") != expected_identity:
+            raise ValueError("Derived flow native identity mismatch")
+        expected_identity = object_hash(dict(native_identity=expected_identity,
+                                            native_sha256=packet.get("native_sha256"),
+                                            derived_contract=packet.get("derived_contract")))
+    if packet.get("identity") != expected_identity:
         raise ValueError("Flow provenance identity mismatch")
-    if provenance.get("checkpoint_sha256") != RAFT_SHA256 or provenance.get("preprocessing") != PREPROCESSING:
+    if provenance.get("checkpoint_sha256") != RAFT_SHA256:
         raise ValueError("Flow weight/preprocessing contract mismatch")
+    if schema == SCHEMA:
+        if provenance.get("preprocessing") != PREPROCESSING:
+            raise ValueError("Flow weight/preprocessing contract mismatch")
+    else:
+        size = provenance.get("native_contract", {}).get("raft_size", ())
+        if provenance.get("native_contract") != native_contract(size) or "preprocessing" in provenance:
+            raise ValueError("Flow native generation contract mismatch")
+        if kind == "model_view" and packet.get("derived_contract") != derived_contract(size):
+            raise ValueError("Flow derived view contract mismatch")
     if provenance.get("direction") not in ("forward", "bidirectional"):
         raise ValueError("Unknown flow direction contract")
     if packet.get("fb_available") != (provenance["direction"] == "bidirectional"):
@@ -186,27 +265,46 @@ def load_model_pair(path: str | Path, *, require_fb: bool = False,
 def _load_native(path: str | Path, expected: dict | None = None) -> dict:
     packet = torch.load(path, map_location="cpu", weights_only=True)
     provenance = _validate_metadata(packet, "native")
-    if expected is not None and provenance != expected:
+    comparable = lambda item: {k:v for k,v in item.items() if k != "requested_batch_size"}
+    if expected is not None and comparable(provenance) != comparable(expected):
         raise ValueError(f"Native flow identity mismatch: {path}")
     directions = ("forward", "backward") if packet["fb_available"] else ("forward",)
+    size = tuple(provenance["native_contract"]["raft_size"]) if packet["schema"] == CONFIGURABLE_SCHEMA else RAFT_SIZE
     for direction in directions:
-        _tensor(packet, direction, (2, *RAFT_SIZE), torch.float32)
-        valid = _tensor(packet, f"{direction}_valid", (1, *RAFT_SIZE), torch.bool)
-        reliability = _tensor(packet, f"{direction}_fb", (1, *RAFT_SIZE), torch.bool)
+        _tensor(packet, direction, (2, *size), torch.float32)
+        valid = _tensor(packet, f"{direction}_valid", (1, *size), torch.bool)
+        reliability = _tensor(packet, f"{direction}_fb", (1, *size), torch.bool)
         if (reliability & ~valid).any() or (not packet["fb_available"] and reliability.any()):
             raise ValueError("Malformed native reliability mask")
     return packet
 
 
-def _write_model_view(native: dict, path: str | Path) -> None:
+def _write_model_view(native: dict, path: str | Path, *, native_file: str | Path | None = None) -> None:
     valid = resize_mask(native["forward_valid"])
     reliability = resize_mask(native["forward_fb"]) & valid
     # All legal flow is retained for R01/R03/R04, irrespective of FB reliability.
     flow = resize_flow(native["forward"]).masked_fill(~valid.expand(2, -1, -1), 0).half()
     packet = {key: native[key] for key in ("schema", "identity", "provenance", "fb_available")}
     packet.update(kind="model_view", flow=flow, valid=valid, fb_mask=reliability,
-                  native_sha256=sha256(native_path(path)))
+                  native_sha256=sha256(native_file or native_path(path)))
+    if native["schema"] == CONFIGURABLE_SCHEMA:
+        packet["native_identity"] = native["identity"]
+        packet["derived_contract"] = derived_contract(native["provenance"]["native_contract"]["raft_size"])
+        packet["identity"] = object_hash({k: packet[k] for k in ("native_identity", "native_sha256", "derived_contract")})
+    _validate_metadata(packet, "model_view")
     atomic_save(packet, path)
+
+
+def derive_model_view(native_file: str | Path, output: str | Path) -> None:
+    """Rebuild the current model view from immutable native predictions, no RAFT.
+
+    Deliberately does not offer a new downstream size until the model/dataset
+    contracts for such an experiment are approved and implemented together.
+    """
+    if Path(output).exists():
+        raise FileExistsError("A derived view must use a new output path")
+    native = _load_native(native_file)
+    _write_model_view(native, output, native_file=native_file)
 
 
 def save_pair(path: str | Path, forward: torch.Tensor, backward: torch.Tensor | None, provenance: dict,
@@ -218,7 +316,9 @@ def save_pair(path: str | Path, forward: torch.Tensor, backward: torch.Tensor | 
     available = backward is not None
     if available != (provenance.get("direction") == "bidirectional"):
         raise ValueError("Missing or unexpected backward flow")
-    packet = dict(schema=SCHEMA, kind="native", identity=object_hash(provenance),
+    schema = CONFIGURABLE_SCHEMA if "native_contract" in provenance else SCHEMA
+    size = tuple(provenance["native_contract"]["raft_size"]) if schema == CONFIGURABLE_SCHEMA else RAFT_SIZE
+    packet = dict(schema=schema, kind="native", identity=object_hash(provenance),
                   provenance=provenance, fb_available=available, execution=execution or {})
     # Reused native forward replaces original NaN/Inf with zero. Recover their
     # original finite indicator so the inverse FB mask cannot treat them as data.
@@ -228,7 +328,7 @@ def save_pair(path: str | Path, forward: torch.Tensor, backward: torch.Tensor | 
     for direction, value, opposite in (("forward", forward, backward), ("backward", backward, forward)):
         if value is None:
             continue
-        if tuple(value.shape) != (2, *RAFT_SIZE):
+        if tuple(value.shape) != (2, *size):
             raise ValueError("Native RAFT output shape mismatch")
         value = value.detach().float()
         valid = legal_mask(value).cpu()
@@ -246,11 +346,11 @@ def save_pair(path: str | Path, forward: torch.Tensor, backward: torch.Tensor | 
     _write_model_view(packet, path)
 
 
-def _frame_metadata(frame: dict) -> dict:
+def _frame_metadata(frame: dict, raft_size=RAFT_SIZE) -> dict:
     path = Path(frame["filename"]).resolve(strict=True)
     with Image.open(path) as image:
         width, height = image.size
-    if width * RAFT_SIZE[0] != height * RAFT_SIZE[1]:
+    if width * raft_size[0] != height * raft_size[1]:
         raise ValueError(f"Input aspect differs from 16:9: {path} ({width}x{height})")
     return dict(token=frame["token"], time_s=float(frame["time_s"]), filename=str(path),
                 sha256=sha256(path), size_bytes=path.stat().st_size, size=[height, width])
@@ -258,7 +358,8 @@ def _frame_metadata(frame: dict) -> dict:
 
 class FrozenRaft:
     def __init__(self, checkpoint: str | Path = DEFAULT_CHECKPOINT, device: str = "cuda:0", *,
-                 direction: str = "forward", batch_size: int = 16):
+                 direction: str = "forward", batch_size: int = 16,
+                 raft_size: tuple[int, int] | None = None, generation_code: dict | None = None):
         if direction not in ("forward", "bidirectional"):
             raise ValueError("direction must be forward or bidirectional")
         if batch_size < 1:
@@ -269,6 +370,10 @@ class FrozenRaft:
         self.device = torch.device(device)
         self.direction = direction
         self.batch_size = batch_size
+        self.schema = SCHEMA if raft_size is None else CONFIGURABLE_SCHEMA
+        self.raft_size = RAFT_SIZE if raft_size is None else tuple(raft_size)
+        native_contract(self.raft_size)
+        self.generation_code = generation_code
         self.model = None
         self.transforms = Raft_Large_Weights.C_T_SKHT_V2.transforms()
 
@@ -284,18 +389,25 @@ class FrozenRaft:
     def _image(self, frame: dict) -> torch.Tensor:
         with Image.open(frame["filename"]) as image:
             tensor = TF.pil_to_tensor(image.convert("RGB")).float() / 255.0
-        return TF.resize(tensor, list(RAFT_SIZE), antialias=False)[None]
+        return TF.resize(tensor, list(self.raft_size), antialias=False)[None]
 
     def provenance(self, source: dict, target: dict) -> dict:
-        source, target = _frame_metadata(source), _frame_metadata(target)
+        context = {key:source[key] for key in ("dataset", "camera", "scene") if key in source}
+        if any(target.get(key) != value for key,value in context.items()):
+            raise ValueError("Source and target dataset/camera/scene differ")
+        source, target = _frame_metadata(source, self.raft_size), _frame_metadata(target, self.raft_size)
         if source["size"] != target["size"]:
             raise ValueError("Source and target image dimensions differ")
         result = dict(source=source, target=target, dt_s=target["time_s"] - source["time_s"],
-                      checkpoint_sha256=RAFT_SHA256, preprocessing=PREPROCESSING,
+                      checkpoint_sha256=RAFT_SHA256,
                       direction=self.direction, requested_batch_size=self.batch_size,
                       versions={"torch": str(torch.__version__),
                       "torchvision": str(torchvision.__version__), "pillow": PIL.__version__, "cuda": torch.version.cuda})
-        _validate_metadata(dict(schema=SCHEMA, kind="native", identity=object_hash(result), provenance=result,
+        result.update({"preprocessing": PREPROCESSING} if self.schema == SCHEMA
+                      else {"native_contract": native_contract(self.raft_size)})
+        if self.schema == CONFIGURABLE_SCHEMA:
+            result.update(context=context, generation_code=self.generation_code)
+        _validate_metadata(dict(schema=self.schema, kind="native", identity=object_hash(result), provenance=result,
                                 fb_available=self.direction == "bidirectional"), "native")
         return result
 
@@ -321,7 +433,8 @@ class FrozenRaft:
             if comparable(old["provenance"]) != comparable(expected):
                 raise ValueError("Reused forward input/weight/preprocessing identity mismatch")
             old_compact = torch.load(reuse_forward, map_location="cpu", weights_only=True)
-            if old_compact.get("native_sha256") != sha256(native_path(reuse_forward)) or old_compact.get("identity") != old["identity"]:
+            if (old_compact.get("native_sha256") != sha256(native_path(reuse_forward))
+                    or old_compact.get("native_identity", old_compact.get("identity")) != old["identity"]):
                 raise ValueError("Reused forward packet checksum/identity mismatch")
             load_model_pair(reuse_forward)
             forward = old["forward"]
@@ -339,7 +452,8 @@ class FrozenRaft:
                     raise ValueError("Cached bidirectional flow uses a different frozen forward source")
             if path.exists():
                 compact = torch.load(path, map_location="cpu", weights_only=True)
-                if compact.get("identity") != native["identity"] or compact.get("native_sha256") != sha256(native_path(path)):
+                if (compact.get("native_identity", compact.get("identity")) != native["identity"]
+                        or compact.get("native_sha256") != sha256(native_path(path))):
                     raise ValueError(f"Native/compact cache mismatch: {path}")
                 load_model_pair(path, require_fb=self.direction == "bidirectional")
                 return "reused", None

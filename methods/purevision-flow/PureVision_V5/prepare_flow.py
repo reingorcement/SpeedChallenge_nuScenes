@@ -11,11 +11,13 @@ import time
 
 import torch
 
-from purevision_v5.flow import DEFAULT_CHECKPOINT, FrozenRaft, cache_path, sha256
+from purevision_v5.flow import (DEFAULT_CHECKPOINT, FrozenRaft, cache_path, sha256,
+                               native_contract, derived_contract)
 from purevision_v5.common import code_version
 
 
-def enumerate_pairs(manifest_path: str | Path, partitions: list[str], *, shard_index: int = 0, shard_count: int = 1):
+def enumerate_pairs(manifest_path: str | Path, partitions: list[str], *, shard_index: int = 0, shard_count: int = 1,
+                    selection_path: str | Path | None = None):
     path = Path(manifest_path).resolve(strict=True)
     manifest = json.loads(path.read_text())
     if manifest.get("schema") != "v5_dataset_v1" or manifest.get("seq_len") != 5:
@@ -28,6 +30,10 @@ def enumerate_pairs(manifest_path: str | Path, partitions: list[str], *, shard_i
     root = Path(manifest["dataroot"]).resolve(strict=True)
     seen = {}
     entries = [entry for entry in manifest["sequences"] if entry["partition"] in partitions]
+    if selection_path is not None:
+        from purevision_v5.selection import load_selection
+        selection = load_selection(path, selection_path)
+        entries = [entry for entry in entries if entry["scene"] in selection["scenes"].get(entry["partition"], [])]
     for sequence_index, entry in enumerate(entries):
         if sequence_index % shard_count != shard_index:
             continue
@@ -45,7 +51,8 @@ def enumerate_pairs(manifest_path: str | Path, partitions: list[str], *, shard_i
             needed.update(range(end - 4, end))
         for index in sorted(needed):
             source, target = ({"token":frame["token"], "time_s":frame["time_s"],
-                               "filename":str((root / frame["filename"]).resolve(strict=True))}
+                               "filename":str((root / frame["filename"]).resolve(strict=True)),
+                               "scene":entry["scene"], "camera":"CAM_FRONT", "dataset":"nuScenes"}
                               for frame in (frames[index], frames[index + 1]))
             key = (source["token"], target["token"])
             signature = (source["time_s"], target["time_s"], source["filename"], target["filename"])
@@ -82,12 +89,15 @@ def main():
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True, help="Separate root for each direction contract")
     parser.add_argument("--partitions", nargs="+", default=["train_core", "dev"])
+    parser.add_argument("--selection", type=Path, help="Validated fixed scene pilot selection; preserves the full manifest identity")
     parser.add_argument("--direction", choices=["forward", "bidirectional"], default="forward")
     parser.add_argument("--reuse-forward-root", type=Path, help="Use exact previously computed forward tensors; all requested pairs must exist")
     parser.add_argument("--checkpoint", type=Path, default=DEFAULT_CHECKPOINT)
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--threads", type=int, default=4)
     parser.add_argument("--batch-size", type=int, default=16)
+    parser.add_argument("--raft-width", type=int, choices=[512, 1024], help="Explicit configurable cache width; supply --raft-height too")
+    parser.add_argument("--raft-height", type=int, choices=[288, 576], help="Explicit height (CLI width/height; internal contract H,W)")
     parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument("--shard-count", type=int, default=1)
     parser.add_argument("--limit", type=int, default=0, help="0 prepares every selected pair")
@@ -99,6 +109,14 @@ def main():
         parser.error("Invalid shard-index/shard-count")
     if args.reuse_forward_root and args.direction != "bidirectional":
         parser.error("--reuse-forward-root requires --direction bidirectional")
+    if (args.raft_width is None) != (args.raft_height is None):
+        parser.error("Supply --raft-width and --raft-height together")
+    raft_size = (args.raft_height, args.raft_width) if args.raft_width is not None else None
+    if raft_size is not None:
+        try:
+            native_contract(raft_size)
+        except ValueError as error:
+            parser.error(str(error))
     torch.set_num_threads(args.threads)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     report_path = args.report or args.output / f"prepare_{stamp}_{os.getpid()}.json"
@@ -107,17 +125,25 @@ def main():
               "manifest":str(args.manifest.resolve()), "manifest_sha256":sha256(args.manifest),
               "arguments":{k:str(v) if isinstance(v, Path) else v for k,v in vars(args).items()},
               "counts":{}, "pairs_processed":0}
+    if args.selection is not None:
+        from purevision_v5.selection import load_selection
+        report["selection"] = load_selection(args.manifest, args.selection)
+        report["selection_sha256"] = sha256(args.selection)
+    if raft_size is not None:
+        report.update(native_contract=native_contract(raft_size), derived_contract=derived_contract(raft_size))
     started = time.monotonic()
     counts = Counter()
     _write_json(report_path, report)
     print(json.dumps(report), flush=True)
     try:
-        engine = FrozenRaft(args.checkpoint, args.device, direction=args.direction, batch_size=args.batch_size)
-        iterator = enumerate_pairs(args.manifest, args.partitions, shard_index=args.shard_index, shard_count=args.shard_count)
+        engine = FrozenRaft(args.checkpoint, args.device, direction=args.direction, batch_size=args.batch_size,
+                            raft_size=raft_size, generation_code=version)
+        iterator = enumerate_pairs(args.manifest, args.partitions, shard_index=args.shard_index, shard_count=args.shard_count,
+                                   selection_path=args.selection)
         for batch in batched_pairs(iterator, args.batch_size, args.limit):
             jobs = []
             for source, target, scene, partition in batch:
-                path = cache_path(args.output, source["token"], target["token"])
+                path = cache_path(args.output, source["token"], target["token"], schema=engine.schema)
                 reuse = cache_path(args.reuse_forward_root, source["token"], target["token"]) if args.reuse_forward_root else None
                 jobs.append((source, target, path, reuse))
             report["last_pair"] = {"source":source["token"], "target":target["token"], "scene":scene, "partition":partition}

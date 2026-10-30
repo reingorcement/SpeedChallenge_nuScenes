@@ -1,0 +1,182 @@
+import importlib.util
+import json
+from pathlib import Path
+import subprocess
+import pytest
+
+SOURCE = Path(__file__).resolve().parents[1]
+
+
+def module(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    value = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(value)
+    return value
+
+
+publisher = module("v5_publisher", SOURCE / "publish_results.py")
+secure = module("v5_secure", SOURCE / "scripts/secure_exec.py")
+reader = module("v5_reader", SOURCE / "scripts/patrol_read.py")
+
+
+def test_proxy_json_is_whitelisted_data_not_shell(tmp_path, monkeypatch):
+    path = tmp_path / "proxy.json"
+    path.write_text(json.dumps({"HTTPS_PROXY": "$(touch /should-not-exist)"}))
+    monkeypatch.setattr(secure, "trusted_file", lambda p: Path(p))
+    env = secure.proxy_environment(path, {})
+    assert env["HTTPS_PROXY"] == "$(touch /should-not-exist)"
+    path.write_text('{"LD_PRELOAD":"/bad"}')
+    with pytest.raises(ValueError, match="unsupported"):
+        secure.proxy_environment(path, {})
+
+
+def test_reader_emits_real_file_bytes_and_refuses_escape(tmp_path, capsys):
+    path = tmp_path / "status.json"
+    path.write_text('{"status":"running","global_step":3}')
+    request = dict(root=str(tmp_path), request_id="request", targets=[dict(path=str(path), run_id="pilot", mode="head")])
+    reader.read_targets(request)
+    lines = capsys.readouterr().out.splitlines()
+    receipt = json.loads(lines[0].removeprefix("V5_FILE_READ_RECEIPT "))
+    assert receipt["bytes_read"] == path.stat().st_size and receipt["sha256"] == publisher.checksum(path)
+    request["targets"][0]["path"] = str(tmp_path.parent / "secret")
+    with pytest.raises(ValueError, match="outside"):
+        reader.read_targets(request)
+
+
+def make_plan(root):
+    run_id = "pilot_R02_512"
+    run = root / "runs" / run_id
+    run.mkdir(parents=True)
+    state = root / "pipeline/pilot/jobs/R02_512.json"
+    state.parent.mkdir(parents=True)
+    state.write_text('{"status":"running"}')
+    (run / "run.json").write_text(json.dumps(dict(run_id=run_id, code={"commit": "a" * 40}, config={"experiment": "R02", "epochs": 40})))
+    (run / "status.json").write_text('{"status":"running","epoch":1,"global_step":30,"optimizer_updates":29,"amp_skips":1}')
+    (run / "metrics.jsonl").write_text('{"epoch":0,"validation":{"overall":{"epe":0.3}}}\n{"partial":')
+    plan = dict(prefix="pilot", code={"commit": "a" * 40}, jobs=[dict(name="R02_512", experiment="R02", job_id=run_id,
+                kind="training", status_path=str(state), run_dir=str(run), commands=[])])
+    path = root / "pipeline/pilot/plan.json"
+    path.write_text(json.dumps(plan))
+    return path
+
+
+def test_complete_jsonl_metadata_identity_and_no_weights(tmp_path):
+    path = make_plan(tmp_path)
+    files, summary = publisher.collect(tmp_path, [path])
+    assert summary["rows"][0]["experiment"] == "R02" and not summary["all_terminal"]
+    assert summary["rows"][0]["progress"]["optimizer_updates"] == 29
+    assert summary["rows"][0]["progress"]["amp_skips"] == 1
+    lines = files["experiments/pilot_R02_512/metrics.jsonl"].decode().splitlines()
+    assert len(lines) == 1 and json.loads(lines[0])["epoch"] == 0
+    assert not any(name.endswith(".pt") for name in files)
+    index = json.loads(files["source_index.json"])
+    assert all("source_sha256" in v for v in index["sources"])
+    assert all("export_sha256" in v for v in index["exports"])
+
+
+def test_local_remote_publication_no_empty_commit_and_dirty_refusal(tmp_path):
+    root = tmp_path / "artifacts"
+    root.mkdir()
+    plan = make_plan(root)
+    remote, repo = tmp_path / "remote.git", root / "report-worktree"
+    subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)
+    subprocess.run(["git", "init", "-b", publisher.REPORT_BRANCH, str(repo)], check=True, capture_output=True)
+    (repo / "README.md").write_text("test\n")
+    (repo / ".gitignore").write_text("**/runs/\n")
+    publisher.git(repo, "add", "README.md", ".gitignore")
+    publisher.git(repo, "commit", "-m", "initial")
+    first = publisher.publish(root, repo, [plan], push_url=str(remote))
+    second = publisher.publish(root, repo, [plan], push_url=str(remote))
+    assert first["status"] == second["status"] == "published"
+    assert first["report_commit"] == second["report_commit"] and not second["changed"]
+    (repo / "unrelated.txt").write_text("unknown change")
+    with pytest.raises(ValueError, match="unknown changes"):
+        publisher.publish(root, repo, [plan], push_url=str(remote))
+    assert (repo / "unrelated.txt").read_text() == "unknown change"
+
+
+def test_failed_push_is_pending_retry_and_remote_conflict_is_not_rewritten(tmp_path, monkeypatch):
+    root = tmp_path / "artifacts"
+    root.mkdir()
+    plan = make_plan(root)
+    remote, repo = tmp_path / "remote.git", root / "report-worktree"
+    subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)
+    subprocess.run(["git", "init", "-b", publisher.REPORT_BRANCH, str(repo)], check=True, capture_output=True)
+    (repo / "README.md").write_text("test\n")
+    publisher.git(repo, "add", "README.md")
+    publisher.git(repo, "commit", "-m", "initial")
+    publisher.publish(root, repo, [plan], push_url=str(remote))
+    state = root / "runs/pilot_R02_512/status.json"
+    state.write_text('{"status":"running","global_step":40}')
+    actual_git = publisher.git
+    def failed_push(repo, *args, **kwargs):
+        if args[0] == "push":
+            raise RuntimeError("isolated simulated network outage")
+        return actual_git(repo, *args, **kwargs)
+    monkeypatch.setattr(publisher, "git", failed_push)
+    with pytest.raises(RuntimeError, match="outage"):
+        publisher.publish(root, repo, [plan], push_url=str(remote))
+    receipt = json.loads((root / "monitoring/publication.json").read_text())
+    assert receipt["status"] == "pending" and receipt["report_commit"]
+    monkeypatch.setattr(publisher, "git", actual_git)
+    recovered = publisher.publish(root, repo, [plan], push_url=str(remote))
+    assert recovered["status"] == "published" and recovered["report_commit"] == receipt["report_commit"]
+    outsider = tmp_path / "other"
+    subprocess.run(["git", "clone", "-b", publisher.REPORT_BRANCH, str(remote), str(outsider)], check=True, capture_output=True)
+    (outsider / "new.txt").write_text("another writer\n")
+    actual_git(outsider, "add", "new.txt")
+    actual_git(outsider, "commit", "-m", "external publication")
+    actual_git(outsider, "push", "origin", publisher.REPORT_BRANCH)
+    with pytest.raises(ValueError, match="manual reconciliation"):
+        publisher.publish(root, repo, [plan], push_url=str(remote))
+    assert actual_git(outsider, "rev-parse", "HEAD") == actual_git(repo, "ls-remote", str(remote), f"refs/heads/{publisher.REPORT_BRANCH}").split()[0]
+
+
+def test_unknown_registry_is_not_terminal_and_source_escape_refused(tmp_path):
+    plan = make_plan(tmp_path)
+    job_path = tmp_path / "pipeline/pilot/jobs/R02_512.json"
+    job_path.write_text('{"status":"unknown"}')
+    _, summary = publisher.collect(tmp_path, [plan])
+    assert not summary["all_terminal"]
+    with pytest.raises(ValueError, match="escaped"):
+        publisher.read_source(tmp_path, tmp_path.parent / "private.json")
+
+
+def test_coordinator_unknown_requires_same_plan_identity(tmp_path):
+    path = make_plan(tmp_path)
+    plan = json.loads(path.read_text())
+    plan["identity"] = "expected"
+    path.write_text(json.dumps(plan))
+    coordinator = path.parent / "status.json"
+    coordinator.write_text(json.dumps(dict(plan_identity="expected", jobs={"R02_512": {"status": "unknown"}})))
+    _, summary = publisher.collect(tmp_path, [path])
+    assert summary["rows"][0]["status"] == "unknown"
+    coordinator.write_text(json.dumps(dict(plan_identity="wrong", jobs={"R02_512": {"status": "completed"}})))
+    _, summary = publisher.collect(tmp_path, [path])
+    assert summary["rows"][0]["status"] == "running"
+
+
+def test_additional_evidence_is_explicitly_allowlisted(tmp_path):
+    plan = make_plan(tmp_path)
+    (tmp_path / "evidence").mkdir()
+    (tmp_path / "evidence/baselines.json").write_text('{"train_median_vy":0.01}')
+    report = tmp_path / "reports/resolution_pilot"
+    report.mkdir(parents=True)
+    (report / "summary.md").write_text("# pending comparison\n")
+    (report / "summary.json").write_text('{"status":"pending"}')
+    (tmp_path / "monitoring").mkdir()
+    (tmp_path / "monitoring/network.json").write_text('{"HTTPS_PROXY":"private"}')
+    files, _ = publisher.collect(tmp_path, [plan])
+    assert "evidence/baselines.json" in files and "comparisons/resolution_pilot/summary.md" in files
+    assert not any("network" in k or "monitoring" in k for k in files)
+
+
+def test_git_proxy_is_scoped_to_transport_command(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    calls = []
+    monkeypatch.setattr(subprocess, "run", lambda command, **kwargs: (calls.append(command) or SimpleNamespace(returncode=0, stdout="", stderr="")))
+    publisher.git(tmp_path, "ls-remote", "git@github.com:example/repo.git")
+    publisher.git(tmp_path, "status", "--porcelain")
+    assert any(v.startswith("core.sshCommand=") for v in calls[0])
+    assert not any(v.startswith("core.sshCommand=") for v in calls[1])
+    assert not any("--global" in command or "config" in command for command in calls)

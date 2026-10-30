@@ -8,7 +8,9 @@ import torch
 from purevision_v5.flow import (MODEL_SIZE, PREPROCESSING, RAFT_SHA256, RAFT_SIZE,
                                FrozenRaft, _load_native, _write_model_view, atomic_save,
                                cache_path, fb_mask, legal_mask, load_model_pair,
-                               native_path, resize_flow, resize_mask, save_pair)
+                               native_path, resize_flow, resize_mask, save_pair,
+                               CONFIGURABLE_SCHEMA, native_contract, derived_contract,
+                               packet_contract, derive_model_view)
 from prepare_flow import batched_pairs, enumerate_pairs
 
 
@@ -254,3 +256,79 @@ def test_cached_fb_rejects_different_frozen_forward_source(tmp_path):
     save_pair(alternative,changed,None,provenance("forward"))
     with pytest.raises(ValueError,match="different frozen forward source"):
         engine.pair({}, {}, bpath, reuse_forward=alternative)
+
+
+def configurable_provenance(size=(576, 1024), direction="forward"):
+    value = provenance(direction)
+    value.pop("preprocessing")
+    value["native_contract"] = native_contract(size)
+    return value
+
+
+@pytest.mark.parametrize("size,displacement", [(RAFT_SIZE, 4.0), ((576, 1024), 8.0)])
+def test_configurable_native_and_derived_units_and_rebuild(tmp_path, size, displacement):
+    path = cache_path(tmp_path / "source", "source", "target", schema=CONFIGURABLE_SCHEMA)
+    forward = torch.zeros(2, *size)
+    forward[0], forward[1] = displacement, -2 * displacement
+    save_pair(path, forward, None, configurable_provenance(size))
+    values = load_model_pair(path)
+    assert values[0].shape == (2, *MODEL_SIZE)
+    assert values[0][:, 20, 20].tolist() == [1.0, -2.0]
+    native = _load_native(native_path(path))
+    packet = torch.load(path, weights_only=True)
+    contract = packet_contract(packet)
+    assert contract["native_contract"] == native_contract(size)
+    assert contract["derived_contract"] == derived_contract(size)
+    assert "derived_contract" not in native["provenance"]
+    assert packet["native_identity"] == native["identity"]
+    assert packet["identity"] != native["identity"]
+    # Re-derive solely from native data, leaving its identity and bytes intact.
+    from purevision_v5.common import sha256
+    before = sha256(native_path(path))
+    rebuilt = tmp_path / "other-view.pt"
+    derive_model_view(native_path(path), rebuilt)
+    for first, second in zip(values, load_model_pair(rebuilt)):
+        assert torch.equal(first, second)
+    assert before == sha256(native_path(path))
+    with pytest.raises(FileExistsError):
+        derive_model_view(native_path(path), rebuilt)
+    assert cache_path(tmp_path / "source", "source", "target") == path
+
+
+def test_configurable_view_rejects_wrong_scale_even_with_rehashed_identity(tmp_path):
+    from purevision_v5.common import object_hash
+    path = cache_path(tmp_path, "source", "target", schema=CONFIGURABLE_SCHEMA)
+    save_pair(path, torch.zeros(2, 576, 1024), None, configurable_provenance())
+    packet = torch.load(path, weights_only=True)
+    packet["derived_contract"]["vector_scale_uv"] = [.25, .25]
+    packet["identity"] = object_hash({key:packet[key] for key in ("native_identity", "native_sha256", "derived_contract")})
+    atomic_save(packet, path)
+    with pytest.raises(ValueError, match="derived view contract"):
+        load_model_pair(path)
+    with pytest.raises(ValueError, match="cannot mix"):
+        cache_path(tmp_path, "a", "b", schema="v5_flow_v1")
+    with pytest.raises(ValueError, match="Supported RAFT"):
+        native_contract((288, 1024))
+
+
+def test_configurable_resume_preserves_native_identity_and_direction(tmp_path):
+    path = cache_path(tmp_path, "source", "target", schema=CONFIGURABLE_SCHEMA)
+    p = configurable_provenance()
+    save_pair(path, torch.zeros(2, 576, 1024), None, p)
+    engine = FrozenRaft.__new__(FrozenRaft)
+    engine.direction, engine.model = "forward", None
+    engine.provenance = lambda source,target: p
+    assert engine.pair({}, {}, path) == "reused"
+    assert engine.model is None
+    path.unlink()
+    assert engine.pair({}, {}, path) == "recovered"
+    assert load_model_pair(path)[0].shape == (2, 72, 128)
+    # A safe generation batch reduction must not force recomputation of an
+    # already recorded prediction. Its original execution/provenance survives.
+    engine.provenance = lambda source,target: dict(p, requested_batch_size=1)
+    assert engine.pair({}, {}, path) == "reused"
+    assert "requested_batch_size" not in _load_native(native_path(path))["provenance"]
+    different = dict(p, native_contract=native_contract(RAFT_SIZE))
+    engine.provenance = lambda source,target: different
+    with pytest.raises(ValueError, match="identity mismatch"):
+        engine.pair({}, {}, path)

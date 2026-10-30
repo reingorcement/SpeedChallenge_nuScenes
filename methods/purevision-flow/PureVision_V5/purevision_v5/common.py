@@ -5,10 +5,12 @@ import hashlib
 import json
 import os
 import platform
+import shlex
 import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import torch
 
@@ -51,10 +53,39 @@ def atomic_save(path, value):
     os.replace(temporary, path)
 
 
-def git(*arguments):
+def git(*arguments, timeout=45):
     repo = ROOT.parents[2]
     return subprocess.check_output(["git", "-c", f"safe.directory={repo}", "-C", str(repo), *arguments],
-                                   text=True, timeout=45).strip()
+                                   text=True, timeout=timeout).strip()
+
+
+def proxy_ssh_command():
+    """Build scoped SSH arguments without copying proxy credentials into argv."""
+    ssh = ["ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=15", "-o", "ConnectionAttempts=1"]
+    proxy = urlsplit(os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy") or "")
+    if proxy.scheme == "http" and proxy.hostname and not proxy.username and not proxy.password:
+        proxy_command = shlex.join(["nc", "-X", "connect", "-x",
+                                   f"{proxy.hostname}:{proxy.port or 80}", "%h", "%p"])
+        ssh += ["-o", f"ProxyCommand={proxy_command}"]
+    return shlex.join(ssh)
+
+
+def pushed_refs(commit):
+    """Verify the actual remote, with a bounded SSH fallback for HTTPS outages.
+
+    Scope transport options to this invocation; never rewrite global Git/SSH
+    settings or weaken host-key checks. Only an unauthenticated HTTP proxy can
+    be passed to nc; credentials remain in the normal HTTPS transport.
+    """
+    refs = ("refs/heads/method/purevision-v5", "refs/heads/method/purevision-v5-next",
+            f"refs/tags/v5-code-{commit[:12]}")
+    try:
+        return git("-c", "http.lowSpeedLimit=1", "-c", "http.lowSpeedTime=15",
+                   "ls-remote", "origin", *refs, timeout=25).splitlines()
+    except (subprocess.SubprocessError, OSError):
+        return git("-c", "url.git@github.com:.insteadOf=https://github.com/",
+                   "-c", f"core.sshCommand={proxy_ssh_command()}",
+                   "ls-remote", "origin", *refs, timeout=25).splitlines()
 
 
 def code_version(require_pushed=False):
@@ -64,10 +95,7 @@ def code_version(require_pushed=False):
     if require_pushed:
         if dirty:
             raise ValueError("Formal training requires a clean fixed checkout")
-        lines = git("-c", "url.git@github.com:.insteadOf=https://github.com/",
-                    "-c", "core.sshCommand=ssh -o BatchMode=yes -o ConnectTimeout=15 -o ConnectionAttempts=1",
-                    "ls-remote", "origin", "refs/heads/method/purevision-v5",
-                    f"refs/tags/v5-code-{commit[:12]}").splitlines()
+        lines = pushed_refs(commit)
         if not any(line.split()[0] == commit for line in lines):
             raise ValueError("Formal training commit must match a pushed V5 branch tip or immutable code tag")
         remote = commit

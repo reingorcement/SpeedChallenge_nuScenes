@@ -196,6 +196,8 @@ def initialize(plan):
 
 
 def external_features(plan):
+    if plan.get("features_status") is None:
+        return {"status": "not_required"}  # Flow-only pilot has no RGB dependency.
     try:
         status = read_json(plan["features_status"],{"status":"unknown"})
     except (OSError, ValueError) as error:
@@ -396,6 +398,23 @@ def check_outputs(job):
             raise RuntimeError(f"Output did not finish successfully: {path}")
 
 
+def check_planned_inputs(plan, job):
+    """Do not silently run a replacement external manifest/selection/config."""
+    if sha256(plan["manifest"]) != plan["manifest_sha256"]:
+        raise ValueError("Manifest changed since the immutable plan was created")
+    if plan.get("selection_path"):
+        if sha256(plan["selection_path"]) != plan["selection_sha256"]:
+            raise ValueError("Pilot selection changed since the immutable plan was created")
+    if job.get("config_path"):
+        config = Path(job["config_path"]).resolve()
+        if (not config.is_relative_to(Path(plan["code_root"]).resolve())
+                or sha256(config) != plan["config_hashes"][job["name"]]):
+            raise ValueError("Configuration differs from the immutable plan")
+    if plan.get("low_flow_index_sha256"):
+        if sha256(Path(plan["low_flow_root"]) / "packed_index.json") != plan["low_flow_index_sha256"]:
+            raise ValueError("Reused low-resolution cache index changed since planning")
+
+
 def worker(plan_path, name):
     plan = read_json(plan_path)
     validate_plan(plan)
@@ -435,6 +454,7 @@ def worker(plan_path, name):
                 for index, command in enumerate(job["commands"]):
                     if stopped:
                         raise InterruptedError("Worker received a stop signal")
+                    check_planned_inputs(plan, job)
                     state.update(phase="evaluation" if index else job["kind"],command_index=index,command=command,updated_at=now())
                     print(json.dumps({"time":now(),"job":name,"command":command}),flush=True)
                     child = subprocess.Popen(command,cwd=plan["code_root"],start_new_session=True)

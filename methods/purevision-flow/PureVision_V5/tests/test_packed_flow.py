@@ -12,6 +12,7 @@ from purevision_v5.datasets import VelocityDataset
 from purevision_v5.flow import cache_path
 from purevision_v5.packed_flow import INDEX_NAME, PackedFlow, pack
 from test_training import make_case
+from test_flow import configurable_provenance
 
 
 def diverse_packets(root):
@@ -130,3 +131,42 @@ def test_packed_reader_rejects_array_mutation_and_wrong_requested_time(tmp_path)
         reader.load_pairs([pair])
     with pytest.raises(ValueError, match="checksum changed"):
         PackedFlow(output)
+
+
+def configurable_sources(args, output, *, mixed=False):
+    from purevision_v5.flow import CONFIGURABLE_SCHEMA, native_contract, save_pair
+    paths = sorted(Path(args.flow).rglob("*.pt"))
+    for index,path in enumerate(paths):
+        packet = torch.load(path, weights_only=True)
+        legacy = packet["provenance"]
+        p = configurable_provenance()
+        p.update({key:legacy[key] for key in ("source", "target", "dt_s")})
+        size = (288, 512) if mixed and index == 1 else (576, 1024)
+        p["native_contract"] = native_contract(size)
+        target = cache_path(output, p["source"]["token"], p["target"]["token"], schema=CONFIGURABLE_SCHEMA)
+        save_pair(target, torch.zeros(2, *size), None, p)
+
+
+def test_configurable_pack_records_actual_native_contract_and_keeps_old_view_shape(tmp_path):
+    args = make_case(tmp_path / "case", experiment="R02", flows=True)
+    source = tmp_path / "new-source"
+    configurable_sources(args, source)
+    output = tmp_path / "new-pack"
+    pack(args.manifest, source, output)
+    packed = PackedFlow(output)
+    assert packed.flow_contract["native_contract"]["raft_size"] == [576, 1024]
+    assert packed.flow_contract["derived_contract"]["model_size"] == [72, 128]
+    assert packed._arrays["flow"].shape[1:] == (2, 72, 128)
+    pair = packed.index["pairs"][0]
+    values = packed.load_pairs([(pair["source"], pair["target"], pair["source_time"], pair["target_time"])])
+    assert values[0].shape == (1, 2, 72, 128)
+
+
+def test_pack_rejects_mixed_native_resolution(tmp_path):
+    args = make_case(tmp_path / "case", experiment="R02", flows=True)
+    source = tmp_path / "mixed-source"
+    configurable_sources(args, source, mixed=True)
+    output = tmp_path / "mixed-pack"
+    with pytest.raises(ValueError, match="mix native/derived"):
+        pack(args.manifest, source, output)
+    assert not (output / INDEX_NAME).exists()

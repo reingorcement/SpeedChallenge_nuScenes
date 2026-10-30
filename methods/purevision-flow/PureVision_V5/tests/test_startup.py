@@ -4,6 +4,8 @@ import importlib.util
 import json
 from pathlib import Path
 import random
+import subprocess
+import sys
 from types import SimpleNamespace
 
 import numpy as np
@@ -142,7 +144,8 @@ def test_patrol_lock_collision_retries_and_success_is_not_duplicated(formal):
         calls.append(command)
         assert command[-2:] == ["startup", str(path)]
         if len(calls) > 1:
-            stdout.write(json.dumps(dict(trigger="startup", success=True, actual_shell_read_observed=True, answer=str(answer))) + "\n")
+            stdout.write(json.dumps(dict(trigger="startup", success=True, actual_shell_read_observed=True,
+                                         read_evidence={"verified": True}, run_ids=[formal.job["job_id"]], answer=str(answer))) + "\n")
         return SimpleNamespace(returncode=0)
     proof = startup.trigger_patrol(proof, path, formal.root, Path("/fixed/astra_patrol.sh"), runner)
     assert not proof["patrol"]["success"]
@@ -150,6 +153,43 @@ def test_patrol_lock_collision_retries_and_success_is_not_duplicated(formal):
     assert proof["patrol"]["success"]
     startup.trigger_patrol(proof, path, formal.root, Path("/fixed/astra_patrol.sh"), runner)
     assert len(calls) == 2
+
+
+def test_named_pilot_config_keeps_model_experiment_and_path_boundary(formal):
+    job = {**formal.job, "name": "R00_512", "experiment": "R00", "config_path": str(Path(formal.plan["code_root"]) / "configs/R00.json")}
+    plan = {**formal.plan, "config_hashes": {"R00_512": formal.plan["config_hashes"]["R00"]}}
+    startup.validate_run(formal.run, job, plan)
+    job["config_path"] = str(formal.root / "outside.json")
+    with pytest.raises(ValueError, match="escaped"):
+        startup.validate_run(formal.run, job, plan)
+
+
+def test_actual_cli_accepts_two_named_pilot_jobs_without_running_astra(formal):
+    plan = copy.deepcopy(formal.plan)
+    plan["jobs"] = []
+    for size in (512, 1024):
+        job = {**formal.job, "name": f"R02_{size}", "experiment": "R02", "job_id": f"pilot_R02_{size}",
+               "status_path": str(formal.root / f"job_{size}.json"), "run_dir": str(formal.root / "runs" / f"pilot_R02_{size}")}
+        startup.write(job["status_path"], {"status": "failed", "reason": "isolated CLI test, no real training"})
+        plan["jobs"].append(job)
+    plan["identity"] = startup.digest({k: v for k, v in plan.items() if k != "identity"})
+    plan_path = formal.root / "plan.json"
+    startup.write(plan_path, plan)
+    result = subprocess.run([sys.executable, "-B", str(Path(startup.__file__)), "--plan", str(plan_path),
+                             "--root", str(formal.root), "--once"], capture_output=True, text=True, timeout=30)
+    assert result.returncode == 0, result.stderr
+    report = json.loads(result.stdout.splitlines()[-1])
+    assert report["status"] == "completed" and not report["all_startups_verified"]
+    assert {j["run_id"] for j in report["jobs"]} == {"pilot_R02_512", "pilot_R02_1024"}
+
+
+def test_watcher_rejects_duplicate_run_id_or_unsupported_model(formal):
+    plan = {**formal.plan, "jobs": [formal.job, {**formal.job, "name": "another", "experiment": "R00"}]}
+    with pytest.raises(ValueError, match="unique"):
+        startup.validate_training_jobs(plan, 30)
+    plan["jobs"] = [{**formal.job, "experiment": "unsupported"}]
+    with pytest.raises(ValueError, match="supported"):
+        startup.validate_training_jobs(plan, 30)
 
 
 def test_watcher_records_failed_terminal_without_model_patrol(formal):

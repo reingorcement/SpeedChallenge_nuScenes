@@ -15,13 +15,12 @@ import torch
 
 from pipeline import validate_plan
 from purevision_v5.common import ROOT, now, object_hash, read_json, sha256, write_json
-from purevision_v5.evaluation import lateral_acceptance, summarize
+from purevision_v5.evaluation import DEFAULT_LATERAL_RULE, lateral_acceptance, summarize, validate_lateral_rule
 from purevision_v5.labels import LABEL_CONTRACT, LABEL_SHA256
 
 
 EXPERIMENTS = tuple(f"R{i:02d}" for i in range(6))
-LATERAL_RULE = dict(max_relative_mae_increase=.05, max_absolute_mae_increase_m_s=.01,
-                    nonzero_threshold_m_s=.2, min_subset_windows=100, min_subset_scenes=5)
+LATERAL_RULE = DEFAULT_LATERAL_RULE
 LIMITS = [
     "PLANAR_PROXY rear-axle planar labels; these are not true 3D body-axis velocity results.",
     "One seed and development-set checkpoint selection; no held-out or statistical improvement claim.",
@@ -101,6 +100,7 @@ def inspect_completed(row, run, status, receipt, plan, job):
     require(sha256(config_path) == plan["config_hashes"][row["experiment"]]
             and read_json(config_path) == config, "Configuration differs from the fixed plan")
     require(config.get("lateral_rule") == LATERAL_RULE, "Lateral rule differs from the fixed implementation")
+    rule = validate_lateral_rule(config.get("lateral_rule"))
     data = contract["data"]
     require(data["dataset_sha256"] == plan["manifest_sha256"], "Training dataset differs from pipeline manifest")
     require(data["label"] == LABEL_CONTRACT, "Label contract mismatch")
@@ -135,8 +135,12 @@ def inspect_completed(row, run, status, receipt, plan, job):
     require(len(predictions) == receipt["count"] == run["dev_windows"] == expected_count, "Incomplete dev prediction count")
     actual = summarize([[float(r["vx"]), float(r["vy"])] for r in predictions],
                        [[float(r["target_vx"]), float(r["target_vy"])] for r in predictions],
-                       [r["scene"] for r in predictions])
+                       [r["scene"] for r in predictions], lateral_rule=rule)
     summary = read_json(Path(row["evaluation_dir"]) / "metrics.json")
+    if "effective_lateral_rule" not in summary:
+        # Legacy reports already had a strict default-rule config check above.
+        # Do not rewrite their stored metrics when auditing the old six runs.
+        actual.pop("effective_lateral_rule")
     check_summary(summary, actual)
     row.update(status="completed", metrics=summary, best_epoch=packet["best_epoch"] + 1,
                checkpoint_sha256=receipt["checkpoint_sha256"], target_window_identity=identity,

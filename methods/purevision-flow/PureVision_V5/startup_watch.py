@@ -100,7 +100,7 @@ def first_validation(path):
 def validate_run(run, job, plan):
     if run.get("smoke") or run.get("contract", {}).get("execution", {}).get("smoke"):
         raise ValueError("Smoke run excluded from formal startup proof")
-    if run.get("run_id") != job["job_id"] or run.get("experiment") != job["name"]:
+    if run.get("run_id") != job["job_id"] or run.get("experiment") != job.get("experiment", job["name"]):
         raise ValueError("Run identity does not match declared job")
     code = run.get("code", {})
     if code.get("commit") != plan["code"]["commit"] or code.get("dirty") is not False or code.get("verified_remote_commit") != code.get("commit"):
@@ -112,7 +112,10 @@ def validate_run(run, job, plan):
         raise ValueError("Run manifest differs from declared plan")
     if not contract.get("train_selection") or not contract.get("dev_selection") or contract.get("execution", {}).get("max_batches") != 0:
         raise ValueError("Formal run lacks full train/dev selection provenance")
-    config_path = Path(plan["code_root"]) / "configs" / f"{job['name']}.json"
+    code_root = Path(plan["code_root"]).resolve()
+    config_path = Path(job.get("config_path", code_root / "configs" / f"{job['name']}.json")).resolve()
+    if not config_path.is_relative_to(code_root):
+        raise ValueError("Configuration escaped immutable plan code root")
     if hashlib.sha256(config_path.read_bytes()).hexdigest() != plan["config_hashes"][job["name"]] or read(config_path) != run["config"]:
         raise ValueError("Run config differs from immutable plan configuration")
 
@@ -260,13 +263,15 @@ def inspect(job, plan, previous=None):
     return proof
 
 
-def patrol_result(path):
+def patrol_result(path, run_id=None):
     for line in reversed(Path(path).read_text().splitlines() if Path(path).exists() else []):
         try:
             value = json.loads(line)
         except ValueError:
             continue
-        if value.get("trigger") == "startup" and value.get("success") is True and value.get("actual_shell_read_observed") is True:
+        if (value.get("trigger") == "startup" and value.get("success") is True
+                and value.get("actual_shell_read_observed") is True and value.get("read_evidence", {}).get("verified") is True
+                and (run_id is None or run_id in value.get("run_ids", []))):
             if Path(value.get("answer", "")).is_file():
                 return value
     return None
@@ -277,7 +282,7 @@ def trigger_patrol(proof, proof_path, root, script, runner=subprocess.run):
         return proof
     attempts = proof.setdefault("patrol_attempts", [])
     for attempt in attempts:
-        if result := patrol_result(attempt["stdout_path"]):
+        if result := patrol_result(attempt["stdout_path"], proof["run_id"]):
             proof["patrol"] = result
             return proof
     output = proof_path.parent / f"patrol_attempt_{len(attempts) + 1}.log"
@@ -290,7 +295,7 @@ def trigger_patrol(proof, proof_path, root, script, runner=subprocess.run):
         attempts[-1].update(exit_code=result.returncode, finished_at=now())
     except (OSError, subprocess.TimeoutExpired) as error:
         attempts[-1].update(error=str(error), finished_at=now())
-    proof["patrol"] = patrol_result(output) or dict(success=False, status="retry_pending_no_verified_report")
+    proof["patrol"] = patrol_result(output, proof["run_id"]) or dict(success=False, status="retry_pending_no_verified_report")
     return proof
 
 
@@ -313,6 +318,17 @@ def tick(plan, root, script, *, runner=subprocess.run):
     return result
 
 
+def validate_training_jobs(plan, interval):
+    """Named pilot jobs may share a model experiment; each run remains unique."""
+    jobs = [job for job in plan["jobs"] if job["kind"] == "training"]
+    if (not jobs or interval <= 0
+            or len({job["name"] for job in jobs}) != len(jobs)
+            or len({job["job_id"] for job in jobs}) != len(jobs)
+            or any(job.get("experiment", job["name"]) not in EXPERIMENTS for job in jobs)):
+        raise ValueError("Watcher requires nonempty unique training jobs, supported model experiments and positive interval")
+    return jobs
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--plan", type=Path, required=True)
@@ -327,9 +343,7 @@ def main():
     root, plan = args.root.resolve(), read(args.plan)
     if plan.get("identity") != digest({key: value for key, value in plan.items() if key != "identity"}) or Path(plan["root"]).resolve() != root:
         raise ValueError("Invalid plan identity or artifact root")
-    jobs = [job for job in plan["jobs"] if job["kind"] == "training"]
-    if {job["name"] for job in jobs} != EXPERIMENTS or len(jobs) != 6 or args.interval <= 0:
-        raise ValueError("Watcher requires six declared experiments and positive interval")
+    validate_training_jobs(plan, args.interval)
     script = args.patrol_script
     if script is None:
         script = Path(__file__).resolve().parent / "scripts/astra_patrol.sh"
