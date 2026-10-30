@@ -1,5 +1,7 @@
 # SpeedChallenge_nuScenes
 
+**本分支只发布 V5 下一阶段的结果。** 开发代码见 [method/purevision-v5-next](https://github.com/reingorcement/SpeedChallenge_nuScenes/tree/method/purevision-v5-next)。报告入口为 `methods/purevision-flow/PureVision_V5/docs/next_results/README.md`，首次登记作业后生成；此前没有本轮训练结果。每个报告分别记录实际 training commit 和运行工件，本分支不用于训练。
+
 **V5 GitHub 审核入口：** [AI 审核导航](methods/purevision-flow/PureVision_V5/AI_REVIEW.md) · [完整交接](methods/purevision-flow/PureVision_V5/docs/HANDOFF_20261030.md) · [六组正式结果](methods/purevision-flow/PureVision_V5/docs/RESULT_20261030_S2.md) · [实验凭证](methods/purevision-flow/PureVision_V5/docs/review_evidence/20261030_s2/README.md) · [用户原计划](methods/purevision-flow/PureVision_V5/docs/V5_EXECUTION_PLAN_USER.md)。2026-10-30 首轮 R00—R05 均已完成；结果仍限于单种子、冻结 RGB 的 PLANAR_PROXY 开发集比较。完整数据、缓存和本轮新 checkpoint 位于服务器，不随文档上传。
 
 按方法整理的视觉速度估计仓库。先看 [方法对照](docs/METHODS.md)、[分支与恢复](docs/BRANCHES.md)、[来源清单](docs/SOURCES.json) 和 [本次验证](docs/VALIDATION.md)。
