@@ -1,0 +1,16 @@
+{
+  "schema": "v5_publisher_retry_chain_validation_v1",
+  "time_utc": "2026-10-30T13:46:23.787970+00:00",
+  "fixed_source_commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
+  "scenario": [
+    "Initial changed publication creates local commit, simulated push network failure",
+    "Next invocation fails during initial ls-remote",
+    "Verify pending report_commit and remote_base retained exactly",
+    "Third invocation recovers network and publishes same pending commit",
+    "Independent remote advancement is still rejected without force/merge"
+  ],
+  "result": "passed",
+  "implementation_change_required": false,
+  "method": "Isolated temporary bare Git repository and injected transport failures; no live remote conflict or training process manipulation",
+  "actual_running_report_commit": "cd32b3a6f633fc2d32bf89af50e31104cee2d9ad"
+}

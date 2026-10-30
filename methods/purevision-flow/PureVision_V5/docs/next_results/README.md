@@ -9,9 +9,9 @@
 | 20261030_pilot_s42_flow1024_1 | flow1024_1 | failed | `946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9` | — |
 | 20261030_pilot_s42_pack1024 | pack1024 | blocked | `946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9` | — |
 | 20261030_pilot_s42_R02_1024 | R02_1024 | blocked | `946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9` | — |
-| 20261030_pilot_s42_retry1_flow1024_0 | flow1024_0 | running | `be327b7f91f5f7e5ba46b70dede116a21c551652` | — |
-| 20261030_pilot_s42_retry1_flow1024_1 | flow1024_1 | running | `be327b7f91f5f7e5ba46b70dede116a21c551652` | — |
-| 20261030_pilot_s42_retry1_pack1024 | pack1024 | queued | `be327b7f91f5f7e5ba46b70dede116a21c551652` | — |
+| 20261030_pilot_s42_retry1_flow1024_0 | flow1024_0 | completed | `be327b7f91f5f7e5ba46b70dede116a21c551652` | — |
+| 20261030_pilot_s42_retry1_flow1024_1 | flow1024_1 | completed | `be327b7f91f5f7e5ba46b70dede116a21c551652` | — |
+| 20261030_pilot_s42_retry1_pack1024 | pack1024 | launching | `be327b7f91f5f7e5ba46b70dede116a21c551652` | — |
 | 20261030_pilot_s42_retry1_R02_1024 | R02_1024 | queued | `be327b7f91f5f7e5ba46b70dede116a21c551652` | — |
 
 每个 run 目录包含实际配置、完整 epoch JSONL、状态与可用的 dev 评价。原始大日志、数据/光流和权重不上传。
