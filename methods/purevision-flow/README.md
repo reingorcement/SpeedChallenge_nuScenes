@@ -7,6 +7,7 @@
 | [PureVision_V3](PureVision_V3/README.md) | RGB direct、微分六自由度光流几何、视觉融合 | 附 direct/fusion 的 best/last 权重 |
 | [补偿速度估计](补偿速度估计/README.md) | 有限位姿求解；F_R 固定法向、F_RC 受约束侧倾法向、F_B 完整视觉法向 | 附冻结网络和 RAFT 权重 |
 | [PureVision_V4](PureVision_V4/README.md) | 隔离整合、三维坐标/杆臂处理、统一训练推理评价 | F_RC/F_R 可运行；新融合头仍需正式训练 |
+| [PureVision_V5](PureVision_V5/README.md) | 五帧因果图像/四对光流特征融合，独立时空编码，FB 提示/硬筛选 | R00—R05 已实现；实际训练状态见 V5 记录，标签为 PLANAR_PROXY |
 
 以上方法推理不读取 CAN、IMU、真值速度或真实动态姿态；使用图像、图像派生光流、时间戳及固定相机/地面参数。V3 也估计旋转，不能将版本差异简称为“无旋转/有旋转”。
 

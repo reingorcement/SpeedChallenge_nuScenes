@@ -1637,11 +1637,24 @@
       "bytes": 1851
     }
   },
-  "algorithm_code_changed": false,
+  "algorithm_code_changed": true,
   "packaging_changes": [
     "new method documentation and file manifests",
     "compensation subset manifest regenerated; original retained"
   ],
   "local_source_roots_modified": false,
-  "branch_scope": "main"
+  "branch_scope": "method/purevision-v5",
+  "purevision_v5": {
+    "base_commit": "367db9662ff880c7a362bb55182fe6766f3c3332",
+    "directory": "methods/purevision-flow/PureVision_V5",
+    "rgb_sources": {
+      "model/flexinet_backbone.py": "3ce31001db9cb20f445db0fafa707804bfc2023d150d4b0314dd446041c1a155",
+      "model/modules.py": "78b1d491d8e3435b0492510799ad1f9774910108e16bbc2c232658b371cfcbb8"
+    },
+    "reuse": "Only two namespaced RGB source modules; selective frozen backbone/region-projection weights; new flow encoder, feature fusion, labels and trainer.",
+    "data_report": "methods/purevision-flow/PureVision_V5/docs/DATA_AUDIT.md",
+    "flow_report": "methods/purevision-flow/PureVision_V5/docs/FLOW_AUDIT.md"
+  },
+  "original_packaging_commit": "367db9662ff880c7a362bb55182fe6766f3c3332",
+  "algorithm_change_scope": "New PureVision_V5 only; historical algorithms and weights retained."
 }

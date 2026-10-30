@@ -1,0 +1,311 @@
+"""One trainer for R00--R05 with immutable provenance and complete resumable state."""
+from __future__ import annotations
+
+import argparse
+import csv
+import json
+import random
+import shutil
+import signal
+import time
+from pathlib import Path
+
+import numpy as np
+import torch
+from torch.utils.data import DataLoader, Subset
+
+from .common import ROOT, atomic_save, code_version, environment, git, now, object_hash, read_json, write_json
+from .datasets import VelocityDataset
+from .evaluation import summarize
+from .model import VelocityModel
+
+
+def seed_everything(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+
+def rng_state():
+    value = np.random.get_state()
+    return dict(python=random.getstate(), numpy=[value[0], value[1].tolist(), value[2], value[3], value[4]],
+                torch=torch.get_rng_state(), cuda=torch.cuda.get_rng_state_all() if torch.cuda.is_available() else [])
+
+
+def restore_rng(state):
+    random.setstate(state["python"])
+    value = state["numpy"]
+    np.random.set_state((value[0], np.asarray(value[1], dtype=np.uint32), value[2], value[3], value[4]))
+    torch.set_rng_state(state["torch"].cpu())
+    if state["cuda"]:
+        torch.cuda.set_rng_state_all([x.cpu() for x in state["cuda"]])
+
+
+def loss_fn(prediction, target, config):
+    scale = target.new_tensor(config["loss_scales_m_s"])
+    return torch.nn.functional.smooth_l1_loss(prediction / scale, target / scale, beta=config["loss_beta"])
+
+
+def move_inputs(batch, device):
+    return {key: value.to(device, non_blocking=True) for key, value in batch["inputs"].items()}
+
+
+def evaluate_model(model, dataset, device, batch_size=64, workers=4, max_batches=0):
+    loader = DataLoader(dataset, batch_size=batch_size, num_workers=workers, shuffle=False,
+                        pin_memory=str(device).startswith("cuda"), generator=torch.Generator().manual_seed(0))
+    predictions, targets, scenes, tokens, times = [], [], [], [], []
+    valid_sum = fb_sum = pixel_count = 0
+    model.eval()
+    with torch.inference_mode():
+        for batch_index, batch in enumerate(loader):
+            if max_batches and batch_index >= max_batches:
+                break
+            prediction = model(move_inputs(batch, device)).float().cpu().numpy()
+            if not np.isfinite(prediction).all():
+                raise RuntimeError("Nonfinite evaluation prediction")
+            predictions.extend(prediction)
+            targets.extend(batch["target"].numpy())
+            scenes.extend(batch["scene"])
+            tokens.extend(batch["token"])
+            times.extend(batch["time_s"].tolist())
+            if "valid" in batch["inputs"]:
+                valid = batch["inputs"]["valid"]
+                valid_sum += int(valid.sum())
+                pixel_count += valid.numel()
+                if "fb_mask" in batch["inputs"]:
+                    fb_sum += int(batch["inputs"]["fb_mask"].sum())
+    summary = summarize(predictions, targets, scenes)
+    if pixel_count:
+        summary["flow_coverage"] = dict(valid_fraction=valid_sum/pixel_count,
+                                        fb_fraction=fb_sum/pixel_count if dataset.experiment in {"R04", "R05"} else None)
+    rows = [dict(scene=s, token=t, time_s=ts, vx=float(p[0]), vy=float(p[1]),
+                 target_vx=float(y[0]), target_vy=float(y[1]))
+            for s, t, ts, p, y in zip(scenes, tokens, times, predictions, targets)]
+    return summary, rows
+
+
+def write_predictions(path, rows):
+    with open(path, "w", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def train(args):
+    config = read_json(args.config)
+    for key in ("epochs", "batch_size", "log_steps", "checkpoint_steps", "patience"):
+        if not isinstance(config[key], int) or config[key] < 1:
+            raise ValueError(f"{key} must be a positive integer")
+    scales = np.asarray(config["loss_scales_m_s"], dtype=float)
+    if scales.shape != (2,) or not np.isfinite(scales).all() or np.any(scales <= 0):
+        raise ValueError("Loss requires two positive finite m/s scales")
+    for key in ("learning_rate", "loss_beta", "grad_clip"):
+        if not np.isfinite(config[key]) or config[key] <= 0:
+            raise ValueError(f"{key} must be positive and finite")
+    experiment = config["experiment"]
+    output = Path(args.output).resolve()
+    if output.exists() and any(output.iterdir()):
+        raise ValueError("Use a new run directory, including when resuming")
+    config_path = Path(args.config).resolve()
+    repo = ROOT.parents[2]
+    if not args.smoke:
+        if not config_path.is_relative_to(repo):
+            raise ValueError("Formal configuration must be inside the fixed training checkout")
+        git("ls-files", "--error-unmatch", str(config_path.relative_to(repo)))
+        if output.is_relative_to(repo):
+            raise ValueError("Formal outputs must live outside the immutable training checkout")
+    protected = [Path(args.manifest).resolve(), config_path]
+    protected.extend(Path(value).resolve() for value in (args.features, args.flow) if value)
+    if any(path.is_relative_to(output) or output.is_relative_to(path) for path in protected):
+        raise ValueError("Output must not contain or overwrite any input/configuration path")
+    version = code_version(require_pushed=not args.smoke)
+    torch.set_num_threads(args.threads)
+    seed_everything(config["seed"])
+    device = torch.device(args.device)
+    limits = dict(limit_scenes=args.limit_scenes, limit_windows=args.limit_windows)
+    if not args.smoke and (args.limit_scenes or args.limit_windows or args.max_batches):
+        raise ValueError("Subset/batch limits are smoke-only, not formal experiment results")
+    train_data = VelocityDataset(args.manifest, "train_core", experiment, args.features, args.flow, **limits)
+    dev_data = VelocityDataset(args.manifest, "dev", experiment, args.features, args.flow, **limits)
+    if train_data.scene_names & dev_data.scene_names or train_data.source_tokens & dev_data.source_tokens:
+        raise ValueError("Training/validation overlap")
+    if train_data.contract != dev_data.contract:
+        raise ValueError("Training and validation data contracts differ")
+    contract = dict(config=config, data=train_data.contract, train_selection=train_data.selection_hash,
+                    dev_selection=dev_data.selection_hash,
+                    execution=dict(smoke=bool(args.smoke), max_batches=args.max_batches))
+    contract_hash = object_hash(contract)
+    model = VelocityModel(experiment=experiment).to(device)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"], weight_decay=config["weight_decay"])
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=config["epochs"], eta_min=config["learning_rate"]*.1)
+    amp = bool(config["amp"] and device.type == "cuda")
+    scaler = torch.amp.GradScaler("cuda", enabled=amp)
+    epoch, next_batch, global_step, bad_epochs = 0, 0, 0, 0
+    best_epe, best_epoch = float("inf"), None
+    running_loss, running_count = 0., 0
+    parent_run = None
+    inherited_best = None
+    if args.resume:
+        checkpoint = torch.load(args.resume, map_location="cpu", weights_only=True)
+        if checkpoint.get("schema") != "v5_training_state_v1" or checkpoint["contract_hash"] != contract_hash:
+            raise ValueError("Resume rejected: model/label/loss/data/config semantics changed")
+        if checkpoint["code"]["commit"] != version["commit"]:
+            raise ValueError("Resume rejected: code commit changed; start a new experiment")
+        model.load_state_dict(checkpoint["model"], strict=True)
+        optimizer.load_state_dict(checkpoint["optimizer"])
+        scheduler.load_state_dict(checkpoint["scheduler"])
+        scaler.load_state_dict(checkpoint["scaler"])
+        epoch, next_batch, global_step = (checkpoint[key] for key in ("epoch", "next_batch", "global_step"))
+        best_epe, best_epoch, bad_epochs = checkpoint["best_epe"], checkpoint["best_epoch"], checkpoint["bad_epochs"]
+        running_loss, running_count = checkpoint["running_loss"], checkpoint["running_count"]
+        parent_run = checkpoint["run_id"]
+        restore_rng(checkpoint["rng"])
+        if epoch >= config["epochs"] or bad_epochs >= config["patience"]:
+            raise ValueError("Resume rejected: the saved run already exhausted its stopping condition")
+        if best_epoch is not None:
+            inherited_best = Path(args.resume).resolve().parent / "best.pt"
+            previous = torch.load(inherited_best, map_location="cpu", weights_only=True)
+            if (previous.get("contract_hash") != contract_hash or previous.get("best_epoch") != best_epoch
+                    or previous.get("best_epe") != best_epe):
+                raise ValueError("Resume rejected: historical best checkpoint is missing or inconsistent")
+    output.mkdir(parents=True, exist_ok=True)
+    if inherited_best is not None:
+        for name in ("best.pt", "best_metrics.json", "dev_predictions.csv"):
+            source = inherited_best.parent / name
+            if not source.is_file():
+                raise ValueError(f"Resume requires historical best artifact: {source}")
+            shutil.copy2(source, output / name)
+    if args.resume:
+        history = Path(args.resume).resolve().parent / "metrics.jsonl"
+        if history.is_file():
+            retained = [line for line in history.read_text().splitlines()
+                        if json.loads(line)["epoch"] < epoch and json.loads(line)["global_step"] <= global_step]
+            if retained:
+                (output / "metrics.jsonl").write_text("\n".join(retained) + "\n")
+    run = dict(run_id=output.name, experiment=experiment, status="running", started_at=now(), code=version,
+               config=config, contract=contract, contract_hash=contract_hash, smoke=args.smoke,
+               parent_run=parent_run, resume=str(Path(args.resume).resolve()) if args.resume else None,
+               runtime=vars(args), environment=environment(), train_windows=len(train_data), dev_windows=len(dev_data),
+               train_scenes=len(train_data.scene_names), dev_scenes=len(dev_data.scene_names),
+               trainable_parameters=sum(p.numel() for p in model.parameters() if p.requires_grad),
+               checkpoint=str(output / "last.pt"))
+    write_json(output / "run.json", run)
+    stop_requested = [False]
+    previous_handlers = {sig: signal.getsignal(sig) for sig in (signal.SIGINT, signal.SIGTERM)}
+    for sig in previous_handlers:
+        signal.signal(sig, lambda *_: stop_requested.__setitem__(0, True))
+    started = last_save = time.monotonic()
+
+    def state(status, **extra):
+        write_json(output / "status.json", dict(run_id=output.name, experiment=experiment, status=status,
+                   updated_at=now(), epoch=epoch, global_step=global_step,
+                   best_epe=best_epe if np.isfinite(best_epe) else None, best_epoch=best_epoch,
+                   elapsed_seconds=time.monotonic()-started, **extra))
+
+    def save(path, epoch_value, batch_value):
+        atomic_save(path, dict(schema="v5_training_state_v1", run_id=output.name, code=version,
+                    contract_hash=contract_hash, contract=contract, config=config,
+                    model=model.state_dict(), optimizer=optimizer.state_dict(), scheduler=scheduler.state_dict(),
+                    scaler=scaler.state_dict(), rng=rng_state(), epoch=epoch_value, next_batch=batch_value,
+                    global_step=global_step, best_epe=best_epe, best_epoch=best_epoch, bad_epochs=bad_epochs,
+                    running_loss=running_loss, running_count=running_count))
+
+    state("running")
+    try:
+        while epoch < config["epochs"]:
+            model.train()
+            generator = torch.Generator().manual_seed(config["seed"] + epoch)
+            order = torch.randperm(len(train_data), generator=generator).tolist()
+            offset = next_batch * config["batch_size"]
+            loader = DataLoader(Subset(train_data, order[offset:]), batch_size=config["batch_size"],
+                                shuffle=False, num_workers=args.workers, pin_memory=device.type == "cuda",
+                                generator=torch.Generator().manual_seed(config["seed"] + epoch))
+            start_batch = next_batch
+            for local_batch, batch in enumerate(loader):
+                batch_number = start_batch + local_batch
+                if args.max_batches and batch_number >= args.max_batches:
+                    break
+                optimizer.zero_grad(set_to_none=True)
+                target = batch["target"].to(device)
+                with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=amp):
+                    prediction = model(move_inputs(batch, device))
+                    loss = loss_fn(prediction.float(), target, config)
+                if not torch.isfinite(loss):
+                    raise RuntimeError("Nonfinite loss")
+                scaler.scale(loss).backward()
+                scaler.unscale_(optimizer)
+                torch.nn.utils.clip_grad_norm_(model.parameters(), config["grad_clip"], error_if_nonfinite=True)
+                scaler.step(optimizer)
+                scaler.update()
+                global_step += 1
+                next_batch = batch_number + 1
+                running_loss += float(loss.detach()) * len(target)
+                running_count += len(target)
+                if global_step <= 3 or global_step % config["log_steps"] == 0:
+                    state("running", loss=float(loss.detach()))
+                    print(json.dumps(dict(event="step", epoch=epoch, step=global_step, loss=float(loss.detach()), time=now())), flush=True)
+                checkpoint_due = global_step % config["checkpoint_steps"] == 0 or time.monotonic()-last_save >= 120
+                interrupted = stop_requested[0] or (args.stop_after_steps and global_step >= args.stop_after_steps)
+                if checkpoint_due or interrupted:
+                    save(output / "last.pt", epoch, next_batch)
+                    last_save = time.monotonic()
+                if interrupted:
+                    state("interrupted", next_batch=next_batch)
+                    run.update(status="interrupted", finished_at=now())
+                    write_json(output / "run.json", run)
+                    return output
+            summary, rows = evaluate_model(model, dev_data, device, config["batch_size"], args.workers, args.max_batches)
+            epe = summary["overall"]["epe"]
+            improved = epe < best_epe - config["min_delta"]
+            if improved:
+                best_epe, best_epoch, bad_epochs = epe, epoch, 0
+            else:
+                bad_epochs += 1
+            entry = dict(epoch=epoch, global_step=global_step, train_loss=running_loss/max(running_count, 1),
+                         learning_rate=optimizer.param_groups[0]["lr"], validation=summary, time=now())
+            with open(output / "metrics.jsonl", "a") as stream:
+                stream.write(json.dumps(entry, allow_nan=False)+"\n")
+            print(json.dumps(dict(event="validation", epoch=epoch, **summary["overall"])), flush=True)
+            scheduler.step()
+            epoch += 1
+            next_batch, running_loss, running_count = 0, 0., 0
+            if improved:
+                save(output / "best.pt", epoch, 0)
+                write_json(output / "best_metrics.json", summary)
+                write_predictions(output / "dev_predictions.csv", rows)
+            # Commit the resumable epoch state only after all best artifacts exist.
+            save(output / "last.pt", epoch, 0)
+            state("running", validation=summary["overall"])
+            if bad_epochs >= config["patience"]:
+                break
+        state("completed", stop_reason="early_stopping" if bad_epochs >= config["patience"] else "epoch_budget")
+        run["status"], run["finished_at"] = "completed", now()
+        write_json(output / "run.json", run)
+        return output
+    except BaseException as error:
+        state("failed", error=f"{type(error).__name__}: {error}")
+        run.update(status="failed", finished_at=now(), error=f"{type(error).__name__}: {error}")
+        write_json(output / "run.json", run)
+        raise
+    finally:
+        for sig, handler in previous_handlers.items():
+            signal.signal(sig, handler)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    for name in ("config", "manifest", "output"):
+        parser.add_argument("--"+name, required=True)
+    parser.add_argument("--features")
+    parser.add_argument("--flow")
+    parser.add_argument("--device", default="cuda:1")
+    parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument("--threads", type=int, default=4)
+    parser.add_argument("--resume")
+    parser.add_argument("--smoke", action="store_true")
+    parser.add_argument("--limit-scenes", type=int, default=0)
+    parser.add_argument("--limit-windows", type=int, default=0)
+    parser.add_argument("--max-batches", type=int, default=0)
+    parser.add_argument("--stop-after-steps", type=int, default=0)
+    train(parser.parse_args())

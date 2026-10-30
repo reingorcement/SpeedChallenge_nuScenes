@@ -58,7 +58,10 @@
     "source_project": "PureVision_V3",
     "source_path": "checkpoints/pretrained/direct_seed_42/best.pth",
     "sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
-    "bytes": 27648993
+    "bytes": 27648993,
+    "additional_consumers": [
+      "PureVision_V5 (frozen; new downstream models trained separately)"
+    ]
   },
   {
     "path": "methods/purevision-flow/PureVision_V3/checkpoints/pretrained/direct_seed_42/last.pth",
@@ -86,7 +89,10 @@
     "source_project": "PureVision_V4",
     "source_path": "weights/raft_large_C_T_SKHT_V2.pth",
     "sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
-    "bytes": 21106607
+    "bytes": 21106607,
+    "additional_consumers": [
+      "PureVision_V5 (frozen; new downstream models trained separately)"
+    ]
   },
   {
     "path": "methods/purevision-flow/PureVision_V4/weights/v3_direct_seed42.pth",
