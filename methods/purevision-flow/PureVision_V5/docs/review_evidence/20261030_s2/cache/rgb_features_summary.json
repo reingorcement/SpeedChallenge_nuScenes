@@ -1,0 +1,27 @@
+{
+  "identity": "c955ae53d33ca5cc12d29ccfc451a46fee6a4291e05622f4c5f22b7c27a36128",
+  "contract": {
+    "schema": "v5_rgb_features_v1",
+    "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+    "weights_sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+    "input_size": [
+      5,
+      3,
+      72,
+      128
+    ],
+    "normalization": "PIL RGB bilinear; x/127.5-1",
+    "dtype": "float32",
+    "compute_precision": "float32",
+    "rgb_code_sha256": "8cecc27de2bdf529b0d23f9670fe441c577515025bbcc790a444921930da7f35",
+    "backbone_code_sha256": "3ce31001db9cb20f445db0fafa707804bfc2023d150d4b0314dd446041c1a155",
+    "modules_code_sha256": "78b1d491d8e3435b0492510799ad1f9774910108e16bbc2c232658b371cfcbb8"
+  },
+  "code": {
+    "commit": "847abbe3e33c1f648ba8aa4fdf51c0ec3a675df7",
+    "dirty": false,
+    "verified_remote_commit": "847abbe3e33c1f648ba8aa4fdf51c0ec3a675df7"
+  },
+  "updated_at": "2026-10-30T04:23:58.149139+00:00",
+  "sequence_count": 685
+}

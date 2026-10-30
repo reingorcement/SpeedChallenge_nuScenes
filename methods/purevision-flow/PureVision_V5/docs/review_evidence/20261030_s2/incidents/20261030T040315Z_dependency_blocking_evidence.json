@@ -1,0 +1,428 @@
+{
+  "observed_at": "2026-10-30T04:02:36.741039+00:00",
+  "finding": "forward1 remains alive with unchanged PID identity despite dependent jobs marked blocked; transient misclassification not directly captured by five-minute snapshots",
+  "host_processes": [
+    {
+      "pid": 3231706,
+      "state": "S",
+      "ppid": 3228471,
+      "start_ticks": 84669277,
+      "command": "/home/zhangyu/.conda/envs/speedest/bin/python -B /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/9b859c206766/methods/purevision-flow/PureVision_V5/pipeline.py --worker --plan /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/plan.json --job forward0 "
+    },
+    {
+      "pid": 3231712,
+      "state": "S",
+      "ppid": 3228471,
+      "start_ticks": 84669323,
+      "command": "/home/zhangyu/.conda/envs/speedest/bin/python -B /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/9b859c206766/methods/purevision-flow/PureVision_V5/pipeline.py --worker --plan /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/plan.json --job forward1 "
+    },
+    {
+      "pid": 3231877,
+      "state": "R",
+      "ppid": 3231706,
+      "start_ticks": 84669741,
+      "command": "/home/zhangyu/.conda/envs/speedest/bin/python -B /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/9b859c206766/methods/purevision-flow/PureVision_V5/prepare_flow.py --manifest /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json --output /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward --direction forward --device cuda:0 --batch-size 16 --shard-count 2 --shard-index 0 --report /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/reports/forward0.json "
+    },
+    {
+      "pid": 3231878,
+      "state": "D",
+      "ppid": 3231712,
+      "start_ticks": 84669754,
+      "command": "/home/zhangyu/.conda/envs/speedest/bin/python -B /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/9b859c206766/methods/purevision-flow/PureVision_V5/prepare_flow.py --manifest /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json --output /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward --direction forward --device cuda:2 --batch-size 16 --shard-count 2 --shard-index 1 --report /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/reports/forward1.json "
+    },
+    {
+      "pid": 3231588,
+      "state": "S",
+      "ppid": 3228471,
+      "start_ticks": 84667991,
+      "command": "/home/zhangyu/.conda/envs/speedest/bin/python -B -u /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/9b859c206766/methods/purevision-flow/PureVision_V5/pipeline.py --root /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5 --manifest data/nuscenes_proxy_v1/dataset.json --features features/v3_direct_fp32_v2 --run-prefix 20261030_s42 "
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/monitoring/snapshots/20261030T035503.841782Z.json",
+      "time_utc": "2026-10-30T03:55:03.825800+00:00",
+      "jobs": [
+        {
+          "job_id": "20261030_s42_forward0",
+          "kind": "flow",
+          "status": "running",
+          "run_dir": null,
+          "session": "v5_20261030_s42_forward0",
+          "device": "cuda:0",
+          "process": {
+            "pid": 3231706,
+            "alive": true,
+            "start_ticks": 84669277,
+            "identity_verified": true,
+            "pid_reused": false
+          },
+          "child_process": {
+            "pid": 3231877,
+            "alive": true,
+            "start_ticks": 84669741,
+            "identity_verified": true,
+            "pid_reused": false
+          },
+          "phase": "flow",
+          "training_status": null,
+          "commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+          "epoch": null,
+          "global_step": null,
+          "loss": null,
+          "validation": {},
+          "progress": {
+            "completed": 7600
+          },
+          "status_age_s": 0.7739067077636719,
+          "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_forward0.log",
+          "log_age_s": 5.828223705291748,
+          "checkpoint": null,
+          "checkpoint_age_s": null,
+          "anomaly_lines": [],
+          "notes": []
+        },
+        {
+          "job_id": "20261030_s42_forward1",
+          "kind": "flow",
+          "status": "running",
+          "run_dir": null,
+          "session": "v5_20261030_s42_forward1",
+          "device": "cuda:2",
+          "process": {
+            "pid": 3231712,
+            "alive": true,
+            "start_ticks": 84669323,
+            "identity_verified": true,
+            "pid_reused": false
+          },
+          "child_process": {
+            "pid": 3231878,
+            "alive": true,
+            "start_ticks": 84669754,
+            "identity_verified": true,
+            "pid_reused": false
+          },
+          "phase": "flow",
+          "training_status": null,
+          "commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+          "epoch": null,
+          "global_step": null,
+          "loss": null,
+          "validation": {},
+          "progress": {
+            "completed": 8400
+          },
+          "status_age_s": 0.8503561019897461,
+          "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_forward1.log",
+          "log_age_s": 2.143691301345825,
+          "checkpoint": null,
+          "checkpoint_age_s": null,
+          "anomaly_lines": [],
+          "notes": []
+        },
+        {
+          "job_id": "20261030_s42_forward_pack",
+          "kind": "pack",
+          "status": "queued",
+          "run_dir": null,
+          "session": "v5_20261030_s42_forward_pack",
+          "device": null,
+          "process": {
+            "pid": null,
+            "alive": null,
+            "identity_verified": false
+          },
+          "child_process": {
+            "pid": null,
+            "alive": null,
+            "identity_verified": false
+          },
+          "phase": null,
+          "training_status": null,
+          "commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+          "epoch": null,
+          "global_step": null,
+          "loss": null,
+          "validation": {},
+          "progress": {},
+          "status_age_s": 726.5488862991333,
+          "log_path": null,
+          "log_age_s": null,
+          "checkpoint": null,
+          "checkpoint_age_s": null,
+          "anomaly_lines": [],
+          "notes": []
+        }
+      ]
+    },
+    {
+      "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/monitoring/snapshots/20261030T040001.645840Z.json",
+      "time_utc": "2026-10-30T04:00:01.644198+00:00",
+      "jobs": [
+        {
+          "job_id": "20261030_s42_forward0",
+          "kind": "flow",
+          "status": "running",
+          "run_dir": null,
+          "session": "v5_20261030_s42_forward0",
+          "device": "cuda:0",
+          "process": {
+            "pid": 3231706,
+            "alive": true,
+            "start_ticks": 84669277,
+            "identity_verified": true,
+            "pid_reused": false
+          },
+          "child_process": {
+            "pid": 3231877,
+            "alive": true,
+            "start_ticks": 84669741,
+            "identity_verified": true,
+            "pid_reused": false
+          },
+          "phase": "flow",
+          "training_status": null,
+          "commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+          "epoch": null,
+          "global_step": null,
+          "loss": null,
+          "validation": {},
+          "progress": {
+            "completed": 10704
+          },
+          "status_age_s": 3.4836041927337646,
+          "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_forward0.log",
+          "log_age_s": 7.867716312408447,
+          "checkpoint": null,
+          "checkpoint_age_s": null,
+          "anomaly_lines": [],
+          "notes": []
+        },
+        {
+          "job_id": "20261030_s42_forward1",
+          "kind": "flow",
+          "status": "running",
+          "run_dir": null,
+          "session": "v5_20261030_s42_forward1",
+          "device": "cuda:2",
+          "process": {
+            "pid": 3231712,
+            "alive": true,
+            "start_ticks": 84669323,
+            "identity_verified": true,
+            "pid_reused": false
+          },
+          "child_process": {
+            "pid": 3231878,
+            "alive": true,
+            "start_ticks": 84669754,
+            "identity_verified": true,
+            "pid_reused": false
+          },
+          "phase": "flow",
+          "training_status": null,
+          "commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+          "epoch": null,
+          "global_step": null,
+          "loss": null,
+          "validation": {},
+          "progress": {
+            "completed": 11600
+          },
+          "status_age_s": 3.6734023094177246,
+          "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_forward1.log",
+          "log_age_s": 8.507170915603638,
+          "checkpoint": null,
+          "checkpoint_age_s": null,
+          "anomaly_lines": [],
+          "notes": []
+        },
+        {
+          "job_id": "20261030_s42_forward_pack",
+          "kind": "pack",
+          "status": "blocked",
+          "run_dir": null,
+          "session": "v5_20261030_s42_forward_pack",
+          "device": null,
+          "process": {
+            "pid": null,
+            "alive": null,
+            "identity_verified": false
+          },
+          "child_process": {
+            "pid": null,
+            "alive": null,
+            "identity_verified": false
+          },
+          "phase": null,
+          "training_status": null,
+          "commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+          "epoch": null,
+          "global_step": null,
+          "loss": null,
+          "validation": {},
+          "progress": {},
+          "status_age_s": 28.05508041381836,
+          "log_path": null,
+          "log_age_s": null,
+          "checkpoint": null,
+          "checkpoint_age_s": null,
+          "anomaly_lines": [],
+          "notes": [
+            "None"
+          ]
+        }
+      ]
+    }
+  ],
+  "wrapper_statuses": {
+    "forward0": {
+      "status": "running",
+      "updated_at": "2026-10-30T04:02:35.639352+00:00",
+      "launch_count": 1,
+      "reason": null,
+      "launched_at_epoch": 1793331777.137224,
+      "pid": 3231706,
+      "pid_start_ticks": 84669277,
+      "started_at": "2026-10-30T03:43:01.645257+00:00",
+      "commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+      "phase": "flow",
+      "command_index": 0,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/9b859c206766/methods/purevision-flow/PureVision_V5/prepare_flow.py",
+        "--manifest",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+        "--output",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward",
+        "--direction",
+        "forward",
+        "--device",
+        "cuda:0",
+        "--batch-size",
+        "16",
+        "--shard-count",
+        "2",
+        "--shard-index",
+        "0",
+        "--report",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/reports/forward0.json"
+      ],
+      "child_pid": 3231877,
+      "child_pid_start_ticks": 84669741,
+      "completed": 12000
+    },
+    "forward1": {
+      "status": "running",
+      "updated_at": "2026-10-30T04:02:35.596469+00:00",
+      "launch_count": 1,
+      "reason": null,
+      "launched_at_epoch": 1793331777.590296,
+      "pid": 3231712,
+      "pid_start_ticks": 84669323,
+      "started_at": "2026-10-30T03:43:01.702300+00:00",
+      "commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+      "phase": "flow",
+      "command_index": 0,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/9b859c206766/methods/purevision-flow/PureVision_V5/prepare_flow.py",
+        "--manifest",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+        "--output",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward",
+        "--direction",
+        "forward",
+        "--device",
+        "cuda:2",
+        "--batch-size",
+        "16",
+        "--shard-count",
+        "2",
+        "--shard-index",
+        "1",
+        "--report",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/reports/forward1.json"
+      ],
+      "child_pid": 3231878,
+      "child_pid_start_ticks": 84669754,
+      "completed": 13008
+    },
+    "forward_pack": {
+      "status": "blocked",
+      "updated_at": "2026-10-30T03:59:33.416760+00:00",
+      "launch_count": 0,
+      "reason": null,
+      "blocked_by": [
+        "forward1"
+      ]
+    },
+    "fb1": {
+      "status": "blocked",
+      "updated_at": "2026-10-30T03:59:34.818633+00:00",
+      "launch_count": 0,
+      "reason": null,
+      "blocked_by": [
+        "forward1"
+      ]
+    },
+    "fb_pack": {
+      "status": "blocked",
+      "updated_at": "2026-10-30T03:59:34.915739+00:00",
+      "launch_count": 0,
+      "reason": null,
+      "blocked_by": [
+        "fb1",
+        "forward_pack"
+      ]
+    },
+    "R01": {
+      "status": "blocked",
+      "updated_at": "2026-10-30T03:59:33.962822+00:00",
+      "launch_count": 0,
+      "reason": null,
+      "blocked_by": [
+        "forward_pack"
+      ]
+    },
+    "R02": {
+      "status": "blocked",
+      "updated_at": "2026-10-30T03:59:34.586648+00:00",
+      "launch_count": 0,
+      "reason": null,
+      "blocked_by": [
+        "forward_pack"
+      ]
+    },
+    "R03": {
+      "status": "blocked",
+      "updated_at": "2026-10-30T03:59:34.326903+00:00",
+      "launch_count": 0,
+      "reason": null,
+      "blocked_by": [
+        "forward_pack"
+      ]
+    },
+    "R04": {
+      "status": "blocked",
+      "updated_at": "2026-10-30T03:59:34.917145+00:00",
+      "launch_count": 0,
+      "reason": null,
+      "blocked_by": [
+        "fb_pack"
+      ]
+    },
+    "R05": {
+      "status": "blocked",
+      "updated_at": "2026-10-30T03:59:34.918598+00:00",
+      "launch_count": 0,
+      "reason": null,
+      "blocked_by": [
+        "fb_pack"
+      ]
+    }
+  }
+}

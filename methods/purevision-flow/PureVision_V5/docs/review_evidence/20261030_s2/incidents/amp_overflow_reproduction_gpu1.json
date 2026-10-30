@@ -1,0 +1,13 @@
+{
+  "hardware_gpu": 1,
+  "gpu_name": "NVIDIA GeForce RTX 5090",
+  "finite_forward_loss": 1.0,
+  "scale_before": 16777216.0,
+  "unscaled_gradient_finite": false,
+  "old_trainer_error": "The total norm of order 2.0 for gradients from `parameters` is non-finite, so it cannot be clipped. To disable this error and scale the gradients by the non-finite norm anyway, set `error_if_nonfinite=False`",
+  "scale_after": 8388608.0,
+  "optimizer_step_skipped": true,
+  "next_finite_update_weight": 0.8999999761581421,
+  "source": "installed torch 2.10.0 GradScaler public step/update after unscale; isolated deterministic finite-forward overflow",
+  "scope": "synthetic reproduction, not formal research result"
+}

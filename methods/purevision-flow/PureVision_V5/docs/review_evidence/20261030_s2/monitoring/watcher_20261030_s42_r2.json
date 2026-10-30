@@ -1,0 +1,58 @@
+{
+  "schema": "v5_startup_watcher_v1",
+  "status": "completed",
+  "pid": 3250451,
+  "updated_at": "2026-10-30T06:49:02.238008+00:00",
+  "plan_identity": "f34552760913673f19209af3f86395bb2f227a507b9acbd23fb567332c477990",
+  "jobs": [
+    {
+      "run_id": "20261030_s42_r2_R00",
+      "job_status": "completed",
+      "startup_status": "verified",
+      "patrol_success": true,
+      "proof_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/monitoring/startup/20261030_s42_r2_R00/startup_proof.json",
+      "errors": []
+    },
+    {
+      "run_id": "20261030_s42_r2_R01",
+      "job_status": "completed",
+      "startup_status": "verified",
+      "patrol_success": true,
+      "proof_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/monitoring/startup/20261030_s42_r2_R01/startup_proof.json",
+      "errors": []
+    },
+    {
+      "run_id": "20261030_s42_r2_R03",
+      "job_status": "completed",
+      "startup_status": "verified",
+      "patrol_success": true,
+      "proof_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/monitoring/startup/20261030_s42_r2_R03/startup_proof.json",
+      "errors": []
+    },
+    {
+      "run_id": "20261030_s42_r2_R02",
+      "job_status": "completed",
+      "startup_status": "verified",
+      "patrol_success": true,
+      "proof_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/monitoring/startup/20261030_s42_r2_R02/startup_proof.json",
+      "errors": []
+    },
+    {
+      "run_id": "20261030_s42_r2_R04",
+      "job_status": "completed",
+      "startup_status": "verified",
+      "patrol_success": true,
+      "proof_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/monitoring/startup/20261030_s42_r2_R04/startup_proof.json",
+      "errors": []
+    },
+    {
+      "run_id": "20261030_s42_r2_R05",
+      "job_status": "completed",
+      "startup_status": "verified",
+      "patrol_success": true,
+      "proof_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/monitoring/startup/20261030_s42_r2_R05/startup_proof.json",
+      "errors": []
+    }
+  ],
+  "all_startups_verified": true
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "v5_scheduler_reproduction_v1",
+  "created_at": "2026-10-30T04:13:04.135597+00:00",
+  "tested_commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+  "plan": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/plan.json",
+  "plan_identity": "3699a867b9b70f0b3cb840f4ceae4fd7ad112e2155f540eaeca3aebb56bff826",
+  "execution": "in-memory only; pipeline.read_json/write_json/register replaced with dictionary operations; GPU probe forced busy; tmux launching forbidden",
+  "injected_observation": {
+    "job": "forward1",
+    "pid": 3231712,
+    "pid_start_ticks": 84669323,
+    "first_tick_alive": false,
+    "second_tick_alive": true
+  },
+  "before_first_tick": "forward0/forward1 running; all other jobs queued; external RGB features running",
+  "between_ticks": "restore original forward1 running state to simulate its continuing worker heartbeat",
+  "expected_and_observed_blocked_after_both_ticks": [
+    "forward_pack",
+    "R01",
+    "R03",
+    "R02",
+    "fb1",
+    "fb_pack",
+    "R04",
+    "R05"
+  ],
+  "forward1_after_first_tick": "interrupted",
+  "forward1_after_second_tick": "running",
+  "actual_job_state_writes": false,
+  "actual_process_or_gpu_actions": false,
+  "finding": "A single false liveness observation causes irreversible dependent blocking even after a continuing worker restores its running state.",
+  "limitation": "This demonstrates the scheduler amplification defect. The physical cause of the original 03:59:33 false observation was not captured and remains unknown; the injected false probe is not evidence of its exact cause."
+}

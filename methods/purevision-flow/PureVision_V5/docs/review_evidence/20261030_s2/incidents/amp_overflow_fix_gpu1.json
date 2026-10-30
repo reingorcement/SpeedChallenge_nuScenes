@@ -1,0 +1,45 @@
+{
+  "hardware_gpu": 1,
+  "scope": "isolated synthetic new helper validation, not formal research result",
+  "processed_batches": 5,
+  "optimizer_updates": 2,
+  "amp_skips": 3,
+  "history": [
+    {
+      "processed_batch": 1,
+      "finite_loss": 1.0,
+      "updated": false,
+      "scale_before": 262144.0,
+      "scale_after": 131072.0,
+      "weight": 1.0
+    },
+    {
+      "processed_batch": 2,
+      "finite_loss": 1.0,
+      "updated": false,
+      "scale_before": 131072.0,
+      "scale_after": 65536.0,
+      "weight": 1.0
+    },
+    {
+      "processed_batch": 3,
+      "finite_loss": 1.0,
+      "updated": false,
+      "scale_before": 65536.0,
+      "scale_after": 32768.0,
+      "weight": 1.0
+    },
+    {
+      "processed_batch": 4,
+      "finite_loss": 1.0,
+      "updated": true,
+      "weight": 0.9898999929428101
+    },
+    {
+      "processed_batch": 5,
+      "finite_loss": 0.98974609375,
+      "updated": true,
+      "weight": 0.9798009991645813
+    }
+  ]
+}

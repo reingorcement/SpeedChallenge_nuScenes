@@ -1,0 +1,16 @@
+{
+  "run_id": "20261030_s42_r2_R04",
+  "experiment": "R04",
+  "status": "completed",
+  "updated_at": "2026-10-30T06:48:13.143917+00:00",
+  "epoch": 20,
+  "global_step": 41560,
+  "processed_batches": 41560,
+  "optimizer_updates": 41547,
+  "amp_skips": 13,
+  "amp_scale": 2097152.0,
+  "best_epe": 0.2684681760989279,
+  "best_epoch": 19,
+  "elapsed_seconds": 661.8549689369975,
+  "stop_reason": "epoch_budget"
+}

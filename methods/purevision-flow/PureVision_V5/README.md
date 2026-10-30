@@ -1,5 +1,7 @@
 # PureVision V5: S2 image/flow feature fusion
 
+**GitHub review:** [审核导航](AI_REVIEW.md) · [完整中文交接](docs/HANDOFF_20261030.md) · [六组完成结果](docs/RESULT_20261030_S2.md) · [可读实验凭证](docs/review_evidence/20261030_s2/README.md) · [用户原计划](docs/V5_EXECUTION_PLAN_USER.md)。All six first-round runs completed; the queue and scheduled patrols have ended. Training code is pinned at `3979268699ce6db46d536cf22dc16f02b969a465`; later handoff commits do not modify that checkout.
+
 Five causal CAM_FRONT images and their four adjacent flow fields predict one
 `[vx, vy]` vector in m/s. The current target is **PLANAR_PROXY**, expressed in the
 current yaw frame at the **nuScenes rear axle midpoint**. It is not a verified

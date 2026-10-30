@@ -20,4 +20,6 @@ git switch -c restore-v2 archive/2026-10-21/feature/v2-seed42-recovery
 
 上述恢复只创建本地分支。`archive/legacy` 的 `snapshots/` 下每个快照与原提交根 tree 完全一致；各快照保留自己的相对目录关系。原预测 CSV、图表和权重即使不出现在方法目录，也仍在原标签及对应快照中。
 
-原 main 是整合提交的祖先，更新采用正常前进；不改写历史。0703 独有提交由归档分支和标签共同保留。旧分支仅在远程保全与新分支核验成功后删除。
+原 main 是整合提交的祖先，更新采用正常前进；不改写历史。0703 独有提交由归档分支和标签共同保留。本轮 V5 保留全部既有分支和用户未提交工作，不删除旧分支、不改写历史、不强制推送。
+
+V5 的固定训练 commit 为 `3979268699ce6db46d536cf22dc16f02b969a465`，标签 `v5-s2-ready-v0.3`；完整结果在 `v5-s2-results-v0.1`。最新 [GitHub 审核导航](../methods/purevision-flow/PureVision_V5/AI_REVIEW.md) 指向交接、原计划和小型工件凭证。文档分支前进不改变已完成实验的 detached 工作目录。

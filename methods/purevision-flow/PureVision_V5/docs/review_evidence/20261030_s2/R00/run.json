@@ -1,0 +1,155 @@
+{
+  "run_id": "20261030_s42_r2_R00",
+  "experiment": "R00",
+  "status": "completed",
+  "started_at": "2026-10-30T04:40:09.293757+00:00",
+  "code": {
+    "commit": "3979268699ce6db46d536cf22dc16f02b969a465",
+    "dirty": false,
+    "verified_remote_commit": "3979268699ce6db46d536cf22dc16f02b969a465"
+  },
+  "config": {
+    "experiment": "R00",
+    "seed": 42,
+    "epochs": 20,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "loss_scales_m_s": [
+      5.0,
+      1.0
+    ],
+    "loss_beta": 1.0,
+    "amp": true,
+    "grad_clip": 2.0,
+    "patience": 5,
+    "min_delta": 0.0001,
+    "log_steps": 20,
+    "checkpoint_steps": 250,
+    "rgb_policy": "frozen_v3_direct",
+    "selection_metric": "dev_epe",
+    "lateral_rule": {
+      "max_relative_mae_increase": 0.05,
+      "max_absolute_mae_increase_m_s": 0.01,
+      "nonzero_threshold_m_s": 0.2,
+      "min_subset_windows": 100,
+      "min_subset_scenes": 5
+    }
+  },
+  "contract": {
+    "config": {
+      "experiment": "R00",
+      "seed": 42,
+      "epochs": 20,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "loss_scales_m_s": [
+        5.0,
+        1.0
+      ],
+      "loss_beta": 1.0,
+      "amp": true,
+      "grad_clip": 2.0,
+      "patience": 5,
+      "min_delta": 0.0001,
+      "log_steps": 20,
+      "checkpoint_steps": 250,
+      "rgb_policy": "frozen_v3_direct",
+      "selection_metric": "dev_epe",
+      "lateral_rule": {
+        "max_relative_mae_increase": 0.05,
+        "max_absolute_mae_increase_m_s": 0.01,
+        "nonzero_threshold_m_s": 0.2,
+        "min_subset_windows": 100,
+        "min_subset_scenes": 5
+      }
+    },
+    "data": {
+      "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+      "label": {
+        "version": "nuscenes_rear_axle_planar_nonuniform3_v1",
+        "mode": "PLANAR_PROXY",
+        "reference_point": "nuscenes_rear_axle_midpoint",
+        "reference_source": "https://www.nuscenes.org/data-format",
+        "axes": "x_forward_y_left_in_current_yaw_frame",
+        "units": "m/s",
+        "time": "current_camera_timestamp",
+        "derivative": "nonuniform_three_point_quadratic_world_xy_then_current_yaw",
+        "neighbors": "previous_current_next_CAM_FRONT_sample_data_in_same_scene",
+        "smoothing": "none_beyond_three_point_derivative",
+        "endpoints": "excluded",
+        "lever_arm": "none_ego_pose_already_at_rear_axle_midpoint",
+        "future_pose": "offline_supervision_only_never_inference",
+        "limitations": "planar_localization_z_zero_not_true_3D_body_velocity"
+      },
+      "features": {
+        "schema": "v5_rgb_features_v1",
+        "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+        "weights_sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+        "input_size": [
+          5,
+          3,
+          72,
+          128
+        ],
+        "normalization": "PIL RGB bilinear; x/127.5-1",
+        "dtype": "float32",
+        "compute_precision": "float32",
+        "rgb_code_sha256": "8cecc27de2bdf529b0d23f9670fe441c577515025bbcc790a444921930da7f35",
+        "backbone_code_sha256": "3ce31001db9cb20f445db0fafa707804bfc2023d150d4b0314dd446041c1a155",
+        "modules_code_sha256": "78b1d491d8e3435b0492510799ad1f9774910108e16bbc2c232658b371cfcbb8"
+      },
+      "flow_root": null,
+      "flow": null
+    },
+    "train_selection": "e3b7cf16762d2fea81959c1b7d832ab8647af99e64a84853988ac11d61981a9f",
+    "dev_selection": "e32a8fe00141ff0da54d5668b827ce44384449bbfdf179e85de7e7ed008b9072",
+    "execution": {
+      "smoke": false,
+      "max_batches": 0
+    }
+  },
+  "contract_hash": "129c690ed533efd3ba6f93889ff4be05d2bf3023b9e6289395d2204905976c3c",
+  "smoke": false,
+  "parent_run": null,
+  "resume": null,
+  "runtime": {
+    "config": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/configs/R00.json",
+    "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+    "output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R00",
+    "features": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+    "flow": null,
+    "device": "cuda:1",
+    "workers": 4,
+    "threads": 4,
+    "resume": null,
+    "smoke": false,
+    "limit_scenes": 0,
+    "limit_windows": 0,
+    "max_batches": 0,
+    "stop_after_steps": 0
+  },
+  "environment": {
+    "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+    "executable": "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "hostname": "ps",
+    "cuda_visible_devices": null,
+    "gpu": [
+      "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+      "NVIDIA GeForce RTX 5090",
+      "NVIDIA GeForce RTX 5090"
+    ]
+  },
+  "train_windows": 132978,
+  "dev_windows": 23480,
+  "train_scenes": 582,
+  "dev_scenes": 103,
+  "trainable_parameters": 75074,
+  "step_semantics": "global_step = processed_batches = optimizer_updates + amp_skips",
+  "checkpoint": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R00/last.pt",
+  "finished_at": "2026-10-30T04:42:19.158911+00:00"
+}

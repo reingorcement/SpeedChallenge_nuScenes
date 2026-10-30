@@ -1,0 +1,103 @@
+{
+  "status": "completed",
+  "started_at": "2026-10-30T05:16:45.770397+00:00",
+  "checkpoint": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R03/best.pt",
+  "checkpoint_sha256": "95e6797f8f17481b20750192b3a8492163e48541a60d22174427afe9a9c16c89",
+  "training_run": "20261030_s42_r2_R03",
+  "training_code": {
+    "commit": "3979268699ce6db46d536cf22dc16f02b969a465",
+    "dirty": false,
+    "verified_remote_commit": "3979268699ce6db46d536cf22dc16f02b969a465"
+  },
+  "evaluation_code": {
+    "commit": "3979268699ce6db46d536cf22dc16f02b969a465",
+    "dirty": false,
+    "verified_remote_commit": null
+  },
+  "contract_hash": "557c54f181b5abb45d2396b1fa4d2ab097bb4a0bd4e9aa75817191a36f9b0ecc",
+  "data": {
+    "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+    "label": {
+      "version": "nuscenes_rear_axle_planar_nonuniform3_v1",
+      "mode": "PLANAR_PROXY",
+      "reference_point": "nuscenes_rear_axle_midpoint",
+      "reference_source": "https://www.nuscenes.org/data-format",
+      "axes": "x_forward_y_left_in_current_yaw_frame",
+      "units": "m/s",
+      "time": "current_camera_timestamp",
+      "derivative": "nonuniform_three_point_quadratic_world_xy_then_current_yaw",
+      "neighbors": "previous_current_next_CAM_FRONT_sample_data_in_same_scene",
+      "smoothing": "none_beyond_three_point_derivative",
+      "endpoints": "excluded",
+      "lever_arm": "none_ego_pose_already_at_rear_axle_midpoint",
+      "future_pose": "offline_supervision_only_never_inference",
+      "limitations": "planar_localization_z_zero_not_true_3D_body_velocity"
+    },
+    "features": {
+      "schema": "v5_rgb_features_v1",
+      "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+      "weights_sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+      "input_size": [
+        5,
+        3,
+        72,
+        128
+      ],
+      "normalization": "PIL RGB bilinear; x/127.5-1",
+      "dtype": "float32",
+      "compute_precision": "float32",
+      "rgb_code_sha256": "8cecc27de2bdf529b0d23f9670fe441c577515025bbcc790a444921930da7f35",
+      "backbone_code_sha256": "3ce31001db9cb20f445db0fafa707804bfc2023d150d4b0314dd446041c1a155",
+      "modules_code_sha256": "78b1d491d8e3435b0492510799ad1f9774910108e16bbc2c232658b371cfcbb8"
+    },
+    "flow_root": "/home/zhangyu/.cache/speedest-v5/flows_20261030/forward_packed",
+    "flow": {
+      "schema": "v5_flow_v1",
+      "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+      "preprocessing": {
+        "raft_size": [
+          288,
+          512
+        ],
+        "model_size": [
+          72,
+          128
+        ],
+        "input": "RGB",
+        "resize": "bilinear",
+        "antialias": false,
+        "range": [
+          -1.0,
+          1.0
+        ],
+        "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+        "num_flow_updates": 12,
+        "compute_dtype": "float32",
+        "tf32": false,
+        "flow_units": "pixels_at_raft_resolution",
+        "model_flow_units": "pixels_at_model_resolution",
+        "flow_resize": "bilinear_align_corners_false_vector_scaled",
+        "mask_resize": "nearest",
+        "fb_rule": "squared_relative",
+        "fb_alpha": 0.01,
+        "fb_beta_px2": 0.5,
+        "warp_align_corners": true,
+        "invalid_model_flow": "zero"
+      },
+      "packed_index_sha256": "fa4b8176efea6c1d1ef1ba918cdf78e4cfefa2456037e52a57325d9a87f57499"
+    }
+  },
+  "selection_hash": "75b7f104f9eebf4bbc40cabb43b39305687ff2e86074b2f395e51215bccdbb91",
+  "runtime": {
+    "checkpoint": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R03/best.pt",
+    "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+    "features": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+    "flow": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward_packed",
+    "output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R03",
+    "device": "cuda:2",
+    "workers": 4,
+    "threads": 4
+  },
+  "finished_at": "2026-10-30T05:16:51.910095+00:00",
+  "count": 23480
+}

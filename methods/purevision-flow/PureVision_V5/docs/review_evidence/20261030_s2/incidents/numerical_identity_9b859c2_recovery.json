@@ -1,0 +1,89 @@
+{
+  "schema": "v5_numerical_source_identity_v1",
+  "created_at": "2026-10-30T04:22:18.009393+00:00",
+  "original_commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+  "original_code_root": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/9b859c206766/methods/purevision-flow/PureVision_V5",
+  "recovery_development_root": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_dev/methods/purevision-flow/PureVision_V5",
+  "all_equal": true,
+  "files": [
+    {
+      "path": "purevision_v5/model.py",
+      "original_sha256": "88606db13a6d8f7babb616d3e30c4ce77121ed2372acdb1d065c5e1a2f866adc",
+      "recovery_sha256": "88606db13a6d8f7babb616d3e30c4ce77121ed2372acdb1d065c5e1a2f866adc",
+      "equal": true
+    },
+    {
+      "path": "purevision_v5/rgb.py",
+      "original_sha256": "8cecc27de2bdf529b0d23f9670fe441c577515025bbcc790a444921930da7f35",
+      "recovery_sha256": "8cecc27de2bdf529b0d23f9670fe441c577515025bbcc790a444921930da7f35",
+      "equal": true
+    },
+    {
+      "path": "purevision_v5/datasets.py",
+      "original_sha256": "b5a99efac79d8129ded721b540cf08fe5251595d27a5df876095156e0d81c900",
+      "recovery_sha256": "b5a99efac79d8129ded721b540cf08fe5251595d27a5df876095156e0d81c900",
+      "equal": true
+    },
+    {
+      "path": "purevision_v5/training.py",
+      "original_sha256": "49544cbfa4ca2b45f6dde2cdfcad4040c9fed0ae460a0ebe1c24692af1abba95",
+      "recovery_sha256": "49544cbfa4ca2b45f6dde2cdfcad4040c9fed0ae460a0ebe1c24692af1abba95",
+      "equal": true
+    },
+    {
+      "path": "purevision_v5/evaluation.py",
+      "original_sha256": "73723fc3796ff2307a73edb9be51b4f020d8f2eaad49818ec3f7ad18943f26e6",
+      "recovery_sha256": "73723fc3796ff2307a73edb9be51b4f020d8f2eaad49818ec3f7ad18943f26e6",
+      "equal": true
+    },
+    {
+      "path": "purevision_v5/flow.py",
+      "original_sha256": "ba73b90e2b17d9ee8e0ed7edc5c57a82b0705e3fced62ff75ddc493b47a78485",
+      "recovery_sha256": "ba73b90e2b17d9ee8e0ed7edc5c57a82b0705e3fced62ff75ddc493b47a78485",
+      "equal": true
+    },
+    {
+      "path": "purevision_v5/packed_flow.py",
+      "original_sha256": "556d7b0b534522a44555a76f6037654a78ec46b97f8266230187825643df59df",
+      "recovery_sha256": "556d7b0b534522a44555a76f6037654a78ec46b97f8266230187825643df59df",
+      "equal": true
+    },
+    {
+      "path": "configs/R00.json",
+      "original_sha256": "b8ba726693e727727f3fbe0574fdd8147831b42765ca879a929cc630d727a244",
+      "recovery_sha256": "b8ba726693e727727f3fbe0574fdd8147831b42765ca879a929cc630d727a244",
+      "equal": true
+    },
+    {
+      "path": "configs/R01.json",
+      "original_sha256": "7ce8d21a04f771aefc263290577ed6b2bd1e2d86dd015905dbe2ea41c1a34083",
+      "recovery_sha256": "7ce8d21a04f771aefc263290577ed6b2bd1e2d86dd015905dbe2ea41c1a34083",
+      "equal": true
+    },
+    {
+      "path": "configs/R02.json",
+      "original_sha256": "367ff5b355f5bec42c75278d87b3f03a1fab447c20ae32483a9c7523942f01de",
+      "recovery_sha256": "367ff5b355f5bec42c75278d87b3f03a1fab447c20ae32483a9c7523942f01de",
+      "equal": true
+    },
+    {
+      "path": "configs/R03.json",
+      "original_sha256": "f1568e3d6e06d53e9daee71cabe7c894bffa12c17bb4254c8383ec9230c903b1",
+      "recovery_sha256": "f1568e3d6e06d53e9daee71cabe7c894bffa12c17bb4254c8383ec9230c903b1",
+      "equal": true
+    },
+    {
+      "path": "configs/R04.json",
+      "original_sha256": "0dd3b9d63ff404ed9b97e1b4c3754716acdd8ec91e0dd76b51d14b58159bf833",
+      "recovery_sha256": "0dd3b9d63ff404ed9b97e1b4c3754716acdd8ec91e0dd76b51d14b58159bf833",
+      "equal": true
+    },
+    {
+      "path": "configs/R05.json",
+      "original_sha256": "6920d82e722a9030c91693567b5f80cefea7d255b551dfdaec085bedfe74c5d4",
+      "recovery_sha256": "6920d82e722a9030c91693567b5f80cefea7d255b551dfdaec085bedfe74c5d4",
+      "equal": true
+    }
+  ],
+  "scope": "Read-only SHA256 comparison of model, RGB, data/training/evaluation/flow code and all six experiment configurations before the scheduler-recovery commit. This is source equality evidence, not a training result."
+}

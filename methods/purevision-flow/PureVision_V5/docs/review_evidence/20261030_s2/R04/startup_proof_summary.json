@@ -1,0 +1,147 @@
+{
+  "schema": "v5_startup_proof_v1",
+  "run_id": "20261030_s42_r2_R04",
+  "plan_identity": "f34552760913673f19209af3f86395bb2f227a507b9acbd23fb567332c477990",
+  "expected_commit": "3979268699ce6db46d536cf22dc16f02b969a465",
+  "updated_at": "2026-10-30T06:49:02.230552+00:00",
+  "errors": [],
+  "raw_job_status": "completed",
+  "effective_observation_path": null,
+  "job_status": "completed",
+  "training_status": "completed",
+  "status": "verified",
+  "contract_hash": "8a4b9da794d672ebd0ae0085b5c198ad550a0e3bc9a6f5ce12f49a6429e761cc",
+  "first_steps": [
+    {
+      "event": "step",
+      "epoch": 0,
+      "step": 1,
+      "processed_batches": 1,
+      "optimizer_updates": 1,
+      "amp_skips": 0,
+      "amp_scale": 65536.0,
+      "loss": 0.3690224289894104,
+      "time": "2026-10-30T06:37:12.428761+00:00"
+    },
+    {
+      "event": "step",
+      "epoch": 0,
+      "step": 2,
+      "processed_batches": 2,
+      "optimizer_updates": 2,
+      "amp_skips": 0,
+      "amp_scale": 65536.0,
+      "loss": 0.2607775926589966,
+      "time": "2026-10-30T06:37:12.436318+00:00"
+    },
+    {
+      "event": "step",
+      "epoch": 0,
+      "step": 3,
+      "processed_batches": 3,
+      "optimizer_updates": 3,
+      "amp_skips": 0,
+      "amp_scale": 65536.0,
+      "loss": 0.25950029492378235,
+      "time": "2026-10-30T06:37:12.443175+00:00"
+    }
+  ],
+  "first_validation": {
+    "epoch": 0,
+    "global_step": 2078,
+    "train_loss": 0.003758816339746957,
+    "processed_batches": 2078,
+    "optimizer_updates": 2078,
+    "amp_skips": 0,
+    "amp_scale": 131072.0,
+    "learning_rate": 0.001,
+    "validation": {
+      "overall": {
+        "count": 23480,
+        "epe": 0.3740342458132078,
+        "mae_vx": 0.3714051271489515,
+        "rmse_vx": 0.592830940427628,
+        "bias_vx": -0.044596602490724335,
+        "p95_abs_vx": 1.161564588546753,
+        "mae_vy": 0.021949169419332466,
+        "rmse_vy": 0.03217186347114837,
+        "bias_vy": 0.015418730142964063,
+        "p95_abs_vy": 0.06501169055700301,
+        "zero_vy_mae": 0.035983646252559655
+      },
+      "scene_count": 103,
+      "nonzero_vy": {
+        "threshold_m_s": 0.2,
+        "count": 31,
+        "scene_count": 5,
+        "metrics": {
+          "count": 31,
+          "epe": 0.6286726417067784,
+          "mae_vx": 0.5530738215292653,
+          "rmse_vx": 0.6639386355741967,
+          "bias_vx": 0.11376673175442603,
+          "p95_abs_vx": 1.167755126953125,
+          "mae_vy": 0.24949617804058136,
+          "rmse_vy": 0.2735237137034661,
+          "bias_vy": 0.015366674430908696,
+          "p95_abs_vy": 0.4866493530571461,
+          "zero_vy_mae": 0.2665171031990359
+        },
+        "adequate": false
+      },
+      "flow_coverage": {
+        "valid_fraction": 0.9216350358294737,
+        "fb_fraction": 0.8364405345898697
+      }
+    },
+    "time": "2026-10-30T06:37:45.524989+00:00"
+  },
+  "checkpoints": {
+    "last.pt": {
+      "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R04/last.pt",
+      "sha256": "643ab66614d462f4a967816c2c5162c5f6325127f68de4a31997b303998dadb7",
+      "size_bytes": 1813039,
+      "mtime_ns": 1793342292394377100,
+      "inode": 3717328,
+      "epoch": 1,
+      "next_batch": 1922,
+      "global_step": 4000,
+      "checked_at": "2026-10-30T06:38:13.083661+00:00",
+      "load_device": "cpu",
+      "resumable_state_verified": true
+    },
+    "best.pt": {
+      "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R04/best.pt",
+      "sha256": "44b3ef2cc2941dddd213c5f795c72174650e2c860d2c4f450ff4e0be808c16c4",
+      "size_bytes": 1813039,
+      "mtime_ns": 1793342265547343100,
+      "inode": 3710,
+      "epoch": 1,
+      "next_batch": 0,
+      "global_step": 2078,
+      "checked_at": "2026-10-30T06:38:13.097649+00:00",
+      "load_device": "cpu",
+      "resumable_state_verified": true
+    }
+  },
+  "verified_at": "2026-10-30T06:38:13.097755+00:00",
+  "patrol_attempts": [
+    {
+      "started_at": "2026-10-30T06:38:13.097852+00:00",
+      "stdout_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/monitoring/startup/20261030_s42_r2_R04/patrol_attempt_1.log",
+      "script": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh",
+      "exit_code": 0,
+      "finished_at": "2026-10-30T06:39:18.559187+00:00"
+    }
+  ],
+  "patrol": {
+    "time_utc": "2026-10-30T06:39:18.518672+00:00",
+    "trigger": "startup",
+    "model": "gpt-6-astra",
+    "exit_code": 0,
+    "success": true,
+    "actual_shell_read_observed": true,
+    "answer": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/monitoring/astra/20261030T063813Z_3272656.txt",
+    "log": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/monitoring/astra/20261030T063813Z_3272656.log"
+  }
+}

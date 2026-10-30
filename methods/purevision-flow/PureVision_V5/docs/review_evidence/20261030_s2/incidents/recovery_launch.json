@@ -1,0 +1,60 @@
+{
+  "original_prefix": "20261030_s42",
+  "replacement_prefix": "20261030_s42_r1",
+  "original_code": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+  "new_code": "2e53db322114b91ea08772fd750f1a43b07d03c0",
+  "preparation_reused": [
+    "forward0",
+    "forward1",
+    "features"
+  ],
+  "training_restarted": false,
+  "formal_training_previously_started": false,
+  "plan": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r1/plan.json",
+  "coordinator": {
+    "session": "v5_pipeline_20261030_s42_r1",
+    "pid": 3243742,
+    "pid_start_ticks": 84932860,
+    "command": [
+      "/home/zhangyu/.conda/envs/speedest/bin/python",
+      "-B",
+      "-u",
+      "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/2e53db322114/methods/purevision-flow/PureVision_V5/pipeline.py",
+      "--root",
+      "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5",
+      "--manifest",
+      "data/nuscenes_proxy_v1/dataset.json",
+      "--features",
+      "features/v3_direct_fp32_v2",
+      "--run-prefix",
+      "20261030_s42_r1",
+      "--preparation-plan",
+      "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/plan.json"
+    ],
+    "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/pipeline_20261030_s42_r1.log",
+    "code_root": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/2e53db322114/methods/purevision-flow/PureVision_V5",
+    "commit": "2e53db322114b91ea08772fd750f1a43b07d03c0",
+    "started_at": "2026-10-30T04:26:53.120087+00:00"
+  },
+  "startup_watcher": {
+    "session": "v5_startup_20261030_s42_r1",
+    "pid": 3243835,
+    "pid_start_ticks": 84933562,
+    "command": [
+      "/home/zhangyu/.conda/envs/speedest/bin/python",
+      "-B",
+      "-u",
+      "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/2e53db322114/methods/purevision-flow/PureVision_V5/startup_watch.py",
+      "--root",
+      "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5",
+      "--plan",
+      "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r1/plan.json",
+      "--interval",
+      "30"
+    ],
+    "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/startup_20261030_s42_r1.log",
+    "code_root": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/2e53db322114/methods/purevision-flow/PureVision_V5",
+    "commit": "2e53db322114b91ea08772fd750f1a43b07d03c0",
+    "started_at": "2026-10-30T04:27:00.137585+00:00"
+  }
+}

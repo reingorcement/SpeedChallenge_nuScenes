@@ -1,0 +1,92 @@
+{
+  "schema": "v5_packed_flow_v1",
+  "created_at": "2026-10-30T06:36:27.520726+00:00",
+  "code": {
+    "commit": "3979268699ce6db46d536cf22dc16f02b969a465",
+    "dirty": false,
+    "verified_remote_commit": null
+  },
+  "contract": {
+    "flow_schema": "v5_flow_v1",
+    "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+    "preprocessing": {
+      "raft_size": [
+        288,
+        512
+      ],
+      "model_size": [
+        72,
+        128
+      ],
+      "input": "RGB",
+      "resize": "bilinear",
+      "antialias": false,
+      "range": [
+        -1.0,
+        1.0
+      ],
+      "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+      "num_flow_updates": 12,
+      "compute_dtype": "float32",
+      "tf32": false,
+      "flow_units": "pixels_at_raft_resolution",
+      "model_flow_units": "pixels_at_model_resolution",
+      "flow_resize": "bilinear_align_corners_false_vector_scaled",
+      "mask_resize": "nearest",
+      "fb_rule": "squared_relative",
+      "fb_alpha": 0.01,
+      "fb_beta_px2": 0.5,
+      "warp_align_corners": true,
+      "invalid_model_flow": "zero"
+    },
+    "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+    "partitions": [
+      "train_core",
+      "dev"
+    ],
+    "source_root": "/home/zhangyu/.cache/speedest-v5/flows_20261030/bidirectional",
+    "fb_available": true
+  },
+  "arrays": {
+    "flow": {
+      "file": "flow.npy",
+      "sha256": "34ca94de4303945b62fa8d2a0111b89c5f3e245d43299ed7242e11f14dc6af1d",
+      "shape": [
+        158513,
+        2,
+        72,
+        128
+      ],
+      "dtype": "float16"
+    },
+    "valid": {
+      "file": "valid.npy",
+      "sha256": "944a07a8a897b28f7eabfed4c54f11a33032e3f7376b7a2b8f9d24366a018a4e",
+      "shape": [
+        158513,
+        1,
+        72,
+        128
+      ],
+      "dtype": "bool"
+    },
+    "fb_mask": {
+      "file": "fb_mask.npy",
+      "sha256": "28ac29aeb6678b5cafe1ef1f14656a2e979edeb013f1083bbe8581cbd3ece172",
+      "shape": [
+        158513,
+        1,
+        72,
+        128
+      ],
+      "dtype": "bool"
+    }
+  },
+  "forward_equality": {
+    "reference_index_sha256": "fa4b8176efea6c1d1ef1ba918cdf78e4cfefa2456037e52a57325d9a87f57499",
+    "compared_pairs": 158513,
+    "flow_and_valid_exact": true
+  },
+  "identity": "9b6595edd7d054aa0cda637d0c57bd4ac9e310c89b82c3b6a51159a6c32f16a7",
+  "pair_count": 158513
+}

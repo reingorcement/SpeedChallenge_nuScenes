@@ -1,0 +1,23 @@
+{
+  "schema": "v5_review_final_artifact_hashes_v1",
+  "computed_at_utc": "2026-10-30T08:03:25.388018+00:00",
+  "run_id": "20261030_s42_r2_R01",
+  "included_file_contents": false,
+  "files": [
+    {
+      "source": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R01/best.pt",
+      "source_sha256": "32f06839418f4193560c6ce52361162b1c32f3a36c4f1cf2a3cc7318fe97cdfb",
+      "source_bytes": 1370383
+    },
+    {
+      "source": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R01/last.pt",
+      "source_sha256": "37b2728ad3a6ce217c94a04b140cea7b63c935ca869a68fef5eb5761d2e2ccf6",
+      "source_bytes": 1370383
+    },
+    {
+      "source": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R01/predictions.csv",
+      "source_sha256": "042c69482726cfa0cd79ece98c6b453333f1aeee201da0249a0626f7d5968d9e",
+      "source_bytes": 3372044
+    }
+  ]
+}

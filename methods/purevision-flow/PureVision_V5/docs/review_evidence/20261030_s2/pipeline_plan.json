@@ -1,0 +1,751 @@
+{
+  "schema": "v5_pipeline_v1",
+  "root": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5",
+  "code_root": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5",
+  "python": "/home/zhangyu/.conda/envs/speedest/bin/python",
+  "prefix": "20261030_s42_r2",
+  "code": {
+    "commit": "3979268699ce6db46d536cf22dc16f02b969a465",
+    "dirty": false,
+    "verified_remote_commit": "3979268699ce6db46d536cf22dc16f02b969a465"
+  },
+  "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+  "manifest_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+  "features": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+  "features_status": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2/status.json",
+  "config_hashes": {
+    "R00": "b8ba726693e727727f3fbe0574fdd8147831b42765ca879a929cc630d727a244",
+    "R01": "7ce8d21a04f771aefc263290577ed6b2bd1e2d86dd015905dbe2ea41c1a34083",
+    "R02": "367ff5b355f5bec42c75278d87b3f03a1fab447c20ae32483a9c7523942f01de",
+    "R03": "f1568e3d6e06d53e9daee71cabe7c894bffa12c17bb4254c8383ec9230c903b1",
+    "R04": "0dd3b9d63ff404ed9b97e1b4c3754716acdd8ec91e0dd76b51d14b58159bf833",
+    "R05": "6920d82e722a9030c91693567b5f80cefea7d255b551dfdaec085bedfe74c5d4"
+  },
+  "jobs": [
+    {
+      "name": "fb0",
+      "job_id": "20261030_s42_r2_fb0",
+      "kind": "flow",
+      "device": "cuda:0",
+      "requires": [
+        "forward0"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/prepare_flow.py",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/bidirectional",
+          "--direction",
+          "bidirectional",
+          "--reuse-forward-root",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward",
+          "--device",
+          "cuda:0",
+          "--batch-size",
+          "16",
+          "--shard-count",
+          "2",
+          "--shard-index",
+          "0",
+          "--report",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/reports/fb0.json"
+        ]
+      ],
+      "session": "v5_20261030_s42_r2_fb0",
+      "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_r2_fb0.log",
+      "status_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/jobs/fb0.json",
+      "run_dir": null,
+      "progress_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/reports/fb0.json",
+      "fresh_output": null,
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/reports/fb0.json",
+          "field": "status",
+          "equals": "complete"
+        }
+      ]
+    },
+    {
+      "name": "forward_pack",
+      "job_id": "20261030_s42_r2_forward_pack",
+      "kind": "pack",
+      "device": null,
+      "requires": [
+        "forward0",
+        "forward1"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/pack_flow.py",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--source-root",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward_packed"
+        ]
+      ],
+      "session": "v5_20261030_s42_r2_forward_pack",
+      "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_r2_forward_pack.log",
+      "status_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/jobs/forward_pack.json",
+      "run_dir": null,
+      "progress_path": null,
+      "fresh_output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward_packed",
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward_packed/packed_index.json",
+          "field": "schema",
+          "equals": "v5_packed_flow_v1"
+        }
+      ]
+    },
+    {
+      "name": "R00",
+      "job_id": "20261030_s42_r2_R00",
+      "kind": "training",
+      "device": "cuda:1",
+      "requires": [
+        "features"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/configs/R00.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--device",
+          "cuda:1",
+          "--workers",
+          "4",
+          "--features",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R00"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R00/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--device",
+          "cuda:1",
+          "--workers",
+          "4",
+          "--features",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R00"
+        ]
+      ],
+      "session": "v5_20261030_s42_r2_R00",
+      "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_r2_R00.log",
+      "status_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/jobs/R00.json",
+      "run_dir": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R00",
+      "progress_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R00/status.json",
+      "fresh_output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R00",
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R00/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R00/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R00/best.pt"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R00/metrics.json"
+        }
+      ]
+    },
+    {
+      "name": "R01",
+      "job_id": "20261030_s42_r2_R01",
+      "kind": "training",
+      "device": "cuda:1",
+      "requires": [
+        "features",
+        "forward_pack"
+      ],
+      "after": [
+        "R00"
+      ],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/configs/R01.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--device",
+          "cuda:1",
+          "--workers",
+          "4",
+          "--features",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward_packed",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R01"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R01/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--device",
+          "cuda:1",
+          "--workers",
+          "4",
+          "--features",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward_packed",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R01"
+        ]
+      ],
+      "session": "v5_20261030_s42_r2_R01",
+      "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_r2_R01.log",
+      "status_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/jobs/R01.json",
+      "run_dir": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R01",
+      "progress_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R01/status.json",
+      "fresh_output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R01",
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R01/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R01/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R01/best.pt"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R01/metrics.json"
+        }
+      ]
+    },
+    {
+      "name": "R03",
+      "job_id": "20261030_s42_r2_R03",
+      "kind": "training",
+      "device": "cuda:2",
+      "requires": [
+        "features",
+        "forward_pack"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/configs/R03.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--features",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward_packed",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R03"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R03/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--features",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward_packed",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R03"
+        ]
+      ],
+      "session": "v5_20261030_s42_r2_R03",
+      "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_r2_R03.log",
+      "status_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/jobs/R03.json",
+      "run_dir": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R03",
+      "progress_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R03/status.json",
+      "fresh_output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R03",
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R03/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R03/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R03/best.pt"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R03/metrics.json"
+        }
+      ]
+    },
+    {
+      "name": "R02",
+      "job_id": "20261030_s42_r2_R02",
+      "kind": "training",
+      "device": "cuda:2",
+      "requires": [
+        "forward_pack"
+      ],
+      "after": [
+        "R03"
+      ],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/configs/R02.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward_packed",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R02"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R02/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward_packed",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R02"
+        ]
+      ],
+      "session": "v5_20261030_s42_r2_R02",
+      "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_r2_R02.log",
+      "status_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/jobs/R02.json",
+      "run_dir": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R02",
+      "progress_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R02/status.json",
+      "fresh_output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R02",
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R02/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R02/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R02/best.pt"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R02/metrics.json"
+        }
+      ]
+    },
+    {
+      "name": "fb1",
+      "job_id": "20261030_s42_r2_fb1",
+      "kind": "flow",
+      "device": "cuda:1",
+      "requires": [
+        "forward1"
+      ],
+      "after": [
+        "R01"
+      ],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/prepare_flow.py",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/bidirectional",
+          "--direction",
+          "bidirectional",
+          "--reuse-forward-root",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward",
+          "--device",
+          "cuda:1",
+          "--batch-size",
+          "16",
+          "--shard-count",
+          "2",
+          "--shard-index",
+          "1",
+          "--report",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/reports/fb1.json"
+        ]
+      ],
+      "session": "v5_20261030_s42_r2_fb1",
+      "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_r2_fb1.log",
+      "status_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/jobs/fb1.json",
+      "run_dir": null,
+      "progress_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/reports/fb1.json",
+      "fresh_output": null,
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/reports/fb1.json",
+          "field": "status",
+          "equals": "complete"
+        }
+      ]
+    },
+    {
+      "name": "fb_pack",
+      "job_id": "20261030_s42_r2_fb_pack",
+      "kind": "pack",
+      "device": null,
+      "requires": [
+        "fb0",
+        "fb1",
+        "forward_pack"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/pack_flow.py",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--source-root",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/bidirectional",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/bidirectional_packed",
+          "--require-fb",
+          "--reference-pack",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward_packed"
+        ]
+      ],
+      "session": "v5_20261030_s42_r2_fb_pack",
+      "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_r2_fb_pack.log",
+      "status_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/jobs/fb_pack.json",
+      "run_dir": null,
+      "progress_path": null,
+      "fresh_output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/bidirectional_packed",
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/bidirectional_packed/packed_index.json",
+          "field": "schema",
+          "equals": "v5_packed_flow_v1"
+        }
+      ]
+    },
+    {
+      "name": "R04",
+      "job_id": "20261030_s42_r2_R04",
+      "kind": "training",
+      "device": "cuda:1",
+      "requires": [
+        "features",
+        "fb_pack"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/configs/R04.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--device",
+          "cuda:1",
+          "--workers",
+          "4",
+          "--features",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/bidirectional_packed",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R04"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R04/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--device",
+          "cuda:1",
+          "--workers",
+          "4",
+          "--features",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/bidirectional_packed",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R04"
+        ]
+      ],
+      "session": "v5_20261030_s42_r2_R04",
+      "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_r2_R04.log",
+      "status_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/jobs/R04.json",
+      "run_dir": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R04",
+      "progress_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R04/status.json",
+      "fresh_output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R04",
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R04/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R04/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R04/best.pt"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R04/metrics.json"
+        }
+      ]
+    },
+    {
+      "name": "R05",
+      "job_id": "20261030_s42_r2_R05",
+      "kind": "training",
+      "device": "cuda:0",
+      "requires": [
+        "features",
+        "fb_pack"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/configs/R05.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--device",
+          "cuda:0",
+          "--workers",
+          "4",
+          "--features",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/bidirectional_packed",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R05"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/3979268699ce/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R05/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--device",
+          "cuda:0",
+          "--workers",
+          "4",
+          "--features",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/bidirectional_packed",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R05"
+        ]
+      ],
+      "session": "v5_20261030_s42_r2_R05",
+      "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_r2_R05.log",
+      "status_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42_r2/jobs/R05.json",
+      "run_dir": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R05",
+      "progress_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R05/status.json",
+      "fresh_output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R05",
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R05/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R05/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/runs/20261030_s42_r2_R05/best.pt"
+        },
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/evaluations/20261030_s42_r2_R05/metrics.json"
+        }
+      ]
+    }
+  ],
+  "external_preparation": [
+    {
+      "name": "forward0",
+      "job_id": "20261030_s42_forward0",
+      "kind": "flow",
+      "device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/9b859c206766/methods/purevision-flow/PureVision_V5/prepare_flow.py",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward",
+          "--direction",
+          "forward",
+          "--device",
+          "cuda:0",
+          "--batch-size",
+          "16",
+          "--shard-count",
+          "2",
+          "--shard-index",
+          "0",
+          "--report",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/reports/forward0.json"
+        ]
+      ],
+      "session": "v5_20261030_s42_forward0",
+      "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_forward0.log",
+      "status_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/jobs/forward0.json",
+      "run_dir": null,
+      "progress_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/reports/forward0.json",
+      "fresh_output": null,
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/reports/forward0.json",
+          "field": "status",
+          "equals": "complete"
+        }
+      ],
+      "source_commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+      "source_plan_identity": "3699a867b9b70f0b3cb840f4ceae4fd7ad112e2155f540eaeca3aebb56bff826"
+    },
+    {
+      "name": "forward1",
+      "job_id": "20261030_s42_forward1",
+      "kind": "flow",
+      "device": "cuda:2",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/code/9b859c206766/methods/purevision-flow/PureVision_V5/prepare_flow.py",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward",
+          "--direction",
+          "forward",
+          "--device",
+          "cuda:2",
+          "--batch-size",
+          "16",
+          "--shard-count",
+          "2",
+          "--shard-index",
+          "1",
+          "--report",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/reports/forward1.json"
+        ]
+      ],
+      "session": "v5_20261030_s42_forward1",
+      "log_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/logs/20261030_s42_forward1.log",
+      "status_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/jobs/forward1.json",
+      "run_dir": null,
+      "progress_path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/reports/forward1.json",
+      "fresh_output": null,
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/reports/forward1.json",
+          "field": "status",
+          "equals": "complete"
+        }
+      ],
+      "source_commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+      "source_plan_identity": "3699a867b9b70f0b3cb840f4ceae4fd7ad112e2155f540eaeca3aebb56bff826"
+    }
+  ],
+  "preparation_source": {
+    "path": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/pipeline/20261030_s42/plan.json",
+    "sha256": "aae84becd02d91750376010754d7cc07582ecc94112ef4b8f09082f200309307",
+    "identity": "3699a867b9b70f0b3cb840f4ceae4fd7ad112e2155f540eaeca3aebb56bff826",
+    "code": {
+      "commit": "9b859c206766c25ac50b78f9260fbedb58a8462e",
+      "dirty": false,
+      "verified_remote_commit": "9b859c206766c25ac50b78f9260fbedb58a8462e"
+    }
+  },
+  "identity": "f34552760913673f19209af3f86395bb2f227a507b9acbd23fb567332c477990"
+}
