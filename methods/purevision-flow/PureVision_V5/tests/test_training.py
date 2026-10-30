@@ -110,9 +110,13 @@ def test_two_step_interruption_matches_uninterrupted_state_and_predictions(tmp_p
     resumed_dir = training.train(args)
     resumed = load_state(resumed_dir)
     for key in ("model", "optimizer", "scheduler", "scaler", "rng", "epoch", "next_batch", "global_step",
+                "processed_batches", "optimizer_updates", "amp_skips",
                 "best_epe", "best_epoch", "bad_epochs", "running_loss", "running_count", "contract_hash"):
         assert_tree_equal(full[key], resumed[key])
     assert full["global_step"] == 6 and resumed["epoch"] == 2
+    assert full["processed_batches"] == full["optimizer_updates"] == 6 and full["amp_skips"] == 0
+    status = read_json(resumed_dir / "status.json")
+    assert status["processed_batches"] == status["optimizer_updates"] + status["amp_skips"]
     assert (full_dir / "dev_predictions.csv").read_bytes() == (resumed_dir / "dev_predictions.csv").read_bytes()
     assert read_json(resumed_dir / "run.json")["parent_run"] == "stopped"
 
@@ -272,3 +276,75 @@ def test_formal_run_requires_tracked_config_and_external_artifacts(tmp_path, mon
     args.smoke, args.output = True, args.features
     with pytest.raises(ValueError, match="new run directory"):
         training.train(args)
+
+
+def test_finite_forward_amp_overflow_skips_without_clipping_and_resumes_exactly(tmp_path):
+    # CPU GradScaler plus fp16 linear backward exercises the same public overflow
+    # protocol without acquiring a GPU in the ordinary test suite.
+    def create():
+        model = torch.nn.Linear(1, 1, bias=False)
+        model.weight.data.fill_(1.)
+        optimizer = torch.optim.AdamW(model.parameters(), lr=.01)
+        scaler = torch.amp.GradScaler("cpu", init_scale=2**18)
+        return model, optimizer, scaler
+
+    def steps(model, optimizer, scaler, count):
+        outcomes = []
+        for _ in range(count):
+            optimizer.zero_grad(set_to_none=True)
+            with torch.autocast("cpu", dtype=torch.float16):
+                loss = model(torch.ones(1, 1)).float().sum()
+            assert torch.isfinite(loss)
+            scaler.scale(loss).backward()
+            old_weight = model.weight.detach().clone()
+            result = training.optimizer_update(model, optimizer, scaler, 2.)
+            if not result["updated"]:
+                assert torch.equal(model.weight, old_weight)
+                assert not optimizer.state  # No Adam moments/step created for a skipped batch.
+                assert torch.isinf(model.weight.grad).all()  # No nonfinite clipping mutation.
+                assert result["scale_after"] == result["scale_before"] * .5
+            outcomes.append(result["updated"])
+        return outcomes
+
+    model, optimizer, scaler = create()
+    initial = steps(model, optimizer, scaler, 2)
+    assert initial == [False, False]
+    checkpoint = tmp_path / "overflow.pt"
+    torch.save(dict(model=model.state_dict(), optimizer=optimizer.state_dict(), scaler=scaler.state_dict()), checkpoint)
+    expected = steps(model, optimizer, scaler, 3)
+    assert expected == [False, True, True]
+    restored_model, restored_optimizer, restored_scaler = create()
+    saved = torch.load(checkpoint, weights_only=True)
+    restored_model.load_state_dict(saved["model"])
+    restored_optimizer.load_state_dict(saved["optimizer"])
+    restored_scaler.load_state_dict(saved["scaler"])
+    assert steps(restored_model, restored_optimizer, restored_scaler, 3) == expected
+    assert_tree_equal(model.state_dict(), restored_model.state_dict())
+    assert_tree_equal(optimizer.state_dict(), restored_optimizer.state_dict())
+    assert_tree_equal(scaler.state_dict(), restored_scaler.state_dict())
+
+
+@pytest.mark.parametrize("kind", ["nonfinite_fp32", "finite_norm_overflow"])
+def test_non_amp_nonfinite_gradients_and_finite_gradient_norm_overflow_still_fail(kind):
+    model = torch.nn.Linear(2, 1, bias=False)
+    optimizer = torch.optim.SGD(model.parameters(), lr=.1)
+    scaler = torch.amp.GradScaler("cpu", enabled=False)
+    model.weight.grad = torch.full_like(model.weight, float("inf") if kind == "nonfinite_fp32" else 1e30)
+    previous = model.weight.detach().clone()
+    with pytest.raises(RuntimeError, match="Nonfinite gradients|Nonfinite gradient norm"):
+        training.optimizer_update(model, optimizer, scaler, 2.)
+    assert torch.equal(model.weight, previous)
+
+
+def test_resume_rejects_missing_or_inconsistent_update_counters(tmp_path):
+    args = make_case(tmp_path / "case")
+    args.stop_after_steps = 2
+    previous = training.train(args)
+    packet = load_state(previous)
+    packet["amp_skips"] = 1  # Claimed updates+skips no longer equal processed batches.
+    corrupt = tmp_path / "bad_counters.pt"
+    torch.save(packet, corrupt)
+    args.output, args.resume, args.stop_after_steps = str(tmp_path / "rejected"), str(corrupt), 0
+    with pytest.raises(ValueError, match="counters missing or inconsistent"):
+        training.train(args)
+    assert not Path(args.output).exists()

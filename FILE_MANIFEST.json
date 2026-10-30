@@ -1348,6 +1348,12 @@
       "mode": "100755"
     },
     {
+      "path": "methods/purevision-flow/PureVision_V5/docs/INCIDENT_20261030_AMP.md",
+      "mode": "100644",
+      "sha256": "72e26c41554beacc749fa738586a772d22f867112ec5f19755adde189e8fc8eb",
+      "bytes": 2417
+    },
+    {
       "path": "methods/purevision-flow/PureVision_V5/docs/INCIDENT_20261030_QUEUE.md",
       "mode": "100644",
       "sha256": "fe95f25bc6bf2ff201e9ba8b7578738e93f774132af4bdf87620e2d72279badd",
@@ -1374,13 +1380,13 @@
     {
       "path": "methods/purevision-flow/PureVision_V5/docs/RUN_20261030.md",
       "mode": "100644",
-      "sha256": "d8e9658a8d74fc75576b5fd20bec9b991c81a25968f95053e0c9cde418d5a9e9",
-      "bytes": 5743
+      "sha256": "55fe6f5d8ed7c47bd74ae78a75ff334e8105b5f4f3c93742a38df1d08576d852",
+      "bytes": 6431
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/docs/VALIDATION.md",
-      "sha256": "2b04afeee2ad73310590cdaf0dfae44b84b6f9503c5a09485c78bf3c2f607c73",
-      "bytes": 2579,
+      "sha256": "3f11d35ad590edf410f65f7f44011ef437fd0598c22c87bfb2d65f361fc87774",
+      "bytes": 3025,
       "mode": "100755"
     },
     {
@@ -1511,8 +1517,8 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/purevision_v5/training.py",
-      "sha256": "49544cbfa4ca2b45f6dde2cdfcad4040c9fed0ae460a0ebe1c24692af1abba95",
-      "bytes": 17280,
+      "sha256": "d702f07dbe24197ee35094d3327468a7bee8c19b54b6434afbcac890e70be840",
+      "bytes": 20427,
       "mode": "100755"
     },
     {
@@ -1583,8 +1589,8 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/tests/test_training.py",
-      "sha256": "3726d70140723ff35b5fe6f4dbf6e9328f1d1ff9a3dc58c7a224451a891c73b2",
-      "bytes": 14566,
+      "sha256": "215681873cced08381ae123b7dd39ff6ac984e726c6cf107b065c445e3057697",
+      "bytes": 18603,
       "mode": "100755"
     },
     {
@@ -1600,397 +1606,397 @@
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/.gitignore",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/.gitignore",
       "sha256": "6b5d662d008a754c23711d8f819708b4a36024be9751795032e13cd8a14d3251",
       "bytes": 42,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/README.md",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/README.md",
       "sha256": "81206bcaf34664baeaba20a02c48621f8d273fc10ecdef16e51b8459cc384cfc",
       "bytes": 10240,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/check_environment.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/check_environment.py",
       "sha256": "a7424a480a745c60798825ff8376b81d57f17b171073f87ebda2519e373369f3",
       "bytes": 1449,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/config/default.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/config/default.json",
       "sha256": "4d67bc45007e4ad0178af5382d7df1fd0576d5c120531e9eb1f2ce08b19cac23",
       "bytes": 1027,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/data/HW_DEV_CURVE40/calibration.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/data/HW_DEV_CURVE40/calibration.json",
       "sha256": "14bbe2534b5f4a984d565f86f2a410ec496dc3aa56f3fd4018997d1a92772606",
       "bytes": 1605,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/data/HW_DEV_CURVE40/frames.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/data/HW_DEV_CURVE40/frames.json",
       "sha256": "294eade7d39c498c36c888d5417b02483bdbad965142f1b4213e4e896bc80e8a",
       "bytes": 41093,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/data/HW_DEV_SINE40_A12/calibration.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/data/HW_DEV_SINE40_A12/calibration.json",
       "sha256": "40d89a0d2453da858862d131f6b1ae08e491cb42eefe1b8fefd3b6c2d9202a64",
       "bytes": 1613,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/data/HW_DEV_SINE40_A12/frames.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/data/HW_DEV_SINE40_A12/frames.json",
       "sha256": "92df977a349da6783520a8949ef98826fe7711c2ad2875231f25899d58806741",
       "bytes": 41093,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/data/HW_DEV_SINE40_A14/calibration.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/data/HW_DEV_SINE40_A14/calibration.json",
       "sha256": "40d89a0d2453da858862d131f6b1ae08e491cb42eefe1b8fefd3b6c2d9202a64",
       "bytes": 1613,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/data/HW_DEV_SINE40_A14/frames.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/data/HW_DEV_SINE40_A14/frames.json",
       "sha256": "af28c18e92d16ad4aec644673815f71ea373d6ee2af8e9d246546857311ecc4e",
       "bytes": 41093,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/data/HW_DEV_SINE40_M12/calibration.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/data/HW_DEV_SINE40_M12/calibration.json",
       "sha256": "40d89a0d2453da858862d131f6b1ae08e491cb42eefe1b8fefd3b6c2d9202a64",
       "bytes": 1613,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/data/HW_DEV_SINE40_M12/frames.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/data/HW_DEV_SINE40_M12/frames.json",
       "sha256": "aeb1cfe2264f91a1b5b7360e7ca85e2b7db8095597a4197b4bc1949f4e6be6d2",
       "bytes": 41093,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/docs/版本选择说明.md",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/docs/\u7248\u672c\u9009\u62e9\u8bf4\u660e.md",
       "sha256": "4971484abc3ece5956a74e50b192bdbe41afb33dfc6d30a2b861c5fd633483ec",
       "bytes": 6105,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/docs/验证报告.md",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/docs/\u9a8c\u8bc1\u62a5\u544a.md",
       "sha256": "21a429e3006f523b2f6be7f415580e07be6fee31db393a599c504e27fd5e50a9",
       "bytes": 4470,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evaluate.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evaluate.py",
       "sha256": "c40ccd4e7fa252415dd87ff11cd118f7c5a9ca57ad46f2c129361b0ce76ccbf6",
       "bytes": 6093,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evaluation/labels/HW_DEV_CURVE40/truth_20hz.csv",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evaluation/labels/HW_DEV_CURVE40/truth_20hz.csv",
       "sha256": "b5634e1c0a53e3f6ba505882d79899095ee1ff55cf50055e012431ebc61198dd",
       "bytes": 245459,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evaluation/labels/HW_DEV_SINE40_A12/truth_20hz.csv",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evaluation/labels/HW_DEV_SINE40_A12/truth_20hz.csv",
       "sha256": "ef0c08d33dd0414cb669f0004ea6f5fcf74a985a35ef2165fe92953c8e0b1904",
       "bytes": 240171,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evaluation/labels/HW_DEV_SINE40_A14/truth_20hz.csv",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evaluation/labels/HW_DEV_SINE40_A14/truth_20hz.csv",
       "sha256": "1b9125e2ff9864cc0de222921fc21bb626a4f231eaa71ce63243981afd0e4ca5",
       "bytes": 239912,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evaluation/labels/HW_DEV_SINE40_M12/truth_20hz.csv",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evaluation/labels/HW_DEV_SINE40_M12/truth_20hz.csv",
       "sha256": "1dfc69f82a555b822c9451a8a0597d0c61be2685acea24aadefd0818f7966c97",
       "bytes": 240156,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evidence/branch_ablation/analysis-report.md",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evidence/branch_ablation/analysis-report.md",
       "sha256": "37a7fcf540911bbeb88caacfbf73df6c8d8984a6a3ddd00827ff988e2c807873",
       "bytes": 4752,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evidence/branch_ablation/macro.csv",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evidence/branch_ablation/macro.csv",
       "sha256": "04feb0b984a44c8e5778a472426bd01f451e5d7c8bec5f1aec0daa5a60ecd60d",
       "bytes": 7230,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evidence/branch_ablation/metrics.csv",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evidence/branch_ablation/metrics.csv",
       "sha256": "309bcd1d79c0dc8a167904a5c77d6e2d4f400e5f30939dc586149c047029bc7e",
       "bytes": 40048,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evidence/method_evidence/comparisons.csv",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evidence/method_evidence/comparisons.csv",
       "sha256": "9ac94e3b57afa1e05b822e36033db7d101b38409561dc99f5c8e7bfc8f301584",
       "bytes": 5812,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evidence/method_evidence/macro_body.csv",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evidence/method_evidence/macro_body.csv",
       "sha256": "da6a7631783142df3b6eef1b1fa2921dfcaff399d111c030cafbe92b7a480055",
       "bytes": 4033,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evidence/method_evidence/metrics_body.csv",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evidence/method_evidence/metrics_body.csv",
       "sha256": "13263508e50eae8b4c266b3047c1ba689efd6627a2014670988daae0b306fbd3",
       "bytes": 26519,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evidence/method_evidence/per_window_body.csv",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evidence/method_evidence/per_window_body.csv",
       "sha256": "8aefcef1995d2141f0236f7d949eb1e2feb54300bcedead59edb5ab759ee3c53",
       "bytes": 1222053,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evidence/method_evidence/provenance.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evidence/method_evidence/provenance.json",
       "sha256": "32855282cf5a8e1e75247ef1d9ca3d80f3e203e6906f74bad974240c21d4ed9d",
       "bytes": 17570,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evidence/original_package_manifest.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evidence/original_package_manifest.json",
       "sha256": "329ae7f808db81219238399d0727ded259883fc5f96e29e0386bd0297242ed0a",
       "bytes": 197251,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evidence/results/condition_macro.csv",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evidence/results/condition_macro.csv",
       "sha256": "02b02d5469061b3f4ded470b46718016045f2e952d2a1a77c0cda51c4f7def4d",
       "bytes": 3732,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/evidence/source_manifest.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/evidence/source_manifest.json",
       "sha256": "1a46b5006dc2d29e82eebef7d6da2dcb208ecae8eec9bb54eaba2af054b29fc9",
       "bytes": 245613,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/model/__init__.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/model/__init__.py",
       "sha256": "30f417802153bf76a1a85a024e8f1361d10d3314705831d5c6bbd86ba7a9d48f",
       "bytes": 47,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/model/camera_geometry.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/model/camera_geometry.py",
       "sha256": "5758ce9329acfa2c7682fbb4f76344ef7482c0abde55c257d0244224e85f77ac",
       "bytes": 2245,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/model/flexinet_backbone.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/model/flexinet_backbone.py",
       "sha256": "3ce31001db9cb20f445db0fafa707804bfc2023d150d4b0314dd446041c1a155",
       "bytes": 1311,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/model/modules.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/model/modules.py",
       "sha256": "78b1d491d8e3435b0492510799ad1f9774910108e16bbc2c232658b371cfcbb8",
       "bytes": 5525,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/model/v3/__init__.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/model/v3/__init__.py",
       "sha256": "f31d0e0385047452435ce4774372fedc71008a734a7fc5561d5f857668a04eb0",
       "bytes": 610,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/model/v3/geometry.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/model/v3/geometry.py",
       "sha256": "daf449c148f6e98b91d7633123e5923f26dda2e3d1abc0826148756675943537",
       "bytes": 15205,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/model/v3/losses.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/model/v3/losses.py",
       "sha256": "61eacd558107606de66cf3f4520174bc8380c53bf3047e0b3179fcba8b62f900",
       "bytes": 6504,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/model/v3/model.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/model/v3/model.py",
       "sha256": "64103d9ed230445efa16f995d6bc7ff480ac175772d8f5505c35d5c1329b2736",
       "bytes": 21245,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/model/v3/types.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/model/v3/types.py",
       "sha256": "f77b937e14560958e2ca76e34faeb795122821a7b8a7abfb73a77fcae2f83d6d",
       "bytes": 1373,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/package_manifest.json",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/package_manifest.json",
       "sha256": "e008e39a271cd884ddea7abf64d58edec4d7b82862863c44ca43e1424b9ee04f",
       "bytes": 10907,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/requirements-torch-cu128.txt",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/requirements-torch-cu128.txt",
       "sha256": "d05ca733e9684095e7101e9a318a4e806c169a89153d5dc1c30b695db6277fda",
       "bytes": 85,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/requirements.txt",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/requirements.txt",
       "sha256": "12c9393ab7186f1919d536f1f510b756934774e6864f130f464881524eebc619",
       "bytes": 110,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/roll_velocity/__init__.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/roll_velocity/__init__.py",
       "sha256": "93bea1ab15205a9826b29494118df3bad3e20cf0ecc7d2a3ecf8b90330ebce15",
       "bytes": 85,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/roll_velocity/finite_geometry.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/roll_velocity/finite_geometry.py",
       "sha256": "29bb746ca45b272f866887dc5c6df64625f10a85449f3c48c32cd89ad26a8cbc",
       "bytes": 5041,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/roll_velocity/flow.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/roll_velocity/flow.py",
       "sha256": "66ad91aae63e017470339dba2e894c10823a9c083ea15a61189bee2f2cdd89c8",
       "bytes": 4287,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/roll_velocity/io.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/roll_velocity/io.py",
       "sha256": "1f2e5b8ced9c059dbfb3fa39258f35ca0e4db050f335884c5ffe3139ca2e4842",
       "bytes": 5812,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/roll_velocity/normal_policy.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/roll_velocity/normal_policy.py",
       "sha256": "2fe3a952db30b6cbff0d85b2f43fcb85321c59aace1236b9f1c22e72ae48b15e",
       "bytes": 1053,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/roll_velocity/pipeline.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/roll_velocity/pipeline.py",
       "sha256": "8e279b91a37f2096758e3fe7e8bfceb51146d62e68f8f5445484fe38853a63a9",
       "bytes": 9590,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/roll_velocity/reliable_normal.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/roll_velocity/reliable_normal.py",
       "sha256": "ca75b2c19838d99134bacdf3478fa7bc3db5f45b82a5ef3d229b342b0b20dcd1",
       "bytes": 6253,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/roll_velocity/solver_adapter.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/roll_velocity/solver_adapter.py",
       "sha256": "d97b86b95429cde3c214bd2d4020b94416106be50978f9e19fc58a01a28dcfd5",
       "bytes": 5784,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/roll_velocity/standalone_geometry.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/roll_velocity/standalone_geometry.py",
       "sha256": "201d87d545ceb0db91001bdad0e7c1a2d498dc58e6abdcbf1d88672f5ba82e25",
       "bytes": 829,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/roll_velocity/visual_support.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/roll_velocity/visual_support.py",
       "sha256": "385deaedfd5cdc77d83abaeb773f9abf7e2db01fcc8d321756ff48a4b79e43ba",
       "bytes": 3158,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/run.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/run.py",
       "sha256": "41379c82143b1bb37b20564f288fd7ae68003e0c52a1fc3d28ec0528b8b28d1b",
       "bytes": 6151,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/run_batch.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/run_batch.py",
       "sha256": "52dc8fecc877f0bc8919a495f0b6f90fc47f2e3fb600cf2ed4fc47e9847e0216",
       "bytes": 3549,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/scripts/run_all.sh",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/scripts/run_all.sh",
       "sha256": "bdc6a2b36a4767d0263bd7ba1fa29100ff2475d30878a53f861e53a6cd687dd2",
       "bytes": 224,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/scripts/setup_linux.sh",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/scripts/setup_linux.sh",
       "sha256": "b13994990e6308ac0194322474746f429cf22ef95822ee4b83c8c5b1812f6e79",
       "bytes": 332,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/scripts/smoke.sh",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/scripts/smoke.sh",
       "sha256": "f8210dc01c49b882d28b18a5ec4895cce28fcea0d61dd5f6d54f6e08de1edc9e",
       "bytes": 204,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/tests/test_geometry.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/tests/test_geometry.py",
       "sha256": "0720b907c2f8829e8ac058ced4ede41e4ff7a4819d4388eb79ea5198826b4c6b",
       "bytes": 6040,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/tests/test_inputs_evaluation.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/tests/test_inputs_evaluation.py",
       "sha256": "7cc29daa72f4b7053937cc436fb63cc66425397cb1cbd192ca31ef9b88c5d9fe",
       "bytes": 3774,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/tests/test_pipeline_failure.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/tests/test_pipeline_failure.py",
       "sha256": "723270c851cc477a31241c0a1f220faaa9290184d0706aea66021e23a5f6e463",
       "bytes": 2106,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/tools/build_release.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/tools/build_release.py",
       "sha256": "6caf3399a73c0030ead6e96963a4a7479ccb6dca1d213dfa1a2ceb7a8a6e4801",
       "bytes": 2737,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/tools/check_historical_cache.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/tools/check_historical_cache.py",
       "sha256": "b772a0887e3f780c6d76f072695de61f124ef74137d3181a63fd8ecfa1391692",
       "bytes": 2002,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/verify_package.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/verify_package.py",
       "sha256": "b72caf8d664e48e2710f15b33eb26f206d9390a8ba15843452acc4380fb2ad1c",
       "bytes": 832,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/verify_regression.py",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/verify_regression.py",
       "sha256": "b558b0c0cdeb1477457a645cfbb9a18a4ff3699da51cf7148c258ac9e7baf416",
       "bytes": 3125,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/weights/fusion_seed42_best.pth",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/weights/fusion_seed42_best.pth",
       "sha256": "56a7a5791e60decec4c5442eb0ffc86ff45d7963c0e84fbbb0925658c8192a78",
       "bytes": 26504665,
       "mode": "100755"
     },
     {
-      "path": "methods/purevision-flow/补偿速度估计/weights/raft_large_C_T_SKHT_V2-ff5fadd5.pth",
+      "path": "methods/purevision-flow/\u8865\u507f\u901f\u5ea6\u4f30\u8ba1/weights/raft_large_C_T_SKHT_V2-ff5fadd5.pth",
       "sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
       "bytes": 21106607,
       "mode": "100755"

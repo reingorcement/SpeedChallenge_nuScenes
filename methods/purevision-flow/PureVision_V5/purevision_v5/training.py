@@ -47,6 +47,37 @@ def loss_fn(prediction, target, config):
     return torch.nn.functional.smooth_l1_loss(prediction / scale, target / scale, beta=config["loss_beta"])
 
 
+def optimizer_update(model, optimizer, scaler, grad_clip):
+    """Unscale before clipping; let GradScaler skip overflowed gradients safely.
+
+    GradScaler.unscale_ records inf/NaN per optimizer. Its public step() skips
+    that update and update() reduces the scale. Clipping a nonfinite gradient
+    before this branch would either abort normal AMP recovery or mutate it.
+    """
+    scaler.unscale_(optimizer)
+    parameters = [p for p in model.parameters() if p.grad is not None]
+    if not parameters:
+        raise RuntimeError("No gradients for the velocity model")
+    norm = torch.nn.utils.get_total_norm([p.grad for p in parameters], error_if_nonfinite=False)
+    if not torch.isfinite(norm):
+        finite_gradients = all(bool(torch.isfinite(p.grad).all()) for p in parameters)
+        if finite_gradients:
+            raise RuntimeError("Nonfinite gradient norm with finite gradients; not an AMP overflow skip")
+        if not scaler.is_enabled():
+            raise RuntimeError("Nonfinite gradients with AMP disabled")
+        scale_before = scaler.get_scale()
+        scaler.step(optimizer)  # Recorded inf/NaN guarantees no parameter/Adam update.
+        scaler.update()
+        scale_after = scaler.get_scale()
+        if not np.isfinite(scale_after) or not 0 < scale_after < scale_before:
+            raise RuntimeError("AMP overflow did not reduce its finite positive loss scale")
+        return dict(updated=False, scale_before=scale_before, scale_after=scale_after)
+    torch.nn.utils.clip_grads_with_norm_(parameters, grad_clip, norm)
+    scaler.step(optimizer)
+    scaler.update()
+    return dict(updated=True)
+
+
 def move_inputs(batch, device):
     return {key: value.to(device, non_blocking=True) for key, value in batch["inputs"].items()}
 
@@ -142,6 +173,7 @@ def train(args):
     amp = bool(config["amp"] and device.type == "cuda")
     scaler = torch.amp.GradScaler("cuda", enabled=amp)
     epoch, next_batch, global_step, bad_epochs = 0, 0, 0, 0
+    optimizer_updates, amp_skips = 0, 0
     best_epe, best_epoch = float("inf"), None
     running_loss, running_count = 0., 0
     parent_run = None
@@ -152,6 +184,11 @@ def train(args):
             raise ValueError("Resume rejected: model/label/loss/data/config semantics changed")
         if checkpoint["code"]["commit"] != version["commit"]:
             raise ValueError("Resume rejected: code commit changed; start a new experiment")
+        counters = [checkpoint.get(k) for k in ("processed_batches", "optimizer_updates", "amp_skips")]
+        if (any(not isinstance(v, int) or isinstance(v, bool) or v < 0 for v in counters)
+                or counters[0] != checkpoint["global_step"] or counters[0] != counters[1] + counters[2]):
+            raise ValueError("Resume rejected: update/overflow counters missing or inconsistent")
+        _, optimizer_updates, amp_skips = counters
         model.load_state_dict(checkpoint["model"], strict=True)
         optimizer.load_state_dict(checkpoint["optimizer"])
         scheduler.load_state_dict(checkpoint["scheduler"])
@@ -189,6 +226,7 @@ def train(args):
                runtime=vars(args), environment=environment(), train_windows=len(train_data), dev_windows=len(dev_data),
                train_scenes=len(train_data.scene_names), dev_scenes=len(dev_data.scene_names),
                trainable_parameters=sum(p.numel() for p in model.parameters() if p.requires_grad),
+               step_semantics="global_step = processed_batches = optimizer_updates + amp_skips",
                checkpoint=str(output / "last.pt"))
     write_json(output / "run.json", run)
     stop_requested = [False]
@@ -200,6 +238,8 @@ def train(args):
     def state(status, **extra):
         write_json(output / "status.json", dict(run_id=output.name, experiment=experiment, status=status,
                    updated_at=now(), epoch=epoch, global_step=global_step,
+                   processed_batches=global_step, optimizer_updates=optimizer_updates, amp_skips=amp_skips,
+                   amp_scale=scaler.get_scale(),
                    best_epe=best_epe if np.isfinite(best_epe) else None, best_epoch=best_epoch,
                    elapsed_seconds=time.monotonic()-started, **extra))
 
@@ -209,6 +249,7 @@ def train(args):
                     model=model.state_dict(), optimizer=optimizer.state_dict(), scheduler=scheduler.state_dict(),
                     scaler=scaler.state_dict(), rng=rng_state(), epoch=epoch_value, next_batch=batch_value,
                     global_step=global_step, best_epe=best_epe, best_epoch=best_epoch, bad_epochs=bad_epochs,
+                    processed_batches=global_step, optimizer_updates=optimizer_updates, amp_skips=amp_skips,
                     running_loss=running_loss, running_count=running_count))
 
     state("running")
@@ -234,17 +275,22 @@ def train(args):
                 if not torch.isfinite(loss):
                     raise RuntimeError("Nonfinite loss")
                 scaler.scale(loss).backward()
-                scaler.unscale_(optimizer)
-                torch.nn.utils.clip_grad_norm_(model.parameters(), config["grad_clip"], error_if_nonfinite=True)
-                scaler.step(optimizer)
-                scaler.update()
+                update = optimizer_update(model, optimizer, scaler, config["grad_clip"])
                 global_step += 1
+                optimizer_updates += int(update["updated"])
+                amp_skips += int(not update["updated"])
                 next_batch = batch_number + 1
                 running_loss += float(loss.detach()) * len(target)
                 running_count += len(target)
+                if not update["updated"]:
+                    print(json.dumps(dict(event="amp_overflow", epoch=epoch, step=global_step,
+                          processed_batches=global_step, optimizer_updates=optimizer_updates, amp_skips=amp_skips,
+                          loss=float(loss.detach()), **update, time=now())), flush=True)
                 if global_step <= 3 or global_step % config["log_steps"] == 0:
                     state("running", loss=float(loss.detach()))
-                    print(json.dumps(dict(event="step", epoch=epoch, step=global_step, loss=float(loss.detach()), time=now())), flush=True)
+                    print(json.dumps(dict(event="step", epoch=epoch, step=global_step, processed_batches=global_step,
+                          optimizer_updates=optimizer_updates, amp_skips=amp_skips, amp_scale=scaler.get_scale(),
+                          loss=float(loss.detach()), time=now())), flush=True)
                 checkpoint_due = global_step % config["checkpoint_steps"] == 0 or time.monotonic()-last_save >= 120
                 interrupted = stop_requested[0] or (args.stop_after_steps and global_step >= args.stop_after_steps)
                 if checkpoint_due or interrupted:
@@ -263,6 +309,8 @@ def train(args):
             else:
                 bad_epochs += 1
             entry = dict(epoch=epoch, global_step=global_step, train_loss=running_loss/max(running_count, 1),
+                         processed_batches=global_step, optimizer_updates=optimizer_updates, amp_skips=amp_skips,
+                         amp_scale=scaler.get_scale(),
                          learning_rate=optimizer.param_groups[0]["lr"], validation=summary, time=now())
             with open(output / "metrics.jsonl", "a") as stream:
                 stream.write(json.dumps(entry, allow_nan=False)+"\n")

@@ -1,6 +1,13 @@
 # S2 implementation verification — 2026-10-30
 
 These checks establish executable interfaces, not scientific performance.
+The complete suite after the AMP fix passed: 124 tests (4.60 seconds, CPU).
+
+The first full R00 exposed an AMP clipping-order bug. Forced-overflow tests now
+verify skipped optimizer updates, scale reduction, subsequent recovery and
+exact state roundtrip, including an isolated GPU1 check. FP32/nonfinite-norm
+errors remain fatal. See [the incident](INCIDENT_20261030_AMP.md); the failed run
+is excluded and all six fresh runs use the pushed fix.
 
 Additional real packed-cache integration used four train and four dev windows:
 R03/R04/R05 each completed 20 CPU steps, and independent evaluation matched the
