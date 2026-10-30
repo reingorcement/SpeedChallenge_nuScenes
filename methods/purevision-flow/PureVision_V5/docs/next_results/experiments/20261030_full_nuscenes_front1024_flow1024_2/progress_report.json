@@ -1,0 +1,239 @@
+{
+  "status": "running",
+  "started_at_utc": "2026-10-30T15:03:27.683115+00:00",
+  "pairs_processed": 104,
+  "total": 77339,
+  "expected_pairs": 77339,
+  "target_pairs": 77339,
+  "all_total": 232239,
+  "remaining_pairs": 77235,
+  "estimated_remaining_s": 43698.98049292467,
+  "counts": {
+    "created": 104,
+    "reused": 0,
+    "recovered": 0,
+    "adopted": 0
+  },
+  "elapsed_s": 58.842415631050244,
+  "pairs_per_second": 1.7674325379857585,
+  "throughput": 1.7674325379857585,
+  "bytes": 620106448,
+  "bytes_written": 620106448,
+  "cuda_peak_allocated_bytes": 9452956672,
+  "arguments": {
+    "index": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/index/index.json",
+    "index_sha256": "b42d3c541d65ecd372bae62026a1fd1e537f533d56b66632ca8eef1be66f0816",
+    "output_root": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030",
+    "device": "cuda:2",
+    "batch_size": 8,
+    "threads": 4,
+    "shard_index": 2,
+    "shard_count": 3,
+    "report": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_2.json",
+    "adoption": "/home/zhangyu/.local/share/speedest-v5-next/plans/full_nuscenes_adoption_20261030.json",
+    "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V4/weights/raft_large_C_T_SKHT_V2.pth",
+    "limit": 0,
+    "require_pushed": false
+  },
+  "processed_pair_sha256": "296685f93a69bfe66f755b9a66521368e4b5c0631c12ec4fe7ea9763e2008ac4",
+  "sample_receipts": [
+    {
+      "outcome": "created",
+      "bytes": 5962562,
+      "bytes_written": 5962562,
+      "native_sha256": "7d9075677c37314fdf39421e1f0269d43228eb44455622458d5042f72ffde61a",
+      "compact_sha256": "92102fb99b039472424ad2d786fdf6cadbb37ed9510bd02188c3b93098bdfc22",
+      "identity": "d1f1ed9e99ef759907198a6758a9f34e06d31ffb805ab9f28161404ba4871a1a",
+      "generation_code": {
+        "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+        "dirty": false,
+        "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+      },
+      "source": "37072de44eb449429122ac4a69634f96",
+      "target": "437ea3c1303d44348053cf47b9cef053",
+      "version": "v1.0-test",
+      "camera": "CAM_FRONT",
+      "scene": "scene-0079"
+    },
+    {
+      "outcome": "created",
+      "bytes": 5962562,
+      "bytes_written": 5962562,
+      "native_sha256": "24c1c45c15e13db592c775fcc476d18e0079874a486b55d22ef2681e62fda8fa",
+      "compact_sha256": "5dcc8918231e8e68fba4d92c636cf62ecb2d8675d242c163bd932eeec8a795ea",
+      "identity": "d5c36d95dca93eb5e2383f1becefdb0f412b6f9e6bd2d5c5cb6e36ed7dde522a",
+      "generation_code": {
+        "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+        "dirty": false,
+        "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+      },
+      "source": "437ea3c1303d44348053cf47b9cef053",
+      "target": "746601d0d2fb4f0a9a839051c85946dc",
+      "version": "v1.0-test",
+      "camera": "CAM_FRONT",
+      "scene": "scene-0079"
+    },
+    {
+      "outcome": "created",
+      "bytes": 5962562,
+      "bytes_written": 5962562,
+      "native_sha256": "d9cf489d5c9469d57b4e86679a021668976b74e041a2e609f5ec39fc31e65bf0",
+      "compact_sha256": "2867da3325fb26e877c910556640b1b40a9090fa9ed30680a9a70c5cc2acf10b",
+      "identity": "af6ccffa3d69fa387fa36387159cbc70c2086c0cb8f5ec0e85ef576d2a8d5a62",
+      "generation_code": {
+        "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+        "dirty": false,
+        "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+      },
+      "source": "746601d0d2fb4f0a9a839051c85946dc",
+      "target": "17ace3cbc57548a5acede2949701d2b9",
+      "version": "v1.0-test",
+      "camera": "CAM_FRONT",
+      "scene": "scene-0079"
+    }
+  ],
+  "last_receipts": [
+    {
+      "outcome": "created",
+      "bytes": 5962562,
+      "bytes_written": 5962562,
+      "native_sha256": "34c4140513864c0f757d88488258b51cbd1a4191968442f1c8e998d90aa90acc",
+      "compact_sha256": "7770c6fc427944308cd432385cb7cdb5835204440ff550b3b27e0bc55a499a2d",
+      "identity": "7b81376c79f7cb3593b528caec69c05d7894ffcc1011b36ad9fd7173d13c41cb",
+      "generation_code": {
+        "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+        "dirty": false,
+        "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+      },
+      "source": "234829efbee54689b9be93d11c7fb514",
+      "target": "fe4cebff4a864851b95e6fe767394c2e",
+      "version": "v1.0-test",
+      "camera": "CAM_FRONT",
+      "scene": "scene-0079"
+    },
+    {
+      "outcome": "created",
+      "bytes": 5962562,
+      "bytes_written": 5962562,
+      "native_sha256": "0fa7cb9855cecb63b8bc787487c0279c9ae3a15105bf1dc6d66bac541bf8dc1c",
+      "compact_sha256": "44e03b6c49cc6398bfa80c382c915bfb65efebd1017d4470e504d1ea922cce44",
+      "identity": "0d64f7dae6b22dfa05ed90afe4c80ce1ac78d1e26ab14da0b5c8af1ee69b9c50",
+      "generation_code": {
+        "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+        "dirty": false,
+        "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+      },
+      "source": "fe4cebff4a864851b95e6fe767394c2e",
+      "target": "b451a2d3e123447dbb3c5e88ca004151",
+      "version": "v1.0-test",
+      "camera": "CAM_FRONT",
+      "scene": "scene-0079"
+    },
+    {
+      "outcome": "created",
+      "bytes": 5962562,
+      "bytes_written": 5962562,
+      "native_sha256": "5e424cafcf32638298f47970eb0bf0c1cbae6ca7943c3bce7e62f5f31d92a6a3",
+      "compact_sha256": "4615110c27cdd523604849af97acf03c7633b92482fd75a443ec1bfa4a2f366e",
+      "identity": "43858e1df4b761d3e4285455e40ef97763a5b54a15a7a9f325049ca1afc64626",
+      "generation_code": {
+        "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+        "dirty": false,
+        "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+      },
+      "source": "b451a2d3e123447dbb3c5e88ca004151",
+      "target": "a51cec8e4c5d4b8fa4fc1c3ef9c93857",
+      "version": "v1.0-test",
+      "camera": "CAM_FRONT",
+      "scene": "scene-0079"
+    }
+  ],
+  "code": {
+    "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+    "dirty": false,
+    "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+  },
+  "index": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/index/index.json",
+  "index_sha256": "b42d3c541d65ecd372bae62026a1fd1e537f533d56b66632ca8eef1be66f0816",
+  "index_identity": "1f33c9939baaec4d41ad0b084923787f50acc71f73e988eb3e6d0bdb1e7f8246",
+  "scope": "full_dataset_generation",
+  "flow_py_sha256": "132a1074a13c3dc2abedf165d663713de7a67269aebc382853485bed23c9bdb3",
+  "adoption": {
+    "schema": "v5_full_flow_adoption_v1",
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/plans/full_nuscenes_adoption_20261030.json",
+    "sha256": "e2049d5252414a3fe60d00fa5ce8d99433747369739f7dc15fad5720a8db1d93"
+  },
+  "adoption_origins": [
+    {
+      "commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
+      "flow_py": "/home/zhangyu/.local/share/speedest-v5-next/code/be327b7f91f5/methods/purevision-flow/PureVision_V5/purevision_v5/flow.py",
+      "native_root": "/home/zhangyu/.local/share/speedest-v5-next/flows/20261030_pilot_s42_retry1_raft1024_native",
+      "packed_index": "/home/zhangyu/.local/share/speedest-v5-next/flows/20261030_pilot_s42_retry1_raft1024_packed/packed_index.json",
+      "flow_py_sha256": "132a1074a13c3dc2abedf165d663713de7a67269aebc382853485bed23c9bdb3",
+      "packed_index_sha256": "e39519528c01fb526d1f921257b317e02bb5a993f8941428b02eaa85590257b1",
+      "packed_index_code": {
+        "commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
+        "dirty": false,
+        "verified_remote_commit": null
+      }
+    }
+  ],
+  "native_contract": {
+    "version": "v5_raft_native_v2",
+    "prediction": "frozen_raft_not_ground_truth",
+    "raft_size": [
+      576,
+      1024
+    ],
+    "input": "RGB",
+    "resize": "bilinear",
+    "antialias": false,
+    "range": [
+      -1.0,
+      1.0
+    ],
+    "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+    "num_flow_updates": 12,
+    "compute_dtype": "float32",
+    "tf32": false,
+    "flow_units": "pixels_at_raft_resolution",
+    "component_order": [
+      "u_right",
+      "v_down"
+    ],
+    "valid": "finite_vector_and_endpoint_inside_target",
+    "fb_rule": "squared_relative",
+    "fb_alpha": 0.01,
+    "fb_beta_px2": 0.5,
+    "warp_align_corners": true
+  },
+  "derived_contract": {
+    "version": "v5_flow_view_v2",
+    "model_size": [
+      72,
+      128
+    ],
+    "native_size": [
+      576,
+      1024
+    ],
+    "model_flow_units": "pixels_at_model_resolution",
+    "flow_resize": "bilinear_align_corners_false_vector_scaled",
+    "vector_scale_uv": [
+      0.125,
+      0.125
+    ],
+    "mask_resize": "nearest",
+    "invalid_model_flow": "zero",
+    "flow_dtype": "float16",
+    "mask_dtype": "bool",
+    "dt": "positive_seconds_separate_not_divided_into_flow"
+  },
+  "last_pair": {
+    "source": "b451a2d3e123447dbb3c5e88ca004151",
+    "target": "a51cec8e4c5d4b8fa4fc1c3ef9c93857",
+    "version": "v1.0-test",
+    "camera": "CAM_FRONT",
+    "scene": "scene-0079"
+  }
+}

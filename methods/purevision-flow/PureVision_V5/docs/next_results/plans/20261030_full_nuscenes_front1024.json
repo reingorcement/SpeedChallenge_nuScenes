@@ -1,0 +1,314 @@
+{
+  "schema": "v5_pipeline_v1",
+  "stage": "full_nuscenes_flow",
+  "scope": "all_available_nuscenes_CAM_FRONT",
+  "root": "/home/zhangyu/.local/share/speedest-v5-next",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5",
+  "python": "/home/zhangyu/.conda/envs/speedest/bin/python",
+  "prefix": "20261030_full_nuscenes_front1024",
+  "code": {
+    "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+    "dirty": false,
+    "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+  },
+  "manifest": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/index/index.json",
+  "manifest_sha256": "b42d3c541d65ecd372bae62026a1fd1e537f533d56b66632ca8eef1be66f0816",
+  "index_identity": "1f33c9939baaec4d41ad0b084923787f50acc71f73e988eb3e6d0bdb1e7f8246",
+  "counts": {
+    "groups": 1000,
+    "frames": 233239,
+    "pairs": 232239
+  },
+  "data_manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+  "data_manifest_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+  "output_root": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030",
+  "adoption": "/home/zhangyu/.local/share/speedest-v5-next/plans/full_nuscenes_adoption_20261030.json",
+  "adoption_sha256": "e2049d5252414a3fe60d00fa5ce8d99433747369739f7dc15fad5720a8db1d93",
+  "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5/configs/next/full_nuscenes_flow.json",
+  "config_sha256": "8c6d924d74711f0737d7aaa55c965a0caab102370dd399e29183944cb444721e",
+  "config": {
+    "schema": "v5_full_flow_config_v1",
+    "versions": [
+      "v1.0-test",
+      "v1.0-trainval"
+    ],
+    "cameras": [
+      "CAM_FRONT"
+    ],
+    "direction": "forward",
+    "raft_size_hw": [
+      576,
+      1024
+    ],
+    "model_size_hw": [
+      72,
+      128
+    ],
+    "batch_size": 8,
+    "devices": [
+      "cuda:0",
+      "cuda:1",
+      "cuda:2"
+    ],
+    "threads_per_worker": 4,
+    "pack_partitions": [
+      "train_core",
+      "dev"
+    ],
+    "estimated_bytes_per_pair": 5962562,
+    "disk_reserve_bytes": 53687091200,
+    "storage_estimate_margin": 1.15,
+    "permission": "user_selected_all_1000_scenes_CAM_FRONT_1024x576",
+    "labels": "unchanged_not_used_for_generation"
+  },
+  "config_hashes": {},
+  "features": null,
+  "features_status": null,
+  "full_generation_authorized": true,
+  "training_authorized": false,
+  "packed_train_dev": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+  "estimated_cache_bytes_with_margin": 1592450351765,
+  "observed_free_bytes": 18830828240896,
+  "jobs": [
+    {
+      "name": "flow1024_0",
+      "job_id": "20261030_full_nuscenes_front1024_flow1024_0",
+      "kind": "flow",
+      "device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5/prepare_full_flow.py",
+          "--index",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/index/index.json",
+          "--index-sha256",
+          "b42d3c541d65ecd372bae62026a1fd1e537f533d56b66632ca8eef1be66f0816",
+          "--output-root",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030",
+          "--adoption",
+          "/home/zhangyu/.local/share/speedest-v5-next/plans/full_nuscenes_adoption_20261030.json",
+          "--device",
+          "cuda:0",
+          "--batch-size",
+          "8",
+          "--threads",
+          "4",
+          "--shard-index",
+          "0",
+          "--shard-count",
+          "3",
+          "--report",
+          "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_0.json"
+        ]
+      ],
+      "session": "v5next_20261030_full_nuscenes_front1024_flow1024_0",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_flow1024_0.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_0.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_0.json",
+      "run_dir": null,
+      "fresh_output": null,
+      "expected_pairs": 77623,
+      "storage_paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030"
+      ],
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_0.json",
+          "field": "status",
+          "equals": "complete"
+        }
+      ]
+    },
+    {
+      "name": "flow1024_1",
+      "job_id": "20261030_full_nuscenes_front1024_flow1024_1",
+      "kind": "flow",
+      "device": "cuda:1",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5/prepare_full_flow.py",
+          "--index",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/index/index.json",
+          "--index-sha256",
+          "b42d3c541d65ecd372bae62026a1fd1e537f533d56b66632ca8eef1be66f0816",
+          "--output-root",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030",
+          "--adoption",
+          "/home/zhangyu/.local/share/speedest-v5-next/plans/full_nuscenes_adoption_20261030.json",
+          "--device",
+          "cuda:1",
+          "--batch-size",
+          "8",
+          "--threads",
+          "4",
+          "--shard-index",
+          "1",
+          "--shard-count",
+          "3",
+          "--report",
+          "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_1.json"
+        ]
+      ],
+      "session": "v5next_20261030_full_nuscenes_front1024_flow1024_1",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_flow1024_1.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_1.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_1.json",
+      "run_dir": null,
+      "fresh_output": null,
+      "expected_pairs": 77277,
+      "storage_paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030"
+      ],
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_1.json",
+          "field": "status",
+          "equals": "complete"
+        }
+      ]
+    },
+    {
+      "name": "flow1024_2",
+      "job_id": "20261030_full_nuscenes_front1024_flow1024_2",
+      "kind": "flow",
+      "device": "cuda:2",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5/prepare_full_flow.py",
+          "--index",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/index/index.json",
+          "--index-sha256",
+          "b42d3c541d65ecd372bae62026a1fd1e537f533d56b66632ca8eef1be66f0816",
+          "--output-root",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030",
+          "--adoption",
+          "/home/zhangyu/.local/share/speedest-v5-next/plans/full_nuscenes_adoption_20261030.json",
+          "--device",
+          "cuda:2",
+          "--batch-size",
+          "8",
+          "--threads",
+          "4",
+          "--shard-index",
+          "2",
+          "--shard-count",
+          "3",
+          "--report",
+          "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_2.json"
+        ]
+      ],
+      "session": "v5next_20261030_full_nuscenes_front1024_flow1024_2",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_flow1024_2.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_2.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_2.json",
+      "run_dir": null,
+      "fresh_output": null,
+      "expected_pairs": 77339,
+      "storage_paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030"
+      ],
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_2.json",
+          "field": "status",
+          "equals": "complete"
+        }
+      ]
+    },
+    {
+      "name": "pack_train_dev",
+      "job_id": "20261030_full_nuscenes_front1024_pack_train_dev",
+      "kind": "pack",
+      "device": null,
+      "requires": [
+        "flow1024_0",
+        "flow1024_1",
+        "flow1024_2"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5/pack_flow.py",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--source-root",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/v1.0-trainval/CAM_FRONT",
+          "--output",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev"
+        ]
+      ],
+      "session": "v5next_20261030_full_nuscenes_front1024_pack_train_dev",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_pack_train_dev.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/pack_train_dev.json",
+      "progress_path": null,
+      "run_dir": null,
+      "fresh_output": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+      "expected_pairs": null,
+      "storage_paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030"
+      ],
+      "checks": [
+        {
+          "path": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev/packed_index.json",
+          "field": "schema",
+          "equals": "v5_packed_flow_v1"
+        }
+      ]
+    },
+    {
+      "name": "verify_full_cache",
+      "job_id": "20261030_full_nuscenes_front1024_verify_full_cache",
+      "kind": "verify",
+      "device": null,
+      "requires": [
+        "flow1024_0",
+        "flow1024_1",
+        "flow1024_2",
+        "pack_train_dev"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5/collect_full_flow.py",
+          "--plan",
+          "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/plan.json",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/reports/full_flow_20261030_full_nuscenes_front1024"
+        ]
+      ],
+      "session": "v5next_20261030_full_nuscenes_front1024_verify_full_cache",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_verify_full_cache.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/verify_full_cache.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/reports/full_flow_20261030_full_nuscenes_front1024/summary.json",
+      "run_dir": null,
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/reports/full_flow_20261030_full_nuscenes_front1024",
+      "expected_pairs": null,
+      "storage_paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030"
+      ],
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/full_flow_20261030_full_nuscenes_front1024/summary.json",
+          "field": "status",
+          "equals": "complete"
+        }
+      ]
+    }
+  ],
+  "identity": "cbc303bbcd40f1189db741cab7cce6f3938d6a3be3e3326ce182555ce95cf620"
+}

@@ -121,6 +121,114 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_flow_coverage_20261030.json",
+      "source_sha256": "5f8d0bc29220946df38f6521cf236863242faa92a56f565d59e25edab241251a",
+      "bytes": 4646,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_flow_initial_verification_20261030.json",
+      "source_sha256": "d14c69b3fbfbc6ac69d4e9658b4d9ecd54e8293b5109de25f5694ac2da108151",
+      "bytes": 5769,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_flow_publication_20261030.json",
+      "source_sha256": "677bf1a635d45dcacdf3a0431fca758197ff8fc037570ba864b884fe365ad2df",
+      "bytes": 416,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_cpu_adoption_smoke_20261030.json",
+      "source_sha256": "1e1c721f13afb9d9156fbc233b8182c1acd3599517cca4118395497ddeb88ed9",
+      "bytes": 3450,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu0_io_probe_20261030.json",
+      "source_sha256": "e13392d33e1ade1aec21dcd73e72bfc8bc6aed2c99e9e7d433752a71e4e4b1ba",
+      "bytes": 8973,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu0_resume_smoke_20261030.json",
+      "source_sha256": "269b2eb534098055e77d24be5fc8ee02719687689b3f8a9ddc2f38f689985e5a",
+      "bytes": 8915,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu0_smoke_20261030.json",
+      "source_sha256": "37506f046bfc619e03b427bc73b148c37484f6138184aade6dd7325785d4dad0",
+      "bytes": 8967,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu0_twocard_smoke_20261030.json",
+      "source_sha256": "aa679d4bb8335f4e5b567c8b0db9ece8fd371fa13d96b73aed1e82b9ec8cb665",
+      "bytes": 8952,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu1_io_probe_20261030.json",
+      "source_sha256": "049817d25154b8a565ae77c9156c31b140fd2d9c4f5f25ecdfbea4fd5b1f6ccb",
+      "bytes": 8971,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu1_resume_smoke_20261030.json",
+      "source_sha256": "feff843bb26b3ebf5cbd325b393ec6d3e45bf8062dd67c324e3a8a61e50735f0",
+      "bytes": 8914,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu1_smoke_20261030.json",
+      "source_sha256": "b323b4570786c18e076bc07e761fc31c347efb90767f0c630215aee40f04f0fb",
+      "bytes": 8965,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu2_io_probe_20261030.json",
+      "source_sha256": "197f19e55ee80e49309fea257d71da81684b6eeaabe8324553210aa6490aab0b",
+      "bytes": 8971,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu2_resume_smoke_20261030.json",
+      "source_sha256": "53bddb9d190882736761da36e02583c5a7d81d785665d7bafbf450a8c44861de",
+      "bytes": 8914,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu2_smoke_20261030.json",
+      "source_sha256": "0be10cbf71e431341c5e70a72d5e48fe87bff3de8cefdc0abedbbd8ee5fbe522",
+      "bytes": 8967,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_gpu2_twocard_smoke_20261030.json",
+      "source_sha256": "f81fd6ae68b084d928a980391af8f4433dc5653965b6a7db2f2aede20f67836e",
+      "bytes": 8955,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_ntfs_io_probe_20261030.json",
+      "source_sha256": "1b993437b7dc2292128b3171fbc8b463ddf00ec03ccf4d4d5a64d515cd7ceb21",
+      "bytes": 10881,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_generation_smoke_summary_20261030.json",
+      "source_sha256": "e94535e06b58fa178dd4569e4f02368c922040b9724efc186f1b0dd3ba4e249b",
+      "bytes": 15910,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/full_nuscenes_dry_run_20261030.json",
+      "source_sha256": "bf9c975adf571b5864583d1c264794c92c20de9a53474784446048fb3a7cb359",
+      "bytes": 13635,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/high_cache_early_check.json",
       "source_sha256": "52a5fbf0eebe381bb027cca9182b644e960f49c0c46c0806ada2013b8a7db5ac",
       "bytes": 10719,
@@ -277,6 +385,66 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_0.json",
+      "source_sha256": "d2c05fc6ce559c066014a406dd96167d286dc40a53c8c942b4a93f0789b99927",
+      "bytes": 2025,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_1.json",
+      "source_sha256": "e555205454c7dbe087b01fe33c8c0822b0f9929a67c9edc41db73f8ca21f7629",
+      "bytes": 2026,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_2.json",
+      "source_sha256": "6a5af7de6796053bee3e1950773d60005cebd64c8a90b666b256dfa6e1225ff9",
+      "bytes": 2028,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/pack_train_dev.json",
+      "source_sha256": "e65c97ce3089ba5d861ae0b14a952164f483bc8cd53517e5585b555724d600de",
+      "bytes": 116,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/verify_full_cache.json",
+      "source_sha256": "4bf452a4380e4b3fb1ee00d394b028546dee8d3adc75f6b12083db246a9c88f5",
+      "bytes": 116,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/plan.json",
+      "source_sha256": "e1fd5db68946a9d6fe92afbc113c3d7e8bb54707e64e61e680fa9c061211c82d",
+      "bytes": 13695,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_0.json",
+      "source_sha256": "5517220579b1cce00d608159d76ef3a565068e5047030466df0fd218a7a92c8e",
+      "bytes": 9310,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_1.json",
+      "source_sha256": "60ef276f3e6114bbf60448886e5bf62a9e9302ce690f36ecb0240c068a95043f",
+      "bytes": 9310,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_2.json",
+      "source_sha256": "61682e00face9e8c84aa34574c1ae8760eb0f0c59c8a00b6ee704a06122470bd",
+      "bytes": 9312,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/status.json",
+      "source_sha256": "8860f623ea209c0bd6852c49fdc2851cc20dc85c20b4cef26c4e95fdedd3c0df",
+      "bytes": 7641,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s42/jobs/R02_1024.json",
       "source_sha256": "a3dbba7f440229fbdfd3c20d452ef079073560c4c9b6e7b0a764721bf154f1bd",
       "bytes": 155,
@@ -346,6 +514,18 @@
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s42_retry1/plan.json",
       "source_sha256": "52e75aba9033d37361638180ec043c42531269e14428fed68028bad8905fe279",
       "bytes": 18237,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s42_retry1/reports/flow1024_0.json",
+      "source_sha256": "01dbdb6bb3f80550347ca43b6016df02d61f988fbbf527d1dde8069e2f8f8102",
+      "bytes": 4623,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_pilot_s42_retry1/reports/flow1024_1.json",
+      "source_sha256": "131df71a31e713739b0b10184256c1b5e03ab18d2b9c6796bc0ba1f848a69f37",
+      "bytes": 4621,
       "representation": "parsed_json"
     },
     {
@@ -550,8 +730,8 @@
   "exports": [
     {
       "path": "README.md",
-      "export_sha256": "89cd91c583afb88148a3914e8ecc5eb0a9fb78cb7384907ca7116ebc22730004",
-      "bytes": 2114
+      "export_sha256": "ae1185fc8a3eedc15854ee8e448f82cfb84444844842fc39efcc79d6338840ff",
+      "bytes": 3006
     },
     {
       "path": "comparisons/resolution_20261030_pilot_s42_retry1/summary.json",
@@ -632,6 +812,96 @@
       "path": "evidence/flow_resolution_selection_check.json",
       "export_sha256": "44dab6ff94160b9a84cc5b4baaac04aa8797a2eb7b9338ae52b4de5b86eba187",
       "bytes": 492
+    },
+    {
+      "path": "evidence/full_flow_coverage_20261030.json",
+      "export_sha256": "5f8d0bc29220946df38f6521cf236863242faa92a56f565d59e25edab241251a",
+      "bytes": 4646
+    },
+    {
+      "path": "evidence/full_flow_initial_verification_20261030.json",
+      "export_sha256": "d14c69b3fbfbc6ac69d4e9658b4d9ecd54e8293b5109de25f5694ac2da108151",
+      "bytes": 5769
+    },
+    {
+      "path": "evidence/full_flow_publication_20261030.json",
+      "export_sha256": "677bf1a635d45dcacdf3a0431fca758197ff8fc037570ba864b884fe365ad2df",
+      "bytes": 416
+    },
+    {
+      "path": "evidence/full_generation_cpu_adoption_smoke_20261030.json",
+      "export_sha256": "1e1c721f13afb9d9156fbc233b8182c1acd3599517cca4118395497ddeb88ed9",
+      "bytes": 3450
+    },
+    {
+      "path": "evidence/full_generation_gpu0_io_probe_20261030.json",
+      "export_sha256": "e13392d33e1ade1aec21dcd73e72bfc8bc6aed2c99e9e7d433752a71e4e4b1ba",
+      "bytes": 8973
+    },
+    {
+      "path": "evidence/full_generation_gpu0_resume_smoke_20261030.json",
+      "export_sha256": "269b2eb534098055e77d24be5fc8ee02719687689b3f8a9ddc2f38f689985e5a",
+      "bytes": 8915
+    },
+    {
+      "path": "evidence/full_generation_gpu0_smoke_20261030.json",
+      "export_sha256": "37506f046bfc619e03b427bc73b148c37484f6138184aade6dd7325785d4dad0",
+      "bytes": 8967
+    },
+    {
+      "path": "evidence/full_generation_gpu0_twocard_smoke_20261030.json",
+      "export_sha256": "aa679d4bb8335f4e5b567c8b0db9ece8fd371fa13d96b73aed1e82b9ec8cb665",
+      "bytes": 8952
+    },
+    {
+      "path": "evidence/full_generation_gpu1_io_probe_20261030.json",
+      "export_sha256": "049817d25154b8a565ae77c9156c31b140fd2d9c4f5f25ecdfbea4fd5b1f6ccb",
+      "bytes": 8971
+    },
+    {
+      "path": "evidence/full_generation_gpu1_resume_smoke_20261030.json",
+      "export_sha256": "feff843bb26b3ebf5cbd325b393ec6d3e45bf8062dd67c324e3a8a61e50735f0",
+      "bytes": 8914
+    },
+    {
+      "path": "evidence/full_generation_gpu1_smoke_20261030.json",
+      "export_sha256": "b323b4570786c18e076bc07e761fc31c347efb90767f0c630215aee40f04f0fb",
+      "bytes": 8965
+    },
+    {
+      "path": "evidence/full_generation_gpu2_io_probe_20261030.json",
+      "export_sha256": "197f19e55ee80e49309fea257d71da81684b6eeaabe8324553210aa6490aab0b",
+      "bytes": 8971
+    },
+    {
+      "path": "evidence/full_generation_gpu2_resume_smoke_20261030.json",
+      "export_sha256": "53bddb9d190882736761da36e02583c5a7d81d785665d7bafbf450a8c44861de",
+      "bytes": 8914
+    },
+    {
+      "path": "evidence/full_generation_gpu2_smoke_20261030.json",
+      "export_sha256": "0be10cbf71e431341c5e70a72d5e48fe87bff3de8cefdc0abedbbd8ee5fbe522",
+      "bytes": 8967
+    },
+    {
+      "path": "evidence/full_generation_gpu2_twocard_smoke_20261030.json",
+      "export_sha256": "f81fd6ae68b084d928a980391af8f4433dc5653965b6a7db2f2aede20f67836e",
+      "bytes": 8955
+    },
+    {
+      "path": "evidence/full_generation_ntfs_io_probe_20261030.json",
+      "export_sha256": "1b993437b7dc2292128b3171fbc8b463ddf00ec03ccf4d4d5a64d515cd7ceb21",
+      "bytes": 10881
+    },
+    {
+      "path": "evidence/full_generation_smoke_summary_20261030.json",
+      "export_sha256": "e94535e06b58fa178dd4569e4f02368c922040b9724efc186f1b0dd3ba4e249b",
+      "bytes": 15910
+    },
+    {
+      "path": "evidence/full_nuscenes_dry_run_20261030.json",
+      "export_sha256": "bf9c975adf571b5864583d1c264794c92c20de9a53474784446048fb3a7cb359",
+      "bytes": 13635
     },
     {
       "path": "evidence/high_cache_early_check.json",
@@ -727,6 +997,46 @@
       "path": "evidence/runtime_persistence.json",
       "export_sha256": "47546d88fc4d5639c5c9b22ffea380c70b9d4f9b0f04023e8a405f132a1d76f9",
       "bytes": 385
+    },
+    {
+      "path": "experiments/20261030_full_nuscenes_front1024_flow1024_0/job_status.json",
+      "export_sha256": "d2c05fc6ce559c066014a406dd96167d286dc40a53c8c942b4a93f0789b99927",
+      "bytes": 2025
+    },
+    {
+      "path": "experiments/20261030_full_nuscenes_front1024_flow1024_0/progress_report.json",
+      "export_sha256": "5517220579b1cce00d608159d76ef3a565068e5047030466df0fd218a7a92c8e",
+      "bytes": 9310
+    },
+    {
+      "path": "experiments/20261030_full_nuscenes_front1024_flow1024_1/job_status.json",
+      "export_sha256": "e555205454c7dbe087b01fe33c8c0822b0f9929a67c9edc41db73f8ca21f7629",
+      "bytes": 2026
+    },
+    {
+      "path": "experiments/20261030_full_nuscenes_front1024_flow1024_1/progress_report.json",
+      "export_sha256": "60ef276f3e6114bbf60448886e5bf62a9e9302ce690f36ecb0240c068a95043f",
+      "bytes": 9310
+    },
+    {
+      "path": "experiments/20261030_full_nuscenes_front1024_flow1024_2/job_status.json",
+      "export_sha256": "6a5af7de6796053bee3e1950773d60005cebd64c8a90b666b256dfa6e1225ff9",
+      "bytes": 2028
+    },
+    {
+      "path": "experiments/20261030_full_nuscenes_front1024_flow1024_2/progress_report.json",
+      "export_sha256": "61682e00face9e8c84aa34574c1ae8760eb0f0c59c8a00b6ee704a06122470bd",
+      "bytes": 9312
+    },
+    {
+      "path": "experiments/20261030_full_nuscenes_front1024_pack_train_dev/job_status.json",
+      "export_sha256": "e65c97ce3089ba5d861ae0b14a952164f483bc8cd53517e5585b555724d600de",
+      "bytes": 116
+    },
+    {
+      "path": "experiments/20261030_full_nuscenes_front1024_verify_full_cache/job_status.json",
+      "export_sha256": "4bf452a4380e4b3fb1ee00d394b028546dee8d3adc75f6b12083db246a9c88f5",
+      "bytes": 116
     },
     {
       "path": "experiments/20261030_pilot_s42_R02_1024/job_status.json",
@@ -839,9 +1149,19 @@
       "bytes": 1404
     },
     {
+      "path": "experiments/20261030_pilot_s42_retry1_flow1024_0/progress_report.json",
+      "export_sha256": "01dbdb6bb3f80550347ca43b6016df02d61f988fbbf527d1dde8069e2f8f8102",
+      "bytes": 4623
+    },
+    {
       "path": "experiments/20261030_pilot_s42_retry1_flow1024_1/job_status.json",
       "export_sha256": "febfce07eba460da257aaf0a1b31d9b0064207f92496832fdd5f2034339400e8",
       "bytes": 1405
+    },
+    {
+      "path": "experiments/20261030_pilot_s42_retry1_flow1024_1/progress_report.json",
+      "export_sha256": "131df71a31e713739b0b10184256c1b5e03ab18d2b9c6796bc0ba1f848a69f37",
+      "bytes": 4621
     },
     {
       "path": "experiments/20261030_pilot_s42_retry1_pack1024/job_status.json",
@@ -1009,6 +1329,16 @@
       "bytes": 418
     },
     {
+      "path": "plans/20261030_full_nuscenes_front1024.json",
+      "export_sha256": "e1fd5db68946a9d6fe92afbc113c3d7e8bb54707e64e61e680fa9c061211c82d",
+      "bytes": 13695
+    },
+    {
+      "path": "plans/20261030_full_nuscenes_front1024_coordinator.json",
+      "export_sha256": "8860f623ea209c0bd6852c49fdc2851cc20dc85c20b4cef26c4e95fdedd3c0df",
+      "bytes": 7641
+    },
+    {
       "path": "plans/20261030_pilot_s42.json",
       "export_sha256": "6c4ece53fc1f88363e5d8dca263cb5801458bcee817f083b1ae415d964ad23f4",
       "bytes": 15633
@@ -1040,8 +1370,8 @@
     },
     {
       "path": "status.json",
-      "export_sha256": "4f50d1ccb344ade682f6067003ce4a047d4ab98645b8081f345fac74b5a53ad5",
-      "bytes": 15640
+      "export_sha256": "c5e40fcab1369bb0e41a122cb15117094905d844991cc3fc94ac6dd532d013ca",
+      "bytes": 21729
     }
   ],
   "note": "source_sha256 hashes source bytes (JSONL complete prefix); export_sha256 hashes the published representation. JSON may be reformatted; index excludes itself."

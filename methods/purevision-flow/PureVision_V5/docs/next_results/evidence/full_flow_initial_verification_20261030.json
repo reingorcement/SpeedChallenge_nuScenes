@@ -1,0 +1,118 @@
+{
+  "status": "verified_initial_full_generation",
+  "observed_at": "2026-10-30T15:04:35.372170+00:00",
+  "plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/plan.json",
+  "plan_identity": "cbc303bbcd40f1189db741cab7cce6f3938d6a3be3e3326ce182555ce95cf620",
+  "code": {
+    "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+    "dirty": false,
+    "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+  },
+  "environment": {
+    "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+    "executable": "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "hostname": "ps",
+    "cuda_visible_devices": null,
+    "gpu": [
+      "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+      "NVIDIA GeForce RTX 5090",
+      "NVIDIA GeForce RTX 5090"
+    ]
+  },
+  "jobs": [
+    {
+      "job": "flow1024_0",
+      "state": "running",
+      "pairs_processed": 104,
+      "total": 77623,
+      "elapsed_s": 63.8266678659711,
+      "throughput": 1.6294129629074232,
+      "cuda_peak_allocated_bytes": 9452956672,
+      "first_packet": {
+        "source": "caa1655b91664d56ac81971a8bb6a20d",
+        "target": "86b5d2d3b52c49d18cc05c5570f0402e",
+        "version": "v1.0-test",
+        "camera": "CAM_FRONT",
+        "scene": "scene-0077",
+        "path": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/v1.0-test/CAM_FRONT/v5_flow_v2/ca/caa1655b91664d56ac81971a8bb6a20d_86b5d2d3b52c49d18cc05c5570f0402e.pt",
+        "native_sha256": "93f329400623c588939ad333ca2ae049afc024d8f37309370c7c15ed60f5c16b",
+        "compact_sha256": "c536c6912d6796f2c7d19e47a10d212e9eb4fa5c249db896fd5bbddc56f65915",
+        "generation_code": {
+          "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+          "dirty": false,
+          "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+        },
+        "bytes": 5962562,
+        "outcome": "created",
+        "validation": "CPU native/compact load, image hashes/times/context, contracts, legal mask and exact derived values"
+      },
+      "report": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_0.json",
+      "report_sha256": "5517220579b1cce00d608159d76ef3a565068e5047030466df0fd218a7a92c8e"
+    },
+    {
+      "job": "flow1024_1",
+      "state": "running",
+      "pairs_processed": 104,
+      "total": 77277,
+      "elapsed_s": 60.5156301909592,
+      "throughput": 1.7185642729295612,
+      "cuda_peak_allocated_bytes": 9452956672,
+      "first_packet": {
+        "source": "7f75c34ae2654dba8f4e90d26af3c37a",
+        "target": "2a3e0116d4444c98b09b50125c252e79",
+        "version": "v1.0-test",
+        "camera": "CAM_FRONT",
+        "scene": "scene-0078",
+        "path": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/v1.0-test/CAM_FRONT/v5_flow_v2/7f/7f75c34ae2654dba8f4e90d26af3c37a_2a3e0116d4444c98b09b50125c252e79.pt",
+        "native_sha256": "e78900d6608aa1e01ed46eb39f3059da18d1135237dd0788dfdaba57c689cb1d",
+        "compact_sha256": "9214006409b537c4e8c8dea62a7015d859c9e516e6a17b4527423579f6a08397",
+        "generation_code": {
+          "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+          "dirty": false,
+          "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+        },
+        "bytes": 5962562,
+        "outcome": "created",
+        "validation": "CPU native/compact load, image hashes/times/context, contracts, legal mask and exact derived values"
+      },
+      "report": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_1.json",
+      "report_sha256": "60ef276f3e6114bbf60448886e5bf62a9e9302ce690f36ecb0240c068a95043f"
+    },
+    {
+      "job": "flow1024_2",
+      "state": "running",
+      "pairs_processed": 104,
+      "total": 77339,
+      "elapsed_s": 58.842415631050244,
+      "throughput": 1.7674325379857585,
+      "cuda_peak_allocated_bytes": 9452956672,
+      "first_packet": {
+        "source": "37072de44eb449429122ac4a69634f96",
+        "target": "437ea3c1303d44348053cf47b9cef053",
+        "version": "v1.0-test",
+        "camera": "CAM_FRONT",
+        "scene": "scene-0079",
+        "path": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/v1.0-test/CAM_FRONT/v5_flow_v2/37/37072de44eb449429122ac4a69634f96_437ea3c1303d44348053cf47b9cef053.pt",
+        "native_sha256": "7d9075677c37314fdf39421e1f0269d43228eb44455622458d5042f72ffde61a",
+        "compact_sha256": "92102fb99b039472424ad2d786fdf6cadbb37ed9510bd02188c3b93098bdfc22",
+        "generation_code": {
+          "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+          "dirty": false,
+          "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+        },
+        "bytes": 5962562,
+        "outcome": "created",
+        "validation": "CPU native/compact load, image hashes/times/context, contracts, legal mask and exact derived values"
+      },
+      "report": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_2.json",
+      "report_sha256": "61682e00face9e8c84aa34574c1ae8760eb0f0c59c8a00b6ee704a06122470bd"
+    }
+  ],
+  "expected_total": 232239,
+  "sample_count": 3,
+  "scope": "First packet per active shard independently SHA checked and CPU loaded against source frames, units and native-to-compact values; this is startup verification, not full completion.",
+  "disk_free_bytes": 18828742672384
+}

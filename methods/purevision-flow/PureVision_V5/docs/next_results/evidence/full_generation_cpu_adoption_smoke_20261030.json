@@ -1,0 +1,79 @@
+{
+  "scope": "smoke_not_full_generation",
+  "recorded_at": "2026-10-30T14:54:43.991245+00:00",
+  "code": {
+    "commit": "c554a39b09e871d0044040079bc0ddbac5d3b155",
+    "dirty": true,
+    "verified_remote_commit": null
+  },
+  "output_root": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/full_generation_smoke_20261030",
+  "index_sha256": "b42d3c541d65ecd372bae62026a1fd1e537f533d56b66632ca8eef1be66f0816",
+  "adoption_plan_sha256": "e2049d5252414a3fe60d00fa5ce8d99433747369739f7dc15fad5720a8db1d93",
+  "adopt": {
+    "native_sha256": "41cfed5ef508d6f36f2ffc21636da53650183068a25373c2026467b4661f149e",
+    "compact_sha256": "06e67fab6b8856a1c9a24ddcccc18b49eb4f7403178236de97455af6a51154b4",
+    "identity": "e5a774f04273d5bf1f7caf25df7ed09f7cf2aa0f1a6170946c83970e247f7a9e",
+    "generation_code": {
+      "commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
+      "dirty": false,
+      "verified_remote_commit": "be327b7f91f5f7e5ba46b70dede116a21c551652"
+    },
+    "bytes": 5962562,
+    "bytes_written": 5962562,
+    "outcome": "adopted",
+    "adopted_from": "/home/zhangyu/.local/share/speedest-v5-next/flows/20261030_pilot_s42_retry1_raft1024_native/v5_flow_v2/cf/cfd8b0f893924677a2324acad84f6a81_aa90706f9705479b95e8489f78ab63a7.pt",
+    "source": "cfd8b0f893924677a2324acad84f6a81",
+    "target": "aa90706f9705479b95e8489f78ab63a7",
+    "version": "v1.0-trainval",
+    "camera": "CAM_FRONT",
+    "scene": "scene-1058"
+  },
+  "reuse": {
+    "native_sha256": "41cfed5ef508d6f36f2ffc21636da53650183068a25373c2026467b4661f149e",
+    "compact_sha256": "06e67fab6b8856a1c9a24ddcccc18b49eb4f7403178236de97455af6a51154b4",
+    "identity": "e5a774f04273d5bf1f7caf25df7ed09f7cf2aa0f1a6170946c83970e247f7a9e",
+    "generation_code": {
+      "commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
+      "dirty": false,
+      "verified_remote_commit": "be327b7f91f5f7e5ba46b70dede116a21c551652"
+    },
+    "bytes": 5962562,
+    "bytes_written": 0,
+    "outcome": "reused",
+    "source": "cfd8b0f893924677a2324acad84f6a81",
+    "target": "aa90706f9705479b95e8489f78ab63a7",
+    "version": "v1.0-trainval",
+    "camera": "CAM_FRONT",
+    "scene": "scene-1058"
+  },
+  "recovery": {
+    "native_sha256": "41cfed5ef508d6f36f2ffc21636da53650183068a25373c2026467b4661f149e",
+    "compact_sha256": "06e67fab6b8856a1c9a24ddcccc18b49eb4f7403178236de97455af6a51154b4",
+    "identity": "e5a774f04273d5bf1f7caf25df7ed09f7cf2aa0f1a6170946c83970e247f7a9e",
+    "generation_code": {
+      "commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
+      "dirty": false,
+      "verified_remote_commit": "be327b7f91f5f7e5ba46b70dede116a21c551652"
+    },
+    "bytes": 5962562,
+    "bytes_written": 60001,
+    "outcome": "recovered",
+    "source": "cfd8b0f893924677a2324acad84f6a81",
+    "target": "aa90706f9705479b95e8489f78ab63a7",
+    "version": "v1.0-trainval",
+    "camera": "CAM_FRONT",
+    "scene": "scene-1058"
+  },
+  "elapsed_s": {
+    "adopt": 0.12834641605149955,
+    "reuse": 0.02209414297249168,
+    "recovery": 0.0262571950443089
+  },
+  "model_instantiated": false,
+  "source_device": 66309,
+  "destination_device": 2066,
+  "cross_filesystem": true,
+  "exact_compact_copy": true,
+  "exact_native_copy": true,
+  "backup_path": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/full_generation_smoke_20261030/v1.0-trainval/CAM_FRONT/v5_flow_v2/cf/cfd8b0f893924677a2324acad84f6a81_aa90706f9705479b95e8489f78ab63a7.pt.saved_audit"
+}

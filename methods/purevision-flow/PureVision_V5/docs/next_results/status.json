@@ -63,7 +63,8 @@
       "training_commit": "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
       "plan": "20261030_pilot_s42",
       "device": "cuda:0",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_flow1024_0.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_flow1024_0.log",
+      "progress": {}
     },
     {
       "run_id": "20261030_pilot_s42_flow1024_1",
@@ -74,7 +75,8 @@
       "training_commit": "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
       "plan": "20261030_pilot_s42",
       "device": "cuda:2",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_flow1024_1.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_flow1024_1.log",
+      "progress": {}
     },
     {
       "run_id": "20261030_pilot_s42_pack1024",
@@ -85,7 +87,8 @@
       "training_commit": "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
       "plan": "20261030_pilot_s42",
       "device": null,
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_pack1024.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_pack1024.log",
+      "progress": {}
     },
     {
       "run_id": "20261030_pilot_s42_R02_1024",
@@ -107,7 +110,25 @@
       "training_commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
       "plan": "20261030_pilot_s42_retry1",
       "device": "cuda:0",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_retry1_flow1024_0.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_retry1_flow1024_0.log",
+      "progress": {
+        "completed": 4642,
+        "pairs_processed": 4642,
+        "counts": {
+          "created": 4642
+        },
+        "elapsed_s": 453.68992259004153,
+        "seconds_per_pair": 0.09773584408552648,
+        "last_batch_s": 0.22628108190838248,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "last_pair": {
+          "source": "cfd8b0f893924677a2324acad84f6a81",
+          "target": "aa90706f9705479b95e8489f78ab63a7",
+          "scene": "scene-1058",
+          "partition": "train_core"
+        }
+      },
+      "progress_report_status": "complete"
     },
     {
       "run_id": "20261030_pilot_s42_retry1_flow1024_1",
@@ -118,7 +139,25 @@
       "training_commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
       "plan": "20261030_pilot_s42_retry1",
       "device": "cuda:2",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_retry1_flow1024_1.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_retry1_flow1024_1.log",
+      "progress": {
+        "completed": 4628,
+        "pairs_processed": 4628,
+        "counts": {
+          "created": 4628
+        },
+        "elapsed_s": 404.2381532039726,
+        "seconds_per_pair": 0.08734615341659198,
+        "last_batch_s": 0.3719697040505707,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "last_pair": {
+          "source": "fa371479e8c04fc1b672d92d2f0579aa",
+          "target": "42933ba1777d498898bd9c6ac9a95128",
+          "scene": "scene-1090",
+          "partition": "train_core"
+        }
+      },
+      "progress_report_status": "complete"
     },
     {
       "run_id": "20261030_pilot_s42_retry1_pack1024",
@@ -129,7 +168,8 @@
       "training_commit": "be327b7f91f5f7e5ba46b70dede116a21c551652",
       "plan": "20261030_pilot_s42_retry1",
       "device": null,
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_retry1_pack1024.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_retry1_pack1024.log",
+      "progress": {}
     },
     {
       "run_id": "20261030_pilot_s42_retry1_R02_1024",
@@ -395,9 +435,147 @@
           "representation": "hash_only"
         }
       }
+    },
+    {
+      "run_id": "20261030_full_nuscenes_front1024_flow1024_0",
+      "name": "flow1024_0",
+      "experiment": "flow1024_0",
+      "status": "running",
+      "kind": "flow",
+      "training_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "plan": "20261030_full_nuscenes_front1024",
+      "device": "cuda:0",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_flow1024_0.log",
+      "progress": {
+        "completed": 104,
+        "total": 77623,
+        "target_pairs": 77623,
+        "expected_pairs": 77623,
+        "pairs_processed": 104,
+        "counts": {
+          "created": 104,
+          "reused": 0,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 63.8266678659711,
+        "pairs_per_second": 1.6294129629074232,
+        "throughput": 1.6294129629074232,
+        "bytes": 620106448,
+        "bytes_written": 620106448,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "last_pair": {
+          "source": "dfd5983c990041ea875c643bfdcb3330",
+          "target": "0b9013348f7f4683a5cc597024973dcc",
+          "version": "v1.0-test",
+          "camera": "CAM_FRONT",
+          "scene": "scene-0077"
+        }
+      },
+      "progress_report_status": "running"
+    },
+    {
+      "run_id": "20261030_full_nuscenes_front1024_flow1024_1",
+      "name": "flow1024_1",
+      "experiment": "flow1024_1",
+      "status": "running",
+      "kind": "flow",
+      "training_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "plan": "20261030_full_nuscenes_front1024",
+      "device": "cuda:1",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_flow1024_1.log",
+      "progress": {
+        "completed": 104,
+        "total": 77277,
+        "target_pairs": 77277,
+        "expected_pairs": 77277,
+        "pairs_processed": 104,
+        "counts": {
+          "created": 104,
+          "reused": 0,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 60.5156301909592,
+        "pairs_per_second": 1.7185642729295612,
+        "throughput": 1.7185642729295612,
+        "bytes": 620106448,
+        "bytes_written": 620106448,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "last_pair": {
+          "source": "84aa9e727d45468fbf3921fa2353d249",
+          "target": "f30bc2ef0e984718a7914ca765bc28c0",
+          "version": "v1.0-test",
+          "camera": "CAM_FRONT",
+          "scene": "scene-0078"
+        }
+      },
+      "progress_report_status": "running"
+    },
+    {
+      "run_id": "20261030_full_nuscenes_front1024_flow1024_2",
+      "name": "flow1024_2",
+      "experiment": "flow1024_2",
+      "status": "running",
+      "kind": "flow",
+      "training_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "plan": "20261030_full_nuscenes_front1024",
+      "device": "cuda:2",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_flow1024_2.log",
+      "progress": {
+        "completed": 104,
+        "total": 77339,
+        "target_pairs": 77339,
+        "expected_pairs": 77339,
+        "pairs_processed": 104,
+        "counts": {
+          "created": 104,
+          "reused": 0,
+          "recovered": 0,
+          "adopted": 0
+        },
+        "elapsed_s": 58.842415631050244,
+        "pairs_per_second": 1.7674325379857585,
+        "throughput": 1.7674325379857585,
+        "bytes": 620106448,
+        "bytes_written": 620106448,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "last_pair": {
+          "source": "b451a2d3e123447dbb3c5e88ca004151",
+          "target": "a51cec8e4c5d4b8fa4fc1c3ef9c93857",
+          "version": "v1.0-test",
+          "camera": "CAM_FRONT",
+          "scene": "scene-0079"
+        }
+      },
+      "progress_report_status": "running"
+    },
+    {
+      "run_id": "20261030_full_nuscenes_front1024_pack_train_dev",
+      "name": "pack_train_dev",
+      "experiment": "pack_train_dev",
+      "status": "queued",
+      "kind": "pack",
+      "training_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "plan": "20261030_full_nuscenes_front1024",
+      "device": null,
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_pack_train_dev.log",
+      "progress": {}
+    },
+    {
+      "run_id": "20261030_full_nuscenes_front1024_verify_full_cache",
+      "name": "verify_full_cache",
+      "experiment": "verify_full_cache",
+      "status": "queued",
+      "kind": "verify",
+      "training_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "plan": "20261030_full_nuscenes_front1024",
+      "device": null,
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_verify_full_cache.log",
+      "progress": {}
     }
   ],
-  "all_terminal": true,
+  "all_terminal": false,
   "limits": [
     "PLANAR_PROXY labels; dev selection and dev recomputation are not held-out testing.",
     "Checkpoint hashes identify server files; weights are not uploaded.",
