@@ -1,0 +1,123 @@
+{
+  "schema": "v5_cuda_smoke_protocol_v1",
+  "time": "2026-10-30T13:16:31.413744+00:00",
+  "scope": "smoke_not_formal",
+  "device": "cuda:1",
+  "config": {
+    "experiment": "R02",
+    "seed": 42,
+    "epochs": 2,
+    "batch_size": 4,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "loss_scales_m_s": [
+      5.0,
+      1.0
+    ],
+    "loss_beta": 1.0,
+    "amp": true,
+    "grad_clip": 2.0,
+    "patience": 5,
+    "min_delta": 0.0,
+    "log_steps": 4,
+    "checkpoint_steps": 4,
+    "rgb_policy": "frozen_v3_direct",
+    "selection_metric": "dev_epe",
+    "lateral_rule": {
+      "max_relative_mae_increase": 0.05,
+      "max_absolute_mae_increase_m_s": 0.01,
+      "nonzero_threshold_m_s": 0.2,
+      "min_subset_windows": 100,
+      "min_subset_scenes": 5
+    },
+    "early_stopping": false,
+    "expected_flow": {
+      "raft_size_hw": [
+        288,
+        512
+      ],
+      "model_size_hw": [
+        72,
+        128
+      ]
+    }
+  },
+  "manifest_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+  "flow": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/flows/forward_packed",
+  "code": {
+    "commit": "52226796a358fbbc872a09fdbe670ed101adbfa4",
+    "dirty": true,
+    "verified_remote_commit": null
+  },
+  "interrupted": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/smoke/cuda_oldflow_protocol_v1/interrupted",
+    "processed_batches": 18,
+    "optimizer_updates": 18,
+    "amp_skips": 0
+  },
+  "resumed": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/smoke/cuda_oldflow_protocol_v1/resumed",
+    "processed_batches": 32,
+    "optimizer_updates": 32,
+    "amp_skips": 0,
+    "epochs": 2
+  },
+  "parameters_changed": true,
+  "dev_predictions_byte_equal": true,
+  "dev_metrics_exact_equal": true,
+  "best_checkpoint_sha256": "735ffd239cb09ea63b1b4ac61fb14aa63ead4b633abcd16903a400eed8dae610",
+  "last_checkpoint_sha256": "75b0e6568bca135f52736874654a31319daddec770963eba0c865e4122fd4927",
+  "sample_counts": {
+    "train": 64,
+    "dev": 64
+  },
+  "elapsed_seconds": 68.07943961699493,
+  "metrics": {
+    "overall": {
+      "count": 64,
+      "epe": 0.5303119781510308,
+      "mae_vx": 0.5236245319247246,
+      "rmse_vx": 0.6706676040542489,
+      "bias_vx": 0.004098124802112579,
+      "p95_abs_vx": 1.3458343267440793,
+      "mae_vy": 0.04447503543815401,
+      "rmse_vy": 0.05179779105246687,
+      "bias_vy": -0.03929637726287183,
+      "p95_abs_vy": 0.08776178199914283,
+      "zero_vy_mae": 0.03586941493449558
+    },
+    "scene_count": 1,
+    "per_scene": {
+      "scene-0005": {
+        "count": 64,
+        "epe": 0.5303119781510308,
+        "mae_vx": 0.5236245319247246,
+        "rmse_vx": 0.6706676040542489,
+        "bias_vx": 0.004098124802112579,
+        "p95_abs_vx": 1.3458343267440793,
+        "mae_vy": 0.04447503543815401,
+        "rmse_vy": 0.05179779105246687,
+        "bias_vy": -0.03929637726287183,
+        "p95_abs_vy": 0.08776178199914283,
+        "zero_vy_mae": 0.03586941493449558
+      }
+    },
+    "effective_lateral_rule": {
+      "max_relative_mae_increase": 0.05,
+      "max_absolute_mae_increase_m_s": 0.01,
+      "nonzero_threshold_m_s": 0.2,
+      "min_subset_windows": 100,
+      "min_subset_scenes": 5
+    },
+    "nonzero_vy": {
+      "threshold_m_s": 0.2,
+      "count": 0,
+      "scene_count": 0,
+      "adequate": false
+    },
+    "flow_coverage": {
+      "valid_fraction": 0.8886439005533854,
+      "fb_fraction": null
+    }
+  }
+}

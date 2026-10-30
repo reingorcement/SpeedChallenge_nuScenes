@@ -1,0 +1,85 @@
+{
+  "schema": "v5_next_operations_validation_v1",
+  "time_utc": "2026-10-30T13:23:55.680958+00:00",
+  "scope": "development-only smoke; no formal run or active cron yet",
+  "source_files": {
+    "monitor.py": "c99f78272e4c39be55ce5e98268fed79bc82ceb2e8eab20e3b7b2652cc33ee3b",
+    "startup_watch.py": "1f38b508138c2a460805ddb88adccaa65ebaaf71ba352e0ea5d9254fc636ceb9",
+    "publish_results.py": "9e463e236f5a173acf94fa98eba60b02eed5936dc850ed06ea052421d7a7e4af",
+    "scripts/astra_patrol.sh": "93ac6ae9c2153dc9c44c7613dd523ca1f729f550e50b5e7cfaf1a52376d11e6c",
+    "scripts/server_check.sh": "2acfe79060b8b3277dc44d1de0dd6be177cf292981f7f73c34e0da9cab979efc",
+    "scripts/secure_exec.py": "abe6d2b9bc287197764a9427750ebb20a1387afaa6604591fcc40d669b112a52",
+    "scripts/patrol_read.py": "9b32b7c5252a5a1c26055f192cdf185061eb89e32c2b714bb9c17ce457ac7a7d",
+    "scripts/prepare_patrol.py": "f678a1dfebc97b1604d264adc4d16ccd746bdf0ac6714a6e52425f14c84b701e",
+    "scripts/run_publisher.py": "53b0514453faed36f9ca4b0df95bbca2bc8e5851797b46310a9ed147c8b8fc8c",
+    "scripts/publish_results.sh": "4a66c7dbcb212c8617f00af8cf33fe2e49890051fadfe402113027a61ba7d527",
+    "tests/test_monitor.py": "2ac550e5574a909faa300c9b024fe11a6f058cc355d1e99ccb5de5b3c28f8cc8",
+    "tests/test_startup.py": "dbe797a70dbd7475e846e8e7cbf919b6bbe0e67ecfe97a8ff82fc057f944048c",
+    "tests/test_publication.py": "a3b62f99e105fc055a4a20d9b226c0fc7c5e4d3ea07338f07e9f1a41706a193f"
+  },
+  "tests": {
+    "command": "/home/zhangyu/.conda/envs/speedest/bin/python -B -m pytest -q tests/test_monitor.py tests/test_startup.py tests/test_publication.py",
+    "passed": 38,
+    "seconds": 2.99
+  },
+  "shell_syntax": "passed",
+  "diff_check": "passed",
+  "manual_astra": {
+    "meta_path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261030T131656Z_3310040.meta.json",
+    "meta_sha256": "6fefb36245b079551dece08ff4f58cdadedb4d49899252b8fb184d55f3f34032",
+    "success": true,
+    "run_ids": [],
+    "evidence_schema": "v5_patrol_read_evidence_v2",
+    "actual_read_evidence": {
+      "verified": true,
+      "request_id": "7bcbaaa8fc5d55ded72bb0348bf0ab33",
+      "required_targets": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261030T131656Z_3310040.snapshot.json",
+          "run_id": null,
+          "mode": "json_summary"
+        }
+      ],
+      "reads": [
+        {
+          "request_id": "7bcbaaa8fc5d55ded72bb0348bf0ab33",
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261030T131656Z_3310040.snapshot.json",
+          "run_id": null,
+          "status": "read_success",
+          "bytes_read": 1098,
+          "source_size": 1098,
+          "read_scope": "full_json_summarized",
+          "sha256": "74ef20585c78b33df28504a37a7788c470d74c67d69e152c3577c796bd365df4"
+        }
+      ],
+      "missing": []
+    }
+  },
+  "cron_installed": false,
+  "permissions": {
+    "/home/zhangyu/.local/share/speedest-v5-next": {
+      "uid": 1007,
+      "mode": "0o700"
+    },
+    "/home/zhangyu/.local/share/speedest-v5-next/monitoring": {
+      "uid": 1007,
+      "mode": "0o700"
+    },
+    "/home/zhangyu/.local/share/speedest-v5-next/monitoring/network.json": {
+      "uid": 1007,
+      "mode": "0o600"
+    }
+  },
+  "notes": [
+    "Old world-writable root-owned monitoring was preserved and is not reused.",
+    "No proxy values or credentials exported.",
+    "Astra proof is a no-job manual smoke, not a formal-run or cron-trigger claim.",
+    "Code changed after this initial successful CLI trace; fixed committed runtime still requires hand and cron verification."
+  ],
+  "startup_cli_fix": {
+    "tests_passed": 16,
+    "elapsed_s": 3.99,
+    "reason": "Named two-job pilot accepted without weakening unique run/config identity",
+    "date": "2026-10-30"
+  }
+}

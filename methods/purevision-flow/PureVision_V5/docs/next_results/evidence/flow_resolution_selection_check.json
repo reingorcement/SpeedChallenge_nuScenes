@@ -1,0 +1,11 @@
+{
+  "time": "2026-10-30T13:14:58.996828+00:00",
+  "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+  "selection": "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+  "pairs": 9270,
+  "train_pairs": 7420,
+  "dev_pairs": 1850,
+  "enumerate_and_pack_exact": true,
+  "all_pairs_present_in_old_low_index": true,
+  "scope": "pair index and source-file existence verification; no large-array rehash"
+}

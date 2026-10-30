@@ -1,0 +1,627 @@
+{
+  "started_at": "2026-10-30T13:13:16.741480+00:00",
+  "code": {
+    "commit": "52226796a358fbbc872a09fdbe670ed101adbfa4",
+    "dirty": true,
+    "verified_remote_commit": null
+  },
+  "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+  "manifest_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+  "pairs": 32,
+  "scope": "development smoke; not training; not flow ground truth",
+  "variants": [
+    {
+      "raft_size_hw": [
+        288,
+        512
+      ],
+      "batch_size": 16,
+      "seconds": 2.745616766042076,
+      "pairs_per_second": 11.654940483966147,
+      "batches": [
+        {
+          "pairs": 16,
+          "seconds": 1.6327028640080243,
+          "statuses": [
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created"
+          ]
+        },
+        {
+          "pairs": 16,
+          "seconds": 1.1098618670366704,
+          "statuses": [
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created",
+            "created"
+          ]
+        }
+      ],
+      "peak_allocated_bytes": 3221775360,
+      "peak_reserved_bytes": 3548381184,
+      "output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5_next/smoke/flow_resolution_20261030/512x288_batch16",
+      "sample_checks": [
+        {
+          "source": "020d7b4f858147558106c504f7f31bef",
+          "target": "caa2bfad0b8a4a8090cb0b803352cbc8",
+          "scene": "scene-0001",
+          "partition": "train_core",
+          "dt_s": 0.0999917984008789,
+          "native_shape": [
+            2,
+            288,
+            512
+          ],
+          "native_finite": true,
+          "native_valid_fraction": 0.9097561240196228,
+          "model_valid_fraction": 0.9133029580116272,
+          "photometric_forward": 0.021348154172301292,
+          "photometric_wrong_sign": 0.10695876181125641,
+          "photometric_no_warp": 0.08455948531627655,
+          "contract": {
+            "schema": "v5_flow_v2",
+            "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+            "native_contract": {
+              "version": "v5_raft_native_v2",
+              "prediction": "frozen_raft_not_ground_truth",
+              "raft_size": [
+                288,
+                512
+              ],
+              "input": "RGB",
+              "resize": "bilinear",
+              "antialias": false,
+              "range": [
+                -1.0,
+                1.0
+              ],
+              "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+              "num_flow_updates": 12,
+              "compute_dtype": "float32",
+              "tf32": false,
+              "flow_units": "pixels_at_raft_resolution",
+              "component_order": [
+                "u_right",
+                "v_down"
+              ],
+              "valid": "finite_vector_and_endpoint_inside_target",
+              "fb_rule": "squared_relative",
+              "fb_alpha": 0.01,
+              "fb_beta_px2": 0.5,
+              "warp_align_corners": true
+            },
+            "derived_contract": {
+              "version": "v5_flow_view_v2",
+              "model_size": [
+                72,
+                128
+              ],
+              "native_size": [
+                288,
+                512
+              ],
+              "model_flow_units": "pixels_at_model_resolution",
+              "flow_resize": "bilinear_align_corners_false_vector_scaled",
+              "vector_scale_uv": [
+                0.25,
+                0.25
+              ],
+              "mask_resize": "nearest",
+              "invalid_model_flow": "zero",
+              "flow_dtype": "float16",
+              "mask_dtype": "bool",
+              "dt": "positive_seconds_separate_not_divided_into_flow"
+            }
+          },
+          "source_hash_equal_old": true,
+          "target_hash_equal_old": true
+        },
+        {
+          "source": "caa2bfad0b8a4a8090cb0b803352cbc8",
+          "target": "b0e02e1641cc49919a21a3f0ac6e48f1",
+          "scene": "scene-0001",
+          "partition": "train_core",
+          "dt_s": 0.10000109672546387,
+          "native_shape": [
+            2,
+            288,
+            512
+          ],
+          "native_finite": true,
+          "native_valid_fraction": 0.9099799394607544,
+          "model_valid_fraction": 0.9127604365348816,
+          "photometric_forward": 0.019993219524621964,
+          "photometric_wrong_sign": 0.10811088234186172,
+          "photometric_no_warp": 0.0863301008939743,
+          "contract": {
+            "schema": "v5_flow_v2",
+            "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+            "native_contract": {
+              "version": "v5_raft_native_v2",
+              "prediction": "frozen_raft_not_ground_truth",
+              "raft_size": [
+                288,
+                512
+              ],
+              "input": "RGB",
+              "resize": "bilinear",
+              "antialias": false,
+              "range": [
+                -1.0,
+                1.0
+              ],
+              "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+              "num_flow_updates": 12,
+              "compute_dtype": "float32",
+              "tf32": false,
+              "flow_units": "pixels_at_raft_resolution",
+              "component_order": [
+                "u_right",
+                "v_down"
+              ],
+              "valid": "finite_vector_and_endpoint_inside_target",
+              "fb_rule": "squared_relative",
+              "fb_alpha": 0.01,
+              "fb_beta_px2": 0.5,
+              "warp_align_corners": true
+            },
+            "derived_contract": {
+              "version": "v5_flow_view_v2",
+              "model_size": [
+                72,
+                128
+              ],
+              "native_size": [
+                288,
+                512
+              ],
+              "model_flow_units": "pixels_at_model_resolution",
+              "flow_resize": "bilinear_align_corners_false_vector_scaled",
+              "vector_scale_uv": [
+                0.25,
+                0.25
+              ],
+              "mask_resize": "nearest",
+              "invalid_model_flow": "zero",
+              "flow_dtype": "float16",
+              "mask_dtype": "bool",
+              "dt": "positive_seconds_separate_not_divided_into_flow"
+            }
+          },
+          "source_hash_equal_old": true,
+          "target_hash_equal_old": true
+        },
+        {
+          "source": "b0e02e1641cc49919a21a3f0ac6e48f1",
+          "target": "f0c48a4f1d9f435e8d7b18a04d4d621b",
+          "scene": "scene-0001",
+          "partition": "train_core",
+          "dt_s": 0.04999709129333496,
+          "native_shape": [
+            2,
+            288,
+            512
+          ],
+          "native_finite": true,
+          "native_valid_fraction": 0.9504462480545044,
+          "model_valid_fraction": 0.9539930820465088,
+          "photometric_forward": 0.01564457267522812,
+          "photometric_wrong_sign": 0.08548828959465027,
+          "photometric_no_warp": 0.06798435747623444,
+          "contract": {
+            "schema": "v5_flow_v2",
+            "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+            "native_contract": {
+              "version": "v5_raft_native_v2",
+              "prediction": "frozen_raft_not_ground_truth",
+              "raft_size": [
+                288,
+                512
+              ],
+              "input": "RGB",
+              "resize": "bilinear",
+              "antialias": false,
+              "range": [
+                -1.0,
+                1.0
+              ],
+              "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+              "num_flow_updates": 12,
+              "compute_dtype": "float32",
+              "tf32": false,
+              "flow_units": "pixels_at_raft_resolution",
+              "component_order": [
+                "u_right",
+                "v_down"
+              ],
+              "valid": "finite_vector_and_endpoint_inside_target",
+              "fb_rule": "squared_relative",
+              "fb_alpha": 0.01,
+              "fb_beta_px2": 0.5,
+              "warp_align_corners": true
+            },
+            "derived_contract": {
+              "version": "v5_flow_view_v2",
+              "model_size": [
+                72,
+                128
+              ],
+              "native_size": [
+                288,
+                512
+              ],
+              "model_flow_units": "pixels_at_model_resolution",
+              "flow_resize": "bilinear_align_corners_false_vector_scaled",
+              "vector_scale_uv": [
+                0.25,
+                0.25
+              ],
+              "mask_resize": "nearest",
+              "invalid_model_flow": "zero",
+              "flow_dtype": "float16",
+              "mask_dtype": "bool",
+              "dt": "positive_seconds_separate_not_divided_into_flow"
+            }
+          },
+          "source_hash_equal_old": true,
+          "target_hash_equal_old": true
+        }
+      ],
+      "native_bytes": 47324192,
+      "total_bytes": 49244224,
+      "full_158513_pair_native_bytes_extrapolation": 234421863953.0
+    },
+    {
+      "raft_size_hw": [
+        576,
+        1024
+      ],
+      "batch_size": 4,
+      "seconds": 5.671091815922409,
+      "pairs_per_second": 5.6426524272020036,
+      "batches": [
+        {
+          "pairs": 4,
+          "seconds": 0.7911991520086303,
+          "statuses": [
+            "created",
+            "created",
+            "created",
+            "created"
+          ]
+        },
+        {
+          "pairs": 4,
+          "seconds": 0.6800499319797382,
+          "statuses": [
+            "created",
+            "created",
+            "created",
+            "created"
+          ]
+        },
+        {
+          "pairs": 4,
+          "seconds": 0.6795550100505352,
+          "statuses": [
+            "created",
+            "created",
+            "created",
+            "created"
+          ]
+        },
+        {
+          "pairs": 4,
+          "seconds": 0.6985635039163753,
+          "statuses": [
+            "created",
+            "created",
+            "created",
+            "created"
+          ]
+        },
+        {
+          "pairs": 4,
+          "seconds": 0.7032244849251583,
+          "statuses": [
+            "created",
+            "created",
+            "created",
+            "created"
+          ]
+        },
+        {
+          "pairs": 4,
+          "seconds": 0.719177333987318,
+          "statuses": [
+            "created",
+            "created",
+            "created",
+            "created"
+          ]
+        },
+        {
+          "pairs": 4,
+          "seconds": 0.7062541740015149,
+          "statuses": [
+            "created",
+            "created",
+            "created",
+            "created"
+          ]
+        },
+        {
+          "pairs": 4,
+          "seconds": 0.687213292112574,
+          "statuses": [
+            "created",
+            "created",
+            "created",
+            "created"
+          ]
+        }
+      ],
+      "peak_allocated_bytes": 4745290752,
+      "peak_reserved_bytes": 6153043968,
+      "output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5_next/smoke/flow_resolution_20261030/1024x576_batch4",
+      "sample_checks": [
+        {
+          "source": "020d7b4f858147558106c504f7f31bef",
+          "target": "caa2bfad0b8a4a8090cb0b803352cbc8",
+          "scene": "scene-0001",
+          "partition": "train_core",
+          "dt_s": 0.0999917984008789,
+          "native_shape": [
+            2,
+            576,
+            1024
+          ],
+          "native_finite": true,
+          "native_valid_fraction": 0.9105411171913147,
+          "model_valid_fraction": 0.9140625,
+          "photometric_forward": 0.018703585490584373,
+          "photometric_wrong_sign": 0.10837160050868988,
+          "photometric_no_warp": 0.08498307317495346,
+          "contract": {
+            "schema": "v5_flow_v2",
+            "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+            "native_contract": {
+              "version": "v5_raft_native_v2",
+              "prediction": "frozen_raft_not_ground_truth",
+              "raft_size": [
+                576,
+                1024
+              ],
+              "input": "RGB",
+              "resize": "bilinear",
+              "antialias": false,
+              "range": [
+                -1.0,
+                1.0
+              ],
+              "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+              "num_flow_updates": 12,
+              "compute_dtype": "float32",
+              "tf32": false,
+              "flow_units": "pixels_at_raft_resolution",
+              "component_order": [
+                "u_right",
+                "v_down"
+              ],
+              "valid": "finite_vector_and_endpoint_inside_target",
+              "fb_rule": "squared_relative",
+              "fb_alpha": 0.01,
+              "fb_beta_px2": 0.5,
+              "warp_align_corners": true
+            },
+            "derived_contract": {
+              "version": "v5_flow_view_v2",
+              "model_size": [
+                72,
+                128
+              ],
+              "native_size": [
+                576,
+                1024
+              ],
+              "model_flow_units": "pixels_at_model_resolution",
+              "flow_resize": "bilinear_align_corners_false_vector_scaled",
+              "vector_scale_uv": [
+                0.125,
+                0.125
+              ],
+              "mask_resize": "nearest",
+              "invalid_model_flow": "zero",
+              "flow_dtype": "float16",
+              "mask_dtype": "bool",
+              "dt": "positive_seconds_separate_not_divided_into_flow"
+            }
+          },
+          "source_hash_equal_old": true,
+          "target_hash_equal_old": true
+        },
+        {
+          "source": "caa2bfad0b8a4a8090cb0b803352cbc8",
+          "target": "b0e02e1641cc49919a21a3f0ac6e48f1",
+          "scene": "scene-0001",
+          "partition": "train_core",
+          "dt_s": 0.10000109672546387,
+          "native_shape": [
+            2,
+            576,
+            1024
+          ],
+          "native_finite": true,
+          "native_valid_fraction": 0.9112412929534912,
+          "model_valid_fraction": 0.9151475429534912,
+          "photometric_forward": 0.01737687550485134,
+          "photometric_wrong_sign": 0.10947030782699585,
+          "photometric_no_warp": 0.08671104162931442,
+          "contract": {
+            "schema": "v5_flow_v2",
+            "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+            "native_contract": {
+              "version": "v5_raft_native_v2",
+              "prediction": "frozen_raft_not_ground_truth",
+              "raft_size": [
+                576,
+                1024
+              ],
+              "input": "RGB",
+              "resize": "bilinear",
+              "antialias": false,
+              "range": [
+                -1.0,
+                1.0
+              ],
+              "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+              "num_flow_updates": 12,
+              "compute_dtype": "float32",
+              "tf32": false,
+              "flow_units": "pixels_at_raft_resolution",
+              "component_order": [
+                "u_right",
+                "v_down"
+              ],
+              "valid": "finite_vector_and_endpoint_inside_target",
+              "fb_rule": "squared_relative",
+              "fb_alpha": 0.01,
+              "fb_beta_px2": 0.5,
+              "warp_align_corners": true
+            },
+            "derived_contract": {
+              "version": "v5_flow_view_v2",
+              "model_size": [
+                72,
+                128
+              ],
+              "native_size": [
+                576,
+                1024
+              ],
+              "model_flow_units": "pixels_at_model_resolution",
+              "flow_resize": "bilinear_align_corners_false_vector_scaled",
+              "vector_scale_uv": [
+                0.125,
+                0.125
+              ],
+              "mask_resize": "nearest",
+              "invalid_model_flow": "zero",
+              "flow_dtype": "float16",
+              "mask_dtype": "bool",
+              "dt": "positive_seconds_separate_not_divided_into_flow"
+            }
+          },
+          "source_hash_equal_old": true,
+          "target_hash_equal_old": true
+        },
+        {
+          "source": "b0e02e1641cc49919a21a3f0ac6e48f1",
+          "target": "f0c48a4f1d9f435e8d7b18a04d4d621b",
+          "scene": "scene-0001",
+          "partition": "train_core",
+          "dt_s": 0.04999709129333496,
+          "native_shape": [
+            2,
+            576,
+            1024
+          ],
+          "native_finite": true,
+          "native_valid_fraction": 0.9516635537147522,
+          "model_valid_fraction": 0.9562717080116272,
+          "photometric_forward": 0.01316479779779911,
+          "photometric_wrong_sign": 0.08645173162221909,
+          "photometric_no_warp": 0.06797939538955688,
+          "contract": {
+            "schema": "v5_flow_v2",
+            "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+            "native_contract": {
+              "version": "v5_raft_native_v2",
+              "prediction": "frozen_raft_not_ground_truth",
+              "raft_size": [
+                576,
+                1024
+              ],
+              "input": "RGB",
+              "resize": "bilinear",
+              "antialias": false,
+              "range": [
+                -1.0,
+                1.0
+              ],
+              "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+              "num_flow_updates": 12,
+              "compute_dtype": "float32",
+              "tf32": false,
+              "flow_units": "pixels_at_raft_resolution",
+              "component_order": [
+                "u_right",
+                "v_down"
+              ],
+              "valid": "finite_vector_and_endpoint_inside_target",
+              "fb_rule": "squared_relative",
+              "fb_alpha": 0.01,
+              "fb_beta_px2": 0.5,
+              "warp_align_corners": true
+            },
+            "derived_contract": {
+              "version": "v5_flow_view_v2",
+              "model_size": [
+                72,
+                128
+              ],
+              "native_size": [
+                576,
+                1024
+              ],
+              "model_flow_units": "pixels_at_model_resolution",
+              "flow_resize": "bilinear_align_corners_false_vector_scaled",
+              "vector_scale_uv": [
+                0.125,
+                0.125
+              ],
+              "mask_resize": "nearest",
+              "invalid_model_flow": "zero",
+              "flow_dtype": "float16",
+              "mask_dtype": "bool",
+              "dt": "positive_seconds_separate_not_divided_into_flow"
+            }
+          },
+          "source_hash_equal_old": true,
+          "target_hash_equal_old": true
+        }
+      ],
+      "native_bytes": 188881952,
+      "total_bytes": 190801984,
+      "full_158513_pair_native_bytes_extrapolation": 935632651793.0
+    }
+  ],
+  "finished_at": "2026-10-30T13:13:26.006941+00:00"
+}

@@ -1,0 +1,89 @@
+{
+  "schema": "v5_next_public_report_v1",
+  "rows": [
+    {
+      "run_id": "20261030_pilot_s42_R02_512",
+      "name": "R02_512",
+      "experiment": "R02",
+      "status": "running",
+      "kind": "training",
+      "training_commit": "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
+      "plan": "20261030_pilot_s42",
+      "device": "cuda:1",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_R02_512.log",
+      "training_status": "running",
+      "progress": {
+        "epoch": 32,
+        "global_step": 3700,
+        "optimizer_updates": 3700,
+        "amp_skips": 0,
+        "best_epe": 0.9466885675627843,
+        "best_epoch": 26
+      },
+      "checkpoint_hashes": {
+        "last.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s42_R02_512/last.pt",
+          "sha256": "5c5460653bfba6bbbf104a1c4f0f0460c20ec31d84a0068b5f5a8313a5e57393",
+          "size_bytes": 929711,
+          "representation": "hash_only"
+        },
+        "best.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261030_pilot_s42_R02_512/best.pt",
+          "sha256": "107aa4173ee24254189986e55380005925cb80944537ddc99ae98de7f24cd067",
+          "size_bytes": 929711,
+          "representation": "hash_only"
+        }
+      }
+    },
+    {
+      "run_id": "20261030_pilot_s42_flow1024_0",
+      "name": "flow1024_0",
+      "experiment": null,
+      "status": "failed",
+      "kind": "flow",
+      "training_commit": "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
+      "plan": "20261030_pilot_s42",
+      "device": "cuda:0",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_flow1024_0.log"
+    },
+    {
+      "run_id": "20261030_pilot_s42_flow1024_1",
+      "name": "flow1024_1",
+      "experiment": null,
+      "status": "failed",
+      "kind": "flow",
+      "training_commit": "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
+      "plan": "20261030_pilot_s42",
+      "device": "cuda:2",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_flow1024_1.log"
+    },
+    {
+      "run_id": "20261030_pilot_s42_pack1024",
+      "name": "pack1024",
+      "experiment": null,
+      "status": "blocked",
+      "kind": "pack",
+      "training_commit": "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
+      "plan": "20261030_pilot_s42",
+      "device": null,
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_pack1024.log"
+    },
+    {
+      "run_id": "20261030_pilot_s42_R02_1024",
+      "name": "R02_1024",
+      "experiment": "R02",
+      "status": "blocked",
+      "kind": "training",
+      "training_commit": "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
+      "plan": "20261030_pilot_s42",
+      "device": "cuda:1",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_pilot_s42_R02_1024.log"
+    }
+  ],
+  "all_terminal": false,
+  "limits": [
+    "PLANAR_PROXY labels; dev selection and dev recomputation are not held-out testing.",
+    "Checkpoint hashes identify server files; weights are not uploaded.",
+    "Source records are read snapshots, not an independent model rerun."
+  ]
+}

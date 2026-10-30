@@ -1,0 +1,205 @@
+{
+  "started_at": "2026-10-30T13:15:57.319216+00:00",
+  "code": {
+    "commit": "52226796a358fbbc872a09fdbe670ed101adbfa4",
+    "dirty": true,
+    "verified_remote_commit": null
+  },
+  "device": "cuda:0",
+  "device_name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+  "batch_size": 16,
+  "raft_size_hw": [
+    576,
+    1024
+  ],
+  "model_size_hw": [
+    72,
+    128
+  ],
+  "manifest_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+  "pair_count": 32,
+  "pair_tokens": [
+    [
+      "020d7b4f858147558106c504f7f31bef",
+      "caa2bfad0b8a4a8090cb0b803352cbc8"
+    ],
+    [
+      "caa2bfad0b8a4a8090cb0b803352cbc8",
+      "b0e02e1641cc49919a21a3f0ac6e48f1"
+    ],
+    [
+      "b0e02e1641cc49919a21a3f0ac6e48f1",
+      "f0c48a4f1d9f435e8d7b18a04d4d621b"
+    ],
+    [
+      "f0c48a4f1d9f435e8d7b18a04d4d621b",
+      "050322aacb9047f4bc2a734e800c0192"
+    ],
+    [
+      "050322aacb9047f4bc2a734e800c0192",
+      "3f79b6459436470799616c6abf614398"
+    ],
+    [
+      "3f79b6459436470799616c6abf614398",
+      "27460c51459c46a6b8a94525793ff813"
+    ],
+    [
+      "27460c51459c46a6b8a94525793ff813",
+      "0a86299633b249ce8a760d70a5c26865"
+    ],
+    [
+      "0a86299633b249ce8a760d70a5c26865",
+      "eaeee79d00ae4ae38d6115630713eae7"
+    ],
+    [
+      "eaeee79d00ae4ae38d6115630713eae7",
+      "6aa4d4cdc3e94ba390a6721f3628b61a"
+    ],
+    [
+      "6aa4d4cdc3e94ba390a6721f3628b61a",
+      "873649ac680f47f0914b1e30d4ecdc8e"
+    ],
+    [
+      "873649ac680f47f0914b1e30d4ecdc8e",
+      "db5322f5b9fb48e28963b8febecb45d4"
+    ],
+    [
+      "db5322f5b9fb48e28963b8febecb45d4",
+      "6ff2a727cdd447c5956582f420c5a80c"
+    ],
+    [
+      "6ff2a727cdd447c5956582f420c5a80c",
+      "846915c17afd44de8031c9dfdbd85be2"
+    ],
+    [
+      "846915c17afd44de8031c9dfdbd85be2",
+      "cbec7decf1844b8e9355938b9a8b759b"
+    ],
+    [
+      "cbec7decf1844b8e9355938b9a8b759b",
+      "47d8327eb68948ada561664ed728bf80"
+    ],
+    [
+      "47d8327eb68948ada561664ed728bf80",
+      "8ef5a46d67674646a8c432066f58cbc2"
+    ],
+    [
+      "8ef5a46d67674646a8c432066f58cbc2",
+      "25db8c98aec847dc95d9606db554f865"
+    ],
+    [
+      "25db8c98aec847dc95d9606db554f865",
+      "5af8e4f03044406a9abd5bffd940952a"
+    ],
+    [
+      "5af8e4f03044406a9abd5bffd940952a",
+      "5d30572b5f4c44218b96d3bd85c26cc4"
+    ],
+    [
+      "5d30572b5f4c44218b96d3bd85c26cc4",
+      "a335a4cba32746d981e6439ef59e09c1"
+    ],
+    [
+      "a335a4cba32746d981e6439ef59e09c1",
+      "45e2a6dc140d494096e8cf3ca32747c7"
+    ],
+    [
+      "45e2a6dc140d494096e8cf3ca32747c7",
+      "1b5b012278ad40fcb2bc34f8febd4f88"
+    ],
+    [
+      "1b5b012278ad40fcb2bc34f8febd4f88",
+      "70834eebeda045389c7804b04caeadd6"
+    ],
+    [
+      "70834eebeda045389c7804b04caeadd6",
+      "8d9b8b382be84198841f9409d7d38557"
+    ],
+    [
+      "8d9b8b382be84198841f9409d7d38557",
+      "4030bc8f438045cc9a33d3e4958a60ba"
+    ],
+    [
+      "4030bc8f438045cc9a33d3e4958a60ba",
+      "3e7f264ed2674fb2b4fb708e2aff69b8"
+    ],
+    [
+      "3e7f264ed2674fb2b4fb708e2aff69b8",
+      "8156d428ea2047c6a3bdf9ddf3c681bc"
+    ],
+    [
+      "8156d428ea2047c6a3bdf9ddf3c681bc",
+      "bc1217956bb2428dbf637bdefb28fa0f"
+    ],
+    [
+      "bc1217956bb2428dbf637bdefb28fa0f",
+      "dcad27846076489e84573d3570a4d035"
+    ],
+    [
+      "dcad27846076489e84573d3570a4d035",
+      "f3af98dcc5dd46e28192f2fdccc60d5b"
+    ],
+    [
+      "f3af98dcc5dd46e28192f2fdccc60d5b",
+      "58d25273f5cd4c1fa3b4caf38ec21ee2"
+    ],
+    [
+      "58d25273f5cd4c1fa3b4caf38ec21ee2",
+      "ef6d048bf0174a3280e3259ee463a0a9"
+    ]
+  ],
+  "output": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5_next/smoke/flow_resolution_20261030/1024x576_gpu0_batch16",
+  "batches": [
+    {
+      "pairs": 16,
+      "seconds": 4.693471333011985,
+      "statuses": [
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created"
+      ]
+    },
+    {
+      "pairs": 16,
+      "seconds": 4.680280659929849,
+      "statuses": [
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created",
+        "created"
+      ]
+    }
+  ],
+  "scope": "development smoke throughput; not trained velocity result",
+  "seconds": 9.37643210706301,
+  "peak_allocated_bytes": 18875638784,
+  "peak_reserved_bytes": 28592570368,
+  "finished_at": "2026-10-30T13:16:06.696398+00:00",
+  "pairs_per_second": 3.4128119987020726,
+  "all_32_compact_checks_passed": true
+}

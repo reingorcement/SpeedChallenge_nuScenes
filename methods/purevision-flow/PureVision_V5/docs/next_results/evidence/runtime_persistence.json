@@ -1,0 +1,8 @@
+{
+  "time": "2026-10-30T13:32:36.213026+00:00",
+  "hostname": "ps",
+  "pid1": "systemd",
+  "uptime_s": 882071.7,
+  "artifact_mount": "/dev/nvme1n1p2 ext4   /",
+  "interpretation": "Existing SSH server with local NVMe/HDD and systemd; execution is server tmux, not a disposable tool container. Hardware/administrator shutdown cannot be guaranteed against; full checkpoints required."
+}
