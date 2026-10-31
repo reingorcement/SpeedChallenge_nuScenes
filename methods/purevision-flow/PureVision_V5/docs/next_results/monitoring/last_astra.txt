@@ -1,19 +1,20 @@
-指定命令成功退出，7 个目标文件均有读取成功收据。
+指定命令成功，5 项目标工件均有读取成功收据。实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
 
-实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
-- `monitoring/astra/20261031T090001Z_4002089.{request,snapshot}.json`
+- `monitoring/astra/20261031T093001Z_4083265.request.json`
+- `monitoring/astra/20261031T093001Z_4083265.snapshot.json`
 - `monitoring/publication.json`
-- `runs/20261031_r03_flex_s42_{R03_FT,R02_FLEX_CONT}/status.json`
-- `pipeline/20261031_r03_flex_s42/jobs/{R03_FT,R02_FLEX_CONT,compare}.json`
+- `runs/20261031_r03_flex_s42_R03_FT/status.json`
+- `pipeline/20261031_r03_flex_s42/jobs/R03_FT.json`
+- `pipeline/20261031_r03_flex_s42/jobs/compare.json`
 
-宿主机确定性检查（17:00:01 快照）：FT、CONT 主子进程身份核验存活；checkpoint 分别距快照 57.5 秒、2.0 秒。GPU 利用率为 100%/4%/20%，温度 84/45/52℃；工件盘剩余 962 GB，实际缓存盘剩余 17434 GB，无低空间标记。
+**宿主确定性检查**：17:30 快照确认 FT 主/子进程存活且身份匹配；checkpoint 距快照约233秒。GPU0 利用率97%、显存48307/97887 MiB、86℃；工件盘余962 GB，真实缓存所在 `/mnt/sdb2` 余17434 GB，均无低空间告警。目标日志摘要无异常标记。
 
-本次 AI 诊断，run 前缀均为 `20261031_r03_flex_s42_`：
-- `R03_FT`：2060 步，loss 0.000635，尚无验证指标，AMP 跳步 0。
-- `R02_FLEX_CONT`：从快照 4660 步推进至实读 6220 步；最近验证 EPE 0.292608，最佳 0.208862；AMP 跳步 0。当前波动不足以判定异常。
-- `R03_Frozen`：快照记录 completed，83120 步，验证 EPE 0.207536，最佳 0.203644；checkpoint 年龄 149 秒。
-- `compare`：queued，未启动；PID unknown 保留待核实，不判终止。
+**本次AI诊断**：同前缀 `20261031_r03_flex_s42_` 下：
 
-明确异常是报告发布 pending，错误记录为 GitHub SSH 连接超时；不代表训练停止。建议人工定位发布端网络连通性。训练摘要未见异常标记，未扩读大日志，不能据此断言完整日志无异常。全程只读，未修改或操作作业。
+- `R03_FT` 从4140推进至4160步，epoch=2，loss=0.000598，AMP跳步0；最新验证EPE=0.245238，最佳0.206749。单次验证回升需继续观察，不据此修改参数。
+- `R03_Frozen`、`R02_FLEX_CONT` 均已完成83120步，最终EPE分别0.207536、0.193615。
+- `compare` 仍queued、启动次数0；PID unknown保留待核实，不判定终止，整个DAG尚未完成。
+
+发布记录存在SSH连接超时、状态pending；这不表示训练停止。人工可定位发布网络连通性，并观察后续验证趋势。全程只读，未修改或启停任何作业。
 
 ASTRA_PATROL_OK
