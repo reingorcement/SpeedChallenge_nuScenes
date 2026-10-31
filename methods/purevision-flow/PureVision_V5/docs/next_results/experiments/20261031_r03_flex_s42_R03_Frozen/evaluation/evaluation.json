@@ -1,0 +1,134 @@
+{
+  "status": "completed",
+  "started_at": "2026-10-31T08:57:46.880256+00:00",
+  "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen/best.pt",
+  "checkpoint_sha256": "72bb9872e702ad5c7281c9983c3bd9feff5330665c49e52ce03e7f4eaaf8995c",
+  "training_run": "20261031_r03_flex_s42_R03_Frozen",
+  "training_code": {
+    "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+    "dirty": false,
+    "verified_remote_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588"
+  },
+  "evaluation_code": {
+    "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+    "dirty": false,
+    "verified_remote_commit": null
+  },
+  "contract_hash": "f532b41044f559bd6ae6c2c83266b88bfd7a1779f8b0cf0a6134f0182651cb90",
+  "data": {
+    "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+    "label": {
+      "version": "nuscenes_rear_axle_planar_nonuniform3_v1",
+      "mode": "PLANAR_PROXY",
+      "reference_point": "nuscenes_rear_axle_midpoint",
+      "reference_source": "https://www.nuscenes.org/data-format",
+      "axes": "x_forward_y_left_in_current_yaw_frame",
+      "units": "m/s",
+      "time": "current_camera_timestamp",
+      "derivative": "nonuniform_three_point_quadratic_world_xy_then_current_yaw",
+      "neighbors": "previous_current_next_CAM_FRONT_sample_data_in_same_scene",
+      "smoothing": "none_beyond_three_point_derivative",
+      "endpoints": "excluded",
+      "lever_arm": "none_ego_pose_already_at_rear_axle_midpoint",
+      "future_pose": "offline_supervision_only_never_inference",
+      "limitations": "planar_localization_z_zero_not_true_3D_body_velocity"
+    },
+    "features": {
+      "schema": "v5_rgb_features_v1",
+      "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+      "weights_sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+      "input_size": [
+        5,
+        3,
+        72,
+        128
+      ],
+      "normalization": "PIL RGB bilinear; x/127.5-1",
+      "dtype": "float32",
+      "compute_precision": "float32",
+      "rgb_code_sha256": "8cecc27de2bdf529b0d23f9670fe441c577515025bbcc790a444921930da7f35",
+      "backbone_code_sha256": "3ce31001db9cb20f445db0fafa707804bfc2023d150d4b0314dd446041c1a155",
+      "modules_code_sha256": "78b1d491d8e3435b0492510799ad1f9774910108e16bbc2c232658b371cfcbb8"
+    },
+    "flow_root": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+    "flow": {
+      "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+      "native_contract": {
+        "version": "v5_raft_native_v2",
+        "prediction": "frozen_raft_not_ground_truth",
+        "raft_size": [
+          576,
+          1024
+        ],
+        "input": "RGB",
+        "resize": "bilinear",
+        "antialias": false,
+        "range": [
+          -1.0,
+          1.0
+        ],
+        "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+        "num_flow_updates": 12,
+        "compute_dtype": "float32",
+        "tf32": false,
+        "flow_units": "pixels_at_raft_resolution",
+        "component_order": [
+          "u_right",
+          "v_down"
+        ],
+        "valid": "finite_vector_and_endpoint_inside_target",
+        "fb_rule": "squared_relative",
+        "fb_alpha": 0.01,
+        "fb_beta_px2": 0.5,
+        "warp_align_corners": true
+      },
+      "derived_contract": {
+        "version": "v5_flow_view_v2",
+        "model_size": [
+          72,
+          128
+        ],
+        "native_size": [
+          576,
+          1024
+        ],
+        "model_flow_units": "pixels_at_model_resolution",
+        "flow_resize": "bilinear_align_corners_false_vector_scaled",
+        "vector_scale_uv": [
+          0.125,
+          0.125
+        ],
+        "mask_resize": "nearest",
+        "invalid_model_flow": "zero",
+        "flow_dtype": "float16",
+        "mask_dtype": "bool",
+        "dt": "positive_seconds_separate_not_divided_into_flow"
+      },
+      "schema": "v5_flow_v2",
+      "packed_index_sha256": "cce797035ce44b07e5f64ce0e560bfeb68a5f17bb1cb46ac8c16398a56782414"
+    }
+  },
+  "selection_hash": "b0414be2ea099e6ab622035d20b7759a85bcd82a5c483b1dc36c3856059c41b2",
+  "runtime": {
+    "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen/best.pt",
+    "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+    "features": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+    "rgb_frames": null,
+    "flow": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+    "selection": null,
+    "output": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r03_flex_s42_R03_Frozen",
+    "device": "cuda:2",
+    "workers": 4,
+    "threads": 4
+  },
+  "scope": "full_train_dev",
+  "effective_lateral_rule": {
+    "max_relative_mae_increase": 0.05,
+    "max_absolute_mae_increase_m_s": 0.01,
+    "nonzero_threshold_m_s": 0.2,
+    "min_subset_windows": 100,
+    "min_subset_scenes": 5
+  },
+  "finished_at": "2026-10-31T08:57:57.109669+00:00",
+  "count": 23480
+}
