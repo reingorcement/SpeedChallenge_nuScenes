@@ -1,0 +1,16 @@
+指定命令成功，5 个目标工件均有读取成功收据。实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+
+- `monitoring/astra/20261031T200001Z_44102.request.json`
+- `monitoring/astra/20261031T200001Z_44102.snapshot.json`
+- `monitoring/publication.json`
+- `runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/status.json`
+- `pipeline/20261101_rgb_path_s42/jobs/R03_APPEAR_FT_s42_18ep.json`
+- `pipeline/20261101_rgb_path_s42/jobs/compare.json`
+
+宿主确定性检查（北京时间 11 月 1 日 04:00 快照）：目标训练主/子进程身份核验存活；GPU0 利用率 100%、显存 49405/97887 MiB、84℃；工件盘剩余 960 GB，缓存所在盘剩余 17434 GB，无低空间告警。
+
+本次 AI 诊断：目标 `20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep` 正常推进，step 7300→7320，epoch=3，AMP skips=0。最新 loss=0.000724；验证 EPE=0.221721，最佳=0.205068。快照中日志异常列表为空，日志约 12 秒前更新，`last.pt` 约 50 秒前更新。未发现停止证据，损失波动不构成修改依据。
+
+同范围评估已完成；compare 仍 queued、未启动，PID unknown 保留待核实，整体未终止。发布记录 pending，错误为 SSH 连接超时；人工可定位发布链路，不应据此判断训练停止。本次未修改任何内容、未访问外网或凭据。
+
+ASTRA_PATROL_OK
