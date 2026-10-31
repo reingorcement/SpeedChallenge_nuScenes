@@ -324,6 +324,14 @@ class Tmux:
             raise RuntimeError("Named tmux session already exists")
         Path(job["log_path"]).parent.mkdir(parents=True,exist_ok=True)
         command = [plan["python"],"-B",str(Path(plan["code_root"])/"pipeline.py"),"--worker","--plan",str(plan_path),"--job",job["name"]]
+        if plan.get("worker_network_file"):
+            network=Path(plan["worker_network_file"]).resolve()
+            if network != (Path(plan["root"])/"monitoring/network.json").resolve():
+                raise ValueError("Worker network configuration must belong to this task")
+            # New tmux sessions inherit the tmux server environment, not the
+            # coordinator's. Reuse the publisher's private, validated transport.
+            command=[plan["python"],"-B",str(Path(plan["code_root"])/"scripts/secure_exec.py"),
+                     "--network",str(network),"--",*command]
         shell = "exec " + shlex.join(command) + " >> " + shlex.quote(job["log_path"]) + " 2>&1"
         subprocess.run(["tmux","new-session","-d","-s",job["session"],"-c",plan["code_root"],shell],check=True)
         result = subprocess.run(["tmux","display-message","-p","-t",job["session"],"#{pane_pid}"],text=True,capture_output=True)

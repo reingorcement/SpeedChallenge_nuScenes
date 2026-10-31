@@ -31,3 +31,23 @@ def test_numerical_identity_binds_imported_flex_modules():
     identity=numerical_identity(ROOT)
     assert "purevision_v5/_rgb_reference/modules.py" in identity["files"]
     assert "purevision_v5/training.py" in identity["files"]
+
+
+def test_tmux_worker_loads_private_network_independently_of_server_env(tmp_path,monkeypatch):
+    import subprocess
+    from pipeline import Tmux
+    calls=[]
+    def fake_run(args,**kwargs):
+        calls.append(args)
+        return subprocess.CompletedProcess(args,0,stdout="123\n")
+    monkeypatch.setattr(subprocess,"run",fake_run)
+    tmux=Tmux();monkeypatch.setattr(tmux,"exists",lambda _:False)
+    plan=dict(root=str(tmp_path),python="/python",code_root="/code",worker_network_file=str(tmp_path/"monitoring/network.json"))
+    job=dict(name="R02",session="run",log_path=str(tmp_path/"run.log"))
+    assert tmux.launch(tmp_path/"plan.json",plan,job)==123
+    command=calls[0][-1]
+    assert "scripts/secure_exec.py --network" in command
+    assert str(tmp_path/"monitoring/network.json") in command
+    assert "-- /python -B /code/pipeline.py --worker" in command
+    plan["worker_network_file"]="/another/private.json"
+    with pytest.raises(ValueError):tmux.launch(tmp_path/"plan.json",plan,job)

@@ -21,7 +21,7 @@ def optional(path):
 
 
 def startup_gate(plan, proofs):
-    jobs={j["name"]:j for j in plan["jobs"] if j["kind"]=="training"}
+    jobs={j["name"]:j for j in plan["jobs"]+plan.get("external_preparation",[]) if j["kind"]=="training"}
     names=plan.get("startup_gate_jobs",list(jobs))
     if not names or len(set(names))!=len(names) or not set(names)<=set(jobs):
         raise ValueError("Invalid initial startup wave")
@@ -42,14 +42,15 @@ def run(plan_path, command_file, interval=30):
     with lock(status_path.with_suffix(".lock")):
         while True:
             proofs=[];milestones=[]
-            for job in plan["jobs"]:
+            for job in plan["jobs"]+plan.get("external_preparation",[]):
                 raw=optional(job["status_path"])
                 progress=optional(job["progress_path"]) if job.get("progress_path") else {}
                 milestones.append([job["name"],raw.get("status"),bool(progress.get("processed_batches",0)>=3),
                                    min(progress.get("epoch",0),1),progress.get("epoch",0)//10])
                 if job["kind"]=="training":
                     path=root/"monitoring/startup"/job["job_id"]/"startup_proof.json"
-                    proof=inspect(job,plan,optional(path) or None)
+                    proof_plan=read_json(job["source_plan"]) if job.get("source_plan") else plan
+                    proof=inspect(job,proof_plan,optional(path) or None)
                     write_json(path,proof);proofs.append(proof)
             all_verified=bool(proofs) and all(p["status"]=="verified" for p in proofs)
             gate_verified=startup_gate(plan,proofs)

@@ -35,9 +35,10 @@ def collect(plan_path):
     old=collect_seed42(plan["seed42_plan"])
     train,_=label_rows(plan["manifest"],"train_core");dev,_=label_rows(plan["manifest"],"dev")
     rows={f"{name}_s42":row for name,row in old["rows"].items()}
-    for job in plan["jobs"]:
+    for job in plan["jobs"]+plan.get("external_preparation",[]):
         if job["kind"]=="training":
-            rows[job["name"]]=inspect_run(plan,job,train,dev,expected_seed=job["training_seed"])
+            run_plan=read_json(job["source_plan"]) if job.get("source_plan") else plan
+            rows[job["name"]]=inspect_run(run_plan,job,train,dev,expected_seed=job["training_seed"])
     require(all(r["status"]=="completed" for r in rows.values()),f"Incomplete/invalid comparison: {[(k,r.get('status'),r.get('reason')) for k,r in rows.items()]}")
     reference=rows["R02_BASE_s42"]
     for row in rows.values():

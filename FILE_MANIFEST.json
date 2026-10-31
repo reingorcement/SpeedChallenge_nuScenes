@@ -1295,8 +1295,8 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/collect_encoder_multiseed.py",
-      "sha256": "3962a8e3746ecb1d5db97fc13eccfc03eb905001c41a088242c066ec4b683a7b",
-      "bytes": 6254,
+      "sha256": "2041f06171962dfd977560fb919cfafbd598dc93e9abdb401f5cde8b61bb8e40",
+      "bytes": 6381,
       "mode": "100755"
     },
     {
@@ -1535,8 +1535,8 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/docs/next/ENCODER_REPLICATION_20261031.md",
-      "sha256": "a6710e8db98b52b97d4a7f1e495f263b64db0507dafec9c220a8b4562364f206",
-      "bytes": 6213,
+      "sha256": "7a6aa5414f8de58b466c61f52e3972996a7d08c0b62ff32ac9a7deb613f5e54e",
+      "bytes": 8492,
       "mode": "100755"
     },
     {
@@ -1670,6 +1670,12 @@
       "sha256": "0fd462dfce64c871423284093ea465808589a16bea1b2e901ce2864931eaa45f",
       "bytes": 2201,
       "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/encoder_replication_startup_incident_20261031.json",
+      "sha256": "28c3b9ccccc3bd196275dd09ea847a42b4b626a667e4a7b7c13e2f4d16699353",
+      "bytes": 925,
+      "mode": "100755"
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/encoder_scene_comparison_20261031.csv",
@@ -2129,14 +2135,14 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/encoder_lifecycle.py",
-      "sha256": "9bf9c50b774648bf453ce87dbf364de7e17b957f25560a82518c5919925898d6",
-      "bytes": 5511,
+      "sha256": "592dd0076a2e678bb01b2441e05e4c33c3e6f15f12c8ff7c811d0224b61fddaa",
+      "bytes": 5686,
       "mode": "100755"
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/encoder_multiseed.py",
-      "sha256": "4facc92d8da577aeb0aeb2e5a8a2b2f510819752cb901097a7ae552acc144a15",
-      "bytes": 6559,
+      "sha256": "4e6d428ded66cb38e0b29268383afb38b0bc84fe87af703b93959ff114ecd968",
+      "bytes": 10131,
       "mode": "100755"
     },
     {
@@ -2177,8 +2183,8 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/pipeline.py",
-      "sha256": "4bdec18c2c0c234d603763100985e799ffa6426499202e28ed638d89cdc3ff1d",
-      "bytes": 31138,
+      "sha256": "f99969c863b7766c23a8013a96f0b8d426a12aa0b17ccd2fbdb1cbdb533bf762",
+      "bytes": 31735,
       "mode": "100755"
     },
     {
@@ -2411,8 +2417,8 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/tests/test_encoder_multiseed.py",
-      "sha256": "8c76039cf6175e2bf2d6c97ae899152d9138f7e5bc6e8ff06b715d98fcf917cc",
-      "bytes": 1378,
+      "sha256": "87bd5e377f4534a9f66769d024c0966a559af8f85c1475d9272b7ec36ded9aaa",
+      "bytes": 2385,
       "mode": "100755"
     },
     {

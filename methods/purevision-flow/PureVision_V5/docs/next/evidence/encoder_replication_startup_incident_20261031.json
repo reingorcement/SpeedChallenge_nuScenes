@@ -1,0 +1,18 @@
+{
+  "status": "diagnosed_transport_startup_failure",
+  "source_plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s43_s44/plan.json",
+  "training_commit": "ace7519f8277026982cc843c4a95932ee64eeabc",
+  "cause": "tmux workers inherited stale server proxy instead of task private network configuration",
+  "numerical_changes": false,
+  "action": "retain valid running FLEX; launch only failed-before-training BASE with fresh IDs and explicit source adoption",
+  "failed_runs": [
+    "20261031_r02_base_flex_s43_s44_R02_BASE_s43",
+    "20261031_r02_base_flex_s43_s44_R02_BASE_s44"
+  ],
+  "retained_runs": [
+    "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
+    "20261031_r02_base_flex_s43_s44_R02_FLEX_s44"
+  ],
+  "tests": "61 passed",
+  "publisher_probe_failure": "temporary probe read_json call used unsupported default argument; hourly schedule restored by finally; not a verified trigger"
+}
