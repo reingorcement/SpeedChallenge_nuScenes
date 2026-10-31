@@ -1,0 +1,439 @@
+{
+  "schema": "v5_encoder_scheduled_patrol_receipt_v1",
+  "observed_at": "2026-10-31T06:01:22.362012+00:00",
+  "plan_identity": "0f23c724cb8225d60ccfd5b0b1647363479f2bf8c39ab0fb31d912f1092248a1",
+  "training_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+  "astra": {
+    "time_utc": "2026-10-31T06:00:36.736025+00:00",
+    "trigger": "scheduled",
+    "model": "gpt-6-astra",
+    "exit_code": 0,
+    "success": true,
+    "actual_shell_read_observed": true,
+    "read_evidence": {
+      "verified": true,
+      "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+      "required_targets": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T060001Z_3487131.snapshot.json",
+          "run_id": null,
+          "mode": "json_summary"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json",
+          "run_id": null,
+          "mode": "head"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/run.json",
+          "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+          "mode": "head"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/status.json",
+          "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+          "mode": "head"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/R02_BASE.json",
+          "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+          "mode": "head"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_BASE.log",
+          "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+          "mode": "tail"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/run.json",
+          "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+          "mode": "head"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/status.json",
+          "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+          "mode": "head"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/R02_FLEX.json",
+          "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+          "mode": "head"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_FLEX.log",
+          "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+          "mode": "tail"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/compare.json",
+          "run_id": "20261031_r02_base_flex_s42_compare",
+          "mode": "head"
+        }
+      ],
+      "code": {
+        "commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+        "dirty": false,
+        "helper_sha256": "abac379bceb909876afb218f679beb1853d65f9b13921f97e3146af1232b7d6a"
+      },
+      "reads": [
+        {
+          "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T060001Z_3487131.snapshot.json",
+          "run_id": null,
+          "status": "read_success",
+          "bytes_read": 41739,
+          "source_size": 41739,
+          "read_scope": "full_json_summarized",
+          "sha256": "3502c711248d1975227daea3ef6c31bb4171eb0470402fcf7e0b51a028a89b88"
+        },
+        {
+          "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json",
+          "run_id": null,
+          "status": "read_success",
+          "bytes_read": 690,
+          "source_size": 690,
+          "read_scope": "head_at_most_24000_bytes",
+          "sha256": "4e41762d4bf2919d6a4d785c479640496e0bef3367d628e67fa125921d75f6c8"
+        },
+        {
+          "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/run.json",
+          "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+          "status": "read_success",
+          "bytes_read": 8115,
+          "source_size": 8115,
+          "read_scope": "head_at_most_24000_bytes",
+          "sha256": "574aab52208723dbbf79e6c3c1de7d1c37d930a509eae70e905ed65740db0883"
+        },
+        {
+          "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/status.json",
+          "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+          "status": "read_success",
+          "bytes_read": 466,
+          "source_size": 466,
+          "read_scope": "head_at_most_24000_bytes",
+          "sha256": "636c2e0162c4c683e21151f871238ed49ba2e9359f3719f0bd2bd4a2cab9cf5e"
+        },
+        {
+          "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/R02_BASE.json",
+          "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+          "status": "read_success",
+          "bytes_read": 1527,
+          "source_size": 1527,
+          "read_scope": "head_at_most_24000_bytes",
+          "sha256": "f1ebd74a9986c75a32fd052a9ec771568c14121a0d20b89332fa93f48782180a"
+        },
+        {
+          "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_BASE.log",
+          "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+          "status": "read_success",
+          "bytes_read": 24000,
+          "source_size": 393579,
+          "read_scope": "tail_at_most_24000_bytes",
+          "sha256": "e529b92f3465f175250eaf78687cf5aaf00102088b9e0f064d1fde467fef98d1"
+        },
+        {
+          "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/run.json",
+          "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+          "status": "read_success",
+          "bytes_read": 8115,
+          "source_size": 8115,
+          "read_scope": "head_at_most_24000_bytes",
+          "sha256": "cb6703c8bf69a535984d13861e1717df9aa98faad3147955f64967cc12b356d2"
+        },
+        {
+          "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/status.json",
+          "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+          "status": "read_success",
+          "bytes_read": 466,
+          "source_size": 466,
+          "read_scope": "head_at_most_24000_bytes",
+          "sha256": "5df5d33e75e4aa6954d61bb2a99b892be53515d83d507d236bf79038dad0c1d4"
+        },
+        {
+          "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/R02_FLEX.json",
+          "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+          "status": "read_success",
+          "bytes_read": 1936,
+          "source_size": 1936,
+          "read_scope": "head_at_most_24000_bytes",
+          "sha256": "f049f17417bdaf5b06837c5b7ea5f3aaf87eb1f9cdb87b3fa4310d08e6ed9f37"
+        },
+        {
+          "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_FLEX.log",
+          "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+          "status": "read_success",
+          "bytes_read": 24000,
+          "source_size": 391269,
+          "read_scope": "tail_at_most_24000_bytes",
+          "sha256": "944094937e51c331d9ff8055373ff4cc15910daf0e044f0d00e955d1a71c03b4"
+        },
+        {
+          "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/compare.json",
+          "run_id": "20261031_r02_base_flex_s42_compare",
+          "status": "read_success",
+          "bytes_read": 116,
+          "source_size": 116,
+          "read_scope": "head_at_most_24000_bytes",
+          "sha256": "3cf7cfd7ff8b28269188fe6b56b7b9b099be85845ad561ee1550c34dd3b8a9eb"
+        }
+      ],
+      "missing": []
+    },
+    "run_ids": [
+      "20261031_r02_base_flex_s42_R02_BASE",
+      "20261031_r02_base_flex_s42_R02_FLEX",
+      "20261031_r02_base_flex_s42_compare"
+    ],
+    "answer": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T060001Z_3487131.txt",
+    "log": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T060001Z_3487131.log",
+    "evidence_schema": "v5_patrol_read_evidence_v2"
+  },
+  "answer": "指定命令原样执行成功（退出码 0），完成全部 11 项目标工件读取。\n\n实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`，花括号表示分别读取）：\n\n- `monitoring/astra/20261031T060001Z_3487131.snapshot.json`\n- `monitoring/publication.json`\n- `runs/20261031_r02_base_flex_s42_R02_{BASE,FLEX}/{run,status}.json`\n- `logs/20261031_r02_base_flex_s42_R02_{BASE,FLEX}.log`\n- `pipeline/20261031_r02_base_flex_s42/jobs/{R02_BASE,R02_FLEX,compare}.json`\n\n**Host 确定性检查**：14:00:01 快照确认 BASE、FLEX 主/子进程均存活且身份匹配；各自 `last.pt` 更新距快照 0.32/0.89 秒。GPU 1/2 利用率 36%/22%，温度 53/52℃；工件盘剩余 968 GB，真实缓存所在 `/mnt/sdb2` 盘剩余 17,434 GB，均无低空间标记。\n\n**本次 AI 诊断**：两 run ID 与 commit `a847938681d6…` 匹配，继续推进；14:00:21 均到 epoch 17，BASE/FLEX 分别 36,600/36,260 步，loss 0.001156/0.001072，最佳验证 EPE 0.249348/0.209154。日志尾部未见异常；AMP skips 为 12/11，步数账目一致，正常损失波动不构成修改依据。\n\n`compare` 仍 queued、启动次数 0；PID unknown 保留待核实，不算终止，整个 DAG 尚未完成。人工可关注 BASE 后续 AMP skips 是否持续增加，并核对 FLEX 作业 JSON 中滞后的 validation 与同 run 验证日志。未修改任何内容或作业状态。\n\nASTRA_PATROL_OK",
+  "answer_sha256": "1415eb11e043de6035c36ebb2898796a9312f11cf8764c7492c9ee30942efb00",
+  "schedule": {
+    "installed_at": "2026-10-31T05:52:38.735685+00:00",
+    "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5",
+    "commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+    "probe": false,
+    "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T055238.729909Z.txt",
+    "lines": [
+      "*/5 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/scripts/server_check.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_SERVER",
+      "*/30 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ASTRA"
+    ],
+    "status": "verified_trigger",
+    "model": "gpt-6-astra",
+    "last_result": {
+      "time_utc": "2026-10-31T06:00:36.736025+00:00",
+      "trigger": "scheduled",
+      "model": "gpt-6-astra",
+      "exit_code": 0,
+      "success": true,
+      "actual_shell_read_observed": true,
+      "read_evidence": {
+        "verified": true,
+        "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+        "required_targets": [
+          {
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T060001Z_3487131.snapshot.json",
+            "run_id": null,
+            "mode": "json_summary"
+          },
+          {
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json",
+            "run_id": null,
+            "mode": "head"
+          },
+          {
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/run.json",
+            "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+            "mode": "head"
+          },
+          {
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/status.json",
+            "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+            "mode": "head"
+          },
+          {
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/R02_BASE.json",
+            "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+            "mode": "head"
+          },
+          {
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_BASE.log",
+            "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+            "mode": "tail"
+          },
+          {
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/run.json",
+            "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+            "mode": "head"
+          },
+          {
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/status.json",
+            "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+            "mode": "head"
+          },
+          {
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/R02_FLEX.json",
+            "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+            "mode": "head"
+          },
+          {
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_FLEX.log",
+            "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+            "mode": "tail"
+          },
+          {
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/compare.json",
+            "run_id": "20261031_r02_base_flex_s42_compare",
+            "mode": "head"
+          }
+        ],
+        "code": {
+          "commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+          "dirty": false,
+          "helper_sha256": "abac379bceb909876afb218f679beb1853d65f9b13921f97e3146af1232b7d6a"
+        },
+        "reads": [
+          {
+            "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T060001Z_3487131.snapshot.json",
+            "run_id": null,
+            "status": "read_success",
+            "bytes_read": 41739,
+            "source_size": 41739,
+            "read_scope": "full_json_summarized",
+            "sha256": "3502c711248d1975227daea3ef6c31bb4171eb0470402fcf7e0b51a028a89b88"
+          },
+          {
+            "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json",
+            "run_id": null,
+            "status": "read_success",
+            "bytes_read": 690,
+            "source_size": 690,
+            "read_scope": "head_at_most_24000_bytes",
+            "sha256": "4e41762d4bf2919d6a4d785c479640496e0bef3367d628e67fa125921d75f6c8"
+          },
+          {
+            "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/run.json",
+            "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+            "status": "read_success",
+            "bytes_read": 8115,
+            "source_size": 8115,
+            "read_scope": "head_at_most_24000_bytes",
+            "sha256": "574aab52208723dbbf79e6c3c1de7d1c37d930a509eae70e905ed65740db0883"
+          },
+          {
+            "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/status.json",
+            "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+            "status": "read_success",
+            "bytes_read": 466,
+            "source_size": 466,
+            "read_scope": "head_at_most_24000_bytes",
+            "sha256": "636c2e0162c4c683e21151f871238ed49ba2e9359f3719f0bd2bd4a2cab9cf5e"
+          },
+          {
+            "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/R02_BASE.json",
+            "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+            "status": "read_success",
+            "bytes_read": 1527,
+            "source_size": 1527,
+            "read_scope": "head_at_most_24000_bytes",
+            "sha256": "f1ebd74a9986c75a32fd052a9ec771568c14121a0d20b89332fa93f48782180a"
+          },
+          {
+            "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_BASE.log",
+            "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+            "status": "read_success",
+            "bytes_read": 24000,
+            "source_size": 393579,
+            "read_scope": "tail_at_most_24000_bytes",
+            "sha256": "e529b92f3465f175250eaf78687cf5aaf00102088b9e0f064d1fde467fef98d1"
+          },
+          {
+            "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/run.json",
+            "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+            "status": "read_success",
+            "bytes_read": 8115,
+            "source_size": 8115,
+            "read_scope": "head_at_most_24000_bytes",
+            "sha256": "cb6703c8bf69a535984d13861e1717df9aa98faad3147955f64967cc12b356d2"
+          },
+          {
+            "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/status.json",
+            "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+            "status": "read_success",
+            "bytes_read": 466,
+            "source_size": 466,
+            "read_scope": "head_at_most_24000_bytes",
+            "sha256": "5df5d33e75e4aa6954d61bb2a99b892be53515d83d507d236bf79038dad0c1d4"
+          },
+          {
+            "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/R02_FLEX.json",
+            "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+            "status": "read_success",
+            "bytes_read": 1936,
+            "source_size": 1936,
+            "read_scope": "head_at_most_24000_bytes",
+            "sha256": "f049f17417bdaf5b06837c5b7ea5f3aaf87eb1f9cdb87b3fa4310d08e6ed9f37"
+          },
+          {
+            "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_FLEX.log",
+            "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+            "status": "read_success",
+            "bytes_read": 24000,
+            "source_size": 391269,
+            "read_scope": "tail_at_most_24000_bytes",
+            "sha256": "944094937e51c331d9ff8055373ff4cc15910daf0e044f0d00e955d1a71c03b4"
+          },
+          {
+            "request_id": "bd21abea57f6cfbf2e3b2ea093f426d7",
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/compare.json",
+            "run_id": "20261031_r02_base_flex_s42_compare",
+            "status": "read_success",
+            "bytes_read": 116,
+            "source_size": 116,
+            "read_scope": "head_at_most_24000_bytes",
+            "sha256": "3cf7cfd7ff8b28269188fe6b56b7b9b099be85845ad561ee1550c34dd3b8a9eb"
+          }
+        ],
+        "missing": []
+      },
+      "run_ids": [
+        "20261031_r02_base_flex_s42_R02_BASE",
+        "20261031_r02_base_flex_s42_R02_FLEX",
+        "20261031_r02_base_flex_s42_compare"
+      ],
+      "answer": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T060001Z_3487131.txt",
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T060001Z_3487131.log",
+      "evidence_schema": "v5_patrol_read_evidence_v2"
+    }
+  },
+  "publisher_cron_probe": {
+    "installed_at": "2026-10-31T05:53:16.516446+00:00",
+    "status": "verified_real_cron_trigger",
+    "temporary_line": "* * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_20261031_r02_base_flex_s42.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER",
+    "restore_line": "17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_20261031_r02_base_flex_s42.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER",
+    "plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/plan.json",
+    "note": "Temporary per-minute cron to prove this stage publisher can execute; restore hourly after verified trigger",
+    "receipt": {
+      "report_commit": "bffd2b1a7dda32db37e32f20dbc7f37fc6e836f0",
+      "remote_base": "0b43b39bc93fa87b92cbae225d944dc4e27e2c37",
+      "started_at": "2026-10-31T05:54:01.397451+00:00",
+      "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
+      "branch": "results/purevision-v5-next",
+      "status": "published",
+      "trigger": "scheduled",
+      "plan_identities": [
+        "0f23c724cb8225d60ccfd5b0b1647363479f2bf8c39ab0fb31d912f1092248a1"
+      ],
+      "changed": true,
+      "training_commits": [
+        "a847938681d60ae86e0e293e24ffa7d2e74e20a9"
+      ],
+      "verified_remote_commit": "bffd2b1a7dda32db37e32f20dbc7f37fc6e836f0",
+      "finished_at": "2026-10-31T05:54:19.986579+00:00",
+      "all_terminal": false
+    },
+    "restored_at": "2026-10-31T05:55:35.726843+00:00"
+  }
+}
