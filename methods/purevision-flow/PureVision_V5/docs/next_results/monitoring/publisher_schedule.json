@@ -7,5 +7,24 @@
   ],
   "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T082927.881499Z.txt",
   "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_r03_20261031.json",
-  "status": "installed_pending_observed_trigger"
+  "status": "verified_trigger",
+  "last_result": {
+    "report_commit": "bba1caf6be556c264809e15a7a59bb52baf1c1e1",
+    "remote_base": "e349f10ab732fddb7b244fadeb4e0fcb67aae424",
+    "started_at": "2026-10-31T08:31:01.772577+00:00",
+    "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
+    "branch": "results/purevision-v5-next",
+    "status": "published",
+    "trigger": "scheduled",
+    "plan_identities": [
+      "330e29fd3cc40a0d446af987a66ce5f6cfcccd324eaf037abdda9823395085e1"
+    ],
+    "changed": true,
+    "training_commits": [
+      "2922f8c4527b6c46eb664d02a4a041cd2c45f588"
+    ],
+    "verified_remote_commit": "bba1caf6be556c264809e15a7a59bb52baf1c1e1",
+    "finished_at": "2026-10-31T08:31:20.177240+00:00",
+    "all_terminal": false
+  }
 }
