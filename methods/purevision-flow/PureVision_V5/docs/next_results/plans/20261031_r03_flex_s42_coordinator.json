@@ -1,6 +1,6 @@
 {
   "status": "running",
-  "updated_at": "2026-10-31T08:34:13.625585+00:00",
+  "updated_at": "2026-10-31T08:39:26.754217+00:00",
   "plan_identity": "330e29fd3cc40a0d446af987a66ce5f6cfcccd324eaf037abdda9823395085e1",
   "code": {
     "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
@@ -10,7 +10,7 @@
   "jobs": {
     "R03_FT": {
       "status": "running",
-      "updated_at": "2026-10-31T08:34:09.381591+00:00",
+      "updated_at": "2026-10-31T08:39:24.463563+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793435592.7731721,
@@ -40,11 +40,22 @@
         "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT"
       ],
       "child_pid": 3927502,
-      "child_pid_start_ticks": 95050986
+      "child_pid_start_ticks": 95050986,
+      "epoch": 0,
+      "global_step": 400,
+      "elapsed_seconds": 297.63532988505904,
+      "cuda_peak_allocated_bytes": 45045934592,
+      "processed_batches": 400,
+      "optimizer_updates": 400,
+      "amp_skips": 0,
+      "amp_scale": 65536.0,
+      "best_epe": null,
+      "best_epoch": null,
+      "loss": 0.0005098966648802161
     },
     "R03_Frozen": {
       "status": "running",
-      "updated_at": "2026-10-31T08:34:09.310835+00:00",
+      "updated_at": "2026-10-31T08:39:24.398066+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793435592.7890491,
@@ -75,17 +86,30 @@
       ],
       "child_pid": 3927433,
       "child_pid_start_ticks": 95050979,
-      "epoch": 0,
-      "global_step": 220,
-      "loss": 0.00022819641162641346,
-      "elapsed_seconds": 4.470467814011499,
+      "epoch": 8,
+      "global_step": 18700,
+      "loss": 0.00043148535769432783,
+      "elapsed_seconds": 311.2118289399659,
       "cuda_peak_allocated_bytes": 187814912,
-      "processed_batches": 220,
-      "optimizer_updates": 220,
-      "amp_skips": 0,
-      "amp_scale": 65536.0,
-      "best_epe": null,
-      "best_epoch": null
+      "processed_batches": 18700,
+      "optimizer_updates": 18695,
+      "amp_skips": 5,
+      "amp_scale": 1048576.0,
+      "best_epe": 0.20983058626300272,
+      "best_epoch": 0,
+      "validation": {
+        "count": 23480,
+        "epe": 0.2247352247388665,
+        "mae_vx": 0.22200573155794245,
+        "rmse_vx": 0.3848882141756216,
+        "bias_vx": -0.07625106270674473,
+        "p95_abs_vx": 0.7162495136260985,
+        "mae_vy": 0.016935597247870325,
+        "rmse_vy": 0.026356503091753667,
+        "bias_vy": -0.0043574198878576515,
+        "p95_abs_vy": 0.05233213445171714,
+        "zero_vy_mae": 0.035983646252559655
+      }
     },
     "R02_FLEX_CONT": {
       "status": "queued",

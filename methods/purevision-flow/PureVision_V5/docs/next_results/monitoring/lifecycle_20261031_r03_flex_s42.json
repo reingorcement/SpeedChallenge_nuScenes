@@ -1,7 +1,15 @@
 {
   "plan_identity": "330e29fd3cc40a0d446af987a66ce5f6cfcccd324eaf037abdda9823395085e1",
   "started_at": "2026-10-31T08:29:27.895723+00:00",
-  "publication_attempts": [],
+  "publication_attempts": [
+    {
+      "time": "2026-10-31T08:34:26.139851+00:00",
+      "success": true,
+      "exit_code": 0,
+      "report_commit": "211639b378aca91990c92faeae988e74f67da4fd",
+      "error": null
+    }
+  ],
   "cron_installed": true,
   "cron_installed_at": "2026-10-31T08:29:27.895739+00:00",
   "schedule": {
@@ -29,7 +37,7 @@
     "status": "installed_pending_observed_trigger",
     "model": "gpt-6-astra"
   },
-  "status": "prelaunch_schedule_probe",
+  "status": "running",
   "publisher_schedule": {
     "installed_at": "2026-10-31T08:29:27.885544+00:00",
     "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5",
@@ -40,5 +48,77 @@
     "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T082927.881499Z.txt",
     "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_r03_20261031.json",
     "status": "installed_pending_observed_trigger"
-  }
+  },
+  "updated_at": "2026-10-31T08:34:07.594010+00:00",
+  "pid": 3930215,
+  "all_startups_verified": false,
+  "initial_wave_verified": false,
+  "lightweight_startup_verified": true,
+  "startup_status": {
+    "20261031_r03_flex_s42_R03_FT": "pending_run",
+    "20261031_r03_flex_s42_R03_Frozen": "pending_steps_or_validation",
+    "20261031_r03_flex_s42_R02_FLEX_CONT": "pending_run"
+  },
+  "milestones": [
+    [
+      "R03_FT",
+      "running",
+      false,
+      0,
+      0
+    ],
+    [
+      "R03_Frozen",
+      "running",
+      true,
+      0,
+      0
+    ],
+    [
+      "R02_FLEX_CONT",
+      "queued",
+      false,
+      0,
+      0
+    ],
+    [
+      "compare",
+      "queued",
+      false,
+      0,
+      0
+    ]
+  ],
+  "last_attempt_epoch": 1793435647.5940552,
+  "published_milestones": [
+    [
+      "R03_FT",
+      "running",
+      false,
+      0,
+      0
+    ],
+    [
+      "R03_Frozen",
+      "running",
+      true,
+      0,
+      0
+    ],
+    [
+      "R02_FLEX_CONT",
+      "queued",
+      false,
+      0,
+      0
+    ],
+    [
+      "compare",
+      "queued",
+      false,
+      0,
+      0
+    ]
+  ],
+  "last_success_epoch": 1793435666.1398962
 }
