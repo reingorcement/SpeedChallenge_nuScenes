@@ -1,6 +1,7 @@
 """CPU-only startup verification and milestone publication, never training control.
 
-After the declared initial wave passes, install this plan's real cron patrols.
+Install patrols after a lightweight process/log check. First validation and
+checkpoint checks belong to the five-minute server lifecycle, not the chat turn.
 Queued runs are verified separately when they start; never count them as verified.
 Network failures retry without touching workers; stop only after terminal remote publication.
 """
@@ -11,7 +12,7 @@ import subprocess
 import time
 
 from monitor import install_cron, modify_cron, publication_allows_stop
-from pipeline import lock, validate_plan
+from pipeline import lock, validate_plan, process_observation
 from purevision_v5.common import ROOT, now, read_json, write_json
 from startup_watch import inspect
 
@@ -29,7 +30,20 @@ def startup_gate(plan, proofs):
     return all(statuses.get(jobs[n]["job_id"])=="verified" for n in names)
 
 
-def run(plan_path, command_file, interval=30):
+def lightweight_startup(plan):
+    jobs={j["name"]:j for j in plan["jobs"]+plan.get("external_preparation",[]) if j["kind"]=="training"}
+    names=plan.get("startup_gate_jobs",list(jobs))
+    if not names or not set(names)<=set(jobs):raise ValueError("Invalid startup wave")
+    for name in names:
+        job=jobs[name];state=optional(job["status_path"]);log=Path(job["log_path"])
+        if not log.is_file() or log.stat().st_size==0:return False
+        if state.get("status")=="completed":continue
+        if state.get("status")!="running":return False
+        if process_observation(state.get("child_pid"),state.get("child_pid_start_ticks")).get("alive") is not True:return False
+    return True
+
+
+def run(plan_path, command_file, interval=300):
     os.environ["CUDA_VISIBLE_DEVICES"]=""
     import torch
     torch.set_num_threads(2)
@@ -54,12 +68,13 @@ def run(plan_path, command_file, interval=30):
                     write_json(path,proof);proofs.append(proof)
             all_verified=bool(proofs) and all(p["status"]=="verified" for p in proofs)
             gate_verified=startup_gate(plan,proofs)
-            if gate_verified and not state.get("cron_installed"):
+            light_verified=lightweight_startup(plan)
+            if light_verified and not state.get("cron_installed"):
                 formal=install_cron(root,ROOT)
                 probe=install_cron(root,ROOT,probe=True)
                 state.update(cron_installed=True,cron_installed_at=now(),schedule=formal,probe_schedule=probe)
             state.update(updated_at=now(),pid=os.getpid(),all_startups_verified=all_verified,
-                         initial_wave_verified=gate_verified,
+                         initial_wave_verified=gate_verified,lightweight_startup_verified=light_verified,
                          startup_status={p["run_id"]:p["status"] for p in proofs},milestones=milestones)
             terminal=all(optional(j["status_path"]).get("status") in {"completed","failed","interrupted","cancelled","blocked"}
                          for j in plan["jobs"])

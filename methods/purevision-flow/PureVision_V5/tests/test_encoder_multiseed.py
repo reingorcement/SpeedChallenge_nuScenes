@@ -33,6 +33,18 @@ def test_numerical_identity_binds_imported_flex_modules():
     assert "purevision_v5/training.py" in identity["files"]
 
 
+def test_light_startup_does_not_wait_for_validation(tmp_path,monkeypatch):
+    import encoder_lifecycle as lifecycle
+    status=tmp_path/"worker.json";log=tmp_path/"run.log"
+    status.write_text(json.dumps(dict(status="running",child_pid=123,child_pid_start_ticks=456)))
+    log.write_text("training process started\n")
+    plan=dict(jobs=[dict(name="BASE",job_id="BASE",kind="training",status_path=str(status),log_path=str(log))])
+    monkeypatch.setattr(lifecycle,"process_observation",lambda *args:dict(alive=True))
+    assert lifecycle.lightweight_startup(plan)  # No dev metric/checkpoint exists.
+    monkeypatch.setattr(lifecycle,"process_observation",lambda *args:dict(alive=False))
+    assert not lifecycle.lightweight_startup(plan)
+
+
 def test_tmux_worker_loads_private_network_independently_of_server_env(tmp_path,monkeypatch):
     import subprocess
     from pipeline import Tmux
