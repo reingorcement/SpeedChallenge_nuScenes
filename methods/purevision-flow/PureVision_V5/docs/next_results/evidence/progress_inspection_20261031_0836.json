@@ -1,0 +1,80 @@
+{
+  "schema": "v5_progress_inspection_v1",
+  "observed_at": "2026-10-31T00:37:04.281299+00:00",
+  "status": "running",
+  "plan_identity": "cbc303bbcd40f1189db741cab7cce6f3938d6a3be3e3326ce182555ce95cf620",
+  "code": {
+    "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+    "dirty": false,
+    "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+  },
+  "jobs": [
+    {
+      "name": "flow1024_0",
+      "device": "cuda:0",
+      "report": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_0.json",
+      "report_sha256": "6458534cdcb060b73117c58bd5797224f9e7f188132b3ff48dfcd8fc8273d24c",
+      "status": "running",
+      "pairs_processed": 57960,
+      "total": 77623,
+      "counts": {
+        "created": 56102,
+        "reused": 0,
+        "recovered": 0,
+        "adopted": 1858
+      },
+      "bytes": 345590093520,
+      "elapsed_s": 34407.31586380396,
+      "pairs_per_second": 1.6845254721241756,
+      "estimated_remaining_s": 11672.723461524798
+    },
+    {
+      "name": "flow1024_1",
+      "device": "cuda:1",
+      "report": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_1.json",
+      "report_sha256": "2d1609263f71dc10715ba9037bf0ebb4038a9ea6564be5501ed1393c6d167cb8",
+      "status": "running",
+      "pairs_processed": 58704,
+      "total": 77277,
+      "counts": {
+        "created": 56394,
+        "reused": 0,
+        "recovered": 0,
+        "adopted": 2310
+      },
+      "bytes": 350026239648,
+      "elapsed_s": 34392.85319221404,
+      "pairs_per_second": 1.7068662396782361,
+      "estimated_remaining_s": 10881.344752299527
+    },
+    {
+      "name": "flow1024_2",
+      "device": "cuda:2",
+      "report": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_2.json",
+      "report_sha256": "aeb1e9ec50ba9fdc909fd1c27534604236ca8362bd1bd4d7f8dd0bb063500ce7",
+      "status": "running",
+      "pairs_processed": 58960,
+      "total": 77339,
+      "counts": {
+        "created": 56183,
+        "reused": 0,
+        "recovered": 0,
+        "adopted": 2777
+      },
+      "bytes": 351552655520,
+      "elapsed_s": 34414.29426510201,
+      "pairs_per_second": 1.7132415834483254,
+      "estimated_remaining_s": 10727.617271002542
+    }
+  ],
+  "processed_pairs": 175624,
+  "expected_pairs": 232239,
+  "percentage": 75.62209620261885,
+  "bytes_present": 1047168988688,
+  "estimated_remaining_hours": 3.2424231837568884,
+  "estimated_generation_finish_cst": "2026-10-31T11:51:37.004761+08:00",
+  "pack": "queued",
+  "verification": "queued",
+  "new_model_training": "not_started",
+  "limits": "Generation ETA only, excludes dependent packing/final verification. No native corpus reread during status inspection."
+}

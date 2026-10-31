@@ -343,6 +343,12 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/progress_inspection_20261031_0836.json",
+      "source_sha256": "5f1fc88edb737cc1a429d7271aee48484f4acbf07b4c1e869cfff8a6df9af2bb",
+      "bytes": 2820,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/publisher_retry_validation.json",
       "source_sha256": "d4102a57e57c2fc3561ba458a211fddf1288aa9df92d13c034b46bb71094ec81",
       "bytes": 845,
@@ -404,20 +410,20 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_0.json",
-      "source_sha256": "89758619c890ec6b3a8d00bddf963681aa84a0d72263e4b8421e285b73187417",
+      "source_sha256": "169d8509d5df51c46a0ffd5b96ae4cc4743da877143718b8b80d210ddf56e622",
       "bytes": 2045,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_1.json",
-      "source_sha256": "eb7f7040658bd67f48d542b61cbf9c7b2c71fba9be8c0028d6b77bedd1dc0f6c",
+      "source_sha256": "7e4c3fc42b09169385171a4e1a700cb79979da46e1c4fea4b6cc4453b2b97980",
       "bytes": 2046,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_2.json",
-      "source_sha256": "c5edfa22deb5480460e8644b4f4db63a725e4931faf18d429b16b72de6eef9e6",
-      "bytes": 2046,
+      "source_sha256": "2738ae3b19ee4ce738a40612b04b4752ba75ab2668df724865668fb8a6dc672d",
+      "bytes": 2047,
       "representation": "parsed_json"
     },
     {
@@ -440,25 +446,25 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_0.json",
-      "source_sha256": "d9af46069d269621b6e1fe99b1030464a1b80c47fe96ca8850e5ce515ef08acb",
-      "bytes": 9341,
+      "source_sha256": "59aede3abd6f24fb59ab774775a1154609140b50aca36b252288dfaa8b6ab25e",
+      "bytes": 9340,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_1.json",
-      "source_sha256": "846382284ff22c9fc759e8c125a7094f0aa0f5c2cc0eca155e70f984a5dd6d43",
-      "bytes": 9341,
+      "source_sha256": "4cef0739e69f0a11910a4472cabffb4fb5b56c76531342b4da929cf3ac5ef3cb",
+      "bytes": 9339,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_2.json",
-      "source_sha256": "c703e9797f111738fd2e7a5fcad88bd0ad1f5cdf1d76a7c2f8bc9a4dedafc504",
-      "bytes": 9342,
+      "source_sha256": "da83edc13944e873203d38a0fb070024cbca9a7117f86ee2683bc9b70963e49f",
+      "bytes": 9340,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/status.json",
-      "source_sha256": "ab894c04b4d675780477c6cc64e35bebee56f0629442c8aa0db1a061bed31f9b",
+      "source_sha256": "acf7b81aa9f79bfa70083c02057cdb6f8f0467dcc4b59df813c8db4a15ab0c63",
       "bytes": 7704,
       "representation": "parsed_json"
     },
@@ -748,7 +754,7 @@
   "exports": [
     {
       "path": "README.md",
-      "export_sha256": "cfbe2253c9f40c96297ab49a32807f75de57acfa026c2f607e60c672fa94c22e",
+      "export_sha256": "17d73f5af2cff4e0c2971cce41a54504c53016f12d6e6473eb81e19e00c96603",
       "bytes": 3012
     },
     {
@@ -1017,6 +1023,11 @@
       "bytes": 15448
     },
     {
+      "path": "evidence/progress_inspection_20261031_0836.json",
+      "export_sha256": "5f1fc88edb737cc1a429d7271aee48484f4acbf07b4c1e869cfff8a6df9af2bb",
+      "bytes": 2820
+    },
+    {
       "path": "evidence/publisher_retry_validation.json",
       "export_sha256": "d4102a57e57c2fc3561ba458a211fddf1288aa9df92d13c034b46bb71094ec81",
       "bytes": 845
@@ -1033,33 +1044,33 @@
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_flow1024_0/job_status.json",
-      "export_sha256": "89758619c890ec6b3a8d00bddf963681aa84a0d72263e4b8421e285b73187417",
+      "export_sha256": "169d8509d5df51c46a0ffd5b96ae4cc4743da877143718b8b80d210ddf56e622",
       "bytes": 2045
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_flow1024_0/progress_report.json",
-      "export_sha256": "d9af46069d269621b6e1fe99b1030464a1b80c47fe96ca8850e5ce515ef08acb",
-      "bytes": 9341
+      "export_sha256": "59aede3abd6f24fb59ab774775a1154609140b50aca36b252288dfaa8b6ab25e",
+      "bytes": 9340
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_flow1024_1/job_status.json",
-      "export_sha256": "eb7f7040658bd67f48d542b61cbf9c7b2c71fba9be8c0028d6b77bedd1dc0f6c",
+      "export_sha256": "7e4c3fc42b09169385171a4e1a700cb79979da46e1c4fea4b6cc4453b2b97980",
       "bytes": 2046
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_flow1024_1/progress_report.json",
-      "export_sha256": "846382284ff22c9fc759e8c125a7094f0aa0f5c2cc0eca155e70f984a5dd6d43",
-      "bytes": 9341
+      "export_sha256": "4cef0739e69f0a11910a4472cabffb4fb5b56c76531342b4da929cf3ac5ef3cb",
+      "bytes": 9339
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_flow1024_2/job_status.json",
-      "export_sha256": "c5edfa22deb5480460e8644b4f4db63a725e4931faf18d429b16b72de6eef9e6",
-      "bytes": 2046
+      "export_sha256": "2738ae3b19ee4ce738a40612b04b4752ba75ab2668df724865668fb8a6dc672d",
+      "bytes": 2047
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_flow1024_2/progress_report.json",
-      "export_sha256": "c703e9797f111738fd2e7a5fcad88bd0ad1f5cdf1d76a7c2f8bc9a4dedafc504",
-      "bytes": 9342
+      "export_sha256": "da83edc13944e873203d38a0fb070024cbca9a7117f86ee2683bc9b70963e49f",
+      "bytes": 9340
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_pack_train_dev/job_status.json",
@@ -1368,7 +1379,7 @@
     },
     {
       "path": "plans/20261030_full_nuscenes_front1024_coordinator.json",
-      "export_sha256": "ab894c04b4d675780477c6cc64e35bebee56f0629442c8aa0db1a061bed31f9b",
+      "export_sha256": "acf7b81aa9f79bfa70083c02057cdb6f8f0467dcc4b59df813c8db4a15ab0c63",
       "bytes": 7704
     },
     {
@@ -1403,7 +1414,7 @@
     },
     {
       "path": "status.json",
-      "export_sha256": "4d03584bfb0acb24899eef315fd03e21c2e4b83f132363f6c7124908a59a1268",
+      "export_sha256": "13e5351e5419fe18a1aec28ca0b82d32cafbb51e6f59bded03c1e581df3dc97e",
       "bytes": 21788
     }
   ],
