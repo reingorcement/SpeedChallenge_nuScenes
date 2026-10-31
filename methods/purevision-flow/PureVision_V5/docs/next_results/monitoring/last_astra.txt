@@ -1,17 +1,18 @@
-正常，无新增里程碑。指定命令成功，5 个目标工件均有读取成功收据。
+正常，无新增里程碑。指定命令成功，5 个目标文件均有读取成功收据。
 
 实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
-- `monitoring/astra/20261031T210001Z_51452.request.json`
-- `monitoring/astra/20261031T210001Z_51452.snapshot.json`
+
+- `monitoring/astra/20261031T220001Z_58365.request.json`
+- `monitoring/astra/20261031T220001Z_58365.snapshot.json`
 - `monitoring/publication.json`
 - `runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/status.json`
 - `pipeline/20261101_rgb_path_s42/jobs/R03_APPEAR_FT_s42_18ep.json`
 - `pipeline/20261101_rgb_path_s42/jobs/compare.json`
 
-宿主确定性检查（北京时间 05:00 快照）：目标训练主、子进程存活且身份核验通过；GPU0 利用率 100%，显存 49405/97887 MiB，85°C；工件盘剩余 960.44 GB，缓存所在盘剩余 17434.38 GB，无低空间标记。
+宿主确定性检查（北京时间 06:00:01）：训练父子 PID 身份核验通过、均存活；GPU0 利用率 100%，显存 49405/97887 MiB，86℃；工件盘剩余 960GB，真实缓存所在盘剩余 17434GB，无低空间告警。
 
-本次 AI 诊断：目标 run `20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep` 身份一致，epoch=5、step=11720，loss=0.000391；最近验证 EPE=0.214203，最佳为 0.205068。累计 AMP 跳步 1 次，未据此判异常。状态及日志约 5 秒前更新，checkpoint 约 51 秒前更新；目标日志异常摘要为空。旧模型评估已完成；compare 仍排队，PID unknown 保留待核实，整体未终态。
+本次 AI 诊断：目标训练 run ID 一致，epoch=7，步数从快照 16120 推进至 16140；loss=0.0004144，累计 AMP skips=3。最近验证 EPE=0.226768，最佳=0.205068；快照日志异常列表为空，日志更新距快照约12秒，`last.pt` 更新距快照约103秒。未发现停滞证据，正常波动不需干预。
 
-无需干预；人工后续关注同 run 步数及 checkpoint 是否持续更新，compare 终态待依赖完成后核实。全程只读，未修改或启停任何作业。
+同批 `old_diff18_eval` 已完成；`compare` 排队、尚未启动，PID unknown 保留待核实，不算终止；整体尚未结束。人工后续关注 GPU 温度及下一次验证；若步数持续不动，再定位该 run 日志与 checkpoint 时间。全程只读，未修改或启停任何作业。
 
 ASTRA_PATROL_OK
