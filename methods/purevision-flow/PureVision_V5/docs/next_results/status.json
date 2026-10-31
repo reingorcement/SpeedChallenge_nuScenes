@@ -13,23 +13,23 @@
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_BASE.log",
       "training_status": "running",
       "progress": {
-        "epoch": 24,
-        "global_step": 51900,
-        "optimizer_updates": 51881,
-        "amp_skips": 19,
-        "best_epe": 0.22729898077291075,
-        "best_epoch": 23
+        "epoch": 31,
+        "global_step": 65560,
+        "optimizer_updates": 65536,
+        "amp_skips": 24,
+        "best_epe": 0.2185664858370567,
+        "best_epoch": 29
       },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/last.pt",
-          "sha256": "8b9cebf2faefa5fbe1c8730d730035cd0ff9377e686bf7ae794c33a9598149a1",
+          "sha256": "d4e75a6dadd2b0ed0a051e97651ceb11242e9c35c82e9c52b3078bcf8cc935f9",
           "size_bytes": 929263,
           "representation": "hash_only"
         },
         "best.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/best.pt",
-          "sha256": "f29a5cc430ad7f39e07094d79fb4e7abf1c9ba6ed742adb4631bf47078645f5e",
+          "sha256": "92c33ab343b84bff45d7e03620ee658e01fab007970f9f9fc559567a65f82dc2",
           "size_bytes": 929263,
           "representation": "hash_only"
         }
@@ -47,23 +47,23 @@
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_FLEX.log",
       "training_status": "running",
       "progress": {
-        "epoch": 24,
-        "global_step": 51740,
-        "optimizer_updates": 51722,
-        "amp_skips": 18,
-        "best_epe": 0.19917329836621553,
-        "best_epoch": 22
+        "epoch": 31,
+        "global_step": 64860,
+        "optimizer_updates": 64836,
+        "amp_skips": 24,
+        "best_epe": 0.19386987447858714,
+        "best_epoch": 28
       },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/last.pt",
-          "sha256": "0615e0b9428501fad37edb5b0e2f279e6d93786bd6bbb35b5714bb3d80bbfc21",
+          "sha256": "b50d7cc17529ddb6ac987399de76d99772bdb4650e51c6f35c081029c6712a8d",
           "size_bytes": 995427,
           "representation": "hash_only"
         },
         "best.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/best.pt",
-          "sha256": "c732d1938f9775fb75447d3c12131430d8980621616203b5635010a68a45dea9",
+          "sha256": "19242d40ce0c829503aaa3e80e0709a5936d30c12d36174761a283cff4db5fb5",
           "size_bytes": 995427,
           "representation": "hash_only"
         }
