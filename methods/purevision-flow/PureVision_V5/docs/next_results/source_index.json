@@ -416,26 +416,26 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_0.json",
-      "source_sha256": "933becc66aa37d0c36092603e3414e45d908b2a6ea38a5b2816346012f71b06e",
-      "bytes": 2045,
+      "source_sha256": "e067092be532377aefb4676037a2b0773b9024e1e4adb336433e5d6188bba419",
+      "bytes": 2119,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_1.json",
-      "source_sha256": "9995ae6ea4ad52ba6abbf43c2c58c1f6fc3ad910b5ca2109d9bafedab46e39c0",
-      "bytes": 2047,
+      "source_sha256": "f9e002c65deaadec4903538b84336f170c8b246d46dba17e93d2f281cf50572a",
+      "bytes": 2117,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_2.json",
-      "source_sha256": "74c7fb5c2f7cc07b053057f40e8a2d64d5b5ad93720b40b1117b968f0b43e7e6",
-      "bytes": 2046,
+      "source_sha256": "6b36e82d62a3c0e813da2103c5f25c7b7235434b9be191cd8304739d6ebd780b",
+      "bytes": 2119,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/pack_train_dev.json",
-      "source_sha256": "e65c97ce3089ba5d861ae0b14a952164f483bc8cd53517e5585b555724d600de",
-      "bytes": 116,
+      "source_sha256": "bf00e60ef02f0041ec222d0aa62ee3e9783393ecdb4d0f6d777bf97e2a257dc8",
+      "bytes": 1067,
       "representation": "parsed_json"
     },
     {
@@ -452,26 +452,26 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_0.json",
-      "source_sha256": "5854f1980a0e61bdb9903d3e57759e1023742d7705acb9cce6d80780a7c92eb1",
-      "bytes": 9339,
+      "source_sha256": "b755b3e6044b4feae6fefed8c5361b6d90275fc0e668e7aa157ae5e9d3e0c53c",
+      "bytes": 9381,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_1.json",
-      "source_sha256": "c1cd20f652f50695f835028f4bcb629c22ef40782e22c80f41d00d50d11ea965",
-      "bytes": 9341,
+      "source_sha256": "bf9a22148f92210750f7290a216dcc2bc9c470f67d78d1e57b1247d176495e06",
+      "bytes": 9378,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_2.json",
-      "source_sha256": "b21ec95aff05e4d072d2c2e83d3a6524f683d46815bbb149390a782042715abf",
-      "bytes": 9340,
+      "source_sha256": "08ac7a56a987d06987bbab27861f16302f10be54df0c02bc5c3ff032e2d7f8d6",
+      "bytes": 9380,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/status.json",
-      "source_sha256": "f03f1ae902b150cc098116adbd485e8ed86985057dd1e2f98303f8608a92d93c",
-      "bytes": 7701,
+      "source_sha256": "ab5d81968b47d9b1b3e3d73f9de6144562d353eb6804dcddff7ffc7cfce756cc",
+      "bytes": 8976,
       "representation": "parsed_json"
     },
     {
@@ -760,8 +760,8 @@
   "exports": [
     {
       "path": "README.md",
-      "export_sha256": "d55f0fd3ac4bef12306a0b6658dd5cc58fd737dea6aaf2d636e674ee4f492c37",
-      "bytes": 3012
+      "export_sha256": "4336823889894047322f0244778322bdbc1f8b2001a1ba629310f85e19899afc",
+      "bytes": 3019
     },
     {
       "path": "comparisons/resolution_20261030_pilot_s42_retry1/summary.json",
@@ -1055,38 +1055,38 @@
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_flow1024_0/job_status.json",
-      "export_sha256": "933becc66aa37d0c36092603e3414e45d908b2a6ea38a5b2816346012f71b06e",
-      "bytes": 2045
+      "export_sha256": "e067092be532377aefb4676037a2b0773b9024e1e4adb336433e5d6188bba419",
+      "bytes": 2119
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_flow1024_0/progress_report.json",
-      "export_sha256": "5854f1980a0e61bdb9903d3e57759e1023742d7705acb9cce6d80780a7c92eb1",
-      "bytes": 9339
+      "export_sha256": "b755b3e6044b4feae6fefed8c5361b6d90275fc0e668e7aa157ae5e9d3e0c53c",
+      "bytes": 9381
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_flow1024_1/job_status.json",
-      "export_sha256": "9995ae6ea4ad52ba6abbf43c2c58c1f6fc3ad910b5ca2109d9bafedab46e39c0",
-      "bytes": 2047
+      "export_sha256": "f9e002c65deaadec4903538b84336f170c8b246d46dba17e93d2f281cf50572a",
+      "bytes": 2117
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_flow1024_1/progress_report.json",
-      "export_sha256": "c1cd20f652f50695f835028f4bcb629c22ef40782e22c80f41d00d50d11ea965",
-      "bytes": 9341
+      "export_sha256": "bf9a22148f92210750f7290a216dcc2bc9c470f67d78d1e57b1247d176495e06",
+      "bytes": 9378
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_flow1024_2/job_status.json",
-      "export_sha256": "74c7fb5c2f7cc07b053057f40e8a2d64d5b5ad93720b40b1117b968f0b43e7e6",
-      "bytes": 2046
+      "export_sha256": "6b36e82d62a3c0e813da2103c5f25c7b7235434b9be191cd8304739d6ebd780b",
+      "bytes": 2119
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_flow1024_2/progress_report.json",
-      "export_sha256": "b21ec95aff05e4d072d2c2e83d3a6524f683d46815bbb149390a782042715abf",
-      "bytes": 9340
+      "export_sha256": "08ac7a56a987d06987bbab27861f16302f10be54df0c02bc5c3ff032e2d7f8d6",
+      "bytes": 9380
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_pack_train_dev/job_status.json",
-      "export_sha256": "e65c97ce3089ba5d861ae0b14a952164f483bc8cd53517e5585b555724d600de",
-      "bytes": 116
+      "export_sha256": "bf00e60ef02f0041ec222d0aa62ee3e9783393ecdb4d0f6d777bf97e2a257dc8",
+      "bytes": 1067
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_verify_full_cache/job_status.json",
@@ -1390,8 +1390,8 @@
     },
     {
       "path": "plans/20261030_full_nuscenes_front1024_coordinator.json",
-      "export_sha256": "f03f1ae902b150cc098116adbd485e8ed86985057dd1e2f98303f8608a92d93c",
-      "bytes": 7701
+      "export_sha256": "ab5d81968b47d9b1b3e3d73f9de6144562d353eb6804dcddff7ffc7cfce756cc",
+      "bytes": 8976
     },
     {
       "path": "plans/20261030_pilot_s42.json",
@@ -1425,8 +1425,8 @@
     },
     {
       "path": "status.json",
-      "export_sha256": "f2164fe1cebaa0c59c19ceb25e73a9e07ae5735cc19d9baee006e17d241841c3",
-      "bytes": 21788
+      "export_sha256": "33f4c268450efd9b4bd2f7c6e8110fb78f5e3df151b6acea3eb09ac50b9c49ec",
+      "bytes": 21796
     }
   ],
   "note": "source_sha256 hashes source bytes (JSONL complete prefix); export_sha256 hashes the published representation. JSON may be reformatted; index excludes itself."

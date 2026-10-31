@@ -1,6 +1,6 @@
 {
   "status": "running",
-  "updated_at": "2026-10-31T03:16:59.886268+00:00",
+  "updated_at": "2026-10-31T04:17:07.248321+00:00",
   "plan_identity": "cbc303bbcd40f1189db741cab7cce6f3938d6a3be3e3326ce182555ce95cf620",
   "code": {
     "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
@@ -9,8 +9,8 @@
   },
   "jobs": {
     "flow1024_0": {
-      "status": "running",
-      "updated_at": "2026-10-31T03:16:57.089495+00:00",
+      "status": "completed",
+      "updated_at": "2026-10-31T03:44:22.520282+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793372602.056493,
@@ -50,31 +50,33 @@
       "expected_pairs": 77623,
       "total": 77623,
       "target_pairs": 77623,
-      "pairs_processed": 73904,
+      "pairs_processed": 77623,
       "counts": {
-        "created": 70655,
+        "created": 74374,
         "reused": 0,
         "recovered": 0,
         "adopted": 3249
       },
-      "elapsed_s": 43998.41088723694,
-      "pairs_per_second": 1.6796970279087529,
-      "throughput": 1.6796970279087529,
-      "bytes": 440657182048,
-      "bytes_written": 440657182048,
+      "elapsed_s": 45649.497309929924,
+      "pairs_per_second": 1.7004130537413251,
+      "throughput": 1.7004130537413251,
+      "bytes": 462831950126,
+      "bytes_written": 462831950126,
       "cuda_peak_allocated_bytes": 9452956672,
-      "completed": 73904,
+      "completed": 77623,
       "last_pair": {
-        "source": "1ac243345b514ba5b944c1182a5bb7a5",
-        "target": "f7837ffce92e4873b8805fd5ec01f4dc",
+        "source": "ec8d6f17b0e8449288b284d587404b4a",
+        "target": "88ffcd0a10314d8bb824fe871680e8c4",
         "version": "v1.0-trainval",
         "camera": "CAM_FRONT",
-        "scene": "scene-1064"
-      }
+        "scene": "scene-1110"
+      },
+      "exit_code": 0,
+      "finished_at": "2026-10-31T03:44:22.520254+00:00"
     },
     "flow1024_1": {
-      "status": "running",
-      "updated_at": "2026-10-31T03:16:57.096310+00:00",
+      "status": "completed",
+      "updated_at": "2026-10-31T03:40:57.471735+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793372602.0702586,
@@ -114,31 +116,33 @@
       "expected_pairs": 77277,
       "total": 77277,
       "target_pairs": 77277,
-      "pairs_processed": 74568,
+      "pairs_processed": 77277,
       "counts": {
-        "created": 72027,
+        "created": 74736,
         "reused": 0,
         "recovered": 0,
         "adopted": 2541
       },
-      "elapsed_s": 44000.18638941203,
-      "pairs_per_second": 1.6947200936845042,
-      "throughput": 1.6947200936845042,
-      "bytes": 444616323216,
-      "bytes_written": 444616323216,
+      "elapsed_s": 45444.425068276,
+      "pairs_per_second": 1.7004726403972374,
+      "throughput": 1.7004726403972374,
+      "bytes": 460768903674,
+      "bytes_written": 460768903674,
       "cuda_peak_allocated_bytes": 9452956672,
-      "completed": 74568,
+      "completed": 77277,
       "last_pair": {
-        "source": "5029cfedcf5d48149154c89862260fe3",
-        "target": "759cf70e396442b0b0a49bde5d21b296",
+        "source": "1fceed9a8e56455f8e3b919dd9674559",
+        "target": "ec3e0a177d9f4d8296db2dbf8e5f917f",
         "version": "v1.0-trainval",
         "camera": "CAM_FRONT",
-        "scene": "scene-1074"
-      }
+        "scene": "scene-1108"
+      },
+      "exit_code": 0,
+      "finished_at": "2026-10-31T03:40:57.471705+00:00"
     },
     "flow1024_2": {
-      "status": "running",
-      "updated_at": "2026-10-31T03:16:57.100652+00:00",
+      "status": "completed",
+      "updated_at": "2026-10-31T03:39:57.465107+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793372602.0826333,
@@ -178,33 +182,55 @@
       "expected_pairs": 77339,
       "total": 77339,
       "target_pairs": 77339,
-      "pairs_processed": 74768,
+      "pairs_processed": 77339,
       "counts": {
-        "created": 71520,
+        "created": 73859,
         "reused": 0,
         "recovered": 0,
-        "adopted": 3248
+        "adopted": 3480
       },
-      "elapsed_s": 44001.76080584701,
-      "pairs_per_second": 1.699204727963176,
-      "throughput": 1.699204727963176,
-      "bytes": 445808835616,
-      "bytes_written": 445808835616,
+      "elapsed_s": 45387.88007451501,
+      "pairs_per_second": 1.7039578016713246,
+      "throughput": 1.7039578016713246,
+      "bytes": 461138582518,
+      "bytes_written": 461138582518,
       "cuda_peak_allocated_bytes": 9452956672,
-      "completed": 74768,
+      "completed": 77339,
       "last_pair": {
-        "source": "bed527452215459d88890715398a9d65",
-        "target": "669416efd0c94eb49c97932edadf13bb",
+        "source": "71143f072d92433fa9a8d0fadceaa17b",
+        "target": "f82f169159a84ca2989ea7b9fd6607bf",
         "version": "v1.0-trainval",
         "camera": "CAM_FRONT",
-        "scene": "scene-1075"
-      }
+        "scene": "scene-1109"
+      },
+      "exit_code": 0,
+      "finished_at": "2026-10-31T03:39:57.465078+00:00"
     },
     "pack_train_dev": {
-      "status": "queued",
-      "updated_at": "2026-10-30T15:03:21.925634+00:00",
-      "launch_count": 0,
-      "reason": null
+      "status": "running",
+      "updated_at": "2026-10-31T04:17:06.836429+00:00",
+      "launch_count": 1,
+      "reason": null,
+      "launched_at_epoch": 1793418266.4485128,
+      "pid": 3454744,
+      "pid_start_ticks": 93318194,
+      "started_at": "2026-10-31T03:44:27.931873+00:00",
+      "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "phase": "pack",
+      "command_index": 0,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5/pack_flow.py",
+        "--manifest",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+        "--source-root",
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/v1.0-trainval/CAM_FRONT",
+        "--output",
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev"
+      ],
+      "child_pid": 3454828,
+      "child_pid_start_ticks": 93319204
     },
     "verify_full_cache": {
       "status": "queued",
