@@ -211,6 +211,13 @@
       "exit_code": 1,
       "report_commit": "eb2987638d459e3c892742117b19fa8d5fc6820b",
       "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    },
+    {
+      "time": "2026-10-31T17:25:58.661797+00:00",
+      "success": true,
+      "exit_code": 0,
+      "report_commit": "41914f6e40e4b442ca821445df224b8ccc008365",
+      "error": null
     }
   ],
   "cron_installed": true,
@@ -240,7 +247,7 @@
     "status": "installed_pending_observed_trigger",
     "model": "gpt-6-astra"
   },
-  "status": "publication_pending",
+  "status": "user_paused_stage_monitor_retired",
   "publisher_schedule": {
     "installed_at": "2026-10-31T08:29:27.885544+00:00",
     "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5",
@@ -252,7 +259,7 @@
     "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_r03_20261031.json",
     "status": "installed_pending_observed_trigger"
   },
-  "updated_at": "2026-10-31T17:20:11.556657+00:00",
+  "updated_at": "2026-11-01T02:16:47.756427+08:00",
   "pid": 3930215,
   "all_startups_verified": false,
   "initial_wave_verified": false,
@@ -292,11 +299,11 @@
       0
     ]
   ],
-  "last_attempt_epoch": 1793467211.5568423,
+  "last_attempt_epoch": 1793467539.621919,
   "published_milestones": [
     [
       "R03_FT",
-      "running",
+      "interrupted",
       true,
       1,
       1
@@ -317,11 +324,12 @@
     ],
     [
       "compare",
-      "queued",
+      "blocked",
       false,
       0,
       0
     ]
   ],
-  "last_success_epoch": 1793465343.8435194
+  "last_success_epoch": 1793467558.6618369,
+  "reason": "Old FT remains paused; transfer stage-specific patrol/publication guard to authorized RGB-path stage; no old training restarted"
 }

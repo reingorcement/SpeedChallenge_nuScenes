@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "scope": "smoke_real_trainer_not_formal_results",
+  "started_at": "2026-10-31T18:12:25.961772+00:00",
+  "rows": {
+    "R03_APPEAR_FT_s42_18ep": {
+      "status": "passed",
+      "initialization": {
+        "policy": "seed42_flex_weight_only_continuation_v1",
+        "flow_checkpoint_sha256": "4d24688a71935d135a9b153ce568f31b4f2fd9845197c89bdf5accbec43ec823",
+        "source_run": "20261031_r02_base_flex_s42_R02_FLEX",
+        "source_training_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+        "source_best_epoch_one_based": 37,
+        "optimizer_inherited": false,
+        "head_mapping_exact": true,
+        "encoder_state_sha256": "b7062079c32b8255d9cf4014529e6dc5ef6281a8bcd8b1d26b92a25f0c164873",
+        "head_state_sha256": "cf2ccc0c4985e0b36a15c4e85da4a8597523872a0389df94b93b2b69a42dee1b",
+        "mapping": "RGB columns 0:384 zero; source flow/dt columns -> 384:452",
+        "rgb_checkpoint_sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+        "rgb_state_sha256": "b130b588539d4ccc278675385198707d490c49506513a5a0e178bdf94767abc2",
+        "appearance_initialization": {
+          "policy": "isolated_seed42_torch_conv_default",
+          "stem": "Conv3d 3->64 kernel(1,3,3) padding(0,1,1), ReLU",
+          "seed": 42,
+          "alpha": 0.0,
+          "stem_state_sha256": "1961f2f86b22aea359d370c53e20715fec22b58000f013f45b49518255cd687a",
+          "shared_rgb_load": "exact V3 keys; only stem weight/bias and alpha are new"
+        },
+        "model_state_sha256": "be911d77b53a8e7143c14d2f58f70a2249750c1f7321a0a763b1be3473f13788"
+      },
+      "processed_batches": 5,
+      "optimizer_updates": 5,
+      "amp_skips": 0,
+      "processed_microbatches": 5,
+      "recovery_proof": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/verification/rgb_path_trainer_v2_20261101/R03_APPEAR_FT_s42_18ep/resumed/last.pt",
+        "sha256": "5de7d7fef4dd9046d735d9d4a2b4a121351657b134f13f774825502e9f313592",
+        "size_bytes": 27117737,
+        "mtime_ns": 1793470381854187526,
+        "inode": 49291137,
+        "epoch": 2,
+        "next_batch": 1,
+        "global_step": 5,
+        "checked_at": "2026-10-31T18:13:07.475411+00:00",
+        "load_device": "cpu",
+        "resumable_state_verified": true
+      },
+      "independent_evaluation_count": 16,
+      "independent_evaluation_scope": "16 real dev windows, smoke only",
+      "checkpoint_sha256": "5de7d7fef4dd9046d735d9d4a2b4a121351657b134f13f774825502e9f313592",
+      "saved_rgb_bn_used": true
+    }
+  },
+  "finished_at": "2026-10-31T18:13:07.578121+00:00"
+}
