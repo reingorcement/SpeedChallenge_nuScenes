@@ -28,7 +28,7 @@ def optional(path):
 
 def inspect_run(plan, job, train_rows, dev_rows, *, expected_seed=42):
     # Shared receipt/40-epoch/prediction validation; selection scope is explicit.
-    full = plan.get("stage") == "r02_encoder_comparison"
+    full = plan.get("stage") in {"r02_encoder_comparison", "r02_encoder_multiseed"}
     scope = "full_train_dev" if full else "resolution_pilot"
     output = Path(job["run_dir"])
     evaluation = Path(command_value(job["commands"][1], "--output"))

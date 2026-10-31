@@ -1,6 +1,7 @@
 """CPU-only startup verification and milestone publication, never training control.
 
-After BOTH first epochs/checkpoints pass, install this run's real cron patrols.
+After the declared initial wave passes, install this plan's real cron patrols.
+Queued runs are verified separately when they start; never count them as verified.
 Network failures retry without touching workers; stop only after terminal remote publication.
 """
 import argparse
@@ -17,6 +18,15 @@ from startup_watch import inspect
 
 def optional(path):
     return read_json(path) if Path(path).is_file() else {}
+
+
+def startup_gate(plan, proofs):
+    jobs={j["name"]:j for j in plan["jobs"] if j["kind"]=="training"}
+    names=plan.get("startup_gate_jobs",list(jobs))
+    if not names or len(set(names))!=len(names) or not set(names)<=set(jobs):
+        raise ValueError("Invalid initial startup wave")
+    statuses={p["run_id"]:p["status"] for p in proofs}
+    return all(statuses.get(jobs[n]["job_id"])=="verified" for n in names)
 
 
 def run(plan_path, command_file, interval=30):
@@ -41,12 +51,14 @@ def run(plan_path, command_file, interval=30):
                     path=root/"monitoring/startup"/job["job_id"]/"startup_proof.json"
                     proof=inspect(job,plan,optional(path) or None)
                     write_json(path,proof);proofs.append(proof)
-            all_verified=all(p["status"]=="verified" for p in proofs) and len(proofs)==2
-            if all_verified and not state.get("cron_installed"):
+            all_verified=bool(proofs) and all(p["status"]=="verified" for p in proofs)
+            gate_verified=startup_gate(plan,proofs)
+            if gate_verified and not state.get("cron_installed"):
                 formal=install_cron(root,ROOT)
                 probe=install_cron(root,ROOT,probe=True)
                 state.update(cron_installed=True,cron_installed_at=now(),schedule=formal,probe_schedule=probe)
             state.update(updated_at=now(),pid=os.getpid(),all_startups_verified=all_verified,
+                         initial_wave_verified=gate_verified,
                          startup_status={p["run_id"]:p["status"] for p in proofs},milestones=milestones)
             terminal=all(optional(j["status_path"]).get("status") in {"completed","failed","interrupted","cancelled","blocked"}
                          for j in plan["jobs"])

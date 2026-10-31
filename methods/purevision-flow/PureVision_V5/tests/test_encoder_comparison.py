@@ -4,12 +4,13 @@ from purevision_v5.model import build_model
 from purevision_v5.training import model_state_sha256
 
 
-def test_explicit_head_initialization_and_signed_temporal_paths():
+@pytest.mark.parametrize("seed",[42,43,44])
+def test_explicit_head_initialization_and_signed_temporal_paths(seed):
     torch.set_num_threads(2)
     models=[]
     for variant in ("base","flex"):
-        torch.manual_seed(42)
-        models.append(build_model(dict(experiment="R02",encoder_variant=variant,head_seed=42)))
+        torch.manual_seed(seed)
+        models.append(build_model(dict(experiment="R02",encoder_variant=variant,head_seed=seed)))
     assert model_state_sha256(models[0].head)==model_state_sha256(models[1].head)
     x=torch.randn(2,4,2,72,128)
     inputs=dict(flows=x,valid=torch.ones(2,4,1,72,128,dtype=torch.bool),pair_dt=torch.full((2,4),1/12))

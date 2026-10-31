@@ -14,7 +14,7 @@ from purevision_v5.training import (train, seed_everything, model_state_sha256, 
                                     loss_fn, validate_expected_flow, evaluate_model)
 
 
-def verify(manifest, flow, output, device):
+def verify(manifest, flow, output, device, seed=42):
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=False)
     torch.set_num_threads(4)
@@ -28,7 +28,7 @@ def verify(manifest, flow, output, device):
     inputs, target = move_inputs(batch, device), batch["target"].to(device)
     dt = np.concatenate([i["pair_dt"] for d in ds.values() for i in d.items])
     report = dict(schema="v5_encoder_preflight_v1", scope="smoke_not_formal_metrics", started_at=now(),
-                  code=code_version(), device=str(device), gpu=torch.cuda.get_device_name(device),
+                  code=code_version(), seed=seed, device=str(device), gpu=torch.cuda.get_device_name(device),
                   manifest_sha256=sha256(manifest), packed_index_sha256=sha256(Path(flow)/"packed_index.json"),
                   data_contract=ds["train_core"].contract,
                   counts={p:dict(scenes=len(d.scene_names),windows=len(d)) for p,d in ds.items()},
@@ -37,7 +37,8 @@ def verify(manifest, flow, output, device):
                   sampled_flow_min_max=[float(inputs["flows"].min()),float(inputs["flows"].max())],
                   partition_scene_and_image_tokens_disjoint=True, rows={})
     for name in ("BASE", "FLEX"):
-        config_path = ROOT / f"configs/next/R02_{name}.json"
+        suffix = "" if seed == 42 else f"_s{seed}"
+        config_path = ROOT / f"configs/next/R02_{name}{suffix}.json"
         conf = read_json(config_path)
         validate_expected_flow(conf, ds["train_core"].contract)
         seed_everything(conf["seed"])
@@ -110,4 +111,5 @@ if __name__ == "__main__":
     p=ArgumentParser(description=__doc__)
     for k in ("manifest","flow","output"): p.add_argument("--"+k,required=True)
     p.add_argument("--device",default="cuda:1")
-    a=p.parse_args(); print(verify(a.manifest,a.flow,a.output,a.device))
+    p.add_argument("--seed",type=int,choices=(42,43,44),default=42)
+    a=p.parse_args(); print(verify(a.manifest,a.flow,a.output,a.device,a.seed))

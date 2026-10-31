@@ -46,19 +46,8 @@ def build_plan(root, manifest, prefix, version, *, code_root=ROOT, python=sys.ex
     jobs=[]
     def cmd(script,*args): return [str(python),"-B",str(code_root/script),*map(str,args)]
     for name,device in (("R02_BASE","cuda:1"),("R02_FLEX","cuda:2")):
-        config=code_root/"configs/next"/f"{name}.json"
-        output=root/"runs"/f"{prefix}_{name}"
-        evaluation=root/"evaluations"/output.name
-        inputs=["--manifest",str(manifest),"--flow",flow,"--device",device,"--workers","4"]
-        jobs.append(dict(name=name,job_id=output.name,kind="training",experiment="R02",device=device,requires=[],after=[],
-            config_path=str(config),commands=[cmd("train.py","--config",config,*inputs,"--output",output),
-                cmd("evaluate.py","--checkpoint",output/"best.pt",*inputs,"--output",evaluation)],
-            session=f"v5next_{prefix}_{name}",log_path=str(root/"logs"/f"{output.name}.log"),
-            status_path=str(base/"jobs"/f"{name}.json"),progress_path=str(output/"status.json"),
-            run_dir=str(output),fresh_output=str(output),storage_paths=[flow],
-            checks=[dict(path=str(output/"status.json"),field="status",equals="completed"),
-                    dict(path=str(evaluation/"evaluation.json"),field="status",equals="completed"),
-                    dict(path=str(output/"last.pt")),dict(path=str(output/"best.pt"))]))
+        jobs.append(comparison_training_job(root,code_root,python,prefix,manifest,flow,name,device,
+                    code_root/"configs/next"/f"{name}.json"))
     report=root/"reports"/f"encoder_comparison_{prefix}"
     jobs.append(dict(name="compare",job_id=f"{prefix}_compare",kind="comparison",device=None,
         requires=["R02_BASE","R02_FLEX"],after=[],commands=[cmd("collect_encoders.py","--plan",plan_path,"--output",report)],
@@ -72,6 +61,24 @@ def build_plan(root, manifest, prefix, version, *, code_root=ROOT, python=sys.ex
         jobs=jobs,expected_counts=dict(train_core=dict(scenes=582,windows=132978),dev=dict(scenes=103,windows=23480)))
     validate_inputs(plan)
     return dict(plan,identity=object_hash(plan))
+
+
+def comparison_training_job(root, code_root, python, prefix, manifest, flow, name, device, config, *, after=()):
+    """Reuse the exact train/evaluate/checkpoint command contract for new seeds."""
+    root,code_root=Path(root),Path(code_root)
+    output=root/"runs"/f"{prefix}_{name}"
+    evaluation=root/"evaluations"/output.name
+    def cmd(script,*args): return [str(python),"-B",str(code_root/script),*map(str,args)]
+    inputs=["--manifest",str(manifest),"--flow",str(flow),"--device",device,"--workers","4"]
+    return dict(name=name,job_id=output.name,kind="training",experiment="R02",device=device,requires=[],after=list(after),
+        config_path=str(config),commands=[cmd("train.py","--config",config,*inputs,"--output",output),
+            cmd("evaluate.py","--checkpoint",output/"best.pt",*inputs,"--output",evaluation)],
+        session=f"v5next_{prefix}_{name}",log_path=str(root/"logs"/f"{output.name}.log"),
+        status_path=str(root/"pipeline"/prefix/"jobs"/f"{name}.json"),progress_path=str(output/"status.json"),
+        run_dir=str(output),fresh_output=str(output),storage_paths=[str(flow)],
+        checks=[dict(path=str(output/"status.json"),field="status",equals="completed"),
+                dict(path=str(evaluation/"evaluation.json"),field="status",equals="completed"),
+                dict(path=str(output/"last.pt")),dict(path=str(output/"best.pt"))])
 
 
 def main():

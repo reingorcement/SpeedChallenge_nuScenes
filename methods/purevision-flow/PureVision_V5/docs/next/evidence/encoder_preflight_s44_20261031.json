@@ -1,0 +1,231 @@
+{
+  "schema": "v5_encoder_preflight_v1",
+  "scope": "smoke_not_formal_metrics",
+  "started_at": "2026-10-31T06:40:32.779078+00:00",
+  "code": {
+    "commit": "f5869a7fae445c76c5e1f955b97ca2c13d62edf5",
+    "dirty": true,
+    "verified_remote_commit": null
+  },
+  "seed": 44,
+  "device": "cuda:2",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "manifest_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+  "packed_index_sha256": "cce797035ce44b07e5f64ce0e560bfeb68a5f17bb1cb46ac8c16398a56782414",
+  "data_contract": {
+    "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+    "label": {
+      "version": "nuscenes_rear_axle_planar_nonuniform3_v1",
+      "mode": "PLANAR_PROXY",
+      "reference_point": "nuscenes_rear_axle_midpoint",
+      "reference_source": "https://www.nuscenes.org/data-format",
+      "axes": "x_forward_y_left_in_current_yaw_frame",
+      "units": "m/s",
+      "time": "current_camera_timestamp",
+      "derivative": "nonuniform_three_point_quadratic_world_xy_then_current_yaw",
+      "neighbors": "previous_current_next_CAM_FRONT_sample_data_in_same_scene",
+      "smoothing": "none_beyond_three_point_derivative",
+      "endpoints": "excluded",
+      "lever_arm": "none_ego_pose_already_at_rear_axle_midpoint",
+      "future_pose": "offline_supervision_only_never_inference",
+      "limitations": "planar_localization_z_zero_not_true_3D_body_velocity"
+    },
+    "features": null,
+    "flow_root": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+    "flow": {
+      "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+      "native_contract": {
+        "version": "v5_raft_native_v2",
+        "prediction": "frozen_raft_not_ground_truth",
+        "raft_size": [
+          576,
+          1024
+        ],
+        "input": "RGB",
+        "resize": "bilinear",
+        "antialias": false,
+        "range": [
+          -1.0,
+          1.0
+        ],
+        "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+        "num_flow_updates": 12,
+        "compute_dtype": "float32",
+        "tf32": false,
+        "flow_units": "pixels_at_raft_resolution",
+        "component_order": [
+          "u_right",
+          "v_down"
+        ],
+        "valid": "finite_vector_and_endpoint_inside_target",
+        "fb_rule": "squared_relative",
+        "fb_alpha": 0.01,
+        "fb_beta_px2": 0.5,
+        "warp_align_corners": true
+      },
+      "derived_contract": {
+        "version": "v5_flow_view_v2",
+        "model_size": [
+          72,
+          128
+        ],
+        "native_size": [
+          576,
+          1024
+        ],
+        "model_flow_units": "pixels_at_model_resolution",
+        "flow_resize": "bilinear_align_corners_false_vector_scaled",
+        "vector_scale_uv": [
+          0.125,
+          0.125
+        ],
+        "mask_resize": "nearest",
+        "invalid_model_flow": "zero",
+        "flow_dtype": "float16",
+        "mask_dtype": "bool",
+        "dt": "positive_seconds_separate_not_divided_into_flow"
+      },
+      "schema": "v5_flow_v2",
+      "packed_index_sha256": "cce797035ce44b07e5f64ce0e560bfeb68a5f17bb1cb46ac8c16398a56782414"
+    }
+  },
+  "counts": {
+    "train_core": {
+      "scenes": 582,
+      "windows": 132978
+    },
+    "dev": {
+      "scenes": 103,
+      "windows": 23480
+    }
+  },
+  "dt_quantiles_seconds": [
+    0.043823957443237305,
+    0.04999399185180664,
+    0.09999990463256836,
+    0.1028289794921875,
+    0.30000805854797363
+  ],
+  "input_shapes": {
+    "pair_dt": [
+      64,
+      4
+    ],
+    "flows": [
+      64,
+      4,
+      2,
+      72,
+      128
+    ],
+    "valid": [
+      64,
+      4,
+      1,
+      72,
+      128
+    ]
+  },
+  "sampled_flow_min_max": [
+    -32.71875,
+    15.75
+  ],
+  "partition_scene_and_image_tokens_disjoint": true,
+  "rows": {
+    "BASE": {
+      "parameters": 74354,
+      "initial_head_sha256": "48d8166ffa9388bfb0d52cccb7adbe9d5c99fc8b84008a1c1330e41e1a74c639",
+      "components": {
+        "spatial": {
+          "gradient_l1": 0.38727080821990967,
+          "changed_parameter_tensors": 6
+        },
+        "temporal": {
+          "gradient_l1": 0.20971785485744476,
+          "changed_parameter_tensors": 2
+        },
+        "projection": {
+          "gradient_l1": 0.5398445725440979,
+          "changed_parameter_tensors": 2
+        },
+        "head": {
+          "gradient_l1": 2.8913071155548096,
+          "changed_parameter_tensors": 4
+        }
+      },
+      "output_shape": [
+        64,
+        2
+      ],
+      "finite_loss": 0.29177141189575195,
+      "compute_benchmark": {
+        "batch": 64,
+        "warmup": 10,
+        "measured_steps": 100,
+        "seconds": 0.3004689470399171,
+        "samples_per_second": 21300.03803404604,
+        "peak_allocated_bytes": 175999488,
+        "scope": "resident_real_batch AMP forward/backward/AdamW; excludes data loading, validation and checkpoint IO"
+      },
+      "resume": {
+        "processed_batches": 5,
+        "optimizer_updates": 5,
+        "amp_skips": 0,
+        "checkpoint_sha256": "92158740a4a28bcb71aba1fbdf1b7af07ceff362812277ae34f4881b8f5cb418",
+        "independent_evaluation_count": 128,
+        "status": "passed"
+      }
+    },
+    "FLEX": {
+      "parameters": 76850,
+      "initial_head_sha256": "48d8166ffa9388bfb0d52cccb7adbe9d5c99fc8b84008a1c1330e41e1a74c639",
+      "components": {
+        "spatial": {
+          "gradient_l1": 3.7401936054229736,
+          "changed_parameter_tensors": 6
+        },
+        "temporal": {
+          "gradient_l1": 2.9636611938476562,
+          "changed_parameter_tensors": 12
+        },
+        "projection": {
+          "gradient_l1": 8.311897277832031,
+          "changed_parameter_tensors": 2
+        },
+        "head": {
+          "gradient_l1": 7.19893741607666,
+          "changed_parameter_tensors": 4
+        },
+        "sfe": {
+          "gradient_l1": 1.8490347862243652,
+          "changed_parameter_tensors": 14
+        }
+      },
+      "output_shape": [
+        64,
+        2
+      ],
+      "finite_loss": 0.2921125888824463,
+      "compute_benchmark": {
+        "batch": 64,
+        "warmup": 10,
+        "measured_steps": 100,
+        "seconds": 0.6240037109237164,
+        "samples_per_second": 10256.349261971602,
+        "peak_allocated_bytes": 179362304,
+        "scope": "resident_real_batch AMP forward/backward/AdamW; excludes data loading, validation and checkpoint IO"
+      },
+      "resume": {
+        "processed_batches": 5,
+        "optimizer_updates": 5,
+        "amp_skips": 0,
+        "checkpoint_sha256": "49cccc0c6f4fdf3c723d11a28f2f946c698b286668fb18094adcbada22555a9d",
+        "independent_evaluation_count": 128,
+        "status": "passed"
+      }
+    }
+  },
+  "status": "passed",
+  "finished_at": "2026-10-31T06:41:49.135060+00:00",
+  "identical_head_initialization": true
+}
