@@ -1,0 +1,107 @@
+{
+  "status": "running",
+  "updated_at": "2026-10-31T08:34:13.625585+00:00",
+  "plan_identity": "330e29fd3cc40a0d446af987a66ce5f6cfcccd324eaf037abdda9823395085e1",
+  "code": {
+    "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+    "dirty": false,
+    "verified_remote_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588"
+  },
+  "jobs": {
+    "R03_FT": {
+      "status": "running",
+      "updated_at": "2026-10-31T08:34:09.381591+00:00",
+      "launch_count": 1,
+      "reason": null,
+      "launched_at_epoch": 1793435592.7731721,
+      "pid": 3927224,
+      "pid_start_ticks": 95050827,
+      "started_at": "2026-10-31T08:33:14.188419+00:00",
+      "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+      "phase": "training",
+      "command_index": 0,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/train.py",
+        "--config",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/configs/next/R03_FT.json",
+        "--manifest",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+        "--flow",
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+        "--device",
+        "cuda:0",
+        "--workers",
+        "4",
+        "--rgb-frames",
+        "/home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1",
+        "--output",
+        "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT"
+      ],
+      "child_pid": 3927502,
+      "child_pid_start_ticks": 95050986
+    },
+    "R03_Frozen": {
+      "status": "running",
+      "updated_at": "2026-10-31T08:34:09.310835+00:00",
+      "launch_count": 1,
+      "reason": null,
+      "launched_at_epoch": 1793435592.7890491,
+      "pid": 3927229,
+      "pid_start_ticks": 95050828,
+      "started_at": "2026-10-31T08:33:14.145482+00:00",
+      "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+      "phase": "training",
+      "command_index": 0,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/train.py",
+        "--config",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/configs/next/R03_Frozen.json",
+        "--manifest",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+        "--flow",
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+        "--device",
+        "cuda:2",
+        "--workers",
+        "4",
+        "--features",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+        "--output",
+        "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen"
+      ],
+      "child_pid": 3927433,
+      "child_pid_start_ticks": 95050979,
+      "epoch": 0,
+      "global_step": 220,
+      "loss": 0.00022819641162641346,
+      "elapsed_seconds": 4.470467814011499,
+      "cuda_peak_allocated_bytes": 187814912,
+      "processed_batches": 220,
+      "optimizer_updates": 220,
+      "amp_skips": 0,
+      "amp_scale": 65536.0,
+      "best_epe": null,
+      "best_epoch": null
+    },
+    "R02_FLEX_CONT": {
+      "status": "queued",
+      "updated_at": "2026-10-31T08:28:33.495889+00:00",
+      "launch_count": 0,
+      "reason": null
+    },
+    "compare": {
+      "status": "queued",
+      "updated_at": "2026-10-31T08:28:33.496793+00:00",
+      "launch_count": 0,
+      "reason": null
+    },
+    "features": {
+      "status": "not_required"
+    }
+  },
+  "gpu_probe_error": null
+}

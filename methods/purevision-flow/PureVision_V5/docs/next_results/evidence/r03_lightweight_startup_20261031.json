@@ -1,0 +1,102 @@
+{
+  "status": "lightweight_startup_verified",
+  "time": "2026-10-31T08:34:06.293809+00:00",
+  "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+  "plan_identity": "330e29fd3cc40a0d446af987a66ce5f6cfcccd324eaf037abdda9823395085e1",
+  "rows": [
+    {
+      "name": "R03_FT",
+      "run_id": "20261031_r03_flex_s42_R03_FT",
+      "status": "running",
+      "phase": "training",
+      "child": {
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 95050986,
+        "reason": "verified process identity"
+      },
+      "log_bytes": 907,
+      "progress": {
+        "epoch": null,
+        "processed_batches": null,
+        "optimizer_updates": null,
+        "amp_skips": null
+      },
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_FT.log"
+    },
+    {
+      "name": "R03_Frozen",
+      "run_id": "20261031_r03_flex_s42_R03_Frozen",
+      "status": "running",
+      "phase": "training",
+      "child": {
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 95050979,
+        "reason": "verified process identity"
+      },
+      "log_bytes": 1618,
+      "progress": {
+        "epoch": 0,
+        "processed_batches": 3,
+        "optimizer_updates": 3,
+        "amp_skips": 0
+      },
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_Frozen.log"
+    },
+    {
+      "name": "R02_FLEX_CONT",
+      "run_id": "20261031_r03_flex_s42_R02_FLEX_CONT",
+      "status": "queued",
+      "phase": null,
+      "child": null,
+      "log_bytes": 0,
+      "progress": {
+        "epoch": null,
+        "processed_batches": null,
+        "optimizer_updates": null,
+        "amp_skips": null
+      },
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R02_FLEX_CONT.log"
+    }
+  ],
+  "lifecycle": {
+    "session": "v5_r03_20261031_lifecycle",
+    "command": [
+      "/home/zhangyu/.conda/envs/speedest/bin/python",
+      "-B",
+      "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/encoder_lifecycle.py",
+      "--plan",
+      "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r03_flex_s42/plan.json",
+      "--publisher-command",
+      "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_r03_20261031.json"
+    ],
+    "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_lifecycle.log"
+  },
+  "astra": {
+    "actual_trigger": "2026-10-31T08:31:36.438096+00:00",
+    "trigger": "cron_probe",
+    "success": true,
+    "scope": "fresh current-stage cron trigger; first epoch/checkpoint validation delegated"
+  },
+  "publication": {
+    "report_commit": "f833837040eb57bb4af82a8090eb8862ceef187b",
+    "remote_base": "bba1caf6be556c264809e15a7a59bb52baf1c1e1",
+    "started_at": "2026-10-31T08:32:01.550990+00:00",
+    "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
+    "branch": "results/purevision-v5-next",
+    "status": "published",
+    "trigger": "scheduled",
+    "plan_identities": [
+      "330e29fd3cc40a0d446af987a66ce5f6cfcccd324eaf037abdda9823395085e1"
+    ],
+    "changed": true,
+    "training_commits": [
+      "2922f8c4527b6c46eb664d02a4a041cd2c45f588"
+    ],
+    "verified_remote_commit": "f833837040eb57bb4af82a8090eb8862ceef187b",
+    "finished_at": "2026-10-31T08:32:19.736365+00:00",
+    "all_terminal": false
+  },
+  "first_dev_and_checkpoint": "pending lifecycle; not awaited in foreground"
+}

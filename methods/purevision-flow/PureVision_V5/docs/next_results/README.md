@@ -4,8 +4,8 @@
 
 | run ID | 阶段作业 | 状态 | 代码 commit | 光流已处理/总数 | dev EPE |
 |---|---|---|---|---|---|
-| 20261031_r03_flex_s42_R03_FT | R03_FT | queued | `2922f8c4527b6c46eb664d02a4a041cd2c45f588` | — | — |
-| 20261031_r03_flex_s42_R03_Frozen | R03_Frozen | queued | `2922f8c4527b6c46eb664d02a4a041cd2c45f588` | — | — |
+| 20261031_r03_flex_s42_R03_FT | R03_FT | running | `2922f8c4527b6c46eb664d02a4a041cd2c45f588` | — | — |
+| 20261031_r03_flex_s42_R03_Frozen | R03_Frozen | running | `2922f8c4527b6c46eb664d02a4a041cd2c45f588` | — | — |
 | 20261031_r03_flex_s42_R02_FLEX_CONT | R02_FLEX_CONT | queued | `2922f8c4527b6c46eb664d02a4a041cd2c45f588` | — | — |
 | 20261031_r03_flex_s42_compare | compare | queued | `2922f8c4527b6c46eb664d02a4a041cd2c45f588` | —/— | — |
 

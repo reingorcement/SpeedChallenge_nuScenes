@@ -1,0 +1,37 @@
+{
+  "time": "2026-10-31T08:33:09.540006+00:00",
+  "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+  "plan_identity": "330e29fd3cc40a0d446af987a66ce5f6cfcccd324eaf037abdda9823395085e1",
+  "plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r03_flex_s42/plan.json",
+  "coordinator_session": "v5_r03_20261031_coordinator",
+  "command": [
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/scripts/secure_exec.py",
+    "--network",
+    "/home/zhangyu/.local/share/speedest-v5-next/monitoring/network.json",
+    "--",
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/fusion_comparison.py",
+    "--root",
+    "/home/zhangyu/.local/share/speedest-v5-next",
+    "--manifest",
+    "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+    "--run-prefix",
+    "20261031_r03_flex_s42",
+    "--features",
+    "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+    "--rgb-frames",
+    "/home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1",
+    "--verification",
+    "/home/zhangyu/.local/share/speedest-v5-next/evidence/r03_readiness_20261031.json"
+  ],
+  "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_coordinator.log",
+  "run_ids": {
+    "R03_FT": "20261031_r03_flex_s42_R03_FT",
+    "R03_Frozen": "20261031_r03_flex_s42_R03_Frozen",
+    "R02_FLEX_CONT": "20261031_r03_flex_s42_R02_FLEX_CONT"
+  },
+  "scope": "tmux launch request; actual child status checked once separately"
+}

@@ -1,0 +1,18 @@
+{
+  "run_id": "20261031_r03_flex_s42_R03_Frozen",
+  "experiment": "R03",
+  "status": "running",
+  "updated_at": "2026-10-31T08:34:14.310228+00:00",
+  "epoch": 0,
+  "global_step": 620,
+  "processed_batches": 620,
+  "optimizer_updates": 620,
+  "amp_skips": 0,
+  "processed_microbatches": 620,
+  "amp_scale": 65536.0,
+  "cuda_peak_allocated_bytes": 187814912,
+  "best_epe": null,
+  "best_epoch": null,
+  "elapsed_seconds": 9.659464270924218,
+  "loss": 0.00047099380753934383
+}

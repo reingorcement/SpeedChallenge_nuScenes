@@ -5,23 +5,49 @@
       "run_id": "20261031_r03_flex_s42_R03_FT",
       "name": "R03_FT",
       "experiment": "R03",
-      "status": "queued",
+      "status": "running",
       "kind": "training",
       "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
       "plan": "20261031_r03_flex_s42",
       "device": "cuda:0",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_FT.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_FT.log",
+      "training_status": "running",
+      "progress": {
+        "epoch": 0,
+        "global_step": 0,
+        "optimizer_updates": 0,
+        "amp_skips": 0,
+        "best_epe": null,
+        "best_epoch": null
+      }
     },
     {
       "run_id": "20261031_r03_flex_s42_R03_Frozen",
       "name": "R03_Frozen",
       "experiment": "R03",
-      "status": "queued",
+      "status": "running",
       "kind": "training",
       "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
       "plan": "20261031_r03_flex_s42",
       "device": "cuda:2",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_Frozen.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_Frozen.log",
+      "training_status": "running",
+      "progress": {
+        "epoch": 0,
+        "global_step": 620,
+        "optimizer_updates": 620,
+        "amp_skips": 0,
+        "best_epe": null,
+        "best_epoch": null
+      },
+      "checkpoint_hashes": {
+        "last.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen/last.pt",
+          "sha256": "381a00b92ccd8462a78cc6eacd5b71023d93f06eb2a650d1ccc1db6e303054dc",
+          "size_bytes": 10303033,
+          "representation": "hash_only"
+        }
+      }
     },
     {
       "run_id": "20261031_r03_flex_s42_R02_FLEX_CONT",
