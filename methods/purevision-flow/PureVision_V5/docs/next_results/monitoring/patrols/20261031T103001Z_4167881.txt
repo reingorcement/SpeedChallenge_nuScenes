@@ -1,0 +1,15 @@
+指定命令成功，5 个目标工件均有读取成功收据。实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+
+- `monitoring/astra/20261031T103001Z_4167881.snapshot.json`
+- `monitoring/publication.json`
+- `runs/20261031_r03_flex_s42_R03_FT/status.json`
+- `pipeline/20261031_r03_flex_s42/jobs/R03_FT.json`
+- `pipeline/20261031_r03_flex_s42/jobs/compare.json`
+
+**Host 确定性检查**：18:30:02 快照确认 FT 父子进程存活且身份匹配；GPU0 利用率 100%，显存 48307/97887 MiB，85°C；工件盘剩余约 962 GB，真实缓存盘 `/mnt/sdb2` 剩余约 17434 GB，均无低空间告警。
+
+**本次 AI 诊断**：目标 `20261031_r03_flex_s42_R03_FT` 正常，无新增里程碑。epoch 4，步数由快照 8600 推进至 8620，loss 0.000268，AMP 跳步 0；最近验证 EPE 0.223199，最佳 0.206749。快照中 checkpoint 距更新约 77 秒，日志约 2 秒，异常行为空。Frozen、R02_FLEX_CONT 均已完成；compare 仍 queued、未启动，PID unknown 保留待核实，整个 DAG 未结束。
+
+发布报告仍 pending，记录 SSH 连接超时；这不代表训练停止。人工可定位 `monitoring/publication.json` 所述发布链路连接问题。本次未访问外网、未修改任何内容或训练状态。
+
+ASTRA_PATROL_OK
