@@ -1,5 +1,5 @@
 {
-  "time_utc": "2026-10-31T09:30:49.045637+00:00",
+  "time_utc": "2026-10-31T10:00:44.715898+00:00",
   "trigger": "scheduled",
   "model": "gpt-6-astra",
   "exit_code": 0,
@@ -7,10 +7,10 @@
   "actual_shell_read_observed": true,
   "read_evidence": {
     "verified": true,
-    "request_id": "b3affa7131a288be76edb39a2c2f0aff",
+    "request_id": "d8a683c0f7dc062284888c23cda17f16",
     "required_targets": [
       {
-        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T093001Z_4083265.snapshot.json",
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T100001Z_4163841.snapshot.json",
         "run_id": null,
         "mode": "json_summary"
       },
@@ -42,47 +42,47 @@
     },
     "reads": [
       {
-        "request_id": "b3affa7131a288be76edb39a2c2f0aff",
-        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T093001Z_4083265.snapshot.json",
+        "request_id": "d8a683c0f7dc062284888c23cda17f16",
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T100001Z_4163841.snapshot.json",
         "run_id": null,
         "status": "read_success",
-        "bytes_read": 73318,
-        "source_size": 73318,
+        "bytes_read": 73333,
+        "source_size": 73333,
         "read_scope": "full_json_summarized",
-        "sha256": "84896c3da7fb22f7120febfc1c2eea4b31e89be374dd89ee4b164ed367ef29d5"
+        "sha256": "7151f774ea7a9881e902d377494f2063db1bd97201714a2f72889e69e3435a43"
       },
       {
-        "request_id": "b3affa7131a288be76edb39a2c2f0aff",
+        "request_id": "d8a683c0f7dc062284888c23cda17f16",
         "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json",
         "run_id": null,
         "status": "read_success",
-        "bytes_read": 652,
-        "source_size": 652,
+        "bytes_read": 690,
+        "source_size": 690,
         "read_scope": "head_at_most_24000_bytes",
-        "sha256": "491324530271f699e8635efca2a1e373115a0a03ac0207ff65e99a2430407cce"
+        "sha256": "13a651e7c8ee88463bf7af12f28bfe2b3d6d16e0cf577dd7cfac4148159ce570"
       },
       {
-        "request_id": "b3affa7131a288be76edb39a2c2f0aff",
+        "request_id": "d8a683c0f7dc062284888c23cda17f16",
         "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/status.json",
         "run_id": "20261031_r03_flex_s42_R03_FT",
         "status": "read_success",
-        "bytes_read": 486,
-        "source_size": 486,
+        "bytes_read": 487,
+        "source_size": 487,
         "read_scope": "head_at_most_24000_bytes",
-        "sha256": "b3273d095f58ac4b4b3c272d7db3a9b5190c1caa59953f7c6cb7947c045a765d"
+        "sha256": "c3e7e444272c8034bd0497768ce5ff9cc4504b10531b960439ed8918cca6bc41"
       },
       {
-        "request_id": "b3affa7131a288be76edb39a2c2f0aff",
+        "request_id": "d8a683c0f7dc062284888c23cda17f16",
         "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r03_flex_s42/jobs/R03_FT.json",
         "run_id": "20261031_r03_flex_s42_R03_FT",
         "status": "read_success",
-        "bytes_read": 2055,
-        "source_size": 2055,
+        "bytes_read": 2059,
+        "source_size": 2059,
         "read_scope": "head_at_most_24000_bytes",
-        "sha256": "b7209293fcb612da2e839e66e277dc596e3dc76521bf20a0843a9692b980e0b9"
+        "sha256": "bfb3b01743b5fbc6b34bbc8e94090bc26dfc2e7527b4d03cda60547bdbb33c92"
       },
       {
-        "request_id": "b3affa7131a288be76edb39a2c2f0aff",
+        "request_id": "d8a683c0f7dc062284888c23cda17f16",
         "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r03_flex_s42/jobs/compare.json",
         "run_id": "20261031_r03_flex_s42_compare",
         "status": "read_success",
@@ -98,7 +98,7 @@
     "20261031_r03_flex_s42_R03_FT",
     "20261031_r03_flex_s42_compare"
   ],
-  "answer": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T093001Z_4083265.txt",
-  "log": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T093001Z_4083265.log",
+  "answer": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T100001Z_4163841.txt",
+  "log": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T100001Z_4163841.log",
   "evidence_schema": "v5_patrol_read_evidence_v2"
 }
