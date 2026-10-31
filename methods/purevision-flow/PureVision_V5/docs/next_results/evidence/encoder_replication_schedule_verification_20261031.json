@@ -1,0 +1,236 @@
+{
+  "plan_identity": "ec02c3cef4309b610dcd4c825bc8c236341eabd05484a9cf195a7d00d490f5e8",
+  "new_schedule_commit": "7857976ace26707923bae5a0e8e7f9d4bb1067ee",
+  "new_trigger_receipts": [
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T065701Z_3650707.meta.json",
+      "receipt": {
+        "time_utc": "2026-10-31T06:57:46.224940+00:00",
+        "trigger": "cron_probe",
+        "model": "gpt-6-astra",
+        "exit_code": 0,
+        "success": true,
+        "actual_shell_read_observed": true,
+        "read_evidence": {
+          "verified": true,
+          "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+          "required_targets": [
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T065701Z_3650707.snapshot.json",
+              "run_id": null,
+              "mode": "json_summary"
+            },
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json",
+              "run_id": null,
+              "mode": "head"
+            },
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_FLEX_s43/run.json",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
+              "mode": "head"
+            },
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_FLEX_s43/status.json",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
+              "mode": "head"
+            },
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s43_s44/jobs/R02_FLEX_s43.json",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
+              "mode": "head"
+            },
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s43_s44_R02_FLEX_s43.log",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
+              "mode": "tail"
+            },
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_FLEX_s44/run.json",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s44",
+              "mode": "head"
+            },
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_FLEX_s44/status.json",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s44",
+              "mode": "head"
+            },
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s43_s44/jobs/R02_FLEX_s44.json",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s44",
+              "mode": "head"
+            },
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s43_s44_R02_FLEX_s44.log",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s44",
+              "mode": "tail"
+            },
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_retry_s43_s44/jobs/R02_BASE_s43.json",
+              "run_id": "20261031_r02_base_retry_s43_s44_R02_BASE_s43",
+              "mode": "head"
+            },
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_retry_s43_s44/jobs/R02_BASE_s44.json",
+              "run_id": "20261031_r02_base_retry_s43_s44_R02_BASE_s44",
+              "mode": "head"
+            },
+            {
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_retry_s43_s44/jobs/compare.json",
+              "run_id": "20261031_r02_base_retry_s43_s44_compare",
+              "mode": "head"
+            }
+          ],
+          "code": {
+            "commit": "7857976ace26707923bae5a0e8e7f9d4bb1067ee",
+            "dirty": false,
+            "helper_sha256": "1153e38cb80f8693466c79078acd54ec9180fa76f7f2e43de0adf1f328920735"
+          },
+          "reads": [
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T065701Z_3650707.snapshot.json",
+              "run_id": null,
+              "status": "read_success",
+              "bytes_read": 57413,
+              "source_size": 57413,
+              "read_scope": "full_json_summarized",
+              "sha256": "41f0c6130f635b0f32dcf02640e8d2d58f8417fea4efab9b7904c9e30d4ce51f"
+            },
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json",
+              "run_id": null,
+              "status": "read_success",
+              "bytes_read": 1081,
+              "source_size": 1081,
+              "read_scope": "head_at_most_24000_bytes",
+              "sha256": "85206763f6e3bed9ffcbc19bcdb879752cd26ab07c1bf51e6bb2298aa5e7e72c"
+            },
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_FLEX_s43/run.json",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
+              "status": "read_success",
+              "bytes_read": 8143,
+              "source_size": 8143,
+              "read_scope": "head_at_most_24000_bytes",
+              "sha256": "4578e24a63b4c6cb41d1504d6926586b3254a3d99fe3d02c5b5e6906d1d698a5"
+            },
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_FLEX_s43/status.json",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
+              "status": "read_success",
+              "bytes_read": 473,
+              "source_size": 473,
+              "read_scope": "head_at_most_24000_bytes",
+              "sha256": "9b0ba853ff384553d0c663f1b64d5f7dd666e9673fb62b297224e56d5e93e2bc"
+            },
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s43_s44/jobs/R02_FLEX_s43.json",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
+              "status": "read_success",
+              "bytes_read": 1945,
+              "source_size": 1945,
+              "read_scope": "head_at_most_24000_bytes",
+              "sha256": "f328f9932627439c525c15be4fa03358a972ac4be55aea55f4eb4502eff6b7fb"
+            },
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s43_s44_R02_FLEX_s43.log",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
+              "status": "read_success",
+              "bytes_read": 24000,
+              "source_size": 635296,
+              "read_scope": "tail_at_most_24000_bytes",
+              "sha256": "07cc27753413b1d93450ee9fb26cc539dac09361ae3cfbc030db6bda61b40f0d"
+            },
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_FLEX_s44/run.json",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s44",
+              "status": "read_success",
+              "bytes_read": 8143,
+              "source_size": 8143,
+              "read_scope": "head_at_most_24000_bytes",
+              "sha256": "adbae7f3dfe43cffd6ddadfebacf34e4acaf3f0a96bf7497b28247549ca43df5"
+            },
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_FLEX_s44/status.json",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s44",
+              "status": "read_success",
+              "bytes_read": 473,
+              "source_size": 473,
+              "read_scope": "head_at_most_24000_bytes",
+              "sha256": "2401dc753f88c134be7817964e73058bc8ff90c05de7bb2b4098fbb489dac89c"
+            },
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s43_s44/jobs/R02_FLEX_s44.json",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s44",
+              "status": "read_success",
+              "bytes_read": 1947,
+              "source_size": 1947,
+              "read_scope": "head_at_most_24000_bytes",
+              "sha256": "c08d2e8932c5093b20997212e7bea1e0481049a59ca30c5cb7320df4cda70616"
+            },
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s43_s44_R02_FLEX_s44.log",
+              "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s44",
+              "status": "read_success",
+              "bytes_read": 24000,
+              "source_size": 621494,
+              "read_scope": "tail_at_most_24000_bytes",
+              "sha256": "c5e88a0004f2900175381d74d0a69c8d829f163cf26feb557e1463584cfe3df0"
+            },
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_retry_s43_s44/jobs/R02_BASE_s43.json",
+              "run_id": "20261031_r02_base_retry_s43_s44_R02_BASE_s43",
+              "status": "read_success",
+              "bytes_read": 116,
+              "source_size": 116,
+              "read_scope": "head_at_most_24000_bytes",
+              "sha256": "f0819a1985fe222ac1d0eaa87d0122db5b47350c3836abafad91c5d394b3535d"
+            },
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_retry_s43_s44/jobs/R02_BASE_s44.json",
+              "run_id": "20261031_r02_base_retry_s43_s44_R02_BASE_s44",
+              "status": "read_success",
+              "bytes_read": 116,
+              "source_size": 116,
+              "read_scope": "head_at_most_24000_bytes",
+              "sha256": "c4b827e1358e28f5a780169cdcbcec41ab33ea0eae1bd3fbaf9dfe46087ded72"
+            },
+            {
+              "request_id": "ae3190f10b845b4d298672ef3c0feca8",
+              "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_retry_s43_s44/jobs/compare.json",
+              "run_id": "20261031_r02_base_retry_s43_s44_compare",
+              "status": "read_success",
+              "bytes_read": 116,
+              "source_size": 116,
+              "read_scope": "head_at_most_24000_bytes",
+              "sha256": "5888ecf8f86d839bd705dd09d18d6eb6246231627b2f87470a40e5006c869034"
+            }
+          ],
+          "missing": []
+        },
+        "run_ids": [
+          "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
+          "20261031_r02_base_flex_s43_s44_R02_FLEX_s44",
+          "20261031_r02_base_retry_s43_s44_R02_BASE_s43",
+          "20261031_r02_base_retry_s43_s44_R02_BASE_s44",
+          "20261031_r02_base_retry_s43_s44_compare"
+        ],
+        "answer": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T065701Z_3650707.txt",
+        "log": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T065701Z_3650707.log",
+        "evidence_schema": "v5_patrol_read_evidence_v2"
+      }
+    }
+  ]
+}

@@ -134,32 +134,51 @@
       "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
       "name": "R02_FLEX_s43",
       "experiment": "R02",
-      "status": "running",
+      "status": "completed",
       "kind": "training",
       "training_commit": "ace7519f8277026982cc843c4a95932ee64eeabc",
       "plan": "20261031_r02_base_flex_s43_s44",
       "device": "cuda:0",
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s43_s44_R02_FLEX_s43.log",
-      "training_status": "running",
+      "training_status": "completed",
       "progress": {
-        "epoch": 25,
-        "global_step": 53260,
-        "optimizer_updates": 53241,
-        "amp_skips": 19,
-        "best_epe": 0.19619621201733364,
-        "best_epoch": 22
+        "epoch": 40,
+        "global_step": 83120,
+        "optimizer_updates": 83087,
+        "amp_skips": 33,
+        "best_epe": 0.18307130493691354,
+        "best_epoch": 35
+      },
+      "evaluation_status": "completed",
+      "dev_metrics": {
+        "count": 23480,
+        "epe": 0.18307130493691354,
+        "mae_vx": 0.1799274598545871,
+        "rmse_vx": 0.32329743685869544,
+        "bias_vx": 0.016358769536808076,
+        "p95_abs_vx": 0.6133677959442138,
+        "mae_vy": 0.016669440345646176,
+        "rmse_vy": 0.026102587344971593,
+        "bias_vy": -0.0025161492971473394,
+        "p95_abs_vy": 0.05198242552578447,
+        "zero_vy_mae": 0.035983646252559655
+      },
+      "predictions": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r02_base_flex_s43_s44_R02_FLEX_s43/predictions.csv",
+        "sha256": "0a2fb1f34cbf7a010e7b637842d9768f440a0799830112490a45691f1fdb32b2",
+        "representation": "full_csv"
       },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_FLEX_s43/last.pt",
-          "sha256": "2de43eae8d5d16c5cb00f1d22662d7a2d1e0f364928f93e807fb516ef700bf77",
-          "size_bytes": 995299,
+          "sha256": "e2b821ba1d26695986cd45c0531085371dfe21a4ad74436e73bf5588e77477a5",
+          "size_bytes": 995363,
           "representation": "hash_only"
         },
         "best.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_FLEX_s43/best.pt",
-          "sha256": "b32e139ac3931c88905fe604e73a4508262e9c1bdfc3842729c85b6fbaf68119",
-          "size_bytes": 995299,
+          "sha256": "0abcc8509407c6f68c6f9a3cc7107cd18a88f28329922bd5ae9f7206ddae20fa",
+          "size_bytes": 995363,
           "representation": "hash_only"
         }
       }
@@ -179,31 +198,50 @@
       "run_id": "20261031_r02_base_flex_s43_s44_R02_FLEX_s44",
       "name": "R02_FLEX_s44",
       "experiment": "R02",
-      "status": "running",
+      "status": "completed",
       "kind": "training",
       "training_commit": "ace7519f8277026982cc843c4a95932ee64eeabc",
       "plan": "20261031_r02_base_flex_s43_s44",
       "device": "cuda:2",
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s43_s44_R02_FLEX_s44.log",
-      "training_status": "running",
+      "training_status": "completed",
       "progress": {
-        "epoch": 24,
-        "global_step": 51940,
-        "optimizer_updates": 51922,
-        "amp_skips": 18,
-        "best_epe": 0.19521803010572095,
-        "best_epoch": 23
+        "epoch": 40,
+        "global_step": 83120,
+        "optimizer_updates": 83087,
+        "amp_skips": 33,
+        "best_epe": 0.18297927335656355,
+        "best_epoch": 36
+      },
+      "evaluation_status": "completed",
+      "dev_metrics": {
+        "count": 23480,
+        "epe": 0.18297927335656355,
+        "mae_vx": 0.17977988619513702,
+        "rmse_vx": 0.3459036215888601,
+        "bias_vx": -0.01480823740639545,
+        "p95_abs_vx": 0.5875170230865479,
+        "mae_vy": 0.016782459248792014,
+        "rmse_vy": 0.026101862515459137,
+        "bias_vy": -0.001047944178958816,
+        "p95_abs_vy": 0.05158116240054369,
+        "zero_vy_mae": 0.035983646252559655
+      },
+      "predictions": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r02_base_flex_s43_s44_R02_FLEX_s44/predictions.csv",
+        "sha256": "0d558a3697c19c3b1a443270eca748fce7c5e1f0959db75b36dda23c584d36ec",
+        "representation": "full_csv"
       },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_FLEX_s44/last.pt",
-          "sha256": "93891be54739dc4a5d7902a7b812c60cc0da254d83c6096631600ae4a8d49e39",
+          "sha256": "113efe59cb1e09879a82a61f84ab49cbe5d7dd065d8ba507638525373c205b7a",
           "size_bytes": 995427,
           "representation": "hash_only"
         },
         "best.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_FLEX_s44/best.pt",
-          "sha256": "fefd45f9a4026b88fb99a0fd2902defb607b8b50ae5f3025f2efed6933bced14",
+          "sha256": "3a1a20a54f7e36a8d5ec5368ac1bb78c9f8e8db6e67a8edbeb985a25bf277eed",
           "size_bytes": 995427,
           "representation": "hash_only"
         }
@@ -225,23 +263,69 @@
       "run_id": "20261031_r02_base_retry_s43_s44_R02_BASE_s43",
       "name": "R02_BASE_s43",
       "experiment": "R02",
-      "status": "queued",
+      "status": "running",
       "kind": "training",
       "training_commit": "7857976ace26707923bae5a0e8e7f9d4bb1067ee",
       "plan": "20261031_r02_base_retry_s43_s44",
       "device": "cuda:0",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_retry_s43_s44_R02_BASE_s43.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_retry_s43_s44_R02_BASE_s43.log",
+      "training_status": "running",
+      "progress": {
+        "epoch": 6,
+        "global_step": 14340,
+        "optimizer_updates": 14337,
+        "amp_skips": 3,
+        "best_epe": 0.32043714920039534,
+        "best_epoch": 4
+      },
+      "checkpoint_hashes": {
+        "last.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_retry_s43_s44_R02_BASE_s43/last.pt",
+          "sha256": "ecc77d11ae3b639c8256fd99fa83c57af89c09d0e8e76147cbf29599828fda52",
+          "size_bytes": 929135,
+          "representation": "hash_only"
+        },
+        "best.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_retry_s43_s44_R02_BASE_s43/best.pt",
+          "sha256": "c9cc1d71650ab3bc7f05fab5926c135bcd65163f0405f2b85e406c59edc961d9",
+          "size_bytes": 929135,
+          "representation": "hash_only"
+        }
+      }
     },
     {
       "run_id": "20261031_r02_base_retry_s43_s44_R02_BASE_s44",
       "name": "R02_BASE_s44",
       "experiment": "R02",
-      "status": "queued",
+      "status": "running",
       "kind": "training",
       "training_commit": "7857976ace26707923bae5a0e8e7f9d4bb1067ee",
       "plan": "20261031_r02_base_retry_s43_s44",
       "device": "cuda:2",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_retry_s43_s44_R02_BASE_s44.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_retry_s43_s44_R02_BASE_s44.log",
+      "training_status": "running",
+      "progress": {
+        "epoch": 5,
+        "global_step": 11160,
+        "optimizer_updates": 11159,
+        "amp_skips": 1,
+        "best_epe": 0.36997108356816516,
+        "best_epoch": 3
+      },
+      "checkpoint_hashes": {
+        "last.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_retry_s43_s44_R02_BASE_s44/last.pt",
+          "sha256": "a5cebabfbe0ca56523c09fe1f598dd019c781c8d172c1d4f8aff168bbe117d69",
+          "size_bytes": 929199,
+          "representation": "hash_only"
+        },
+        "best.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_retry_s43_s44_R02_BASE_s44/best.pt",
+          "sha256": "6d815bfc8ef19a97aaa7d3099b8ab2d66f772ac759d2efc30b266467ea646363",
+          "size_bytes": 929199,
+          "representation": "hash_only"
+        }
+      }
     },
     {
       "run_id": "20261031_r02_base_retry_s43_s44_compare",

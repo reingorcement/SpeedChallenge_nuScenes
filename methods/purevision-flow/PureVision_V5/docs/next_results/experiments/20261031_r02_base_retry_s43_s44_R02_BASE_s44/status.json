@@ -1,0 +1,17 @@
+{
+  "run_id": "20261031_r02_base_retry_s43_s44_R02_BASE_s44",
+  "experiment": "R02",
+  "status": "running",
+  "updated_at": "2026-10-31T07:07:14.953740+00:00",
+  "epoch": 5,
+  "global_step": 11160,
+  "processed_batches": 11160,
+  "optimizer_updates": 11159,
+  "amp_skips": 1,
+  "amp_scale": 1048576.0,
+  "cuda_peak_allocated_bytes": 176683008,
+  "best_epe": 0.36997108356816516,
+  "best_epoch": 3,
+  "elapsed_seconds": 160.93197935505304,
+  "loss": 0.001450101612135768
+}
