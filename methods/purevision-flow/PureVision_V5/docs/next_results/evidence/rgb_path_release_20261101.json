@@ -1,0 +1,13 @@
+{
+  "status": "verified_pushed",
+  "code": {
+    "commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+    "dirty": false,
+    "verified_remote_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83"
+  },
+  "plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261101_rgb_path_s42/plan.json",
+  "plan_identity": "84031870ac981e43754aa741f2fe5b06b66ed71c3f2b7c26eddcfddd387c2f0b",
+  "tests": "293 passed",
+  "manifest": "510 verified",
+  "old_FT": "remains user-paused; only best evaluation is scheduled"
+}

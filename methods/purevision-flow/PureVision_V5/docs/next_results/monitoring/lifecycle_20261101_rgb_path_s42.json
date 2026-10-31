@@ -1,0 +1,31 @@
+{
+  "plan_identity": "84031870ac981e43754aa741f2fe5b06b66ed71c3f2b7c26eddcfddd387c2f0b",
+  "started_at": "2026-10-31T18:18:12.003919+00:00",
+  "publication_attempts": [],
+  "cron_installed": true,
+  "status": "prepared_not_launched",
+  "schedule": {
+    "installed_at": "2026-10-31T18:18:11.973033+00:00",
+    "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5",
+    "commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+    "probe": false,
+    "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T181811.967433Z.txt",
+    "lines": [
+      "*/5 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/scripts/server_check.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_SERVER",
+      "*/30 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ASTRA"
+    ],
+    "status": "installed_pending_observed_trigger",
+    "model": "gpt-6-astra"
+  },
+  "publisher_schedule": {
+    "installed_at": "2026-10-31T18:18:11.999074+00:00",
+    "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5",
+    "commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+    "lines": [
+      "17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_rgb_path_20261101.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER"
+    ],
+    "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T181811.994218Z.txt",
+    "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_rgb_path_20261101.json",
+    "status": "installed_pending_observed_trigger"
+  }
+}

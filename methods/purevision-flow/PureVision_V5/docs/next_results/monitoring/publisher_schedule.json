@@ -1,30 +1,11 @@
 {
-  "installed_at": "2026-10-31T08:29:27.885544+00:00",
-  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5",
-  "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+  "installed_at": "2026-10-31T18:18:11.999074+00:00",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5",
+  "commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
   "lines": [
-    "17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_r03_20261031.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER"
+    "17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_rgb_path_20261101.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER"
   ],
-  "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T082927.881499Z.txt",
-  "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_r03_20261031.json",
-  "status": "verified_trigger",
-  "last_result": {
-    "report_commit": "c0f524f078679740491d1c016ad17181164abbaf",
-    "remote_base": "4318136b0a8bfb71b847e78958ee8a2d9c222a6e",
-    "started_at": "2026-10-31T16:17:01.216025+00:00",
-    "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
-    "branch": "results/purevision-v5-next",
-    "status": "published",
-    "trigger": "scheduled",
-    "plan_identities": [
-      "330e29fd3cc40a0d446af987a66ce5f6cfcccd324eaf037abdda9823395085e1"
-    ],
-    "changed": true,
-    "training_commits": [
-      "2922f8c4527b6c46eb664d02a4a041cd2c45f588"
-    ],
-    "verified_remote_commit": "c0f524f078679740491d1c016ad17181164abbaf",
-    "finished_at": "2026-10-31T16:17:19.923173+00:00",
-    "all_terminal": false
-  }
+  "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T181811.994218Z.txt",
+  "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_rgb_path_20261101.json",
+  "status": "installed_pending_observed_trigger"
 }

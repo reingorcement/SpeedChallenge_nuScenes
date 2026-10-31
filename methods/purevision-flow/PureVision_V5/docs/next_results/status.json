@@ -2,159 +2,42 @@
   "schema": "v5_next_public_report_v1",
   "rows": [
     {
-      "run_id": "20261031_r03_flex_s42_R03_FT",
-      "name": "R03_FT",
+      "run_id": "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep",
+      "name": "R03_APPEAR_FT_s42_18ep",
       "experiment": "R03",
-      "status": "interrupted",
+      "status": "queued",
       "kind": "training",
-      "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
-      "plan": "20261031_r03_flex_s42",
+      "training_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+      "plan": "20261101_rgb_path_s42",
       "device": "cuda:0",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_FT.log",
-      "training_status": "interrupted",
-      "progress": {
-        "epoch": 18,
-        "global_step": 37445,
-        "optimizer_updates": 37435,
-        "amp_skips": 10,
-        "best_epe": 0.2067490669096111,
-        "best_epoch": 0
-      },
-      "checkpoint_hashes": {
-        "last.pt": {
-          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/last.pt",
-          "sha256": "270b1630182b13addf2b207ee2cd0e8d6f1f8d763abd4abe34b48f2569f06920",
-          "size_bytes": 27092097,
-          "representation": "hash_only"
-        },
-        "best.pt": {
-          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/best.pt",
-          "sha256": "e806149b06e53f0e183f09618b2cf6bfebd5d768ff09038262520d7742a0fd04",
-          "size_bytes": 27092097,
-          "representation": "hash_only"
-        }
-      }
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep.log"
     },
     {
-      "run_id": "20261031_r03_flex_s42_R03_Frozen",
-      "name": "R03_Frozen",
-      "experiment": "R03",
-      "status": "completed",
-      "kind": "training",
+      "run_id": "20261101_rgb_path_s42_old_diff18_eval",
+      "name": "old_diff18_eval",
+      "experiment": "old_diff18_eval",
+      "status": "queued",
+      "kind": "evaluation",
       "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
-      "plan": "20261031_r03_flex_s42",
+      "plan": "20261101_rgb_path_s42",
       "device": "cuda:2",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_Frozen.log",
-      "training_status": "completed",
-      "progress": {
-        "epoch": 40,
-        "global_step": 83120,
-        "optimizer_updates": 83086,
-        "amp_skips": 34,
-        "best_epe": 0.20364393914279363,
-        "best_epoch": 36
-      },
-      "evaluation_status": "completed",
-      "dev_metrics": {
-        "count": 23480,
-        "epe": 0.20364393914279363,
-        "mae_vx": 0.20069800950043404,
-        "rmse_vx": 0.35265304087905613,
-        "bias_vx": -0.02042476226447518,
-        "p95_abs_vx": 0.6542528390884399,
-        "mae_vy": 0.01713958960479014,
-        "rmse_vy": 0.026687606117017072,
-        "bias_vy": -0.0020754804001671336,
-        "p95_abs_vy": 0.05402686521410942,
-        "zero_vy_mae": 0.035983646252559655
-      },
-      "predictions": {
-        "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r03_flex_s42_R03_Frozen/predictions.csv",
-        "sha256": "28b798d6cf4552a3f44a84c53fff82fa7a640ac3922dd4ee7c059086f5f9efc3",
-        "representation": "full_csv"
-      },
-      "checkpoint_hashes": {
-        "last.pt": {
-          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen/last.pt",
-          "sha256": "a61a1ffb39cbad57b24d6c4aba382844a1b93515fbf048034fc0e725b32c0699",
-          "size_bytes": 10303033,
-          "representation": "hash_only"
-        },
-        "best.pt": {
-          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen/best.pt",
-          "sha256": "72bb9872e702ad5c7281c9983c3bd9feff5330665c49e52ce03e7f4eaaf8995c",
-          "size_bytes": 10303033,
-          "representation": "hash_only"
-        }
-      }
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261101_rgb_path_s42_old_diff18_eval.log",
+      "progress": {}
     },
     {
-      "run_id": "20261031_r03_flex_s42_R02_FLEX_CONT",
-      "name": "R02_FLEX_CONT",
-      "experiment": "R02",
-      "status": "completed",
-      "kind": "training",
-      "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
-      "plan": "20261031_r03_flex_s42",
-      "device": "cuda:2",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R02_FLEX_CONT.log",
-      "training_status": "completed",
-      "progress": {
-        "epoch": 40,
-        "global_step": 83120,
-        "optimizer_updates": 83089,
-        "amp_skips": 31,
-        "best_epe": 0.1911382971946551,
-        "best_epoch": 28
-      },
-      "evaluation_status": "completed",
-      "dev_metrics": {
-        "count": 23480,
-        "epe": 0.1911382971946551,
-        "mae_vx": 0.18785772712856955,
-        "rmse_vx": 0.3789255035895323,
-        "bias_vx": -0.018202675664848608,
-        "p95_abs_vx": 0.6106000900268552,
-        "mae_vy": 0.016907034450262586,
-        "rmse_vy": 0.026396532302009088,
-        "bias_vy": 0.0009319524513555927,
-        "p95_abs_vy": 0.05306530646048485,
-        "zero_vy_mae": 0.035983646252559655
-      },
-      "predictions": {
-        "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r03_flex_s42_R02_FLEX_CONT/predictions.csv",
-        "sha256": "d458c35cba90a7ae187e6382d59856c05009855b72d36b6d76f0f882206936d3",
-        "representation": "full_csv"
-      },
-      "checkpoint_hashes": {
-        "last.pt": {
-          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R02_FLEX_CONT/last.pt",
-          "sha256": "d031d35c3a377cc05025259d7b55b9e3347ba72c02b5344cf4e1af53f7abea16",
-          "size_bytes": 996195,
-          "representation": "hash_only"
-        },
-        "best.pt": {
-          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R02_FLEX_CONT/best.pt",
-          "sha256": "6bb8a1b3563c7137a6af8073888f6bcf7b99e8b2dad5a79689aef61a86691ac9",
-          "size_bytes": 996131,
-          "representation": "hash_only"
-        }
-      }
-    },
-    {
-      "run_id": "20261031_r03_flex_s42_compare",
+      "run_id": "20261101_rgb_path_s42_compare",
       "name": "compare",
       "experiment": "compare",
-      "status": "blocked",
+      "status": "queued",
       "kind": "comparison",
-      "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
-      "plan": "20261031_r03_flex_s42",
+      "training_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+      "plan": "20261101_rgb_path_s42",
       "device": null,
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_compare.log",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261101_rgb_path_s42_compare.log",
       "progress": {}
     }
   ],
-  "all_terminal": true,
+  "all_terminal": false,
   "limits": [
     "PLANAR_PROXY labels; dev selection and dev recomputation are not held-out testing.",
     "Checkpoint hashes identify server files; weights are not uploaded.",
