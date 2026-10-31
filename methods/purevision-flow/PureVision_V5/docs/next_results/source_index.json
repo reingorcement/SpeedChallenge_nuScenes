@@ -85,6 +85,12 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/encoder_terminal_inspection_20261031.json",
+      "source_sha256": "b5b276103209714b47632d50022c3d4c4b3940e2fc74a4bab0a3d0890a8b71dd",
+      "bytes": 11606,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/flex_design_readonly_20261030.json",
       "source_sha256": "6412c6f5383a1d06df9d4be3ef8cc95ebad46caf9163cbdea384a24aacb284d5",
       "bytes": 1524,
@@ -638,6 +644,11 @@
       "path": "evidence/encoder_startup_20261031.json",
       "export_sha256": "7c28617148287fe571efa96923475d53ff8b6726a530f8873b5e170b242cb075",
       "bytes": 133680
+    },
+    {
+      "path": "evidence/encoder_terminal_inspection_20261031.json",
+      "export_sha256": "b5b276103209714b47632d50022c3d4c4b3940e2fc74a4bab0a3d0890a8b71dd",
+      "bytes": 11606
     },
     {
       "path": "evidence/flex_design_readonly_20261030.json",
