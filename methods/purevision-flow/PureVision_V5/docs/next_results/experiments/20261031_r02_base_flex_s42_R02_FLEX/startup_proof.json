@@ -1,0 +1,50 @@
+{
+  "schema": "v5_startup_proof_v1",
+  "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+  "plan_identity": "0f23c724cb8225d60ccfd5b0b1647363479f2bf8c39ab0fb31d912f1092248a1",
+  "expected_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+  "updated_at": "2026-10-31T05:51:39.733593+00:00",
+  "errors": [],
+  "raw_job_status": "running",
+  "effective_observation_path": null,
+  "job_status": "running",
+  "training_status": "running",
+  "contract_hash": "de836f1877fdba9e6f408e999c0fbd926a8081108095ced240271a042e09c2b4",
+  "first_steps": [
+    {
+      "event": "step",
+      "epoch": 0,
+      "step": 1,
+      "processed_batches": 1,
+      "optimizer_updates": 1,
+      "amp_skips": 0,
+      "amp_scale": 65536.0,
+      "loss": 0.3723672032356262,
+      "time": "2026-10-31T05:51:21.840324+00:00"
+    },
+    {
+      "event": "step",
+      "epoch": 0,
+      "step": 2,
+      "processed_batches": 2,
+      "optimizer_updates": 2,
+      "amp_skips": 0,
+      "amp_scale": 65536.0,
+      "loss": 0.26825860142707825,
+      "time": "2026-10-31T05:51:21.850973+00:00"
+    },
+    {
+      "event": "step",
+      "epoch": 0,
+      "step": 3,
+      "processed_batches": 3,
+      "optimizer_updates": 3,
+      "amp_skips": 0,
+      "amp_scale": 65536.0,
+      "loss": 0.27223914861679077,
+      "time": "2026-10-31T05:51:21.859645+00:00"
+    }
+  ],
+  "first_validation": null,
+  "status": "pending_steps_or_validation"
+}

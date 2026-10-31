@@ -1,0 +1,219 @@
+{
+  "schema": "v5_pipeline_v1",
+  "stage": "r02_encoder_comparison",
+  "scope": "full_train_dev",
+  "root": "/home/zhangyu/.local/share/speedest-v5-next",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5",
+  "python": "/home/zhangyu/.conda/envs/speedest/bin/python",
+  "prefix": "20261031_r02_base_flex_s42",
+  "code": {
+    "commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+    "dirty": false,
+    "verified_remote_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9"
+  },
+  "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+  "manifest_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+  "flow_root": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+  "source_summary": "/home/zhangyu/.local/share/speedest-v5-next/reports/full_flow_20261030_full_nuscenes_front1024/summary.json",
+  "source_summary_sha256": "96946ac49805c1d4d57668bd0ff48db7cffa24371e2e277458dadcba8516b25c",
+  "features": null,
+  "features_status": null,
+  "config_hashes": {
+    "R02_BASE": "f6f18244081bb13016cd8d458a9219edf309157a02df97b79af38477e19f2013",
+    "R02_FLEX": "1c09eb01c9c377042fea6af26f585a4398bec43d13ff79cc6ece9fa96c1822aa"
+  },
+  "jobs": [
+    {
+      "name": "R02_BASE",
+      "job_id": "20261031_r02_base_flex_s42_R02_BASE",
+      "kind": "training",
+      "experiment": "R02",
+      "device": "cuda:1",
+      "requires": [],
+      "after": [],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/configs/next/R02_BASE.json",
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/configs/next/R02_BASE.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "--device",
+          "cuda:1",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "--device",
+          "cuda:1",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r02_base_flex_s42_R02_BASE"
+        ]
+      ],
+      "session": "v5next_20261031_r02_base_flex_s42_R02_BASE",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_BASE.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/R02_BASE.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/status.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE",
+      "storage_paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev"
+      ],
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r02_base_flex_s42_R02_BASE/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/last.pt"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/best.pt"
+        }
+      ]
+    },
+    {
+      "name": "R02_FLEX",
+      "job_id": "20261031_r02_base_flex_s42_R02_FLEX",
+      "kind": "training",
+      "experiment": "R02",
+      "device": "cuda:2",
+      "requires": [],
+      "after": [],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/configs/next/R02_FLEX.json",
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/configs/next/R02_FLEX.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r02_base_flex_s42_R02_FLEX"
+        ]
+      ],
+      "session": "v5next_20261031_r02_base_flex_s42_R02_FLEX",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_FLEX.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/R02_FLEX.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/status.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX",
+      "storage_paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev"
+      ],
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r02_base_flex_s42_R02_FLEX/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/last.pt"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/best.pt"
+        }
+      ]
+    },
+    {
+      "name": "compare",
+      "job_id": "20261031_r02_base_flex_s42_compare",
+      "kind": "comparison",
+      "device": null,
+      "requires": [
+        "R02_BASE",
+        "R02_FLEX"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/collect_encoders.py",
+          "--plan",
+          "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/plan.json",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/reports/encoder_comparison_20261031_r02_base_flex_s42"
+        ]
+      ],
+      "session": "v5next_20261031_r02_base_flex_s42_compare",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_compare.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/compare.json",
+      "progress_path": null,
+      "run_dir": null,
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/reports/encoder_comparison_20261031_r02_base_flex_s42",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/encoder_comparison_20261031_r02_base_flex_s42/summary.json",
+          "field": "status",
+          "equals": "completed"
+        }
+      ]
+    }
+  ],
+  "expected_counts": {
+    "train_core": {
+      "scenes": 582,
+      "windows": 132978
+    },
+    "dev": {
+      "scenes": 103,
+      "windows": 23480
+    }
+  },
+  "identity": "0f23c724cb8225d60ccfd5b0b1647363479f2bf8c39ab0fb31d912f1092248a1"
+}

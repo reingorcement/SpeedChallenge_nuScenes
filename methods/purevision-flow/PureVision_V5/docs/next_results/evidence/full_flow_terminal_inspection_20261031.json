@@ -1,0 +1,104 @@
+{
+  "schema": "v5_full_flow_terminal_inspection_v1",
+  "observed_at": "2026-10-31T05:03:55.355436+00:00",
+  "status": "complete",
+  "plan_identity": "cbc303bbcd40f1189db741cab7cce6f3938d6a3be3e3326ce182555ce95cf620",
+  "generation_code": {
+    "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+    "dirty": false,
+    "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+  },
+  "summary": "/home/zhangyu/.local/share/speedest-v5-next/reports/full_flow_20261030_full_nuscenes_front1024/summary.json",
+  "summary_sha256": "96946ac49805c1d4d57668bd0ff48db7cffa24371e2e277458dadcba8516b25c",
+  "counts": {
+    "groups": 1000,
+    "frames": 233239,
+    "pairs": 232239
+  },
+  "outcomes": {
+    "created": 222969,
+    "reused": 0,
+    "recovered": 0,
+    "adopted": 9270
+  },
+  "cache_bytes": 1384739436318,
+  "packed_pairs": 158513,
+  "packed_index_sha256": "cce797035ce44b07e5f64ce0e560bfeb68a5f17bb1cb46ac8c16398a56782414",
+  "packed_array_bytes": 8765135232,
+  "validation_scope": {
+    "all_index_sources_and_group_checksums": true,
+    "ordered_pair_digests": "all 3 shards independently recomputed",
+    "native_and_compact_file_presence_and_sizes": "every indexed pair",
+    "full_native_content_reread": false,
+    "native_and_compact_checksum_tensor_samples": 18,
+    "sample_policy": "first three and last three pairs per shard, deduplicated",
+    "packed_array_hashes": "all arrays",
+    "packed_pair_set_times": "complete original train_core/dev",
+    "generation_validation": "Fresh packets use unchanged flow.save_pair metadata/tensor construction and native-byte SHA binding; adoption/resume validate native/compact identity, source images and exact derivation per pair",
+    "limitation": "Final native content audit is sampled; file presence/sizes and ordered coverage are complete, not a fresh hash pass over the entire native corpus"
+  },
+  "jobs": {
+    "flow1024_0": {
+      "status": "completed",
+      "started_at": "2026-10-30T15:03:23.634155+00:00",
+      "finished_at": "2026-10-31T03:44:22.520254+00:00",
+      "exit_code": 0,
+      "launch_count": 1
+    },
+    "flow1024_1": {
+      "status": "completed",
+      "started_at": "2026-10-30T15:03:23.449578+00:00",
+      "finished_at": "2026-10-31T03:40:57.471705+00:00",
+      "exit_code": 0,
+      "launch_count": 1
+    },
+    "flow1024_2": {
+      "status": "completed",
+      "started_at": "2026-10-30T15:03:23.572287+00:00",
+      "finished_at": "2026-10-31T03:39:57.465078+00:00",
+      "exit_code": 0,
+      "launch_count": 1
+    },
+    "pack_train_dev": {
+      "status": "completed",
+      "started_at": "2026-10-31T03:44:27.931873+00:00",
+      "finished_at": "2026-10-31T04:41:22.317748+00:00",
+      "exit_code": 0,
+      "launch_count": 1
+    },
+    "verify_full_cache": {
+      "status": "completed",
+      "started_at": "2026-10-31T04:41:31.413856+00:00",
+      "finished_at": "2026-10-31T04:44:33.856969+00:00",
+      "exit_code": 0,
+      "launch_count": 1
+    }
+  },
+  "fixed_worktree_clean": true,
+  "user_crontab_empty": true,
+  "user_tmux_sessions_empty": true,
+  "gpu_compute_processes_empty": true,
+  "scheduled_astra_count": 27,
+  "scheduled_astra_success_count": 27,
+  "publication": {
+    "report_commit": "8d581b75e908e0bde02d6c99853b97d9a4857a3a",
+    "remote_base": "547f708f50c469a5b8560f8f2f537f50d7216b7e",
+    "started_at": "2026-10-31T04:44:57.982508+00:00",
+    "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
+    "branch": "results/purevision-v5-next",
+    "status": "published",
+    "trigger": "manual",
+    "changed": true,
+    "training_commits": [
+      "252fb5f44c290c0d894faf8373329ba27105604e",
+      "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
+      "be327b7f91f5f7e5ba46b70dede116a21c551652"
+    ],
+    "verified_remote_commit": "8d581b75e908e0bde02d6c99853b97d9a4857a3a",
+    "finished_at": "2026-10-31T04:45:16.281167+00:00",
+    "all_terminal": true
+  },
+  "new_model_training_started": false,
+  "inspection_scope": "Read final reports, compared published summary to source JSON, rehashed packed index; did not repeat native corpus or packed array hashing after successful final collector."
+}
