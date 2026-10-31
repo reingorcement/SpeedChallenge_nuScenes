@@ -1,15 +1,16 @@
-指定命令成功，5 个工件均有读取成功收据。实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+指定命令成功，6 个目标工件均有读取成功收据。实际读取路径（相对于 `/home/zhangyu/.local/share/speedest-v5-next/`）：
 
-- `monitoring/astra/20261031T181901Z_30839.snapshot.json`
+- `monitoring/astra/20261031T183001Z_33318.snapshot.json`
 - `monitoring/publication.json`
-- `pipeline/20261101_rgb_path_s42/jobs/R03_APPEAR_FT_s42_18ep.json`
-- `pipeline/20261101_rgb_path_s42/jobs/old_diff18_eval.json`
-- `pipeline/20261101_rgb_path_s42/jobs/compare.json`
+- `runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/status.json`
+- `pipeline/20261101_rgb_path_s42/jobs/` 下的 `R03_APPEAR_FT_s42_18ep.json`、`old_diff18_eval.json`、`compare.json`
 
-**Host 确定性检查**：北京时间 02:19:01 快照中，目标 `20261101_rgb_path_s42_` 下上述三个作业均 queued、launch_count=0，尚非终态。PID 缺失、进程状态 unknown，保留待核实，不能判定死亡。三张 GPU 利用率均为 0%；工件盘剩余约 960.6 GB，实际缓存所在 `/mnt/sdb2` 盘剩余约 17434.4 GB，均无低空间告警。
+**Host 确定性检查**（北京时间 02:30:01）：训练和评估父子 PID 均存活、身份匹配；checkpoint 距更新约 8.7 秒。GPU 0/2 利用率 98%/95%，温度 88/78℃；工件盘剩余约 960.5 GB，实际缓存所在盘剩余约 17434.4 GB，无低空间告警。
 
-**本次 AI 诊断**：正常，无新增里程碑。训练步数、loss、验证指标及 checkpoint 更新时间均未提供，不能确认训练进展；精简摘要无异常记录，未追加读取大日志。publication 为 pending，不代表训练停止。若排队持续，建议人工核查该 pipeline 的调度器与依赖就绪情况。
+**本次 AI 诊断**：目标训练 run 的 epoch 为 0，步数由快照 660 推进至 680，loss 0.001970，AMP 跳步为 0；首次验证指标尚无，待核实。评估仍运行，compare 排队且未启动；其 PID unknown 不代表终止。训练正常，无新增里程碑。
 
-全程只读，未修改任何状态或修复代码。
+已读取摘要未显示训练异常，但未提供训练日志异常扫描结果，不能宣称日志全面无错。明确异常是发布记录中的 SSH 推送超时、状态 pending，不代表训练停止；建议人工定位发布网络连通性，并后续核对首次验证结果。
+
+全程只读，未修改或操作训练。
 
 ASTRA_PATROL_OK
