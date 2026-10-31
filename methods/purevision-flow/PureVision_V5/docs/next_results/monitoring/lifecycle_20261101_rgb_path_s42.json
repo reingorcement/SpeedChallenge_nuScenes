@@ -106,6 +106,13 @@
       "exit_code": 0,
       "report_commit": "e9ae43863575cf9b3d353602c691eedaf89c7e7f",
       "error": null
+    },
+    {
+      "time": "2026-10-31T22:27:02.510429+00:00",
+      "success": true,
+      "exit_code": 0,
+      "report_commit": "4e9d1b9d6de3f82c1a03184fabc59ff8c5ab205a",
+      "error": null
     }
   ],
   "cron_installed": true,
@@ -134,7 +141,7 @@
     "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_rgb_path_20261101.json",
     "status": "installed_pending_observed_trigger"
   },
-  "updated_at": "2026-10-31T22:21:43.565264+00:00",
+  "updated_at": "2026-10-31T23:02:02.555781+00:00",
   "pid": 31369,
   "all_startups_verified": true,
   "initial_wave_verified": true,
@@ -165,7 +172,7 @@
       0
     ]
   ],
-  "last_attempt_epoch": 1793481984.8090858,
+  "last_attempt_epoch": 1793485603.5710762,
   "published_milestones": [
     [
       "R03_APPEAR_FT_s42_18ep",
@@ -189,5 +196,5 @@
       0
     ]
   ],
-  "last_success_epoch": 1793482003.4997296
+  "last_success_epoch": 1793485622.5104673
 }
