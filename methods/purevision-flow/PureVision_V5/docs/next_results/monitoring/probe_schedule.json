@@ -1,0 +1,12 @@
+{
+  "installed_at": "2026-10-31T08:29:27.868568+00:00",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5",
+  "commit": "probe_external_snapshot",
+  "probe": true,
+  "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T082927.863115Z.txt",
+  "lines": [
+    "* * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next cron_probe >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PROBE"
+  ],
+  "status": "installed_pending_observed_trigger",
+  "model": "gpt-6-astra"
+}

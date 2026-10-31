@@ -1,0 +1,334 @@
+{
+  "schema": "v5_pipeline_v1",
+  "stage": "r03_flex_continuation",
+  "scope": "full_train_dev",
+  "root": "/home/zhangyu/.local/share/speedest-v5-next",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5",
+  "python": "/home/zhangyu/.conda/envs/speedest/bin/python",
+  "prefix": "20261031_r03_flex_s42",
+  "code": {
+    "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+    "dirty": false,
+    "verified_remote_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588"
+  },
+  "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+  "manifest_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+  "flow_root": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+  "source_summary": "/home/zhangyu/.local/share/speedest-v5-next/reports/full_flow_20261030_full_nuscenes_front1024/summary.json",
+  "source_summary_sha256": "96946ac49805c1d4d57668bd0ff48db7cffa24371e2e277458dadcba8516b25c",
+  "features": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+  "features_status": null,
+  "rgb_features_contract": {
+    "schema": "v5_rgb_features_v1",
+    "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+    "weights_sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+    "input_size": [
+      5,
+      3,
+      72,
+      128
+    ],
+    "normalization": "PIL RGB bilinear; x/127.5-1",
+    "dtype": "float32",
+    "compute_precision": "float32",
+    "rgb_code_sha256": "8cecc27de2bdf529b0d23f9670fe441c577515025bbcc790a444921930da7f35",
+    "backbone_code_sha256": "3ce31001db9cb20f445db0fafa707804bfc2023d150d4b0314dd446041c1a155",
+    "modules_code_sha256": "78b1d491d8e3435b0492510799ad1f9774910108e16bbc2c232658b371cfcbb8"
+  },
+  "rgb_features_index_sha256": "6bb0287e382c3eac06826fd1c199dd590c223b845f611e80df4cb31f3d1ba63f",
+  "rgb_frames": "/home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1",
+  "rgb_frames_identity": "c8699178c562d41d42a272371aa97a9763736a1b4c342ac5586d22f50a119165",
+  "rgb_frames_index_sha256": "abf69789b21632507592ac3c6a66d73e790b8f299cba42ec23d6a96dcbb4f98a",
+  "verification": "/home/zhangyu/.local/share/speedest-v5-next/evidence/r03_readiness_20261031.json",
+  "verification_sha256": "2e9f75317313a9d350a50ed8c24a6c8c8b301020e84d624d6ea7ec183aa45c07",
+  "config_hashes": {
+    "R03_FT": "bbd6fdd4462cb5da205723f7c22abaa3b8e10b86564c0e78ba56f311eaf5588e",
+    "R03_Frozen": "eba1f22b868b91ca0670f61f330265cf58678a17183f5327c86983ecf33b4701",
+    "R02_FLEX_CONT": "bc080403b36407b9c56311f9253232e569c4923ee5b8799ad62784d09195a5c1"
+  },
+  "jobs": [
+    {
+      "name": "R03_FT",
+      "job_id": "20261031_r03_flex_s42_R03_FT",
+      "kind": "training",
+      "experiment": "R03",
+      "device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/configs/next/R03_FT.json",
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/configs/next/R03_FT.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "--device",
+          "cuda:0",
+          "--workers",
+          "4",
+          "--rgb-frames",
+          "/home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "--device",
+          "cuda:0",
+          "--workers",
+          "4",
+          "--rgb-frames",
+          "/home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r03_flex_s42_R03_FT"
+        ]
+      ],
+      "session": "v5next_20261031_r03_flex_s42_R03_FT",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_FT.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r03_flex_s42/jobs/R03_FT.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/status.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT",
+      "storage_paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+        "/home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1"
+      ],
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r03_flex_s42_R03_FT/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/last.pt"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/best.pt"
+        }
+      ]
+    },
+    {
+      "name": "R03_Frozen",
+      "job_id": "20261031_r03_flex_s42_R03_Frozen",
+      "kind": "training",
+      "experiment": "R03",
+      "device": "cuda:2",
+      "requires": [],
+      "after": [],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/configs/next/R03_Frozen.json",
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/configs/next/R03_Frozen.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--features",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--features",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r03_flex_s42_R03_Frozen"
+        ]
+      ],
+      "session": "v5next_20261031_r03_flex_s42_R03_Frozen",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_Frozen.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r03_flex_s42/jobs/R03_Frozen.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen/status.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen",
+      "storage_paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/features/v3_direct_fp32_v2"
+      ],
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r03_flex_s42_R03_Frozen/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen/last.pt"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen/best.pt"
+        }
+      ]
+    },
+    {
+      "name": "R02_FLEX_CONT",
+      "job_id": "20261031_r03_flex_s42_R02_FLEX_CONT",
+      "kind": "training",
+      "experiment": "R02",
+      "device": "cuda:2",
+      "requires": [],
+      "after": [
+        "R03_Frozen"
+      ],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/configs/next/R02_FLEX_CONT.json",
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/train.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/configs/next/R02_FLEX_CONT.json",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R02_FLEX_CONT"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/evaluate.py",
+          "--checkpoint",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R02_FLEX_CONT/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "--device",
+          "cuda:2",
+          "--workers",
+          "4",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r03_flex_s42_R02_FLEX_CONT"
+        ]
+      ],
+      "session": "v5next_20261031_r03_flex_s42_R02_FLEX_CONT",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R02_FLEX_CONT.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r03_flex_s42/jobs/R02_FLEX_CONT.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R02_FLEX_CONT/status.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R02_FLEX_CONT",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R02_FLEX_CONT",
+      "storage_paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev"
+      ],
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R02_FLEX_CONT/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r03_flex_s42_R02_FLEX_CONT/evaluation.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R02_FLEX_CONT/last.pt"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R02_FLEX_CONT/best.pt"
+        }
+      ]
+    },
+    {
+      "name": "compare",
+      "job_id": "20261031_r03_flex_s42_compare",
+      "kind": "comparison",
+      "device": null,
+      "requires": [
+        "R03_Frozen",
+        "R03_FT",
+        "R02_FLEX_CONT"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/collect_fusion.py",
+          "--plan",
+          "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r03_flex_s42/plan.json",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_comparison_20261031_r03_flex_s42"
+        ]
+      ],
+      "session": "v5next_20261031_r03_flex_s42_compare",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_compare.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r03_flex_s42/jobs/compare.json",
+      "progress_path": null,
+      "run_dir": null,
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_comparison_20261031_r03_flex_s42",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_comparison_20261031_r03_flex_s42/summary.json",
+          "field": "status",
+          "equals": "completed"
+        }
+      ]
+    }
+  ],
+  "worker_network_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/network.json",
+  "startup_gate_jobs": [
+    "R03_FT",
+    "R03_Frozen"
+  ],
+  "expected_counts": {
+    "train_core": {
+      "scenes": 582,
+      "windows": 132978
+    },
+    "dev": {
+      "scenes": 103,
+      "windows": 23480
+    }
+  },
+  "identity": "330e29fd3cc40a0d446af987a66ce5f6cfcccd324eaf037abdda9823395085e1"
+}

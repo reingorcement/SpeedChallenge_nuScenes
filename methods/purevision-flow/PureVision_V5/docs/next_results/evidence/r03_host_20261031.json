@@ -1,0 +1,10 @@
+{
+  "time": "2026-10-31T08:18:47.490272+00:00",
+  "hostname": "ps",
+  "pid1": "systemd",
+  "boot_id": "9c5cdecf-1ef2-4ad9-9bba-3dd25fac32d1",
+  "uptime_seconds": 949642.98,
+  "cron_service": "active",
+  "tmux_version": "tmux 3.2a",
+  "persistence": "Existing workstation server with persistent /home and /mnt/sdb2; tmux independent of chat; power/reboot recovery relies on checkpoint"
+}

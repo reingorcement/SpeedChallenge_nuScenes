@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "time": "2026-10-31T08:22:37.476851+00:00",
+  "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+  "tests": [
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/r03_tests_all_20261031.log",
+      "sha256": "74cef16b55b7e3f940044152e8bb2422ea806d5207548b895663f1cb8adbbd9b",
+      "last_line": "288 passed in 62.86s (0:01:02)"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/logs/r03_tests_final_ops_20261031.log",
+      "sha256": "d0807bad7db548cd2017e6b5c90bd3d7cd25a24f6291ed7b2711eb43980eb515",
+      "last_line": "54 passed in 17.05s"
+    }
+  ],
+  "remote_branch": "method/purevision-v5-next",
+  "verified_remote_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+  "remote_tag": "v5-code-2922f8c4527b",
+  "detached_worktree": "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c"
+}

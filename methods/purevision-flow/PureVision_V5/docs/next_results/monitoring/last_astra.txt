@@ -1,0 +1,13 @@
+指定命令成功，6 个工件均有读取成功收据。实际读取路径（根目录 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+
+- `monitoring/astra/20261031T083001Z_3916747.snapshot.json`
+- `monitoring/publication.json`
+- `pipeline/20261031_r03_flex_s42/jobs/` 下的 `R03_FT.json`、`R03_Frozen.json`、`R02_FLEX_CONT.json`、`compare.json`
+
+宿主确定性检查：16:30 快照显示，目标前缀 `20261031_r03_flex_s42_` 的上述四项均为 queued，launch_count=0，16:28:33 更新，尚未全部终止。GPU 利用率为 0%/4%/0%；工件盘剩余约 962 GB，真实缓存所在 `/mnt/sdb2` 盘剩余约 17,434 GB，无低空间告警。
+
+本次 AI 诊断：正常，无新增里程碑。训练步数、loss、验证指标及 checkpoint 更新时间暂无记录；PID 为 unknown，保留待核实，不能判断进程死亡。摘要未报告异常，尚无训练日志证据。`publication.json` 的较早 `all_terminal=true` 不能作为本轮目标完成依据。
+
+若持续排队，建议人工定位本轮调度器及 DAG 依赖放行条件。全程只读，未修改或启停任何作业。
+
+ASTRA_PATROL_OK

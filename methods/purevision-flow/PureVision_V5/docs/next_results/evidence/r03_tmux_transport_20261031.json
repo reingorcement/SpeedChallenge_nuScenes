@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "time": "2026-10-31T08:18:22.635310+00:00",
+  "code": {
+    "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+    "dirty": false,
+    "verified_remote_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588"
+  },
+  "context": "actual fresh tmux child with private network settings"
+}

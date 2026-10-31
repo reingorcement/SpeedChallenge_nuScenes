@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "time": "2026-10-31T08:28:33.136449+00:00",
+  "code": {
+    "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+    "dirty": false,
+    "verified_remote_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588"
+  },
+  "evidence": {
+    "r03_real_preflight_v2_20261031": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/r03_real_preflight_v2_20261031.json",
+      "sha256": "98a19d03e341aef03324de638c7a2a3dd48b903f0ad0717dfc9f061a2222f22b"
+    },
+    "r03_trainer_recovery_20261031": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/r03_trainer_recovery_20261031.json",
+      "sha256": "7641e721de991e90e360e717c6168cd0040e51fcf406e4c9e49c7ac3c84f7ad2"
+    },
+    "r03_pixels_20261031": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/r03_pixels_20261031.json",
+      "sha256": "32728bc2101034d5b928dfb501ee29c2051c065e479206dab37a153af357d040"
+    },
+    "r03_release_20261031": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/r03_release_20261031.json",
+      "sha256": "8416ae98cc4328e9b43f71a288b1c4dea744e3507c8098c9409b22c9d591838d"
+    },
+    "r03_tmux_transport_20261031": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/r03_tmux_transport_20261031.json",
+      "sha256": "30f07cad88abb254c53d6a54713617858f96b9ac67f4ec99810964d874d27dd0"
+    }
+  },
+  "rgb_frames": {
+    "status": "completed",
+    "finished_at": "2026-10-31T08:27:13.127000+00:00",
+    "root": "/home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1",
+    "identity": "c8699178c562d41d42a272371aa97a9763736a1b4c342ac5586d22f50a119165",
+    "index_sha256": "abf69789b21632507592ac3c6a66d73e790b8f299cba42ec23d6a96dcbb4f98a",
+    "scenes": 685,
+    "frames": 159198,
+    "bytes": 4401593984,
+    "purpose": "Exact resized uint8 real images; FT backbone still executes and receives gradients"
+  },
+  "real_reader_checks": 16,
+  "config_hashes": {
+    "R03_Frozen": "eba1f22b868b91ca0670f61f330265cf58678a17183f5327c86983ecf33b4701",
+    "R03_FT": "bbd6fdd4462cb5da205723f7c22abaa3b8e10b86564c0e78ba56f311eaf5588e",
+    "R02_FLEX_CONT": "bc080403b36407b9c56311f9253232e569c4923ee5b8799ad62784d09195a5c1"
+  }
+}

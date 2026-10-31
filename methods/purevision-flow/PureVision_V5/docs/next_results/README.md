@@ -4,17 +4,10 @@
 
 | run ID | 阶段作业 | 状态 | 代码 commit | 光流已处理/总数 | dev EPE |
 |---|---|---|---|---|---|
-| 20261031_r02_base_flex_s42_R02_BASE | R02_BASE | completed | `a847938681d60ae86e0e293e24ffa7d2e74e20a9` | — | 0.21514150947435656 |
-| 20261031_r02_base_flex_s42_R02_FLEX | R02_FLEX | completed | `a847938681d60ae86e0e293e24ffa7d2e74e20a9` | — | 0.19162981273705193 |
-| 20261031_r02_base_flex_s42_compare | compare | completed | `a847938681d60ae86e0e293e24ffa7d2e74e20a9` | —/— | — |
-| 20261031_r02_base_flex_s43_s44_R02_BASE_s43 | R02_BASE_s43 | failed | `ace7519f8277026982cc843c4a95932ee64eeabc` | — | — |
-| 20261031_r02_base_flex_s43_s44_R02_FLEX_s43 | R02_FLEX_s43 | completed | `ace7519f8277026982cc843c4a95932ee64eeabc` | — | 0.18307130493691354 |
-| 20261031_r02_base_flex_s43_s44_R02_BASE_s44 | R02_BASE_s44 | failed | `ace7519f8277026982cc843c4a95932ee64eeabc` | — | — |
-| 20261031_r02_base_flex_s43_s44_R02_FLEX_s44 | R02_FLEX_s44 | completed | `ace7519f8277026982cc843c4a95932ee64eeabc` | — | 0.18297927335656355 |
-| 20261031_r02_base_flex_s43_s44_compare | compare | blocked | `ace7519f8277026982cc843c4a95932ee64eeabc` | —/— | — |
-| 20261031_r02_base_retry_s43_s44_R02_BASE_s43 | R02_BASE_s43 | completed | `7857976ace26707923bae5a0e8e7f9d4bb1067ee` | — | 0.20453527452944956 |
-| 20261031_r02_base_retry_s43_s44_R02_BASE_s44 | R02_BASE_s44 | completed | `7857976ace26707923bae5a0e8e7f9d4bb1067ee` | — | 0.2057318953064576 |
-| 20261031_r02_base_retry_s43_s44_compare | compare | completed | `7857976ace26707923bae5a0e8e7f9d4bb1067ee` | —/— | — |
+| 20261031_r03_flex_s42_R03_FT | R03_FT | queued | `2922f8c4527b6c46eb664d02a4a041cd2c45f588` | — | — |
+| 20261031_r03_flex_s42_R03_Frozen | R03_Frozen | queued | `2922f8c4527b6c46eb664d02a4a041cd2c45f588` | — | — |
+| 20261031_r03_flex_s42_R02_FLEX_CONT | R02_FLEX_CONT | queued | `2922f8c4527b6c46eb664d02a4a041cd2c45f588` | — | — |
+| 20261031_r03_flex_s42_compare | compare | queued | `2922f8c4527b6c46eb664d02a4a041cd2c45f588` | —/— | — |
 
 训练作业目录包含实际配置、完整 epoch JSONL、状态与可用的 dev 评价；非训练作业包含 worker 状态及已生成的 progress_report.json。原始大日志、数据/光流和权重不上传。
 `source_index.json` 记录所读文件与摘要；`status.json` 记录 checkpoint 哈希和预测公开形式。

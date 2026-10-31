@@ -1,0 +1,95 @@
+{
+  "status": "completed",
+  "finished_at": "2026-10-31T08:27:13.127000+00:00",
+  "root": "/home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1",
+  "identity": "c8699178c562d41d42a272371aa97a9763736a1b4c342ac5586d22f50a119165",
+  "index_sha256": "abf69789b21632507592ac3c6a66d73e790b8f299cba42ec23d6a96dcbb4f98a",
+  "scenes": 685,
+  "frames": 159198,
+  "bytes": 4401593984,
+  "purpose": "Exact resized uint8 real images; FT backbone still executes and receives gradients",
+  "real_reader_checks": [
+    {
+      "scene": "scene-0001",
+      "partition": "train_core",
+      "token": "020d7b4f858147558106c504f7f31bef"
+    },
+    {
+      "scene": "scene-0001",
+      "partition": "train_core",
+      "token": "461005d9f8964d3b8d681e012bb9b5c9"
+    },
+    {
+      "scene": "scene-0379",
+      "partition": "train_core",
+      "token": "33481ebc3bac4c3cbf671e8c690c4ab6"
+    },
+    {
+      "scene": "scene-0379",
+      "partition": "train_core",
+      "token": "35a32dc027ae462a9f7f2be59e9e7402"
+    },
+    {
+      "scene": "scene-0707",
+      "partition": "train_core",
+      "token": "b8cd369ffca44e5cb5ecfa2dde011198"
+    },
+    {
+      "scene": "scene-0707",
+      "partition": "train_core",
+      "token": "c3bd5d18b9aa476a99365e02f178a529"
+    },
+    {
+      "scene": "scene-1110",
+      "partition": "train_core",
+      "token": "5712b60e23bb4a5a88f9da6dbac0a996"
+    },
+    {
+      "scene": "scene-1110",
+      "partition": "train_core",
+      "token": "ec8d6f17b0e8449288b284d587404b4a"
+    },
+    {
+      "scene": "scene-0005",
+      "partition": "dev",
+      "token": "bdf062f77bbe4f07b6332df1d1acb190"
+    },
+    {
+      "scene": "scene-0005",
+      "partition": "dev",
+      "token": "cc60bbcd75684f4cae240bdd5282135d"
+    },
+    {
+      "scene": "scene-0347",
+      "partition": "dev",
+      "token": "f8dc2a9f91e841cd8ce55d7c19e630fa"
+    },
+    {
+      "scene": "scene-0347",
+      "partition": "dev",
+      "token": "f5a2b6600f6240d190dcbeaad30a3f71"
+    },
+    {
+      "scene": "scene-0711",
+      "partition": "dev",
+      "token": "b3d863ebd7c9417786dfffb98f33de9e"
+    },
+    {
+      "scene": "scene-0711",
+      "partition": "dev",
+      "token": "e37c73b946e34cfea6afc937174afef9"
+    },
+    {
+      "scene": "scene-1109",
+      "partition": "dev",
+      "token": "60e29a2e71c7471b99a089c4c425c9e3"
+    },
+    {
+      "scene": "scene-1109",
+      "partition": "dev",
+      "token": "71143f072d92433fa9a8d0fadceaa17b"
+    }
+  ],
+  "max_abs_error": 0,
+  "preparation_script_sha256": "548f68d3bae6efea4f5dfde672d2436922cc5547c55d18c4eae51cd38f0963d5"
+}
