@@ -5,18 +5,35 @@
       "run_id": "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep",
       "name": "R03_APPEAR_FT_s42_18ep",
       "experiment": "R03",
-      "status": "queued",
+      "status": "running",
       "kind": "training",
       "training_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
       "plan": "20261101_rgb_path_s42",
       "device": "cuda:0",
-      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep.log"
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep.log",
+      "training_status": "running",
+      "progress": {
+        "epoch": 0,
+        "global_step": 300,
+        "optimizer_updates": 300,
+        "amp_skips": 0,
+        "best_epe": null,
+        "best_epoch": null
+      },
+      "checkpoint_hashes": {
+        "last.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/last.pt",
+          "sha256": "c3d8a7f247c94ea922535c8925d1db33b4bf4a61a8f01b1e24ba00c1f9b90af7",
+          "size_bytes": 27117865,
+          "representation": "hash_only"
+        }
+      }
     },
     {
       "run_id": "20261101_rgb_path_s42_old_diff18_eval",
       "name": "old_diff18_eval",
       "experiment": "old_diff18_eval",
-      "status": "queued",
+      "status": "running",
       "kind": "evaluation",
       "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
       "plan": "20261101_rgb_path_s42",

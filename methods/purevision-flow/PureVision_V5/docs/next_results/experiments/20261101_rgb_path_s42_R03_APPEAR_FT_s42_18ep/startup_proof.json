@@ -3,11 +3,51 @@
   "run_id": "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep",
   "plan_identity": "84031870ac981e43754aa741f2fe5b06b66ed71c3f2b7c26eddcfddd387c2f0b",
   "expected_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
-  "updated_at": "2026-10-31T18:20:06.404133+00:00",
+  "updated_at": "2026-10-31T18:25:24.545746+00:00",
   "errors": [],
-  "raw_job_status": "queued",
+  "raw_job_status": "running",
   "effective_observation_path": null,
-  "job_status": "queued",
-  "training_status": null,
-  "status": "pending_run"
+  "job_status": "running",
+  "training_status": "running",
+  "status": "pending_steps_or_validation",
+  "contract_hash": "f65cb11ab9a0a1694938f41a872f25001bf4f9a93789a847bdddd8d94598b95e",
+  "first_steps": [
+    {
+      "event": "step",
+      "epoch": 0,
+      "step": 1,
+      "processed_batches": 1,
+      "optimizer_updates": 1,
+      "amp_skips": 0,
+      "amp_scale": 65536.0,
+      "processed_microbatches": 1,
+      "loss": 0.0006767705781385303,
+      "time": "2026-10-31T18:21:37.821158+00:00"
+    },
+    {
+      "event": "step",
+      "epoch": 0,
+      "step": 2,
+      "processed_batches": 2,
+      "optimizer_updates": 2,
+      "amp_skips": 0,
+      "amp_scale": 65536.0,
+      "processed_microbatches": 2,
+      "loss": 0.008604325354099274,
+      "time": "2026-10-31T18:21:38.538949+00:00"
+    },
+    {
+      "event": "step",
+      "epoch": 0,
+      "step": 3,
+      "processed_batches": 3,
+      "optimizer_updates": 3,
+      "amp_skips": 0,
+      "amp_scale": 65536.0,
+      "processed_microbatches": 3,
+      "loss": 0.0007043444784358144,
+      "time": "2026-10-31T18:21:39.259189+00:00"
+    }
+  ],
+  "first_validation": null
 }

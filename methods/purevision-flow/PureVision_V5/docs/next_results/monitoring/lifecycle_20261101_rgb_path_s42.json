@@ -1,9 +1,17 @@
 {
   "plan_identity": "84031870ac981e43754aa741f2fe5b06b66ed71c3f2b7c26eddcfddd387c2f0b",
   "started_at": "2026-10-31T18:18:12.003919+00:00",
-  "publication_attempts": [],
+  "publication_attempts": [
+    {
+      "time": "2026-10-31T18:20:24.544017+00:00",
+      "success": true,
+      "exit_code": 0,
+      "report_commit": "90e57fa192815ac0fb791c7a296052ee885ebbdc",
+      "error": null
+    }
+  ],
   "cron_installed": true,
-  "status": "prepared_not_launched",
+  "status": "running",
   "schedule": {
     "installed_at": "2026-10-31T18:18:11.973033+00:00",
     "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5",
@@ -27,5 +35,61 @@
     "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T181811.994218Z.txt",
     "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_rgb_path_20261101.json",
     "status": "installed_pending_observed_trigger"
-  }
+  },
+  "updated_at": "2026-10-31T18:20:06.405355+00:00",
+  "pid": 31369,
+  "all_startups_verified": false,
+  "initial_wave_verified": false,
+  "lightweight_startup_verified": false,
+  "startup_status": {
+    "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep": "pending_run"
+  },
+  "milestones": [
+    [
+      "R03_APPEAR_FT_s42_18ep",
+      "queued",
+      false,
+      0,
+      0
+    ],
+    [
+      "old_diff18_eval",
+      "queued",
+      false,
+      0,
+      0
+    ],
+    [
+      "compare",
+      "queued",
+      false,
+      0,
+      0
+    ]
+  ],
+  "last_attempt_epoch": 1793470806.4054186,
+  "published_milestones": [
+    [
+      "R03_APPEAR_FT_s42_18ep",
+      "queued",
+      false,
+      0,
+      0
+    ],
+    [
+      "old_diff18_eval",
+      "queued",
+      false,
+      0,
+      0
+    ],
+    [
+      "compare",
+      "queued",
+      false,
+      0,
+      0
+    ]
+  ],
+  "last_success_epoch": 1793470824.544064
 }

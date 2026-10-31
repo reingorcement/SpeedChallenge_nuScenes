@@ -1,0 +1,129 @@
+{
+  "status": "running",
+  "started_at": "2026-10-31T18:23:18.156443+00:00",
+  "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/best.pt",
+  "checkpoint_sha256": "e806149b06e53f0e183f09618b2cf6bfebd5d768ff09038262520d7742a0fd04",
+  "training_run": "20261031_r03_flex_s42_R03_FT",
+  "training_code": {
+    "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+    "dirty": false,
+    "verified_remote_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588"
+  },
+  "evaluation_code": {
+    "commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+    "dirty": false,
+    "verified_remote_commit": null
+  },
+  "contract_hash": "05dfec2d6ff99da4b393915679b526be64a9fa8bed8d4fa4f33f58cea05cd1f2",
+  "data": {
+    "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+    "label": {
+      "version": "nuscenes_rear_axle_planar_nonuniform3_v1",
+      "mode": "PLANAR_PROXY",
+      "reference_point": "nuscenes_rear_axle_midpoint",
+      "reference_source": "https://www.nuscenes.org/data-format",
+      "axes": "x_forward_y_left_in_current_yaw_frame",
+      "units": "m/s",
+      "time": "current_camera_timestamp",
+      "derivative": "nonuniform_three_point_quadratic_world_xy_then_current_yaw",
+      "neighbors": "previous_current_next_CAM_FRONT_sample_data_in_same_scene",
+      "smoothing": "none_beyond_three_point_derivative",
+      "endpoints": "excluded",
+      "lever_arm": "none_ego_pose_already_at_rear_axle_midpoint",
+      "future_pose": "offline_supervision_only_never_inference",
+      "limitations": "planar_localization_z_zero_not_true_3D_body_velocity"
+    },
+    "features": null,
+    "flow_root": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+    "flow": {
+      "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+      "native_contract": {
+        "version": "v5_raft_native_v2",
+        "prediction": "frozen_raft_not_ground_truth",
+        "raft_size": [
+          576,
+          1024
+        ],
+        "input": "RGB",
+        "resize": "bilinear",
+        "antialias": false,
+        "range": [
+          -1.0,
+          1.0
+        ],
+        "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+        "num_flow_updates": 12,
+        "compute_dtype": "float32",
+        "tf32": false,
+        "flow_units": "pixels_at_raft_resolution",
+        "component_order": [
+          "u_right",
+          "v_down"
+        ],
+        "valid": "finite_vector_and_endpoint_inside_target",
+        "fb_rule": "squared_relative",
+        "fb_alpha": 0.01,
+        "fb_beta_px2": 0.5,
+        "warp_align_corners": true
+      },
+      "derived_contract": {
+        "version": "v5_flow_view_v2",
+        "model_size": [
+          72,
+          128
+        ],
+        "native_size": [
+          576,
+          1024
+        ],
+        "model_flow_units": "pixels_at_model_resolution",
+        "flow_resize": "bilinear_align_corners_false_vector_scaled",
+        "vector_scale_uv": [
+          0.125,
+          0.125
+        ],
+        "mask_resize": "nearest",
+        "invalid_model_flow": "zero",
+        "flow_dtype": "float16",
+        "mask_dtype": "bool",
+        "dt": "positive_seconds_separate_not_divided_into_flow"
+      },
+      "schema": "v5_flow_v2",
+      "packed_index_sha256": "cce797035ce44b07e5f64ce0e560bfeb68a5f17bb1cb46ac8c16398a56782414"
+    },
+    "rgb_images": {
+      "preprocess": "v3_pil_bilinear_rgb_72x128_minus1_plus1_v1",
+      "shape": [
+        5,
+        3,
+        72,
+        128
+      ],
+      "view_identity": "c8699178c562d41d42a272371aa97a9763736a1b4c342ac5586d22f50a119165",
+      "input": "five causal RGB frames; no pose or future time fields"
+    }
+  },
+  "selection_hash": "173e0be7a096f8c09f418f3f1c03cb518362d43f16a851561c5a97fbb03587d0",
+  "partition": "train_core",
+  "runtime": {
+    "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/best.pt",
+    "partition": "train_core",
+    "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+    "features": null,
+    "rgb_frames": "/home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1",
+    "flow": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+    "selection": null,
+    "output": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261101_rgb_path_s42_old_diff18/train_core",
+    "device": "cuda:2",
+    "workers": 4,
+    "threads": 4
+  },
+  "scope": "full_train_dev",
+  "effective_lateral_rule": {
+    "max_relative_mae_increase": 0.05,
+    "max_absolute_mae_increase_m_s": 0.01,
+    "nonzero_threshold_m_s": 0.2,
+    "min_subset_windows": 100,
+    "min_subset_scenes": 5
+  }
+}

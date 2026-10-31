@@ -1,0 +1,32 @@
+{
+  "status": "lightweight_launch_confirmed",
+  "time": "2026-11-01T02:21:55.733975+08:00",
+  "training_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+  "plan_identity": "84031870ac981e43754aa741f2fe5b06b66ed71c3f2b7c26eddcfddd387c2f0b",
+  "jobs": [
+    {
+      "run_id": "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep",
+      "status": "running",
+      "child_pid": 31797,
+      "identity_verified": true,
+      "device": "cuda:0",
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep.log",
+      "log_bytes": 1882,
+      "phase": "training"
+    },
+    {
+      "run_id": "20261101_rgb_path_s42_old_diff18_eval",
+      "status": "running",
+      "child_pid": 31798,
+      "identity_verified": true,
+      "device": "cuda:2",
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261101_rgb_path_s42_old_diff18_eval.log",
+      "log_bytes": 904,
+      "phase": "evaluation"
+    }
+  ],
+  "scheduling_proof": "/home/zhangyu/.local/share/speedest-v5-next/evidence/rgb_path_schedule_trigger_20261101.json",
+  "old_FT": "paused; independent best evaluation only",
+  "first_dev_and_checkpoint": "delegated to lifecycle; not awaited in foreground",
+  "crontab": "\n*/5 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/scripts/server_check.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_SERVER\n*/30 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ASTRA\n17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_rgb_path_20261101.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER\n"
+}
