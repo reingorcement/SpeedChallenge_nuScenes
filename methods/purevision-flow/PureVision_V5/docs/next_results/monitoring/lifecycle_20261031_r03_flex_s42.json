@@ -43,6 +43,13 @@
       "exit_code": 0,
       "report_commit": "5118c4780dc268ca029723909a206b6423355708",
       "error": null
+    },
+    {
+      "time": "2026-10-31T09:06:38.478921+00:00",
+      "success": true,
+      "exit_code": 0,
+      "report_commit": "91e09ae811619d6f509e0bf61a3497255189d0ac",
+      "error": null
     }
   ],
   "cron_installed": true,
@@ -84,13 +91,13 @@
     "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_r03_20261031.json",
     "status": "installed_pending_observed_trigger"
   },
-  "updated_at": "2026-10-31T09:00:58.362958+00:00",
+  "updated_at": "2026-10-31T09:06:18.682760+00:00",
   "pid": 3930215,
-  "all_startups_verified": false,
-  "initial_wave_verified": false,
+  "all_startups_verified": true,
+  "initial_wave_verified": true,
   "lightweight_startup_verified": true,
   "startup_status": {
-    "20261031_r03_flex_s42_R03_FT": "pending_steps_or_validation",
+    "20261031_r03_flex_s42_R03_FT": "verified",
     "20261031_r03_flex_s42_R03_Frozen": "verified",
     "20261031_r03_flex_s42_R02_FLEX_CONT": "verified"
   },
@@ -99,7 +106,7 @@
       "R03_FT",
       "running",
       true,
-      0,
+      1,
       0
     ],
     [
@@ -114,7 +121,7 @@
       "running",
       true,
       1,
-      0
+      1
     ],
     [
       "compare",
@@ -124,13 +131,13 @@
       0
     ]
   ],
-  "last_attempt_epoch": 1793437258.3630364,
+  "last_attempt_epoch": 1793437578.6828232,
   "published_milestones": [
     [
       "R03_FT",
       "running",
       true,
-      0,
+      1,
       0
     ],
     [
@@ -145,7 +152,7 @@
       "running",
       true,
       1,
-      0
+      1
     ],
     [
       "compare",
@@ -155,5 +162,5 @@
       0
     ]
   ],
-  "last_success_epoch": 1793437278.458833
+  "last_success_epoch": 1793437598.4789665
 }
