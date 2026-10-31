@@ -494,20 +494,20 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/last_astra.json",
-      "source_sha256": "b7e898ed2d269a1bb2142016601c552e487cc303f488ce57b7d2a2a635fa9cd8",
+      "source_sha256": "88e43eb0d674fdbdf4a8f849f53950d79f390ec87cf78da8e166b395a53b75de",
       "bytes": 4075,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "c0a36cab9e7f17c10fda1d69b4e706129175e4418b566fdf93d486b50142869a",
-      "bytes": 73342,
+      "source_sha256": "fa15629584814dee38fcd6ca0b3fc265773afdddf90463b0bef680f56565d90c",
+      "bytes": 73339,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/lifecycle_20261031_r03_flex_s42.json",
-      "source_sha256": "50eb5b41f715b74954fb76d0d449a95fcbf9e43bf572d89f640f390ef07a4ce5",
-      "bytes": 11090,
+      "source_sha256": "10f9ceda19d5dceda7956d04b8b939312dbc8f13fcd46b91d7b372e6d7982517",
+      "bytes": 11525,
       "representation": "parsed_json"
     },
     {
@@ -524,25 +524,25 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/schedule.json",
-      "source_sha256": "273b7a0180be7b12463573bceba489888875c5d43779627ec96f873530c07a25",
+      "source_sha256": "c94974533c0845df1a8167f44c348ddf987532add0e34e51114cac849d5fce2f",
       "bytes": 5626,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/startup/20261031_r03_flex_s42_R02_FLEX_CONT/startup_proof.json",
-      "source_sha256": "b475b5606e51f91e2b7ab64de7cd3b1b03b6f59712ef4248e26a580249cbdc8b",
+      "source_sha256": "9281586fab8f4e2f35b94542665ed5ad3e2b2b09e6da0e4be1ada8a5e1cbcc90",
       "bytes": 54486,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/startup/20261031_r03_flex_s42_R03_FT/startup_proof.json",
-      "source_sha256": "196fd0b0a0d1ec5c22d1a75afb2b921355dc97f3098240d98362c4e57582d607",
+      "source_sha256": "628f07d37fd287427a82b891f569662c6e60c7567c1ee3ba612cb290d6987cc0",
       "bytes": 54484,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/startup/20261031_r03_flex_s42_R03_Frozen/startup_proof.json",
-      "source_sha256": "d54eee7d0a4f4ed17e89466ac90deb2c30be9a25aa4f840409f08cea26d277a1",
+      "source_sha256": "2fd9c3f856d282decbf0fc7651a81eabaa557b25af8225c499a1e25880cceb90",
       "bytes": 54443,
       "representation": "parsed_json"
     },
@@ -554,8 +554,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r03_flex_s42/jobs/R03_FT.json",
-      "source_sha256": "86be482332c2a369a00ddc6fe9da82de2329418e180d8ab52e08577914e7cb0b",
-      "bytes": 2065,
+      "source_sha256": "a84da9040ae88111a2887a0b93e8cf302b24e95837de387948c4153efcdd40f2",
+      "bytes": 2069,
       "representation": "parsed_json"
     },
     {
@@ -578,8 +578,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r03_flex_s42/status.json",
-      "source_sha256": "2daa9bb20639596326e744417f716a8ebde99ab4929e85cfb4c11e2eb79cb6d2",
-      "bytes": 7521,
+      "source_sha256": "099650432583c30e31620af9618b324fb1994a1d34a3c5c4980e66f5f9b8cbf1",
+      "bytes": 7524,
       "representation": "parsed_json"
     },
     {
@@ -686,8 +686,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/metrics.jsonl",
-      "source_sha256": "644e690b1eee4cd90c352d8d68a69598884b03c3eb9bfb99af79bce5501e4346",
-      "bytes": 613059,
+      "source_sha256": "e067c457378dc0c8533790267cbf0aef37fec487f089c55e53f7e4d132598a28",
+      "bytes": 651393,
       "representation": "complete_jsonl_records"
     },
     {
@@ -698,8 +698,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/status.json",
-      "source_sha256": "fd379a6e88361653eef80706ff64fea2b4db34efdc5d2ae38364276d77dcdbcb",
-      "bytes": 495,
+      "source_sha256": "dc1f981c07e7036c9882afe87ecbb497e1c55f016726b5f05f581ed153cd6e5a",
+      "bytes": 496,
       "representation": "parsed_json"
     },
     {
@@ -1219,7 +1219,7 @@
     },
     {
       "path": "experiments/20261031_r03_flex_s42_R02_FLEX_CONT/startup_proof.json",
-      "export_sha256": "b475b5606e51f91e2b7ab64de7cd3b1b03b6f59712ef4248e26a580249cbdc8b",
+      "export_sha256": "9281586fab8f4e2f35b94542665ed5ad3e2b2b09e6da0e4be1ada8a5e1cbcc90",
       "bytes": 54486
     },
     {
@@ -1229,13 +1229,13 @@
     },
     {
       "path": "experiments/20261031_r03_flex_s42_R03_FT/job_status.json",
-      "export_sha256": "86be482332c2a369a00ddc6fe9da82de2329418e180d8ab52e08577914e7cb0b",
-      "bytes": 2065
+      "export_sha256": "a84da9040ae88111a2887a0b93e8cf302b24e95837de387948c4153efcdd40f2",
+      "bytes": 2069
     },
     {
       "path": "experiments/20261031_r03_flex_s42_R03_FT/metrics.jsonl",
-      "export_sha256": "644e690b1eee4cd90c352d8d68a69598884b03c3eb9bfb99af79bce5501e4346",
-      "bytes": 613059
+      "export_sha256": "e067c457378dc0c8533790267cbf0aef37fec487f089c55e53f7e4d132598a28",
+      "bytes": 651393
     },
     {
       "path": "experiments/20261031_r03_flex_s42_R03_FT/run.json",
@@ -1244,13 +1244,13 @@
     },
     {
       "path": "experiments/20261031_r03_flex_s42_R03_FT/startup_proof.json",
-      "export_sha256": "196fd0b0a0d1ec5c22d1a75afb2b921355dc97f3098240d98362c4e57582d607",
+      "export_sha256": "628f07d37fd287427a82b891f569662c6e60c7567c1ee3ba612cb290d6987cc0",
       "bytes": 54484
     },
     {
       "path": "experiments/20261031_r03_flex_s42_R03_FT/status.json",
-      "export_sha256": "fd379a6e88361653eef80706ff64fea2b4db34efdc5d2ae38364276d77dcdbcb",
-      "bytes": 495
+      "export_sha256": "dc1f981c07e7036c9882afe87ecbb497e1c55f016726b5f05f581ed153cd6e5a",
+      "bytes": 496
     },
     {
       "path": "experiments/20261031_r03_flex_s42_R03_Frozen/evaluation/evaluation.json",
@@ -1284,7 +1284,7 @@
     },
     {
       "path": "experiments/20261031_r03_flex_s42_R03_Frozen/startup_proof.json",
-      "export_sha256": "d54eee7d0a4f4ed17e89466ac90deb2c30be9a25aa4f840409f08cea26d277a1",
+      "export_sha256": "2fd9c3f856d282decbf0fc7651a81eabaa557b25af8225c499a1e25880cceb90",
       "bytes": 54443
     },
     {
@@ -1299,28 +1299,28 @@
     },
     {
       "path": "monitoring/last_astra.json",
-      "export_sha256": "b7e898ed2d269a1bb2142016601c552e487cc303f488ce57b7d2a2a635fa9cd8",
+      "export_sha256": "88e43eb0d674fdbdf4a8f849f53950d79f390ec87cf78da8e166b395a53b75de",
       "bytes": 4075
     },
     {
       "path": "monitoring/last_astra.txt",
-      "export_sha256": "47e7c3dcb8d818ca72b086586c20bb08f9365e83e30425f545d46f0054d95450",
-      "bytes": 1225
+      "export_sha256": "227438c40b3d2644afc84d444cb0c02d8a1c55064c7955b6bf646779a0cd8e2e",
+      "bytes": 1412
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "c0a36cab9e7f17c10fda1d69b4e706129175e4418b566fdf93d486b50142869a",
-      "bytes": 73342
+      "export_sha256": "fa15629584814dee38fcd6ca0b3fc265773afdddf90463b0bef680f56565d90c",
+      "bytes": 73339
     },
     {
       "path": "monitoring/lifecycle_20261031_r03_flex_s42.json",
-      "export_sha256": "50eb5b41f715b74954fb76d0d449a95fcbf9e43bf572d89f640f390ef07a4ce5",
-      "bytes": 11090
+      "export_sha256": "10f9ceda19d5dceda7956d04b8b939312dbc8f13fcd46b91d7b372e6d7982517",
+      "bytes": 11525
     },
     {
-      "path": "monitoring/patrols/20261031T160001Z_14052.txt",
-      "export_sha256": "47e7c3dcb8d818ca72b086586c20bb08f9365e83e30425f545d46f0054d95450",
-      "bytes": 1225
+      "path": "monitoring/patrols/20261031T163001Z_17557.txt",
+      "export_sha256": "227438c40b3d2644afc84d444cb0c02d8a1c55064c7955b6bf646779a0cd8e2e",
+      "bytes": 1412
     },
     {
       "path": "monitoring/probe_schedule.json",
@@ -1334,7 +1334,7 @@
     },
     {
       "path": "monitoring/schedule.json",
-      "export_sha256": "273b7a0180be7b12463573bceba489888875c5d43779627ec96f873530c07a25",
+      "export_sha256": "c94974533c0845df1a8167f44c348ddf987532add0e34e51114cac849d5fce2f",
       "bytes": 5626
     },
     {
@@ -1344,12 +1344,12 @@
     },
     {
       "path": "plans/20261031_r03_flex_s42_coordinator.json",
-      "export_sha256": "2daa9bb20639596326e744417f716a8ebde99ab4929e85cfb4c11e2eb79cb6d2",
-      "bytes": 7521
+      "export_sha256": "099650432583c30e31620af9618b324fb1994a1d34a3c5c4980e66f5f9b8cbf1",
+      "bytes": 7524
     },
     {
       "path": "status.json",
-      "export_sha256": "2236886ca821863a4219dd4042cd2fa9621a32814a38425da31a9cb0b39736c5",
+      "export_sha256": "15306eb19d4d3dc5ce98967e59a86cedc52129be10f4c1f6aa5ac5afe6a0c3f7",
       "bytes": 6240
     }
   ],
