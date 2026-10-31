@@ -43,6 +43,13 @@
       "exit_code": 1,
       "report_commit": "0115aec93138e219b41344dc0b6a3578c16daaa5",
       "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    },
+    {
+      "time": "2026-10-31T18:53:16.030649+00:00",
+      "success": true,
+      "exit_code": 0,
+      "report_commit": "7f6756ad0a6c0bf19d35a962929010df83899725",
+      "error": null
     }
   ],
   "cron_installed": true,
@@ -71,20 +78,20 @@
     "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_rgb_path_20261101.json",
     "status": "installed_pending_observed_trigger"
   },
-  "updated_at": "2026-10-31T18:47:28.286776+00:00",
+  "updated_at": "2026-10-31T19:13:16.054362+00:00",
   "pid": 31369,
-  "all_startups_verified": false,
-  "initial_wave_verified": false,
+  "all_startups_verified": true,
+  "initial_wave_verified": true,
   "lightweight_startup_verified": true,
   "startup_status": {
-    "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep": "pending_steps_or_validation"
+    "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep": "verified"
   },
   "milestones": [
     [
       "R03_APPEAR_FT_s42_18ep",
       "running",
       true,
-      0,
+      1,
       0
     ],
     [
@@ -102,18 +109,18 @@
       0
     ]
   ],
-  "last_attempt_epoch": 1793472448.28686,
+  "last_attempt_epoch": 1793472776.9907002,
   "published_milestones": [
     [
       "R03_APPEAR_FT_s42_18ep",
       "running",
       true,
-      0,
+      1,
       0
     ],
     [
       "old_diff18_eval",
-      "running",
+      "completed",
       false,
       0,
       0
@@ -126,5 +133,5 @@
       0
     ]
   ],
-  "last_success_epoch": 1793471480.0073266
+  "last_success_epoch": 1793472796.0306888
 }
