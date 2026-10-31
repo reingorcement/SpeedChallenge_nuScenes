@@ -8,6 +8,13 @@
       "exit_code": 0,
       "report_commit": "211639b378aca91990c92faeae988e74f67da4fd",
       "error": null
+    },
+    {
+      "time": "2026-10-31T08:39:56.083913+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "100464b0e0d4a2bb93150e58a133da228e0269c7",
+      "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
     }
   ],
   "cron_installed": true,
@@ -49,21 +56,21 @@
     "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_r03_20261031.json",
     "status": "installed_pending_observed_trigger"
   },
-  "updated_at": "2026-10-31T08:34:07.594010+00:00",
+  "updated_at": "2026-10-31T08:39:27.077336+00:00",
   "pid": 3930215,
   "all_startups_verified": false,
   "initial_wave_verified": false,
   "lightweight_startup_verified": true,
   "startup_status": {
-    "20261031_r03_flex_s42_R03_FT": "pending_run",
-    "20261031_r03_flex_s42_R03_Frozen": "pending_steps_or_validation",
+    "20261031_r03_flex_s42_R03_FT": "pending_steps_or_validation",
+    "20261031_r03_flex_s42_R03_Frozen": "verified",
     "20261031_r03_flex_s42_R02_FLEX_CONT": "pending_run"
   },
   "milestones": [
     [
       "R03_FT",
       "running",
-      false,
+      true,
       0,
       0
     ],
@@ -71,7 +78,7 @@
       "R03_Frozen",
       "running",
       true,
-      0,
+      1,
       0
     ],
     [
@@ -89,7 +96,7 @@
       0
     ]
   ],
-  "last_attempt_epoch": 1793435647.5940552,
+  "last_attempt_epoch": 1793435967.0774071,
   "published_milestones": [
     [
       "R03_FT",
