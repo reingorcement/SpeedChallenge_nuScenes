@@ -1,0 +1,47 @@
+{
+  "time": "2026-10-31T06:43:06.349099+00:00",
+  "plan_identity": "15c818e3edbedd417852f1b5fd8eb1abf0c408ea5d993e6884c444e9ff75c86a",
+  "code": {
+    "commit": "ace7519f8277026982cc843c4a95932ee64eeabc",
+    "dirty": false,
+    "verified_remote_commit": "ace7519f8277026982cc843c4a95932ee64eeabc"
+  },
+  "plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s43_s44/plan.json",
+  "run_ids": [
+    "20261031_r02_base_flex_s43_s44_R02_BASE_s43",
+    "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
+    "20261031_r02_base_flex_s43_s44_R02_BASE_s44",
+    "20261031_r02_base_flex_s43_s44_R02_FLEX_s44",
+    "20261031_r02_base_flex_s43_s44_compare"
+  ],
+  "lifecycle_command": [
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/ace7519f8277/methods/purevision-flow/PureVision_V5/encoder_lifecycle.py",
+    "--plan",
+    "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s43_s44/plan.json",
+    "--publisher-command",
+    "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_20261031_r02_base_flex_s43_s44.json"
+  ],
+  "publisher_schedule": {
+    "installed_at": "2026-10-31T06:43:06.336174+00:00",
+    "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/ace7519f8277/methods/purevision-flow/PureVision_V5",
+    "commit": "ace7519f8277026982cc843c4a95932ee64eeabc",
+    "lines": [
+      "17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/ace7519f8277/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_20261031_r02_base_flex_s43_s44.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER"
+    ],
+    "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T064306.330005Z.txt",
+    "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_20261031_r02_base_flex_s43_s44.json",
+    "status": "installed_pending_observed_trigger"
+  },
+  "preflight": {
+    "43": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/code/ace7519f8277/methods/purevision-flow/PureVision_V5/docs/next/evidence/encoder_preflight_s43_20261031.json",
+      "sha256": "b2b35c6ab121668fa7873ce5a5908b2de73c866c3b11307300d6365af68883c9"
+    },
+    "44": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/code/ace7519f8277/methods/purevision-flow/PureVision_V5/docs/next/evidence/encoder_preflight_s44_20261031.json",
+      "sha256": "21359d0cc9200b383baa1d814a852d446d41d7fc445bdda5c588e96a2f4f28ce"
+    }
+  }
+}
