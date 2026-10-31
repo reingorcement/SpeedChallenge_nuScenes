@@ -1,0 +1,381 @@
+{
+  "observed_at": "2026-10-31T02:57:48.517568+00:00",
+  "schema": "v5_progress_inspection_v1",
+  "jobs": [
+    {
+      "job_id": "20261030_full_nuscenes_front1024_flow1024_0",
+      "kind": "flow",
+      "status": "running",
+      "run_dir": null,
+      "session": "v5next_20261030_full_nuscenes_front1024_flow1024_0",
+      "device": "cuda:0",
+      "process": {
+        "pid": 3353547,
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 88751755,
+        "identity_verified": true,
+        "pid_reused": false
+      },
+      "child_process": {
+        "pid": 3353778,
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 88752149,
+        "identity_verified": true,
+        "pid_reused": false
+      },
+      "phase": "flow",
+      "training_status": null,
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_0.json",
+      "terminal_observation": null,
+      "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "epoch": null,
+      "global_step": null,
+      "loss": null,
+      "validation": {},
+      "progress": {
+        "completed": 71800,
+        "total": 77623,
+        "target_pairs": 77623,
+        "expected_pairs": 77623,
+        "pairs_processed": 71800,
+        "counts": {
+          "created": 69018,
+          "reused": 0,
+          "recovered": 0,
+          "adopted": 2782
+        },
+        "elapsed_s": 42845.987900662,
+        "pairs_per_second": 1.67576950650473,
+        "throughput": 1.67576950650473,
+        "bytes": 428111951600,
+        "bytes_written": 428111951600,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "last_pair": {
+          "source": "4463ac7c6c074a1a8443a086317cf4df",
+          "target": "74990a952d03401e996c055e54b67781",
+          "version": "v1.0-trainval",
+          "camera": "CAM_FRONT",
+          "scene": "scene-1019"
+        }
+      },
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_0.json",
+      "progress_report_status": "running",
+      "progress_age_s": 14.572516679763794,
+      "status_age_s": 1.594726324081421,
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_flow1024_0.log",
+      "log_age_s": 14.572539567947388,
+      "checkpoint": null,
+      "checkpoint_age_s": null,
+      "anomaly_lines": [],
+      "notes": []
+    },
+    {
+      "job_id": "20261030_full_nuscenes_front1024_flow1024_1",
+      "kind": "flow",
+      "status": "running",
+      "run_dir": null,
+      "session": "v5next_20261030_full_nuscenes_front1024_flow1024_1",
+      "device": "cuda:1",
+      "process": {
+        "pid": 3353552,
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 88751756,
+        "identity_verified": true,
+        "pid_reused": false
+      },
+      "child_process": {
+        "pid": 3353776,
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 88752125,
+        "identity_verified": true,
+        "pid_reused": false
+      },
+      "phase": "flow",
+      "training_status": null,
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_1.json",
+      "terminal_observation": null,
+      "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "epoch": null,
+      "global_step": null,
+      "loss": null,
+      "validation": {},
+      "progress": {
+        "completed": 72560,
+        "total": 77277,
+        "target_pairs": 77277,
+        "expected_pairs": 77277,
+        "pairs_processed": 72560,
+        "counts": {
+          "created": 70019,
+          "reused": 0,
+          "recovered": 0,
+          "adopted": 2541
+        },
+        "elapsed_s": 42859.99655262998,
+        "pairs_per_second": 1.6929539392496187,
+        "throughput": 1.6929539392496187,
+        "bytes": 432643498720,
+        "bytes_written": 432643498720,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "last_pair": {
+          "source": "3a2d35c8c41443aa9ea7bd14c712b6fc",
+          "target": "1b6eebf361294c80819a8ddcd1633583",
+          "version": "v1.0-trainval",
+          "camera": "CAM_FRONT",
+          "scene": "scene-1047"
+        }
+      },
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_1.json",
+      "progress_report_status": "running",
+      "progress_age_s": 0.8657655715942383,
+      "status_age_s": 1.5977656841278076,
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_flow1024_1.log",
+      "log_age_s": 0.8647887706756592,
+      "checkpoint": null,
+      "checkpoint_age_s": null,
+      "anomaly_lines": [],
+      "notes": []
+    },
+    {
+      "job_id": "20261030_full_nuscenes_front1024_flow1024_2",
+      "kind": "flow",
+      "status": "running",
+      "run_dir": null,
+      "session": "v5next_20261030_full_nuscenes_front1024_flow1024_2",
+      "device": "cuda:2",
+      "process": {
+        "pid": 3353557,
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 88751758,
+        "identity_verified": true,
+        "pid_reused": false
+      },
+      "child_process": {
+        "pid": 3353777,
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 88752137,
+        "identity_verified": true,
+        "pid_reused": false
+      },
+      "phase": "flow",
+      "training_status": null,
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/flow1024_2.json",
+      "terminal_observation": null,
+      "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "epoch": null,
+      "global_step": null,
+      "loss": null,
+      "validation": {},
+      "progress": {
+        "completed": 72760,
+        "total": 77339,
+        "target_pairs": 77339,
+        "expected_pairs": 77339,
+        "pairs_processed": 72760,
+        "counts": {
+          "created": 69512,
+          "reused": 0,
+          "recovered": 0,
+          "adopted": 3248
+        },
+        "elapsed_s": 42859.396487814025,
+        "pairs_per_second": 1.697644063202977,
+        "throughput": 1.697644063202977,
+        "bytes": 433836011120,
+        "bytes_written": 433836011120,
+        "cuda_peak_allocated_bytes": 9452956672,
+        "last_pair": {
+          "source": "05b1f8505ba141be8eac408cbf2e7fcd",
+          "target": "bb8a0cbf1cda46759b12d564040a7674",
+          "version": "v1.0-trainval",
+          "camera": "CAM_FRONT",
+          "scene": "scene-1051"
+        }
+      },
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/reports/flow1024_2.json",
+      "progress_report_status": "running",
+      "progress_age_s": 1.3477892875671387,
+      "status_age_s": 1.6017975807189941,
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_flow1024_2.log",
+      "log_age_s": 1.3478124141693115,
+      "checkpoint": null,
+      "checkpoint_age_s": null,
+      "anomaly_lines": [],
+      "notes": []
+    },
+    {
+      "job_id": "20261030_full_nuscenes_front1024_pack_train_dev",
+      "kind": "pack",
+      "status": "queued",
+      "run_dir": null,
+      "session": "v5next_20261030_full_nuscenes_front1024_pack_train_dev",
+      "device": null,
+      "process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      },
+      "child_process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      },
+      "phase": null,
+      "training_status": null,
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/pack_train_dev.json",
+      "terminal_observation": null,
+      "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "epoch": null,
+      "global_step": null,
+      "loss": null,
+      "validation": {},
+      "progress": {},
+      "progress_path": null,
+      "progress_report_status": null,
+      "progress_age_s": null,
+      "status_age_s": 42866.5027756691,
+      "log_path": null,
+      "log_age_s": null,
+      "checkpoint": null,
+      "checkpoint_age_s": null,
+      "anomaly_lines": [],
+      "notes": []
+    },
+    {
+      "job_id": "20261030_full_nuscenes_front1024_verify_full_cache",
+      "kind": "verify",
+      "status": "queued",
+      "run_dir": null,
+      "session": "v5next_20261030_full_nuscenes_front1024_verify_full_cache",
+      "device": null,
+      "process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      },
+      "child_process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      },
+      "phase": null,
+      "training_status": null,
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/verify_full_cache.json",
+      "terminal_observation": null,
+      "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "epoch": null,
+      "global_step": null,
+      "loss": null,
+      "validation": {},
+      "progress": {},
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/reports/full_flow_20261030_full_nuscenes_front1024/summary.json",
+      "progress_report_status": null,
+      "progress_age_s": null,
+      "status_age_s": 42866.503138542175,
+      "log_path": null,
+      "log_age_s": null,
+      "checkpoint": null,
+      "checkpoint_age_s": null,
+      "anomaly_lines": [],
+      "notes": []
+    }
+  ],
+  "recent_astra": [
+    {
+      "time_utc": "2026-10-31T01:30:50.793316+00:00",
+      "success": true,
+      "exit_code": 0
+    },
+    {
+      "time_utc": "2026-10-31T00:30:47.714697+00:00",
+      "success": true,
+      "exit_code": 0
+    },
+    {
+      "time_utc": "2026-10-31T02:00:59.274590+00:00",
+      "success": true,
+      "exit_code": 0
+    },
+    {
+      "time_utc": "2026-10-31T02:30:45.358247+00:00",
+      "success": true,
+      "exit_code": 0
+    },
+    {
+      "time_utc": "2026-10-31T01:00:43.888103+00:00",
+      "success": true,
+      "exit_code": 0
+    }
+  ],
+  "disk": [
+    {
+      "device_id": 66309,
+      "roles": [
+        "artifact_root",
+        "flow_cache"
+      ],
+      "paths": [
+        "/home/zhangyu/.local/share/speedest-v5-next",
+        "/home/zhangyu/.local/share/speedest-v5-next/flows"
+      ],
+      "resolved_paths": [
+        "/home/zhangyu/.local/share/speedest-v5-next",
+        "/home/zhangyu/.local/share/speedest-v5-next/flows"
+      ],
+      "total_gb": 2014.574526464,
+      "free_gb": 969.463640064,
+      "used_percent": 46.794030265370075,
+      "low_space": false
+    },
+    {
+      "device_id": 2066,
+      "roles": [
+        "job_cache"
+      ],
+      "paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030"
+      ],
+      "resolved_paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030"
+      ],
+      "total_gb": 20000.570073088,
+      "free_gb": 17533.425287168,
+      "used_percent": 12.335372326410313,
+      "low_space": false
+    }
+  ],
+  "publication": {
+    "report_commit": "d2092f31fc0bc931332c010b40ddd795615865af",
+    "remote_base": "65bb1ca84f51632a1bd78887a1a68649eafbaa6e",
+    "started_at": "2026-10-31T02:17:01.945351+00:00",
+    "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
+    "branch": "results/purevision-v5-next",
+    "status": "published",
+    "trigger": "scheduled",
+    "changed": true,
+    "training_commits": [
+      "252fb5f44c290c0d894faf8373329ba27105604e",
+      "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "946ac67a4f16a7d2edcdc973dc1b84c0dee5d8a9",
+      "be327b7f91f5f7e5ba46b70dede116a21c551652"
+    ],
+    "verified_remote_commit": "d2092f31fc0bc931332c010b40ddd795615865af",
+    "finished_at": "2026-10-31T02:17:21.672430+00:00",
+    "all_terminal": false
+  },
+  "scope": "Read-only runtime/log/progress inspection, not full native-byte revalidation; no job restarted."
+}

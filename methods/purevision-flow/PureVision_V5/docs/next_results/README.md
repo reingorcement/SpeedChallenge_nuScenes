@@ -17,9 +17,9 @@
 | 20261030_pilot_s43s44_R02_1024_s43 | R02_1024_s43 | completed | `252fb5f44c290c0d894faf8373329ba27105604e` | — | 0.8563112247326278 |
 | 20261030_pilot_s43s44_R02_512_s44 | R02_512_s44 | completed | `252fb5f44c290c0d894faf8373329ba27105604e` | — | 0.9168585051180084 |
 | 20261030_pilot_s43s44_R02_1024_s44 | R02_1024_s44 | completed | `252fb5f44c290c0d894faf8373329ba27105604e` | — | 0.8205532018835945 |
-| 20261030_full_nuscenes_front1024_flow1024_0 | flow1024_0 | running | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | 68104/77623 | — |
-| 20261030_full_nuscenes_front1024_flow1024_1 | flow1024_1 | running | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | 68904/77277 | — |
-| 20261030_full_nuscenes_front1024_flow1024_2 | flow1024_2 | running | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | 69104/77339 | — |
+| 20261030_full_nuscenes_front1024_flow1024_0 | flow1024_0 | running | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | 73904/77623 | — |
+| 20261030_full_nuscenes_front1024_flow1024_1 | flow1024_1 | running | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | 74600/77277 | — |
+| 20261030_full_nuscenes_front1024_flow1024_2 | flow1024_2 | running | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | 74800/77339 | — |
 | 20261030_full_nuscenes_front1024_pack_train_dev | pack_train_dev | queued | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | —/— | — |
 | 20261030_full_nuscenes_front1024_verify_full_cache | verify_full_cache | queued | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | —/— | — |
 
