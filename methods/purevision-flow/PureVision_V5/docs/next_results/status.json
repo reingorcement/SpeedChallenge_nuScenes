@@ -14,8 +14,8 @@
       "training_status": "running",
       "progress": {
         "epoch": 1,
-        "global_step": 2840,
-        "optimizer_updates": 2840,
+        "global_step": 3700,
+        "optimizer_updates": 3700,
         "amp_skips": 0,
         "best_epe": 0.2067490669096111,
         "best_epoch": 0
@@ -23,7 +23,7 @@
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/last.pt",
-          "sha256": "83c1f9a149bceb2a8cce89a550f52e737a67d0002c6b676523a9089ee6fe5828",
+          "sha256": "46f11f8ae4d7c2259da455f2b8793bfa983a7566bca4f3b44c58de3ad0282bdb",
           "size_bytes": 27092097,
           "representation": "hash_only"
         },
@@ -92,31 +92,50 @@
       "run_id": "20261031_r03_flex_s42_R02_FLEX_CONT",
       "name": "R02_FLEX_CONT",
       "experiment": "R02",
-      "status": "running",
+      "status": "completed",
       "kind": "training",
       "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
       "plan": "20261031_r03_flex_s42",
       "device": "cuda:2",
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R02_FLEX_CONT.log",
-      "training_status": "running",
+      "training_status": "completed",
       "progress": {
-        "epoch": 22,
-        "global_step": 47200,
-        "optimizer_updates": 47183,
-        "amp_skips": 17,
-        "best_epe": 0.19749032063109886,
-        "best_epoch": 21
+        "epoch": 40,
+        "global_step": 83120,
+        "optimizer_updates": 83089,
+        "amp_skips": 31,
+        "best_epe": 0.1911382971946551,
+        "best_epoch": 28
+      },
+      "evaluation_status": "completed",
+      "dev_metrics": {
+        "count": 23480,
+        "epe": 0.1911382971946551,
+        "mae_vx": 0.18785772712856955,
+        "rmse_vx": 0.3789255035895323,
+        "bias_vx": -0.018202675664848608,
+        "p95_abs_vx": 0.6106000900268552,
+        "mae_vy": 0.016907034450262586,
+        "rmse_vy": 0.026396532302009088,
+        "bias_vy": 0.0009319524513555927,
+        "p95_abs_vy": 0.05306530646048485,
+        "zero_vy_mae": 0.035983646252559655
+      },
+      "predictions": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261031_r03_flex_s42_R02_FLEX_CONT/predictions.csv",
+        "sha256": "d458c35cba90a7ae187e6382d59856c05009855b72d36b6d76f0f882206936d3",
+        "representation": "full_csv"
       },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R02_FLEX_CONT/last.pt",
-          "sha256": "f598565c07ee6c498036e4e7a359ee646df9c13f5a6a86e5357b85a18638e48a",
+          "sha256": "d031d35c3a377cc05025259d7b55b9e3347ba72c02b5344cf4e1af53f7abea16",
           "size_bytes": 996195,
           "representation": "hash_only"
         },
         "best.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R02_FLEX_CONT/best.pt",
-          "sha256": "95ede54c8bc42191ff329c2b535410007cc9654323781359f05fb31a231ad880",
+          "sha256": "6bb8a1b3563c7137a6af8073888f6bcf7b99e8b2dad5a79689aef61a86691ac9",
           "size_bytes": 996131,
           "representation": "hash_only"
         }

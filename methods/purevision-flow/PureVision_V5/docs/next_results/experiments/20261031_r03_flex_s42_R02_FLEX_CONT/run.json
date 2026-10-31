@@ -1,7 +1,7 @@
 {
   "run_id": "20261031_r03_flex_s42_R02_FLEX_CONT",
   "experiment": "R02",
-  "status": "running",
+  "status": "completed",
   "started_at": "2026-10-31T08:58:47.171615+00:00",
   "code": {
     "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
@@ -276,5 +276,6 @@
       "parameters": 76850,
       "tensor_count": 38
     }
-  ]
+  ],
+  "finished_at": "2026-10-31T09:21:46.048727+00:00"
 }

@@ -50,6 +50,20 @@
       "exit_code": 0,
       "report_commit": "91e09ae811619d6f509e0bf61a3497255189d0ac",
       "error": null
+    },
+    {
+      "time": "2026-10-31T09:12:01.140966+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "aca570ff95a3fc58e8c2d713d3d0bfaa78192321",
+      "error": "RuntimeError: git push failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    },
+    {
+      "time": "2026-10-31T09:17:29.960936+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "aca570ff95a3fc58e8c2d713d3d0bfaa78192321",
+      "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
     }
   ],
   "cron_installed": true,
@@ -91,7 +105,7 @@
     "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_r03_20261031.json",
     "status": "installed_pending_observed_trigger"
   },
-  "updated_at": "2026-10-31T09:06:18.682760+00:00",
+  "updated_at": "2026-10-31T09:17:01.154462+00:00",
   "pid": 3930215,
   "all_startups_verified": true,
   "initial_wave_verified": true,
@@ -121,7 +135,7 @@
       "running",
       true,
       1,
-      1
+      3
     ],
     [
       "compare",
@@ -131,7 +145,7 @@
       0
     ]
   ],
-  "last_attempt_epoch": 1793437578.6828232,
+  "last_attempt_epoch": 1793438221.1545281,
   "published_milestones": [
     [
       "R03_FT",
