@@ -14,8 +14,8 @@
       "training_status": "running",
       "progress": {
         "epoch": 0,
-        "global_step": 860,
-        "optimizer_updates": 860,
+        "global_step": 1300,
+        "optimizer_updates": 1300,
         "amp_skips": 0,
         "best_epe": null,
         "best_epoch": null
@@ -23,7 +23,7 @@
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/last.pt",
-          "sha256": "6e001bbf9e5314a456516133b50b0bd335a1d44678a746b5cd90ddcb10b4f816",
+          "sha256": "b2b3ae9b96ab33d029ccb237ff1024a47ae0860ee43ea9014ff8128374a20cae",
           "size_bytes": 27092097,
           "representation": "hash_only"
         }
@@ -41,23 +41,23 @@
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_Frozen.log",
       "training_status": "running",
       "progress": {
-        "epoch": 18,
-        "global_step": 38840,
-        "optimizer_updates": 38826,
-        "amp_skips": 14,
-        "best_epe": 0.20983058626300272,
-        "best_epoch": 0
+        "epoch": 27,
+        "global_step": 58180,
+        "optimizer_updates": 58157,
+        "amp_skips": 23,
+        "best_epe": 0.20806952564464645,
+        "best_epoch": 23
       },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen/last.pt",
-          "sha256": "f145315946f772335744f60fe800b5f0cb01399e49bf5e43133f9d6150aac3dd",
+          "sha256": "fc45697a390026f1c5439a663ca8cd2d2ab58600a87fcebc52b69cbf3b5a300c",
           "size_bytes": 10303033,
           "representation": "hash_only"
         },
         "best.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_Frozen/best.pt",
-          "sha256": "c496e6fc9a5cd8853b0217b57eb63335f32c48b389570293f4f21b56fee3bbe3",
+          "sha256": "23711c410f9eddcd175f212b13077160fb80cda60f18675162fa726d33559284",
           "size_bytes": 10303033,
           "representation": "hash_only"
         }
