@@ -13,17 +13,17 @@
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_FT.log",
       "training_status": "running",
       "progress": {
-        "epoch": 4,
-        "global_step": 8900,
-        "optimizer_updates": 8900,
-        "amp_skips": 0,
+        "epoch": 5,
+        "global_step": 12180,
+        "optimizer_updates": 12179,
+        "amp_skips": 1,
         "best_epe": 0.2067490669096111,
         "best_epoch": 0
       },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/last.pt",
-          "sha256": "e1e10e52122e6c3f40026e1d382d2a484fe69035692121166cb846dcf6da5b9e",
+          "sha256": "de2694bca1c9e7d07b6de4b1743f0b946cabac8ad0f074929a8e9c716afd8743",
           "size_bytes": 27092097,
           "representation": "hash_only"
         },
