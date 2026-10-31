@@ -5,17 +5,17 @@
       "run_id": "20261031_r03_flex_s42_R03_FT",
       "name": "R03_FT",
       "experiment": "R03",
-      "status": "running",
+      "status": "interrupted",
       "kind": "training",
       "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
       "plan": "20261031_r03_flex_s42",
       "device": "cuda:0",
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_FT.log",
-      "training_status": "running",
+      "training_status": "interrupted",
       "progress": {
-        "epoch": 17,
-        "global_step": 36640,
-        "optimizer_updates": 36630,
+        "epoch": 18,
+        "global_step": 37445,
+        "optimizer_updates": 37435,
         "amp_skips": 10,
         "best_epe": 0.2067490669096111,
         "best_epoch": 0
@@ -23,7 +23,7 @@
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/last.pt",
-          "sha256": "652c143ac308bfa492df5791a6ae128e6137676511789bf2c20b57cea7e0a7a7",
+          "sha256": "270b1630182b13addf2b207ee2cd0e8d6f1f8d763abd4abe34b48f2569f06920",
           "size_bytes": 27092097,
           "representation": "hash_only"
         },
@@ -145,7 +145,7 @@
       "run_id": "20261031_r03_flex_s42_compare",
       "name": "compare",
       "experiment": "compare",
-      "status": "queued",
+      "status": "blocked",
       "kind": "comparison",
       "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
       "plan": "20261031_r03_flex_s42",
@@ -154,7 +154,7 @@
       "progress": {}
     }
   ],
-  "all_terminal": false,
+  "all_terminal": true,
   "limits": [
     "PLANAR_PROXY labels; dev selection and dev recomputation are not held-out testing.",
     "Checkpoint hashes identify server files; weights are not uploaded.",

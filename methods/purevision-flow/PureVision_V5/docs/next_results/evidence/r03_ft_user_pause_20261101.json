@@ -1,0 +1,48 @@
+{
+  "schema": "v5_user_pause_receipt_v1",
+  "user_state": "paused_by_user_training_incomplete",
+  "reason": "User explicitly requested pause; no model change or new experiment",
+  "signal": "SIGTERM sent only to identity-verified training child at 2026-11-01T01:00:49+08:00",
+  "run_id": "20261031_r03_flex_s42_R03_FT",
+  "training_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+  "fixed_code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5",
+  "training_child_pid": 3927502,
+  "child_pid_exited": true,
+  "training_status_native": "interrupted",
+  "pipeline_job_status_native": "interrupted",
+  "pipeline_aggregate_native": "finished_with_failures (generic terminal interrupted/blocked classification; this is a user pause, not a training failure)",
+  "completed_epochs": 18,
+  "next_epoch_one_based": 19,
+  "processed_batches_in_current_epoch": 41,
+  "next_batch_zero_based": 41,
+  "global_step": 37445,
+  "optimizer_updates": 37435,
+  "amp_skips": 10,
+  "best_dev_epe_m_s": 0.2067490669096111,
+  "best_epoch_one_based": 1,
+  "checkpoint": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/last.pt",
+    "size_bytes": 27092097,
+    "sha256": "270b1630182b13addf2b207ee2cd0e8d6f1f8d763abd4abe34b48f2569f06920",
+    "modified_at": "2026-11-01T01:00:49.982951+08:00",
+    "schema": "v5_training_state_v1",
+    "validation": "weights_only load; strict complete model load; finite model tensors; optimizer, scheduler, scaler load; RNG keys python/numpy/torch/cuda present; counters and historical best agreement verified",
+    "rng_note": "RNG presence verified; no new training or full live resumption was executed"
+  },
+  "best_checkpoint": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/best.pt",
+    "sha256": "e806149b06e53f0e183f09618b2cf6bfebd5d768ff09038262520d7742a0fd04"
+  },
+  "auto_restart": "disabled by native interrupted terminal state; fresh output guard retained",
+  "comparison": "blocked by R03_FT; launch_count zero",
+  "monitoring": "Astra cron entry for this stage paused; 5-minute server check and hourly publisher retained",
+  "cron_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261101_user_pause_r03_ft_before.txt",
+  "resume": {
+    "parent_run": "20261031_r03_flex_s42_R03_FT",
+    "new_run_id": "20261031_r03_flex_s42_R03_FT_resume1",
+    "command": "tmux new-session -d -s v5next_20261031_r03_flex_s42_R03_FT_resume1 -c /home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5 'exec /home/zhangyu/.conda/envs/speedest/bin/python -B /home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/scripts/secure_exec.py --network /home/zhangyu/.local/share/speedest-v5-next/monitoring/network.json -- /home/zhangyu/.conda/envs/speedest/bin/python -B /home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/train.py --config /home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5/configs/next/R03_FT.json --manifest /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json --flow /mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev --device cuda:0 --workers 4 --rgb-frames /home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1 --output /home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT_resume1 --resume /home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/last.pt >> /home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r03_flex_s42_R03_FT_resume1.log 2>&1'",
+    "not_executed": true,
+    "note": "Exact immutable checkout/config/data, fresh output, full-state --resume; original best artifacts and history inherited by trainer; restore stage monitoring and arrange evaluation/comparison separately when resuming."
+  },
+  "recorded_at": "2026-11-01T01:01:48.107506+08:00"
+}

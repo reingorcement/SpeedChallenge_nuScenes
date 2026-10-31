@@ -1,6 +1,9 @@
 {
-  "status": "queued",
-  "updated_at": "2026-10-31T08:28:33.496793+00:00",
+  "status": "blocked",
+  "updated_at": "2026-10-31T17:00:57.278912+00:00",
   "launch_count": 0,
-  "reason": null
+  "reason": null,
+  "blocked_by": [
+    "R03_FT"
+  ]
 }

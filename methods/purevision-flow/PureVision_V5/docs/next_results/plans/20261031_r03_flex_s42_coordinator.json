@@ -1,6 +1,6 @@
 {
-  "status": "running",
-  "updated_at": "2026-10-31T16:48:47.078377+00:00",
+  "status": "finished_with_failures",
+  "updated_at": "2026-10-31T17:00:57.280028+00:00",
   "plan_identity": "330e29fd3cc40a0d446af987a66ce5f6cfcccd324eaf037abdda9823395085e1",
   "code": {
     "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
@@ -9,8 +9,8 @@
   },
   "jobs": {
     "R03_FT": {
-      "status": "running",
-      "updated_at": "2026-10-31T16:48:41.973379+00:00",
+      "status": "interrupted",
+      "updated_at": "2026-10-31T17:00:52.186093+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793435592.7731721,
@@ -41,30 +41,33 @@
       ],
       "child_pid": 3927502,
       "child_pid_start_ticks": 95050986,
-      "epoch": 17,
-      "global_step": 36640,
-      "elapsed_seconds": 29664.976224082056,
+      "epoch": 18,
+      "global_step": 37445,
+      "elapsed_seconds": 30397.17747954908,
       "cuda_peak_allocated_bytes": 45045934592,
-      "processed_batches": 36640,
-      "optimizer_updates": 36630,
+      "processed_batches": 37445,
+      "optimizer_updates": 37435,
       "amp_skips": 10,
       "amp_scale": 2097152.0,
       "best_epe": 0.2067490669096111,
       "best_epoch": 0,
-      "loss": 0.00030741121736355126,
+      "loss": 0.00025463837664574385,
       "validation": {
         "count": 23480,
-        "epe": 0.21866891238076888,
-        "mae_vx": 0.21579028492295024,
-        "rmse_vx": 0.3855439572310949,
-        "bias_vx": -0.039558402811620146,
-        "p95_abs_vx": 0.6936534166336057,
-        "mae_vy": 0.017615793522313797,
-        "rmse_vy": 0.027194691051474797,
-        "bias_vy": -0.002707601800984334,
-        "p95_abs_vy": 0.05540929776616393,
+        "epe": 0.2167442318679123,
+        "mae_vx": 0.2138308019883208,
+        "rmse_vx": 0.37276440263640565,
+        "bias_vx": -0.033724981648295745,
+        "p95_abs_vx": 0.6848762989044188,
+        "mae_vy": 0.017427399790893982,
+        "rmse_vy": 0.026557266625640345,
+        "bias_vy": 0.0023735460140157667,
+        "p95_abs_vy": 0.053837748989462836,
         "zero_vy_mae": 0.035983646252559655
-      }
+      },
+      "exit_code": 130,
+      "error": "InterruptedError: Training stopped before completion",
+      "finished_at": "2026-10-31T17:00:52.186051+00:00"
     },
     "R03_Frozen": {
       "status": "completed",
@@ -185,10 +188,13 @@
       "finished_at": "2026-10-31T09:22:14.797109+00:00"
     },
     "compare": {
-      "status": "queued",
-      "updated_at": "2026-10-31T08:28:33.496793+00:00",
+      "status": "blocked",
+      "updated_at": "2026-10-31T17:00:57.278912+00:00",
       "launch_count": 0,
-      "reason": null
+      "reason": null,
+      "blocked_by": [
+        "R03_FT"
+      ]
     },
     "features": {
       "status": "not_required"

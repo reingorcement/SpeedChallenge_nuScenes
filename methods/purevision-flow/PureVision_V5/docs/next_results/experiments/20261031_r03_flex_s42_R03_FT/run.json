@@ -1,7 +1,7 @@
 {
   "run_id": "20261031_r03_flex_s42_R03_FT",
   "experiment": "R03",
-  "status": "running",
+  "status": "interrupted",
   "started_at": "2026-10-31T08:34:12.809686+00:00",
   "code": {
     "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
@@ -307,5 +307,6 @@
       "parameters": 2093184,
       "tensor_count": 52
     }
-  ]
+  ],
+  "finished_at": "2026-10-31T17:00:49.991216+00:00"
 }
