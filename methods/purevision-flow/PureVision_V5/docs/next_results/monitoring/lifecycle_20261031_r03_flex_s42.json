@@ -183,6 +183,13 @@
       "exit_code": 0,
       "report_commit": "58ff1540d0e8dd0968e2d899aa0683435d034bc7",
       "error": null
+    },
+    {
+      "time": "2026-10-31T17:04:20.419555+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "f974528f4d707c322511276e931acd25252c5c6d",
+      "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
     }
   ],
   "cron_installed": true,
@@ -212,7 +219,7 @@
     "status": "installed_pending_observed_trigger",
     "model": "gpt-6-astra"
   },
-  "status": "running",
+  "status": "publication_pending",
   "publisher_schedule": {
     "installed_at": "2026-10-31T08:29:27.885544+00:00",
     "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261031_r03_flex_s42_2922f8c/methods/purevision-flow/PureVision_V5",
@@ -224,20 +231,20 @@
     "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_r03_20261031.json",
     "status": "installed_pending_observed_trigger"
   },
-  "updated_at": "2026-10-31T16:59:03.870961+00:00",
+  "updated_at": "2026-10-31T17:04:03.883092+00:00",
   "pid": 3930215,
-  "all_startups_verified": true,
-  "initial_wave_verified": true,
-  "lightweight_startup_verified": true,
+  "all_startups_verified": false,
+  "initial_wave_verified": false,
+  "lightweight_startup_verified": false,
   "startup_status": {
-    "20261031_r03_flex_s42_R03_FT": "verified",
+    "20261031_r03_flex_s42_R03_FT": "excluded_terminal_failure",
     "20261031_r03_flex_s42_R03_Frozen": "verified",
     "20261031_r03_flex_s42_R02_FLEX_CONT": "verified"
   },
   "milestones": [
     [
       "R03_FT",
-      "running",
+      "interrupted",
       true,
       1,
       1
@@ -258,13 +265,13 @@
     ],
     [
       "compare",
-      "queued",
+      "blocked",
       false,
       0,
       0
     ]
   ],
-  "last_attempt_epoch": 1793465325.1545274,
+  "last_attempt_epoch": 1793466243.8832812,
   "published_milestones": [
     [
       "R03_FT",
