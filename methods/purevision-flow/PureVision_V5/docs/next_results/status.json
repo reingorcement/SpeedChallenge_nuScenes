@@ -14,8 +14,8 @@
       "training_status": "running",
       "progress": {
         "epoch": 14,
-        "global_step": 29840,
-        "optimizer_updates": 29832,
+        "global_step": 30600,
+        "optimizer_updates": 30592,
         "amp_skips": 8,
         "best_epe": 0.2067490669096111,
         "best_epoch": 0
@@ -23,7 +23,7 @@
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/last.pt",
-          "sha256": "153836d05c354f07955e6c42cdfff990d89c8d8caa946b977e7d215363afaa67",
+          "sha256": "4dbb46111803a4c68ad430783b681e8e135c2f343f63ada768cf31b249e19446",
           "size_bytes": 27092097,
           "representation": "hash_only"
         },
