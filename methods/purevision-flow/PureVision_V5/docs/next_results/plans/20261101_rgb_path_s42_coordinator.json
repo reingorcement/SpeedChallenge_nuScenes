@@ -1,6 +1,6 @@
 {
   "status": "running",
-  "updated_at": "2026-10-31T19:17:01.933257+00:00",
+  "updated_at": "2026-10-31T19:53:21.471063+00:00",
   "plan_identity": "84031870ac981e43754aa741f2fe5b06b66ed71c3f2b7c26eddcfddd387c2f0b",
   "code": {
     "commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
@@ -10,7 +10,7 @@
   "jobs": {
     "R03_APPEAR_FT_s42_18ep": {
       "status": "running",
-      "updated_at": "2026-10-31T19:16:59.336782+00:00",
+      "updated_at": "2026-10-31T19:53:19.782960+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793470837.0333452,
@@ -41,17 +41,30 @@
       ],
       "child_pid": 31797,
       "child_pid_start_ticks": 98575409,
-      "epoch": 1,
-      "global_step": 4140,
-      "loss": 0.0008301315829157829,
-      "elapsed_seconds": 3248.633692968986,
+      "epoch": 3,
+      "global_step": 6780,
+      "loss": 0.0004545268602669239,
+      "elapsed_seconds": 5500.486620398937,
       "cuda_peak_allocated_bytes": 45819189760,
-      "processed_batches": 4140,
-      "optimizer_updates": 4140,
+      "processed_batches": 6780,
+      "optimizer_updates": 6780,
       "amp_skips": 0,
-      "amp_scale": 262144.0,
+      "amp_scale": 524288.0,
       "best_epe": 0.2050679792447014,
-      "best_epoch": 0
+      "best_epoch": 0,
+      "validation": {
+        "count": 23480,
+        "epe": 0.22172110866809017,
+        "mae_vx": 0.2184262875873786,
+        "rmse_vx": 0.4171243395367859,
+        "bias_vx": -0.07160825786204951,
+        "p95_abs_vx": 0.6938844442367552,
+        "mae_vy": 0.018656674154468672,
+        "rmse_vy": 0.027213416397910237,
+        "bias_vy": -0.007229475756957369,
+        "p95_abs_vy": 0.054038608260452745,
+        "zero_vy_mae": 0.035983646252559655
+      }
     },
     "old_diff18_eval": {
       "status": "completed",
