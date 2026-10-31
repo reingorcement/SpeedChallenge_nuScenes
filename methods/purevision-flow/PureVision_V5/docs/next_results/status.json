@@ -13,23 +13,23 @@
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_BASE.log",
       "training_status": "running",
       "progress": {
-        "epoch": 23,
-        "global_step": 49380,
-        "optimizer_updates": 49362,
-        "amp_skips": 18,
-        "best_epe": 0.23157500796438596,
-        "best_epoch": 22
+        "epoch": 24,
+        "global_step": 51900,
+        "optimizer_updates": 51881,
+        "amp_skips": 19,
+        "best_epe": 0.22729898077291075,
+        "best_epoch": 23
       },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/last.pt",
-          "sha256": "2ed1151feda9fee0f4ea509156035becc24cd711164d4e72f5d83f67f8066b69",
+          "sha256": "8b9cebf2faefa5fbe1c8730d730035cd0ff9377e686bf7ae794c33a9598149a1",
           "size_bytes": 929263,
           "representation": "hash_only"
         },
         "best.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/best.pt",
-          "sha256": "4037b55f1c1913bfe70595477156a77166b774c011ae23bdaa0ca49909f97086",
+          "sha256": "f29a5cc430ad7f39e07094d79fb4e7abf1c9ba6ed742adb4631bf47078645f5e",
           "size_bytes": 929263,
           "representation": "hash_only"
         }
@@ -47,17 +47,17 @@
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_FLEX.log",
       "training_status": "running",
       "progress": {
-        "epoch": 23,
-        "global_step": 49120,
-        "optimizer_updates": 49103,
-        "amp_skips": 17,
+        "epoch": 24,
+        "global_step": 51740,
+        "optimizer_updates": 51722,
+        "amp_skips": 18,
         "best_epe": 0.19917329836621553,
         "best_epoch": 22
       },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/last.pt",
-          "sha256": "490d6d74593b3747dc16e648c6d4aa5d5e03a22c08eb586b3690d5713e1b1a43",
+          "sha256": "0615e0b9428501fad37edb5b0e2f279e6d93786bd6bbb35b5714bb3d80bbfc21",
           "size_bytes": 995427,
           "representation": "hash_only"
         },
