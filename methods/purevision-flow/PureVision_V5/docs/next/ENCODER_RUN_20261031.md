@@ -1,5 +1,7 @@
 # R02_BASE / R02_FLEX 正式启动记录
 
+本轮现已完成，见[最终结果](ENCODER_RESULTS_20261031.md)。以下保留启动当时记录。
+
 2026-10-31 13:50（北京时间）两组已启动，GPU1/2分别为BASE/FLEX，两张都是RTX5090。这里记录启动，**不是40轮完成报告**。完整数据、共同协议和算法见[设计自审](ENCODER_COMPARISON_20261031.md)。
 
 - training commit：`a847938681d60ae86e0e293e24ffa7d2e74e20a9`；代码、配置及tag `v5-code-a847938681d6`在启动前已推送并以实际`ls-remote`核实。

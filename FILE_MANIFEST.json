@@ -1289,8 +1289,8 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/README.md",
-      "sha256": "e89709b37e2adba6a66cba665619cd2bd8184e7d6cfa4eb52218b1422645a619",
-      "bytes": 4842,
+      "sha256": "30893a9500ab4d4394533f72cf0a097362226ddb3f520e88cadc153e1f2a65e2",
+      "bytes": 4778,
       "mode": "100644"
     },
     {
@@ -1504,9 +1504,15 @@
       "mode": "100644"
     },
     {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/ENCODER_RESULTS_20261031.md",
+      "sha256": "4059862587297a45eee12ce0579aad5a7d919fc1003cd75b20a577a61cfb21f0",
+      "bytes": 8333,
+      "mode": "100644"
+    },
+    {
       "path": "methods/purevision-flow/PureVision_V5/docs/next/ENCODER_RUN_20261031.md",
-      "sha256": "07b4664fa6578a3e9c33cbf9e4822fc8fad111b2c10896fbcf95935a9f61137a",
-      "bytes": 4825,
+      "sha256": "ecf589091fa52df5eb9a51bb918a98f512bbdf795d0690fa77e92f4517919240",
+      "bytes": 4930,
       "mode": "100644"
     },
     {
@@ -1553,8 +1559,8 @@
     },
     {
       "path": "methods/purevision-flow/PureVision_V5/docs/next/README.md",
-      "sha256": "060488c23df1215ef74a1835ba21a8ebdf94056c763d0d99353e058229f1c195",
-      "bytes": 7681,
+      "sha256": "03b8a5c47441d58223692f76117377a36ae2421985c12066d6038b1033c35522",
+      "bytes": 7860,
       "mode": "100644"
     },
     {
@@ -1594,6 +1600,12 @@
       "mode": "100644"
     },
     {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/encoder_learning_curves_20261031.png",
+      "sha256": "65aa14e981ea678ecb051c53ecad18f7f10e2711d6b50c622c2033f1b81d5307",
+      "bytes": 138310,
+      "mode": "100644"
+    },
+    {
       "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/encoder_preflight_20261031.json",
       "sha256": "812d644782484cc3f8c380ee732c0a048609d1c4728ee13e90a34fc5b45d36d1",
       "bytes": 7708,
@@ -1606,6 +1618,12 @@
       "mode": "100644"
     },
     {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/encoder_scene_comparison_20261031.csv",
+      "sha256": "1593f4d82e6c6ae95c66515118fcadb7b8a796f2ec5478b082d691b999e8f2dd",
+      "bytes": 16222,
+      "mode": "100644"
+    },
+    {
       "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/encoder_server_cron_20261031.json",
       "sha256": "86944a532a091b301b8258ba36349cea7d71389ef4b5cd3c7d49935c0c684b58",
       "bytes": 8181,
@@ -1615,6 +1633,12 @@
       "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/encoder_startup_20261031.json",
       "sha256": "7c28617148287fe571efa96923475d53ff8b6726a530f8873b5e170b242cb075",
       "bytes": 133680,
+      "mode": "100644"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next/evidence/encoder_terminal_inspection_20261031.json",
+      "sha256": "b5b276103209714b47632d50022c3d4c4b3940e2fc74a4bab0a3d0890a8b71dd",
+      "bytes": 11606,
       "mode": "100644"
     },
     {
