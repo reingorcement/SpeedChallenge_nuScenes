@@ -61,6 +61,19 @@ def test_partial_metric_line_and_error_log(tmp_path):
     assert not monitor.ERROR_PATTERN.search('{"event":"step","loss":0.1}')
 
 
+def test_latest_complete_validation_overrides_stale_worker_cache(tmp_path):
+    run=tmp_path/"run";run.mkdir()
+    monitor.write_json(run/"status.json",dict(status="running",epoch=8,global_step=100))
+    wrapper=tmp_path/"worker.json"
+    monitor.write_json(wrapper,dict(status="running",pid=os.getpid(),validation=dict(epe=.9)))
+    (run/"metrics.jsonl").write_text(json.dumps(dict(epoch=7,validation=dict(overall=dict(epe=.2))))+'\n{"partial":')
+    observed=monitor.inspect_job(dict(job_id="current",kind="training",pipeline_id="test",
+                                     run_dir=str(run),status_path=str(wrapper)),tmp_path)
+    assert observed["validation"]==dict(epe=.2)
+    assert observed["validation_epoch_zero_based"]==7
+    assert observed["epoch"]==8
+
+
 def test_patrol_success_requires_actual_tool_read_and_exit_zero(tmp_path):
     prefix = tmp_path / "patrol"
     prefix.with_suffix(".txt").write_text("ASTRA_PATROL_OK\n")

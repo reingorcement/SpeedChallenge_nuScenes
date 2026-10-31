@@ -211,7 +211,9 @@ def inspect_job(job, root):
         notes.append(str(status.get("error", run.get("error")))[:500])
     if flow_progress.get("error"):
         notes.append(str(flow_progress["error"])[:500])
-    validation = progress_status.get("validation") or metric.get("validation", {}).get("overall", {})
+    # Worker polling can miss the brief epoch-end status and retain an older
+    # validation. The last complete trainer metric is the authoritative value.
+    validation = metric.get("validation", {}).get("overall") or progress_status.get("validation", {})
     return {"job_id": job["job_id"], "kind": job.get("kind", "training"), "status": state,
         "run_dir": str(run_dir) if run_dir else None, "session": launch.get("session", job.get("session")),
         "device": launch.get("device", job.get("device")), "process": process, "child_process": child_process,
@@ -220,6 +222,7 @@ def inspect_job(job, root):
         "commit": run.get("code", {}).get("commit", job.get("commit")),
         "epoch": progress_status.get("epoch", metric.get("epoch")), "global_step": progress_status.get("global_step", metric.get("global_step")),
         "loss": progress_status.get("loss", metric.get("train_loss")), "validation": validation,
+        "validation_epoch_zero_based": metric.get("epoch") if metric.get("validation") else None,
         "progress": {k: progress_status[k] for k in FLOW_PROGRESS_FIELDS if k in progress_status},
         "progress_path": str(progress_path) if progress_path else None,
         "progress_report_status": flow_progress.get("status"), "progress_age_s": age_seconds(progress_path) if progress_path else None,
