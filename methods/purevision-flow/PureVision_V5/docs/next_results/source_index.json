@@ -560,14 +560,14 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "5d69b35724328139c2a03c9b9d850cd31bcde3911dfd1d36ebd8736fe82bca84",
-      "bytes": 79128,
+      "source_sha256": "27657b4af01dbc96d3d9ec4e9b3bdf252a879d36fcf05966e606f135d1c68508",
+      "bytes": 79122,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/lifecycle_20261101_rgb_path_s42.json",
-      "source_sha256": "4f2189b795730d50799a151cea2505360dd941af92c80953d39e6663fb5db44f",
-      "bytes": 9153,
+      "source_sha256": "b933f1dd99a5528b85c6fa0b7debab5d327d93a48425b129d06b7a742f61cc02",
+      "bytes": 9587,
       "representation": "parsed_json"
     },
     {
@@ -590,14 +590,14 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/startup/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/startup_proof.json",
-      "source_sha256": "a91c192f841e2c953fb75afb19f0a4d7f1fe2ff4f97cfc39b66ee0df0bc687f1",
+      "source_sha256": "248a49606e4a8aaba16915e6d15d7d84250ad8d03b0c8113c078ef5771a3d5fa",
       "bytes": 54560,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261101_rgb_path_s42/jobs/R03_APPEAR_FT_s42_18ep.json",
-      "source_sha256": "46d28f8edd7d40a70f72ee738be903472c3cd55c8cf8ee9558c6e8f56cd9ffba",
-      "bytes": 2091,
+      "source_sha256": "ae3f730d7611c1e2e91ff593020733de5143a06e0f84270b21d60aae2d568c74",
+      "bytes": 2092,
       "representation": "parsed_json"
     },
     {
@@ -620,8 +620,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261101_rgb_path_s42/status.json",
-      "source_sha256": "9095e67a373e7a0f1100dc46ea444566053af37f6ad2300928df6048d5764e94",
-      "bytes": 4527,
+      "source_sha256": "c244d348a797053a1e491788a8e6968376d2716f677e8d44d7263173009112fc",
+      "bytes": 4528,
       "representation": "parsed_json"
     },
     {
@@ -722,8 +722,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/status.json",
-      "source_sha256": "2f23bb597c408d1cb461cd13f365117887b938a1087599bd5a305c3f27dfb6eb",
-      "bytes": 510,
+      "source_sha256": "e3b46625d5aaf78781a241d85f02273a68d79a4f0caa06793f7ac7c40c01caa6",
+      "bytes": 511,
       "representation": "parsed_json"
     }
   ],
@@ -1235,8 +1235,8 @@
     },
     {
       "path": "experiments/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/job_status.json",
-      "export_sha256": "46d28f8edd7d40a70f72ee738be903472c3cd55c8cf8ee9558c6e8f56cd9ffba",
-      "bytes": 2091
+      "export_sha256": "ae3f730d7611c1e2e91ff593020733de5143a06e0f84270b21d60aae2d568c74",
+      "bytes": 2092
     },
     {
       "path": "experiments/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/metrics.jsonl",
@@ -1250,13 +1250,13 @@
     },
     {
       "path": "experiments/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/startup_proof.json",
-      "export_sha256": "a91c192f841e2c953fb75afb19f0a4d7f1fe2ff4f97cfc39b66ee0df0bc687f1",
+      "export_sha256": "248a49606e4a8aaba16915e6d15d7d84250ad8d03b0c8113c078ef5771a3d5fa",
       "bytes": 54560
     },
     {
       "path": "experiments/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/status.json",
-      "export_sha256": "2f23bb597c408d1cb461cd13f365117887b938a1087599bd5a305c3f27dfb6eb",
-      "bytes": 510
+      "export_sha256": "e3b46625d5aaf78781a241d85f02273a68d79a4f0caa06793f7ac7c40c01caa6",
+      "bytes": 511
     },
     {
       "path": "experiments/20261101_rgb_path_s42_compare/job_status.json",
@@ -1280,13 +1280,13 @@
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "5d69b35724328139c2a03c9b9d850cd31bcde3911dfd1d36ebd8736fe82bca84",
-      "bytes": 79128
+      "export_sha256": "27657b4af01dbc96d3d9ec4e9b3bdf252a879d36fcf05966e606f135d1c68508",
+      "bytes": 79122
     },
     {
       "path": "monitoring/lifecycle_20261101_rgb_path_s42.json",
-      "export_sha256": "4f2189b795730d50799a151cea2505360dd941af92c80953d39e6663fb5db44f",
-      "bytes": 9153
+      "export_sha256": "b933f1dd99a5528b85c6fa0b7debab5d327d93a48425b129d06b7a742f61cc02",
+      "bytes": 9587
     },
     {
       "path": "monitoring/patrols/20261031T230001Z_65544.txt",
@@ -1315,8 +1315,8 @@
     },
     {
       "path": "plans/20261101_rgb_path_s42_coordinator.json",
-      "export_sha256": "9095e67a373e7a0f1100dc46ea444566053af37f6ad2300928df6048d5764e94",
-      "bytes": 4527
+      "export_sha256": "c244d348a797053a1e491788a8e6968376d2716f677e8d44d7263173009112fc",
+      "bytes": 4528
     },
     {
       "path": "rgb_path_evaluations/20261101_rgb_path_s42/difference/dev/evaluation.json",
@@ -1350,7 +1350,7 @@
     },
     {
       "path": "status.json",
-      "export_sha256": "6635c96198e18ac17986f39887ec05f10acf019b4d7df81c0ead334853ee5ad7",
+      "export_sha256": "efb161fd672d2caaeddf46d463df407d594d6d1bad566262b7f24905e3a7fb6f",
       "bytes": 2593
     }
   ],
