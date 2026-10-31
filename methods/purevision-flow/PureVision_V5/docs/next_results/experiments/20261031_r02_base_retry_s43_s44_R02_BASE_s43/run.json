@@ -1,7 +1,7 @@
 {
   "run_id": "20261031_r02_base_retry_s43_s44_R02_BASE_s43",
   "experiment": "R02",
-  "status": "running",
+  "status": "completed",
   "started_at": "2026-10-31T07:03:53.335558+00:00",
   "code": {
     "commit": "7857976ace26707923bae5a0e8e7f9d4bb1067ee",
@@ -243,5 +243,6 @@
   "stopping_policy": {
     "early_stopping": false,
     "complete_epoch_budget": 40
-  }
+  },
+  "finished_at": "2026-10-31T07:23:43.741125+00:00"
 }

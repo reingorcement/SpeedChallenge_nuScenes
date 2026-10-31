@@ -1,6 +1,26 @@
 {
-  "status": "queued",
-  "updated_at": "2026-10-31T06:56:12.780881+00:00",
-  "launch_count": 0,
-  "reason": null
+  "status": "completed",
+  "updated_at": "2026-10-31T07:25:33.318107+00:00",
+  "launch_count": 1,
+  "reason": null,
+  "launched_at_epoch": 1793431511.92592,
+  "pid": 3725574,
+  "pid_start_ticks": 94642742,
+  "started_at": "2026-10-31T07:25:13.242640+00:00",
+  "commit": "7857976ace26707923bae5a0e8e7f9d4bb1067ee",
+  "phase": "comparison",
+  "command_index": 0,
+  "command": [
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/7857976ace26/methods/purevision-flow/PureVision_V5/collect_encoder_multiseed.py",
+    "--plan",
+    "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_retry_s43_s44/plan.json",
+    "--output",
+    "/home/zhangyu/.local/share/speedest-v5-next/reports/encoder_comparison_20261031_r02_base_retry_s43_s44"
+  ],
+  "child_pid": 3725704,
+  "child_pid_start_ticks": 94642880,
+  "exit_code": 0,
+  "finished_at": "2026-10-31T07:25:33.318088+00:00"
 }
