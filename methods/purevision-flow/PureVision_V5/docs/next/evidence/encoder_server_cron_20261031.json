@@ -1,0 +1,225 @@
+{
+  "observed_at": "2026-10-31T05:57:04.126730+00:00",
+  "scope": "new stage five-minute cron server check",
+  "snapshot": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/snapshots/20261031T055501.702182Z.json",
+  "sha256": "7eed586b29d47c1c255d1f1283a6b609d554e8d7f8c728856762fa748d717edf",
+  "time_utc": "2026-10-31T05:55:01.698286+00:00",
+  "jobs": [
+    {
+      "job_id": "20261031_r02_base_flex_s42_R02_BASE",
+      "kind": "training",
+      "status": "running",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE",
+      "session": "v5next_20261031_r02_base_flex_s42_R02_BASE",
+      "device": "cuda:1",
+      "process": {
+        "pid": 3470537,
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 94077260,
+        "identity_verified": true,
+        "pid_reused": false
+      },
+      "child_process": {
+        "pid": 3470747,
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 94077410,
+        "identity_verified": true,
+        "pid_reused": false
+      },
+      "phase": "training",
+      "training_status": "running",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/R02_BASE.json",
+      "terminal_observation": null,
+      "commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+      "epoch": 7,
+      "global_step": 15120,
+      "loss": 0.003132685786113143,
+      "validation": {
+        "count": 23480,
+        "epe": 0.2928728578547023,
+        "mae_vx": 0.2903302577777888,
+        "rmse_vx": 0.5194502290998129,
+        "bias_vx": -0.01900275923613519,
+        "p95_abs_vx": 0.945771718025207,
+        "mae_vy": 0.01750834440366011,
+        "rmse_vy": 0.026829014819836735,
+        "bias_vy": 0.0038699227471293268,
+        "p95_abs_vy": 0.05323633216321467,
+        "zero_vy_mae": 0.035983646252559655
+      },
+      "progress": {
+        "elapsed_seconds": 220.195172259002,
+        "cuda_peak_allocated_bytes": 176683008,
+        "processed_batches": 15120,
+        "optimizer_updates": 15118,
+        "amp_skips": 2,
+        "amp_scale": 2097152.0,
+        "best_epe": 0.2928728578547023,
+        "best_epoch": 6
+      },
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/status.json",
+      "progress_report_status": "running",
+      "progress_age_s": 0.20647859573364258,
+      "status_age_s": 2.9524476528167725,
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_BASE.log",
+      "log_age_s": 0.20550251007080078,
+      "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/last.pt",
+      "checkpoint_age_s": 1.5324931144714355,
+      "anomaly_lines": [],
+      "notes": []
+    },
+    {
+      "job_id": "20261031_r02_base_flex_s42_R02_FLEX",
+      "kind": "training",
+      "status": "running",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX",
+      "session": "v5next_20261031_r02_base_flex_s42_R02_FLEX",
+      "device": "cuda:2",
+      "process": {
+        "pid": 3470542,
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 94077261,
+        "identity_verified": true,
+        "pid_reused": false
+      },
+      "child_process": {
+        "pid": 3470683,
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 94077401,
+        "identity_verified": true,
+        "pid_reused": false
+      },
+      "phase": "training",
+      "training_status": "running",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/R02_FLEX.json",
+      "terminal_observation": null,
+      "commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+      "epoch": 7,
+      "global_step": 15200,
+      "loss": 0.0012302827090024948,
+      "validation": {
+        "count": 23480,
+        "epe": 0.2549703569509286,
+        "mae_vx": 0.25218208118854263,
+        "rmse_vx": 0.4655323071379375,
+        "bias_vx": -0.08320884604099386,
+        "p95_abs_vx": 0.8318511962890621,
+        "mae_vy": 0.017743313717385183,
+        "rmse_vy": 0.027049711846257516,
+        "bias_vy": 0.00505511054711232,
+        "p95_abs_vy": 0.05345433466136453,
+        "zero_vy_mae": 0.035983646252559655
+      },
+      "progress": {
+        "elapsed_seconds": 220.75089758099057,
+        "cuda_peak_allocated_bytes": 177644032,
+        "processed_batches": 15200,
+        "optimizer_updates": 15197,
+        "amp_skips": 3,
+        "amp_scale": 1048576.0,
+        "best_epe": 0.2549703569509286,
+        "best_epoch": 6
+      },
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/status.json",
+      "progress_report_status": "running",
+      "progress_age_s": 0.19157099723815918,
+      "status_age_s": 3.044537305831909,
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_FLEX.log",
+      "log_age_s": 0.19159388542175293,
+      "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/last.pt",
+      "checkpoint_age_s": 2.5635695457458496,
+      "anomaly_lines": [],
+      "notes": []
+    },
+    {
+      "job_id": "20261031_r02_base_flex_s42_compare",
+      "kind": "comparison",
+      "status": "queued",
+      "run_dir": null,
+      "session": "v5next_20261031_r02_base_flex_s42_compare",
+      "device": null,
+      "process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      },
+      "child_process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      },
+      "phase": null,
+      "training_status": null,
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/jobs/compare.json",
+      "terminal_observation": null,
+      "commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+      "epoch": null,
+      "global_step": null,
+      "loss": null,
+      "validation": {},
+      "progress": {},
+      "progress_path": null,
+      "progress_report_status": null,
+      "progress_age_s": null,
+      "status_age_s": 244.6811807155609,
+      "log_path": null,
+      "log_age_s": null,
+      "checkpoint": null,
+      "checkpoint_age_s": null,
+      "anomaly_lines": [],
+      "notes": []
+    }
+  ],
+  "gpu": {
+    "returncode": 0,
+    "csv": "0, NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition, 0, 40, 97887, 46\n1, NVIDIA GeForce RTX 5090, 36, 2761, 32607, 52\n2, NVIDIA GeForce RTX 5090, 20, 991, 32607, 51",
+    "error": ""
+  },
+  "storage_volumes": [
+    {
+      "device_id": 66309,
+      "roles": [
+        "artifact_root",
+        "flow_cache"
+      ],
+      "paths": [
+        "/home/zhangyu/.local/share/speedest-v5-next",
+        "/home/zhangyu/.local/share/speedest-v5-next/flows"
+      ],
+      "resolved_paths": [
+        "/home/zhangyu/.local/share/speedest-v5-next",
+        "/home/zhangyu/.local/share/speedest-v5-next/flows"
+      ],
+      "total_gb": 2014.574526464,
+      "free_gb": 968.228093952,
+      "used_percent": 46.85536064038323,
+      "low_space": false
+    },
+    {
+      "device_id": 2066,
+      "roles": [
+        "job_cache"
+      ],
+      "paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030",
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev"
+      ],
+      "resolved_paths": [
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030",
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev"
+      ],
+      "total_gb": 20000.570073088,
+      "free_gb": 17434.437763072,
+      "used_percent": 12.830295839761535,
+      "low_space": false
+    }
+  ]
+}

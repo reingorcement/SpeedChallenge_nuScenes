@@ -1,6 +1,6 @@
 # PureVision V5: S2 image/flow feature fusion
 
-**Next phase:** 全部1000场景CAM_FRONT的1024×576光流已于2026-10-31完成，生成、打包、核验全部通过，见 [完成记录](docs/next/FULL_FLOW_COMPLETE_20261031.md) 和 [阶段导航](docs/next/README.md)。R02_BASE/FLEX已实现并通过真实packed检查，完整40轮对照即将启动；见[本轮设计和协议](docs/next/ENCODER_COMPARISON_20261031.md)。开发分支 `method/purevision-v5-next`。下方六组结果是历史首轮，不能代替后续匹配预试验或新的全量模型结果。
+**Next phase:** 全部1000场景CAM_FRONT的1024×576光流已于2026-10-31完成，生成、打包、核验全部通过，见 [完成记录](docs/next/FULL_FLOW_COMPLETE_20261031.md) 和 [阶段导航](docs/next/README.md)。R02_BASE/FLEX已实现并通过真实packed检查，完整40轮对照已于13:50启动，见[本轮设计和协议](docs/next/ENCODER_COMPARISON_20261031.md)及[真实启动与巡视记录](docs/next/ENCODER_RUN_20261031.md)。开发分支 `method/purevision-v5-next`。下方六组结果是历史首轮，不能代替后续匹配预试验或新的全量模型结果。
 
 **GitHub review:** [审核导航](AI_REVIEW.md) · [完整中文交接](docs/HANDOFF_20261030.md) · [六组完成结果](docs/RESULT_20261030_S2.md) · [可读实验凭证](docs/review_evidence/20261030_s2/README.md) · [用户原计划](docs/V5_EXECUTION_PLAN_USER.md)。All six first-round runs completed; the queue and scheduled patrols have ended. Training code is pinned at `3979268699ce6db46d536cf22dc16f02b969a465`; later handoff commits do not modify that checkout.
 

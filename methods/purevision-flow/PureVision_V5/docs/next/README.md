@@ -90,3 +90,5 @@
 ## 2026-10-31 编码器对照
 
 [BASE/FLEX设计、验证和运行协议](ENCODER_COMPARISON_20261031.md)：完整582/103场景、40轮、seed42、相同头初始化；仅flow-only。代码通过真实packed检查及275项测试。实际运行状态以结果分支对应run收据为准。
+
+[正式启动及本轮实际cron回执](ENCODER_RUN_20261031.md)：training commit a847938681d6，两个独立run、GPU1/2并行，结果分支单独发布。
