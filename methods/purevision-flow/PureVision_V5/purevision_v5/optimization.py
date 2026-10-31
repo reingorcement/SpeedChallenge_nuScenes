@@ -22,5 +22,8 @@ def make_optimizer(model, config):
 
 
 def make_scheduler(optimizer, config):
-    if config.get("scheduler_policy")=="cosine_each_group_to_0.1":return RelativeCosine(optimizer,config["epochs"])
-    return torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,T_max=config["epochs"],eta_min=config["learning_rate"]*.1)
+    period = config.get("scheduler_epochs", config["epochs"])
+    if not isinstance(period, int) or isinstance(period, bool) or period < config["epochs"]:
+        raise ValueError("Scheduler period must be an integer >= stopping epoch budget")
+    if config.get("scheduler_policy")=="cosine_each_group_to_0.1":return RelativeCosine(optimizer,period)
+    return torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,T_max=period,eta_min=config["learning_rate"]*.1)

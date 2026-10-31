@@ -48,5 +48,14 @@ def initialize_continuation(model, config):
             raise ValueError("RGB initialization checksum changed")
         model.rgb_encoder.load_pretrained(rgb)
         record.update(rgb_checkpoint_sha256=RGB_SOURCE_SHA,rgb_state_sha256=model_state_sha256(model.rgb_encoder))
+        if config.get("rgb_variant")=="appearance_difference":
+            from types import SimpleNamespace
+            common={k:v for k,v in model.rgb_encoder.state_dict().items() if not k.startswith(("backbone.appearance_stem.","backbone.appearance_alpha"))}
+            record["common_rgb_state_sha256"]=model_state_sha256(SimpleNamespace(state_dict=lambda:common))
+            record["appearance_initialization"]=dict(policy="isolated_seed42_torch_conv_default",
+                stem="Conv3d 3->64 kernel(1,3,3) padding(0,1,1), ReLU",seed=42,
+                alpha=float(model.rgb_encoder.backbone.appearance_alpha.detach()),
+                stem_state_sha256=model_state_sha256(model.rgb_encoder.backbone.appearance_stem),
+                shared_rgb_load="exact V3 keys; only stem weight/bias and alpha are new")
     record["model_state_sha256"]=model_state_sha256(model)
     return record

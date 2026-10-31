@@ -21,10 +21,13 @@ def evaluate(args):
     model = build_model(packet["config"]).to(args.device)
     model.load_state_dict(packet["model"], strict=True)
     rule = validate_lateral_rule(packet["config"].get("lateral_rule"))
-    dataset = VelocityDataset(args.manifest, "dev", packet["config"]["experiment"], args.features, args.flow,
+    partition = getattr(args, "partition", "dev")
+    if partition not in {"train_core", "dev"}:raise ValueError("Only original train_core/dev evaluation is allowed")
+    dataset = VelocityDataset(args.manifest, partition, packet["config"]["experiment"], args.features, args.flow,
                               selection_path=getattr(args, "selection", None),rgb_policy=packet["config"].get("rgb_policy"),
                               frame_root=getattr(args,"rgb_frames",None))
-    if dataset.contract != packet["contract"]["data"] or dataset.selection_hash != packet["contract"]["dev_selection"]:
+    selection_key = "train_selection" if partition == "train_core" else "dev_selection"
+    if dataset.contract != packet["contract"]["data"] or dataset.selection_hash != packet["contract"][selection_key]:
         raise ValueError("Evaluation data differs from the trained contract")
     validate_expected_flow(packet["config"], dataset.contract)
     output = Path(args.output)
@@ -35,7 +38,7 @@ def evaluate(args):
                    checkpoint_sha256=sha256(args.checkpoint), training_run=packet["run_id"],
                    training_code=packet["code"], evaluation_code=code_version(),
                    contract_hash=packet["contract_hash"], data=dataset.contract,
-                   selection_hash=dataset.selection_hash, runtime=vars(args))
+                   selection_hash=dataset.selection_hash, partition=partition, runtime=vars(args))
     receipt.update(scope="resolution_pilot" if dataset.scene_selection else "full_train_dev",
                    effective_lateral_rule=rule)
     write_json(output / "evaluation.json", receipt)
@@ -57,6 +60,7 @@ def evaluate(args):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--checkpoint", required=True)
+    p.add_argument("--partition", choices=("train_core", "dev"), default="dev")
     p.add_argument("--manifest", required=True)
     p.add_argument("--features")
     p.add_argument("--rgb-frames")

@@ -121,7 +121,7 @@ def collect(root, plans):
                 else:
                     state = "unknown"
             row = dict(run_id=run_id, name=job["name"], experiment=job.get("experiment", job["name"]),
-                       status=state, kind=job["kind"], training_commit=plan["code"]["commit"],
+                       status=state, kind=job["kind"], training_commit=job.get("source_training_commit",plan["code"]["commit"]),
                        plan=prefix, device=job.get("device"), log_path=job.get("log_path"))
             if raw:
                 files[f"experiments/{run_id}/job_status.json"] = encoded(raw)
@@ -194,6 +194,27 @@ def collect(root, plans):
                 files[f"experiments/{run_id}/startup_proof.json"] = encoded(value)
                 sources.append(origin)
             rows.append(row)
+    # Explicit full train/dev best-checkpoint evaluations for the RGB-path stage.
+    for plan_path in plans:
+        plan=json.loads(Path(plan_path).read_text())
+        if plan.get("stage") != "r03_rgb_path_18epoch":continue
+        for variant, partitions in plan["evaluation_paths"].items():
+            if variant not in {"difference", "appearance_difference"}:raise ValueError("Unexpected RGB path")
+            for partition, directory in partitions.items():
+                if partition not in {"train_core", "dev"}:raise ValueError("Unexpected evaluation partition")
+                directory=source_path(root,directory)
+                base=f"rgb_path_evaluations/{plan['prefix']}/{variant}/{partition}"
+                receipt,origin=read_source(root,directory/"evaluation.json")
+                if receipt is None:continue
+                files[f"{base}/evaluation.json"]=encoded(receipt);sources.append(origin)
+                if receipt.get("status")!="completed":continue
+                value,origin=read_source(root,directory/"metrics.json")
+                files[f"{base}/metrics.json"]=encoded(value);sources.append(origin)
+                prediction=directory/"predictions.csv"
+                if prediction.stat().st_size>64*1024*1024:raise ValueError("RGB prediction CSV exceeds64MiB export bound")
+                blob=prediction.read_bytes();check_public(blob.decode())
+                files[f"{base}/predictions.csv"]=blob
+                sources.append(dict(path=str(prediction),source_sha256=hashlib.sha256(blob).hexdigest(),bytes=len(blob),representation="full_csv"))
     # Explicit additional evidence allowlist; never recurse into logs, data or monitoring secrets.
     for evidence in sorted(root.glob("evidence/*.json")):
         value, origin = read_source(root, evidence)
@@ -218,7 +239,8 @@ def collect(root, plans):
         if value is not None:
             files[f"monitoring/lifecycle_{plan['prefix']}.json"]=encoded(value);sources.append(origin)
     reports = {*root.glob("reports/resolution*/summary.*"), *root.glob("reports/full_flow_*/summary.*"),
-               *root.glob("reports/encoder_comparison_*/summary.*"), *root.glob("reports/fusion_comparison_*/summary.*")}
+               *root.glob("reports/encoder_comparison_*/summary.*"), *root.glob("reports/fusion_comparison_*/summary.*"),
+               *root.glob("reports/rgb_path_*/summary.*")}
     for report in sorted(reports):
         if report.suffix not in {".json", ".md"}:
             continue

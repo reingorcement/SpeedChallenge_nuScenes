@@ -1,5 +1,8 @@
 # PureVision V5: S2 image/flow feature fusion
 
+**2026-11-01 RGB信息路径对照：** 旧R03_FT用户主动暂停，主对照锁定前18完整epoch内的best。新增一组原始外观＋CMA差分旁路，停止18轮、余弦周期40轮；见[设计与自审](docs/next/R03_RGB_PATH_DESIGN_20261101.md)。旧FT不恢复，Frozen/CONT的40轮结果不混入18轮主比较。
+
+
 **Latest phase:** R02 BASE/FLEX 三seed完整40轮对照已完成，FLEX为已确定开发主线。当前R03 Frozen/FT与同起点CONT已实现并通过必要真实验证；见[实现、自审和运行协议](docs/next/R03_FLEX_IMPLEMENTATION_20261031.md)。正式训练/评价/巡视状态以[结果分支](https://github.com/reingorcement/SpeedChallenge_nuScenes/tree/results/purevision-v5-next/methods/purevision-flow/PureVision_V5/docs/next_results)为准。非零侧向仍31窗口/5场景、insufficient_data；下面六组是历史首轮。
 
 **GitHub review:** [审核导航](AI_REVIEW.md) · [完整中文交接](docs/HANDOFF_20261030.md) · [六组完成结果](docs/RESULT_20261030_S2.md) · [可读实验凭证](docs/review_evidence/20261030_s2/README.md) · [用户原计划](docs/V5_EXECUTION_PLAN_USER.md)。All six first-round runs completed; the queue and scheduled patrols have ended. Training code is pinned at `3979268699ce6db46d536cf22dc16f02b969a465`; later handoff commits do not modify that checkout.

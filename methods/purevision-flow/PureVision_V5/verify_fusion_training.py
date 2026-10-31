@@ -13,10 +13,10 @@ from startup_watch import check_checkpoint
 def verify(a):
     output=Path(a.output);output.mkdir(parents=True,exist_ok=False)
     report=dict(status='running',scope='smoke_real_trainer_not_formal_results',started_at=now(),rows={})
-    for name in ('R02_FLEX_CONT','R03_Frozen','R03_FT'):
+    for name in getattr(a,'variants',('R02_FLEX_CONT','R03_Frozen','R03_FT')):
         config=ROOT/'configs/next'/f'{name}.json';conf=read_json(config)
         features=a.features if name=='R03_Frozen' else None
-        args=Namespace(config=str(config),manifest=a.manifest,flow=a.flow,features=features,selection=None,rgb_frames=None,
+        args=Namespace(config=str(config),manifest=a.manifest,flow=a.flow,features=features,selection=None,rgb_frames=getattr(a,'rgb_frames',None),
             output=str(output/name/'interrupted'),device=a.device,workers=0,threads=4,resume=None,smoke=True,
             limit_scenes=1,limit_windows=128,max_batches=2,stop_after_steps=3)
         first=train(args);args.output=str(output/name/'resumed');args.resume=str(first/'last.pt');args.stop_after_steps=5
@@ -24,7 +24,7 @@ def verify(a):
         assert packet['processed_batches']==packet['processed_microbatches']==5==packet['optimizer_updates']+packet['amp_skips']
         assert packet['optimizer_updates']>0
         restored=build_model(conf).to(a.device);restored.load_state_dict(packet['model'],strict=True)
-        dev=VelocityDataset(a.manifest,'dev',conf['experiment'],features,a.flow,rgb_policy=conf['rgb_policy'],limit_scenes=1,limit_windows=128)
+        dev=VelocityDataset(a.manifest,'dev',conf['experiment'],features,a.flow,rgb_policy=conf['rgb_policy'],frame_root=getattr(a,'rgb_frames',None),limit_scenes=1,limit_windows=128)
         assert dev.contract==packet['contract']['data'] and dev.selection_hash==packet['contract']['dev_selection']
         summary,predictions=evaluate_model(restored,dev,a.device,batch_size=8,workers=0,max_batches=2,lateral_rule=conf['lateral_rule'])
         assert len(predictions)==16 and torch.isfinite(torch.tensor(summary['overall']['epe']))
@@ -46,4 +46,6 @@ def verify(a):
 if __name__=='__main__':
     p=ArgumentParser()
     for key in ('manifest','flow','features','output'):p.add_argument('--'+key,required=True)
+    p.add_argument('--variants',nargs='+',default=['R02_FLEX_CONT','R03_Frozen','R03_FT'])
+    p.add_argument('--rgb-frames')
     p.add_argument('--device',default='cuda:0');verify(p.parse_args())

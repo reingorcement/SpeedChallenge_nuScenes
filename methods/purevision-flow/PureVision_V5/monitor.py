@@ -497,7 +497,8 @@ def publication_allows_stop(root):
         plan=read_json(guard["plan"])
         if plan.get("identity")!=guard["plan_identity"] or any(read_json(j["status_path"]).get("status")!="completed" for j in plan["jobs"]):
             return False
-        comparison=Path(root)/"reports"/f"fusion_comparison_{plan['prefix']}"/"summary.json"
+        comparison=(Path(plan["completion_report"]) if plan.get("completion_report") else
+                    Path(root)/"reports"/f"fusion_comparison_{plan['prefix']}"/"summary.json")
         if read_json(comparison).get("status")!="completed":return False
     receipt = read_json(Path(root) / "monitoring/publication.json")
     return (receipt.get("status") == "published" and receipt.get("all_terminal") is True

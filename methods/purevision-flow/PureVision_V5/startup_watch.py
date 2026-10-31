@@ -176,7 +176,7 @@ def check_checkpoint(path, run, validation):
     scheduler = make_scheduler(optimizer,config)
     if not {"T_max", "last_epoch", "base_lrs"} <= state["scheduler"].keys():
         raise ValueError("Checkpoint scheduler is incomplete")
-    if state["scheduler"]["T_max"] != config["epochs"] or state["scheduler"]["last_epoch"] != state["epoch"]:
+    if state["scheduler"]["T_max"] != config.get("scheduler_epochs", config["epochs"]) or state["scheduler"]["last_epoch"] != state["epoch"]:
         raise ValueError("Checkpoint scheduler disagrees with completed epochs")
     scheduler.load_state_dict(state["scheduler"])
     scaler = torch.amp.GradScaler("cpu", enabled=bool(state["scaler"]))

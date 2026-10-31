@@ -18,6 +18,26 @@ DESCRIPTOR_DIM = 384
 RGB_PREPROCESS_VERSION = "v3_pil_bilinear_rgb_72x128_minus1_plus1_v1"
 
 
+class AppearanceFlexiNetBackbone(FlexiNetBackbone):
+    """One raw-image bypass; shared pretrained names and motion attention stay intact."""
+    def __init__(self):
+        super().__init__(input_channels=3)
+        # Isolate new-module initialization from the common model RNG stream.
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(42)
+            self.appearance_stem = nn.Sequential(
+                nn.Conv3d(3, 64, (1, 3, 3), padding=(0, 1, 1)), nn.ReLU())
+        self.appearance_alpha = nn.Parameter(torch.zeros(()))
+
+    def forward_feature_map(self, images):
+        images = images.permute(0, 2, 1, 3, 4)
+        motion = self.cma_block(images)
+        appearance = self.appearance_stem(images)
+        x = motion + self.appearance_alpha * appearance
+        aft = self.aft_block(x, motion)
+        return self.dig(self.sfe_module(aft), self.mfe_module(aft))
+
+
 def preprocess_rgb(image: Image.Image) -> torch.Tensor:
     """Match V3's PIL Resize -> RGB -> ToTensor -> Normalize(.5,.5)."""
     resized = image.resize((128, 72), resample=Image.Resampling.BILINEAR).convert("RGB")
@@ -27,9 +47,13 @@ def preprocess_rgb(image: Image.Image) -> torch.Tensor:
 
 class RGBDescriptor(nn.Module):
     """Shared V3 descriptor with a genuine trainable RGB path."""
-    def __init__(self, *, trainable=True):
+    def __init__(self, *, trainable=True, variant="difference"):
         super().__init__()
-        self.backbone = FlexiNetBackbone(input_channels=3)
+        if variant not in {"difference", "appearance_difference"}:
+            raise ValueError("Unknown RGB information path")
+        self.variant = variant
+        self.backbone = (AppearanceFlexiNetBackbone() if variant == "appearance_difference"
+                         else FlexiNetBackbone(input_channels=3))
         self.region_projection = nn.Sequential(nn.Linear(256, 64), nn.ReLU(inplace=True))
         self.trainable_rgb = bool(trainable)
         self.preprocess_version = RGB_PREPROCESS_VERSION
@@ -47,7 +71,17 @@ class RGBDescriptor(nn.Module):
             raise ValueError("RGB requires the causal T5 72x128 regional V3 direct checkpoint")
         state = package.get("model")
         if not isinstance(state, dict):raise ValueError("Source checkpoint lacks model state")
-        self.load_state_dict({k:v for k,v in state.items() if k.startswith(("backbone.", "region_projection."))}, strict=True)
+        shared = {k:v for k,v in state.items() if k.startswith(("backbone.", "region_projection."))}
+        if self.variant == "difference":
+            self.load_state_dict(shared, strict=True)
+        else:
+            allowed = {"backbone.appearance_alpha", "backbone.appearance_stem.0.weight",
+                       "backbone.appearance_stem.0.bias"}
+            result = self.load_state_dict(shared, strict=False)
+            if set(result.missing_keys) != allowed or result.unexpected_keys:
+                raise ValueError("Appearance initialization changed shared RGB keys")
+            if not all(torch.equal(self.state_dict()[k], v) for k, v in shared.items()):
+                raise ValueError("Common RGB initialization is not exact")
         self.checkpoint_sha256 = hashlib.sha256(checkpoint.read_bytes()).hexdigest()
         return self
 

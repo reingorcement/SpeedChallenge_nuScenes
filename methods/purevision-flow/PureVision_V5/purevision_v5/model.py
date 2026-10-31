@@ -102,7 +102,8 @@ class FlexFlowEncoder(nn.Module):
 def build_model(config):
     """One construction path for training, resume, evaluation and startup checks."""
     return VelocityModel(config["experiment"], encoder_variant=config.get("encoder_variant", "base"),
-                         head_seed=config.get("head_seed"), rgb_policy=config.get("rgb_policy"))
+                         head_seed=config.get("head_seed"), rgb_policy=config.get("rgb_policy"),
+                         rgb_variant=config.get("rgb_variant", "difference"))
 
 
 class VelocityModel(nn.Module):
@@ -113,7 +114,8 @@ class VelocityModel(nn.Module):
     is explicitly supplied to every experiment, including the RGB baseline.
     """
 
-    def __init__(self, experiment: str = "R03", *, encoder_variant="base", head_seed=None, rgb_policy=None):
+    def __init__(self, experiment: str = "R03", *, encoder_variant="base", head_seed=None, rgb_policy=None,
+                 rgb_variant="difference"):
         super().__init__()
         if experiment not in EXPERIMENTS:
             raise ValueError(f"experiment must be one of {EXPERIMENTS}")
@@ -126,11 +128,14 @@ class VelocityModel(nn.Module):
         self.uses_flow = experiment != "R00"
         self.rgb_policy = rgb_policy
         self.rgb_encoder = None
+        if rgb_variant != "difference" and (experiment != "R03" or encoder_variant != "flex" or rgb_policy != "finetune"):
+            raise ValueError("Appearance bypass is scoped to FLEX R03 fine-tuning")
         if rgb_policy in {"frozen", "finetune"}:
             if experiment != "R03" or encoder_variant != "flex":
                 raise ValueError("Trainable RGB integration is scoped to FLEX R03")
             from .rgb import RGBDescriptor
-            self.rgb_encoder = RGBDescriptor(trainable=rgb_policy == "finetune")
+            rgb_options = {} if rgb_variant == "difference" else {"variant": rgb_variant}
+            self.rgb_encoder = RGBDescriptor(trainable=rgb_policy == "finetune", **rgb_options)
         self.flow_encoder = (LightFlowEncoder() if experiment == "R01"
                              else FlexFlowEncoder() if encoder_variant == "flex"
                              else SpatialTemporalFlowEncoder() if self.uses_flow else None)
