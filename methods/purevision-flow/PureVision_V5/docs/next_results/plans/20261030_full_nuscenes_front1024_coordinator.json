@@ -1,6 +1,6 @@
 {
-  "status": "running",
-  "updated_at": "2026-10-31T04:17:07.248321+00:00",
+  "status": "completed",
+  "updated_at": "2026-10-31T04:44:43.258189+00:00",
   "plan_identity": "cbc303bbcd40f1189db741cab7cce6f3938d6a3be3e3326ce182555ce95cf620",
   "code": {
     "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
@@ -207,8 +207,8 @@
       "finished_at": "2026-10-31T03:39:57.465078+00:00"
     },
     "pack_train_dev": {
-      "status": "running",
-      "updated_at": "2026-10-31T04:17:06.836429+00:00",
+      "status": "completed",
+      "updated_at": "2026-10-31T04:41:22.317772+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793418266.4485128,
@@ -230,13 +230,41 @@
         "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev"
       ],
       "child_pid": 3454828,
-      "child_pid_start_ticks": 93319204
+      "child_pid_start_ticks": 93319204,
+      "exit_code": 0,
+      "finished_at": "2026-10-31T04:41:22.317748+00:00"
     },
     "verify_full_cache": {
-      "status": "queued",
-      "updated_at": "2026-10-30T15:03:21.926196+00:00",
-      "launch_count": 0,
-      "reason": null
+      "status": "completed",
+      "updated_at": "2026-10-31T04:44:33.856987+00:00",
+      "launch_count": 1,
+      "reason": null,
+      "launched_at_epoch": 1793421690.2014039,
+      "pid": 3461586,
+      "pid_start_ticks": 93660570,
+      "started_at": "2026-10-31T04:41:31.413856+00:00",
+      "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+      "phase": "verify",
+      "command_index": 0,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/87d7468f911d/methods/purevision-flow/PureVision_V5/collect_full_flow.py",
+        "--plan",
+        "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/plan.json",
+        "--output",
+        "/home/zhangyu/.local/share/speedest-v5-next/reports/full_flow_20261030_full_nuscenes_front1024"
+      ],
+      "child_pid": 3461658,
+      "child_pid_start_ticks": 93660929,
+      "counts": {
+        "groups": 1000,
+        "frames": 233239,
+        "pairs": 232239
+      },
+      "bytes_written": 1384739436318,
+      "exit_code": 0,
+      "finished_at": "2026-10-31T04:44:33.856969+00:00"
     },
     "features": {
       "status": "not_required"

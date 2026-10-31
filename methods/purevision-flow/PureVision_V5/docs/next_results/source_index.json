@@ -355,6 +355,12 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/progress_inspection_20261031_1223.json",
+      "source_sha256": "da5d71dcc684ea504465649938621673bcbb7eba5d7b4b86d7d761cad1ed97fe",
+      "bytes": 1421,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/publisher_retry_validation.json",
       "source_sha256": "d4102a57e57c2fc3561ba458a211fddf1288aa9df92d13c034b46bb71094ec81",
       "bytes": 845,
@@ -434,14 +440,14 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/pack_train_dev.json",
-      "source_sha256": "bf00e60ef02f0041ec222d0aa62ee3e9783393ecdb4d0f6d777bf97e2a257dc8",
-      "bytes": 1067,
+      "source_sha256": "8ec9c1695c8f524c4f1b4dc1fef1df4c4eced177f329e332f04c3b0163a40703",
+      "bytes": 1140,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/jobs/verify_full_cache.json",
-      "source_sha256": "4bf452a4380e4b3fb1ee00d394b028546dee8d3adc75f6b12083db246a9c88f5",
-      "bytes": 116,
+      "source_sha256": "9dba8c941da65b6c03c1bb581afe290db9529241e9e99c900a010c187bc6116a",
+      "bytes": 1054,
       "representation": "parsed_json"
     },
     {
@@ -470,8 +476,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261030_full_nuscenes_front1024/status.json",
-      "source_sha256": "ab5d81968b47d9b1b3e3d73f9de6144562d353eb6804dcddff7ffc7cfce756cc",
-      "bytes": 8976,
+      "source_sha256": "6d216874e173e92e5e28a37be9cb0fcc8ed49ab11489b08e09087f8320435525",
+      "bytes": 10101,
       "representation": "parsed_json"
     },
     {
@@ -599,6 +605,24 @@
       "source_sha256": "46e3b1aaa2e4d15326c461592dd5910f761b0ad31112dcabdfa77b19259b63e7",
       "bytes": 8657,
       "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/full_flow_20261030_full_nuscenes_front1024/summary.json",
+      "source_sha256": "96946ac49805c1d4d57668bd0ff48db7cffa24371e2e277458dadcba8516b25c",
+      "bytes": 30040,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/full_flow_20261030_full_nuscenes_front1024/summary.json",
+      "source_sha256": "96946ac49805c1d4d57668bd0ff48db7cffa24371e2e277458dadcba8516b25c",
+      "bytes": 30040,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/full_flow_20261030_full_nuscenes_front1024/summary.md",
+      "source_sha256": "d4bbd843722734681b494febba0748f45c5e06ac887393061ee6a713909884bc",
+      "bytes": 1839,
+      "representation": "original_markdown"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/resolution_20261030_pilot_s42_retry1/summary.json",
@@ -760,8 +784,18 @@
   "exports": [
     {
       "path": "README.md",
-      "export_sha256": "4336823889894047322f0244778322bdbc1f8b2001a1ba629310f85e19899afc",
-      "bytes": 3019
+      "export_sha256": "8ff1c36c42b98b9f6e7022716ff3fd90864e3a20a072bbf241a7c4d75bacf4e6",
+      "bytes": 3024
+    },
+    {
+      "path": "comparisons/full_flow_20261030_full_nuscenes_front1024/summary.json",
+      "export_sha256": "96946ac49805c1d4d57668bd0ff48db7cffa24371e2e277458dadcba8516b25c",
+      "bytes": 30040
+    },
+    {
+      "path": "comparisons/full_flow_20261030_full_nuscenes_front1024/summary.md",
+      "export_sha256": "d4bbd843722734681b494febba0748f45c5e06ac887393061ee6a713909884bc",
+      "bytes": 1839
     },
     {
       "path": "comparisons/resolution_20261030_pilot_s42_retry1/summary.json",
@@ -1039,6 +1073,11 @@
       "bytes": 12431
     },
     {
+      "path": "evidence/progress_inspection_20261031_1223.json",
+      "export_sha256": "da5d71dcc684ea504465649938621673bcbb7eba5d7b4b86d7d761cad1ed97fe",
+      "bytes": 1421
+    },
+    {
       "path": "evidence/publisher_retry_validation.json",
       "export_sha256": "d4102a57e57c2fc3561ba458a211fddf1288aa9df92d13c034b46bb71094ec81",
       "bytes": 845
@@ -1085,13 +1124,18 @@
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_pack_train_dev/job_status.json",
-      "export_sha256": "bf00e60ef02f0041ec222d0aa62ee3e9783393ecdb4d0f6d777bf97e2a257dc8",
-      "bytes": 1067
+      "export_sha256": "8ec9c1695c8f524c4f1b4dc1fef1df4c4eced177f329e332f04c3b0163a40703",
+      "bytes": 1140
     },
     {
       "path": "experiments/20261030_full_nuscenes_front1024_verify_full_cache/job_status.json",
-      "export_sha256": "4bf452a4380e4b3fb1ee00d394b028546dee8d3adc75f6b12083db246a9c88f5",
-      "bytes": 116
+      "export_sha256": "9dba8c941da65b6c03c1bb581afe290db9529241e9e99c900a010c187bc6116a",
+      "bytes": 1054
+    },
+    {
+      "path": "experiments/20261030_full_nuscenes_front1024_verify_full_cache/progress_report.json",
+      "export_sha256": "96946ac49805c1d4d57668bd0ff48db7cffa24371e2e277458dadcba8516b25c",
+      "bytes": 30040
     },
     {
       "path": "experiments/20261030_pilot_s42_R02_1024/job_status.json",
@@ -1390,8 +1434,8 @@
     },
     {
       "path": "plans/20261030_full_nuscenes_front1024_coordinator.json",
-      "export_sha256": "ab5d81968b47d9b1b3e3d73f9de6144562d353eb6804dcddff7ffc7cfce756cc",
-      "bytes": 8976
+      "export_sha256": "6d216874e173e92e5e28a37be9cb0fcc8ed49ab11489b08e09087f8320435525",
+      "bytes": 10101
     },
     {
       "path": "plans/20261030_pilot_s42.json",
@@ -1425,8 +1469,8 @@
     },
     {
       "path": "status.json",
-      "export_sha256": "33f4c268450efd9b4bd2f7c6e8110fb78f5e3df151b6acea3eb09ac50b9c49ec",
-      "bytes": 21796
+      "export_sha256": "4d8c60031f33d01482207087fbfd149a309a7ce78302b4373f9682491470723f",
+      "bytes": 22001
     }
   ],
   "note": "source_sha256 hashes source bytes (JSONL complete prefix); export_sha256 hashes the published representation. JSON may be reformatted; index excludes itself."

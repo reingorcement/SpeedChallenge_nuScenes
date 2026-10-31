@@ -20,8 +20,8 @@
 | 20261030_full_nuscenes_front1024_flow1024_0 | flow1024_0 | completed | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | 77623/77623 | — |
 | 20261030_full_nuscenes_front1024_flow1024_1 | flow1024_1 | completed | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | 77277/77277 | — |
 | 20261030_full_nuscenes_front1024_flow1024_2 | flow1024_2 | completed | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | 77339/77339 | — |
-| 20261030_full_nuscenes_front1024_pack_train_dev | pack_train_dev | running | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | —/— | — |
-| 20261030_full_nuscenes_front1024_verify_full_cache | verify_full_cache | queued | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | —/— | — |
+| 20261030_full_nuscenes_front1024_pack_train_dev | pack_train_dev | completed | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | —/— | — |
+| 20261030_full_nuscenes_front1024_verify_full_cache | verify_full_cache | completed | `87d7468f911da5579bbbc39f79ec6bc85fa16dd6` | —/— | — |
 
 训练作业目录包含实际配置、完整 epoch JSONL、状态与可用的 dev 评价；非训练作业包含 worker 状态及已生成的 progress_report.json。原始大日志、数据/光流和权重不上传。
 `source_index.json` 记录所读文件与摘要；`status.json` 记录 checkpoint 哈希和预测公开形式。

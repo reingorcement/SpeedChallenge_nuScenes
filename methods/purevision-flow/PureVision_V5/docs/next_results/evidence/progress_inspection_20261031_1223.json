@@ -1,0 +1,36 @@
+{
+  "schema": "v5_progress_inspection_v1",
+  "observed_at": "2026-10-31T04:23:54.033807+00:00",
+  "observed_at_cst": "2026-10-31T12:23:54.033807+08:00",
+  "status": "generation_completed_packing_running",
+  "code": {
+    "commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6",
+    "dirty": false,
+    "verified_remote_commit": "87d7468f911da5579bbbc39f79ec6bc85fa16dd6"
+  },
+  "plan_identity": "cbc303bbcd40f1189db741cab7cce6f3938d6a3be3e3326ce182555ce95cf620",
+  "generated_pairs": 232239,
+  "expected_pairs": 232239,
+  "outcomes": {
+    "created": 222969,
+    "reused": 0,
+    "recovered": 0,
+    "adopted": 9270
+  },
+  "cache_bytes": 1384739436318,
+  "pack": {
+    "status": "running",
+    "pairs": 97000,
+    "total": 158513,
+    "percentage": 61.19371912713784,
+    "average_pairs_per_second": 41.72,
+    "recent_pairs_per_second_approx": 54.66145429098523,
+    "eta_average_minutes": 24.5737456056248,
+    "source_log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261030_full_nuscenes_front1024_pack_train_dev.log",
+    "last_complete_progress_line": "PACK pairs=97000/158513 pairs_s=41.72",
+    "log_updated_at": "2026-10-31T04:23:39.132488+00:00"
+  },
+  "verification": "queued",
+  "new_model_training": "not_started",
+  "limits": "Status inspection only; complete output files are checked by the queued independent collector. Packing arrays are preallocated so byte sizes do not measure completed rows."
+}
