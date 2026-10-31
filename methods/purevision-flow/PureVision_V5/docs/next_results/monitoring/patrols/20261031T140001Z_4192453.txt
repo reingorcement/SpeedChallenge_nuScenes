@@ -1,0 +1,18 @@
+正常，无新增里程碑。指定命令成功，5 项目标工件均有读取成功收据。
+
+实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+
+- `monitoring/astra/20261031T140001Z_4192453.request.json`
+- `monitoring/astra/20261031T140001Z_4192453.snapshot.json`
+- `monitoring/publication.json`
+- `runs/20261031_r03_flex_s42_R03_FT/status.json`
+- `pipeline/20261031_r03_flex_s42/jobs/R03_FT.json`
+- `pipeline/20261031_r03_flex_s42/jobs/compare.json`
+
+**Host 确定性检查**（22:00 快照）：FT 主、子进程存活且身份核验通过；checkpoint 距更新约 26 秒，日志约 11 秒。GPU0 利用率 100%，显存 48307/97887 MiB、86°C；工件盘剩余约 962 GB，真实缓存所在 `/mnt/sdb2` 盘剩余约 17434 GB，均无低空间标记。
+
+**本次 AI 诊断**：目标 `20261031_r03_flex_s42_R03_FT` 身份一致，epoch 11，步数从快照 24180 推进至 24200；loss 0.000315，最新验证 EPE 0.214959，最佳 0.206749；累计 AMP 跳步 6。摘要无异常标记，未追加扫描大日志，不能据此排除全部日志异常。Frozen、R02_FLEX_CONT 均已完成 83120 步；compare 尚在 queued，PID unknown 保留待核实，整体尚未终态。
+
+无需干预；如后续步数持续不增，人工优先定位 `logs/20261031_r03_flex_s42_R03_FT.log`。本次未修改任何内容或作业状态。
+
+ASTRA_PATROL_OK
