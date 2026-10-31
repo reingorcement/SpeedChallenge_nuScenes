@@ -1,15 +1,16 @@
-指定命令成功，全部5个目标读取成功。实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+正常，无新增里程碑。指定命令成功，5 个目标工件均有读取成功收据。
 
-- `monitoring/astra/20261031T123001Z_4181889.snapshot.json`
+实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+- `monitoring/astra/20261031T130001Z_4185550.request.json`
+- `monitoring/astra/20261031T130001Z_4185550.snapshot.json`
 - `monitoring/publication.json`
 - `runs/20261031_r03_flex_s42_R03_FT/status.json`
-- `pipeline/20261031_r03_flex_s42/jobs/R03_FT.json`
-- `pipeline/20261031_r03_flex_s42/jobs/compare.json`
+- `pipeline/20261031_r03_flex_s42/jobs/{R03_FT,compare}.json`
 
-宿主确定性检查：20:30快照确认 FT 主/子进程身份匹配且存活；日志异常摘要为空，日志及 checkpoint 均约9秒内更新。GPU0 利用率100%，显存48307/97887 MiB、85°C；工件盘剩余962 GB，缓存盘剩余17434 GB，均无空间告警。
+宿主确定性检查：21:00 快照确认 FT 父子进程存活且身份匹配；checkpoint 约 59 秒前更新。GPU0 利用率 100%，显存 48307/97887 MiB，85°C；工件盘剩余 962 GB，实际缓存所在盘剩余 17434 GB，无低空间标记。
 
-本次AI诊断：`20261031_r03_flex_s42_R03_FT` 正常，无新增里程碑。epoch 8，步数17500→17520，loss 0.0002162；最近验证 EPE 0.218121，最佳0.206749。另两训练run均已完成40轮、83120步；compare仍排队、未启动，PID unknown保留待核实，不能算终止，整体尚未完成。
+本次 AI 诊断：目标前缀 `20261031_r03_flex_s42_` 核对一致。FT 已从快照 19720 步推进至 19740 步，epoch 9，loss 0.0002285；最近验证 EPE 0.214342，最佳 0.206749。Frozen、FLEX_CONT 均已完成 83120 步，验证 EPE 分别为 0.207536、0.193615。目标日志异常摘要为空，未追加读取大日志。
 
-异常仅见发布 pending：记录为 GitHub SSH连接超时，不代表训练停止。人工可定位 `monitoring/publication.json` 对应发布链路；本次未访问外网、未作任何修改。
+compare 仍 queued、尚未启动，PID unknown 保留待核实，不判终止；整体尚未完成。无需人工干预；若后续停止推进，优先核对同 run 的 status、作业 JSON 与日志。全程只读，未修改任何状态或修复代码。
 
 ASTRA_PATROL_OK
