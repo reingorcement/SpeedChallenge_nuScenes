@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "time": "2026-10-31T06:44:03.957451+00:00",
+  "scope": "collector guards, not completed results",
+  "reason": "Incomplete/invalid comparison: [('R02_BASE_s42', 'completed', None), ('R02_FLEX_s42', 'completed', None), ('R02_BASE_s43', 'failed', 'RuntimeError: Command 0 exited with 1'), ('R02_FLEX_s43', 'running', None), ('R02_BASE_s44', 'failed', 'RuntimeError: Command 0 exited with 1'), ('R02_FLEX_s44', 'running', None)]"
+}

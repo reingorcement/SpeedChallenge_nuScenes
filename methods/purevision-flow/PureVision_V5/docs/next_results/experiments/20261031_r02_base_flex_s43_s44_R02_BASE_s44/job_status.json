@@ -1,6 +1,6 @@
 {
-  "status": "running",
-  "updated_at": "2026-10-31T06:43:09.456193+00:00",
+  "status": "failed",
+  "updated_at": "2026-10-31T06:43:49.465343+00:00",
   "launch_count": 1,
   "reason": null,
   "launched_at_epoch": 1793428967.9307935,
@@ -28,5 +28,8 @@
     "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s43_s44_R02_BASE_s44"
   ],
   "child_pid": 3611400,
-  "child_pid_start_ticks": 94388494
+  "child_pid_start_ticks": 94388494,
+  "exit_code": 1,
+  "error": "RuntimeError: Command 0 exited with 1",
+  "finished_at": "2026-10-31T06:43:49.465302+00:00"
 }
