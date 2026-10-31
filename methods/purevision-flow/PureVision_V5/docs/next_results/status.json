@@ -13,17 +13,23 @@
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_BASE.log",
       "training_status": "running",
       "progress": {
-        "epoch": 0,
-        "global_step": 2060,
-        "optimizer_updates": 2060,
-        "amp_skips": 0,
-        "best_epe": null,
-        "best_epoch": null
+        "epoch": 5,
+        "global_step": 11560,
+        "optimizer_updates": 11559,
+        "amp_skips": 1,
+        "best_epe": 0.32294603171321445,
+        "best_epoch": 4
       },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/last.pt",
-          "sha256": "fe65376945f6af20d5dd25557f5ba2197862c15bf63ce473b19529734ea920e4",
+          "sha256": "2c120dc5c6bef9e3f3742be81e3785b330a549a4956b7724ce750f7ac4077be3",
+          "size_bytes": 929263,
+          "representation": "hash_only"
+        },
+        "best.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/best.pt",
+          "sha256": "3840388058abf504d4026ba9db5e92abf0f37b0342c0ea0fac4f63fc3ef82ea3",
           "size_bytes": 929263,
           "representation": "hash_only"
         }
@@ -41,17 +47,23 @@
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261031_r02_base_flex_s42_R02_FLEX.log",
       "training_status": "running",
       "progress": {
-        "epoch": 0,
-        "global_step": 2060,
-        "optimizer_updates": 2060,
-        "amp_skips": 0,
-        "best_epe": null,
-        "best_epoch": null
+        "epoch": 5,
+        "global_step": 11720,
+        "optimizer_updates": 11719,
+        "amp_skips": 1,
+        "best_epe": 0.26268058896380664,
+        "best_epoch": 3
       },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/last.pt",
-          "sha256": "8af23ffd2110e9bd2dc2e9805d90384cfe6b7c2237b42b3f002549e7bf5e8795",
+          "sha256": "145d4fc3a61284ec4cc1ca3f5b0bc4146e4c87f44f04e6ef9ef136f5728b3a79",
+          "size_bytes": 995427,
+          "representation": "hash_only"
+        },
+        "best.pt": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/best.pt",
+          "sha256": "97c850dd82c6e4057621cff8e120c191b22e41923b26c1972a718f609b5a8838",
           "size_bytes": 995427,
           "representation": "hash_only"
         }
