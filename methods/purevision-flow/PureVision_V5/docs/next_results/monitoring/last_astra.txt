@@ -1,18 +1,15 @@
-正常，无新增里程碑。指定命令成功，5 个目标工件均有读取成功收据。
+指定命令成功，5 个工件均有读取成功收据。实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
 
-实际读取路径（均相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
-
-- `monitoring/astra/20261031T170001Z_21493.request.json`
-- `monitoring/astra/20261031T170001Z_21493.snapshot.json`
+- `monitoring/astra/20261031T181901Z_30839.snapshot.json`
 - `monitoring/publication.json`
-- `runs/20261031_r03_flex_s42_R03_FT/status.json`
-- `pipeline/20261031_r03_flex_s42/jobs/R03_FT.json`
-- `pipeline/20261031_r03_flex_s42/jobs/compare.json`
+- `pipeline/20261101_rgb_path_s42/jobs/R03_APPEAR_FT_s42_18ep.json`
+- `pipeline/20261101_rgb_path_s42/jobs/old_diff18_eval.json`
+- `pipeline/20261101_rgb_path_s42/jobs/compare.json`
 
-**Host 确定性检查**（北京时间 11 月 1 日 01:00 快照）：FT 主/子 PID 身份核验通过且存活；GPU0 利用率 97%、显存 48307 MiB、84℃；工件盘剩余约 962 GB，真实缓存所在盘剩余约 17434 GB，无低空间告警。
+**Host 确定性检查**：北京时间 02:19:01 快照中，目标 `20261101_rgb_path_s42_` 下上述三个作业均 queued、launch_count=0，尚非终态。PID 缺失、进程状态 unknown，保留待核实，不能判定死亡。三张 GPU 利用率均为 0%；工件盘剩余约 960.6 GB，实际缓存所在 `/mnt/sdb2` 盘剩余约 17434.4 GB，均无低空间告警。
 
-**本次 AI 诊断**：目标 `20261031_r03_flex_s42_R03_FT` 身份一致，epoch 17、37400 步，loss 0.0002281；最近验证 EPE 0.218669，最佳 0.206749。累计 AMP 跳步 10 次；快照日志异常列表为空，状态/日志约 112 秒前更新，checkpoint 约 225 秒前更新，未见停止证据。Frozen、FLEX_CONT 均为 completed、83120 步；compare 仍 queued，PID unknown 保留待核实，整体尚未终态。
+**本次 AI 诊断**：正常，无新增里程碑。训练步数、loss、验证指标及 checkpoint 更新时间均未提供，不能确认训练进展；精简摘要无异常记录，未追加读取大日志。publication 为 pending，不代表训练停止。若排队持续，建议人工核查该 pipeline 的调度器与依赖就绪情况。
 
-无需人工干预；若后续进度持续不更新，优先定位上述 FT 状态文件及 `logs/20261031_r03_flex_s42_R03_FT.log`。本次仅只读诊断，未修改或启停任何作业。
+全程只读，未修改任何状态或修复代码。
 
 ASTRA_PATROL_OK

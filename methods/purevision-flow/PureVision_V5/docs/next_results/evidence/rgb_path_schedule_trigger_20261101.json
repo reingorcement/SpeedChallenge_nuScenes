@@ -1,0 +1,42 @@
+{
+  "status": "verified_fresh_actual_cron",
+  "time": "2026-11-01T02:20:05.023889+08:00",
+  "plan_identity": "84031870ac981e43754aa741f2fe5b06b66ed71c3f2b7c26eddcfddd387c2f0b",
+  "training_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+  "server": {
+    "success": true,
+    "kind": "server",
+    "exit_code": 0,
+    "time": "2026-11-01T02:19:02.020802+08:00",
+    "trigger": "actual_cron",
+    "plan_identity": "84031870ac981e43754aa741f2fe5b06b66ed71c3f2b7c26eddcfddd387c2f0b",
+    "source": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
+    "source_time": "2026-10-31T18:19:01.958000+00:00",
+    "remote_commit": null
+  },
+  "publisher": {
+    "success": true,
+    "kind": "publisher",
+    "exit_code": 0,
+    "time": "2026-11-01T02:19:20.441278+08:00",
+    "trigger": "actual_cron",
+    "plan_identity": "84031870ac981e43754aa741f2fe5b06b66ed71c3f2b7c26eddcfddd387c2f0b",
+    "source": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json",
+    "source_time": "2026-10-31T18:19:20.098986+00:00",
+    "remote_commit": "6402220e81cb36150fe65ff02fd6c35c902c0187"
+  },
+  "astra": {
+    "time_utc": "2026-10-31T18:19:31.628307+00:00",
+    "trigger": "cron_probe",
+    "success": true,
+    "actual_shell_read_observed": true,
+    "run_ids": [
+      "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep",
+      "20261101_rgb_path_s42_compare",
+      "20261101_rgb_path_s42_old_diff18_eval"
+    ],
+    "answer": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261031T181901Z_30839.txt"
+  },
+  "scope": "Prelaunch registered queued jobs; proves scheduling/read access, not first epoch or checkpoint validity",
+  "permanent_crontab": "\n*/5 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/scripts/server_check.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_SERVER\n*/30 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ASTRA\n17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_rgb_path_20261101.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER\n"
+}

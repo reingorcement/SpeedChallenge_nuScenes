@@ -1,0 +1,30 @@
+{
+  "requested_at": "2026-11-01T02:20:05.042615+08:00",
+  "plan_identity": "84031870ac981e43754aa741f2fe5b06b66ed71c3f2b7c26eddcfddd387c2f0b",
+  "training_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+  "commands": {
+    "coordinator": [
+      "tmux",
+      "new-session",
+      "-d",
+      "-s",
+      "v5_rgb_path_20261101_coordinator",
+      "-c",
+      "/home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5",
+      "exec /home/zhangyu/.conda/envs/speedest/bin/python -B /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/scripts/secure_exec.py --network /home/zhangyu/.local/share/speedest-v5-next/monitoring/network.json -- /home/zhangyu/.conda/envs/speedest/bin/python -B /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/rgb_path_comparison.py --plan /home/zhangyu/.local/share/speedest-v5-next/pipeline/20261101_rgb_path_s42/plan.json >> /home/zhangyu/.local/share/speedest-v5-next/logs/20261101_rgb_path_s42_coordinator.log 2>&1"
+    ],
+    "lifecycle": [
+      "tmux",
+      "new-session",
+      "-d",
+      "-s",
+      "v5_rgb_path_20261101_lifecycle",
+      "-c",
+      "/home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5",
+      "exec /home/zhangyu/.conda/envs/speedest/bin/python -B /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/scripts/secure_exec.py --network /home/zhangyu/.local/share/speedest-v5-next/monitoring/network.json -- /home/zhangyu/.conda/envs/speedest/bin/python -B /home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5/encoder_lifecycle.py --plan /home/zhangyu/.local/share/speedest-v5-next/pipeline/20261101_rgb_path_s42/plan.json --publisher-command /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_rgb_path_20261101.json >> /home/zhangyu/.local/share/speedest-v5-next/logs/20261101_rgb_path_s42_lifecycle.log 2>&1"
+    ]
+  },
+  "old_FT": "paused; never resumed",
+  "new_training_run": "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep",
+  "status": "tmux_launch_requested"
+}
