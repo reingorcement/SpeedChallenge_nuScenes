@@ -1,0 +1,578 @@
+{
+  "schema": "v5_encoder_launch_receipt_v1",
+  "observed_at": "2026-10-31T05:57:04.126730+00:00",
+  "plan_identity": "0f23c724cb8225d60ccfd5b0b1647363479f2bf8c39ab0fb31d912f1092248a1",
+  "training_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5",
+  "plan_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/plan.json",
+  "rows": {
+    "R02_BASE": {
+      "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+      "run": {
+        "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+        "experiment": "R02",
+        "status": "running",
+        "started_at": "2026-10-31T05:51:21.218504+00:00",
+        "code": {
+          "commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+          "dirty": false,
+          "verified_remote_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9"
+        },
+        "config": {
+          "experiment": "R02",
+          "seed": 42,
+          "epochs": 40,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "loss_scales_m_s": [
+            5.0,
+            1.0
+          ],
+          "loss_beta": 1.0,
+          "amp": true,
+          "grad_clip": 2.0,
+          "patience": 5,
+          "min_delta": 0.0,
+          "log_steps": 20,
+          "checkpoint_steps": 250,
+          "rgb_policy": "not_used_flow_only",
+          "selection_metric": "dev_epe",
+          "lateral_rule": {
+            "max_relative_mae_increase": 0.05,
+            "max_absolute_mae_increase_m_s": 0.01,
+            "nonzero_threshold_m_s": 0.2,
+            "min_subset_windows": 100,
+            "min_subset_scenes": 5
+          },
+          "early_stopping": false,
+          "expected_flow": {
+            "raft_size_hw": [
+              576,
+              1024
+            ],
+            "model_size_hw": [
+              72,
+              128
+            ]
+          },
+          "head_seed": 42,
+          "encoder_variant": "base"
+        },
+        "contract": {
+          "config": {
+            "experiment": "R02",
+            "seed": 42,
+            "epochs": 40,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "weight_decay": 0.0001,
+            "loss_scales_m_s": [
+              5.0,
+              1.0
+            ],
+            "loss_beta": 1.0,
+            "amp": true,
+            "grad_clip": 2.0,
+            "patience": 5,
+            "min_delta": 0.0,
+            "log_steps": 20,
+            "checkpoint_steps": 250,
+            "rgb_policy": "not_used_flow_only",
+            "selection_metric": "dev_epe",
+            "lateral_rule": {
+              "max_relative_mae_increase": 0.05,
+              "max_absolute_mae_increase_m_s": 0.01,
+              "nonzero_threshold_m_s": 0.2,
+              "min_subset_windows": 100,
+              "min_subset_scenes": 5
+            },
+            "early_stopping": false,
+            "expected_flow": {
+              "raft_size_hw": [
+                576,
+                1024
+              ],
+              "model_size_hw": [
+                72,
+                128
+              ]
+            },
+            "head_seed": 42,
+            "encoder_variant": "base"
+          },
+          "data": {
+            "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+            "label": {
+              "version": "nuscenes_rear_axle_planar_nonuniform3_v1",
+              "mode": "PLANAR_PROXY",
+              "reference_point": "nuscenes_rear_axle_midpoint",
+              "reference_source": "https://www.nuscenes.org/data-format",
+              "axes": "x_forward_y_left_in_current_yaw_frame",
+              "units": "m/s",
+              "time": "current_camera_timestamp",
+              "derivative": "nonuniform_three_point_quadratic_world_xy_then_current_yaw",
+              "neighbors": "previous_current_next_CAM_FRONT_sample_data_in_same_scene",
+              "smoothing": "none_beyond_three_point_derivative",
+              "endpoints": "excluded",
+              "lever_arm": "none_ego_pose_already_at_rear_axle_midpoint",
+              "future_pose": "offline_supervision_only_never_inference",
+              "limitations": "planar_localization_z_zero_not_true_3D_body_velocity"
+            },
+            "features": null,
+            "flow_root": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+            "flow": {
+              "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+              "native_contract": {
+                "version": "v5_raft_native_v2",
+                "prediction": "frozen_raft_not_ground_truth",
+                "raft_size": [
+                  576,
+                  1024
+                ],
+                "input": "RGB",
+                "resize": "bilinear",
+                "antialias": false,
+                "range": [
+                  -1.0,
+                  1.0
+                ],
+                "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+                "num_flow_updates": 12,
+                "compute_dtype": "float32",
+                "tf32": false,
+                "flow_units": "pixels_at_raft_resolution",
+                "component_order": [
+                  "u_right",
+                  "v_down"
+                ],
+                "valid": "finite_vector_and_endpoint_inside_target",
+                "fb_rule": "squared_relative",
+                "fb_alpha": 0.01,
+                "fb_beta_px2": 0.5,
+                "warp_align_corners": true
+              },
+              "derived_contract": {
+                "version": "v5_flow_view_v2",
+                "model_size": [
+                  72,
+                  128
+                ],
+                "native_size": [
+                  576,
+                  1024
+                ],
+                "model_flow_units": "pixels_at_model_resolution",
+                "flow_resize": "bilinear_align_corners_false_vector_scaled",
+                "vector_scale_uv": [
+                  0.125,
+                  0.125
+                ],
+                "mask_resize": "nearest",
+                "invalid_model_flow": "zero",
+                "flow_dtype": "float16",
+                "mask_dtype": "bool",
+                "dt": "positive_seconds_separate_not_divided_into_flow"
+              },
+              "schema": "v5_flow_v2",
+              "packed_index_sha256": "cce797035ce44b07e5f64ce0e560bfeb68a5f17bb1cb46ac8c16398a56782414"
+            }
+          },
+          "train_selection": "173e0be7a096f8c09f418f3f1c03cb518362d43f16a851561c5a97fbb03587d0",
+          "dev_selection": "b0414be2ea099e6ab622035d20b7759a85bcd82a5c483b1dc36c3856059c41b2",
+          "execution": {
+            "smoke": false,
+            "max_batches": 0
+          }
+        },
+        "contract_hash": "a1a458d6370f2c5369758db77579c851d0b1d622dbc84ae7986cc1fc634d70be",
+        "smoke": false,
+        "parent_run": null,
+        "resume": null,
+        "runtime": {
+          "config": "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/configs/next/R02_BASE.json",
+          "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE",
+          "features": null,
+          "flow": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "selection": null,
+          "device": "cuda:1",
+          "workers": 4,
+          "threads": 4,
+          "resume": null,
+          "smoke": false,
+          "limit_scenes": 0,
+          "limit_windows": 0,
+          "max_batches": 0,
+          "stop_after_steps": 0
+        },
+        "environment": {
+          "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+          "executable": "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "torch": "2.10.0+cu128",
+          "cuda": "12.8",
+          "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+          "hostname": "ps",
+          "cuda_visible_devices": null,
+          "gpu": [
+            "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+            "NVIDIA GeForce RTX 5090",
+            "NVIDIA GeForce RTX 5090"
+          ]
+        },
+        "train_windows": 132978,
+        "dev_windows": 23480,
+        "train_scenes": 582,
+        "dev_scenes": 103,
+        "trainable_parameters": 74354,
+        "step_semantics": "global_step = processed_batches = optimizer_updates + amp_skips",
+        "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_BASE/last.pt",
+        "scope": "full_train_dev",
+        "initialization": {
+          "policy": "encoder_torch_default_and_isolated_head_rng_v1",
+          "seed": 42,
+          "model_state_sha256": "c3d0050158260e5107d1687141d5a47845e1f7de410883bb99cef2ddd37b1c2b",
+          "head_seed": 42,
+          "head_state_sha256": "7de467aac88b930505733a8d7817bb1e1095fd075a804a27081d16121f7388a9",
+          "encoder_policy": "PyTorch Conv/Linear reset_parameters; BN weight=1 bias=0",
+          "encoder_state_sha256": "e9a2608bda49808aba40bec9673fabf18af34b7878a2c53b573c972990fa1ec7"
+        },
+        "sample_order": {
+          "policy": "torch_randperm_seed_plus_zero_based_epoch_v1",
+          "seed": 42,
+          "training_samples_sha256": "6799df67e39f7a7a941e2eb767f7a24c08114d8ef8f57cd8a7da73299e24d841",
+          "epoch_index_dtype": "little_endian_int64"
+        },
+        "effective_lateral_rule": {
+          "max_relative_mae_increase": 0.05,
+          "max_absolute_mae_increase_m_s": 0.01,
+          "nonzero_threshold_m_s": 0.2,
+          "min_subset_windows": 100,
+          "min_subset_scenes": 5
+        },
+        "stopping_policy": {
+          "early_stopping": false,
+          "complete_epoch_budget": 40
+        }
+      },
+      "state": {
+        "run_id": "20261031_r02_base_flex_s42_R02_BASE",
+        "experiment": "R02",
+        "status": "running",
+        "updated_at": "2026-10-31T05:57:03.986945+00:00",
+        "epoch": 11,
+        "global_step": 23120,
+        "processed_batches": 23120,
+        "optimizer_updates": 23114,
+        "amp_skips": 6,
+        "amp_scale": 1048576.0,
+        "cuda_peak_allocated_bytes": 176683008,
+        "best_epe": 0.2591756438272252,
+        "best_epoch": 10,
+        "elapsed_seconds": 342.76526641997043,
+        "loss": 0.0010238038375973701
+      },
+      "first_validation": {
+        "count": 23480,
+        "epe": 0.5267899634011548,
+        "mae_vx": 0.5248784002872534,
+        "rmse_vx": 0.8862453919123859,
+        "bias_vx": -0.02661474225395662,
+        "p95_abs_vx": 1.8151986837387084,
+        "mae_vy": 0.018451149155349594,
+        "rmse_vy": 0.027716656903050984,
+        "bias_vy": -9.969430932001281e-05,
+        "p95_abs_vy": 0.0541154705453664,
+        "zero_vy_mae": 0.035983646252559655
+      },
+      "completed_epochs": 11
+    },
+    "R02_FLEX": {
+      "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+      "run": {
+        "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+        "experiment": "R02",
+        "status": "running",
+        "started_at": "2026-10-31T05:51:20.681173+00:00",
+        "code": {
+          "commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+          "dirty": false,
+          "verified_remote_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9"
+        },
+        "config": {
+          "experiment": "R02",
+          "seed": 42,
+          "epochs": 40,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "loss_scales_m_s": [
+            5.0,
+            1.0
+          ],
+          "loss_beta": 1.0,
+          "amp": true,
+          "grad_clip": 2.0,
+          "patience": 5,
+          "min_delta": 0.0,
+          "log_steps": 20,
+          "checkpoint_steps": 250,
+          "rgb_policy": "not_used_flow_only",
+          "selection_metric": "dev_epe",
+          "lateral_rule": {
+            "max_relative_mae_increase": 0.05,
+            "max_absolute_mae_increase_m_s": 0.01,
+            "nonzero_threshold_m_s": 0.2,
+            "min_subset_windows": 100,
+            "min_subset_scenes": 5
+          },
+          "early_stopping": false,
+          "expected_flow": {
+            "raft_size_hw": [
+              576,
+              1024
+            ],
+            "model_size_hw": [
+              72,
+              128
+            ]
+          },
+          "head_seed": 42,
+          "encoder_variant": "flex"
+        },
+        "contract": {
+          "config": {
+            "experiment": "R02",
+            "seed": 42,
+            "epochs": 40,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "weight_decay": 0.0001,
+            "loss_scales_m_s": [
+              5.0,
+              1.0
+            ],
+            "loss_beta": 1.0,
+            "amp": true,
+            "grad_clip": 2.0,
+            "patience": 5,
+            "min_delta": 0.0,
+            "log_steps": 20,
+            "checkpoint_steps": 250,
+            "rgb_policy": "not_used_flow_only",
+            "selection_metric": "dev_epe",
+            "lateral_rule": {
+              "max_relative_mae_increase": 0.05,
+              "max_absolute_mae_increase_m_s": 0.01,
+              "nonzero_threshold_m_s": 0.2,
+              "min_subset_windows": 100,
+              "min_subset_scenes": 5
+            },
+            "early_stopping": false,
+            "expected_flow": {
+              "raft_size_hw": [
+                576,
+                1024
+              ],
+              "model_size_hw": [
+                72,
+                128
+              ]
+            },
+            "head_seed": 42,
+            "encoder_variant": "flex"
+          },
+          "data": {
+            "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+            "label": {
+              "version": "nuscenes_rear_axle_planar_nonuniform3_v1",
+              "mode": "PLANAR_PROXY",
+              "reference_point": "nuscenes_rear_axle_midpoint",
+              "reference_source": "https://www.nuscenes.org/data-format",
+              "axes": "x_forward_y_left_in_current_yaw_frame",
+              "units": "m/s",
+              "time": "current_camera_timestamp",
+              "derivative": "nonuniform_three_point_quadratic_world_xy_then_current_yaw",
+              "neighbors": "previous_current_next_CAM_FRONT_sample_data_in_same_scene",
+              "smoothing": "none_beyond_three_point_derivative",
+              "endpoints": "excluded",
+              "lever_arm": "none_ego_pose_already_at_rear_axle_midpoint",
+              "future_pose": "offline_supervision_only_never_inference",
+              "limitations": "planar_localization_z_zero_not_true_3D_body_velocity"
+            },
+            "features": null,
+            "flow_root": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+            "flow": {
+              "raft_sha256": "ff5fadd56d26b40647388883af1547351ea17868b765c05b27231e72dd16a322",
+              "native_contract": {
+                "version": "v5_raft_native_v2",
+                "prediction": "frozen_raft_not_ground_truth",
+                "raft_size": [
+                  576,
+                  1024
+                ],
+                "input": "RGB",
+                "resize": "bilinear",
+                "antialias": false,
+                "range": [
+                  -1.0,
+                  1.0
+                ],
+                "transforms": "Raft_Large_Weights.C_T_SKHT_V2.transforms",
+                "num_flow_updates": 12,
+                "compute_dtype": "float32",
+                "tf32": false,
+                "flow_units": "pixels_at_raft_resolution",
+                "component_order": [
+                  "u_right",
+                  "v_down"
+                ],
+                "valid": "finite_vector_and_endpoint_inside_target",
+                "fb_rule": "squared_relative",
+                "fb_alpha": 0.01,
+                "fb_beta_px2": 0.5,
+                "warp_align_corners": true
+              },
+              "derived_contract": {
+                "version": "v5_flow_view_v2",
+                "model_size": [
+                  72,
+                  128
+                ],
+                "native_size": [
+                  576,
+                  1024
+                ],
+                "model_flow_units": "pixels_at_model_resolution",
+                "flow_resize": "bilinear_align_corners_false_vector_scaled",
+                "vector_scale_uv": [
+                  0.125,
+                  0.125
+                ],
+                "mask_resize": "nearest",
+                "invalid_model_flow": "zero",
+                "flow_dtype": "float16",
+                "mask_dtype": "bool",
+                "dt": "positive_seconds_separate_not_divided_into_flow"
+              },
+              "schema": "v5_flow_v2",
+              "packed_index_sha256": "cce797035ce44b07e5f64ce0e560bfeb68a5f17bb1cb46ac8c16398a56782414"
+            }
+          },
+          "train_selection": "173e0be7a096f8c09f418f3f1c03cb518362d43f16a851561c5a97fbb03587d0",
+          "dev_selection": "b0414be2ea099e6ab622035d20b7759a85bcd82a5c483b1dc36c3856059c41b2",
+          "execution": {
+            "smoke": false,
+            "max_batches": 0
+          }
+        },
+        "contract_hash": "de836f1877fdba9e6f408e999c0fbd926a8081108095ced240271a042e09c2b4",
+        "smoke": false,
+        "parent_run": null,
+        "resume": null,
+        "runtime": {
+          "config": "/home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/configs/next/R02_FLEX.json",
+          "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX",
+          "features": null,
+          "flow": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "selection": null,
+          "device": "cuda:2",
+          "workers": 4,
+          "threads": 4,
+          "resume": null,
+          "smoke": false,
+          "limit_scenes": 0,
+          "limit_windows": 0,
+          "max_batches": 0,
+          "stop_after_steps": 0
+        },
+        "environment": {
+          "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+          "executable": "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "torch": "2.10.0+cu128",
+          "cuda": "12.8",
+          "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+          "hostname": "ps",
+          "cuda_visible_devices": null,
+          "gpu": [
+            "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+            "NVIDIA GeForce RTX 5090",
+            "NVIDIA GeForce RTX 5090"
+          ]
+        },
+        "train_windows": 132978,
+        "dev_windows": 23480,
+        "train_scenes": 582,
+        "dev_scenes": 103,
+        "trainable_parameters": 76850,
+        "step_semantics": "global_step = processed_batches = optimizer_updates + amp_skips",
+        "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/last.pt",
+        "scope": "full_train_dev",
+        "initialization": {
+          "policy": "encoder_torch_default_and_isolated_head_rng_v1",
+          "seed": 42,
+          "model_state_sha256": "1edc17166fec04ad87b513387ef0e90e06c02f9370bfcb48d0e969048684c691",
+          "head_seed": 42,
+          "head_state_sha256": "7de467aac88b930505733a8d7817bb1e1095fd075a804a27081d16121f7388a9",
+          "encoder_policy": "PyTorch Conv/Linear reset_parameters; BN weight=1 bias=0",
+          "encoder_state_sha256": "b4d2d8a55e60d3a76ed74ceb51bf4080742408784e9f7144ab594f0d1494010e"
+        },
+        "sample_order": {
+          "policy": "torch_randperm_seed_plus_zero_based_epoch_v1",
+          "seed": 42,
+          "training_samples_sha256": "6799df67e39f7a7a941e2eb767f7a24c08114d8ef8f57cd8a7da73299e24d841",
+          "epoch_index_dtype": "little_endian_int64"
+        },
+        "effective_lateral_rule": {
+          "max_relative_mae_increase": 0.05,
+          "max_absolute_mae_increase_m_s": 0.01,
+          "nonzero_threshold_m_s": 0.2,
+          "min_subset_windows": 100,
+          "min_subset_scenes": 5
+        },
+        "stopping_policy": {
+          "early_stopping": false,
+          "complete_epoch_budget": 40
+        }
+      },
+      "state": {
+        "run_id": "20261031_r02_base_flex_s42_R02_FLEX",
+        "experiment": "R02",
+        "status": "running",
+        "updated_at": "2026-10-31T05:57:04.056338+00:00",
+        "epoch": 11,
+        "global_step": 23240,
+        "processed_batches": 23240,
+        "optimizer_updates": 23233,
+        "amp_skips": 7,
+        "amp_scale": 1048576.0,
+        "cuda_peak_allocated_bytes": 177644032,
+        "best_epe": 0.22873660487937375,
+        "best_epoch": 10,
+        "elapsed_seconds": 343.3720620989334,
+        "loss": 0.0009591105044819415
+      },
+      "first_validation": {
+        "count": 23480,
+        "epe": 0.36652672286351784,
+        "mae_vx": 0.3629220818793702,
+        "rmse_vx": 0.614842843768878,
+        "bias_vx": -0.03730529384190112,
+        "p95_abs_vx": 1.204015040397644,
+        "mae_vy": 0.024281379551643268,
+        "rmse_vy": 0.03480103884097369,
+        "bias_vy": 0.017471967362782722,
+        "p95_abs_vy": 0.06989133358001708,
+        "zero_vy_mae": 0.035983646252559655
+      },
+      "completed_epochs": 11
+    }
+  },
+  "source_remote_verified": {
+    "commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+    "dirty": false,
+    "verified_remote_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9"
+  },
+  "first_published_commit": "bffd2b1a7dda32db37e32f20dbc7f37fc6e836f0"
+}

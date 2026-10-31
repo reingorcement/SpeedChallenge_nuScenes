@@ -1,0 +1,28 @@
+{
+  "installed_at": "2026-10-31T05:53:16.516446+00:00",
+  "status": "verified_real_cron_trigger",
+  "temporary_line": "* * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_20261031_r02_base_flex_s42.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER",
+  "restore_line": "17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/a847938681d6/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_20261031_r02_base_flex_s42.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER",
+  "plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/plan.json",
+  "note": "Temporary per-minute cron to prove this stage publisher can execute; restore hourly after verified trigger",
+  "receipt": {
+    "report_commit": "bffd2b1a7dda32db37e32f20dbc7f37fc6e836f0",
+    "remote_base": "0b43b39bc93fa87b92cbae225d944dc4e27e2c37",
+    "started_at": "2026-10-31T05:54:01.397451+00:00",
+    "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
+    "branch": "results/purevision-v5-next",
+    "status": "published",
+    "trigger": "scheduled",
+    "plan_identities": [
+      "0f23c724cb8225d60ccfd5b0b1647363479f2bf8c39ab0fb31d912f1092248a1"
+    ],
+    "changed": true,
+    "training_commits": [
+      "a847938681d60ae86e0e293e24ffa7d2e74e20a9"
+    ],
+    "verified_remote_commit": "bffd2b1a7dda32db37e32f20dbc7f37fc6e836f0",
+    "finished_at": "2026-10-31T05:54:19.986579+00:00",
+    "all_terminal": false
+  },
+  "restored_at": "2026-10-31T05:55:35.726843+00:00"
+}
