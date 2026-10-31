@@ -14,8 +14,8 @@
       "training_status": "running",
       "progress": {
         "epoch": 10,
-        "global_step": 20780,
-        "optimizer_updates": 20775,
+        "global_step": 20920,
+        "optimizer_updates": 20915,
         "amp_skips": 5,
         "best_epe": 0.2067490669096111,
         "best_epoch": 0
