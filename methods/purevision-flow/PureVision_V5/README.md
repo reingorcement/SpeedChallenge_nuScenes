@@ -1,6 +1,6 @@
 # PureVision V5: S2 image/flow feature fusion
 
-**Latest phase:** 用户选择FLEX为后续主线（精度优先，非统计优越结论）；已准备BASE/FLEX成对seed43/44完整40轮复现，见[实施与自审](docs/next/ENCODER_REPLICATION_20261031.md)及[R03 Frozen/FT准备方案](docs/next/R03_FLEX_PREPARATION_20261031.md)。seed42已完成：FLEX EPE 0.191630 vs BASE 0.215142，见[原始结果](docs/next/ENCODER_RESULTS_20261031.md)。非零侧向31窗口仍insufficient_data。实际新run状态以结果分支收据为准；下方六组为历史首轮。
+**Latest phase:** R02 BASE/FLEX 三seed完整40轮对照已完成，FLEX为已确定开发主线。当前R03 Frozen/FT与同起点CONT已实现并通过必要真实验证；见[实现、自审和运行协议](docs/next/R03_FLEX_IMPLEMENTATION_20261031.md)。正式训练/评价/巡视状态以[结果分支](https://github.com/reingorcement/SpeedChallenge_nuScenes/tree/results/purevision-v5-next/methods/purevision-flow/PureVision_V5/docs/next_results)为准。非零侧向仍31窗口/5场景、insufficient_data；下面六组是历史首轮。
 
 **GitHub review:** [审核导航](AI_REVIEW.md) · [完整中文交接](docs/HANDOFF_20261030.md) · [六组完成结果](docs/RESULT_20261030_S2.md) · [可读实验凭证](docs/review_evidence/20261030_s2/README.md) · [用户原计划](docs/V5_EXECUTION_PLAN_USER.md)。All six first-round runs completed; the queue and scheduled patrols have ended. Training code is pinned at `3979268699ce6db46d536cf22dc16f02b969a465`; later handoff commits do not modify that checkout.
 

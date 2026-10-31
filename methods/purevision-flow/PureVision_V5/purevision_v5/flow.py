@@ -111,12 +111,16 @@ def atomic_save(value: dict, path: str | Path) -> None:
             tmp.unlink(missing_ok=True)
 
 
-def cache_path(root: str | Path, source_token: str, target_token: str, *, schema: str | None = None) -> Path:
+def validate_pair_tokens(source_token, target_token):
     for token in (source_token, target_token):
         if not isinstance(token, str) or re.fullmatch(r"[A-Za-z0-9_-]{1,128}", token) is None:
             raise ValueError("Unsafe or missing image token")
     if source_token == target_token:
         raise ValueError("A flow pair requires distinct frame tokens")
+
+
+def cache_path(root: str | Path, source_token: str, target_token: str, *, schema: str | None = None) -> Path:
+    validate_pair_tokens(source_token,target_token)
     root = Path(root)
     present = [s for s in (SCHEMA, CONFIGURABLE_SCHEMA) if (root / s).exists()]
     if len(present) > 1 or (schema is not None and present and schema not in present):

@@ -63,19 +63,21 @@ def build_plan(root, manifest, prefix, version, *, code_root=ROOT, python=sys.ex
     return dict(plan,identity=object_hash(plan))
 
 
-def comparison_training_job(root, code_root, python, prefix, manifest, flow, name, device, config, *, after=()):
+def comparison_training_job(root, code_root, python, prefix, manifest, flow, name, device, config, *, after=(), experiment="R02", features=None, rgb_frames=None):
     """Reuse the exact train/evaluate/checkpoint command contract for new seeds."""
     root,code_root=Path(root),Path(code_root)
     output=root/"runs"/f"{prefix}_{name}"
     evaluation=root/"evaluations"/output.name
     def cmd(script,*args): return [str(python),"-B",str(code_root/script),*map(str,args)]
     inputs=["--manifest",str(manifest),"--flow",str(flow),"--device",device,"--workers","4"]
-    return dict(name=name,job_id=output.name,kind="training",experiment="R02",device=device,requires=[],after=list(after),
+    if features:inputs += ["--features",str(features)]
+    if rgb_frames:inputs += ["--rgb-frames",str(rgb_frames)]
+    return dict(name=name,job_id=output.name,kind="training",experiment=experiment,device=device,requires=[],after=list(after),
         config_path=str(config),commands=[cmd("train.py","--config",config,*inputs,"--output",output),
             cmd("evaluate.py","--checkpoint",output/"best.pt",*inputs,"--output",evaluation)],
         session=f"v5next_{prefix}_{name}",log_path=str(root/"logs"/f"{output.name}.log"),
         status_path=str(root/"pipeline"/prefix/"jobs"/f"{name}.json"),progress_path=str(output/"status.json"),
-        run_dir=str(output),fresh_output=str(output),storage_paths=[str(flow)],
+        run_dir=str(output),fresh_output=str(output),storage_paths=[str(p) for p in (flow,features,rgb_frames) if p],
         checks=[dict(path=str(output/"status.json"),field="status",equals="completed"),
                 dict(path=str(evaluation/"evaluation.json"),field="status",equals="completed"),
                 dict(path=str(output/"last.pt")),dict(path=str(output/"best.pt"))])

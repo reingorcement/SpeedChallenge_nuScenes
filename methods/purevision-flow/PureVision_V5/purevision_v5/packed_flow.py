@@ -18,7 +18,7 @@ import torch
 
 from .common import code_version, now, object_hash, read_json, sha256, write_json
 from .flow import (MODEL_SIZE, _tensor, _validate_metadata, cache_path,
-                   packet_contract, validate_flow_contract)
+                   packet_contract, validate_flow_contract, validate_pair_tokens)
 
 
 PACK_SCHEMA = "v5_packed_flow_v1"
@@ -75,7 +75,7 @@ def _manifest_pairs(manifest_path, partitions, selection_path=None):
             for source, target in zip(frames[end-4:end], frames[end-3:end+1]):
                 key = (source["token"], target["token"])
                 times = (float(source["time_s"]), float(target["time_s"]))
-                cache_path(".", *key)
+                validate_pair_tokens(*key)
                 if not all(math.isfinite(value) for value in times) or times[1] <= times[0]:
                     raise ValueError("Invalid pair timestamps during packing")
                 if key in pairs and pairs[key] != times:
@@ -136,7 +136,7 @@ class PackedFlow:
             raise ValueError("Packed cache is empty")
         for row_number, row in enumerate(pairs):
             pair = (row["source"], row["target"])
-            cache_path(".", *pair)
+            validate_pair_tokens(*pair)
             times = row["source_time"], row["target_time"]
             if (pair in self._rows or not all(math.isfinite(t) for t in times) or times[1] <= times[0]
                     or re.fullmatch(r"[0-9a-f]{64}", row.get("source_sha256", "")) is None):

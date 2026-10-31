@@ -125,6 +125,7 @@ def check_checkpoint(path, run, validation):
     import numpy as np
     import torch
     from purevision_v5.model import build_model
+    from purevision_v5.optimization import make_optimizer, make_scheduler
 
     with Path(path).open("rb") as stream:
         before = os.fstat(stream.fileno())
@@ -165,14 +166,14 @@ def check_checkpoint(path, run, validation):
     model = build_model(run["config"]).cpu()
     model.load_state_dict(state["model"], strict=True)
     config = run["config"]
-    optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"], weight_decay=config["weight_decay"])
+    optimizer = make_optimizer(model,config)
     optimizer.load_state_dict(state["optimizer"])
-    if set(optimizer.state) != set(model.parameters()):
+    if set(optimizer.state) != {p for p in model.parameters() if p.requires_grad}:
         raise ValueError("Checkpoint optimizer lacks trained state for model parameters")
     for parameter, value in optimizer.state.items():
         if not {"step", "exp_avg", "exp_avg_sq"} <= value.keys() or any(value[key].shape != parameter.shape for key in ("exp_avg", "exp_avg_sq")):
             raise ValueError("Optimizer moments are incomplete or incompatible")
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=config["epochs"])
+    scheduler = make_scheduler(optimizer,config)
     if not {"T_max", "last_epoch", "base_lrs"} <= state["scheduler"].keys():
         raise ValueError("Checkpoint scheduler is incomplete")
     if state["scheduler"]["T_max"] != config["epochs"] or state["scheduler"]["last_epoch"] != state["epoch"]:

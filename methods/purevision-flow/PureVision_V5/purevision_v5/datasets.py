@@ -16,7 +16,7 @@ from .selection import select_records
 
 class VelocityDataset(Dataset):
     def __init__(self, manifest_path, partition, experiment, feature_root=None, flow_root=None,
-                 limit_scenes=0, limit_windows=0, selection_path=None):
+                 limit_scenes=0, limit_windows=0, selection_path=None, rgb_policy=None, frame_root=None):
         self.manifest_path = Path(manifest_path).resolve()
         manifest = read_json(self.manifest_path)
         if manifest.get("schema") != "v5_dataset_v1" or manifest.get("seq_len") != 5:
@@ -34,8 +34,17 @@ class VelocityDataset(Dataset):
         self.flow_checksums, self.flow_file_stats = {}, {}
         self.manifest_hash = sha256(self.manifest_path)
         self.label_contract = manifest["label_contract"]
+        self.online_rgb = experiment != "R02" and rgb_policy == "finetune"
+        self.dataroot = Path(manifest["dataroot"])
+        self.rgb_frames = None
+        if self.online_rgb and feature_root:
+            raise ValueError("RGB fine-tuning cannot consume frozen descriptors")
+        if frame_root:
+            if not self.online_rgb:raise ValueError("Image views are only used by the online RGB dataset")
+            from .rgb_frames import RGBFrames
+            self.rgb_frames=RGBFrames(frame_root,self.manifest_hash)
         feature_index = None
-        if experiment != "R02":
+        if experiment != "R02" and not self.online_rgb:
             if not feature_root:
                 raise ValueError("RGB experiments require a verified frozen feature cache")
             feature_root = Path(feature_root)
@@ -94,6 +103,8 @@ class VelocityDataset(Dataset):
                 self.items.append(dict(descriptor=descriptors[row] if descriptors is not None else None,
                                        pairs=pairs, pair_dt=dt, target=target, scene=record["scene"],
                                        token=frames[end]["token"], time_s=float(times[-1])))
+                if self.online_rgb:
+                    self.items[-1]["image_frames"]=[(f["token"],f["filename"]) for f in window]
                 self.source_tokens.update(f["token"] for f in window)
                 self.scene_names.add(record["scene"])
                 if limit_windows and len(self.items) >= limit_windows:
@@ -129,6 +140,11 @@ class VelocityDataset(Dataset):
         self.contract = dict(dataset_sha256=self.manifest_hash, label=self.label_contract,
                              features=self.feature_contract, flow_root=str(self.flow_root) if self.flow_root else None,
                              flow=flow_contract)
+        if self.online_rgb:
+            from .rgb import RGB_PREPROCESS_VERSION
+            self.contract["rgb_images"]=dict(preprocess=RGB_PREPROCESS_VERSION,shape=[5,3,72,128],
+                view_identity=self.rgb_frames.identity if self.rgb_frames else None,
+                input="five causal RGB frames; no pose or future time fields")
         if self.scene_selection:
             self.contract["scene_selection"] = self.scene_selection
         self.selection_hash = object_hash(dict(tokens=[item["token"] for item in self.items],
@@ -136,6 +152,15 @@ class VelocityDataset(Dataset):
 
     def __len__(self):
         return len(self.items)
+
+    @lru_cache(maxsize=512)
+    def _image(self, token, filename):
+        if self.rgb_frames is not None:return self.rgb_frames.load(token,filename)
+        from PIL import Image
+        from .rgb import preprocess_rgb
+        path=(self.dataroot/filename).resolve()
+        if not path.is_relative_to(self.dataroot):raise ValueError("Image escaped dataset root")
+        with Image.open(path) as im:return preprocess_rgb(im)
 
     @lru_cache(maxsize=64)
     def _pair(self, source, target, source_time, target_time):
@@ -152,7 +177,10 @@ class VelocityDataset(Dataset):
         item = self.items[index]
         visual = {"pair_dt": torch.from_numpy(item["pair_dt"].copy())}
         if self.experiment != "R02":
-            visual["descriptor"] = torch.from_numpy(item["descriptor"].copy())
+            if self.online_rgb:
+                visual["images"]=torch.stack([self._image(*frame) for frame in item["image_frames"]])
+            else:
+                visual["descriptor"] = torch.from_numpy(item["descriptor"].copy())
         if self.experiment != "R00":
             if self.packed_flow is not None:
                 flows, valid, reliability = self.packed_flow.load_pairs(item["pairs"])

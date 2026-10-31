@@ -4,6 +4,8 @@
 六组配置、测试，以及本轮说明与交接。请先读下面的交接和结果，再核对源码。
 不要根据旧 README 的历史快照推断当前实验仍在排队。
 
+当前阶段先读[R03 FLEX实现、自审和运行协议](docs/next/R03_FLEX_IMPLEMENTATION_20261031.md)及[动态运行收据](https://github.com/reingorcement/SpeedChallenge_nuScenes/tree/results/purevision-v5-next/methods/purevision-flow/PureVision_V5/docs/next_results)。下面是早期六组实验的历史阅读顺序。
+
 ## 阅读顺序
 
 1. [完整中文交接](docs/HANDOFF_20261030.md)：实际进度、设计、设置、故障、边界及未解决问题。

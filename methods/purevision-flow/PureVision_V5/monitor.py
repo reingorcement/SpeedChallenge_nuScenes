@@ -221,6 +221,8 @@ def inspect_job(job, root):
         "status_path": str(status_path) if status_path else None, "terminal_observation": confirmation,
         "commit": run.get("code", {}).get("commit", job.get("commit")),
         "epoch": progress_status.get("epoch", metric.get("epoch")), "global_step": progress_status.get("global_step", metric.get("global_step")),
+        "processed_batches":progress_status.get("processed_batches"),"optimizer_updates":progress_status.get("optimizer_updates"),
+        "amp_skips":progress_status.get("amp_skips"),"best_epe":progress_status.get("best_epe"),"best_epoch":progress_status.get("best_epoch"),
         "loss": progress_status.get("loss", metric.get("train_loss")), "validation": validation,
         "validation_epoch_zero_based": metric.get("epoch") if metric.get("validation") else None,
         "progress": {k: progress_status[k] for k in FLOW_PROGRESS_FIELDS if k in progress_status},
@@ -491,6 +493,12 @@ def publication_allows_stop(root):
     guard = read_json(Path(root) / "monitoring/lifecycle_guard.json")
     if not guard:
         return True
+    if guard.get("completion_requires_success"):
+        plan=read_json(guard["plan"])
+        if plan.get("identity")!=guard["plan_identity"] or any(read_json(j["status_path"]).get("status")!="completed" for j in plan["jobs"]):
+            return False
+        comparison=Path(root)/"reports"/f"fusion_comparison_{plan['prefix']}"/"summary.json"
+        if read_json(comparison).get("status")!="completed":return False
     receipt = read_json(Path(root) / "monitoring/publication.json")
     return (receipt.get("status") == "published" and receipt.get("all_terminal") is True
             and guard.get("plan_identity") in receipt.get("plan_identities", [])

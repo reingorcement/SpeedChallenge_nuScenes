@@ -52,7 +52,8 @@ def run(plan_path, command_file, interval=300):
     status_path=root/"monitoring"/f"lifecycle_{plan['prefix']}.json"
     state=optional(status_path) or dict(plan_identity=plan["identity"],started_at=now(),publication_attempts=[])
     if state["plan_identity"]!=plan["identity"]: raise ValueError("Lifecycle belongs to a different plan")
-    write_json(root/"monitoring/lifecycle_guard.json",dict(plan_identity=plan["identity"],plan=str(plan_path)))
+    write_json(root/"monitoring/lifecycle_guard.json",dict(plan_identity=plan["identity"],plan=str(plan_path),
+        completion_requires_success=plan.get("stage")=="r03_flex_continuation"))
     with lock(status_path.with_suffix(".lock")):
         while True:
             proofs=[];milestones=[]

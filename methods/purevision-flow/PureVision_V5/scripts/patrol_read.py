@@ -29,9 +29,11 @@ def read_targets(request):
         content = blob.decode("utf-8", errors="replace")
         if mode == "json_summary":
             content = json.loads(content)
+            scope=request.get("scope_run_ids")
+            if scope is not None:content["jobs"]=[j for j in content.get("jobs",[]) if j["job_id"] in scope]
             content["jobs"] = [{k: j.get(k) for k in ("job_id", "kind", "status", "phase", "process", "child_process",
                 "epoch", "global_step", "loss", "validation", "validation_epoch_zero_based", "checkpoint_age_s", "progress", "progress_path",
-                "progress_report_status", "progress_age_s", "notes")} for j in content.get("jobs", [])]
+                "progress_report_status", "progress_age_s", "processed_batches", "optimizer_updates", "amp_skips", "best_epe", "best_epoch", "notes")} for j in content.get("jobs", [])]
         print("V5_FILE_CONTENT " + json.dumps({"path": str(path), "content": content}, ensure_ascii=False), flush=True)
 
 

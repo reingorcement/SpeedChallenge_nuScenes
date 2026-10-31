@@ -28,11 +28,12 @@ def optional(path):
 
 def inspect_run(plan, job, train_rows, dev_rows, *, expected_seed=42):
     # Shared receipt/40-epoch/prediction validation; selection scope is explicit.
-    full = plan.get("stage") in {"r02_encoder_comparison", "r02_encoder_multiseed"}
+    fusion = plan.get("stage")=="r03_flex_continuation"
+    full = fusion or plan.get("stage") in {"r02_encoder_comparison", "r02_encoder_multiseed"}
     scope = "full_train_dev" if full else "resolution_pilot"
     output = Path(job["run_dir"])
     evaluation = Path(command_value(job["commands"][1], "--output"))
-    row = dict(name=job["name"], experiment="R02", run_id=output.name, status="not_started",
+    row = dict(name=job["name"], experiment=job.get("experiment","R02"), run_id=output.name, status="not_started",
                scope=scope, training_commit=plan["code"]["commit"], run_dir=str(output),
                evaluation_dir=str(evaluation), log=job["log_path"], metrics=None)
     try:
@@ -55,7 +56,7 @@ def inspect_run(plan, job, train_rows, dev_rows, *, expected_seed=42):
         if receipt.get("status") != "completed" or worker.get("status") != "completed":
             return {**row, "status": "evaluation_pending"}
         config, contract = run["config"], run["contract"]
-        require(config["experiment"] == run["experiment"] == "R02", "Pilot requires flow-only R02")
+        require(config["experiment"] == run["experiment"] == (job["experiment"] if fusion else "R02"), "Unexpected experiment")
         require(config["epochs"] == 40 and config["batch_size"] == 64 and config["seed"] == expected_seed
                 and config.get("early_stopping") is False, "Changed pilot budget/batch/seed/stopping policy")
         require(read_json(job["config_path"]) == config and sha256(job["config_path"]) == plan["config_hashes"][job["name"]],
@@ -70,7 +71,11 @@ def inspect_run(plan, job, train_rows, dev_rows, *, expected_seed=42):
         require(contract["config"] == config and object_hash(contract) == run["contract_hash"], "Training contract mismatch")
         data = contract["data"]
         require(data["dataset_sha256"] == plan["manifest_sha256"] and data["label"] == LABEL_CONTRACT
-                and data.get("features") is None and data.get("scene_selection") == plan.get("selection"), "Data identity mismatch")
+                and data.get("scene_selection") == plan.get("selection"), "Data identity mismatch")
+        expected_features=plan["rgb_features_contract"] if fusion and job["name"]=="R03_Frozen" else None
+        require(data.get("features")==expected_features,"Frozen RGB feature identity mismatch")
+        if fusion and job["name"]=="R03_FT":
+            require(data["rgb_images"]["view_identity"]==plan["rgb_frames_identity"],"FT image view identity mismatch")
         require(Path(data["flow_root"]).resolve() == Path(command_value(job["commands"][0], "--flow")).resolve(),
                 "Actual flow root differs from launch command")
         validate_expected_flow(config, data)
@@ -111,6 +116,9 @@ def inspect_run(plan, job, train_rows, dev_rows, *, expected_seed=42):
             require(state["global_step"] == state["processed_batches"] == expected_steps
                     and state["processed_batches"] == state["optimizer_updates"] + state["amp_skips"]
                     and state["optimizer_updates"] > 0 and state["amp_skips"] >= 0, "Invalid processed/update/skip counters")
+            if fusion:
+                require(state["processed_microbatches"]==math.ceil(len(train_rows)/config["micro_batch_size"])*40,
+                        "Microbatch counter differs from complete epoch budget")
         require(status["optimizer_updates"] == last["optimizer_updates"] and status["amp_skips"] == last["amp_skips"],
                 "Last checkpoint counters differ from final status")
         history = [json.loads(line) for line in (output / "metrics.jsonl").read_text().splitlines() if line.strip()]
@@ -155,6 +163,13 @@ def inspect_run(plan, job, train_rows, dev_rows, *, expected_seed=42):
                    elapsed_seconds=status["elapsed_seconds"], common_config_identity=object_hash({k: v for k, v in config.items() if k != "expected_flow"}),
                    cuda_peak_allocated_bytes=status.get("cuda_peak_allocated_bytes"),
                    packed_bytes=sum((pack_path.parent / a["file"]).stat().st_size for a in pack["arrays"].values()))
+        if fusion:
+            from purevision_v5.model import build_model
+            from purevision_v5.training import model_state_sha256
+            model=build_model(config);model.load_state_dict(last["model"],strict=True)
+            row.update(total_parameters=run["total_parameters"],processed_microbatches=last["processed_microbatches"],
+                final_rgb_state_sha256=model_state_sha256(model.rgb_encoder) if model.rgb_encoder is not None else None,
+                optimizer_groups=run["optimizer_groups"],micro_batch_size=run["micro_batch_size"])
         row["computation"] = computation_identity(plan["code_root"])
     except Exception as error:
         row.update(status="invalid", metrics=None, reason=f"{type(error).__name__}: {error}")

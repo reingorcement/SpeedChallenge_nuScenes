@@ -9,7 +9,7 @@ from torch.nn import functional as F
 
 
 EXPERIMENTS = ("R00", "R01", "R02", "R03", "R04", "R05")
-INFERENCE_KEYS = frozenset({"descriptor", "flows", "valid", "fb_mask", "pair_dt"})
+INFERENCE_KEYS = frozenset({"descriptor", "images", "flows", "valid", "fb_mask", "pair_dt"})
 FLOW_SHAPE = (4, 2, 72, 128)
 MASK_SHAPE = (4, 1, 72, 128)
 DT_SCALE_SECONDS = 1.0 / 12.0
@@ -102,7 +102,7 @@ class FlexFlowEncoder(nn.Module):
 def build_model(config):
     """One construction path for training, resume, evaluation and startup checks."""
     return VelocityModel(config["experiment"], encoder_variant=config.get("encoder_variant", "base"),
-                         head_seed=config.get("head_seed"))
+                         head_seed=config.get("head_seed"), rgb_policy=config.get("rgb_policy"))
 
 
 class VelocityModel(nn.Module):
@@ -113,15 +113,24 @@ class VelocityModel(nn.Module):
     is explicitly supplied to every experiment, including the RGB baseline.
     """
 
-    def __init__(self, experiment: str = "R03", *, encoder_variant="base", head_seed=None):
+    def __init__(self, experiment: str = "R03", *, encoder_variant="base", head_seed=None, rgb_policy=None):
         super().__init__()
         if experiment not in EXPERIMENTS:
             raise ValueError(f"experiment must be one of {EXPERIMENTS}")
-        if encoder_variant not in {"base", "flex"} or (encoder_variant != "base" and experiment != "R02"):
-            raise ValueError("FLEX is authorized only for flow-only R02")
+        if encoder_variant not in {"base", "flex"} or (encoder_variant == "flex" and experiment not in {"R02", "R03"}):
+            raise ValueError("FLEX supports R02 flow-only and R03 feature fusion")
+        if experiment == "R03" and encoder_variant == "flex" and rgb_policy not in {"frozen", "finetune"}:
+            raise ValueError("FLEX R03 requires an explicit frozen/finetune RGB policy")
         self.experiment = experiment
         self.uses_rgb = experiment != "R02"
         self.uses_flow = experiment != "R00"
+        self.rgb_policy = rgb_policy
+        self.rgb_encoder = None
+        if rgb_policy in {"frozen", "finetune"}:
+            if experiment != "R03" or encoder_variant != "flex":
+                raise ValueError("Trainable RGB integration is scoped to FLEX R03")
+            from .rgb import RGBDescriptor
+            self.rgb_encoder = RGBDescriptor(trainable=rgb_policy == "finetune")
         self.flow_encoder = (LightFlowEncoder() if experiment == "R01"
                              else FlexFlowEncoder() if encoder_variant == "flex"
                              else SpatialTemporalFlowEncoder() if self.uses_flow else None)
@@ -145,7 +154,15 @@ class VelocityModel(nn.Module):
             raise ValueError(f"Forbidden inference fields: {sorted(unexpected)}")
         required = {"pair_dt"}
         if self.uses_rgb:
-            required.add("descriptor")
+            if self.rgb_encoder is not None:
+                if self.rgb_policy == "finetune" and "descriptor" in batch:
+                    raise ValueError("FT must read images, never frozen descriptors")
+                if ("images" in batch) == ("descriptor" in batch):
+                    raise ValueError("Supply exactly one RGB image/descriptor input")
+                required.add("images" if "images" in batch else "descriptor")
+            else:
+                if "images" in batch:raise ValueError("Legacy descriptor model does not accept images")
+                required.add("descriptor")
         if self.uses_flow:
             required.update({"flows", "valid"})
         if self.experiment in {"R04", "R05"}:
@@ -162,7 +179,8 @@ class VelocityModel(nn.Module):
             raise ValueError("pair_dt must be positive seconds")
         features = []
         if self.uses_rgb:
-            features.append(_finite_tensor(batch["descriptor"], (size, 384), "descriptor"))
+            descriptor = self.rgb_encoder(batch["images"]) if "images" in batch else batch["descriptor"]
+            features.append(_finite_tensor(descriptor, (size, 384), "descriptor"))
         if self.uses_flow:
             flow = batch["flows"]
             if not isinstance(flow, torch.Tensor) or tuple(flow.shape) != (size, *FLOW_SHAPE) or not flow.is_floating_point():

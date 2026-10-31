@@ -22,7 +22,8 @@ def evaluate(args):
     model.load_state_dict(packet["model"], strict=True)
     rule = validate_lateral_rule(packet["config"].get("lateral_rule"))
     dataset = VelocityDataset(args.manifest, "dev", packet["config"]["experiment"], args.features, args.flow,
-                              selection_path=getattr(args, "selection", None))
+                              selection_path=getattr(args, "selection", None),rgb_policy=packet["config"].get("rgb_policy"),
+                              frame_root=getattr(args,"rgb_frames",None))
     if dataset.contract != packet["contract"]["data"] or dataset.selection_hash != packet["contract"]["dev_selection"]:
         raise ValueError("Evaluation data differs from the trained contract")
     validate_expected_flow(packet["config"], dataset.contract)
@@ -39,7 +40,7 @@ def evaluate(args):
                    effective_lateral_rule=rule)
     write_json(output / "evaluation.json", receipt)
     try:
-        summary, rows = evaluate_model(model, dataset, args.device, packet["config"]["batch_size"], args.workers,
+        summary, rows = evaluate_model(model, dataset, args.device, packet["config"].get("evaluation_batch_size",packet["config"]["batch_size"]), args.workers,
                                        lateral_rule=rule)
         write_json(output / "metrics.json", summary)
         write_predictions(output / "predictions.csv", rows)
@@ -58,6 +59,7 @@ def main():
     p.add_argument("--checkpoint", required=True)
     p.add_argument("--manifest", required=True)
     p.add_argument("--features")
+    p.add_argument("--rgb-frames")
     p.add_argument("--flow")
     p.add_argument("--selection")
     p.add_argument("--output", required=True)

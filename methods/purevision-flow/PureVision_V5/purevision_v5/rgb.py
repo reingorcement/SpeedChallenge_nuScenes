@@ -25,42 +25,35 @@ def preprocess_rgb(image: Image.Image) -> torch.Tensor:
     return torch.from_numpy(array).permute(2, 0, 1).float().div_(255).sub_(.5).div_(.5)
 
 
-class FrozenRGB(nn.Module):
-    """Five causal normalized RGB frames -> six ordered 64D region descriptors.
-
-    Only backbone and region_projection tensors are accepted from the source
-    checkpoint. Its old velocity, reliability and geometry modules are absent.
-    """
-
-    def __init__(self, checkpoint: str | Path):
+class RGBDescriptor(nn.Module):
+    """Shared V3 descriptor with a genuine trainable RGB path."""
+    def __init__(self, *, trainable=True):
         super().__init__()
+        self.backbone = FlexiNetBackbone(input_channels=3)
+        self.region_projection = nn.Sequential(nn.Linear(256, 64), nn.ReLU(inplace=True))
+        self.trainable_rgb = bool(trainable)
+        self.preprocess_version = RGB_PREPROCESS_VERSION
+        self.requires_grad_(self.trainable_rgb)
+        self.train(self.trainable_rgb)
+
+    def load_pretrained(self, checkpoint):
         checkpoint = Path(checkpoint)
         package = torch.load(checkpoint, map_location="cpu", weights_only=True)
         config = package.get("config", {})
         data, model = config.get("data", {}), config.get("model", {})
         if (data.get("seq_len") != 5 or data.get("online_mode") is not True
                 or data.get("visual_height") != 72 or data.get("visual_width") != 128
-                or model.get("pooling") != "regions"
-                or model.get("mode") != "direct_pretrain"):
-            raise ValueError("FrozenRGB requires the causal T5 72x128 regional V3 direct checkpoint")
+                or model.get("pooling") != "regions" or model.get("mode") != "direct_pretrain"):
+            raise ValueError("RGB requires the causal T5 72x128 regional V3 direct checkpoint")
         state = package.get("model")
-        if not isinstance(state, dict):
-            raise ValueError("Source checkpoint lacks model state")
-        self.backbone = FlexiNetBackbone(input_channels=3)
-        self.region_projection = nn.Sequential(nn.Linear(256, 64), nn.ReLU(inplace=True))
-        selected = {key: value for key, value in state.items()
-                    if key.startswith(("backbone.", "region_projection."))}
-        self.load_state_dict(selected, strict=True)
+        if not isinstance(state, dict):raise ValueError("Source checkpoint lacks model state")
+        self.load_state_dict({k:v for k,v in state.items() if k.startswith(("backbone.", "region_projection."))}, strict=True)
         self.checkpoint_sha256 = hashlib.sha256(checkpoint.read_bytes()).hexdigest()
-        self.preprocess_version = RGB_PREPROCESS_VERSION
-        self.requires_grad_(False)
-        self.train(False)
+        return self
 
-    def train(self, mode: bool = True):
-        """Keep frozen BatchNorm statistics fixed under a parent's train()."""
-        return super().train(False)
+    def train(self, mode=True):
+        return super().train(mode if self.trainable_rgb else False)
 
-    @torch.no_grad()
     def forward(self, images: torch.Tensor) -> torch.Tensor:
         if images.ndim != 5 or tuple(images.shape[1:]) != RGB_SHAPE:
             raise ValueError(f"images must have shape [B,{','.join(map(str, RGB_SHAPE))}]")
@@ -76,3 +69,14 @@ class FrozenRGB(nn.Module):
         if not torch.isfinite(descriptor).all():
             raise RuntimeError("Non-finite frozen RGB descriptor")
         return descriptor
+
+
+class FrozenRGB(RGBDescriptor):
+    """Backward-compatible frozen wrapper; FT does not inherit this no_grad path."""
+    def __init__(self, checkpoint):
+        super().__init__(trainable=False)
+        self.load_pretrained(checkpoint)
+
+    @torch.no_grad()
+    def forward(self, images):
+        return super().forward(images)

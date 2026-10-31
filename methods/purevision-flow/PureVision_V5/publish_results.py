@@ -199,8 +199,26 @@ def collect(root, plans):
         value, origin = read_source(root, evidence)
         files[f"evidence/{evidence.name}"] = encoded(value)
         sources.append(origin)
+    # Publish small verified patrol receipts; never publish private network controls or raw AI logs.
+    for name in ("latest.json","last_astra.json","schedule.json","probe_schedule.json","publisher_schedule.json"):
+        value,origin=read_source(root,root/"monitoring"/name)
+        if value is not None:
+            files[f"monitoring/{name}"]=encoded(value);sources.append(origin)
+            if name=="last_astra.json" and value.get("answer"):
+                path=source_path(root,value["answer"])
+                if path.is_file():
+                    blob=path.read_bytes()
+                    if len(blob)>24000:raise ValueError("Patrol answer exceeds bounded report size")
+                    check_public(blob.decode('utf-8'))
+                    files["monitoring/last_astra.txt"]=blob
+                    files[f"monitoring/patrols/{path.name}"]=blob
+    for plan_path in plans:
+        plan=json.loads(Path(plan_path).read_text())
+        value,origin=read_source(root,root/"monitoring"/f"lifecycle_{plan['prefix']}.json")
+        if value is not None:
+            files[f"monitoring/lifecycle_{plan['prefix']}.json"]=encoded(value);sources.append(origin)
     reports = {*root.glob("reports/resolution*/summary.*"), *root.glob("reports/full_flow_*/summary.*"),
-               *root.glob("reports/encoder_comparison_*/summary.*")}
+               *root.glob("reports/encoder_comparison_*/summary.*"), *root.glob("reports/fusion_comparison_*/summary.*")}
     for report in sorted(reports):
         if report.suffix not in {".json", ".md"}:
             continue

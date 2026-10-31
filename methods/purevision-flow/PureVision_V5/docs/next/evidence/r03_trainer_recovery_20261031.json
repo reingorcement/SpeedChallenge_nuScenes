@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "scope": "smoke_real_trainer_not_formal_results",
+  "started_at": "2026-10-31T08:08:31.931676+00:00",
+  "rows": {
+    "R02_FLEX_CONT": {
+      "status": "passed",
+      "initialization": {
+        "policy": "seed42_flex_weight_only_continuation_v1",
+        "flow_checkpoint_sha256": "4d24688a71935d135a9b153ce568f31b4f2fd9845197c89bdf5accbec43ec823",
+        "source_run": "20261031_r02_base_flex_s42_R02_FLEX",
+        "source_training_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+        "source_best_epoch_one_based": 37,
+        "optimizer_inherited": false,
+        "head_mapping_exact": true,
+        "encoder_state_sha256": "b7062079c32b8255d9cf4014529e6dc5ef6281a8bcd8b1d26b92a25f0c164873",
+        "head_state_sha256": "701ee123c5efc2412333bbc9f38f36e409fc21a4d665597c6aa95fe9353b4a61",
+        "mapping": "source 68-column head unchanged",
+        "model_state_sha256": "9ba177a535fdd13714466f2ac033b293152a1935ff6aacf4ba920471da386803"
+      },
+      "processed_batches": 5,
+      "optimizer_updates": 5,
+      "amp_skips": 0,
+      "processed_microbatches": 5,
+      "recovery_proof": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/verification/r03_real_trainer_20261031/R02_FLEX_CONT/resumed/last.pt",
+        "sha256": "37168c5a2e2d7802d214382fe8618bc80ce3994cc66c2d790e3cf86ca3965d8a",
+        "size_bytes": 996131,
+        "mtime_ns": 1793434129762432257,
+        "inode": 49289885,
+        "epoch": 2,
+        "next_batch": 1,
+        "global_step": 5,
+        "checked_at": "2026-10-31T08:08:51.135433+00:00",
+        "load_device": "cpu",
+        "resumable_state_verified": true
+      },
+      "independent_evaluation_count": 16,
+      "independent_evaluation_scope": "16 real dev windows, smoke only",
+      "checkpoint_sha256": "37168c5a2e2d7802d214382fe8618bc80ce3994cc66c2d790e3cf86ca3965d8a",
+      "saved_rgb_bn_used": true
+    },
+    "R03_Frozen": {
+      "status": "passed",
+      "initialization": {
+        "policy": "seed42_flex_weight_only_continuation_v1",
+        "flow_checkpoint_sha256": "4d24688a71935d135a9b153ce568f31b4f2fd9845197c89bdf5accbec43ec823",
+        "source_run": "20261031_r02_base_flex_s42_R02_FLEX",
+        "source_training_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+        "source_best_epoch_one_based": 37,
+        "optimizer_inherited": false,
+        "head_mapping_exact": true,
+        "encoder_state_sha256": "b7062079c32b8255d9cf4014529e6dc5ef6281a8bcd8b1d26b92a25f0c164873",
+        "head_state_sha256": "cf2ccc0c4985e0b36a15c4e85da4a8597523872a0389df94b93b2b69a42dee1b",
+        "mapping": "RGB columns 0:384 zero; source flow/dt columns -> 384:452",
+        "rgb_checkpoint_sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+        "rgb_state_sha256": "bacc988b3263ca058f3c6d02c48290baf7ec46557b50680c82aa10e12910ec3e",
+        "model_state_sha256": "e3479895a6a8fca529ee53bdf0769ddcfdb165477b546187e693d9996310a204"
+      },
+      "processed_batches": 5,
+      "optimizer_updates": 5,
+      "amp_skips": 0,
+      "processed_microbatches": 5,
+      "recovery_proof": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/verification/r03_real_trainer_20261031/R03_Frozen/resumed/last.pt",
+        "sha256": "926a32abd5e42f88562d4c596a45b2b813ff457b8c21a2290473e63750016d2d",
+        "size_bytes": 10303033,
+        "mtime_ns": 1793434138963289640,
+        "inode": 49289907,
+        "epoch": 2,
+        "next_batch": 1,
+        "global_step": 5,
+        "checked_at": "2026-10-31T08:09:00.406316+00:00",
+        "load_device": "cpu",
+        "resumable_state_verified": true
+      },
+      "independent_evaluation_count": 16,
+      "independent_evaluation_scope": "16 real dev windows, smoke only",
+      "checkpoint_sha256": "926a32abd5e42f88562d4c596a45b2b813ff457b8c21a2290473e63750016d2d",
+      "saved_rgb_bn_used": true
+    },
+    "R03_FT": {
+      "status": "passed",
+      "initialization": {
+        "policy": "seed42_flex_weight_only_continuation_v1",
+        "flow_checkpoint_sha256": "4d24688a71935d135a9b153ce568f31b4f2fd9845197c89bdf5accbec43ec823",
+        "source_run": "20261031_r02_base_flex_s42_R02_FLEX",
+        "source_training_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+        "source_best_epoch_one_based": 37,
+        "optimizer_inherited": false,
+        "head_mapping_exact": true,
+        "encoder_state_sha256": "b7062079c32b8255d9cf4014529e6dc5ef6281a8bcd8b1d26b92a25f0c164873",
+        "head_state_sha256": "cf2ccc0c4985e0b36a15c4e85da4a8597523872a0389df94b93b2b69a42dee1b",
+        "mapping": "RGB columns 0:384 zero; source flow/dt columns -> 384:452",
+        "rgb_checkpoint_sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+        "rgb_state_sha256": "bacc988b3263ca058f3c6d02c48290baf7ec46557b50680c82aa10e12910ec3e",
+        "model_state_sha256": "e3479895a6a8fca529ee53bdf0769ddcfdb165477b546187e693d9996310a204"
+      },
+      "processed_batches": 5,
+      "optimizer_updates": 5,
+      "amp_skips": 0,
+      "processed_microbatches": 5,
+      "recovery_proof": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/verification/r03_real_trainer_20261031/R03_FT/resumed/last.pt",
+        "sha256": "9c9b10b442ed0f6f798ce963d0b24ac35c4473c4d03b4dc732684b61a05c7f12",
+        "size_bytes": 27091969,
+        "mtime_ns": 1793434168319834599,
+        "inode": 49289932,
+        "epoch": 2,
+        "next_batch": 1,
+        "global_step": 5,
+        "checked_at": "2026-10-31T08:09:31.528926+00:00",
+        "load_device": "cpu",
+        "resumable_state_verified": true
+      },
+      "independent_evaluation_count": 16,
+      "independent_evaluation_scope": "16 real dev windows, smoke only",
+      "checkpoint_sha256": "9c9b10b442ed0f6f798ce963d0b24ac35c4473c4d03b4dc732684b61a05c7f12",
+      "saved_rgb_bn_used": true
+    }
+  },
+  "finished_at": "2026-10-31T08:09:31.640649+00:00"
+}

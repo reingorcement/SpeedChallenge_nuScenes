@@ -1,6 +1,6 @@
 # SpeedChallenge_nuScenes
 
-**当前进度（2026-10-31）：** 全部1000场景、仅CAM_FRONT的1024×576光流已完成：232239对生成、train/dev打包及最终核验全部通过，见 [完成记录](methods/purevision-flow/PureVision_V5/docs/next/FULL_FLOW_COMPLETE_20261031.md)。开发在 `method/purevision-v5-next`，结果发布到 [results/purevision-v5-next](https://github.com/reingorcement/SpeedChallenge_nuScenes/tree/results/purevision-v5-next)。新的编码器训练尚未启动。
+**当前进度（2026-10-31）：** R02 BASE/FLEX 三seed完整对照已完成，FLEX确定为后续开发主线（不宣称已证明统计优越）。本轮R03_Frozen、R03_FT、R02_FLEX_CONT的实现、真实梯度与恢复验证已通过，见[实现与运行协议](methods/purevision-flow/PureVision_V5/docs/next/R03_FLEX_IMPLEMENTATION_20261031.md)。正式启动收据和后续进度以[结果分支](https://github.com/reingorcement/SpeedChallenge_nuScenes/tree/results/purevision-v5-next/methods/purevision-flow/PureVision_V5/docs/next_results)为准。全部1000场景CAM_FRONT光流已完成，复用已有缓存。
 
 **V5 GitHub 审核入口：** [AI 审核导航](methods/purevision-flow/PureVision_V5/AI_REVIEW.md) · [完整交接](methods/purevision-flow/PureVision_V5/docs/HANDOFF_20261030.md) · [六组正式结果](methods/purevision-flow/PureVision_V5/docs/RESULT_20261030_S2.md) · [实验凭证](methods/purevision-flow/PureVision_V5/docs/review_evidence/20261030_s2/README.md) · [用户原计划](methods/purevision-flow/PureVision_V5/docs/V5_EXECUTION_PLAN_USER.md)。2026-10-30 首轮 R00—R05 均已完成；结果仍限于单种子、冻结 RGB 的 PLANAR_PROXY 开发集比较。完整数据、缓存和本轮新 checkpoint 位于服务器，不随文档上传。
 

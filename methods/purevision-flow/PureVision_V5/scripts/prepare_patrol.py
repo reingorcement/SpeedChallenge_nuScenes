@@ -11,6 +11,14 @@ import subprocess
 
 def prepare(root, prefix, snapshot, *, startup=None):
     targets = []
+    guard_path=root/"monitoring/lifecycle_guard.json"
+    scope_run_ids=None
+    if guard_path.is_file() and not startup:
+        guard=json.loads(guard_path.read_text());plan_path=Path(guard.get("plan","" )).resolve()
+        if plan_path.is_relative_to(root.resolve()) and plan_path.is_file():
+            plan=json.loads(plan_path.read_text())
+            if plan.get("identity")!=guard["plan_identity"]:raise ValueError("Patrol plan guard identity mismatch")
+            scope_run_ids=[job["job_id"] for job in plan["jobs"]]
     def add(path, run_id=None, mode="head", *, required=False):
         path = Path(path)
         resolved = path.resolve()
@@ -33,11 +41,13 @@ def prepare(root, prefix, snapshot, *, startup=None):
     else:
         add(root / "monitoring/publication.json", mode="head")
         for job in snapshot.get("jobs", []):
-            if job["status"] in {"completed", "failed", "interrupted", "cancelled", "blocked"}:
+            if scope_run_ids is not None and job["job_id"] not in scope_run_ids:continue
+            if job["status"]=="completed" or (scope_run_ids is None and job["status"] in {"failed","interrupted","cancelled","blocked"}):
                 continue
             run_id = job["job_id"]
+            anomalous=bool(job.get("anomaly_lines")) or any(n!="child_process_alive" for n in job.get("notes",[]))
             if job.get("run_dir"):
-                add(Path(job["run_dir"]) / "run.json", run_id)
+                if anomalous:add(Path(job["run_dir"]) / "run.json", run_id)
                 add(Path(job["run_dir"]) / "status.json", run_id)
             if job.get("status_path"):
                 add(job["status_path"], run_id)
@@ -47,11 +57,12 @@ def prepare(root, prefix, snapshot, *, startup=None):
                     # A missing running-job report must fail the actual read instead
                     # of silently turning a partial patrol into a success receipt.
                     add(progress, run_id, required=True)
-            if job.get("log_path"):
+            if anomalous and job.get("log_path"):
                 add(job["log_path"], run_id, "tail")
         # A no-job probe still verifies a real local task artifact, the host snapshot.
     targets = list({(t["path"], t["run_id"]): t for t in targets}.values())
-    request = dict(schema="v5_patrol_read_request_v1", request_id=secrets.token_hex(16), root=str(root), targets=targets)
+    request = dict(schema="v5_patrol_read_request_v1", request_id=secrets.token_hex(16), root=str(root), targets=targets,
+                   scope_run_ids=scope_run_ids)
     helper = Path(__file__).with_name("patrol_read.py")
     repository = Path(__file__).resolve().parents[4]
     base = ["git", "-c", f"safe.directory={repository}", "-C", str(repository)]
@@ -70,6 +81,7 @@ def prepare(root, prefix, snapshot, *, startup=None):
 宿主机快照是PID/GPU/磁盘检查的依据；sandbox的/proc或GPU不可见不能推断宿主进程死亡。核查目标run ID、训练步数与验证指标、日志异常、checkpoint更新时间、GPU/磁盘；unknown必须保留为待核实，不能算终止。正常损失波动不触发修改。报告实际读取路径、进展、异常及人工定位建议。明确host确定性检查与本次AI诊断分别是什么；不声称修改了bug。
 对于flow/cache/pack等非训练作业，核对已处理对数/计划总数、created/reused/recovered/adopted计数、吞吐、缓存字节和报告更新时间；读取指定progress报告及真实缓存所在磁盘，不要求训练loss或模型checkpoint。进度报告complete不能替代worker/DAG终态；sample_complete也不等于全量完成。
 若目标包含startup_proof，交叉核对同run步骤1/2/3、首次验证、恢复状态与commit/contract；不要自行加载大checkpoint。
+正常巡视优先读精简摘要，状态正常时不追加读取大日志或历史报告；异常才沿指定文件追查。发布延迟不等于训练停止。正常无实质变化只记录“正常，无新增里程碑”，不反复提醒用户。
 只把简短中文报告放在最终回答。只有命令成功且完成目标读取后，以独立一行 ASTRA_PATROL_OK 结束。
 """ % shlex.join(command)
     if not any(t.get("run_id") for t in targets):

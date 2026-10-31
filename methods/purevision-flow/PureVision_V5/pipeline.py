@@ -409,6 +409,10 @@ def check_outputs(job):
 
 def check_planned_inputs(plan, job):
     """Do not silently run a replacement external manifest/selection/config."""
+    if plan.get("stage")=="r03_flex_continuation":
+        from fusion_comparison import validate_inputs
+        validate_inputs(plan)
+        return
     if plan.get("stage") == "r02_encoder_multiseed":
         from encoder_multiseed import validate_inputs
         validate_inputs(plan)

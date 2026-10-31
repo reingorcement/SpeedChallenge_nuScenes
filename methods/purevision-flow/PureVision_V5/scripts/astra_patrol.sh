@@ -16,8 +16,11 @@ V5_PREFIX="$V5_ARTIFACT_ROOT/monitoring/astra/$V5_STAMP"
 if [[ "$V5_TRIGGER" == scheduled ]]; then
   V5_ACTIVE="$($V5_PYTHON -c 'import json,sys; print(json.load(open(sys.argv[1]))["active_count"])' "$V5_PREFIX.snapshot.json")"
   if [[ "$V5_ACTIVE" == 0 ]]; then
-    "$V5_PYTHON" -B "$V5_CODE_ROOT/monitor.py" --root "$V5_ARTIFACT_ROOT" --auto-disable > /dev/null
-    exit 0
+    V5_MAY_STOP="$(PYTHONPATH="$V5_CODE_ROOT" "$V5_PYTHON" -B -c 'import sys; from monitor import publication_allows_stop; print(int(publication_allows_stop(sys.argv[1])))' "$V5_ARTIFACT_ROOT")"
+    if [[ "$V5_MAY_STOP" == 1 ]]; then
+      "$V5_PYTHON" -B "$V5_CODE_ROOT/monitor.py" --root "$V5_ARTIFACT_ROOT" --auto-disable > /dev/null
+      exit 0
+    fi
   fi
 fi
 V5_PREPARE=("$V5_PYTHON" -B "$V5_CODE_ROOT/scripts/prepare_patrol.py" "$V5_ARTIFACT_ROOT" "$V5_PREFIX")

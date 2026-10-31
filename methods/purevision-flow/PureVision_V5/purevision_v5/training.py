@@ -19,6 +19,7 @@ from .common import ROOT, atomic_save, code_version, environment, git, now, obje
 from .datasets import VelocityDataset
 from .evaluation import summarize, validate_lateral_rule
 from .model import VelocityModel, build_model
+from .optimization import make_optimizer, make_scheduler
 
 
 def seed_everything(seed):
@@ -166,6 +167,9 @@ def train(args):
         if not np.isfinite(config[key]) or config[key] <= 0:
             raise ValueError(f"{key} must be positive and finite")
     experiment = config["experiment"]
+    micro_batch=config.get("micro_batch_size",config["batch_size"])
+    if not isinstance(micro_batch,int) or not 1<=micro_batch<=config["batch_size"] or config["batch_size"]%micro_batch:
+        raise ValueError("micro_batch_size must divide the effective batch_size")
     output = Path(args.output).resolve()
     if output.exists() and any(output.iterdir()):
         raise ValueError("Use a new run directory, including when resuming")
@@ -179,6 +183,7 @@ def train(args):
             raise ValueError("Formal outputs must live outside the immutable training checkout")
     protected = [Path(args.manifest).resolve(), config_path]
     protected.extend(Path(value).resolve() for value in (args.features, args.flow) if value)
+    if getattr(args,"rgb_frames",None):protected.append(Path(args.rgb_frames).resolve())
     if getattr(args, "selection", None):
         protected.append(Path(args.selection).resolve())
     if any(path.is_relative_to(output) or output.is_relative_to(path) for path in protected):
@@ -193,36 +198,52 @@ def train(args):
         raise ValueError("An explicit resolution pilot cannot use smoke or ad hoc subset limits")
     if not args.smoke and (args.limit_scenes or args.limit_windows or args.max_batches):
         raise ValueError("Subset/batch limits are smoke-only, not formal experiment results")
-    train_data = VelocityDataset(args.manifest, "train_core", experiment, args.features, args.flow, selection_path=selection_path, **limits)
-    dev_data = VelocityDataset(args.manifest, "dev", experiment, args.features, args.flow, selection_path=selection_path, **limits)
+    rgb_args=dict(rgb_policy=config.get("rgb_policy"),frame_root=getattr(args,"rgb_frames",None))
+    train_data = VelocityDataset(args.manifest, "train_core", experiment, args.features, args.flow, selection_path=selection_path, **rgb_args, **limits)
+    dev_data = VelocityDataset(args.manifest, "dev", experiment, args.features, args.flow, selection_path=selection_path, **rgb_args, **limits)
     if train_data.scene_names & dev_data.scene_names or train_data.source_tokens & dev_data.source_tokens:
         raise ValueError("Training/validation overlap")
     if train_data.contract != dev_data.contract:
         raise ValueError("Training and validation data contracts differ")
     validate_expected_flow(config, train_data.contract)
+    if config.get("rgb_policy")=="frozen" and config.get("flow_initialization"):
+        features=train_data.contract["features"]
+        if (features.get("weights_sha256")!=config["rgb_initialization"]["sha256"]
+                or features.get("input_size")!=[5,3,72,128]
+                or features.get("normalization")!="PIL RGB bilinear; x/127.5-1"
+                or features.get("dtype")!="float32"
+                or features.get("compute_precision")!="float32"):
+            raise ValueError("Frozen descriptor source/precision differs from RGB initialization")
     contract = dict(config=config, data=train_data.contract, train_selection=train_data.selection_hash,
                     dev_selection=dev_data.selection_hash,
                     execution=dict(smoke=bool(args.smoke), max_batches=args.max_batches))
     if train_data.scene_selection:
         contract["execution"].update(scope="resolution_pilot", scene_selection_identity=train_data.scene_selection["identity"])
     contract_hash = object_hash(contract)
-    model = build_model(config).to(device)
+    model = build_model(config)
+    continuation=None
+    if config.get("flow_initialization") and not args.resume:
+        from .initialization import initialize_continuation
+        continuation=initialize_continuation(model,config)
+    model=model.to(device)
     initialization = dict(policy="seeded_fresh_model_v1", seed=config["seed"], model_state_sha256=model_state_sha256(model))
     if config.get("head_seed") is not None:
         initialization.update(policy="encoder_torch_default_and_isolated_head_rng_v1",
                               head_seed=config["head_seed"], head_state_sha256=model_state_sha256(model.head),
                               encoder_policy="PyTorch Conv/Linear reset_parameters; BN weight=1 bias=0",
                               encoder_state_sha256=model_state_sha256(model.flow_encoder))
+    if continuation is not None:initialization=continuation
     sample_order = dict(policy="torch_randperm_seed_plus_zero_based_epoch_v1", seed=config["seed"],
                         training_samples_sha256=object_hash([[i["scene"], i["token"], i["time_s"], i["target"].tolist()]
                                                              for i in train_data.items]),
                         epoch_index_dtype="little_endian_int64")
-    optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"], weight_decay=config["weight_decay"])
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=config["epochs"], eta_min=config["learning_rate"]*.1)
+    optimizer = make_optimizer(model,config)
+    scheduler = make_scheduler(optimizer,config)
     amp = bool(config["amp"] and device.type == "cuda")
     scaler = torch.amp.GradScaler("cuda", enabled=amp)
     epoch, next_batch, global_step, bad_epochs = 0, 0, 0, 0
     optimizer_updates, amp_skips = 0, 0
+    processed_microbatches = 0
     best_epe, best_epoch = float("inf"), None
     running_loss, running_count = 0., 0
     parent_run = None
@@ -238,6 +259,8 @@ def train(args):
                 or counters[0] != checkpoint["global_step"] or counters[0] != counters[1] + counters[2]):
             raise ValueError("Resume rejected: update/overflow counters missing or inconsistent")
         _, optimizer_updates, amp_skips = counters
+        processed_microbatches=checkpoint.get("processed_microbatches",checkpoint["processed_batches"])
+        initialization=checkpoint["initialization"]
         model.load_state_dict(checkpoint["model"], strict=True)
         optimizer.load_state_dict(checkpoint["optimizer"])
         scheduler.load_state_dict(checkpoint["scheduler"])
@@ -275,11 +298,16 @@ def train(args):
                runtime=vars(args), environment=environment(), train_windows=len(train_data), dev_windows=len(dev_data),
                train_scenes=len(train_data.scene_names), dev_scenes=len(dev_data.scene_names),
                trainable_parameters=sum(p.numel() for p in model.parameters() if p.requires_grad),
+               total_parameters=sum(p.numel() for p in model.parameters()),
                step_semantics="global_step = processed_batches = optimizer_updates + amp_skips",
                checkpoint=str(output / "last.pt"))
     run.update(scope="resolution_pilot" if train_data.scene_selection else ("smoke" if args.smoke else "full_train_dev"),
                initialization=initialization, sample_order=sample_order, effective_lateral_rule=lateral_rule,
                stopping_policy=dict(early_stopping=early_stopping, complete_epoch_budget=config["epochs"]))
+    run.update(micro_batch_size=micro_batch,effective_batch_size=config["batch_size"],
+        accumulation_policy="dataloader batch is effective batch; micro losses weighted by actual sample count; update/checkpoint at group boundary",
+        optimizer_groups=[dict(name=g["name"],initial_lr=g["initial_lr"],parameters=sum(p.numel() for p in g["params"]),
+            tensor_count=len(g["params"])) for g in optimizer.param_groups])
     write_json(output / "run.json", run)
     stop_requested = [False]
     previous_handlers = {sig: signal.getsignal(sig) for sig in (signal.SIGINT, signal.SIGTERM)}
@@ -293,6 +321,7 @@ def train(args):
         write_json(output / "status.json", dict(run_id=output.name, experiment=experiment, status=status,
                    updated_at=now(), epoch=epoch, global_step=global_step,
                    processed_batches=global_step, optimizer_updates=optimizer_updates, amp_skips=amp_skips,
+                   processed_microbatches=processed_microbatches,
                    amp_scale=scaler.get_scale(),
                    cuda_peak_allocated_bytes=torch.cuda.max_memory_allocated(device) if device.type == "cuda" else 0,
                    best_epe=best_epe if np.isfinite(best_epe) else None, best_epoch=best_epoch,
@@ -306,6 +335,7 @@ def train(args):
                     initialization=initialization, sample_order=sample_order, effective_lateral_rule=lateral_rule,
                     global_step=global_step, best_epe=best_epe, best_epoch=best_epoch, bad_epochs=bad_epochs,
                     processed_batches=global_step, optimizer_updates=optimizer_updates, amp_skips=amp_skips,
+                    processed_microbatches=processed_microbatches,
                     running_loss=running_loss, running_count=running_count))
 
     state("running")
@@ -324,12 +354,18 @@ def train(args):
                     break
                 optimizer.zero_grad(set_to_none=True)
                 target = batch["target"].to(device)
-                with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=amp):
-                    prediction = model(move_inputs(batch, device))
-                    loss = loss_fn(prediction.float(), target, config)
-                if not torch.isfinite(loss):
-                    raise RuntimeError("Nonfinite loss")
-                scaler.scale(loss).backward()
+                loss=target.new_zeros(())
+                for lo in range(0,len(target),micro_batch):
+                    hi=min(lo+micro_batch,len(target))
+                    micro={k:v[lo:hi].to(device,non_blocking=True) for k,v in batch["inputs"].items()}
+                    with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=amp):
+                        prediction=model(micro)
+                        value=loss_fn(prediction.float(),target[lo:hi],config)
+                    if not torch.isfinite(value):raise RuntimeError("Nonfinite loss")
+                    weight=(hi-lo)/len(target)
+                    scaler.scale(value*weight).backward()
+                    loss+=value.detach()*weight
+                    processed_microbatches+=1
                 update = optimizer_update(model, optimizer, scaler, config["grad_clip"])
                 global_step += 1
                 optimizer_updates += int(update["updated"])
@@ -345,6 +381,7 @@ def train(args):
                     state("running", loss=float(loss.detach()))
                     print(json.dumps(dict(event="step", epoch=epoch, step=global_step, processed_batches=global_step,
                           optimizer_updates=optimizer_updates, amp_skips=amp_skips, amp_scale=scaler.get_scale(),
+                          processed_microbatches=processed_microbatches,
                           loss=float(loss.detach()), time=now())), flush=True)
                 checkpoint_due = global_step % config["checkpoint_steps"] == 0 or time.monotonic()-last_save >= 120
                 interrupted = stop_requested[0] or (args.stop_after_steps and global_step >= args.stop_after_steps)
@@ -356,7 +393,7 @@ def train(args):
                     run.update(status="interrupted", finished_at=now())
                     write_json(output / "run.json", run)
                     return output
-            summary, rows = evaluate_model(model, dev_data, device, config["batch_size"], args.workers, args.max_batches,
+            summary, rows = evaluate_model(model, dev_data, device, config.get("evaluation_batch_size",config["batch_size"]), args.workers, args.max_batches,
                                            lateral_rule=lateral_rule)
             epe = summary["overall"]["epe"]
             improved = epe < best_epe - config["min_delta"]
@@ -367,8 +404,10 @@ def train(args):
             entry = dict(epoch=epoch, global_step=global_step, train_loss=running_loss/max(running_count, 1),
                          sample_order_sha256=order_sha256,
                          processed_batches=global_step, optimizer_updates=optimizer_updates, amp_skips=amp_skips,
+                         processed_microbatches=processed_microbatches,
                          amp_scale=scaler.get_scale(),
                          learning_rate=optimizer.param_groups[0]["lr"], validation=summary, time=now())
+            entry["learning_rates"]={g["name"]:g["lr"] for g in optimizer.param_groups}
             with open(output / "metrics.jsonl", "a") as stream:
                 stream.write(json.dumps(entry, allow_nan=False)+"\n")
             print(json.dumps(dict(event="validation", epoch=epoch, **summary["overall"])), flush=True)
@@ -403,6 +442,7 @@ def main():
     for name in ("config", "manifest", "output"):
         parser.add_argument("--"+name, required=True)
     parser.add_argument("--features")
+    parser.add_argument("--rgb-frames",help="Verified uint8 RGB image views for actual RGB fine-tuning")
     parser.add_argument("--flow")
     parser.add_argument("--selection", help="Immutable explicit resolution-pilot scene selection JSON")
     parser.add_argument("--device", default="cuda:1")

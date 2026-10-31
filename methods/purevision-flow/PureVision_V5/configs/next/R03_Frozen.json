@@ -1,0 +1,55 @@
+{
+  "experiment": "R03",
+  "seed": 42,
+  "epochs": 40,
+  "batch_size": 64,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "loss_scales_m_s": [
+    5.0,
+    1.0
+  ],
+  "loss_beta": 1.0,
+  "amp": true,
+  "grad_clip": 2.0,
+  "patience": 5,
+  "min_delta": 0.0,
+  "log_steps": 20,
+  "checkpoint_steps": 250,
+  "rgb_policy": "frozen",
+  "selection_metric": "dev_epe",
+  "lateral_rule": {
+    "max_relative_mae_increase": 0.05,
+    "max_absolute_mae_increase_m_s": 0.01,
+    "nonzero_threshold_m_s": 0.2,
+    "min_subset_windows": 100,
+    "min_subset_scenes": 5
+  },
+  "early_stopping": false,
+  "expected_flow": {
+    "raft_size_hw": [
+      576,
+      1024
+    ],
+    "model_size_hw": [
+      72,
+      128
+    ]
+  },
+  "head_seed": 42,
+  "encoder_variant": "flex",
+  "run_variant": "R03_Frozen",
+  "micro_batch_size": 64,
+  "evaluation_batch_size": 8,
+  "flow_initialization": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/best.pt",
+    "sha256": "4d24688a71935d135a9b153ce568f31b4f2fd9845197c89bdf5accbec43ec823"
+  },
+  "scheduler_policy": "cosine_each_group_to_0.1",
+  "rgb_initialization": {
+    "path": "../PureVision_V3/checkpoints/pretrained/direct_seed_42/best.pth",
+    "sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82"
+  },
+  "rgb_learning_rate": 0.0001,
+  "rgb_input": "descriptor"
+}
