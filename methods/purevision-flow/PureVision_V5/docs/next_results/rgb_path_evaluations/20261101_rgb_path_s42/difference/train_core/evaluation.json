@@ -1,5 +1,5 @@
 {
-  "status": "running",
+  "status": "completed",
   "started_at": "2026-10-31T18:23:18.156443+00:00",
   "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r03_flex_s42_R03_FT/best.pt",
   "checkpoint_sha256": "e806149b06e53f0e183f09618b2cf6bfebd5d768ff09038262520d7742a0fd04",
@@ -125,5 +125,7 @@
     "nonzero_threshold_m_s": 0.2,
     "min_subset_windows": 100,
     "min_subset_scenes": 5
-  }
+  },
+  "finished_at": "2026-10-31T18:34:29.218837+00:00",
+  "count": 132978
 }

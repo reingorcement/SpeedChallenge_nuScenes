@@ -1,6 +1,6 @@
 {
-  "status": "running",
-  "updated_at": "2026-10-31T18:31:03.920496+00:00",
+  "status": "completed",
+  "updated_at": "2026-10-31T18:34:33.953293+00:00",
   "launch_count": 1,
   "reason": null,
   "launched_at_epoch": 1793470837.04821,
@@ -32,5 +32,7 @@
     "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261101_rgb_path_s42_old_diff18/train_core"
   ],
   "child_pid": 32398,
-  "child_pid_start_ticks": 98589433
+  "child_pid_start_ticks": 98589433,
+  "exit_code": 0,
+  "finished_at": "2026-10-31T18:34:33.953263+00:00"
 }
