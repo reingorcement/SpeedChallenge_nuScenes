@@ -560,14 +560,14 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "b5606e588a5733ffd1b91eaf47f0a4f69355e59da41b6f2f94c1da048d9074c7",
-      "bytes": 78658,
+      "source_sha256": "92ddcd2fd1623463b7a77128bdeef31c8301ab761ad068d12398227f827c799d",
+      "bytes": 79119,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/lifecycle_20261101_rgb_path_s42.json",
-      "source_sha256": "5c92936d267fcf98c9ed5d7c275657c19717d2e71169243cbd1e8f471774b705",
-      "bytes": 4935,
+      "source_sha256": "7242b49197ff05a9df127a43cc04c865b00c3b14a53fff9f1ce595f4707e048a",
+      "bytes": 5796,
       "representation": "parsed_json"
     },
     {
@@ -590,14 +590,14 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/startup/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/startup_proof.json",
-      "source_sha256": "8f2aa25abe3943fe49d383996f4422028f451d9fdf323473c37d90ab24651424",
-      "bytes": 1532,
+      "source_sha256": "d7947706e520b8d49360dd8400bb84ea3edea9705f0af6c1d096ee154a27b6bc",
+      "bytes": 54560,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261101_rgb_path_s42/jobs/R03_APPEAR_FT_s42_18ep.json",
-      "source_sha256": "c1df5fe39f8559cf296de733ddb3164743e7a581079ae7e23f23331c13e6dbf8",
-      "bytes": 1666,
+      "source_sha256": "35d7fd70ec3b5bb0e314868c66e5b51829a94de67ed8b91cca0de890fd5ee88c",
+      "bytes": 1680,
       "representation": "parsed_json"
     },
     {
@@ -620,8 +620,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261101_rgb_path_s42/status.json",
-      "source_sha256": "26c5813243091c372810e785cac8996b52009a7b1e4defa5d71402366e8ad9e5",
-      "bytes": 4050,
+      "source_sha256": "2930266d3bfe922a367c09049e512787b1805d655a8c02f04bb3d43c797ced97",
+      "bytes": 4064,
       "representation": "parsed_json"
     },
     {
@@ -709,6 +709,12 @@
       "representation": "original_markdown"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/metrics.jsonl",
+      "source_sha256": "96a84144f34292acd6d5b9b7a3541e773bed736f498231c0e292faf28760dd08",
+      "bytes": 38306,
+      "representation": "complete_jsonl_records"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/run.json",
       "source_sha256": "2e4391fbab7a2786ec25a6d29d9fdd51d37d9756dd2d748f155a775866febae1",
       "bytes": 11514,
@@ -716,8 +722,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/status.json",
-      "source_sha256": "9676d6e06a3ba0238252000a70b94c98a43d1ec093ba6ac13b2c1a50d206d730",
-      "bytes": 493,
+      "source_sha256": "ae75ad024c117cce26c2c73515ce31e87a3a0ef0c7fcb56ef1be845a131c3feb",
+      "bytes": 505,
       "representation": "parsed_json"
     }
   ],
@@ -1229,8 +1235,13 @@
     },
     {
       "path": "experiments/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/job_status.json",
-      "export_sha256": "c1df5fe39f8559cf296de733ddb3164743e7a581079ae7e23f23331c13e6dbf8",
-      "bytes": 1666
+      "export_sha256": "35d7fd70ec3b5bb0e314868c66e5b51829a94de67ed8b91cca0de890fd5ee88c",
+      "bytes": 1680
+    },
+    {
+      "path": "experiments/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/metrics.jsonl",
+      "export_sha256": "96a84144f34292acd6d5b9b7a3541e773bed736f498231c0e292faf28760dd08",
+      "bytes": 38306
     },
     {
       "path": "experiments/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/run.json",
@@ -1239,13 +1250,13 @@
     },
     {
       "path": "experiments/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/startup_proof.json",
-      "export_sha256": "8f2aa25abe3943fe49d383996f4422028f451d9fdf323473c37d90ab24651424",
-      "bytes": 1532
+      "export_sha256": "d7947706e520b8d49360dd8400bb84ea3edea9705f0af6c1d096ee154a27b6bc",
+      "bytes": 54560
     },
     {
       "path": "experiments/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/status.json",
-      "export_sha256": "9676d6e06a3ba0238252000a70b94c98a43d1ec093ba6ac13b2c1a50d206d730",
-      "bytes": 493
+      "export_sha256": "ae75ad024c117cce26c2c73515ce31e87a3a0ef0c7fcb56ef1be845a131c3feb",
+      "bytes": 505
     },
     {
       "path": "experiments/20261101_rgb_path_s42_compare/job_status.json",
@@ -1269,13 +1280,13 @@
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "b5606e588a5733ffd1b91eaf47f0a4f69355e59da41b6f2f94c1da048d9074c7",
-      "bytes": 78658
+      "export_sha256": "92ddcd2fd1623463b7a77128bdeef31c8301ab761ad068d12398227f827c799d",
+      "bytes": 79119
     },
     {
       "path": "monitoring/lifecycle_20261101_rgb_path_s42.json",
-      "export_sha256": "5c92936d267fcf98c9ed5d7c275657c19717d2e71169243cbd1e8f471774b705",
-      "bytes": 4935
+      "export_sha256": "7242b49197ff05a9df127a43cc04c865b00c3b14a53fff9f1ce595f4707e048a",
+      "bytes": 5796
     },
     {
       "path": "monitoring/patrols/20261031T183001Z_33318.txt",
@@ -1304,8 +1315,8 @@
     },
     {
       "path": "plans/20261101_rgb_path_s42_coordinator.json",
-      "export_sha256": "26c5813243091c372810e785cac8996b52009a7b1e4defa5d71402366e8ad9e5",
-      "bytes": 4050
+      "export_sha256": "2930266d3bfe922a367c09049e512787b1805d655a8c02f04bb3d43c797ced97",
+      "bytes": 4064
     },
     {
       "path": "rgb_path_evaluations/20261101_rgb_path_s42/difference/dev/evaluation.json",
@@ -1339,8 +1350,8 @@
     },
     {
       "path": "status.json",
-      "export_sha256": "3ea7fd6827979a8d4c8b25001edda1e3e160b227466236373cce84a90c674182",
-      "bytes": 2262
+      "export_sha256": "95c1a9d2d5d694301ea85f85161bcc92ea5b17e91532e019ceeb6bdc5cfe90c0",
+      "bytes": 2590
     }
   ],
   "note": "source_sha256 hashes source bytes (JSONL complete prefix); export_sha256 hashes the published representation. JSON may be reformatted; index excludes itself."
