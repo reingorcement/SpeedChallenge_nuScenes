@@ -124,7 +124,7 @@ def check_checkpoint(path, run, validation):
     """Load one immutable inode, so a concurrent atomic save cannot mix versions."""
     import numpy as np
     import torch
-    from purevision_v5.model import VelocityModel
+    from purevision_v5.model import build_model
 
     with Path(path).open("rb") as stream:
         before = os.fstat(stream.fileno())
@@ -162,7 +162,7 @@ def check_checkpoint(path, run, validation):
             raise ValueError("Checkpoint contains nonfinite optimizer/scaler value")
     for name in ("model", "optimizer", "scheduler", "scaler"):
         tensors(state[name])
-    model = VelocityModel(run["experiment"]).cpu()
+    model = build_model(run["config"]).cpu()
     model.load_state_dict(state["model"], strict=True)
     config = run["config"]
     optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"], weight_decay=config["weight_decay"])

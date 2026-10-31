@@ -6,7 +6,7 @@ import torch
 
 from purevision_v5.common import code_version, now, object_hash, sha256, write_json
 from purevision_v5.datasets import VelocityDataset
-from purevision_v5.model import VelocityModel
+from purevision_v5.model import build_model
 from purevision_v5.evaluation import validate_lateral_rule
 from purevision_v5.training import evaluate_model, validate_expected_flow, write_predictions
 
@@ -18,7 +18,7 @@ def evaluate(args):
             or packet.get("contract_hash") != object_hash(packet.get("contract", {}))
             or packet.get("config") != packet.get("contract", {}).get("config")):
         raise ValueError("Evaluation requires an intact V5 training checkpoint contract")
-    model = VelocityModel(experiment=packet["config"]["experiment"]).to(args.device)
+    model = build_model(packet["config"]).to(args.device)
     model.load_state_dict(packet["model"], strict=True)
     rule = validate_lateral_rule(packet["config"].get("lateral_rule"))
     dataset = VelocityDataset(args.manifest, "dev", packet["config"]["experiment"], args.features, args.flow,

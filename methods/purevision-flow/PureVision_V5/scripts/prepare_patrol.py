@@ -31,6 +31,7 @@ def prepare(root, prefix, snapshot, *, startup=None):
         if len(targets) != 6:
             raise ValueError("Startup patrol is missing required target files")
     else:
+        add(root / "monitoring/publication.json", mode="head")
         for job in snapshot.get("jobs", []):
             if job["status"] in {"completed", "failed", "interrupted", "cancelled", "blocked"}:
                 continue

@@ -18,7 +18,7 @@ from torch.utils.data import DataLoader, Subset
 from .common import ROOT, atomic_save, code_version, environment, git, now, object_hash, read_json, write_json
 from .datasets import VelocityDataset
 from .evaluation import summarize, validate_lateral_rule
-from .model import VelocityModel
+from .model import VelocityModel, build_model
 
 
 def seed_everything(seed):
@@ -206,8 +206,13 @@ def train(args):
     if train_data.scene_selection:
         contract["execution"].update(scope="resolution_pilot", scene_selection_identity=train_data.scene_selection["identity"])
     contract_hash = object_hash(contract)
-    model = VelocityModel(experiment=experiment).to(device)
+    model = build_model(config).to(device)
     initialization = dict(policy="seeded_fresh_model_v1", seed=config["seed"], model_state_sha256=model_state_sha256(model))
+    if config.get("head_seed") is not None:
+        initialization.update(policy="encoder_torch_default_and_isolated_head_rng_v1",
+                              head_seed=config["head_seed"], head_state_sha256=model_state_sha256(model.head),
+                              encoder_policy="PyTorch Conv/Linear reset_parameters; BN weight=1 bias=0",
+                              encoder_state_sha256=model_state_sha256(model.flow_encoder))
     sample_order = dict(policy="torch_randperm_seed_plus_zero_based_epoch_v1", seed=config["seed"],
                         training_samples_sha256=object_hash([[i["scene"], i["token"], i["time_s"], i["target"].tolist()]
                                                              for i in train_data.items]),
@@ -281,12 +286,15 @@ def train(args):
     for sig in previous_handlers:
         signal.signal(sig, lambda *_: stop_requested.__setitem__(0, True))
     started = last_save = time.monotonic()
+    if device.type == "cuda":
+        torch.cuda.reset_peak_memory_stats(device)
 
     def state(status, **extra):
         write_json(output / "status.json", dict(run_id=output.name, experiment=experiment, status=status,
                    updated_at=now(), epoch=epoch, global_step=global_step,
                    processed_batches=global_step, optimizer_updates=optimizer_updates, amp_skips=amp_skips,
                    amp_scale=scaler.get_scale(),
+                   cuda_peak_allocated_bytes=torch.cuda.max_memory_allocated(device) if device.type == "cuda" else 0,
                    best_epe=best_epe if np.isfinite(best_epe) else None, best_epoch=best_epoch,
                    elapsed_seconds=time.monotonic()-started, **extra))
 

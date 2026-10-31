@@ -199,7 +199,8 @@ def collect(root, plans):
         value, origin = read_source(root, evidence)
         files[f"evidence/{evidence.name}"] = encoded(value)
         sources.append(origin)
-    reports = {*root.glob("reports/resolution*/summary.*"), *root.glob("reports/full_flow_*/summary.*")}
+    reports = {*root.glob("reports/resolution*/summary.*"), *root.glob("reports/full_flow_*/summary.*"),
+               *root.glob("reports/encoder_comparison_*/summary.*")}
     for report in sorted(reports):
         if report.suffix not in {".json", ".md"}:
             continue
@@ -310,6 +311,8 @@ def publish(root, worktree, plans, *, push_url=None, branch=REPORT_BRANCH, stop_
                 git(worktree, "commit", "-m", "docs(v5-next): publish experiment progress")
             report_commit = git(worktree, "rev-parse", "HEAD")
             receipt.update(report_commit=report_commit, remote_base=remote_sha or local_sha,
+                           plan_identities=[value["identity"] for p in plans
+                                            if "identity" in (value := json.loads(Path(p).read_text()))],
                            changed=bool(changed), training_commits=sorted({r["training_commit"] for r in summary["rows"]}))
             atomic(receipt_path, encoded(receipt))
             if changed or not remote_sha or pending_local:

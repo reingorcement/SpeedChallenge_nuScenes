@@ -19,7 +19,8 @@ ACTIVE = {"launching", "running", "running_unverified", "queued", "preparing", "
 FLOW_PROGRESS_FIELDS = ("completed", "total", "target_pairs", "expected_pairs", "pairs", "pairs_processed",
                         "counts", "scenes", "progress", "elapsed_s", "elapsed_seconds", "seconds_per_pair",
                         "pairs_per_second", "throughput", "bytes", "bytes_written", "last_batch_s",
-                        "cuda_peak_allocated_bytes", "last_pair")
+                        "cuda_peak_allocated_bytes", "last_pair", "processed_batches", "optimizer_updates",
+                        "amp_skips", "amp_scale", "best_epe", "best_epoch")
 ERROR_PATTERN = re.compile(r"Traceback|(?:Runtime|Value|FileNotFound|Assertion)Error|CUDA.*out of memory|non.?finite|Segmentation fault|(?:^|[\s:=,])(nan|[+-]?inf)(?:$|[\s,}])", re.I)
 
 
@@ -482,6 +483,17 @@ def record_patrol(root, prefix, exit_code, trigger):
     return record
 
 
+def publication_allows_stop(root):
+    """A new guarded stage stays scheduled until its own terminal report is pushed."""
+    guard = read_json(Path(root) / "monitoring/lifecycle_guard.json")
+    if not guard:
+        return True
+    receipt = read_json(Path(root) / "monitoring/publication.json")
+    return (receipt.get("status") == "published" and receipt.get("all_terminal") is True
+            and guard.get("plan_identity") in receipt.get("plan_identities", [])
+            and receipt.get("report_commit") == receipt.get("verified_remote_commit"))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=DEFAULT_ROOT)
@@ -523,7 +535,7 @@ def main():
         write_json(monitoring / "snapshots" / filename, value)
         write_json(monitoring / "latest.json", value)
         (monitoring / "STATUS.md").write_text(table(value))
-    if args.auto_disable and value["all_terminal"]:
+    if args.auto_disable and value["all_terminal"] and publication_allows_stop(args.root):
         modify_cron(args.root)
         write_json(args.root / "monitoring/auto_disabled.json", {"time_utc": timestamp(), "reason": "all_registered_jobs_terminal"})
     print(json.dumps(value, ensure_ascii=False, indent=2) if args.json else table(value))

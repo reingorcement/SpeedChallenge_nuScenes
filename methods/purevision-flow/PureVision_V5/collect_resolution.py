@@ -27,10 +27,13 @@ def optional(path):
 
 
 def inspect_run(plan, job, train_rows, dev_rows, *, expected_seed=42):
+    # Shared receipt/40-epoch/prediction validation; selection scope is explicit.
+    full = plan.get("stage") == "r02_encoder_comparison"
+    scope = "full_train_dev" if full else "resolution_pilot"
     output = Path(job["run_dir"])
     evaluation = Path(command_value(job["commands"][1], "--output"))
     row = dict(name=job["name"], experiment="R02", run_id=output.name, status="not_started",
-               scope="resolution_pilot", training_commit=plan["code"]["commit"], run_dir=str(output),
+               scope=scope, training_commit=plan["code"]["commit"], run_dir=str(output),
                evaluation_dir=str(evaluation), log=job["log_path"], metrics=None)
     try:
         run, status = optional(output / "run.json"), optional(output / "status.json")
@@ -57,15 +60,17 @@ def inspect_run(plan, job, train_rows, dev_rows, *, expected_seed=42):
                 and config.get("early_stopping") is False, "Changed pilot budget/batch/seed/stopping policy")
         require(read_json(job["config_path"]) == config and sha256(job["config_path"]) == plan["config_hashes"][job["name"]],
                 "Actual configuration differs from fixed plan")
-        require(run["scope"] == receipt["scope"] == "resolution_pilot" and contract["execution"] ==
-                dict(smoke=False, max_batches=0, scope="resolution_pilot", scene_selection_identity=plan["selection"]["identity"]),
+        execution = dict(smoke=False, max_batches=0)
+        if not full:
+            execution.update(scope="resolution_pilot", scene_selection_identity=plan["selection"]["identity"])
+        require(run["scope"] == receipt["scope"] == scope and contract["execution"] == execution,
                 "Pilot scope/selection mismatch")
         require(not any(run["runtime"].get(k, 0) for k in ("limit_scenes", "limit_windows", "max_batches")),
                 "Pilot cannot use additional unregistered subset limits")
         require(contract["config"] == config and object_hash(contract) == run["contract_hash"], "Training contract mismatch")
         data = contract["data"]
         require(data["dataset_sha256"] == plan["manifest_sha256"] and data["label"] == LABEL_CONTRACT
-                and data.get("features") is None and data["scene_selection"] == plan["selection"], "Pilot data identity mismatch")
+                and data.get("features") is None and data.get("scene_selection") == plan.get("selection"), "Data identity mismatch")
         require(Path(data["flow_root"]).resolve() == Path(command_value(job["commands"][0], "--flow")).resolve(),
                 "Actual flow root differs from launch command")
         validate_expected_flow(config, data)
@@ -148,6 +153,7 @@ def inspect_run(plan, job, train_rows, dev_rows, *, expected_seed=42):
                    epoch_order_sha256=orders, trainable_parameters=run["trainable_parameters"],
                    processed_batches=last["processed_batches"], optimizer_updates=last["optimizer_updates"], amp_skips=last["amp_skips"],
                    elapsed_seconds=status["elapsed_seconds"], common_config_identity=object_hash({k: v for k, v in config.items() if k != "expected_flow"}),
+                   cuda_peak_allocated_bytes=status.get("cuda_peak_allocated_bytes"),
                    packed_bytes=sum((pack_path.parent / a["file"]).stat().st_size for a in pack["arrays"].values()))
         row["computation"] = computation_identity(plan["code_root"])
     except Exception as error:
