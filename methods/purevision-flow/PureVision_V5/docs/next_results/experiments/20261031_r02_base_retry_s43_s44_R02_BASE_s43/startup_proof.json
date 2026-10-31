@@ -1,0 +1,13 @@
+{
+  "schema": "v5_startup_proof_v1",
+  "run_id": "20261031_r02_base_retry_s43_s44_R02_BASE_s43",
+  "plan_identity": "ec02c3cef4309b610dcd4c825bc8c236341eabd05484a9cf195a7d00d490f5e8",
+  "expected_commit": "7857976ace26707923bae5a0e8e7f9d4bb1067ee",
+  "updated_at": "2026-10-31T06:56:14.201103+00:00",
+  "errors": [],
+  "raw_job_status": "queued",
+  "effective_observation_path": null,
+  "job_status": "queued",
+  "training_status": null,
+  "status": "pending_run"
+}

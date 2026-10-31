@@ -1,0 +1,114 @@
+{
+  "time": "2026-10-31T06:56:12.857278+00:00",
+  "status": "light_startup_confirmed_schedules_installed_pending_actual_trigger",
+  "plan_identity": "ec02c3cef4309b610dcd4c825bc8c236341eabd05484a9cf195a7d00d490f5e8",
+  "plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_retry_s43_s44/plan.json",
+  "code": {
+    "commit": "7857976ace26707923bae5a0e8e7f9d4bb1067ee",
+    "dirty": false,
+    "verified_remote_commit": "7857976ace26707923bae5a0e8e7f9d4bb1067ee"
+  },
+  "retained_FLEX_commit": "ace7519f8277026982cc843c4a95932ee64eeabc",
+  "stopped_operations": [
+    {
+      "pid": 3610932,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/ace7519f8277/methods/purevision-flow/PureVision_V5/encoder_multiseed.py",
+        "--root",
+        "/home/zhangyu/.local/share/speedest-v5-next",
+        "--source-plan",
+        "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s42/plan.json",
+        "--run-prefix",
+        "20261031_r02_base_flex_s43_s44"
+      ],
+      "reason": "operations-only handoff; training workers untouched"
+    },
+    {
+      "pid": 3612377,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/ace7519f8277/methods/purevision-flow/PureVision_V5/encoder_lifecycle.py",
+        "--plan",
+        "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_flex_s43_s44/plan.json",
+        "--publisher-command",
+        "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_20261031_r02_base_flex_s43_s44.json"
+      ],
+      "reason": "operations-only handoff; training workers untouched"
+    }
+  ],
+  "coordinator_command": [
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/7857976ace26/methods/purevision-flow/PureVision_V5/scripts/secure_exec.py",
+    "--network",
+    "/home/zhangyu/.local/share/speedest-v5-next/monitoring/network.json",
+    "--",
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "-c",
+    "import sys,time\nfrom pathlib import Path\nfrom pipeline import lock,tick,validate_plan\nfrom encoder_multiseed import validate_inputs\nfrom purevision_v5.common import read_json,code_version\npath=Path(sys.argv[1]);plan=read_json(path);validate_plan(plan);validate_inputs(plan)\nversion=code_version()\nassert not version['dirty'] and version['commit']==plan['code']['commit']==plan['code']['verified_remote_commit']\nwith lock(Path(plan['root'])/'pipeline/coordinator.lock'):\n while True:\n  done,launched=tick(plan,path)\n  if launched:print(dict(launched=launched),flush=True)\n  if done:break\n  time.sleep(10)\n",
+    "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_retry_s43_s44/plan.json"
+  ],
+  "lifecycle_command": [
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/7857976ace26/methods/purevision-flow/PureVision_V5/encoder_lifecycle.py",
+    "--plan",
+    "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261031_r02_base_retry_s43_s44/plan.json",
+    "--publisher-command",
+    "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_20261031_r02_base_retry_s43_s44.json"
+  ],
+  "server_astra_schedule": {
+    "installed_at": "2026-10-31T06:56:12.835541+00:00",
+    "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/7857976ace26/methods/purevision-flow/PureVision_V5",
+    "commit": "7857976ace26707923bae5a0e8e7f9d4bb1067ee",
+    "probe": false,
+    "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T065612.831826Z.txt",
+    "lines": [
+      "*/5 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/7857976ace26/methods/purevision-flow/PureVision_V5/scripts/server_check.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_SERVER",
+      "*/30 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/7857976ace26/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ASTRA"
+    ],
+    "status": "installed_pending_observed_trigger",
+    "model": "gpt-6-astra"
+  },
+  "probe_schedule": {
+    "installed_at": "2026-10-31T06:56:12.843568+00:00",
+    "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/7857976ace26/methods/purevision-flow/PureVision_V5",
+    "commit": "probe_external_snapshot",
+    "probe": true,
+    "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T065612.837683Z.txt",
+    "lines": [
+      "* * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/7857976ace26/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next cron_probe >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PROBE"
+    ],
+    "status": "installed_pending_observed_trigger",
+    "model": "gpt-6-astra"
+  },
+  "publisher_schedule": {
+    "installed_at": "2026-10-31T06:56:12.803561+00:00",
+    "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/7857976ace26/methods/purevision-flow/PureVision_V5",
+    "commit": "7857976ace26707923bae5a0e8e7f9d4bb1067ee",
+    "lines": [
+      "17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/7857976ace26/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_20261031_r02_base_retry_s43_s44.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER"
+    ],
+    "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261031T065612.798281Z.txt",
+    "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_20261031_r02_base_retry_s43_s44.json",
+    "status": "installed_pending_observed_trigger"
+  },
+  "remote_verification": {
+    "commit": "7857976ace26707923bae5a0e8e7f9d4bb1067ee",
+    "branch_and_tag_observed_in_successful_atomic_push": true,
+    "redundant_later_request": "timed_out_not_reported_as_success",
+    "receipt_policy": "reuse actual observed push receipt for coordinator; each new formal trainer independently rechecks remote"
+  },
+  "new_base_runs": [
+    "20261031_r02_base_retry_s43_s44_R02_BASE_s43",
+    "20261031_r02_base_retry_s43_s44_R02_BASE_s44"
+  ],
+  "retained_flex_runs": [
+    "20261031_r02_base_flex_s43_s44_R02_FLEX_s43",
+    "20261031_r02_base_flex_s43_s44_R02_FLEX_s44"
+  ]
+}
