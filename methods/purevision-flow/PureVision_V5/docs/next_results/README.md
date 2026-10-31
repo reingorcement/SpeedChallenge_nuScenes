@@ -4,9 +4,9 @@
 
 | run ID | 阶段作业 | 状态 | 代码 commit | 光流已处理/总数 | dev EPE |
 |---|---|---|---|---|---|
-| 20261031_r02_base_flex_s42_R02_BASE | R02_BASE | running | `a847938681d60ae86e0e293e24ffa7d2e74e20a9` | — | — |
-| 20261031_r02_base_flex_s42_R02_FLEX | R02_FLEX | running | `a847938681d60ae86e0e293e24ffa7d2e74e20a9` | — | — |
-| 20261031_r02_base_flex_s42_compare | compare | queued | `a847938681d60ae86e0e293e24ffa7d2e74e20a9` | —/— | — |
+| 20261031_r02_base_flex_s42_R02_BASE | R02_BASE | completed | `a847938681d60ae86e0e293e24ffa7d2e74e20a9` | — | 0.21514150947435656 |
+| 20261031_r02_base_flex_s42_R02_FLEX | R02_FLEX | completed | `a847938681d60ae86e0e293e24ffa7d2e74e20a9` | — | 0.19162981273705193 |
+| 20261031_r02_base_flex_s42_compare | compare | completed | `a847938681d60ae86e0e293e24ffa7d2e74e20a9` | —/— | — |
 
 训练作业目录包含实际配置、完整 epoch JSONL、状态与可用的 dev 评价；非训练作业包含 worker 状态及已生成的 progress_report.json。原始大日志、数据/光流和权重不上传。
 `source_index.json` 记录所读文件与摘要；`status.json` 记录 checkpoint 哈希和预测公开形式。
