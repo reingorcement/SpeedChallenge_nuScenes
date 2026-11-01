@@ -1,0 +1,119 @@
+{
+  "schema": "v5_fusion_grid_run_v1",
+  "run_id": "20261102_0118_fusion_review_s43_s44_S46_s43",
+  "group": "S46",
+  "status": "running",
+  "started_at": "2026-11-01T17:32:25.220797+00:00",
+  "code": {
+    "commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+    "dirty": false,
+    "verified_remote_commit": "c8c2370271312c654200a169d10f55bd0a76cc54"
+  },
+  "contract": {
+    "config": {
+      "schema": "v5_fusion_grid_config_v1",
+      "seed": 43,
+      "epochs": 20,
+      "batch_size": 64,
+      "drop_last": false,
+      "amp": false,
+      "tf32": false,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "optimizer_eps": 1e-08,
+      "grad_clip": 2,
+      "scheduler_epochs": 20,
+      "eta_min": 0,
+      "loss_scales_m_s": [
+        5,
+        1
+      ],
+      "loss_beta": 1,
+      "early_stopping": false,
+      "group": "S46"
+    },
+    "cache_identity": "64f44fd957a8bc4d3d14605c410d5a7093daa05315d65bb501cb1c986025ed55",
+    "actual_sample_identity": {
+      "train_core": "ac023c4b8ef2137427f8cba3015a6287d0cda3e4ce560b624b89879f472f61d6",
+      "dev": "2989b6bbf5c7e7fa7a9be88314a61c47c3f2dab8e05eb810a7b5b011a8b658de"
+    },
+    "scope": "frozen_fusion_grid_pilot",
+    "preflight_samples": null,
+    "output_units": "m/s",
+    "task": "PLANAR_PROXY",
+    "encoder_training": false,
+    "epoch_order_policy": "torch.randperm(cpu_generator(seed+zero_based_epoch)); historical unchanged"
+  },
+  "contract_hash": "e5c95f1a82151ed6deceff7afb8c5505a160fdd6a52bf18abae3ee1068de9fbd",
+  "environment": {
+    "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+    "executable": "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "hostname": "ps",
+    "cuda_visible_devices": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+    "gpu": [
+      "NVIDIA GeForce RTX 5090"
+    ]
+  },
+  "runtime_gpu": {
+    "process_device": "cuda:0",
+    "cuda_visible_devices": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+    "physical_index": 2,
+    "uuid": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+    "name": "NVIDIA GeForce RTX 5090"
+  },
+  "environment_difference": {},
+  "resume_trajectory_claim": "same protocol; cross-device/software restoration is not claimed bitwise identical",
+  "initialization": {
+    "policy": "historical_build_triplet_C_then_explicit_six_group_copy_v1",
+    "state_sha256": "87321a933ecd193eb3aaadc8e1119516dcca7d6c6ea0fb00bdebcbd6bec83c08",
+    "common_modules_sha256": {
+      "layers": "455487f319d32b8d38a7657d7fac1024a64898f256929f19d0e433356229fc33",
+      "head": "0b407ae5618f7c18804812284c11629960c0b3b556738d56031fb72723f1b0ce"
+    },
+    "seed": 43
+  },
+  "trainable_parameters": 101570,
+  "train_count": 7324,
+  "dev_count": 1826,
+  "arithmetic": {
+    "dtype": "float32",
+    "amp": false,
+    "tf32": false,
+    "gradient_accumulation": 1
+  },
+  "encoder_training": false,
+  "cache_placement": {
+    "train_core": {
+      "mode": "gpu_resident",
+      "bytes": 813901472,
+      "available_gpu_bytes_at_load": 33101447168,
+      "reserved_workspace_bytes": 2147483648
+    },
+    "dev": {
+      "mode": "gpu_resident",
+      "bytes": 202919728,
+      "available_gpu_bytes_at_load": 32266780672,
+      "reserved_workspace_bytes": 2147483648
+    }
+  },
+  "command": {
+    "config": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S46_s43.json",
+    "cache": "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+    "output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s43",
+    "device": "cuda:0",
+    "threads": 4,
+    "resume": null,
+    "preflight": false,
+    "preflight_samples": 64
+  },
+  "parent_run": null,
+  "discarded_attempts": [],
+  "recovery_boundary": "completed_epoch_only"
+}

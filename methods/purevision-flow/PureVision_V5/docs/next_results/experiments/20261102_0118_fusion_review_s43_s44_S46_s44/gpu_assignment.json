@@ -1,0 +1,12 @@
+{
+  "plan_identity": "0e8f91578800d3cd5aaf14c3d49fe5f6191ea7d6aa234cfdc4632a1cd1195c6f",
+  "job_id": "20261102_0118_fusion_review_s43_s44_S46_s44",
+  "physical_gpu": {
+    "index": 0,
+    "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+    "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+  },
+  "assigned_at": "2026-11-01T17:32:23.818999+00:00",
+  "attempt": 1,
+  "identity": "c64863241a2d106c9a138ebd0bb51d0dcb92bd7c659723d0b5b1925c897f1968"
+}
