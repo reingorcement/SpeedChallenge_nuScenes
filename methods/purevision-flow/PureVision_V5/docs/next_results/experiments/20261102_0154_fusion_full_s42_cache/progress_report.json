@@ -1,12 +1,12 @@
 {
-  "status": "running",
+  "status": "completed",
   "scope": "full",
-  "phase": "train_core",
-  "updated_at": "2026-11-01T18:16:44.993768+00:00",
-  "completed": 16384,
+  "phase": "validated_complete",
+  "updated_at": "2026-11-01T18:46:20.009763+00:00",
+  "completed": 156458,
   "total": 156458,
   "reused_windows": 0,
-  "elapsed_seconds": 230.56596812186763,
+  "elapsed_seconds": 2005.5819917640183,
   "code": {
     "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
     "dirty": false,
@@ -21,5 +21,5 @@
   },
   "extraction_batch_size": 32,
   "cuda_peak_allocated_bytes": 12529750528,
-  "cuda_peak_reserved_bytes": 17490247680
+  "cuda_peak_reserved_bytes": 17492344832
 }

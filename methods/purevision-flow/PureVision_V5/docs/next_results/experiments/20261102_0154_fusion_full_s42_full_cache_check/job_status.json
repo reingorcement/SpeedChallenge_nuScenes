@@ -1,6 +1,27 @@
 {
-  "status": "queued",
-  "updated_at": "2026-11-01T18:10:27.762384+00:00",
-  "launch_count": 0,
-  "reason": null
+  "status": "completed",
+  "updated_at": "2026-11-01T18:46:57.813741+00:00",
+  "launch_count": 1,
+  "reason": null,
+  "launched_at_epoch": 1793558786.5771084,
+  "pid": 195714,
+  "pid_start_ticks": 107370207,
+  "started_at": "2026-11-01T18:46:27.761953+00:00",
+  "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+  "phase": "verification",
+  "command_index": 0,
+  "command": [
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0154_fusion_full_s42_bc9a3d8/methods/purevision-flow/PureVision_V5/verify_fusion_full_training.py",
+    "--cache",
+    "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+    "--output",
+    "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_full_20261102/full_cache_training_receipt.json",
+    "--cache-check-only"
+  ],
+  "child_pid": 195782,
+  "child_pid_start_ticks": 107370328,
+  "exit_code": 0,
+  "finished_at": "2026-11-01T18:46:57.813711+00:00"
 }

@@ -1,6 +1,24 @@
 {
-  "status": "queued",
-  "updated_at": "2026-11-01T18:10:27.765669+00:00",
-  "launch_count": 0,
-  "reason": null
+  "status": "running",
+  "updated_at": "2026-11-01T18:46:59.471634+00:00",
+  "launch_count": 1,
+  "reason": null,
+  "launched_at_epoch": 1793558818.239598,
+  "pid": 195937,
+  "pid_start_ticks": 107373374,
+  "started_at": "2026-11-01T18:46:59.440051+00:00",
+  "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+  "phase": "publication",
+  "command_index": 0,
+  "command": [
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0154_fusion_full_s42_bc9a3d8/methods/purevision-flow/PureVision_V5/fusion_full_pipeline.py",
+    "--plan",
+    "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0154_fusion_full_s42/plan.json",
+    "--publish-ready",
+    "train"
+  ],
+  "child_pid": 196007,
+  "child_pid_start_ticks": 107373496
 }

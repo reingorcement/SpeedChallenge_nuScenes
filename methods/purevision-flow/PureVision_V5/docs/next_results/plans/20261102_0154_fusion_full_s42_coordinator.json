@@ -1,6 +1,6 @@
 {
   "status": "running",
-  "updated_at": "2026-11-01T18:17:03.824689+00:00",
+  "updated_at": "2026-11-01T18:47:01.416143+00:00",
   "plan_identity": "73a89056adad883d51b33d6b2fb8dc59d048e8ba248cfe409a180536bef72390",
   "code": {
     "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
@@ -9,8 +9,8 @@
   },
   "jobs": {
     "cache": {
-      "status": "running",
-      "updated_at": "2026-11-01T18:17:03.331641+00:00",
+      "status": "completed",
+      "updated_at": "2026-11-01T18:46:23.815692+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793556771.7912009,
@@ -54,22 +54,63 @@
       ],
       "child_pid": 188877,
       "child_pid_start_ticks": 107168874,
-      "completed": 16384,
+      "completed": 156458,
       "total": 156458,
-      "elapsed_seconds": 230.56596812186763,
-      "cuda_peak_allocated_bytes": 12529750528
+      "elapsed_seconds": 2005.5819917640183,
+      "cuda_peak_allocated_bytes": 12529750528,
+      "exit_code": 0,
+      "finished_at": "2026-11-01T18:46:23.815640+00:00"
     },
     "full_cache_check": {
-      "status": "queued",
-      "updated_at": "2026-11-01T18:10:27.762384+00:00",
-      "launch_count": 0,
-      "reason": null
+      "status": "completed",
+      "updated_at": "2026-11-01T18:46:57.813741+00:00",
+      "launch_count": 1,
+      "reason": null,
+      "launched_at_epoch": 1793558786.5771084,
+      "pid": 195714,
+      "pid_start_ticks": 107370207,
+      "started_at": "2026-11-01T18:46:27.761953+00:00",
+      "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+      "phase": "verification",
+      "command_index": 0,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0154_fusion_full_s42_bc9a3d8/methods/purevision-flow/PureVision_V5/verify_fusion_full_training.py",
+        "--cache",
+        "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+        "--output",
+        "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_full_20261102/full_cache_training_receipt.json",
+        "--cache-check-only"
+      ],
+      "child_pid": 195782,
+      "child_pid_start_ticks": 107370328,
+      "exit_code": 0,
+      "finished_at": "2026-11-01T18:46:57.813711+00:00"
     },
     "publish_train": {
-      "status": "queued",
-      "updated_at": "2026-11-01T18:10:27.765669+00:00",
-      "launch_count": 0,
-      "reason": null
+      "status": "running",
+      "updated_at": "2026-11-01T18:46:59.471634+00:00",
+      "launch_count": 1,
+      "reason": null,
+      "launched_at_epoch": 1793558818.239598,
+      "pid": 195937,
+      "pid_start_ticks": 107373374,
+      "started_at": "2026-11-01T18:46:59.440051+00:00",
+      "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+      "phase": "publication",
+      "command_index": 0,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0154_fusion_full_s42_bc9a3d8/methods/purevision-flow/PureVision_V5/fusion_full_pipeline.py",
+        "--plan",
+        "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0154_fusion_full_s42/plan.json",
+        "--publish-ready",
+        "train"
+      ],
+      "child_pid": 196007,
+      "child_pid_start_ticks": 107373496
     },
     "S23": {
       "status": "queued",

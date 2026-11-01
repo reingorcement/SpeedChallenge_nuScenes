@@ -1,0 +1,15 @@
+正常，无新增里程碑。指定命令成功，9 项目标工件均有读取成功收据。
+
+实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+- `monitoring/astra/20261101T183001Z_192322.{request,snapshot}.json`
+- `monitoring/publication.json`
+- `pipeline/20261102_0154_fusion_full_s42/jobs/{cache,full_cache_check,publish_train,S23,J23,F23}.json`
+- `fusion_full_cache/20261102_0154_fusion_full_s42/status.json`；另统计其 `shards/` 文件元数据。
+
+宿主确定性检查：02:30:01 快照确认目标 cache 主/子进程身份正确且存活；GPU0 利用率 100%，显存 17409/97887 MiB，85°C。实际缓存设备为 66309，对应宿主磁盘剩余 955.4 GB，无低空间告警。
+
+本次 AI 诊断：目标 `20261102_0154_fusion_full_s42_cache` 正在运行，完成 77,824/156,458 个窗口（49.74%），平均约 78.5 窗口/秒；报告更新于北京时间 02:29:26，快照时仅滞后 35 秒。reused=0；created/recovered/adopted 未提供，保留待核实。缓存分片逻辑大小实测 2,330,595,227 字节。commit 与请求一致，日志异常摘要为空。
+
+后续校验、发布及 S23/J23/F23 均排队、启动次数为 0；PID unknown 保留待核实，不判终止。训练步数、验证指标和 checkpoint 尚无；worker/DAG 未完成。人工定位可沿上述进度报告及 jobs 状态核对缺失计数，无需干预。全程未修改任何状态或文件。
+
+ASTRA_PATROL_OK
