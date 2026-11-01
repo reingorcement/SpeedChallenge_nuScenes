@@ -788,8 +788,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0154_fusion_full_s42/status.json",
-      "source_sha256": "fffa542127aa27f564da5eebd756630339176d3c52f21076a5fe8f3322a1d11d",
-      "bytes": 9578,
+      "source_sha256": "d6a655d865ce0f0807374ffd5481b9464723409d9325adb7552afab43fae885e",
+      "bytes": 9662,
       "representation": "parsed_json"
     },
     {
@@ -841,6 +841,12 @@
       "representation": "original_text"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/dev_epe_epochs.svg",
+      "source_sha256": "b1ffb1d9edddade364bdab90a1dab9690ba0731b77d033ae6070d97a14b1b800",
+      "bytes": 14636,
+      "representation": "original_text"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/focus_scene_sensitivity.csv",
       "source_sha256": "b3bb339de965123545f828405492747a5b3a761b03908cceafd5b596a1a697ae",
       "bytes": 6755,
@@ -878,7 +884,7 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/summary.json",
-      "source_sha256": "fd28b9531428073d22f614f501a354198078941546d6b7d1e63f8ea63fb5d97d",
+      "source_sha256": "ff3e31747fc1f27b49f4de06f2d7f7cd3dcdb36707fb172d10a9e9eafec87a66",
       "bytes": 2721147,
       "representation": "parsed_json"
     },
@@ -2265,6 +2271,11 @@
       "bytes": 1839
     },
     {
+      "path": "fusion_full/20261102_0154_fusion_full_s42/reports/dev_epe_epochs.svg",
+      "export_sha256": "b1ffb1d9edddade364bdab90a1dab9690ba0731b77d033ae6070d97a14b1b800",
+      "bytes": 14636
+    },
+    {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/focus_scene_sensitivity.csv",
       "export_sha256": "b3bb339de965123545f828405492747a5b3a761b03908cceafd5b596a1a697ae",
       "bytes": 6755
@@ -2296,7 +2307,7 @@
     },
     {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/summary.json",
-      "export_sha256": "fd28b9531428073d22f614f501a354198078941546d6b7d1e63f8ea63fb5d97d",
+      "export_sha256": "ff3e31747fc1f27b49f4de06f2d7f7cd3dcdb36707fb172d10a9e9eafec87a66",
       "bytes": 2721147
     },
     {
@@ -2356,8 +2367,8 @@
     },
     {
       "path": "plans/20261102_0154_fusion_full_s42_coordinator.json",
-      "export_sha256": "fffa542127aa27f564da5eebd756630339176d3c52f21076a5fe8f3322a1d11d",
-      "bytes": 9578
+      "export_sha256": "d6a655d865ce0f0807374ffd5481b9464723409d9325adb7552afab43fae885e",
+      "bytes": 9662
     },
     {
       "path": "status.json",
