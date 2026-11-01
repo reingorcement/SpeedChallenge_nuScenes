@@ -121,6 +121,12 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/20261102_0118_fusion_review_s43_s44_completion.json",
+      "source_sha256": "a369abaa3730e967ba92e1f6f74e7e3772c1d2de1c55899e42843a8d907ecbcc",
+      "bytes": 696,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/20261102_0118_fusion_review_s43_s44_formal_seed_checks.json",
       "source_sha256": "889e737c3e995e1e1deaf91901f20e2771dcb612fd24cce27b5d62eddabe3f1d",
       "bytes": 3282,
@@ -160,6 +166,12 @@
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/20261102_0118_fusion_review_s43_s44_startup.json",
       "source_sha256": "55e39cafd7db8332f6e08c4887823fc02dd1ab64333754fa9fc17cebd06c4999",
       "bytes": 2956,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/20261102_0118_fusion_review_s43_s44_transport_verification.json",
+      "source_sha256": "78e31e7b8f74828b50acb95770ba510e835d82aeb538109e6fb899897c7d651b",
+      "bytes": 1531,
       "representation": "parsed_json"
     },
     {
@@ -722,8 +734,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "9993e2f1c7058df48f88b0b5ab10accf48d327f32fc6424c8226fd28f27af4cb",
-      "bytes": 135110,
+      "source_sha256": "d2333205f56b46602b553a189e9ae47a1f9e3140f26c2c1ce00b177a6f59822f",
+      "bytes": 135107,
       "representation": "parsed_json"
     },
     {
@@ -2002,6 +2014,11 @@
       "bytes": 2749
     },
     {
+      "path": "evidence/20261102_0118_fusion_review_s43_s44_completion.json",
+      "export_sha256": "a369abaa3730e967ba92e1f6f74e7e3772c1d2de1c55899e42843a8d907ecbcc",
+      "bytes": 696
+    },
+    {
       "path": "evidence/20261102_0118_fusion_review_s43_s44_formal_seed_checks.json",
       "export_sha256": "889e737c3e995e1e1deaf91901f20e2771dcb612fd24cce27b5d62eddabe3f1d",
       "bytes": 3282
@@ -2035,6 +2052,11 @@
       "path": "evidence/20261102_0118_fusion_review_s43_s44_startup.json",
       "export_sha256": "55e39cafd7db8332f6e08c4887823fc02dd1ab64333754fa9fc17cebd06c4999",
       "bytes": 2956
+    },
+    {
+      "path": "evidence/20261102_0118_fusion_review_s43_s44_transport_verification.json",
+      "export_sha256": "78e31e7b8f74828b50acb95770ba510e835d82aeb538109e6fb899897c7d651b",
+      "bytes": 1531
     },
     {
       "path": "evidence/completion_watcher_fix_20261030_full_nuscenes_front1024.json",
@@ -3263,8 +3285,8 @@
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "9993e2f1c7058df48f88b0b5ab10accf48d327f32fc6424c8226fd28f27af4cb",
-      "bytes": 135110
+      "export_sha256": "d2333205f56b46602b553a189e9ae47a1f9e3140f26c2c1ce00b177a6f59822f",
+      "bytes": 135107
     },
     {
       "path": "monitoring/patrols/20261101T170001Z_172699.txt",
