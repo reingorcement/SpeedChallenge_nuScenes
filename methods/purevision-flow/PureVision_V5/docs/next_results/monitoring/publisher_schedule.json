@@ -1,11 +1,11 @@
 {
-  "installed_at": "2026-11-01T17:30:57.745953+00:00",
-  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5",
-  "commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+  "installed_at": "2026-11-01T18:11:55.553287+00:00",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0154_fusion_full_s42_bc9a3d8/methods/purevision-flow/PureVision_V5",
+  "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
   "lines": [
-    "17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261102_0118_fusion_review_s43_s44.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER"
+    "17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261102_0154_fusion_full_s42_bc9a3d8/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261102_0154_fusion_full_s42.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER"
   ],
-  "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261101T173057.740894Z.txt",
-  "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261102_0118_fusion_review_s43_s44.json",
+  "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261101T181155.548596Z.txt",
+  "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261102_0154_fusion_full_s42.json",
   "status": "installed_pending_observed_trigger"
 }

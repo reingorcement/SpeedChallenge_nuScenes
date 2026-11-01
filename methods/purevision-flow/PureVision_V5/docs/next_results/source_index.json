@@ -157,6 +157,12 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/20261102_0154_fusion_full_s42_schedule_install.json",
+      "source_sha256": "842a03e3514892b7a7b74908c3b70cfbc14959fca0a2cb340eb6f5d9edf1bc05",
+      "bytes": 2634,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/completion_watcher_fix_20261030_full_nuscenes_front1024.json",
       "source_sha256": "67842ee917ca35f44c9122cb062dd5e0f8026991dc35834c2f0f828a9a6843cc",
       "bytes": 4229,
@@ -698,14 +704,14 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_schedule.json",
-      "source_sha256": "b72be3c8d55138d0cfb37c1f4ec8d6ed2da592d3a7f130e02b8b2f96d377ac6b",
-      "bytes": 1161,
+      "source_sha256": "c2c0e8f1989b2f10f28dbde49de9944ecd97f376f069e7c7b16ef924ffb70dba",
+      "bytes": 1137,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/schedule.json",
-      "source_sha256": "8c5c2169cac342353132bab51b0f098e511f40572ef701a297819293e2265de3",
-      "bytes": 1387,
+      "source_sha256": "7291ad1a1b7bb0eb17b871e33c30081b1a684351ba5695c6140a9c8dba9921c0",
+      "bytes": 1369,
       "representation": "parsed_json"
     },
     {
@@ -1071,6 +1077,11 @@
       "path": "evidence/20261102_0154_fusion_full_s42_pipeline_preflight.json",
       "export_sha256": "ec087512826d3a1c6912a6702b25a5f56003a707d8adb4ad3c866661679f27fc",
       "bytes": 677
+    },
+    {
+      "path": "evidence/20261102_0154_fusion_full_s42_schedule_install.json",
+      "export_sha256": "842a03e3514892b7a7b74908c3b70cfbc14959fca0a2cb340eb6f5d9edf1bc05",
+      "bytes": 2634
     },
     {
       "path": "evidence/completion_watcher_fix_20261030_full_nuscenes_front1024.json",
@@ -1599,13 +1610,13 @@
     },
     {
       "path": "monitoring/publisher_schedule.json",
-      "export_sha256": "b72be3c8d55138d0cfb37c1f4ec8d6ed2da592d3a7f130e02b8b2f96d377ac6b",
-      "bytes": 1161
+      "export_sha256": "c2c0e8f1989b2f10f28dbde49de9944ecd97f376f069e7c7b16ef924ffb70dba",
+      "bytes": 1137
     },
     {
       "path": "monitoring/schedule.json",
-      "export_sha256": "8c5c2169cac342353132bab51b0f098e511f40572ef701a297819293e2265de3",
-      "bytes": 1387
+      "export_sha256": "7291ad1a1b7bb0eb17b871e33c30081b1a684351ba5695c6140a9c8dba9921c0",
+      "bytes": 1369
     },
     {
       "path": "plans/20261102_0154_fusion_full_s42.json",
