@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "time": "2026-11-01T17:19:11.523351+00:00",
+  "prefix": "20261102_0118_fusion_review_s43_s44",
+  "baseline_plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/plan.json",
+  "baseline_plan_sha256": "6dc9335899d720792dfbd87e5523e925c4765c9f88dc24bce11087a12cd81717",
+  "baseline_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+  "baseline_results_commit": "f06881434b93c044d3241b0fbe2831be785c802a",
+  "baseline_jobs": {
+    "cache46": "completed",
+    "publish46": "completed",
+    "J23": "completed",
+    "S23": "completed",
+    "S46": "completed",
+    "J46": "completed",
+    "F23": "completed",
+    "R23": "completed",
+    "dual_summary": "completed",
+    "compare": "completed"
+  },
+  "authorized_runs": [
+    {
+      "group": "S23",
+      "seed": 43,
+      "run_id": "20261102_0118_fusion_review_s43_s44_S23_s43"
+    },
+    {
+      "group": "J23",
+      "seed": 43,
+      "run_id": "20261102_0118_fusion_review_s43_s44_J23_s43"
+    },
+    {
+      "group": "F23",
+      "seed": 43,
+      "run_id": "20261102_0118_fusion_review_s43_s44_F23_s43"
+    },
+    {
+      "group": "S46",
+      "seed": 43,
+      "run_id": "20261102_0118_fusion_review_s43_s44_S46_s43"
+    },
+    {
+      "group": "S23",
+      "seed": 44,
+      "run_id": "20261102_0118_fusion_review_s43_s44_S23_s44"
+    },
+    {
+      "group": "J23",
+      "seed": 44,
+      "run_id": "20261102_0118_fusion_review_s43_s44_J23_s44"
+    },
+    {
+      "group": "F23",
+      "seed": 44,
+      "run_id": "20261102_0118_fusion_review_s43_s44_F23_s44"
+    },
+    {
+      "group": "S46",
+      "seed": 44,
+      "run_id": "20261102_0118_fusion_review_s43_s44_S46_s44"
+    }
+  ],
+  "scope": {
+    "train_scenes": 32,
+    "dev_scenes": 8,
+    "train_windows": 7324,
+    "dev_windows": 1826,
+    "epochs": 20,
+    "updates": 2300,
+    "cache_extraction": false,
+    "full_dataset_training": false,
+    "freeze_source_sha256": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8"
+  },
+  "gpu_compute_processes": ""
+}

@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "planned_config_exports": 8,
+  "unique_runs": 8,
+  "no_formal_output_exists": true,
+  "plan_sha256": "a4f4527dd35ba4372301fccbb59cc0dd1bf64841601dbf4c494080e352f0aee7",
+  "code": {
+    "commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+    "dirty": false,
+    "verified_remote_commit": "c8c2370271312c654200a169d10f55bd0a76cc54"
+  },
+  "public_source_export_count": 151
+}

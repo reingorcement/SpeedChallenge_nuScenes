@@ -1,0 +1,515 @@
+{
+  "schema": "v5_pipeline_v1",
+  "stage": "frozen_fusion_seed_review",
+  "prefix": "20261102_0118_fusion_review_s43_s44",
+  "root": "/home/zhangyu/.local/share/speedest-v5-next",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5",
+  "python": "/home/zhangyu/.conda/envs/speedest/bin/python",
+  "code": {
+    "commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+    "dirty": false,
+    "verified_remote_commit": "c8c2370271312c654200a169d10f55bd0a76cc54"
+  },
+  "code_commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+  "jobs": [
+    {
+      "name": "S23_s43",
+      "job_id": "20261102_0118_fusion_review_s43_s44_S23_s43",
+      "kind": "training",
+      "group": "S23",
+      "seed": 43,
+      "device": null,
+      "physical_gpu": null,
+      "allowed_gpu_indices": [
+        0,
+        1,
+        2
+      ],
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S23_s43.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s43",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S23_s43.json",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+      "session": "v5seed_20261102_0118_fusion_review_s43_s44_S23_s43",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0118_fusion_review_s43_s44_S23_s43.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0118_fusion_review_s43_s44/jobs/S23_s43.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s43",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s43/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s43",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s43/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s43/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s43/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ]
+    },
+    {
+      "name": "J23_s43",
+      "job_id": "20261102_0118_fusion_review_s43_s44_J23_s43",
+      "kind": "training",
+      "group": "J23",
+      "seed": 43,
+      "device": null,
+      "physical_gpu": null,
+      "allowed_gpu_indices": [
+        0,
+        1,
+        2
+      ],
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J23_s43.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s43",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J23_s43.json",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+      "session": "v5seed_20261102_0118_fusion_review_s43_s44_J23_s43",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0118_fusion_review_s43_s44_J23_s43.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0118_fusion_review_s43_s44/jobs/J23_s43.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s43",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s43/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s43",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s43/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s43/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s43/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ]
+    },
+    {
+      "name": "F23_s43",
+      "job_id": "20261102_0118_fusion_review_s43_s44_F23_s43",
+      "kind": "training",
+      "group": "F23",
+      "seed": 43,
+      "device": null,
+      "physical_gpu": null,
+      "allowed_gpu_indices": [
+        0,
+        1,
+        2
+      ],
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_F23_s43.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s43",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_F23_s43.json",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+      "session": "v5seed_20261102_0118_fusion_review_s43_s44_F23_s43",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0118_fusion_review_s43_s44_F23_s43.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0118_fusion_review_s43_s44/jobs/F23_s43.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s43",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s43/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s43",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s43/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s43/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s43/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ]
+    },
+    {
+      "name": "S23_s44",
+      "job_id": "20261102_0118_fusion_review_s43_s44_S23_s44",
+      "kind": "training",
+      "group": "S23",
+      "seed": 44,
+      "device": null,
+      "physical_gpu": null,
+      "allowed_gpu_indices": [
+        0,
+        1,
+        2
+      ],
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S23_s44.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s44",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S23_s44.json",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+      "session": "v5seed_20261102_0118_fusion_review_s43_s44_S23_s44",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0118_fusion_review_s43_s44_S23_s44.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0118_fusion_review_s43_s44/jobs/S23_s44.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s44",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s44/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s44",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s44/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s44/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s44/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ]
+    },
+    {
+      "name": "J23_s44",
+      "job_id": "20261102_0118_fusion_review_s43_s44_J23_s44",
+      "kind": "training",
+      "group": "J23",
+      "seed": 44,
+      "device": null,
+      "physical_gpu": null,
+      "allowed_gpu_indices": [
+        0,
+        1,
+        2
+      ],
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J23_s44.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s44",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J23_s44.json",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+      "session": "v5seed_20261102_0118_fusion_review_s43_s44_J23_s44",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0118_fusion_review_s43_s44_J23_s44.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0118_fusion_review_s43_s44/jobs/J23_s44.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s44",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s44/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s44",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s44/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s44/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_J23_s44/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ]
+    },
+    {
+      "name": "F23_s44",
+      "job_id": "20261102_0118_fusion_review_s43_s44_F23_s44",
+      "kind": "training",
+      "group": "F23",
+      "seed": 44,
+      "device": null,
+      "physical_gpu": null,
+      "allowed_gpu_indices": [
+        0,
+        1,
+        2
+      ],
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_F23_s44.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s44",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_F23_s44.json",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+      "session": "v5seed_20261102_0118_fusion_review_s43_s44_F23_s44",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0118_fusion_review_s43_s44_F23_s44.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0118_fusion_review_s43_s44/jobs/F23_s44.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s44",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s44/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s44",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s44/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s44/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_F23_s44/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ]
+    },
+    {
+      "name": "S46_s43",
+      "job_id": "20261102_0118_fusion_review_s43_s44_S46_s43",
+      "kind": "training",
+      "group": "S46",
+      "seed": 43,
+      "device": null,
+      "physical_gpu": null,
+      "allowed_gpu_indices": [
+        0,
+        1,
+        2
+      ],
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S46_s43.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s43",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S46_s43.json",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+      "session": "v5seed_20261102_0118_fusion_review_s43_s44_S46_s43",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0118_fusion_review_s43_s44_S46_s43.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0118_fusion_review_s43_s44/jobs/S46_s43.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s43",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s43/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s43",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s43/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s43/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s43/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ]
+    },
+    {
+      "name": "S46_s44",
+      "job_id": "20261102_0118_fusion_review_s43_s44_S46_s44",
+      "kind": "training",
+      "group": "S46",
+      "seed": 44,
+      "device": null,
+      "physical_gpu": null,
+      "allowed_gpu_indices": [
+        0,
+        1,
+        2
+      ],
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S46_s44.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s44",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S46_s44.json",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+      "session": "v5seed_20261102_0118_fusion_review_s43_s44_S46_s44",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0118_fusion_review_s43_s44_S46_s44.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0118_fusion_review_s43_s44/jobs/S46_s44.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s44",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s44/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s44",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s44/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s44/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s44/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ]
+    }
+  ],
+  "baseline_plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/plan.json",
+  "cache23": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+  "cache46": "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+  "verification": "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_multiseed_20261102/seed_receipt.json",
+  "locked_inputs": {
+    "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0118_fusion_review_s43_s44/spec.json": "3a8e69233f587d9ba3258fafb63f1139efa81939b56c16b21f5a824f82ebeac6",
+    "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/plan.json": "6dc9335899d720792dfbd87e5523e925c4765c9f88dc24bce11087a12cd81717",
+    "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_multiseed_20261102/seed_receipt.json": "db11ce11ffc26fdf17f104eb12b652ee80285d5d7b5b4bedb295f18d0e242a07",
+    "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42/index.json": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117",
+    "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42/index.json": "5153fd6b972e14292c87698e126d2b0f7ef500372be51d7ecb53ced222588636",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S23_s43.json": "3091630b2f33a17e7cbeb1264ce307ccfd38e57d4e457ea2758f481cfa755b72",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J23_s43.json": "74b0647280463b0c741f16f5c37c7651510e69a6955cd2e7d64b8f2ef3d4cb49",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_F23_s43.json": "4f76cd05332c5e6eefa63713abb38f14d114d427cc9ec17515c8b532e6da337a",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S23_s44.json": "92fd4125ad88c94bd7ab6bbfef722155a3aaaf7164004d4993478561bf4e37d0",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J23_s44.json": "1eb45bea6edee52371a207a036826d39872ba627f7a146489e9fdca223b26a5b",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_F23_s44.json": "4685754333f42c4bb94696d4b2e03b4aae46c026627e8b0a525a2bf59e37f826",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S46_s43.json": "7339006fe0073a6aa760d0303791c9dbfa775625ff9fa8d59da0e49a29cfcac2",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S46_s44.json": "24f08e42e91980375f5b5378306cdc05066e11b2b52aba62064094622f13ec0b"
+  },
+  "features": null,
+  "features_status": null,
+  "gpu_inventory": {
+    "0": {
+      "index": 0,
+      "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+    },
+    "1": {
+      "index": 1,
+      "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+      "name": "NVIDIA GeForce RTX 5090"
+    },
+    "2": {
+      "index": 2,
+      "uuid": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+      "name": "NVIDIA GeForce RTX 5090"
+    }
+  },
+  "report_root": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_grid_20261102_0118_fusion_review_s43_s44",
+  "completion_report": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_grid_20261102_0118_fusion_review_s43_s44/summary.json",
+  "scheduling": "one training process per free physical GPU; S23/J23/F23 first; S46 prefers GPU0 without waiting",
+  "publication_gate": "/home/zhangyu/.local/share/speedest-v5-next/evidence/20261102_0118_fusion_review_s43_s44_ready.json",
+  "identity": "0e8f91578800d3cd5aaf14c3d49fe5f6191ea7d6aa234cfdc4632a1cd1195c6f"
+}

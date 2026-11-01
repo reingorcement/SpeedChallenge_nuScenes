@@ -1,0 +1,21 @@
+{
+  "created_at": "2026-11-01T17:00:19.330040+00:00",
+  "reference_identity": "209418d597b2065146ddf7bc9c718e296bdeedab98645b7470448c2d238ee4b9",
+  "grid_identity": "64f44fd957a8bc4d3d14605c410d5a7093daa05315d65bb501cb1c986025ed55",
+  "partitions": {
+    "train_core": {
+      "count": 7324,
+      "metadata_exact_equal": true,
+      "labels_exact_equal": true,
+      "dt_exact_equal": true,
+      "ordered_sample_digest": "ac023c4b8ef2137427f8cba3015a6287d0cda3e4ce560b624b89879f472f61d6"
+    },
+    "dev": {
+      "count": 1826,
+      "metadata_exact_equal": true,
+      "labels_exact_equal": true,
+      "dt_exact_equal": true,
+      "ordered_sample_digest": "2989b6bbf5c7e7fa7a9be88314a61c47c3f2dab8e05eb810a7b5b011a8b658de"
+    }
+  }
+}

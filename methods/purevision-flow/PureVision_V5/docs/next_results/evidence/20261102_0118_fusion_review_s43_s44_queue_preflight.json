@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "schema": "v5_fusion_seed_queue_preflight_v1",
+  "created_at": "2026-11-01T17:29:20.624811+00:00",
+  "checks": [
+    "three idle GPUs launch three prioritized groups concurrently",
+    "a released GPU immediately accepts the next queued group",
+    "restart/runtime reobservation preserves active assignments and does not duplicate launches",
+    "terminal duplicate worker returns without demoting state",
+    "external busy GPU is excluded without touching its process",
+    "S46 runs on free 5090 GPUs while GPU0 is occupied",
+    "changed plan publication gate rejected"
+  ],
+  "implementation_sha256": {
+    "purevision_v5/fusion_seed_pipeline.py": "aeab538c966281743a34eef6b2fb942a44963171271142511fcb3f46109d42d7",
+    "run_fusion_seed_pipeline.py": "1daa0a6774faa93138ac1148b64074c4c0dc053097086ca2978e16380a6f8147"
+  },
+  "scope": "fake GPU probe and fake tmux; no training, CUDA initialization, remote writes or schedules",
+  "baseline_plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/plan.json",
+  "source_path": "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_multiseed_20261102/queue_receipt.json",
+  "source_sha256": "b89097505d6f9357fbd4603af1b018ff2a340a2f8d065b5a21e0fda40bd8ee00"
+}
