@@ -577,9 +577,15 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/cleanup_receipt.json",
+      "source_sha256": "742c38d39fdc1f08fb6ea4903ae987571bd4034752f6327026a191ab3ec5e001",
+      "bytes": 3656,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/lifecycle.json",
-      "source_sha256": "ee49465a67b6fbd0146fed670098db9feb02c2b5a77ac9cc83528b112f510be6",
-      "bytes": 8102,
+      "source_sha256": "98325220c57f5ece1482187aeba7436de167fa76742c5757658e3798074f019e",
+      "bytes": 9823,
       "representation": "parsed_json"
     },
     {
@@ -1946,9 +1952,14 @@
       "bytes": 1052156
     },
     {
+      "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/cleanup_receipt.json",
+      "export_sha256": "742c38d39fdc1f08fb6ea4903ae987571bd4034752f6327026a191ab3ec5e001",
+      "bytes": 3656
+    },
+    {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/lifecycle.json",
-      "export_sha256": "ee49465a67b6fbd0146fed670098db9feb02c2b5a77ac9cc83528b112f510be6",
-      "bytes": 8102
+      "export_sha256": "98325220c57f5ece1482187aeba7436de167fa76742c5757658e3798074f019e",
+      "bytes": 9823
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/schedule_install.json",

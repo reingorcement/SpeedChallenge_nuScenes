@@ -1,0 +1,43 @@
+{
+  "status": "completed",
+  "time": "2026-11-01T14:13:54.834783+00:00",
+  "plan_identity": "086250f065229a29989d9b5a3f561780129e28f01145485e452cb44a700d92ce",
+  "run_ids": [
+    "20261101_2129_fusion_abc_s42_cache",
+    "20261101_2129_fusion_abc_s42_A",
+    "20261101_2129_fusion_abc_s42_B",
+    "20261101_2129_fusion_abc_s42_C",
+    "20261101_2129_fusion_abc_s42_compare"
+  ],
+  "all_authorized_budgets_completed": true,
+  "comparison": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_abc_20261101_2129_fusion_abc_s42/summary.json",
+  "final_report_publication": {
+    "report_commit": "65da8ef7184b0693f7b12ce74dd5503261dbe613",
+    "remote_base": "70fd21ca09b38281a781387df59e18fcf43cdcca",
+    "started_at": "2026-11-01T14:13:35.615764+00:00",
+    "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
+    "branch": "results/purevision-v5-next",
+    "status": "published",
+    "trigger": "manual",
+    "plan_identities": [
+      "086250f065229a29989d9b5a3f561780129e28f01145485e452cb44a700d92ce"
+    ],
+    "changed": true,
+    "training_commits": [
+      "8eac695a778ee7bedc40ffe23fc42214c854811b"
+    ],
+    "verified_remote_commit": "65da8ef7184b0693f7b12ce74dd5503261dbe613",
+    "finished_at": "2026-11-01T14:13:54.501607+00:00",
+    "all_terminal": true
+  },
+  "actual_schedule_trigger_verified": true,
+  "schedule_completion_note": "verified current-stage cron probe",
+  "removed_lines": [
+    "*/5 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/scripts/server_check.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_SERVER",
+    "*/30 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ASTRA",
+    "17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_fusion_abc_20261101_2129.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER",
+    "* * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /home/zhangyu/.conda/envs/speedest/bin/python -B /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/fusion_abc_lifecycle.py --plan /home/zhangyu/.local/share/speedest-v5-next/pipeline/20261101_2129_fusion_abc_s42/plan.json --publisher-command /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_fusion_abc_20261101_2129.json --probe >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/probe.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ABC_PROBE_20261101_2129_fusion_abc_s42"
+  ],
+  "remaining_crontab": "\n",
+  "no_budget_extension": true
+}
