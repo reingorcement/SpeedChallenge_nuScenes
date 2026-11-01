@@ -1,0 +1,34 @@
+{
+  "status": "installed_pending_actual_trigger",
+  "installed_at": "2026-11-01T13:49:58.385604+00:00",
+  "plan_identity": "086250f065229a29989d9b5a3f561780129e28f01145485e452cb44a700d92ce",
+  "run_ids": [
+    "20261101_2129_fusion_abc_s42_cache",
+    "20261101_2129_fusion_abc_s42_A",
+    "20261101_2129_fusion_abc_s42_B",
+    "20261101_2129_fusion_abc_s42_C",
+    "20261101_2129_fusion_abc_s42_compare"
+  ],
+  "code": {
+    "commit": "8eac695a778ee7bedc40ffe23fc42214c854811b",
+    "dirty": false,
+    "verified_remote_commit": "8eac695a778ee7bedc40ffe23fc42214c854811b"
+  },
+  "formal_lines": [
+    "*/5 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/scripts/server_check.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_SERVER",
+    "*/30 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ASTRA",
+    "17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_fusion_abc_20261101_2129.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER"
+  ],
+  "probe_line": "* * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /home/zhangyu/.conda/envs/speedest/bin/python -B /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/fusion_abc_lifecycle.py --plan /home/zhangyu/.local/share/speedest-v5-next/pipeline/20261101_2129_fusion_abc_s42/plan.json --publisher-command /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_fusion_abc_20261101_2129.json --probe >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/probe.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ABC_PROBE_20261101_2129_fusion_abc_s42",
+  "crontab_before": "\n",
+  "crontab_after": "\n*/5 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/scripts/server_check.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_SERVER\n*/30 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ASTRA\n17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_fusion_abc_20261101_2129.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER\n* * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /home/zhangyu/.conda/envs/speedest/bin/python -B /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/fusion_abc_lifecycle.py --plan /home/zhangyu/.local/share/speedest-v5-next/pipeline/20261101_2129_fusion_abc_s42/plan.json --publisher-command /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_fusion_abc_20261101_2129.json --probe >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/probe.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ABC_PROBE_20261101_2129_fusion_abc_s42\n",
+  "previous_guard": {
+    "plan_identity": "84031870ac981e43754aa741f2fe5b06b66ed71c3f2b7c26eddcfddd387c2f0b",
+    "plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261101_rgb_path_s42/plan.json",
+    "completion_requires_success": true
+  },
+  "next_server_utc": "2026-11-01T13:50:00+00:00",
+  "next_astra_utc": "2026-11-01T14:00:00+00:00",
+  "next_publisher_utc": "2026-11-01T14:17:00+00:00",
+  "next_probe_utc": "2026-11-01T13:50:00+00:00"
+}

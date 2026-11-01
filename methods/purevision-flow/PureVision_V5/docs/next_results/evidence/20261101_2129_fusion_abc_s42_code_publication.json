@@ -1,0 +1,11 @@
+{
+  "status": "verified",
+  "commit": "8eac695a778ee7bedc40ffe23fc42214c854811b",
+  "remote_branch": "method/purevision-v5-next",
+  "remote_tag": "v5-code-8eac695a778e",
+  "verified_branch_sha": "8eac695a778ee7bedc40ffe23fc42214c854811b",
+  "verified_tag_sha": "8eac695a778ee7bedc40ffe23fc42214c854811b",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5",
+  "verification": "real git ls-remote origin through existing private network environment",
+  "note": "direct SSH push succeeded; two direct SSH read timeouts retained in foreground; HTTPS read confirmed exact remote refs"
+}

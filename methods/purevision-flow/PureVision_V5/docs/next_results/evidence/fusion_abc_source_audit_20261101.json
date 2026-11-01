@@ -1,0 +1,374 @@
+{
+  "schema": "v5_fusion_abc_source_audit_v1",
+  "checked_at": "2026-11-01T12:16:42.640895+00:00",
+  "scope": "read-only existing source and two real windows; no training/cache generation/scheduler mutations",
+  "remote_heads": {
+    "method/purevision-v5-next": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+    "results/purevision-v5-next": "b50f4b4555b420778af5e8a43baafdc9f486a9ce",
+    "verification": "git ls-remote origin succeeded using ssh BatchMode ConnectTimeout15; exact expected refs"
+  },
+  "checkpoint": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/best.pt",
+    "sha256": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+    "bytes": 27117865,
+    "run_id": "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep",
+    "training_code": {
+      "commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+      "dirty": false,
+      "verified_remote_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83"
+    },
+    "source_config": {
+      "experiment": "R03",
+      "seed": 42,
+      "epochs": 18,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "loss_scales_m_s": [
+        5.0,
+        1.0
+      ],
+      "loss_beta": 1.0,
+      "amp": true,
+      "grad_clip": 2.0,
+      "patience": 5,
+      "min_delta": 0.0,
+      "log_steps": 20,
+      "checkpoint_steps": 250,
+      "rgb_policy": "finetune",
+      "selection_metric": "dev_epe",
+      "lateral_rule": {
+        "max_relative_mae_increase": 0.05,
+        "max_absolute_mae_increase_m_s": 0.01,
+        "nonzero_threshold_m_s": 0.2,
+        "min_subset_windows": 100,
+        "min_subset_scenes": 5
+      },
+      "early_stopping": false,
+      "expected_flow": {
+        "raft_size_hw": [
+          576,
+          1024
+        ],
+        "model_size_hw": [
+          72,
+          128
+        ]
+      },
+      "head_seed": 42,
+      "encoder_variant": "flex",
+      "run_variant": "R03_APPEAR_FT_s42_18ep",
+      "micro_batch_size": 64,
+      "evaluation_batch_size": 8,
+      "flow_initialization": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/best.pt",
+        "sha256": "4d24688a71935d135a9b153ce568f31b4f2fd9845197c89bdf5accbec43ec823"
+      },
+      "scheduler_policy": "cosine_each_group_to_0.1",
+      "rgb_initialization": {
+        "path": "../PureVision_V3/checkpoints/pretrained/direct_seed_42/best.pth",
+        "sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82"
+      },
+      "rgb_learning_rate": 0.0001,
+      "rgb_input": "images",
+      "scheduler_epochs": 40,
+      "rgb_variant": "appearance_difference"
+    },
+    "strict_load_missing_keys": [],
+    "strict_load_unexpected_keys": [],
+    "all_state_equal_after_load": true,
+    "v3_load_pretrained_guard": "raised if called; never called",
+    "model_state_key_count": 144,
+    "best_epoch_one_based": 1,
+    "best_epe": 0.2050679792447014,
+    "learned_appearance_alpha": 0.007355934474617243,
+    "appearance_stem_differs_from_seed42_initialization": true,
+    "appearance_state_loaded_exact": true,
+    "run_status": "completed",
+    "after_real_cpu_extraction_all_state_unchanged": true
+  },
+  "selection": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+    "file_sha256": "a2b85aed7f705978095cc8da8c8b92f357adc2c282eb36deb64ce1fe34119712",
+    "identity": "83abcfc4565b80a06547aef4ad6bb3c0cd8b4d6a3156c5164653d47f91302b5f",
+    "manifest_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+    "counts": {
+      "train_core": {
+        "scenes": 32,
+        "windows": 7324,
+        "source_tokens": 7452,
+        "selection_hash": "dbf2252d3368e4efe8a474f730f4001669c16b7cdfe0990a804264ff5fe08813",
+        "scenes_list": [
+          "scene-0002",
+          "scene-0011",
+          "scene-0027",
+          "scene-0053",
+          "scene-0076",
+          "scene-0191",
+          "scene-0192",
+          "scene-0238",
+          "scene-0239",
+          "scene-0243",
+          "scene-0253",
+          "scene-0352",
+          "scene-0389",
+          "scene-0406",
+          "scene-0433",
+          "scene-0514",
+          "scene-0535",
+          "scene-0577",
+          "scene-0639",
+          "scene-0648",
+          "scene-0657",
+          "scene-0670",
+          "scene-0686",
+          "scene-0803",
+          "scene-0804",
+          "scene-0866",
+          "scene-0868",
+          "scene-0875",
+          "scene-0998",
+          "scene-1049",
+          "scene-1058",
+          "scene-1090"
+        ]
+      },
+      "dev": {
+        "scenes": 8,
+        "windows": 1826,
+        "source_tokens": 1858,
+        "selection_hash": "6794842c6c824c104b18fe7266c3e9e58885fc894ef7525aeaff9ceda86203ca",
+        "scenes_list": [
+          "scene-0048",
+          "scene-0072",
+          "scene-0195",
+          "scene-0236",
+          "scene-0402",
+          "scene-0566",
+          "scene-0584",
+          "scene-1013"
+        ]
+      }
+    },
+    "expected_historical_counts_match": true,
+    "train_dev_scenes_disjoint": true,
+    "train_dev_source_tokens_disjoint": true,
+    "policy_reproduction": "existing load_selection regenerated declared selection and verified sequences",
+    "limitations": "Encoders trained on full original train_core and best selected by full dev; only new fusion modules use 32/8 scene subset. Original split is not log-disjoint."
+  },
+  "real_reads": [
+    {
+      "partition": "train_core",
+      "scene": "scene-0002",
+      "token": "ac7a82ea74784e7ea11da438c2882b8f",
+      "time_s": 1531883719.76246,
+      "target": [
+        2.811828136444092,
+        -0.03368318825960159
+      ],
+      "dt_seconds": [
+        0.09999990463256836,
+        0.09999799728393555,
+        0.04999709129333496,
+        0.09999990463256836
+      ],
+      "input_shapes": {
+        "pair_dt": [
+          4
+        ],
+        "images": [
+          5,
+          3,
+          72,
+          128
+        ],
+        "flows": [
+          4,
+          2,
+          72,
+          128
+        ],
+        "valid": [
+          4,
+          1,
+          72,
+          128
+        ]
+      },
+      "pair_frame_alignment": true,
+      "read_success": true
+    },
+    {
+      "partition": "dev",
+      "scene": "scene-0048",
+      "token": "8dc1d67f852c4c1cb243b2b82a744c8f",
+      "time_s": 1532402156.36246,
+      "target": [
+        10.727945327758789,
+        -0.06690329313278198
+      ],
+      "dt_seconds": [
+        0.09999990463256836,
+        0.05000019073486328,
+        0.09999990463256836,
+        0.09999990463256836
+      ],
+      "input_shapes": {
+        "pair_dt": [
+          4
+        ],
+        "images": [
+          5,
+          3,
+          72,
+          128
+        ],
+        "flows": [
+          4,
+          2,
+          72,
+          128
+        ],
+        "valid": [
+          4,
+          1,
+          72,
+          128
+        ]
+      },
+      "pair_frame_alignment": true,
+      "read_success": true
+    }
+  ],
+  "existing_taps": {
+    "flow_stem": [
+      1,
+      32,
+      4,
+      9,
+      16
+    ],
+    "flow_sfe": [
+      1,
+      32,
+      4,
+      9,
+      16
+    ],
+    "flow_temporal": [
+      1,
+      32,
+      4,
+      1,
+      1
+    ],
+    "rgb_feature_map": [
+      1,
+      256,
+      5,
+      72,
+      128
+    ],
+    "F_sp": [
+      1,
+      4,
+      6,
+      32
+    ],
+    "F_tm": [
+      1,
+      4,
+      32
+    ],
+    "R_before_time_selection": [
+      1,
+      5,
+      6,
+      256
+    ],
+    "R": [
+      1,
+      4,
+      6,
+      256
+    ],
+    "parallel_paths": "sfe(x) and temporal(x), never temporal(sfe(x))",
+    "rgb_time_mapping": "forward pairs01/12/23/34 map to contextual RGB output indices0/1/2/3 after spatial-only pooling all five positions",
+    "legacy_descriptor_flip": "RGBDescriptor.forward flips pooled height axis; ABC taps forward_feature_map before time collapse/flip/region_projection"
+  },
+  "pool_boundaries": {
+    "convention": "start inclusive end exclusive; adaptive floor(start),ceil(end); overlapping bins where dimension is not divisible",
+    "flow_9x16": {
+      "rows": [
+        [
+          0,
+          5
+        ],
+        [
+          4,
+          9
+        ]
+      ],
+      "cols": [
+        [
+          0,
+          6
+        ],
+        [
+          5,
+          11
+        ],
+        [
+          10,
+          16
+        ]
+      ]
+    },
+    "rgb_72x128": {
+      "rows": [
+        [
+          0,
+          36
+        ],
+        [
+          36,
+          72
+        ]
+      ],
+      "cols": [
+        [
+          0,
+          43
+        ],
+        [
+          42,
+          86
+        ],
+        [
+          85,
+          128
+        ]
+      ]
+    },
+    "region_order": "top-to-bottom then left-to-right; coarse logical correspondence only"
+  },
+  "old_ft": {
+    "status": "interrupted",
+    "code": {
+      "commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
+      "dirty": false,
+      "verified_remote_commit": "2922f8c4527b6c46eb664d02a4a041cd2c45f588"
+    },
+    "not_resumed": true
+  },
+  "existing_implementation_scan": {
+    "paths": [
+      "purevision_v5",
+      "tests",
+      "configs",
+      "docs/next"
+    ],
+    "search": "abc|token.*fusion|fusion.*pilot|F_sp|TransformerEncoder",
+    "finding": "No existing A/B/C fusion pilot before this task implementation; existing Flex flow/backbone, VelocityDataset, selection, preprocessing can be reused; legacy projection/head cannot serve as new A weights."
+  }
+}

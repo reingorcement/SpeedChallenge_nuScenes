@@ -1,0 +1,102 @@
+{
+  "schema": "v5_fusion_abc_launch_audit_v1",
+  "checked_at": "2026-11-01T13:29:26.346428+00:00",
+  "scope": "Read only startup source and strict CPU load; no GPU work, cache generation or schedules",
+  "selection_sha256": "a2b85aed7f705978095cc8da8c8b92f357adc2c282eb36deb64ce1fe34119712",
+  "selection_identity": "83abcfc4565b80a06547aef4ad6bb3c0cd8b4d6a3156c5164653d47f91302b5f",
+  "checkpoint_sha256": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+  "checkpoint_bytes": 27117865,
+  "datasets": {
+    "train_core": {
+      "count": 7324,
+      "scenes": 32,
+      "selection_hash": "dbf2252d3368e4efe8a474f730f4001669c16b7cdfe0990a804264ff5fe08813"
+    },
+    "dev": {
+      "count": 1826,
+      "scenes": 8,
+      "selection_hash": "6794842c6c824c104b18fe7266c3e9e58885fc894ef7525aeaff9ceda86203ca"
+    }
+  },
+  "strict_load": {
+    "missing_keys": [],
+    "unexpected_keys": []
+  },
+  "source_model_state_sha256": "0ea639695bca8079965340e0df9b1364f579c85bc83d4dca7b7ef7607a4e7996",
+  "source_code": {
+    "commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+    "dirty": false,
+    "verified_remote_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83"
+  },
+  "appearance": {
+    "rgb_encoder.backbone.appearance_alpha": 0.007355934474617243
+  },
+  "all_eval": true,
+  "all_frozen": true,
+  "checkpoint_match": true,
+  "implementation_checksum_snapshot": {
+    "time": "prior to instrumentation-only operations changes",
+    "matched_count": 14,
+    "total": 14,
+    "base_reference_commit": "13fc4525dad7a2c0518666cf03c60ba98ca2ba33"
+  },
+  "remote_heads": {
+    "method/purevision-v5-next": "13fc4525dad7a2c0518666cf03c60ba98ca2ba33",
+    "results/purevision-v5-next": "b50f4b4555b420778af5e8a43baafdc9f486a9ce",
+    "refs/tags/v5-code-13fc4525dad7": "13fc4525dad7a2c0518666cf03c60ba98ca2ba33",
+    "verification": "Actual git ls-remote direct scoped SSH BatchMode succeeded; default proxySSH timed out and HTTPS failed TLS handshake; no persistent transport change",
+    "verified_at": "2026-11-01T13:30:08.489604+00:00"
+  },
+  "preflight_review": {
+    "receipt_status": "passed",
+    "cache_counts": {
+      "train_core": 8,
+      "dev": 4
+    },
+    "all_parameters_buffers_exact": true,
+    "online_cache_max_abs_error": 0,
+    "source_hash_matches_current": true,
+    "parameter_counts": {
+      "A": 124354,
+      "B": 100738,
+      "C": 101250
+    },
+    "expected_training_batches_per_epoch": 115,
+    "expected_updates_per_group": 2300,
+    "formal_training_not_started_by_this_audit": true
+  },
+  "observational_fields_to_add": [
+    "peak_allocated_memory_bytes",
+    "peak_reserved_memory_bytes",
+    "physical_GPU_identity",
+    "cache_extraction_progress_and_elapsed_seconds"
+  ],
+  "operations_review": {
+    "reviewed_at": "2026-11-01T13:34:51.090347+00:00",
+    "files": [
+      "fusion_abc_pipeline.py",
+      "fusion_abc_comparison.py",
+      "collect_fusion_abc.py",
+      "fusion_abc_lifecycle.py",
+      "purevision_v5/fusion_abc_runtime.py"
+    ],
+    "scope": "Read only review while development work remains uncommitted; no live job/schedule mutation",
+    "passes": [
+      "fixed cache precedes A/B/C; assigned UUID commands",
+      "computed expected115batches20epochs2300updates",
+      "independent full train/dev evaluation required before comparison",
+      "completed full budget checked against histories/checkpoints/receipts",
+      "paired scene/token/targets and best-minimum-earlier-tie checked",
+      "B/C common initialization and20orderhashes checked",
+      "source checkpoint/cache/config/cleanpushed code identities checked",
+      "readonly patrol fresh scoped request/read evidence",
+      "cleanup requires completed compare and actualremote publication; ownexactcronlines only",
+      "numerical model source and config unchanged"
+    ],
+    "findings_to_root": [
+      "Potential busy GPU race: outerworker queuegate succeeds then inherited innerGPUlock recheck throws and marksfailed; should requeueonlyprelaunchbusy condition",
+      "Collector expected ART/evidence receipts vs lifecycle actual ART/monitoring/fusion_abc_<prefix> receipts needalignedexports",
+      "Completion-before-probe mayremove scheduling before freshverifiedtrigger; iffastcompletion reportcompletedreceipt explicitly, do not claimpatrolverified"
+    ]
+  }
+}
