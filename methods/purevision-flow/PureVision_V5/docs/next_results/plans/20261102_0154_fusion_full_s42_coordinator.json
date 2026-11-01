@@ -1,0 +1,97 @@
+{
+  "status": "running",
+  "updated_at": "2026-11-01T18:17:03.824689+00:00",
+  "plan_identity": "73a89056adad883d51b33d6b2fb8dc59d048e8ba248cfe409a180536bef72390",
+  "code": {
+    "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+    "dirty": false,
+    "verified_remote_commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026"
+  },
+  "jobs": {
+    "cache": {
+      "status": "running",
+      "updated_at": "2026-11-01T18:17:03.331641+00:00",
+      "launch_count": 1,
+      "reason": null,
+      "launched_at_epoch": 1793556771.7912009,
+      "pid": 188803,
+      "pid_start_ticks": 107168729,
+      "started_at": "2026-11-01T18:12:53.152316+00:00",
+      "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+      "phase": "cache",
+      "command_index": 0,
+      "command": [
+        "/usr/bin/env",
+        "CUDA_VISIBLE_DEVICES=GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0154_fusion_full_s42_bc9a3d8/methods/purevision-flow/PureVision_V5/prepare_fusion_full_cache.py",
+        "--scope",
+        "full",
+        "--allow-full-cache",
+        "--checkpoint",
+        "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/best.pt",
+        "--manifest",
+        "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+        "--flow",
+        "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+        "--rgb-frames",
+        "/home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1",
+        "--reference-cache",
+        "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+        "--output",
+        "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+        "--preflight-receipt",
+        "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_full_20261102/extraction_preflight.json",
+        "--batch-size",
+        "32",
+        "--shard-size",
+        "4096",
+        "--threads",
+        "4",
+        "--device",
+        "cuda:0"
+      ],
+      "child_pid": 188877,
+      "child_pid_start_ticks": 107168874,
+      "completed": 16384,
+      "total": 156458,
+      "elapsed_seconds": 230.56596812186763,
+      "cuda_peak_allocated_bytes": 12529750528
+    },
+    "full_cache_check": {
+      "status": "queued",
+      "updated_at": "2026-11-01T18:10:27.762384+00:00",
+      "launch_count": 0,
+      "reason": null
+    },
+    "publish_train": {
+      "status": "queued",
+      "updated_at": "2026-11-01T18:10:27.765669+00:00",
+      "launch_count": 0,
+      "reason": null
+    },
+    "S23": {
+      "status": "queued",
+      "updated_at": "2026-11-01T18:10:27.767193+00:00",
+      "launch_count": 0,
+      "reason": null
+    },
+    "J23": {
+      "status": "queued",
+      "updated_at": "2026-11-01T18:10:27.768692+00:00",
+      "launch_count": 0,
+      "reason": null
+    },
+    "F23": {
+      "status": "queued",
+      "updated_at": "2026-11-01T18:10:27.770201+00:00",
+      "launch_count": 0,
+      "reason": null
+    },
+    "features": {
+      "status": "not_required"
+    }
+  },
+  "gpu_probe_error": null
+}

@@ -4,7 +4,7 @@
 
 | run ID | 阶段作业 | 状态 | 代码 commit | 光流已处理/总数 | dev EPE |
 |---|---|---|---|---|---|
-| 20261102_0154_fusion_full_s42_cache | cache | queued | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | —/— | — |
+| 20261102_0154_fusion_full_s42_cache | cache | running | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | 16384/156458 | — |
 | 20261102_0154_fusion_full_s42_full_cache_check | full_cache_check | queued | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | —/— | — |
 | 20261102_0154_fusion_full_s42_publish_train | publish_train | queued | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | —/— | — |
 | 20261102_0154_fusion_full_s42_S23 | S23 | queued | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | — | — |

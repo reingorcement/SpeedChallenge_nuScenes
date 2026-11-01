@@ -5,13 +5,19 @@
       "run_id": "20261102_0154_fusion_full_s42_cache",
       "name": "cache",
       "experiment": "cache",
-      "status": "queued",
+      "status": "running",
       "kind": "cache",
       "training_commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
       "plan": "20261102_0154_fusion_full_s42",
       "device": "cuda:0",
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0154_fusion_full_s42_cache.log",
-      "progress": {}
+      "progress": {
+        "completed": 16384,
+        "total": 156458,
+        "elapsed_seconds": 230.56596812186763,
+        "cuda_peak_allocated_bytes": 12529750528
+      },
+      "progress_report_status": "running"
     },
     {
       "run_id": "20261102_0154_fusion_full_s42_full_cache_check",
