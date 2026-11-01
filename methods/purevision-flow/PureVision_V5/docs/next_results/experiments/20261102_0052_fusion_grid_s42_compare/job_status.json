@@ -1,9 +1,9 @@
 {
-  "status": "blocked",
-  "updated_at": "2026-11-01T17:02:45.955419+00:00",
+  "status": "completed",
+  "exit_code": 0,
+  "updated_at": "2026-11-01T17:07:52.158328+00:00",
+  "finished_at": "2026-11-01T17:07:52.158337+00:00",
   "launch_count": 0,
-  "recovery_reason": "Retry of transport-only cache publication; no training updates discarded",
-  "blocked_by": [
-    "dual_summary"
-  ]
+  "manual_recovery": "Same fixed comparison implementation; published verified core report after transport-only failure",
+  "verified_report_commit": "b5c6e0c9e50eca5623f186a4213cac98688a002b"
 }

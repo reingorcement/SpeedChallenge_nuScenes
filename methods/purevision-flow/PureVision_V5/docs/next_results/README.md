@@ -6,8 +6,8 @@
 |---|---|---|---|---|---|
 | 20261102_0052_fusion_grid_s42_cache46 | cache46 | completed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | 9150/9150 | — |
 | 20261102_0052_fusion_grid_s42_publish46 | publish46 | completed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | —/— | — |
-| 20261102_0052_fusion_grid_s42_dual_summary | dual_summary | failed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | —/— | — |
-| 20261102_0052_fusion_grid_s42_compare | compare | blocked | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | —/— | — |
+| 20261102_0052_fusion_grid_s42_dual_summary | dual_summary | completed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | —/— | — |
+| 20261102_0052_fusion_grid_s42_compare | compare | completed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | —/— | — |
 | 20261102_0052_fusion_grid_s42_J23 | J23 | completed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | — | 0.4730789881462918 |
 | 20261102_0052_fusion_grid_s42_S23 | S23 | completed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | — | 0.3939757528186787 |
 | 20261102_0052_fusion_grid_s42_S46 | S46 | completed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | — | 0.4391302283926206 |
