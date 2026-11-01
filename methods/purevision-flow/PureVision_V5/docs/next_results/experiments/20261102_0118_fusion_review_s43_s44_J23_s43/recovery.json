@@ -1,0 +1,18 @@
+{
+  "schema": "v5_fusion_grid_recovery_v1",
+  "updated_at": "2026-11-01T17:31:44.277679+00:00",
+  "run_id": "20261102_0118_fusion_review_s43_s44_J23_s43",
+  "contract_hash": "4f30e67dae80a24ea01390dddba616d76ed16d3a7709754d79658973e0bd6121",
+  "code_commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+  "completed_epochs": 20,
+  "current": {
+    "path": "checkpoints/epoch_020.pt",
+    "sha256": "040176e24caf3674b5da11712e131d1df3e1b32a317338fb70186cc382880ff8"
+  },
+  "best": {
+    "path": "checkpoints/epoch_012.pt",
+    "sha256": "24bf4c0ea80206fcc62cf861c02fca00d8f05cdb74f7c3f5991731438c4dc19a"
+  },
+  "boundary": "validation_then_scheduler_then_advance_epoch_next_batch_zero",
+  "identity": "efed9040b1f4cb7737fa4141df4a9d986a9c0a4b1d49cc73a998a4b039703571"
+}

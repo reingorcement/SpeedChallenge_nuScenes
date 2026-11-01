@@ -1,0 +1,138 @@
+{
+  "schema": "v5_fusion_grid_run_v1",
+  "run_id": "20261102_0118_fusion_review_s43_s44_S23_s43",
+  "group": "S23",
+  "status": "completed",
+  "started_at": "2026-11-01T17:31:33.688054+00:00",
+  "code": {
+    "commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+    "dirty": false,
+    "verified_remote_commit": "c8c2370271312c654200a169d10f55bd0a76cc54"
+  },
+  "contract": {
+    "config": {
+      "schema": "v5_fusion_grid_config_v1",
+      "seed": 43,
+      "epochs": 20,
+      "batch_size": 64,
+      "drop_last": false,
+      "amp": false,
+      "tf32": false,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "optimizer_eps": 1e-08,
+      "grad_clip": 2,
+      "scheduler_epochs": 20,
+      "eta_min": 0,
+      "loss_scales_m_s": [
+        5,
+        1
+      ],
+      "loss_beta": 1,
+      "early_stopping": false,
+      "group": "S23"
+    },
+    "cache_identity": "209418d597b2065146ddf7bc9c718e296bdeedab98645b7470448c2d238ee4b9",
+    "actual_sample_identity": {
+      "train_core": "ac023c4b8ef2137427f8cba3015a6287d0cda3e4ce560b624b89879f472f61d6",
+      "dev": "2989b6bbf5c7e7fa7a9be88314a61c47c3f2dab8e05eb810a7b5b011a8b658de"
+    },
+    "scope": "frozen_fusion_grid_pilot",
+    "preflight_samples": null,
+    "output_units": "m/s",
+    "task": "PLANAR_PROXY",
+    "encoder_training": false,
+    "epoch_order_policy": "torch.randperm(cpu_generator(seed+zero_based_epoch)); historical unchanged"
+  },
+  "contract_hash": "f4eaef5ce59687f313fe895cf2b954045d574cf8c72326f48eb4b8216ebaf67e",
+  "environment": {
+    "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+    "executable": "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "hostname": "ps",
+    "cuda_visible_devices": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "gpu": [
+      "NVIDIA GeForce RTX 5090"
+    ]
+  },
+  "runtime_gpu": {
+    "process_device": "cuda:0",
+    "cuda_visible_devices": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "physical_index": 1,
+    "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "name": "NVIDIA GeForce RTX 5090"
+  },
+  "environment_difference": {},
+  "resume_trajectory_claim": "same protocol; cross-device/software restoration is not claimed bitwise identical",
+  "initialization": {
+    "policy": "historical_build_triplet_C_then_explicit_six_group_copy_v1",
+    "state_sha256": "bd5c3dfd53290f4db91c9dbff593475b376d38d7ab4704fefd39ed481e46cf15",
+    "common_modules_sha256": {
+      "layers": "455487f319d32b8d38a7657d7fac1024a64898f256929f19d0e433356229fc33",
+      "head": "0b407ae5618f7c18804812284c11629960c0b3b556738d56031fb72723f1b0ce"
+    },
+    "seed": 43
+  },
+  "trainable_parameters": 101570,
+  "train_count": 7324,
+  "dev_count": 1826,
+  "arithmetic": {
+    "dtype": "float32",
+    "amp": false,
+    "tf32": false,
+    "gradient_accumulation": 1
+  },
+  "encoder_training": false,
+  "cache_placement": {
+    "train_core": {
+      "mode": "gpu_resident",
+      "bytes": 206419616,
+      "available_gpu_bytes_at_load": 31831293952,
+      "reserved_workspace_bytes": 2147483648
+    },
+    "dev": {
+      "mode": "gpu_resident",
+      "bytes": 51463984,
+      "available_gpu_bytes_at_load": 31604801536,
+      "reserved_workspace_bytes": 2147483648
+    }
+  },
+  "command": {
+    "config": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0118_fusion_review_s43_s44_c8c2370/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S23_s43.json",
+    "cache": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+    "output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S23_s43",
+    "device": "cuda:0",
+    "threads": 4,
+    "resume": null,
+    "preflight": false,
+    "preflight_samples": 64
+  },
+  "parent_run": null,
+  "discarded_attempts": [],
+  "recovery_boundary": "completed_epoch_only",
+  "best_checkpoint_sha256": "3d5fa3523444337580e754de87b443d8fa1f1cf4ea7a53865bbccc7094131d3c",
+  "last_checkpoint_sha256": "7d7a28cd91fdcdf4d632e3aa8d1e9180c53759837c056aaa9d5599e5e86ce2c2",
+  "updated_at": "2026-11-01T17:31:45.879300+00:00",
+  "completed_epochs": 20,
+  "epoch": null,
+  "next_batch": 0,
+  "optimizer_updates": 2300,
+  "processed_batches": 2300,
+  "attempted_optimizer_updates": 2300,
+  "amp_skips": 0,
+  "best_epoch": 18,
+  "best_dev_epe": 0.4392386636325495,
+  "elapsed_seconds": 15.991133105009794,
+  "training_elapsed_seconds": 12.191065019927919,
+  "effective_training_seconds": 11.915183638921008,
+  "cuda_peak_allocated_bytes": 305498112,
+  "cuda_peak_reserved_bytes": 335544320,
+  "finished_at": "2026-11-01T17:31:45.879704+00:00",
+  "stop_signal": null
+}

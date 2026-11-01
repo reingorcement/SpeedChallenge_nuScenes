@@ -4,12 +4,12 @@
 
 | run ID | 阶段作业 | 状态 | 代码 commit | 光流已处理/总数 | dev EPE |
 |---|---|---|---|---|---|
-| 20261102_0118_fusion_review_s43_s44_S23_s43 | S23_s43 | queued | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | — |
-| 20261102_0118_fusion_review_s43_s44_J23_s43 | J23_s43 | queued | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | — |
-| 20261102_0118_fusion_review_s43_s44_F23_s43 | F23_s43 | queued | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | — |
-| 20261102_0118_fusion_review_s43_s44_S23_s44 | S23_s44 | queued | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | — |
-| 20261102_0118_fusion_review_s43_s44_J23_s44 | J23_s44 | queued | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | — |
-| 20261102_0118_fusion_review_s43_s44_F23_s44 | F23_s44 | queued | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | — |
+| 20261102_0118_fusion_review_s43_s44_S23_s43 | S23_s43 | completed | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | 0.4392386636325495 |
+| 20261102_0118_fusion_review_s43_s44_J23_s43 | J23_s43 | completed | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | 0.47730848402696546 |
+| 20261102_0118_fusion_review_s43_s44_F23_s43 | F23_s43 | completed | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | 0.4098825740391581 |
+| 20261102_0118_fusion_review_s43_s44_S23_s44 | S23_s44 | running | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | — |
+| 20261102_0118_fusion_review_s43_s44_J23_s44 | J23_s44 | running | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | — |
+| 20261102_0118_fusion_review_s43_s44_F23_s44 | F23_s44 | running | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | — |
 | 20261102_0118_fusion_review_s43_s44_S46_s43 | S46_s43 | queued | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | — |
 | 20261102_0118_fusion_review_s43_s44_S46_s44 | S46_s44 | queued | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | — |
 

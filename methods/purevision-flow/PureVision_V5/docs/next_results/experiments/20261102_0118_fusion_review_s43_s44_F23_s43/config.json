@@ -1,0 +1,26 @@
+{
+  "schema": "v5_fusion_grid_config_v1",
+  "seed": 43,
+  "epochs": 20,
+  "batch_size": 64,
+  "drop_last": false,
+  "amp": false,
+  "tf32": false,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "betas": [
+    0.9,
+    0.999
+  ],
+  "optimizer_eps": 1e-08,
+  "grad_clip": 2,
+  "scheduler_epochs": 20,
+  "eta_min": 0,
+  "loss_scales_m_s": [
+    5,
+    1
+  ],
+  "loss_beta": 1,
+  "early_stopping": false,
+  "group": "F23"
+}
