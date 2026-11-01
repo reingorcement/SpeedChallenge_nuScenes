@@ -1,0 +1,99 @@
+{
+  "schema": "v5_fusion_full_curve_provenance_v1",
+  "status": "passed",
+  "experiment_id": "20261102_0154_fusion_full_s42",
+  "summary_gate": {
+    "status": "completed",
+    "dev_core_complete": true
+  },
+  "source_files": [
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0154_fusion_full_s42_J23/metrics.jsonl",
+      "sha256": "68c9cebd347fe8615394862778992832d234e1d3b4d557d839650711cd226515",
+      "rows": 20
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0154_fusion_full_s42_S23/metrics.jsonl",
+      "sha256": "b45f967962b8149a3a6717542cb16d3bc43d6bfe92d8af554c6c6460c8907eae",
+      "rows": 20
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0154_fusion_full_s42_F23/metrics.jsonl",
+      "sha256": "acfc7f7e57082f2c0ce0668a6eb8ef32e7d38bced34df73a580de144e46ed689",
+      "rows": 20
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/learning_curves.csv",
+      "sha256": "734c3e8c1771c9fb3bf5814454eae6c8ffe6a967b7712a58061d9845ca43bbc5",
+      "rows": 60
+    }
+  ],
+  "script": {
+    "path": "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_full_20261102/plots/plot_full_learning_curves.py",
+    "sha256": "646de45dc7c525be34eccc348c5bb4b52c89aa0b71552f1d9eb2f5604d8f00f0"
+  },
+  "tools": {
+    "python": "3.11.17",
+    "matplotlib": "3.10.9",
+    "numpy": "1.26.4",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35"
+  },
+  "data_policy": {
+    "groups": [
+      "J23",
+      "S23",
+      "F23"
+    ],
+    "seed": 42,
+    "epochs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "csv_matches_metrics": true,
+    "values": "saved metrics only",
+    "extra_model_inference": false,
+    "smoothing": false,
+    "loss": "Smooth L1, beta=1; vx scale 5 m/s, vy scale 1 m/s; dimensionless",
+    "train_online": "minibatch average while model weights change"
+  },
+  "checks": {
+    "svg_xml_parse": true,
+    "trailing_whitespace": false,
+    "source_epochs_complete": true
+  },
+  "outputs": [
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/dev_epe_epochs.svg",
+      "sha256": "b1ffb1d9edddade364bdab90a1dab9690ba0731b77d033ae6070d97a14b1b800",
+      "bytes": 14636
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/train_dev_loss_epochs.svg",
+      "sha256": "b6e8d936ce0d412c071c48cf57cde60874d1cda74ee130e0bf588ff20015ac23",
+      "bytes": 26062
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/axis_loss_epochs.svg",
+      "sha256": "40a9e3bcfb72c2be01ddc343699a8f2adfacfec7b038cbd2fad2a12605c68b63",
+      "bytes": 47891
+    }
+  ]
+}

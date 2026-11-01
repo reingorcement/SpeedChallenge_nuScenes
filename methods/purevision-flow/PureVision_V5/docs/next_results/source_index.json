@@ -829,6 +829,12 @@
       "representation": "original_markdown"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/axis_loss_epochs.svg",
+      "source_sha256": "40a9e3bcfb72c2be01ddc343699a8f2adfacfec7b038cbd2fad2a12605c68b63",
+      "bytes": 47891,
+      "representation": "original_text"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/comparisons_ABC.csv",
       "source_sha256": "7224816f643eafc280c982821d71ae8451bdbc4ff149d5d0613b5aa41cdedb80",
       "bytes": 3661,
@@ -839,6 +845,12 @@
       "source_sha256": "b78ac6a6f244b06bfebb7a81a34126a11ec5ed2e590776b81ef43392fc7a4949",
       "bytes": 1839,
       "representation": "original_text"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/curve_sources.json",
+      "source_sha256": "33d1dc21f008252a9b8a34f696777967dd8ff2136f5b8037721c579830e022f6",
+      "bytes": 3025,
+      "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/dev_epe_epochs.svg",
@@ -884,7 +896,7 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/summary.json",
-      "source_sha256": "ff3e31747fc1f27b49f4de06f2d7f7cd3dcdb36707fb172d10a9e9eafec87a66",
+      "source_sha256": "d09a57c073104c88e2829b7f0febb0b3e8e5881cfcf3f77b8aa72e74ab0fce70",
       "bytes": 2721147,
       "representation": "parsed_json"
     },
@@ -892,6 +904,12 @@
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/summary.md",
       "source_sha256": "96c16bbde28ab99481650afee38724a892c73462ca1ba3d329ad63bb0e8947c7",
       "bytes": 4272,
+      "representation": "original_text"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/train_dev_loss_epochs.svg",
+      "source_sha256": "b6e8d936ce0d412c071c48cf57cde60874d1cda74ee130e0bf588ff20015ac23",
+      "bytes": 26062,
       "representation": "original_text"
     },
     {
@@ -2261,6 +2279,11 @@
       "bytes": 189248
     },
     {
+      "path": "fusion_full/20261102_0154_fusion_full_s42/reports/axis_loss_epochs.svg",
+      "export_sha256": "40a9e3bcfb72c2be01ddc343699a8f2adfacfec7b038cbd2fad2a12605c68b63",
+      "bytes": 47891
+    },
+    {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/comparisons_ABC.csv",
       "export_sha256": "7224816f643eafc280c982821d71ae8451bdbc4ff149d5d0613b5aa41cdedb80",
       "bytes": 3661
@@ -2269,6 +2292,11 @@
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/core_results.csv",
       "export_sha256": "b78ac6a6f244b06bfebb7a81a34126a11ec5ed2e590776b81ef43392fc7a4949",
       "bytes": 1839
+    },
+    {
+      "path": "fusion_full/20261102_0154_fusion_full_s42/reports/curve_sources.json",
+      "export_sha256": "33d1dc21f008252a9b8a34f696777967dd8ff2136f5b8037721c579830e022f6",
+      "bytes": 3025
     },
     {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/dev_epe_epochs.svg",
@@ -2307,13 +2335,18 @@
     },
     {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/summary.json",
-      "export_sha256": "ff3e31747fc1f27b49f4de06f2d7f7cd3dcdb36707fb172d10a9e9eafec87a66",
+      "export_sha256": "d09a57c073104c88e2829b7f0febb0b3e8e5881cfcf3f77b8aa72e74ab0fce70",
       "bytes": 2721147
     },
     {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/summary.md",
       "export_sha256": "96c16bbde28ab99481650afee38724a892c73462ca1ba3d329ad63bb0e8947c7",
       "bytes": 4272
+    },
+    {
+      "path": "fusion_full/20261102_0154_fusion_full_s42/reports/train_dev_loss_epochs.svg",
+      "export_sha256": "b6e8d936ce0d412c071c48cf57cde60874d1cda74ee130e0bf588ff20015ac23",
+      "bytes": 26062
     },
     {
       "path": "fusion_full/20261102_0154_fusion_full_s42/training_implementation_preflight.json",
