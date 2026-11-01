@@ -1,0 +1,206 @@
+{
+  "schema": "v5_fusion_full_run_completion_receipt_v1",
+  "status": "passed",
+  "observed_at": "2026-11-01T18:53:12.404918+00:00",
+  "plan_identity": "73a89056adad883d51b33d6b2fb8dc59d048e8ba248cfe409a180536bef72390",
+  "plan_sha256": "1759c4887146969eb7e5b1493fdda7654c6ec3f020bb1c3f7a336d549d327d78",
+  "code": {
+    "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+    "dirty": false,
+    "verified_remote_commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026"
+  },
+  "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+  "cache_index_sha256": "31bfa87b5ebe5b8b744c294a9c448592c215a18144c7e7ededa1880bfece02de",
+  "three_actual_epoch_and_batch_orders_exact": true,
+  "shared_transformer_head_initialization_exact": true,
+  "all_20_epochs_41560_updates": true,
+  "complete_epoch_manifest_and_best_last_hashes_valid": true,
+  "no_partial_training_resume_or_discarded_updates": true,
+  "best_train_evaluated_once_and_dev_reused": true,
+  "artifact_notes": [
+    {
+      "group": "S23",
+      "note": "best.pt.partial is a same-inode alias of the complete manifest-bound best; POSIX rename of two names for one inode leaves both names. No partial training state or recovery occurred."
+    },
+    {
+      "group": "F23",
+      "note": "best.pt.partial is a same-inode alias of the complete manifest-bound best; POSIX rename of two names for one inode leaves both names. No partial training state or recovery occurred."
+    }
+  ],
+  "scope": "read-only lightweight artifacts and file hashes; no checkpoint deserialization",
+  "rows": {
+    "S23": {
+      "run_id": "20261102_0154_fusion_full_s42_S23",
+      "best_epoch": 19,
+      "best_dev_epe": 0.17847165237392404,
+      "last_dev_epe": 0.17873444753078238,
+      "best_train_epe": 0.09900051019431391,
+      "completed_epochs": 20,
+      "optimizer_updates": 41560,
+      "immutable_epoch_file_count": 20,
+      "epoch_files_checked": "existence/name coverage; checkpoint contents not deserialized",
+      "checkpoint_current_sha256": "41aa49b5ce0d954a84131c6b49aa0bf7b6eda3deff7d85bf4dfd4755ad7d6b1a",
+      "checkpoint_best_sha256": "39d517001824414da1a49b6660a4cf5fdb9545c484cc87da0203032b068a5171",
+      "recovery_sha256": "094ed727f59613fae23d8b5dfeec4fd500f8b50b738e61fc3998e8eff08d730f",
+      "actual_epoch_orders_sha256": "f9af290f95cfee56f909ab53b9b43ad13720bc385202b2e5fb63d4485024b18c",
+      "order_file_sha256": "45fa7f2c907ae59826805f7cfd0e9ae094e4bab2a30b4e8b9583acca6fe8650d",
+      "result_sha256": "84dcbbe0fa75c5535b060245813a5f5adace4a884c397b4b3447942a2ccdebbd",
+      "gpu": {
+        "process_device": "cuda:0",
+        "cuda_visible_devices": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+        "physical_index": 0,
+        "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+        "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+      },
+      "elapsed_seconds": 266.5095677699428,
+      "training_elapsed_seconds": 233.66814182302915,
+      "started_at": "2026-11-01T18:47:47.659938+00:00",
+      "finished_at": "2026-11-01T18:51:46.530739+00:00",
+      "peak_gpu_allocated_bytes": 4459031040,
+      "cache_placement": {
+        "train_core": {
+          "mode": "gpu_resident",
+          "bytes": 3747851952,
+          "available_gpu_bytes_at_load": 101349654528,
+          "reserved_workspace_bytes": 2147483648
+        },
+        "dev": {
+          "mode": "gpu_resident",
+          "bytes": 661760320,
+          "available_gpu_bytes_at_load": 97581072384,
+          "reserved_workspace_bytes": 2147483648
+        }
+      },
+      "parent_run": null,
+      "discarded_attempts": [],
+      "non_authoritative_partial_named_aliases": [
+        {
+          "path": "best.pt.partial",
+          "classification": "non_authoritative_hardlink_to_complete_best",
+          "same_inode_as_best": true,
+          "sha256": "39d517001824414da1a49b6660a4cf5fdb9545c484cc87da0203032b068a5171"
+        }
+      ],
+      "source_checkpoint_sha256": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+      "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+      "code": {
+        "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+        "dirty": false,
+        "verified_remote_commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026"
+      }
+    },
+    "J23": {
+      "run_id": "20261102_0154_fusion_full_s42_J23",
+      "best_epoch": 20,
+      "best_dev_epe": 0.18402909965442985,
+      "last_dev_epe": 0.18402909965442985,
+      "best_train_epe": 0.10088001761401517,
+      "completed_epochs": 20,
+      "optimizer_updates": 41560,
+      "immutable_epoch_file_count": 20,
+      "epoch_files_checked": "existence/name coverage; checkpoint contents not deserialized",
+      "checkpoint_current_sha256": "b2490c5b97b44f47caad35f0aea59cb8eada16bce8a9d936dbb12811bbf7a168",
+      "checkpoint_best_sha256": "b2490c5b97b44f47caad35f0aea59cb8eada16bce8a9d936dbb12811bbf7a168",
+      "recovery_sha256": "b6707e4d26d14393b5b2ea686d599d40f247e7968a98804eca834c3faf677f7b",
+      "actual_epoch_orders_sha256": "f9af290f95cfee56f909ab53b9b43ad13720bc385202b2e5fb63d4485024b18c",
+      "order_file_sha256": "45fa7f2c907ae59826805f7cfd0e9ae094e4bab2a30b4e8b9583acca6fe8650d",
+      "result_sha256": "73852de9e299b56b33aafedca6ea51e2c65ce4d3584ad0277b9ee90238241233",
+      "gpu": {
+        "process_device": "cuda:0",
+        "cuda_visible_devices": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+        "physical_index": 1,
+        "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "elapsed_seconds": 235.4637075131759,
+      "training_elapsed_seconds": 202.28835675888695,
+      "started_at": "2026-11-01T18:47:47.771606+00:00",
+      "finished_at": "2026-11-01T18:51:15.475099+00:00",
+      "peak_gpu_allocated_bytes": 4451320320,
+      "cache_placement": {
+        "train_core": {
+          "mode": "gpu_resident",
+          "bytes": 3747851952,
+          "available_gpu_bytes_at_load": 31827165184,
+          "reserved_workspace_bytes": 2147483648
+        },
+        "dev": {
+          "mode": "gpu_resident",
+          "bytes": 661760320,
+          "available_gpu_bytes_at_load": 28058583040,
+          "reserved_workspace_bytes": 2147483648
+        }
+      },
+      "parent_run": null,
+      "discarded_attempts": [],
+      "non_authoritative_partial_named_aliases": [],
+      "source_checkpoint_sha256": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+      "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+      "code": {
+        "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+        "dirty": false,
+        "verified_remote_commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026"
+      }
+    },
+    "F23": {
+      "run_id": "20261102_0154_fusion_full_s42_F23",
+      "best_epoch": 19,
+      "best_dev_epe": 0.18744595331619757,
+      "last_dev_epe": 0.1876238177517027,
+      "best_train_epe": 0.10709151027030428,
+      "completed_epochs": 20,
+      "optimizer_updates": 41560,
+      "immutable_epoch_file_count": 20,
+      "epoch_files_checked": "existence/name coverage; checkpoint contents not deserialized",
+      "checkpoint_current_sha256": "59c9dfd6b5c5822efc1736d72ddd7980fc96ef5a18f21287370d6afa4c4b399b",
+      "checkpoint_best_sha256": "8ea8b69501a808889d143dc34b122ee3d2a89b3a507316da060eec2241761472",
+      "recovery_sha256": "b19fbce869da3aca5944ca4524584db3108bcc80fa63b6141f828105e4e4e127",
+      "actual_epoch_orders_sha256": "f9af290f95cfee56f909ab53b9b43ad13720bc385202b2e5fb63d4485024b18c",
+      "order_file_sha256": "45fa7f2c907ae59826805f7cfd0e9ae094e4bab2a30b4e8b9583acca6fe8650d",
+      "result_sha256": "bfe0f10e06d6677dead8141924f94d5311a20f9176a1c4c3a1275aebd52435ab",
+      "gpu": {
+        "process_device": "cuda:0",
+        "cuda_visible_devices": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+        "physical_index": 2,
+        "uuid": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "elapsed_seconds": 235.57411904400215,
+      "training_elapsed_seconds": 196.01773688406684,
+      "started_at": "2026-11-01T18:47:54.333076+00:00",
+      "finished_at": "2026-11-01T18:51:15.656063+00:00",
+      "peak_gpu_allocated_bytes": 4448894976,
+      "cache_placement": {
+        "train_core": {
+          "mode": "gpu_resident",
+          "bytes": 3747851952,
+          "available_gpu_bytes_at_load": 33101447168,
+          "reserved_workspace_bytes": 2147483648
+        },
+        "dev": {
+          "mode": "gpu_resident",
+          "bytes": 661760320,
+          "available_gpu_bytes_at_load": 29332865024,
+          "reserved_workspace_bytes": 2147483648
+        }
+      },
+      "parent_run": null,
+      "discarded_attempts": [],
+      "non_authoritative_partial_named_aliases": [
+        {
+          "path": "best.pt.partial",
+          "classification": "non_authoritative_hardlink_to_complete_best",
+          "same_inode_as_best": true,
+          "sha256": "8ea8b69501a808889d143dc34b122ee3d2a89b3a507316da060eec2241761472"
+        }
+      ],
+      "source_checkpoint_sha256": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+      "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+      "code": {
+        "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+        "dirty": false,
+        "verified_remote_commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026"
+      }
+    }
+  }
+}

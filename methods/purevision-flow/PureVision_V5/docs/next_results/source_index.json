@@ -157,6 +157,12 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/20261102_0154_fusion_full_s42_completion.json",
+      "source_sha256": "09d5391c09a45c289e76a9d9e92b3868b4665690aa7b323f1569022211b0ba16",
+      "bytes": 190,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/20261102_0154_fusion_full_s42_pipeline_preflight.json",
       "source_sha256": "ec087512826d3a1c6912a6702b25a5f56003a707d8adb4ad3c866661679f27fc",
       "bytes": 677,
@@ -830,8 +836,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/axis_loss_epochs.svg",
-      "source_sha256": "40a9e3bcfb72c2be01ddc343699a8f2adfacfec7b038cbd2fad2a12605c68b63",
-      "bytes": 47891,
+      "source_sha256": "b3ae30b8b7c7cbd4c3b74db3012f80858ffae637d8ba156c03799835fef692a5",
+      "bytes": 48035,
       "representation": "original_text"
     },
     {
@@ -848,14 +854,26 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/curve_sources.json",
-      "source_sha256": "33d1dc21f008252a9b8a34f696777967dd8ff2136f5b8037721c579830e022f6",
+      "source_sha256": "196aa00bca342cc4b1ac89abe3c4d6c0bd375b6b1073cdb68a4ee52568689662",
       "bytes": 3025,
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/decision_notes.json",
+      "source_sha256": "29e2c6ba73f6b334f357b2e23043a177a2420c318c6e2e310df345903c9f4225",
+      "bytes": 15720,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/decision_notes.md",
+      "source_sha256": "f0330461077d4f46cdf55e587c7fa6746d5f627df8f2fc4e2c682ad002cdf8e7",
+      "bytes": 5803,
+      "representation": "original_text"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/dev_epe_epochs.svg",
-      "source_sha256": "b1ffb1d9edddade364bdab90a1dab9690ba0731b77d033ae6070d97a14b1b800",
-      "bytes": 14636,
+      "source_sha256": "894432b604482b14f84bcc7d4f8d5ca3294641c531eb51a16cdb8a81650e6d38",
+      "bytes": 14688,
       "representation": "original_text"
     },
     {
@@ -889,6 +907,12 @@
       "representation": "original_text"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/run_completion_receipt.json",
+      "source_sha256": "d84dd965f626273de1d73b1302f22bc7f0c5b0baf97f396e757888b1b89fd02a",
+      "bytes": 9520,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/speed_bins.csv",
       "source_sha256": "790284ae8c3caea48358becef0d816c33a5862ff9e08347b35bc95e91873907a",
       "bytes": 4987,
@@ -908,8 +932,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/train_dev_loss_epochs.svg",
-      "source_sha256": "b6e8d936ce0d412c071c48cf57cde60874d1cda74ee130e0bf588ff20015ac23",
-      "bytes": 26062,
+      "source_sha256": "ab645888667dbc7846729797301db24655ad3cec49169e80be6566ed728ff02e",
+      "bytes": 26152,
       "representation": "original_text"
     },
     {
@@ -1527,6 +1551,11 @@
       "path": "evidence/20261102_0154_fusion_full_s42_cache_ready.json",
       "export_sha256": "5d4ed3059f854a8b4acd457e2faf2c9c2d824fa27dd3deb9d3357c9717cf7590",
       "bytes": 338
+    },
+    {
+      "path": "evidence/20261102_0154_fusion_full_s42_completion.json",
+      "export_sha256": "09d5391c09a45c289e76a9d9e92b3868b4665690aa7b323f1569022211b0ba16",
+      "bytes": 190
     },
     {
       "path": "evidence/20261102_0154_fusion_full_s42_pipeline_preflight.json",
@@ -2280,8 +2309,8 @@
     },
     {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/axis_loss_epochs.svg",
-      "export_sha256": "40a9e3bcfb72c2be01ddc343699a8f2adfacfec7b038cbd2fad2a12605c68b63",
-      "bytes": 47891
+      "export_sha256": "b3ae30b8b7c7cbd4c3b74db3012f80858ffae637d8ba156c03799835fef692a5",
+      "bytes": 48035
     },
     {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/comparisons_ABC.csv",
@@ -2295,13 +2324,23 @@
     },
     {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/curve_sources.json",
-      "export_sha256": "33d1dc21f008252a9b8a34f696777967dd8ff2136f5b8037721c579830e022f6",
+      "export_sha256": "196aa00bca342cc4b1ac89abe3c4d6c0bd375b6b1073cdb68a4ee52568689662",
       "bytes": 3025
     },
     {
+      "path": "fusion_full/20261102_0154_fusion_full_s42/reports/decision_notes.json",
+      "export_sha256": "29e2c6ba73f6b334f357b2e23043a177a2420c318c6e2e310df345903c9f4225",
+      "bytes": 15720
+    },
+    {
+      "path": "fusion_full/20261102_0154_fusion_full_s42/reports/decision_notes.md",
+      "export_sha256": "f0330461077d4f46cdf55e587c7fa6746d5f627df8f2fc4e2c682ad002cdf8e7",
+      "bytes": 5803
+    },
+    {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/dev_epe_epochs.svg",
-      "export_sha256": "b1ffb1d9edddade364bdab90a1dab9690ba0731b77d033ae6070d97a14b1b800",
-      "bytes": 14636
+      "export_sha256": "894432b604482b14f84bcc7d4f8d5ca3294641c531eb51a16cdb8a81650e6d38",
+      "bytes": 14688
     },
     {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/focus_scene_sensitivity.csv",
@@ -2329,6 +2368,11 @@
       "bytes": 145322
     },
     {
+      "path": "fusion_full/20261102_0154_fusion_full_s42/reports/run_completion_receipt.json",
+      "export_sha256": "d84dd965f626273de1d73b1302f22bc7f0c5b0baf97f396e757888b1b89fd02a",
+      "bytes": 9520
+    },
+    {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/speed_bins.csv",
       "export_sha256": "790284ae8c3caea48358becef0d816c33a5862ff9e08347b35bc95e91873907a",
       "bytes": 4987
@@ -2345,8 +2389,8 @@
     },
     {
       "path": "fusion_full/20261102_0154_fusion_full_s42/reports/train_dev_loss_epochs.svg",
-      "export_sha256": "b6e8d936ce0d412c071c48cf57cde60874d1cda74ee130e0bf588ff20015ac23",
-      "bytes": 26062
+      "export_sha256": "ab645888667dbc7846729797301db24655ad3cec49169e80be6566ed728ff02e",
+      "bytes": 26152
     },
     {
       "path": "fusion_full/20261102_0154_fusion_full_s42/training_implementation_preflight.json",

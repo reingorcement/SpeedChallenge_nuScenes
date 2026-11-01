@@ -1,0 +1,390 @@
+{
+  "schema": "v5_fusion_full_decision_notes_v1",
+  "status": "completed",
+  "reviewed_at": "2026-11-02T02:54:02.219685+08:00",
+  "experiment_id": "20261102_0154_fusion_full_s42",
+  "training_commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+  "plan_identity": "73a89056adad883d51b33d6b2fb8dc59d048e8ba248cfe409a180536bef72390",
+  "source_summary": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/summary.json",
+  "source_summary_sha256": "d09a57c073104c88e2829b7f0febb0b3e8e5881cfcf3f77b8aa72e74ab0fce70",
+  "source_run_results": {
+    "J23": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0154_fusion_full_s42_J23/result.json",
+      "sha256": "73852de9e299b56b33aafedca6ea51e2c65ce4d3584ad0277b9ee90238241233",
+      "best_checkpoint_sha256": "b2490c5b97b44f47caad35f0aea59cb8eada16bce8a9d936dbb12811bbf7a168"
+    },
+    "S23": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0154_fusion_full_s42_S23/result.json",
+      "sha256": "84dcbbe0fa75c5535b060245813a5f5adace4a884c397b4b3447942a2ccdebbd",
+      "best_checkpoint_sha256": "39d517001824414da1a49b6660a4cf5fdb9545c484cc87da0203032b068a5171"
+    },
+    "F23": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0154_fusion_full_s42_F23/result.json",
+      "sha256": "bfe0f10e06d6677dead8141924f94d5311a20f9176a1c4c3a1275aebd52435ab",
+      "best_checkpoint_sha256": "8ea8b69501a808889d143dc34b122ee3d2a89b3a507316da060eec2241761472"
+    }
+  },
+  "evidence_scope": "Only this full-data seed42; all official metrics retain all 23480 dev windows and 103 scenes.",
+  "core": {
+    "J23": {
+      "best_epoch": 20,
+      "best_dev_epe": 0.18402909965442985,
+      "last_dev_epe": 0.18402909965442985,
+      "best_train_epe": 0.10088001761401517,
+      "generalization_gap_dev_minus_train_epe": 0.08314908204041467,
+      "optimizer_updates": 41560
+    },
+    "S23": {
+      "best_epoch": 19,
+      "best_dev_epe": 0.17847165237392404,
+      "last_dev_epe": 0.17873444753078238,
+      "best_train_epe": 0.09900051019431391,
+      "generalization_gap_dev_minus_train_epe": 0.07947114217961013,
+      "optimizer_updates": 41560
+    },
+    "F23": {
+      "best_epoch": 19,
+      "best_dev_epe": 0.18744595331619757,
+      "last_dev_epe": 0.1876238177517027,
+      "best_train_epe": 0.10709151027030428,
+      "generalization_gap_dev_minus_train_epe": 0.08035444304589329,
+      "optimizer_updates": 41560
+    }
+  },
+  "six_decision_answers": {
+    "1_S23_vs_J23": {
+      "answer": "本次完整数据seed42下S23优于J23。",
+      "delta_epe": -0.005557447280505806,
+      "relative_improvement_percent": 3.0198741888872958,
+      "interpretation": "主要是vx误差改善；vy MAE反而增加0.000336818 m/s，但仍在原overall容忍范围。不能表述为已稳定优于。"
+    },
+    "2_S23_vs_F23": {
+      "answer": "本次完整数据seed42下S23优于F23，匹配条件下出现RGB增量证据。",
+      "delta_epe": -0.008974300942273528,
+      "relative_improvement_percent": 4.787673877992457,
+      "interpretation": "这与pilot三seed均值F23领先不同，提示小试排序不能直接外推到完整训练；仍需完整数据跨seed复核。"
+    },
+    "3_fixed_historical_accuracy": {
+      "answer": "S23整体EPE超过全部三份预先固定历史best。",
+      "improvements": {
+        "FLEX_original": {
+          "delta_epe": -0.013158160363127891,
+          "relative_improvement_percent": 6.866447435912846
+        },
+        "FLEX_continued": {
+          "delta_epe": -0.012666644820731071,
+          "relative_improvement_percent": 6.626952843380921
+        },
+        "RGB_appearance": {
+          "delta_epe": -0.02659632687077737,
+          "relative_improvement_percent": 12.969517215089335
+        }
+      },
+      "interpretation": "这是跨架构、编码器训练方式、精度及阶段预算的实际精度对照，不是匹配消融或跨预算因果结论。"
+    },
+    "4_gain_distribution": {
+      "answer": "S23对J23收益较分散；对F23收益更集中，但去掉主要收益场景后方向仍为改善。",
+      "interpretation": "对J23为67/103场景改善，前三正收益场景贡献净改善29.98%；对F23为57/103场景改善，1012/0890/1013贡献68.72%净改善。分别诊断剔除各自前三收益场景后ΔEPE仍为-0.004007/-0.002891 m/s。正式指标不剔除任何场景。",
+      "speed_caveat": "S23在完整dev的0–2、2–5、5–10m/s段优于F23，但10–15m/s仍逊于F23：EPE 0.348243 vs 0.328084，vx偏差-0.186764 vs -0.133027。15m/s以上仅11窗口，不宜过度解释。"
+    },
+    "5_old_difficult_scenes": {
+      "answer": "扩大训练覆盖后，三组在原pilot全部8个dev场景均改善；S23原困难场景明显改善。",
+      "pilot_restricted_epe": {
+        "J23": {
+          "old": 0.4730789881462918,
+          "new": 0.27002953605116164,
+          "delta": -0.20304945209513015,
+          "relative_improvement_percent": 42.920835036609255
+        },
+        "S23": {
+          "old": 0.3939757528186787,
+          "new": 0.25174398550767996,
+          "delta": -0.14223176731099874,
+          "relative_improvement_percent": 36.10165506212224
+        },
+        "F23": {
+          "old": 0.3990972977483189,
+          "new": 0.26977527847986654,
+          "delta": -0.12932201926845238,
+          "relative_improvement_percent": 32.40363189580056
+        }
+      },
+      "interpretation": "S23在0402 EPE从0.512832降至0.198576（61.28%），1013从1.130053降至0.772568（31.63%）；原pilot同306个10–15m/s窗口EPE从0.509593降至0.224884，vx偏差从-0.492406减至-0.062573。0402本次仍略差于J23/F23（0.190614/0.195803）；1013仍属高误差场景。full best始终按完整dev选出，未针对pilot重选；不能将变化仅归因于训练数据量。"
+    },
+    "6_budget_and_curves": {
+      "answer": "末段训练改善仍有部分转化为dev收益，但S23/F23已出现很小的末轮回升；证据不足以断定20轮预算不够。",
+      "interpretation": "epoch16→20在线train loss三组下降约9.6–10.3%，dev EPE仍下降约1.6–3.2%；J23最佳在20轮，S23/F23最佳在19轮，第20轮仅回升0.000263/0.000178。S23/F23 dev loss在18轮后小幅回升，说明训练改善并非全部转化为验证收益。不存在支持自动加轮数的充分依据。当前cosine末端lr=0，禁止原样续跑当有效扩训。"
+    }
+  },
+  "concentration": {
+    "S23_minus_J23": {
+      "improved_scenes": 67,
+      "degraded_scenes": 36,
+      "top_positive_scenes": [
+        {
+          "scene": "scene-0792",
+          "weighted_gain_m_s": 0.0007579657980555317,
+          "share_of_net_gain": 0.13638740230866322
+        },
+        {
+          "scene": "scene-1013",
+          "weighted_gain_m_s": 0.00045533766931375237,
+          "share_of_net_gain": 0.08193288147077307
+        },
+        {
+          "scene": "scene-0195",
+          "weighted_gain_m_s": 0.0004528159255134004,
+          "share_of_net_gain": 0.08147912209653706
+        }
+      ],
+      "top_three_share_of_net_gain": 0.29979940587597337,
+      "top_three_removed_diagnostic": {
+        "delta_epe": -0.004007385035148705,
+        "remaining_windows": 22800,
+        "diagnostic_only": true,
+        "selection_unchanged": true
+      },
+      "largest_degraded_scenes": [
+        {
+          "scene": "scene-1024",
+          "weighted_gain_m_s": -0.0007510927474418906
+        },
+        {
+          "scene": "scene-0462",
+          "weighted_gain_m_s": -0.0007068352385422608
+        },
+        {
+          "scene": "scene-0741",
+          "weighted_gain_m_s": -0.0005831704850916366
+        }
+      ],
+      "focus_sensitivity": {
+        "without_scene0402": {
+          "delta_epe": -0.005692950228000038,
+          "candidate_epe": 0.17827015440961752,
+          "baseline_epe": 0.18396310463761756,
+          "remaining_windows": 23247,
+          "diagnostic_only": true,
+          "official_metric_includes_all_scenes": true
+        },
+        "without_scene1013": {
+          "delta_epe": -0.00515147424944265,
+          "candidate_epe": 0.17272356616312745,
+          "baseline_epe": 0.1778750404125701,
+          "remaining_windows": 23255,
+          "diagnostic_only": true,
+          "official_metric_includes_all_scenes": true
+        },
+        "without_both": {
+          "delta_epe": -0.005284192749319322,
+          "candidate_epe": 0.17246192393989102,
+          "baseline_epe": 0.17774611668921034,
+          "remaining_windows": 23022,
+          "diagnostic_only": true,
+          "official_metric_includes_all_scenes": true
+        }
+      },
+      "official_all_scene_result_unchanged": true
+    },
+    "S23_minus_F23": {
+      "improved_scenes": 57,
+      "degraded_scenes": 46,
+      "top_positive_scenes": [
+        {
+          "scene": "scene-1012",
+          "weighted_gain_m_s": 0.0036006971897620237,
+          "share_of_net_gain": 0.4012231384843477
+        },
+        {
+          "scene": "scene-0890",
+          "weighted_gain_m_s": 0.0015308376467195305,
+          "share_of_net_gain": 0.1705801551080715
+        },
+        {
+          "scene": "scene-1013",
+          "weighted_gain_m_s": 0.0010358667473718093,
+          "share_of_net_gain": 0.11542589824376731
+        }
+      ],
+      "top_three_share_of_net_gain": 0.6872291918361865,
+      "top_three_removed_diagnostic": {
+        "delta_epe": -0.002890740687561094,
+        "remaining_windows": 22799,
+        "diagnostic_only": true,
+        "selection_unchanged": true
+      },
+      "largest_degraded_scenes": [
+        {
+          "scene": "scene-1095",
+          "weighted_gain_m_s": -0.0017763368758221692
+        },
+        {
+          "scene": "scene-0703",
+          "weighted_gain_m_s": -0.0003191199728375702
+        },
+        {
+          "scene": "scene-1014",
+          "weighted_gain_m_s": -0.0002955070030631014
+        }
+      ],
+      "focus_sensitivity": {
+        "without_scene0402": {
+          "delta_epe": -0.009092037824310673,
+          "candidate_epe": 0.17827015440961752,
+          "baseline_epe": 0.1873621922339282,
+          "remaining_windows": 23247,
+          "diagnostic_only": true,
+          "official_metric_includes_all_scenes": true
+        },
+        "without_scene1013": {
+          "delta_epe": -0.008015241233983755,
+          "candidate_epe": 0.17272356616312745,
+          "baseline_epe": 0.1807388073971112,
+          "remaining_windows": 23255,
+          "diagnostic_only": true,
+          "official_metric_includes_all_scenes": true
+        },
+        "without_both": {
+          "delta_epe": -0.008124422381785207,
+          "candidate_epe": 0.17246192393989102,
+          "baseline_epe": 0.18058634632167622,
+          "remaining_windows": 23022,
+          "diagnostic_only": true,
+          "official_metric_includes_all_scenes": true
+        }
+      },
+      "official_all_scene_result_unchanged": true
+    }
+  },
+  "curves": {
+    "J23": {
+      "best_epoch": 20,
+      "last_minus_best_dev_epe": 0.0,
+      "final_five_dev_epe": [
+        0.19006445557976054,
+        0.1863080876353406,
+        0.18649545724332206,
+        0.18536755179023368,
+        0.18402909965442985
+      ],
+      "final_five_train_online_loss": [
+        0.00037280254667964235,
+        0.0003591667922018112,
+        0.00034859969349148196,
+        0.00034023496320386814,
+        0.0003350543355762703
+      ],
+      "final_five_dev_loss": [
+        0.001260979101061821,
+        0.0012256854679435492,
+        0.0011978617403656244,
+        0.001216814504005015,
+        0.0011981006246060133
+      ],
+      "terminal_learning_rate": 0.0,
+      "automatic_budget_extension": false,
+      "continuation_warning": "cosine ends at zero; do not extend unchanged schedule",
+      "epoch16_to20_train_online_loss_change_percent": -10.125523937423608,
+      "epoch16_to20_dev_epe_change_percent": -3.1754258874552965,
+      "best_train_epe": 0.10088001761401517,
+      "best_dev_minus_best_train_epe": 0.08314908204041467
+    },
+    "S23": {
+      "best_epoch": 19,
+      "last_minus_best_dev_epe": 0.000262795156858342,
+      "final_five_dev_epe": [
+        0.18203339622937606,
+        0.18115513891991014,
+        0.1792923676086363,
+        0.17847165237392404,
+        0.17873444753078238
+      ],
+      "final_five_train_online_loss": [
+        0.00035953118207532884,
+        0.00034624775997278776,
+        0.0003357366120587435,
+        0.0003276827407454799,
+        0.00032259324111772874
+      ],
+      "final_five_dev_loss": [
+        0.0012308398727327585,
+        0.0011959993280470371,
+        0.0011522133136168122,
+        0.0011789482086896896,
+        0.0011859697988256812
+      ],
+      "terminal_learning_rate": 0.0,
+      "automatic_budget_extension": false,
+      "continuation_warning": "cosine ends at zero; do not extend unchanged schedule",
+      "epoch16_to20_train_online_loss_change_percent": -10.273918591534258,
+      "epoch16_to20_dev_epe_change_percent": -1.8122766299634052,
+      "best_train_epe": 0.09900051019431391,
+      "best_dev_minus_best_train_epe": 0.07947114217961013
+    },
+    "F23": {
+      "best_epoch": 19,
+      "last_minus_best_dev_epe": 0.00017786443550513176,
+      "final_five_dev_epe": [
+        0.1907562486636093,
+        0.18872753320367613,
+        0.1875735120075822,
+        0.18744595331619757,
+        0.1876238177517027
+      ],
+      "final_five_train_online_loss": [
+        0.0003976480425605735,
+        0.0003838041324832551,
+        0.0003730861694779985,
+        0.0003645091654503204,
+        0.00035930008518811953
+      ],
+      "final_five_dev_loss": [
+        0.0014566490426659584,
+        0.0014206874184310436,
+        0.0013792671961709857,
+        0.0013999647926539183,
+        0.0014035780914127827
+      ],
+      "terminal_learning_rate": 0.0,
+      "automatic_budget_extension": false,
+      "continuation_warning": "cosine ends at zero; do not extend unchanged schedule",
+      "epoch16_to20_train_online_loss_change_percent": -9.64369323322205,
+      "epoch16_to20_dev_epe_change_percent": -1.6421118227327391,
+      "best_train_epe": 0.10709151027030428,
+      "best_dev_minus_best_train_epe": 0.08035444304589329
+    }
+  },
+  "lateral": {
+    "train": {
+      "count": 136,
+      "scene_count": 30,
+      "threshold_m_s": 0.2,
+      "status": "sufficient_data",
+      "independent_windows": true
+    },
+    "dev": {
+      "count": 31,
+      "scene_count": 5,
+      "threshold_m_s": 0.2,
+      "status": "insufficient_data",
+      "independent_windows": true
+    },
+    "interpretation": "完整train有136独立窗口/30场景达到原数量要求；dev只有31窗口/5场景，仍为insufficient_data。整体vy容忍检查通过不能替代非零侧向充分性。"
+  },
+  "numerical_or_provenance_anomaly": false,
+  "recommended_next_step": {
+    "priority": "先复用已核验完整2x3缓存，对J23/S23/F23补完整数据seed43/44、统一20轮协议，检验本次3.02%/4.79%差异是否可复现；用户另行授权后执行。",
+    "alternative_if_budget_question_is_prioritized": "若优先研究更长预算，先共同预注册J23/S23/F23各40 epoch和新40-epoch cosine，从相同规定初始化重新训练；不沿用当前末端0学习率续跑，不把预算问题与跨seed复核混成一个结论，须用户另行授权。",
+    "retain_S23_as_dual_candidate": true,
+    "retain_J23_matched_baseline": true,
+    "retain_F23_diagnostic": true,
+    "add_architecture_or_grid": false,
+    "automatic_action": false
+  },
+  "actions": {
+    "fixed_code_modified": false,
+    "new_inference": false,
+    "training_started": false,
+    "published": false
+  }
+}

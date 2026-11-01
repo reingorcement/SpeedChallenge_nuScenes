@@ -30,7 +30,7 @@
   ],
   "script": {
     "path": "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_full_20261102/plots/plot_full_learning_curves.py",
-    "sha256": "646de45dc7c525be34eccc348c5bb4b52c89aa0b71552f1d9eb2f5604d8f00f0"
+    "sha256": "7cf8ddce6a4ac65fd49fb26d34c58d552bf34ddcd3c9cf053c5659b5b20d1c2a"
   },
   "tools": {
     "python": "3.11.17",
@@ -82,18 +82,18 @@
   "outputs": [
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/dev_epe_epochs.svg",
-      "sha256": "b1ffb1d9edddade364bdab90a1dab9690ba0731b77d033ae6070d97a14b1b800",
-      "bytes": 14636
+      "sha256": "894432b604482b14f84bcc7d4f8d5ca3294641c531eb51a16cdb8a81650e6d38",
+      "bytes": 14688
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/train_dev_loss_epochs.svg",
-      "sha256": "b6e8d936ce0d412c071c48cf57cde60874d1cda74ee130e0bf588ff20015ac23",
-      "bytes": 26062
+      "sha256": "ab645888667dbc7846729797301db24655ad3cec49169e80be6566ed728ff02e",
+      "bytes": 26152
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_full_20261102_0154_fusion_full_s42/axis_loss_epochs.svg",
-      "sha256": "40a9e3bcfb72c2be01ddc343699a8f2adfacfec7b038cbd2fad2a12605c68b63",
-      "bytes": 47891
+      "sha256": "b3ae30b8b7c7cbd4c3b74db3012f80858ffae637d8ba156c03799835fef692a5",
+      "bytes": 48035
     }
   ]
 }
