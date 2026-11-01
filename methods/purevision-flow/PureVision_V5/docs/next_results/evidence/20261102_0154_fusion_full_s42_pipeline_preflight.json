@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "formal_execution": false,
+  "checks": [
+    "exact three full seed42 groups",
+    "cache->full coverage proof->published readiness->training dependencies",
+    "GPU0 S23/GPU1 J23/GPU2 F23",
+    "batch32/shard4096 extraction",
+    "one immutable shared cache",
+    "locked source/scope/history/extraction/training evidence"
+  ],
+  "source_file_sha256": {
+    "fusion_full_pipeline.py": "62b1d923d48ac2c0b4a957e16da560e4fd631bed4c4134b4072ab7625fdfdf1f",
+    "collect_fusion_full.py": "69843e01d43ad532eaba6fe04427481740da764be08d026a072bfb1fd52d4926",
+    "publish_results.py": "77127b45fd2bf476d17481d1fd5dc8bd6235e4516bebef875b4d0ef4293eaff7"
+  }
+}

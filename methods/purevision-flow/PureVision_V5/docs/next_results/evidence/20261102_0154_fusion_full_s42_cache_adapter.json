@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "created_at": "2026-11-01T18:01:41.502167+00:00",
+  "checks": [
+    "reordered subset reference resolves features, targets and dt solely by (scene,token) despite large full indices",
+    "identity-matched targets mismatch rejected",
+    "identity-matched dt mismatch rejected",
+    "identity-matched frames mismatch rejected",
+    "duplicate scene/token rejected",
+    "complete shard restores with matching identity/order/labels/dt and file SHA",
+    "changed shard protocol rejected",
+    "changed shard file rejected"
+  ],
+  "source_implementation_sha256": {
+    "fusion_full_cache.py": "d909f0aee96d2cac3e28e8c3824049402504c15ac07fabf90ba7973586d868ca",
+    "fusion_grid_cache.py": "5203a16dfafbc8e4f4ba4c46af97bf7cf7df0fabaf4983b323b2c516f3e9b2e7",
+    "fusion_abc.py": "f3af6004a7812d634df2503b9b3af0f7e62bab07ddbf2836b91c287fbd7af6d1",
+    "datasets.py": "239eda940cce075c37937454722c8f69c4a345f7f075b8ec5df31d35ae8dfc21",
+    "model.py": "2f8993ef65e4facd4f35064bdc76697b7afe3f417b6e26ed1ff8dc9839a83f47",
+    "rgb.py": "2833e8c262b15e7606d8831bbc0f95aad1b5edef789b078add5e64ddc508f319"
+  },
+  "pipeline_command_matches_cli": true,
+  "pipeline_selected_batch_size": 32,
+  "pipeline_shard_size": 4096,
+  "complete_overlap_count": {
+    "train_core": 7324,
+    "dev": 1826
+  },
+  "scope_manifest_sha256": "5ea25adbab4675850c7a6f3cabee01c07a4e50ba06f879396d5c1a5158bf6704",
+  "note": "All 9150 pilot labels/dt/metadata mapped against complete source; formal extraction checks every overlapping feature by identity. No full extraction yet.",
+  "source_path": "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_full_20261102/cache_adapter_receipt.json",
+  "source_sha256": "1ae52880335bd8d73a57311ed38bfe33ac5941bd578fa9c029f734aef3bb496f"
+}
