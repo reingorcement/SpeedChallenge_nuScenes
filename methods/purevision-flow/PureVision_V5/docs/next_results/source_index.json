@@ -578,8 +578,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/lifecycle.json",
-      "source_sha256": "8201f3524e5888c876d4d7433d249499889bf58c3284f1a9d7d453fc9306a6de",
-      "bytes": 6801,
+      "source_sha256": "ee49465a67b6fbd0146fed670098db9feb02c2b5a77ac9cc83528b112f510be6",
+      "bytes": 8102,
       "representation": "parsed_json"
     },
     {
@@ -614,13 +614,13 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/startup/cache.json",
-      "source_sha256": "f02d1b6b3881a6f8aad0b30eb5fc77a70f0c6a874bf7483ceb0f1ae59329ce35",
+      "source_sha256": "8dc33aba62f9bea32717e34e9c49a1a54d5bfc04f5d20717f7d065f1b6e183d5",
       "bytes": 1353,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/startup/compare.json",
-      "source_sha256": "60e0440e2f7b79311a425ef81a02bd0cec2b2b4a7f3798cc3709860e50665943",
+      "source_sha256": "83b5121604f5b087d4049aec0792bfd11d54f0e51081e2458f6364d799f74651",
       "bytes": 397,
       "representation": "parsed_json"
     },
@@ -632,8 +632,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "ec80d79a56a31ca8b9792d919202e070c74a21b54583994727c2f464df74f445",
-      "bytes": 91375,
+      "source_sha256": "b09b97bccbe6948d3ce65d36707b0de6e40a1c85cd100d319c9b9a065c96354e",
+      "bytes": 91384,
       "representation": "parsed_json"
     },
     {
@@ -1947,8 +1947,8 @@
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/lifecycle.json",
-      "export_sha256": "8201f3524e5888c876d4d7433d249499889bf58c3284f1a9d7d453fc9306a6de",
-      "bytes": 6801
+      "export_sha256": "ee49465a67b6fbd0146fed670098db9feb02c2b5a77ac9cc83528b112f510be6",
+      "bytes": 8102
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/schedule_install.json",
@@ -1977,12 +1977,12 @@
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/cache.json",
-      "export_sha256": "f02d1b6b3881a6f8aad0b30eb5fc77a70f0c6a874bf7483ceb0f1ae59329ce35",
+      "export_sha256": "8dc33aba62f9bea32717e34e9c49a1a54d5bfc04f5d20717f7d065f1b6e183d5",
       "bytes": 1353
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/compare.json",
-      "export_sha256": "60e0440e2f7b79311a425ef81a02bd0cec2b2b4a7f3798cc3709860e50665943",
+      "export_sha256": "83b5121604f5b087d4049aec0792bfd11d54f0e51081e2458f6364d799f74651",
       "bytes": 397
     },
     {
@@ -2007,8 +2007,8 @@
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "ec80d79a56a31ca8b9792d919202e070c74a21b54583994727c2f464df74f445",
-      "bytes": 91375
+      "export_sha256": "b09b97bccbe6948d3ce65d36707b0de6e40a1c85cd100d319c9b9a065c96354e",
+      "bytes": 91384
     },
     {
       "path": "monitoring/patrols/20261101T140001Z_152050.txt",
