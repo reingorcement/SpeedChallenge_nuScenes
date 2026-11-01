@@ -1,7 +1,7 @@
 {
   "schema": "v5_fusion_multiseed_review_v1",
   "status": "partial",
-  "observed_at": "2026-11-01T17:32:21.357179+00:00",
+  "observed_at": "2026-11-01T17:32:27.719494+00:00",
   "experiment_id": "20261102_0118_fusion_review_s43_s44",
   "plan_identity": "0e8f91578800d3cd5aaf14c3d49fe5f6191ea7d6aa234cfdc4632a1cd1195c6f",
   "baseline_plan_identity": "82601a1772919ae2a20d5e88b181e2f33cf8fc684904927a35487701716ff51b",
@@ -73,9 +73,9 @@
       "optimizer_updates": 2300
     },
     "S46_s43": {
-      "status": "not_started",
+      "status": "running",
       "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0118_fusion_review_s43_s44_S46_s43",
-      "completed_epochs": 0
+      "completed_epochs": 2
     },
     "S46_s44": {
       "status": "not_started",
