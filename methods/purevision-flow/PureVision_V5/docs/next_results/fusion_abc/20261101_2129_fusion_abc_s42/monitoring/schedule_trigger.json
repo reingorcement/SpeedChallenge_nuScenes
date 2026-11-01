@@ -1,7 +1,7 @@
 {
-  "status": "retry_pending",
-  "triggered_at": "2026-11-01T14:08:02.443435+00:00",
-  "finished_at": "2026-11-01T14:08:46.578194+00:00",
+  "status": "verified",
+  "triggered_at": "2026-11-01T14:09:02.991638+00:00",
+  "finished_at": "2026-11-01T14:09:22.061158+00:00",
   "plan_identity": "086250f065229a29989d9b5a3f561780129e28f01145485e452cb44a700d92ce",
   "trigger": "actual_crontab_execution",
   "expected_run_ids": [
@@ -14,7 +14,7 @@
   "server": {
     "success": true,
     "exit_code": 0,
-    "snapshot_time": "2026-11-01T14:08:02.679409+00:00",
+    "snapshot_time": "2026-11-01T14:09:03.243321+00:00",
     "observed_run_ids": [
       "20261101_2129_fusion_abc_s42_A",
       "20261101_2129_fusion_abc_s42_B",
@@ -24,11 +24,11 @@
     ]
   },
   "publisher": {
-    "time": "2026-11-01T14:08:46.576709+00:00",
-    "success": false,
-    "exit_code": 1,
-    "report_commit": "9bd7708186fa144fc25a56cc687329c14fecb900",
-    "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    "time": "2026-11-01T14:09:22.059875+00:00",
+    "success": true,
+    "exit_code": 0,
+    "report_commit": "a5f032218b00de63876ef00f81d7385946c82ee7",
+    "error": null
   },
   "astra": {
     "time_utc": "2026-11-01T13:50:26.381398+00:00",
