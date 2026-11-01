@@ -1,11 +1,18 @@
-本次为无作业连接/读取探针，无登记的活跃 run；不代表任何训练 run 已巡视或通过启动检查。
+指定命令成功，9 个目标文件均有读取成功收据。全程只读。
 
-指定命令成功（退出码 0），读取收据确认实际读取：
-- `/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261101T140001Z_152050.snapshot.json`
-- `/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json`
+实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
 
-Host 确定性检查（22:00:01 快照）：active=0、unknown=0；三张 GPU 利用率均为 0%；工件盘剩余约 960.55 GB，缓存所在盘剩余约 17434.36 GB，均无低空间告警。
+- `monitoring/astra/20261101T170001Z_172699.{request,snapshot}.json`
+- `monitoring/publication.json`
+- `pipeline/20261102_0052_fusion_grid_s42/jobs/` 下的 `cache46、publish46、S46、J46、dual_summary、compare.json`
+- `fusion_grid_cache/20261102_0052_fusion_grid_s42/status.json`
 
-本次 AI 诊断：无新增作业里程碑。发现报告发布为 pending，错误为结果工作树存在未知改动，自动暂存被拒绝；这不表示训练停止。建议人工只读检查 `report-worktree` 的状态及差异，定位改动来源。未修改任何内容或作业状态。
+**宿主确定性检查**（北京时间 01:00:01）：目标 `20261102_0052_fusion_grid_s42_cache46` 父子 PID 均存活且身份匹配；GPU0 利用率 89%，温度 84℃。真实缓存路径设备号与宿主快照一致，所在磁盘剩余约 959 GB，无低空间告警。
+
+**本次 AI 诊断**：正常，无新增里程碑。cache46 已处理 7726/9150 个窗口（84.4%），平均约 68.1 窗口/秒；报告更新于 00:59:58，快照时仅滞后约 3.85 秒，异常日志摘要为空。commit 一致。created/reused/recovered/adopted 及缓存字节未提供，保留待核实。
+
+同批 J23/S23/F23/R23 均完成 20 epoch、2300 步，AMP 跳步为 0；最终 EPE 分别为 0.4870/0.4188/0.4049/0.9620，checkpoint 距快照约 77–103 秒。S46/J46 等仍排队，PID unknown 不代表终止；DAG 尚未全部完成，publication 的 published 不代表 publish46 完成。
+
+人工定位建议：若后续进度持续不更新，沿上述 cache46 状态文件及其指定日志核查，并补核缺失计数与缓存字节；当前无修改依据。
 
 ASTRA_PATROL_OK

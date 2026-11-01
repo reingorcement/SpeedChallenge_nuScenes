@@ -5,25 +5,25 @@
       "run_id": "20261102_0052_fusion_grid_s42_cache46",
       "name": "cache46",
       "experiment": "cache46",
-      "status": "running",
+      "status": "completed",
       "kind": "cache",
       "training_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
       "plan": "20261102_0052_fusion_grid_s42",
       "device": "cuda:0",
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_cache46.log",
       "progress": {
-        "completed": 2,
+        "completed": 9150,
         "total": 9150,
-        "elapsed_seconds": 23.343859756132588,
-        "cuda_peak_allocated_bytes": 792568832
+        "elapsed_seconds": 134.71940726717003,
+        "cuda_peak_allocated_bytes": 792848384
       },
-      "progress_report_status": "running"
+      "progress_report_status": "completed"
     },
     {
       "run_id": "20261102_0052_fusion_grid_s42_publish46",
       "name": "publish46",
       "experiment": "publish46",
-      "status": "queued",
+      "status": "failed",
       "kind": "publication",
       "training_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
       "plan": "20261102_0052_fusion_grid_s42",
@@ -35,7 +35,7 @@
       "run_id": "20261102_0052_fusion_grid_s42_dual_summary",
       "name": "dual_summary",
       "experiment": "dual_summary",
-      "status": "queued",
+      "status": "blocked",
       "kind": "comparison",
       "training_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
       "plan": "20261102_0052_fusion_grid_s42",
@@ -47,7 +47,7 @@
       "run_id": "20261102_0052_fusion_grid_s42_compare",
       "name": "compare",
       "experiment": "compare",
-      "status": "queued",
+      "status": "blocked",
       "kind": "comparison",
       "training_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
       "plan": "20261102_0052_fusion_grid_s42",
@@ -11450,7 +11450,7 @@
       "name": "S46",
       "experiment": "FUSION_GRID_S46",
       "kind": "training",
-      "status": "queued",
+      "status": "blocked",
       "training_status": "not_started",
       "training_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
       "plan": "20261102_0052_fusion_grid_s42",
@@ -11469,7 +11469,7 @@
       "name": "J46",
       "experiment": "FUSION_GRID_J46",
       "kind": "training",
-      "status": "queued",
+      "status": "blocked",
       "training_status": "not_started",
       "training_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
       "plan": "20261102_0052_fusion_grid_s42",
@@ -22874,7 +22874,7 @@
       }
     }
   ],
-  "all_terminal": false,
+  "all_terminal": true,
   "limits": [
     "PLANAR_PROXY labels; dev selection and dev recomputation are not held-out testing.",
     "Checkpoint hashes identify server files; weights are not uploaded.",

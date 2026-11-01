@@ -1,6 +1,10 @@
 {
-  "status": "queued",
-  "updated_at": "2026-11-01T16:55:49.510759+00:00",
+  "status": "blocked",
+  "updated_at": "2026-11-01T17:00:51.154159+00:00",
   "launch_count": 0,
-  "reason": null
+  "reason": null,
+  "blocked_by": [
+    "J46",
+    "S46"
+  ]
 }

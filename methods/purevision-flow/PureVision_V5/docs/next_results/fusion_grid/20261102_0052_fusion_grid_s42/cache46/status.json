@@ -1,11 +1,11 @@
 {
-  "status": "running",
-  "phase": "train_core",
-  "updated_at": "2026-11-01T16:58:27.954872+00:00",
-  "completed": 2,
+  "status": "completed",
+  "phase": "validated_complete",
+  "updated_at": "2026-11-01T17:00:19.330427+00:00",
+  "completed": 9150,
   "total": 9150,
-  "processed_windows": 2,
-  "elapsed_seconds": 23.343859756132588,
+  "processed_windows": 9150,
+  "elapsed_seconds": 134.71940726717003,
   "runtime_gpu": {
     "process_device": "cuda:0",
     "cuda_visible_devices": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
@@ -23,6 +23,6 @@
     "dirty": false,
     "verified_remote_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d"
   },
-  "cuda_peak_allocated_bytes": 792568832,
-  "cuda_peak_reserved_bytes": 1115684864
+  "cuda_peak_allocated_bytes": 792848384,
+  "cuda_peak_reserved_bytes": 1117782016
 }

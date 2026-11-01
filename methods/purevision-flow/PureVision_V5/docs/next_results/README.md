@@ -4,14 +4,14 @@
 
 | run ID | 阶段作业 | 状态 | 代码 commit | 光流已处理/总数 | dev EPE |
 |---|---|---|---|---|---|
-| 20261102_0052_fusion_grid_s42_cache46 | cache46 | running | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | 2/9150 | — |
-| 20261102_0052_fusion_grid_s42_publish46 | publish46 | queued | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | —/— | — |
-| 20261102_0052_fusion_grid_s42_dual_summary | dual_summary | queued | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | —/— | — |
-| 20261102_0052_fusion_grid_s42_compare | compare | queued | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | —/— | — |
+| 20261102_0052_fusion_grid_s42_cache46 | cache46 | completed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | 9150/9150 | — |
+| 20261102_0052_fusion_grid_s42_publish46 | publish46 | failed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | —/— | — |
+| 20261102_0052_fusion_grid_s42_dual_summary | dual_summary | blocked | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | —/— | — |
+| 20261102_0052_fusion_grid_s42_compare | compare | blocked | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | —/— | — |
 | 20261102_0052_fusion_grid_s42_J23 | J23 | completed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | — | 0.4730789881462918 |
 | 20261102_0052_fusion_grid_s42_S23 | S23 | completed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | — | 0.3939757528186787 |
-| 20261102_0052_fusion_grid_s42_S46 | S46 | queued | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | — | — |
-| 20261102_0052_fusion_grid_s42_J46 | J46 | queued | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | — | — |
+| 20261102_0052_fusion_grid_s42_S46 | S46 | blocked | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | — | — |
+| 20261102_0052_fusion_grid_s42_J46 | J46 | blocked | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | — | — |
 | 20261102_0052_fusion_grid_s42_F23 | F23 | completed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | — | 0.3990972977483189 |
 | 20261102_0052_fusion_grid_s42_R23 | R23 | completed | `6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d` | — | 0.8716735553871353 |
 
