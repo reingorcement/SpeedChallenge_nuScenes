@@ -1,6 +1,6 @@
 {
   "status": "finished_with_failures",
-  "updated_at": "2026-11-01T17:00:51.156366+00:00",
+  "updated_at": "2026-11-01T17:02:45.956506+00:00",
   "plan_identity": "82601a1772919ae2a20d5e88b181e2f33cf8fc684904927a35487701716ff51b",
   "code": {
     "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
@@ -61,31 +61,13 @@
       "finished_at": "2026-11-01T17:00:23.445445+00:00"
     },
     "publish46": {
-      "status": "failed",
-      "updated_at": "2026-11-01T17:00:46.492009+00:00",
+      "status": "completed",
+      "updated_at": "2026-11-01T17:01:42.040701+00:00",
       "launch_count": 1,
-      "reason": null,
-      "launched_at_epoch": 1793552425.2405014,
-      "pid": 173098,
-      "pid_start_ticks": 106734074,
-      "started_at": "2026-11-01T17:00:26.458718+00:00",
-      "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
-      "phase": "publication",
-      "command_index": 0,
-      "command": [
-        "/home/zhangyu/.conda/envs/speedest/bin/python",
-        "-B",
-        "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/fusion_grid_pipeline.py",
-        "--plan",
-        "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/plan.json",
-        "--publish-grid",
-        "46"
-      ],
-      "child_pid": 173166,
-      "child_pid_start_ticks": 106734198,
-      "exit_code": 1,
-      "error": "RuntimeError: Command 0 exited with 1",
-      "finished_at": "2026-11-01T17:00:46.491970+00:00"
+      "recovery_reason": "Retry of transport-only cache publication; no training updates discarded",
+      "exit_code": 0,
+      "finished_at": "2026-11-01T17:01:42.040716+00:00",
+      "publication_recovery_receipt": "/home/zhangyu/.local/share/speedest-v5-next/evidence/20261102_0052_fusion_grid_s42_ready46.json"
     },
     "J23": {
       "status": "completed",
@@ -166,22 +148,82 @@
       "finished_at": "2026-11-01T16:58:23.288528+00:00"
     },
     "S46": {
-      "status": "blocked",
-      "updated_at": "2026-11-01T17:00:51.149914+00:00",
-      "launch_count": 0,
-      "reason": null,
-      "blocked_by": [
-        "publish46"
-      ]
+      "status": "completed",
+      "updated_at": "2026-11-01T17:02:05.870869+00:00",
+      "launch_count": 1,
+      "recovery_reason": "Retry of transport-only cache publication; no training updates discarded",
+      "launched_at_epoch": 1793552504.1622844,
+      "pid": 173628,
+      "pid_start_ticks": 106741966,
+      "started_at": "2026-11-01T17:01:45.774605+00:00",
+      "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+      "phase": "training",
+      "command_index": 0,
+      "command": [
+        "/usr/bin/env",
+        "CUDA_VISIBLE_DEVICES=GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+        "--config",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S46.json",
+        "--cache",
+        "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+        "--output",
+        "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S46",
+        "--device",
+        "cuda:0"
+      ],
+      "child_pid": 173852,
+      "child_pid_start_ticks": 106742135,
+      "epoch": null,
+      "elapsed_seconds": 17.687268567970023,
+      "cuda_peak_allocated_bytes": 1141864960,
+      "processed_batches": 2300,
+      "optimizer_updates": 2300,
+      "amp_skips": 0,
+      "best_epoch": 12,
+      "exit_code": 0,
+      "finished_at": "2026-11-01T17:02:05.870835+00:00"
     },
     "J46": {
-      "status": "blocked",
-      "updated_at": "2026-11-01T17:00:51.151017+00:00",
-      "launch_count": 0,
-      "reason": null,
-      "blocked_by": [
-        "publish46"
-      ]
+      "status": "completed",
+      "updated_at": "2026-11-01T17:02:10.822108+00:00",
+      "launch_count": 1,
+      "recovery_reason": "Retry of transport-only cache publication; no training updates discarded",
+      "launched_at_epoch": 1793552504.1754892,
+      "pid": 173632,
+      "pid_start_ticks": 106741967,
+      "started_at": "2026-11-01T17:01:45.696242+00:00",
+      "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+      "phase": "training",
+      "command_index": 0,
+      "command": [
+        "/usr/bin/env",
+        "CUDA_VISIBLE_DEVICES=GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+        "--config",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J46.json",
+        "--cache",
+        "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+        "--output",
+        "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J46",
+        "--device",
+        "cuda:0"
+      ],
+      "child_pid": 173788,
+      "child_pid_start_ticks": 106742130,
+      "epoch": null,
+      "elapsed_seconds": 18.768464508932084,
+      "cuda_peak_allocated_bytes": 1101168640,
+      "processed_batches": 2300,
+      "optimizer_updates": 2300,
+      "amp_skips": 0,
+      "best_epoch": 13,
+      "exit_code": 0,
+      "finished_at": "2026-11-01T17:02:10.822070+00:00"
     },
     "F23": {
       "status": "completed",
@@ -262,23 +304,37 @@
       "finished_at": "2026-11-01T16:58:48.585018+00:00"
     },
     "dual_summary": {
-      "status": "blocked",
-      "updated_at": "2026-11-01T17:00:51.154159+00:00",
-      "launch_count": 0,
-      "reason": null,
-      "blocked_by": [
-        "J46",
-        "S46"
-      ]
+      "status": "failed",
+      "updated_at": "2026-11-01T17:02:41.225200+00:00",
+      "launch_count": 1,
+      "recovery_reason": "Retry of transport-only cache publication; no training updates discarded",
+      "launched_at_epoch": 1793552535.010168,
+      "pid": 174048,
+      "pid_start_ticks": 106745051,
+      "started_at": "2026-11-01T17:02:16.161866+00:00",
+      "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+      "phase": "evaluation",
+      "command_index": 1,
+      "command": [
+        "/home/zhangyu/.conda/envs/speedest/bin/python",
+        "-B",
+        "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/fusion_grid_pipeline.py",
+        "--plan",
+        "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/plan.json",
+        "--publish"
+      ],
+      "child_pid": 174200,
+      "child_pid_start_ticks": 106745671,
+      "exit_code": 1,
+      "error": "RuntimeError: Command 1 exited with 1",
+      "finished_at": "2026-11-01T17:02:41.225163+00:00"
     },
     "compare": {
       "status": "blocked",
-      "updated_at": "2026-11-01T17:00:51.155281+00:00",
+      "updated_at": "2026-11-01T17:02:45.955419+00:00",
       "launch_count": 0,
-      "reason": null,
+      "recovery_reason": "Retry of transport-only cache publication; no training updates discarded",
       "blocked_by": [
-        "S46",
-        "J46",
         "dual_summary"
       ]
     },

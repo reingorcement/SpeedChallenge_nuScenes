@@ -1,0 +1,53 @@
+{
+  "status": "completed",
+  "observed_at": "2026-11-02T01:02:26.365612+08:00",
+  "script": "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_grid_20261102/plot_curves.py",
+  "script_sha256": "7afbac5a55f71dc6bf8ad47cc3d13755fc51a4bbba4e706b847ea5bf100ce690",
+  "output_write_policy": "temporary SVG then atomic Path.replace",
+  "model_inference": false,
+  "fixed_training_code_modified": false,
+  "plots": [
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_grid_20261102_0052_fusion_grid_s42/learning_curves_overview.svg",
+      "sha256": "c4aab09b7becdd80c91a392b6063d29c79e34e343d20c63337a10f2ca915443b",
+      "bytes": 52048
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_grid_20261102_0052_fusion_grid_s42/axis_loss_curves.svg",
+      "sha256": "0fa31a96a8c1d64e3941754c2a2a5f8e3365c3a19e18b34f835970df18120273",
+      "bytes": 77701
+    }
+  ],
+  "source_metrics": [
+    {
+      "group": "J23",
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J23/metrics.jsonl",
+      "sha256": "b817b400b2b869569913c8ec5b0d95fe55d659151ed4aef0c4f25970c424b5fc"
+    },
+    {
+      "group": "S23",
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S23/metrics.jsonl",
+      "sha256": "2cfe6e67301f5d4be4bd4c5f4c093c10d4fdbc45c8a5c7928847d59936ee56a4"
+    },
+    {
+      "group": "J46",
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J46/metrics.jsonl",
+      "sha256": "12ba48befa465f96ffe50032f5a6807fb6ddc45dc7543ce2306ff6d5d3a7493c"
+    },
+    {
+      "group": "S46",
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S46/metrics.jsonl",
+      "sha256": "485b9a5a7e2d7fc3a04fbca7f604f9db66f7ad4e5b46bd92bcc79f079b0151bb"
+    },
+    {
+      "group": "F23",
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_F23/metrics.jsonl",
+      "sha256": "89a6db5290af42b5068daa26c7c7b90cca46427e8d2d6084c837ac0ba94a6242"
+    },
+    {
+      "group": "R23",
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_R23/metrics.jsonl",
+      "sha256": "be21486aed7b0a54f9f3da2e9be8eda9b1548a682d9dd39f954113cabe6910ee"
+    }
+  ]
+}

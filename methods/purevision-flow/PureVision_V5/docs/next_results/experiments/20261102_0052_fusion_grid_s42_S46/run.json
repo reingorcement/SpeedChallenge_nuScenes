@@ -1,0 +1,138 @@
+{
+  "schema": "v5_fusion_grid_run_v1",
+  "run_id": "20261102_0052_fusion_grid_s42_S46",
+  "group": "S46",
+  "status": "completed",
+  "started_at": "2026-11-01T17:01:51.835289+00:00",
+  "code": {
+    "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+    "dirty": false,
+    "verified_remote_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d"
+  },
+  "contract": {
+    "config": {
+      "schema": "v5_fusion_grid_config_v1",
+      "seed": 42,
+      "epochs": 20,
+      "batch_size": 64,
+      "drop_last": false,
+      "amp": false,
+      "tf32": false,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "optimizer_eps": 1e-08,
+      "grad_clip": 2,
+      "scheduler_epochs": 20,
+      "eta_min": 0,
+      "loss_scales_m_s": [
+        5,
+        1
+      ],
+      "loss_beta": 1,
+      "early_stopping": false,
+      "group": "S46"
+    },
+    "cache_identity": "64f44fd957a8bc4d3d14605c410d5a7093daa05315d65bb501cb1c986025ed55",
+    "actual_sample_identity": {
+      "train_core": "ac023c4b8ef2137427f8cba3015a6287d0cda3e4ce560b624b89879f472f61d6",
+      "dev": "2989b6bbf5c7e7fa7a9be88314a61c47c3f2dab8e05eb810a7b5b011a8b658de"
+    },
+    "scope": "frozen_fusion_grid_pilot",
+    "preflight_samples": null,
+    "output_units": "m/s",
+    "task": "PLANAR_PROXY",
+    "encoder_training": false,
+    "epoch_order_policy": "torch.randperm(cpu_generator(seed+zero_based_epoch)); historical unchanged"
+  },
+  "contract_hash": "bd1913fe0ce932f649aa1f8af8d5c5b9852cd23452e968131acc7706dd8e210a",
+  "environment": {
+    "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+    "executable": "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "hostname": "ps",
+    "cuda_visible_devices": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+    "gpu": [
+      "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+    ]
+  },
+  "runtime_gpu": {
+    "process_device": "cuda:0",
+    "cuda_visible_devices": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+    "physical_index": 0,
+    "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+    "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+  },
+  "environment_difference": {},
+  "resume_trajectory_claim": "same protocol; cross-device/software restoration is not claimed bitwise identical",
+  "initialization": {
+    "policy": "historical_build_triplet_C_then_explicit_six_group_copy_v1",
+    "state_sha256": "0ee16114ef54e5596ece86583255177db4faf685f9f547547265e642610d1b1b",
+    "common_modules_sha256": {
+      "layers": "04d7471594eb0cdf44ee47adb747c4360e499a0f33cef942016e0b395c7bc59a",
+      "head": "ed8d333dcf74e0789f843649144d1b7f26cfdcc5ffe07c2d1c3a5c3c4c20aa2a"
+    },
+    "seed": 42
+  },
+  "trainable_parameters": 101570,
+  "train_count": 7324,
+  "dev_count": 1826,
+  "arithmetic": {
+    "dtype": "float32",
+    "amp": false,
+    "tf32": false,
+    "gradient_accumulation": 1
+  },
+  "encoder_training": false,
+  "cache_placement": {
+    "train_core": {
+      "mode": "gpu_resident",
+      "bytes": 813901472,
+      "available_gpu_bytes_at_load": 101349654528,
+      "reserved_workspace_bytes": 2147483648
+    },
+    "dev": {
+      "mode": "gpu_resident",
+      "bytes": 202919728,
+      "available_gpu_bytes_at_load": 100514988032,
+      "reserved_workspace_bytes": 2147483648
+    }
+  },
+  "command": {
+    "config": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S46.json",
+    "cache": "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+    "output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S46",
+    "device": "cuda:0",
+    "threads": 4,
+    "resume": null,
+    "preflight": false,
+    "preflight_samples": 64
+  },
+  "parent_run": null,
+  "discarded_attempts": [],
+  "recovery_boundary": "completed_epoch_only",
+  "best_checkpoint_sha256": "6b15d18c092fbdbb144b4eb6cbad6499dafa89a8287de4401ea6ab8355bb996e",
+  "last_checkpoint_sha256": "fc2331695849e5a2af64b53cf4fcecbb0808263372f3065e8009dd380182809e",
+  "updated_at": "2026-11-01T17:02:04.773096+00:00",
+  "completed_epochs": 20,
+  "epoch": null,
+  "next_batch": 0,
+  "optimizer_updates": 2300,
+  "processed_batches": 2300,
+  "attempted_optimizer_updates": 2300,
+  "amp_skips": 0,
+  "best_epoch": 12,
+  "best_dev_epe": 0.4391302283926206,
+  "elapsed_seconds": 17.687268567970023,
+  "training_elapsed_seconds": 12.937593454960734,
+  "effective_training_seconds": 12.662241409067065,
+  "cuda_peak_allocated_bytes": 1141864960,
+  "cuda_peak_reserved_bytes": 1184890880,
+  "finished_at": "2026-11-01T17:02:04.773429+00:00",
+  "stop_signal": null
+}

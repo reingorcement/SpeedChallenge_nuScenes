@@ -1,3 +1,4 @@
 # Matplotlib SVG path data may contain insignificant spaces before newlines.
 # Preserve original artifact bytes and hashes; retain other whitespace checks.
 comparisons/**/*.svg whitespace=-blank-at-eol
+fusion_grid/**/*.svg whitespace=-blank-at-eol
