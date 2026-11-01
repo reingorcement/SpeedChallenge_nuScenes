@@ -1,0 +1,1111 @@
+{
+  "schema": "v5_fusion_grid_preflight_v1",
+  "status": "passed",
+  "time": "2026-11-01T16:54:58.114078+00:00",
+  "scope": "one bounded real-data preflight, no formal training",
+  "checks": {
+    "cache": {
+      "schema": "v5_fusion_grid_cache_preflight_v1",
+      "status": "passed",
+      "created_at": "2026-11-01T16:53:14.043836+00:00",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_grid_20261102/cache46_preflight",
+      "cache_identity": "1de41b007fe3c04e49dc48689b61de72849625b6eb2ab775279c105af63e8316",
+      "cache_index_sha256": "b2488bb3a8fad7ffc57286d36a0df91feb21b88978879676951eee54d2d4a55e",
+      "code": {
+        "commit": "b46a8fdd9bc390c8aa0c65da2ea4594b384c8ff5",
+        "dirty": true,
+        "verified_remote_commit": null
+      },
+      "source": {
+        "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/best.pt",
+        "checkpoint_sha256": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+        "source_run_id": "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep",
+        "source_code": {
+          "commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+          "dirty": false,
+          "verified_remote_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83"
+        },
+        "source_config": {
+          "experiment": "R03",
+          "seed": 42,
+          "epochs": 18,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "loss_scales_m_s": [
+            5.0,
+            1.0
+          ],
+          "loss_beta": 1.0,
+          "amp": true,
+          "grad_clip": 2.0,
+          "patience": 5,
+          "min_delta": 0.0,
+          "log_steps": 20,
+          "checkpoint_steps": 250,
+          "rgb_policy": "finetune",
+          "selection_metric": "dev_epe",
+          "lateral_rule": {
+            "max_relative_mae_increase": 0.05,
+            "max_absolute_mae_increase_m_s": 0.01,
+            "nonzero_threshold_m_s": 0.2,
+            "min_subset_windows": 100,
+            "min_subset_scenes": 5
+          },
+          "early_stopping": false,
+          "expected_flow": {
+            "raft_size_hw": [
+              576,
+              1024
+            ],
+            "model_size_hw": [
+              72,
+              128
+            ]
+          },
+          "head_seed": 42,
+          "encoder_variant": "flex",
+          "run_variant": "R03_APPEAR_FT_s42_18ep",
+          "micro_batch_size": 64,
+          "evaluation_batch_size": 8,
+          "flow_initialization": {
+            "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/best.pt",
+            "sha256": "4d24688a71935d135a9b153ce568f31b4f2fd9845197c89bdf5accbec43ec823"
+          },
+          "scheduler_policy": "cosine_each_group_to_0.1",
+          "rgb_initialization": {
+            "path": "../PureVision_V3/checkpoints/pretrained/direct_seed_42/best.pth",
+            "sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82"
+          },
+          "rgb_learning_rate": 0.0001,
+          "rgb_input": "images",
+          "scheduler_epochs": 40,
+          "rgb_variant": "appearance_difference"
+        },
+        "source_epoch": 1,
+        "source_initialization": {
+          "policy": "seed42_flex_weight_only_continuation_v1",
+          "flow_checkpoint_sha256": "4d24688a71935d135a9b153ce568f31b4f2fd9845197c89bdf5accbec43ec823",
+          "source_run": "20261031_r02_base_flex_s42_R02_FLEX",
+          "source_training_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+          "source_best_epoch_one_based": 37,
+          "optimizer_inherited": false,
+          "head_mapping_exact": true,
+          "encoder_state_sha256": "b7062079c32b8255d9cf4014529e6dc5ef6281a8bcd8b1d26b92a25f0c164873",
+          "head_state_sha256": "cf2ccc0c4985e0b36a15c4e85da4a8597523872a0389df94b93b2b69a42dee1b",
+          "mapping": "RGB columns 0:384 zero; source flow/dt columns -> 384:452",
+          "rgb_checkpoint_sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+          "rgb_state_sha256": "b130b588539d4ccc278675385198707d490c49506513a5a0e178bdf94767abc2",
+          "common_rgb_state_sha256": "bacc988b3263ca058f3c6d02c48290baf7ec46557b50680c82aa10e12910ec3e",
+          "appearance_initialization": {
+            "policy": "isolated_seed42_torch_conv_default",
+            "stem": "Conv3d 3->64 kernel(1,3,3) padding(0,1,1), ReLU",
+            "seed": 42,
+            "alpha": 0.0,
+            "stem_state_sha256": "1961f2f86b22aea359d370c53e20715fec22b58000f013f45b49518255cd687a",
+            "shared_rgb_load": "exact V3 keys; only stem weight/bias and alpha are new"
+          },
+          "model_state_sha256": "be911d77b53a8e7143c14d2f58f70a2249750c1f7321a0a763b1be3473f13788"
+        },
+        "source_contract_hash": "f65cb11ab9a0a1694938f41a872f25001bf4f9a93789a847bdddd8d94598b95e",
+        "source_model_state_sha256": "0ea639695bca8079965340e0df9b1364f579c85bc83d4dca7b7ef7607a4e7996",
+        "strict_load": {
+          "missing_keys": [],
+          "unexpected_keys": []
+        },
+        "feature_tap_version": "frozen_r03_appearance_flex_direct_grid_rgb_t0to3_fp32_v1",
+        "tap_source_sha256": "5203a16dfafbc8e4f4ba4c46af97bf7cf7df0fabaf4983b323b2c516f3e9b2e7",
+        "preprocessing": {
+          "rgb": "v3_pil_bilinear_rgb_72x128_minus1_plus1_v1",
+          "flow": "existing_signed_model_view_pixels_uv_valid_hint_valid",
+          "dt": "raw_seconds"
+        },
+        "shapes": {
+          "F_sp": [
+            "N",
+            4,
+            24,
+            32
+          ],
+          "F_tm": [
+            "N",
+            4,
+            32
+          ],
+          "R": [
+            "N",
+            4,
+            24,
+            256
+          ],
+          "dt": [
+            "N",
+            4
+          ]
+        },
+        "dtype": "float32",
+        "region_order": "row_then_col_top_to_bottom_left_to_right",
+        "token_order": "t_then_row_then_col",
+        "rgb_time_positions": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rgb_backbone_input_steps": 5,
+        "flow_to_rgb_output": [
+          "F01->0",
+          "F12->1",
+          "F23->2",
+          "F34->3"
+        ],
+        "rgb_outputs_have_temporal_context": true,
+        "spatial_alignment": "coarse_logical_grid_not_pixel_alignment",
+        "pooling": {
+          "implementation": "adaptive_avg_pool2d_per_temporal_slice",
+          "bounds": "zero_based_end_exclusive; uneven sizes can overlap",
+          "flow_sfe_input_hw": [
+            9,
+            16
+          ],
+          "flow_rows": [
+            [
+              0,
+              3
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              6,
+              9
+            ]
+          ],
+          "flow_cols": [
+            [
+              0,
+              3
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              8,
+              11
+            ],
+            [
+              10,
+              14
+            ],
+            [
+              13,
+              16
+            ]
+          ],
+          "rgb_input_hw": [
+            72,
+            128
+          ],
+          "rgb_rows": [
+            [
+              0,
+              18
+            ],
+            [
+              18,
+              36
+            ],
+            [
+              36,
+              54
+            ],
+            [
+              54,
+              72
+            ]
+          ],
+          "rgb_cols": [
+            [
+              0,
+              22
+            ],
+            [
+              21,
+              43
+            ],
+            [
+              42,
+              64
+            ],
+            [
+              64,
+              86
+            ],
+            [
+              85,
+              107
+            ],
+            [
+              106,
+              128
+            ]
+          ],
+          "flow_temporal": "existing_MFE_spatial_mean_preserves_four_time_positions",
+          "rgb_temporal": "preserve_all_five_then_take_positions_0_1_2_3_no_time_pool",
+          "rgb_legacy_row_flip": false,
+          "directly_from_raw_feature_maps": true,
+          "adjacent_overlap_pixels": {
+            "flow_rows": [
+              1,
+              1,
+              1
+            ],
+            "flow_cols": [
+              1,
+              1,
+              0,
+              1,
+              1
+            ],
+            "rgb_rows": [
+              0,
+              0,
+              0
+            ],
+            "rgb_cols": [
+              1,
+              1,
+              0,
+              1,
+              1
+            ]
+          }
+        },
+        "taps": {
+          "F_sp": "flow_encoder.sfe(flow_stem)",
+          "F_tm": "flow_encoder.temporal(flow_stem)",
+          "R": "rgb_encoder.backbone.forward_feature_map(images) after DIG before projection"
+        },
+        "appearance_alpha": 0.007355934474617243,
+        "grid": [
+          4,
+          6
+        ],
+        "precision": {
+          "amp": false,
+          "autocast": false,
+          "matmul_tf32": false,
+          "cudnn_tf32": false,
+          "float32_matmul_precision": "highest",
+          "cudnn_benchmark": false,
+          "input_dtype": "torch.float32",
+          "output_dtype": "torch.float32"
+        },
+        "raw_feature_shapes": {
+          "F_sp": [
+            "N",
+            32,
+            4,
+            9,
+            16
+          ],
+          "F_tm": [
+            "N",
+            32,
+            4,
+            1,
+            1
+          ],
+          "R": [
+            "N",
+            256,
+            5,
+            72,
+            128
+          ]
+        }
+      },
+      "source_implementation_sha256": {
+        "fusion_abc.py": "f3af6004a7812d634df2503b9b3af0f7e62bab07ddbf2836b91c287fbd7af6d1",
+        "fusion_grid_cache.py": "5203a16dfafbc8e4f4ba4c46af97bf7cf7df0fabaf4983b323b2c516f3e9b2e7",
+        "fusion_abc_cache.py": "1569afabfadb8cb5c280460c6642ac9d28d3dc010a3c4466aac4c4edc4c15e1d",
+        "model.py": "2f8993ef65e4facd4f35064bdc76697b7afe3f417b6e26ed1ff8dc9839a83f47",
+        "rgb.py": "2833e8c262b15e7606d8831bbc0f95aad1b5edef789b078add5e64ddc508f319",
+        "datasets.py": "239eda940cce075c37937454722c8f69c4a345f7f075b8ec5df31d35ae8dfc21"
+      },
+      "complete_pilot_reference_alignment": {
+        "train_core": {
+          "count": 7324,
+          "ordered_metadata_equal": true,
+          "targets_exact_equal": true,
+          "dt_exact_equal": true,
+          "input_contract_equal": true,
+          "ordered_sample_digest": "ac023c4b8ef2137427f8cba3015a6287d0cda3e4ce560b624b89879f472f61d6"
+        },
+        "dev": {
+          "count": 1826,
+          "ordered_metadata_equal": true,
+          "targets_exact_equal": true,
+          "dt_exact_equal": true,
+          "input_contract_equal": true,
+          "ordered_sample_digest": "2989b6bbf5c7e7fa7a9be88314a61c47c3f2dab8e05eb810a7b5b011a8b658de"
+        }
+      },
+      "historical_2x3_numerical_check": {
+        "train_core:0": {
+          "dataset_indices": [
+            0,
+            7323
+          ],
+          "features": {
+            "F_sp": {
+              "max_abs_error": 0.0,
+              "exact_equal": true,
+              "atol": 1e-06,
+              "rtol": 1e-05
+            },
+            "F_tm": {
+              "max_abs_error": 0.0,
+              "exact_equal": true,
+              "atol": 1e-06,
+              "rtol": 1e-05
+            },
+            "R": {
+              "max_abs_error": 0.0,
+              "exact_equal": true,
+              "atol": 1e-06,
+              "rtol": 1e-05
+            },
+            "dt": {
+              "max_abs_error": 0.0,
+              "exact_equal": true,
+              "atol": 1e-06,
+              "rtol": 1e-05
+            }
+          }
+        },
+        "dev:0": {
+          "dataset_indices": [
+            0,
+            1825
+          ],
+          "features": {
+            "F_sp": {
+              "max_abs_error": 0.0,
+              "exact_equal": true,
+              "atol": 1e-06,
+              "rtol": 1e-05
+            },
+            "F_tm": {
+              "max_abs_error": 0.0,
+              "exact_equal": true,
+              "atol": 1e-06,
+              "rtol": 1e-05
+            },
+            "R": {
+              "max_abs_error": 0.0,
+              "exact_equal": true,
+              "atol": 1e-06,
+              "rtol": 1e-05
+            },
+            "dt": {
+              "max_abs_error": 0.0,
+              "exact_equal": true,
+              "atol": 1e-06,
+              "rtol": 1e-05
+            }
+          }
+        }
+      },
+      "historical_precision_evidence": {
+        "precision": {
+          "amp": false,
+          "autocast": false,
+          "matmul_tf32": false,
+          "cudnn_tf32": false,
+          "float32_matmul_precision": "highest",
+          "cudnn_benchmark": false,
+          "input_dtype": "torch.float32",
+          "output_dtype": "torch.float32"
+        },
+        "verified_source_directory": "/home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/purevision_v5",
+        "source_implementation_sha256": {
+          "fusion_abc.py": "f3af6004a7812d634df2503b9b3af0f7e62bab07ddbf2836b91c287fbd7af6d1",
+          "fusion_abc_cache.py": "1569afabfadb8cb5c280460c6642ac9d28d3dc010a3c4466aac4c4edc4c15e1d"
+        },
+        "reference_cache_identity": "209418d597b2065146ddf7bc9c718e296bdeedab98645b7470448c2d238ee4b9",
+        "reference_extraction_batch_size": 2,
+        "note": "Source encoder training AMP is separate; historical feature extraction was FP32 without AMP/TF32"
+      },
+      "precision": {
+        "amp": false,
+        "autocast": false,
+        "matmul_tf32": false,
+        "cudnn_tf32": false,
+        "float32_matmul_precision": "highest",
+        "cudnn_benchmark": false,
+        "input_dtype": "torch.float32",
+        "output_dtype": "torch.float32"
+      },
+      "frozen_state_before_sha256": "020211a23cf95c5ee80e37ca9836b396031085f8dd46b09ecae72614c9a82c77",
+      "frozen_state_after_sha256": "020211a23cf95c5ee80e37ca9836b396031085f8dd46b09ecae72614c9a82c77",
+      "frozen_state_matches_historical": true,
+      "outer_train_override_eval": true,
+      "all_parameters_requires_grad_false": true,
+      "bn_parameters_and_running_stats_unchanged": true,
+      "appearance_alpha": 0.007355934474617243,
+      "pooling_checks": {
+        "old_2x3_helper_exact_equal": true,
+        "grid46_direct_raw_manual_intervals_exact_equal": true,
+        "flow_rows": [
+          [
+            0,
+            3
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            6,
+            9
+          ]
+        ],
+        "regions_row_major": true,
+        "raw_map_test_shape": [
+          2,
+          3,
+          4,
+          9,
+          16
+        ],
+        "output_test_shape": [
+          2,
+          4,
+          24,
+          3
+        ]
+      },
+      "cross_grid_evidence": {
+        "created_at": "2026-11-01T16:52:41.940188+00:00",
+        "reference_identity": "209418d597b2065146ddf7bc9c718e296bdeedab98645b7470448c2d238ee4b9",
+        "grid_identity": "1de41b007fe3c04e49dc48689b61de72849625b6eb2ab775279c105af63e8316",
+        "partitions": {
+          "train_core": {
+            "count": 2,
+            "metadata_exact_equal": true,
+            "labels_exact_equal": true,
+            "dt_exact_equal": true,
+            "ordered_sample_digest": "214ce9762045341a725ee9f718a5107a39a8876df47d6999a198802cd96f35cc"
+          },
+          "dev": {
+            "count": 2,
+            "metadata_exact_equal": true,
+            "labels_exact_equal": true,
+            "dt_exact_equal": true,
+            "ordered_sample_digest": "e47076b41932c48eca01e45761aca2afc295b31f5882b25837318b76713f9fb7"
+          }
+        }
+      },
+      "expected_complete_feature_bytes": {
+        "train_core": 813842880,
+        "dev": 202905120
+      },
+      "expected_complete_feature_bytes_total": 1016748000,
+      "runtime_gpu": {
+        "process_device": "cuda:0",
+        "cuda_visible_devices": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+        "physical_index": 0,
+        "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+        "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+      },
+      "elapsed_seconds": 22.306894787121564,
+      "cuda_peak_allocated_bytes": 792848384,
+      "scope": "only 2 train and 2 dev feature-map extractions; complete 9150-window identity/labels/dt verification",
+      "additional_experiments_started": false
+    },
+    "models": {
+      "policy": "historical_build_triplet_C_explicit_six_group_parameter_copy_v1",
+      "seed": 42,
+      "comparisons": {
+        "J23_vs_historical_C": {
+          "parameter_count": 32,
+          "exact_equal": true,
+          "independent_storage": true
+        },
+        "J46_vs_J23": {
+          "parameter_count": 32,
+          "exact_equal": true,
+          "independent_storage": true
+        },
+        "S46_vs_S23": {
+          "parameter_count": 38,
+          "exact_equal": true,
+          "independent_storage": true
+        },
+        "F23_vs_S23_flow": {
+          "parameter_count": 33,
+          "exact_equal": true,
+          "independent_storage": true
+        },
+        "R23_vs_S23_rgb": {
+          "parameter_count": 33,
+          "exact_equal": true,
+          "independent_storage": true
+        },
+        "S23_common_vs_J23": {
+          "parameter_count": 28,
+          "exact_equal": true,
+          "independent_storage": true
+        },
+        "J46_common_vs_J23": {
+          "parameter_count": 28,
+          "exact_equal": true,
+          "independent_storage": true
+        },
+        "S46_common_vs_J23": {
+          "parameter_count": 28,
+          "exact_equal": true,
+          "independent_storage": true
+        },
+        "F23_common_vs_J23": {
+          "parameter_count": 28,
+          "exact_equal": true,
+          "independent_storage": true
+        },
+        "R23_common_vs_J23": {
+          "parameter_count": 28,
+          "exact_equal": true,
+          "independent_storage": true
+        }
+      },
+      "independent_parameter_storage": true,
+      "position_encoding": {
+        "J23": {
+          "shape": [
+            24,
+            64
+          ],
+          "historical_integer_axis_rule": true
+        },
+        "S23": {
+          "shape": [
+            24,
+            64
+          ],
+          "historical_integer_axis_rule": true
+        },
+        "J46": {
+          "shape": [
+            96,
+            64
+          ],
+          "historical_integer_axis_rule": true
+        },
+        "S46": {
+          "shape": [
+            96,
+            64
+          ],
+          "historical_integer_axis_rule": true
+        },
+        "F23": {
+          "shape": [
+            24,
+            64
+          ],
+          "historical_integer_axis_rule": true
+        },
+        "R23": {
+          "shape": [
+            24,
+            64
+          ],
+          "historical_integer_axis_rule": true
+        }
+      },
+      "parameters": {
+        "J23": 101250,
+        "S23": 101570,
+        "J46": 101250,
+        "S46": 101570,
+        "F23": 84930,
+        "R23": 97218
+      },
+      "parameter_sha256": {
+        "J23": "641125729cebb45d3dd10f127b8247e854fbffb26b2771b6093a4e0e5ec7bfaf",
+        "S23": "22de31a54edda4525e9af035ec3d5bb537247e79ae1d60588fc6f0c5f2536ab8",
+        "J46": "641125729cebb45d3dd10f127b8247e854fbffb26b2771b6093a4e0e5ec7bfaf",
+        "S46": "22de31a54edda4525e9af035ec3d5bb537247e79ae1d60588fc6f0c5f2536ab8",
+        "F23": "336731478db275c07e01ba62c92301519eb53fd08a78521f0614e3ead02c2ca3",
+        "R23": "f0ab7999840090463a60fd6f3b17a077920cd4b14c62eca7bd6292e208041c49"
+      },
+      "new_projection_initialization": "isolated seed42 PyTorch Linear.reset_parameters defaults; S23 flow then RGB",
+      "modality_initialization": "separate isolated seed42 Normal(0,0.02); flow64 then RGB64",
+      "transformer_layers_independently_initialized": true,
+      "token_order": "time,row,column within a modality; separated flow tokens then RGB tokens",
+      "position_axes": {
+        "time": 32,
+        "row": 16,
+        "column": 16,
+        "base": 10000,
+        "integer_start": 0
+      },
+      "forward": {
+        "J23": {
+          "tokens": [
+            2,
+            24,
+            64
+          ],
+          "prediction": [
+            2,
+            2
+          ],
+          "finite": true,
+          "historical_C": {
+            "atol": 1e-06,
+            "rtol": 1e-05,
+            "max_absolute_difference": 0.0,
+            "exact_equal": true,
+            "same_device": "cuda:0",
+            "dtype": "float32",
+            "mode": "eval"
+          }
+        },
+        "S23": {
+          "tokens": [
+            2,
+            48,
+            64
+          ],
+          "prediction": [
+            2,
+            2
+          ],
+          "finite": true
+        },
+        "J46": {
+          "tokens": [
+            2,
+            96,
+            64
+          ],
+          "prediction": [
+            2,
+            2
+          ],
+          "finite": true
+        },
+        "S46": {
+          "tokens": [
+            2,
+            192,
+            64
+          ],
+          "prediction": [
+            2,
+            2
+          ],
+          "finite": true
+        },
+        "F23": {
+          "tokens": [
+            2,
+            24,
+            64
+          ],
+          "prediction": [
+            2,
+            2
+          ],
+          "finite": true
+        },
+        "R23": {
+          "tokens": [
+            2,
+            24,
+            64
+          ],
+          "prediction": [
+            2,
+            2
+          ],
+          "finite": true
+        }
+      },
+      "schema": "v5_fusion_grid_model_preflight_v1",
+      "observed_at": "2026-11-01T16:53:16.768674+00:00",
+      "status": "passed",
+      "inputs": {
+        "2x3": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "identity": "209418d597b2065146ddf7bc9c718e296bdeedab98645b7470448c2d238ee4b9",
+          "index_sha256": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117",
+          "source": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+          "partition": "dev",
+          "sample_scope": "first two 4x6 rows matched by full metadata to the 2x3 cache",
+          "fixed_sample_metadata": [
+            {
+              "scene": "scene-0048",
+              "token": "8dc1d67f852c4c1cb243b2b82a744c8f",
+              "time_s": 1532402156.36246,
+              "dataset_index": 0,
+              "image_tokens": [
+                "10ef4bba79a54c7f881edf484b5cd7ec",
+                "c20d811f66474b1d9e0660476c08d597",
+                "0257d8ee669345ed9055ec1e56b09748",
+                "723f87d0708c45aab2f11a002d623a23",
+                "8dc1d67f852c4c1cb243b2b82a744c8f"
+              ],
+              "pairs": [
+                [
+                  "10ef4bba79a54c7f881edf484b5cd7ec",
+                  "c20d811f66474b1d9e0660476c08d597",
+                  1532402156.01246,
+                  1532402156.11246
+                ],
+                [
+                  "c20d811f66474b1d9e0660476c08d597",
+                  "0257d8ee669345ed9055ec1e56b09748",
+                  1532402156.11246,
+                  1532402156.16246
+                ],
+                [
+                  "0257d8ee669345ed9055ec1e56b09748",
+                  "723f87d0708c45aab2f11a002d623a23",
+                  1532402156.16246,
+                  1532402156.26246
+                ],
+                [
+                  "723f87d0708c45aab2f11a002d623a23",
+                  "8dc1d67f852c4c1cb243b2b82a744c8f",
+                  1532402156.26246,
+                  1532402156.36246
+                ]
+              ]
+            },
+            {
+              "scene": "scene-1013",
+              "token": "644a8808233047fdba8063f4804066ba",
+              "time_s": 1542193851.61246,
+              "dataset_index": 1825,
+              "image_tokens": [
+                "5b3a3d6f9b2f45f5a3369066e3d52537",
+                "3362fa58136743a7906ee2f1fdbb8a23",
+                "b506c97a7ea64954a9e0ad619147857d",
+                "0f87525d6c8f4068b259f911291ef0b3",
+                "644a8808233047fdba8063f4804066ba"
+              ],
+              "pairs": [
+                [
+                  "5b3a3d6f9b2f45f5a3369066e3d52537",
+                  "3362fa58136743a7906ee2f1fdbb8a23",
+                  1542193851.26246,
+                  1542193851.36246
+                ],
+                [
+                  "3362fa58136743a7906ee2f1fdbb8a23",
+                  "b506c97a7ea64954a9e0ad619147857d",
+                  1542193851.36246,
+                  1542193851.41246
+                ],
+                [
+                  "b506c97a7ea64954a9e0ad619147857d",
+                  "0f87525d6c8f4068b259f911291ef0b3",
+                  1542193851.41246,
+                  1542193851.51246
+                ],
+                [
+                  "0f87525d6c8f4068b259f911291ef0b3",
+                  "644a8808233047fdba8063f4804066ba",
+                  1542193851.51246,
+                  1542193851.61246
+                ]
+              ]
+            }
+          ]
+        },
+        "4x6": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_grid_20261102/cache46_preflight",
+          "identity": "1de41b007fe3c04e49dc48689b61de72849625b6eb2ab775279c105af63e8316",
+          "index_sha256": "b2488bb3a8fad7ffc57286d36a0df91feb21b88978879676951eee54d2d4a55e",
+          "source": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+          "partition": "dev",
+          "sample_scope": "first two 4x6 rows matched by full metadata to the 2x3 cache",
+          "fixed_sample_metadata": [
+            {
+              "scene": "scene-0048",
+              "token": "8dc1d67f852c4c1cb243b2b82a744c8f",
+              "time_s": 1532402156.36246,
+              "dataset_index": 0,
+              "image_tokens": [
+                "10ef4bba79a54c7f881edf484b5cd7ec",
+                "c20d811f66474b1d9e0660476c08d597",
+                "0257d8ee669345ed9055ec1e56b09748",
+                "723f87d0708c45aab2f11a002d623a23",
+                "8dc1d67f852c4c1cb243b2b82a744c8f"
+              ],
+              "pairs": [
+                [
+                  "10ef4bba79a54c7f881edf484b5cd7ec",
+                  "c20d811f66474b1d9e0660476c08d597",
+                  1532402156.01246,
+                  1532402156.11246
+                ],
+                [
+                  "c20d811f66474b1d9e0660476c08d597",
+                  "0257d8ee669345ed9055ec1e56b09748",
+                  1532402156.11246,
+                  1532402156.16246
+                ],
+                [
+                  "0257d8ee669345ed9055ec1e56b09748",
+                  "723f87d0708c45aab2f11a002d623a23",
+                  1532402156.16246,
+                  1532402156.26246
+                ],
+                [
+                  "723f87d0708c45aab2f11a002d623a23",
+                  "8dc1d67f852c4c1cb243b2b82a744c8f",
+                  1532402156.26246,
+                  1532402156.36246
+                ]
+              ]
+            },
+            {
+              "scene": "scene-1013",
+              "token": "644a8808233047fdba8063f4804066ba",
+              "time_s": 1542193851.61246,
+              "dataset_index": 1825,
+              "image_tokens": [
+                "5b3a3d6f9b2f45f5a3369066e3d52537",
+                "3362fa58136743a7906ee2f1fdbb8a23",
+                "b506c97a7ea64954a9e0ad619147857d",
+                "0f87525d6c8f4068b259f911291ef0b3",
+                "644a8808233047fdba8063f4804066ba"
+              ],
+              "pairs": [
+                [
+                  "5b3a3d6f9b2f45f5a3369066e3d52537",
+                  "3362fa58136743a7906ee2f1fdbb8a23",
+                  1542193851.26246,
+                  1542193851.36246
+                ],
+                [
+                  "3362fa58136743a7906ee2f1fdbb8a23",
+                  "b506c97a7ea64954a9e0ad619147857d",
+                  1542193851.36246,
+                  1542193851.41246
+                ],
+                [
+                  "b506c97a7ea64954a9e0ad619147857d",
+                  "0f87525d6c8f4068b259f911291ef0b3",
+                  1542193851.41246,
+                  1542193851.51246
+                ],
+                [
+                  "0f87525d6c8f4068b259f911291ef0b3",
+                  "644a8808233047fdba8063f4804066ba",
+                  1542193851.51246,
+                  1542193851.61246
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "device": "cuda:0",
+      "precision": {
+        "dtype": "float32",
+        "amp": false,
+        "tf32": false
+      },
+      "formal_restart": "disposable preflight models/optimizers; formal training recreates all prescribed initial state",
+      "source_file_sha256": {
+        "fusion_abc.py": "f3af6004a7812d634df2503b9b3af0f7e62bab07ddbf2836b91c287fbd7af6d1",
+        "fusion_grid.py": "9b5f6a36a1e99467eac0088ba882d0a41ada15890d9692933fb22e1f1e35bbab"
+      },
+      "updates": {
+        "J23": {
+          "loss": 0.6201660633087158,
+          "loss_x": 1.2391319274902344,
+          "loss_y": 0.001200200174935162,
+          "gradient_norm_before_clip": 0.6175695061683655,
+          "gradients_finite": true,
+          "checkpoint_model_roundtrip_exact": true,
+          "input_token_count": 24
+        },
+        "S23": {
+          "loss": 0.6161826252937317,
+          "loss_x": 1.2186169624328613,
+          "loss_y": 0.013748317956924438,
+          "gradient_norm_before_clip": 0.6854305267333984,
+          "gradients_finite": true,
+          "checkpoint_model_roundtrip_exact": true,
+          "input_token_count": 48
+        },
+        "J46": {
+          "loss": 0.6186680793762207,
+          "loss_x": 1.235685110092163,
+          "loss_y": 0.0016510644927620888,
+          "gradient_norm_before_clip": 0.5976612567901611,
+          "gradients_finite": true,
+          "checkpoint_model_roundtrip_exact": true,
+          "input_token_count": 96
+        },
+        "S46": {
+          "loss": 0.6170084476470947,
+          "loss_x": 1.2219291925430298,
+          "loss_y": 0.012087689712643623,
+          "gradient_norm_before_clip": 0.6312094926834106,
+          "gradients_finite": true,
+          "checkpoint_model_roundtrip_exact": true,
+          "input_token_count": 192
+        },
+        "F23": {
+          "loss": 0.6387690305709839,
+          "loss_x": 1.2384806871414185,
+          "loss_y": 0.039057377725839615,
+          "gradient_norm_before_clip": 0.9790801405906677,
+          "gradients_finite": true,
+          "checkpoint_model_roundtrip_exact": true,
+          "input_token_count": 24
+        },
+        "R23": {
+          "loss": 0.6081693172454834,
+          "loss_x": 1.2088117599487305,
+          "loss_y": 0.0075268931686878204,
+          "gradient_norm_before_clip": 0.948594331741333,
+          "gradients_finite": true,
+          "checkpoint_model_roundtrip_exact": true,
+          "input_token_count": 24
+        }
+      }
+    },
+    "training": {
+      "schema": "v5_fusion_grid_training_verification_v1",
+      "status": "passed",
+      "verified_at": "2026-11-01T16:53:56.397904+00:00",
+      "gpu": {
+        "process_device": "cuda:0",
+        "cuda_visible_devices": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+        "physical_index": 1,
+        "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "formal_training": false,
+      "preflight_sample_count": 64,
+      "formal_config_unchanged": true,
+      "gpu_cache_placement": {
+        "mode": "gpu_resident",
+        "bytes": 1803776,
+        "available_gpu_bytes_at_load": 31833522176,
+        "reserved_workspace_bytes": 2147483648
+      },
+      "gpu_cpu_actual_batch_exact": true,
+      "gpu_cpu_forward_exact": true,
+      "finite_loss_and_all_gradients": true,
+      "losses": [
+        0.132851243019104,
+        0.09780768305063248
+      ],
+      "gradient_norms": [
+        0.4650496542453766,
+        0.5252559185028076
+      ],
+      "initial_epoch_state_exact_to_uninterrupted_reference": true,
+      "restored_next_epoch_state_exact_to_uninterrupted_reference": true,
+      "restored_optimizer_exact": true,
+      "restored_scheduler_exact": true,
+      "state_sha256": [
+        "84e604a35294ada4a2bce386c26bccaec8b1d376e8e979b666fd32337115039c",
+        "76db288f21d1778906e29b279986276c4af7a0498ff0dfc12f00c42f57e57b24"
+      ],
+      "complete_epoch_boundary": true,
+      "partial_state_rejected": true,
+      "recovery_ignores_export_aliases": true,
+      "best_dev_prediction_reused": true,
+      "train_evaluation_passes_per_selected_best": 1,
+      "initial_run": "/tmp/fusion_grid_train_preflight_J23_v1",
+      "initial_recovery_sha256": "73a8077505f1b6187bd4b3956f26ef6a4cde54ebdd77ae452dd889b7c65a82ff",
+      "resumed_recovery_identity": "8ba1ee8898dab7b8035eee7509b32fea0a6fc115a4697bb9d1d30b733bcd88e4",
+      "actual_sample_order_sha256": [
+        "6977dfe815e4390f43d58aa73f84db96572ac6e6a8cc7e318b620037eadd449f",
+        "265d638ffd40b35a335d675d9eb179f50825292b073f79784447e583789c2514"
+      ]
+    },
+    "integration": {
+      "status": "passed",
+      "pipeline_build": true,
+      "public_artifact_allowlist": true,
+      "public_file_count": 122,
+      "formal_launched": false
+    },
+    "pipeline_review": {
+      "schema": "v5_fusion_grid_pipeline_review_v1",
+      "status": "passed",
+      "created_at": "2026-11-01T16:55:07.321545+00:00",
+      "files": {
+        "fusion_grid_pipeline.py": "8a6a61ae8b04b83596d6cb4c58ad278ee3d2a388d23de837f15f284fd4d086bf",
+        "collect_fusion_grid.py": "26cd2d67be137f448ca026264dd3f7029c9db8263b53cb369a4e70f16f408402",
+        "publish_results.py": "9f1b3c425b6c770d2e09fbc06be21667a447ac94b6d912e37c8aea7675856201"
+      },
+      "checks": [
+        "legacy completed cache readiness accepted",
+        "preflight rejected as formal readiness",
+        "formal manifest-only readiness and cross-grid exact evidence validated",
+        "bad dt evidence rejected",
+        "prelaunch GPU contention requeues without process launch",
+        "six-group DAG and 4x6 publication gate",
+        "S46 priority on GPU0; J46 precedes F23",
+        "dual summary is completion-dependent and precedes full compare",
+        "bounded publisher exports six planned rows and cache manifests without tensors"
+      ],
+      "limitations": [
+        "Fixed per-group GPU assignment preserves the reviewed plan; root observes unexpected external occupancy.",
+        "Training interruption recovery remains explicit through the complete-epoch trainer; no other jobs are resumed."
+      ],
+      "code_changes": [
+        "fusion_grid_pipeline.py: readiness manifest gate and prelaunch contention retry"
+      ],
+      "no_processes_started": true,
+      "no_remote_writes": true
+    }
+  },
+  "implementation_sha256": {
+    "collect_fusion_grid.py": "26cd2d67be137f448ca026264dd3f7029c9db8263b53cb369a4e70f16f408402",
+    "configs/next/FUSION_GRID_F23.json": "a7259cf917a95fcc932d6e391687542eb6ed35e226f5fce4c7b91c6af12d2224",
+    "configs/next/FUSION_GRID_J23.json": "c2d4bb2cf2a45f95f7c301c0e38bb617f136b74095f3e35480f1378c0c38c16b",
+    "configs/next/FUSION_GRID_J46.json": "ae4db2881e36090163b08eab159bfa77d8b3ea118413ef8395ec821ded6d0538",
+    "configs/next/FUSION_GRID_R23.json": "c866ffd2fbaf6bf44a33471a6141c4fb7623bab90f3ee7e3e45ef613f58c7200",
+    "configs/next/FUSION_GRID_S23.json": "96aa7d4bd3e15d49a8a0b8a904759a68969e8ddd10d857f46b24a3b11b94875d",
+    "configs/next/FUSION_GRID_S46.json": "576e3fec0f96dfb5618fa80fc2747e5433e92f34cc2e740173e48da1c77b3641",
+    "fusion_grid_comparison.py": "f9f98bca1cfbb3417bc4b2f3a8c850d8203db2781c5e099ea49b97c25bfd19e7",
+    "fusion_grid_pipeline.py": "8a6a61ae8b04b83596d6cb4c58ad278ee3d2a388d23de837f15f284fd4d086bf",
+    "prepare_fusion_grid.py": "275c96e89b2ea54a1d79fe2718c338d81d43b008194831e25c429491fa7b4325",
+    "publish_results.py": "9f1b3c425b6c770d2e09fbc06be21667a447ac94b6d912e37c8aea7675856201",
+    "purevision_v5/fusion_grid.py": "9b5f6a36a1e99467eac0088ba882d0a41ada15890d9692933fb22e1f1e35bbab",
+    "purevision_v5/fusion_grid_cache.py": "5203a16dfafbc8e4f4ba4c46af97bf7cf7df0fabaf4983b323b2c516f3e9b2e7",
+    "purevision_v5/fusion_grid_training.py": "26738ccae1a680742df86728965ee0c9b23a49b0094c30b1499ea29cbf7bde3c",
+    "tests/test_fusion_grid.py": "f03c644dba1aa200c0e6c8cdf8e35438538ea9002a4e21582e968ede6c80b57e",
+    "tests/test_fusion_grid_comparison.py": "e03b0975e4f907468c2794ed13f6edc802f049403627d87a0d809132b12f9006",
+    "train_fusion_grid.py": "59cc098e3fb4fbdd71628763857455f051816cbd880dcf9b8215e9e852a733ab",
+    "verify_fusion_grid_models.py": "5b7b0f9854964e978b4e8761d0a3b6f5cceb64063280096fb7a2114ce4f1a5db",
+    "verify_fusion_grid_training.py": "fe04a8ec57e7790c726ffdf72184b1b56a167e0a2fd35f201caf5eeb6cd24a5a"
+  }
+}

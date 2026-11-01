@@ -267,6 +267,12 @@ def collect(root, plans):
     abc_ids = {row['run_id'] for row in abc_rows}
     rows = [row for row in rows if row['run_id'] not in abc_ids] + abc_rows
     sources.extend(abc_sources)
+    from collect_fusion_grid import collect_public as collect_grid
+    grid_files, grid_rows, grid_sources = collect_grid(root, plans)
+    files.update(grid_files)
+    grid_ids = {row['run_id'] for row in grid_rows}
+    rows = [row for row in rows if row['run_id'] not in grid_ids] + grid_rows
+    sources.extend(grid_sources)
     summary = dict(schema="v5_next_public_report_v1", rows=rows,
                    all_terminal=bool(rows) and all(r["status"] in TERMINAL for r in rows),
                    limits=["PLANAR_PROXY labels; dev selection and dev recomputation are not held-out testing.",

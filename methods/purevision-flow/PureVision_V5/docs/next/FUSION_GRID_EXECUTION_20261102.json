@@ -1,0 +1,26 @@
+{
+  "schema": "v5_fusion_grid_execution_v1",
+  "prefix": "20261102_0052_fusion_grid_s42",
+  "root": "/home/zhangyu/.local/share/speedest-v5-next",
+  "cache23": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+  "cache46": "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+  "verification": "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_grid_20261102/receipt.json",
+  "groups": [
+    "J23",
+    "S23",
+    "J46",
+    "S46",
+    "F23",
+    "R23"
+  ],
+  "source_checkpoint_sha256": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+  "epochs": 20,
+  "seed": 42,
+  "counts": {
+    "train_core": 7324,
+    "dev": 1826
+  },
+  "batch_size": 64,
+  "precision": "FP32, AMP=false, TF32=false",
+  "authorization": "User provided frozen six-group first round only; no seed43/44 or full data expansion."
+}
