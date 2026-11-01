@@ -1,18 +1,18 @@
 {
   "schema": "v5_fusion_grid_recovery_v1",
-  "updated_at": "2026-11-01T18:51:29.130282+00:00",
+  "updated_at": "2026-11-01T18:51:41.377723+00:00",
   "run_id": "20261102_0154_fusion_full_s42_S23",
   "contract_hash": "b14425e37b5343b6aa91062520ac0d0a97da5a4255b9f3ff14f156e0cc290f75",
   "code_commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
-  "completed_epochs": 19,
+  "completed_epochs": 20,
   "current": {
-    "path": "checkpoints/epoch_019.pt",
-    "sha256": "39d517001824414da1a49b6660a4cf5fdb9545c484cc87da0203032b068a5171"
+    "path": "checkpoints/epoch_020.pt",
+    "sha256": "41aa49b5ce0d954a84131c6b49aa0bf7b6eda3deff7d85bf4dfd4755ad7d6b1a"
   },
   "best": {
     "path": "checkpoints/epoch_019.pt",
     "sha256": "39d517001824414da1a49b6660a4cf5fdb9545c484cc87da0203032b068a5171"
   },
   "boundary": "validation_then_scheduler_then_advance_epoch_next_batch_zero",
-  "identity": "68ffa4185948aed2683ccc6792203251536e29faa197f6a49827deb13f081844"
+  "identity": "26d0413e5a5bffde24d1b7c3b9b484ea7bd670b14832e4c67dbdf035c840d6b5"
 }

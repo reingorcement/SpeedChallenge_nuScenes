@@ -7,7 +7,7 @@
 | 20261102_0154_fusion_full_s42_cache | cache | completed | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | 156458/156458 | — |
 | 20261102_0154_fusion_full_s42_full_cache_check | full_cache_check | completed | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | —/— | — |
 | 20261102_0154_fusion_full_s42_publish_train | publish_train | completed | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | —/— | — |
-| 20261102_0154_fusion_full_s42_S23 | S23 | running | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | — | — |
+| 20261102_0154_fusion_full_s42_S23 | S23 | completed | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | — | 0.17847165237392404 |
 | 20261102_0154_fusion_full_s42_J23 | J23 | completed | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | — | 0.18402909965442985 |
 | 20261102_0154_fusion_full_s42_F23 | F23 | completed | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | — | 0.18744595331619757 |
 

@@ -1,0 +1,64 @@
+{
+  "schema": "v5_fusion_grid_evaluation_v1",
+  "status": "completed",
+  "partition": "train_core",
+  "count": 132978,
+  "checkpoint_sha256": "39d517001824414da1a49b6660a4cf5fdb9545c484cc87da0203032b068a5171",
+  "training_run": "20261102_0154_fusion_full_s42_S23",
+  "training_code": {
+    "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+    "dirty": false,
+    "verified_remote_commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026"
+  },
+  "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+  "contract_hash": "b14425e37b5343b6aa91062520ac0d0a97da5a4255b9f3ff14f156e0cc290f75",
+  "config": {
+    "schema": "v5_fusion_full_config_v1",
+    "seed": 42,
+    "epochs": 20,
+    "batch_size": 64,
+    "drop_last": false,
+    "amp": false,
+    "tf32": false,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "optimizer_eps": 1e-08,
+    "grad_clip": 2,
+    "scheduler_epochs": 20,
+    "eta_min": 0,
+    "loss_scales_m_s": [
+      5,
+      1
+    ],
+    "loss_beta": 1,
+    "early_stopping": false,
+    "group": "S23",
+    "scope": "full",
+    "expected_counts": {
+      "train_core": 132978,
+      "dev": 23480
+    },
+    "expected_scene_counts": {
+      "train_core": 582,
+      "dev": 103
+    }
+  },
+  "reused_validation_predictions": false,
+  "full_train_inference_passes": 1,
+  "predictions_sha256": "155bdafdc503e26a03c936d0004cee9bc18f10b35a99707c09d8a7c9aa35c21c",
+  "completed_at": "2026-11-01T18:51:46.493544+00:00",
+  "data_scope": "full",
+  "scope": "frozen_fusion_full",
+  "expected_counts": {
+    "train_core": 132978,
+    "dev": 23480
+  },
+  "expected_scene_counts": {
+    "train_core": 582,
+    "dev": 103
+  }
+}

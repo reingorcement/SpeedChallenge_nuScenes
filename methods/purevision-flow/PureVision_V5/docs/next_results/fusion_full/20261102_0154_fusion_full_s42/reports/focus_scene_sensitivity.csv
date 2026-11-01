@@ -1,4 +1,10 @@
 comparison,category,diagnostic,delta_epe,candidate_epe,baseline_epe,remaining_windows,diagnostic_only,official_metric_includes_all_scenes
+S23_minus_J23,A_full_matched_23480dev,without_scene0402,-0.005692950228000038,0.17827015440961752,0.18396310463761756,23247,True,True
+S23_minus_J23,A_full_matched_23480dev,without_scene1013,-0.00515147424944265,0.17272356616312745,0.1778750404125701,23255,True,True
+S23_minus_J23,A_full_matched_23480dev,without_both,-0.005284192749319322,0.17246192393989102,0.17774611668921034,23022,True,True
+S23_minus_F23,A_full_matched_23480dev,without_scene0402,-0.009092037824310673,0.17827015440961752,0.1873621922339282,23247,True,True
+S23_minus_F23,A_full_matched_23480dev,without_scene1013,-0.008015241233983755,0.17272356616312745,0.1807388073971112,23255,True,True
+S23_minus_F23,A_full_matched_23480dev,without_both,-0.008124422381785207,0.17246192393989102,0.18058634632167622,23022,True,True
 F23_minus_J23,A_full_matched_23480dev,without_scene0402,0.003399087596310635,0.1873621922339282,0.18396310463761756,23247,True,True
 F23_minus_J23,A_full_matched_23480dev,without_scene1013,0.002863766984541105,0.1807388073971112,0.1778750404125701,23255,True,True
 F23_minus_J23,A_full_matched_23480dev,without_both,0.002840229632465885,0.18058634632167622,0.17774611668921034,23022,True,True
@@ -11,6 +17,15 @@ J23_minus_FLEX_continued,C_cross_budget_historical_accuracy,without_both,-0.0056
 J23_minus_RGB_appearance,C_cross_budget_historical_accuracy,without_scene0402,-0.021105001867551182,0.18396310463761756,0.20506810650516874,23247,True,True
 J23_minus_RGB_appearance,C_cross_budget_historical_accuracy,without_scene1013,-0.021232546269322777,0.1778750404125701,0.19910758668189288,23255,True,True
 J23_minus_RGB_appearance,C_cross_budget_historical_accuracy,without_both,-0.021301274829662403,0.17774611668921034,0.19904739151887274,23022,True,True
+S23_minus_FLEX_original,C_cross_budget_historical_accuracy,without_scene0402,-0.013572796123072634,0.17827015440961752,0.19184295053269015,23247,True,True
+S23_minus_FLEX_original,C_cross_budget_historical_accuracy,without_scene1013,-0.011339515083351681,0.17272356616312745,0.18406308124647913,23255,True,True
+S23_minus_FLEX_original,C_cross_budget_historical_accuracy,without_both,-0.011739797124931423,0.17246192393989102,0.18420172106482244,23022,True,True
+S23_minus_FLEX_continued,C_cross_budget_historical_accuracy,without_scene0402,-0.013165379810149619,0.17827015440961752,0.19143553421976714,23247,True,True
+S23_minus_FLEX_continued,C_cross_budget_historical_accuracy,without_scene1013,-0.010455286302740036,0.17272356616312745,0.1831788524658675,23255,True,True
+S23_minus_FLEX_continued,C_cross_budget_historical_accuracy,without_both,-0.010936514943358594,0.17246192393989102,0.1833984388832496,23022,True,True
+S23_minus_RGB_appearance,C_cross_budget_historical_accuracy,without_scene0402,-0.02679795209555122,0.17827015440961752,0.20506810650516874,23247,True,True
+S23_minus_RGB_appearance,C_cross_budget_historical_accuracy,without_scene1013,-0.026384020518765428,0.17272356616312745,0.19910758668189288,23255,True,True
+S23_minus_RGB_appearance,C_cross_budget_historical_accuracy,without_both,-0.026585467578981725,0.17246192393989102,0.19904739151887274,23022,True,True
 F23_minus_FLEX_original,C_cross_budget_historical_accuracy,without_scene0402,-0.004480758298761961,0.1873621922339282,0.19184295053269015,23247,True,True
 F23_minus_FLEX_original,C_cross_budget_historical_accuracy,without_scene1013,-0.003324273849367926,0.1807388073971112,0.18406308124647913,23255,True,True
 F23_minus_FLEX_original,C_cross_budget_historical_accuracy,without_both,-0.0036153747431462158,0.18058634632167622,0.18420172106482244,23022,True,True
@@ -23,6 +38,9 @@ F23_minus_RGB_appearance,C_cross_budget_historical_accuracy,without_both,-0.0184
 full_minus_pilot_J23,B_training_coverage_change,without_scene0402,-0.2220640632359731,0.2816453022310759,0.503709365467049,1593,True,True
 full_minus_pilot_J23,B_training_coverage_change,without_scene1013,-0.14687669815078505,0.19272625717534433,0.3396029553261294,1601,True,True
 full_minus_pilot_J23,B_training_coverage_change,without_both,-0.1594512770092137,0.19308609017719958,0.35253736718641326,1368,True,True
+full_minus_pilot_S23,B_training_coverage_change,without_scene0402,-0.1170706203293887,0.2595206524530233,0.376591272782412,1593,True,True
+full_minus_pilot_S23,B_training_coverage_change,without_scene1013,-0.11198079262637431,0.17854881381687424,0.29052960644324854,1601,True,True
+full_minus_pilot_S23,B_training_coverage_change,without_both,-0.0775289035596913,0.17513781633147527,0.25266671989116657,1368,True,True
 full_minus_pilot_F23,B_training_coverage_change,without_scene0402,-0.12148183182929079,0.280594825801661,0.4020766576309518,1593,True,True
 full_minus_pilot_F23,B_training_coverage_change,without_scene1013,-0.10196498642297441,0.18392232395986147,0.2858873103828359,1601,True,True
 full_minus_pilot_F23,B_training_coverage_change,without_both,-0.0881757998414095,0.18189878629937717,0.27007458614078667,1368,True,True

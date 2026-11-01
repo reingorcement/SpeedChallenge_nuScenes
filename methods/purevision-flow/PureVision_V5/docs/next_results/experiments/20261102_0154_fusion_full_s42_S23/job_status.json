@@ -1,6 +1,6 @@
 {
-  "status": "running",
-  "updated_at": "2026-11-01T18:51:33.882067+00:00",
+  "status": "completed",
+  "updated_at": "2026-11-01T18:51:48.885670+00:00",
   "launch_count": 1,
   "reason": null,
   "launched_at_epoch": 1793558837.2463782,
@@ -27,11 +27,13 @@
   ],
   "child_pid": 196431,
   "child_pid_start_ticks": 107375433,
-  "epoch": 20,
-  "elapsed_seconds": 249.19312053592876,
+  "epoch": null,
+  "elapsed_seconds": 266.5459648328833,
   "cuda_peak_allocated_bytes": 4459031040,
-  "processed_batches": 39482,
-  "optimizer_updates": 39482,
+  "processed_batches": 41560,
+  "optimizer_updates": 41560,
   "amp_skips": 0,
-  "best_epoch": 19
+  "best_epoch": 19,
+  "exit_code": 0,
+  "finished_at": "2026-11-01T18:51:48.885644+00:00"
 }
