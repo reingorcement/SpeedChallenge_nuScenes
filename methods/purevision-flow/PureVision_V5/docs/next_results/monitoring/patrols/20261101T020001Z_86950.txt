@@ -1,0 +1,11 @@
+正常，无新增里程碑。指定命令成功，5 个目标工件均有读取成功收据。
+
+实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：`monitoring/astra/20261101T020001Z_86950.{request,snapshot}.json`、`monitoring/publication.json`、`runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/status.json`、`pipeline/20261101_rgb_path_s42/jobs/{R03_APPEAR_FT_s42_18ep,compare}.json`。
+
+宿主确定性检查（10:00:01 快照）：目标训练父/子 PID 身份核验通过且存活；checkpoint 距更新约 55 秒，日志约 9 秒，目标日志异常摘要为空。GPU0 利用率 100%，显存 49405 MiB，86°C；工件盘剩余 960 GB，缓存所在盘剩余 17434 GB，均未触发低空间标记。
+
+本次 AI 诊断：目标 run `20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep` 正常推进，epoch=16，步数从快照 33560 增至 33580；loss=0.000262，累计 AMP skips=8。最近验证 epoch=15（零基），EPE=0.228423，最佳=0.205068，未刷新最佳。`old_diff18_eval` 已完成；`compare` 仍排队，PID unknown 保留待核实，不视为终止，整个 DAG 尚未结束。
+
+无需人工干预；后续若进度持续不更新，再定位同 run 日志及作业状态。全程只读，未修改或启停任何作业。
+
+ASTRA_PATROL_OK

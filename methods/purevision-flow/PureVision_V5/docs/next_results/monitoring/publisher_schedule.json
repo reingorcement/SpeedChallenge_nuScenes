@@ -9,9 +9,9 @@
   "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_rgb_path_20261101.json",
   "status": "verified_trigger",
   "last_result": {
-    "report_commit": "7c75c6edd1301e6515a73f1495630a2ade65a60d",
-    "remote_base": "3b93531cd3f297708655d0ce59a33fa9a568f89c",
-    "started_at": "2026-11-01T00:17:01.795961+00:00",
+    "report_commit": "a6a65581089e95d982521c9a2eb30dba1371a7b8",
+    "remote_base": "d018bad509b26ea548900f4970147d0533bb979a",
+    "started_at": "2026-11-01T01:17:01.493953+00:00",
     "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
     "branch": "results/purevision-v5-next",
     "status": "published",
@@ -24,8 +24,8 @@
       "2922f8c4527b6c46eb664d02a4a041cd2c45f588",
       "4cf83c5cb19df8ada2e600f0c66a0905decbff83"
     ],
-    "verified_remote_commit": "7c75c6edd1301e6515a73f1495630a2ade65a60d",
-    "finished_at": "2026-11-01T00:17:20.264133+00:00",
+    "verified_remote_commit": "a6a65581089e95d982521c9a2eb30dba1371a7b8",
+    "finished_at": "2026-11-01T01:17:20.313856+00:00",
     "all_terminal": false
   }
 }
