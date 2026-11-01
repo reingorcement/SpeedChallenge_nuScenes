@@ -1,6 +1,6 @@
 {
   "status": "running",
-  "updated_at": "2026-11-01T01:13:11.029703+00:00",
+  "updated_at": "2026-11-01T01:17:04.109113+00:00",
   "plan_identity": "84031870ac981e43754aa741f2fe5b06b66ed71c3f2b7c26eddcfddd387c2f0b",
   "code": {
     "commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
@@ -10,7 +10,7 @@
   "jobs": {
     "R03_APPEAR_FT_s42_18ep": {
       "status": "running",
-      "updated_at": "2026-11-01T01:13:09.466570+00:00",
+      "updated_at": "2026-11-01T01:16:59.515170+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793470837.0333452,
@@ -42,12 +42,12 @@
       "child_pid": 31797,
       "child_pid_start_ticks": 98575409,
       "epoch": 14,
-      "global_step": 30200,
-      "loss": 0.00025863360497169197,
-      "elapsed_seconds": 24684.716619581915,
+      "global_step": 30500,
+      "loss": 0.00023305811919271946,
+      "elapsed_seconds": 24912.560411804938,
       "cuda_peak_allocated_bytes": 45819189760,
-      "processed_batches": 30200,
-      "optimizer_updates": 30193,
+      "processed_batches": 30500,
+      "optimizer_updates": 30493,
       "amp_skips": 7,
       "amp_scale": 1048576.0,
       "best_epe": 0.2050679792447014,
