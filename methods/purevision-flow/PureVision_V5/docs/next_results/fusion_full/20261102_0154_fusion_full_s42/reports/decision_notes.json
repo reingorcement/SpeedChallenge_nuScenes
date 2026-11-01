@@ -385,6 +385,7 @@
     "fixed_code_modified": false,
     "new_inference": false,
     "training_started": false,
-    "published": false
+    "published": false,
+    "scope": "Only the read-only decision-notes authoring step; authorized pipeline extraction, training, evaluation, and publication are recorded separately."
   }
 }
