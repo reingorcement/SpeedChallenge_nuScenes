@@ -27,6 +27,7 @@ from .fusion_abc_training import PROTOCOL as HISTORICAL_PROTOCOL, configure_fp32
 from .training import epoch_order, model_state_sha256, restore_rng, rng_state, seed_everything, write_predictions
 
 PROTOCOL = dict(HISTORICAL_PROTOCOL, schema='v5_fusion_grid_config_v1')
+SUPPORTED_SEEDS = (42, 43, 44)
 SCHEMA = 'v5_fusion_grid_epoch_state_v1'
 RECOVERY_SCHEMA = 'v5_fusion_grid_recovery_v1'
 COUNTS = dict(train_core=7324, dev=1826)
@@ -34,7 +35,11 @@ COUNTS = dict(train_core=7324, dev=1826)
 
 def validate_config(config):
     from .fusion_grid import GRID_VARIANTS
+    if type(config.get('seed')) is not int or config['seed'] not in SUPPORTED_SEEDS:
+        raise ValueError('Fixed screening/confirmation seeds are integers 42, 43 and 44')
     for key, expected in PROTOCOL.items():
+        if key == 'seed':
+            continue  # Each seed retains the historical factory and epoch-order policy.
         if config.get(key) != expected or (isinstance(expected, bool) and type(config.get(key)) is not bool):
             raise ValueError(f'Fixed training protocol differs: {key}')
     if config.get('group') not in GRID_VARIANTS:
