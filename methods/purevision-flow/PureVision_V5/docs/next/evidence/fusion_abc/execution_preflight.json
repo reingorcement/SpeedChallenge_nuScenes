@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-01T13:39:52.590220+00:00",
+  "numerical_path_changes": false,
+  "cache_scope": "preflight",
+  "cache_samples": 2,
+  "cache_identity": "02d9243e0c6161effb383b9aa4cb70fff916a6d8bf828e3bf4a03a14d2ed98b8",
+  "cache_elapsed_seconds": 20.621162422001362,
+  "cache_peak_bytes": 407091712,
+  "training_scope": "preflight",
+  "training_updates": 1,
+  "training_peak_bytes": 20612608,
+  "runtime_gpu": {
+    "process_device": "cuda:0",
+    "cuda_visible_devices": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+    "physical_index": 0,
+    "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+    "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+  },
+  "complete_state_reload": {
+    "model_exact": true,
+    "optimizer_loaded": true,
+    "scheduler_loaded": true,
+    "evaluated_dev_count": 1,
+    "formal_training": false
+  },
+  "initial_failed_attempt": {
+    "reason": "allocator telemetry reset before CUDA context initialization",
+    "log": "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_abc_2129_telemetry.log",
+    "resolved": "Initialize selected CUDA device before telemetry reset; v2 smoke passed"
+  },
+  "files": {
+    "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_abc_2129_telemetry_v2/cache/status.json": "f26214247c26c643b987dc4ae6d2343048095cef537387ef325ce546f580f83f",
+    "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_abc_2129_telemetry_v2/cache/index.json": "356a96615cc2a213528e4643260311d6ee7cc5757eac49df1f82be55f27eaf42",
+    "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_abc_2129_telemetry_v2/train/run.json": "4365a25a97e4737cdd9af5d1e9283bb562487fe740ce879b075fa260c169df82"
+  }
+}

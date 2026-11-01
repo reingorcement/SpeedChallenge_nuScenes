@@ -136,6 +136,9 @@ def train(args):
                     smoke_steps=args.smoke_steps, output_units="m/s", task="PLANAR_PROXY")
     contract_hash = object_hash(contract)
     device = torch.device(args.device)
+    from .fusion_abc_runtime import runtime_gpu, peak_memory
+    hardware=runtime_gpu(device)
+    if device.type=='cuda':torch.cuda.reset_peak_memory_stats(device)
     model = new_model(config).to(device)
     initialization = dict(policy="build_triplet_explicit_BC_shared_copy_v1",
                           state_sha256=model_state_sha256(model), seed=config["seed"])
@@ -186,6 +189,7 @@ def train(args):
                    environment=environment(), command=vars(args),
                    arithmetic=dict(dtype="float32", amp=False, tf32=False, gradient_accumulation=1),
                    encoder_training=False)
+    receipt['runtime_gpu']=hardware
     write_json(output / "run.json", receipt)
     write_json(output / "epoch_orders.json", order_records)
     # A resumed run keeps the earlier best available without rewriting its
@@ -224,7 +228,8 @@ def train(args):
                      epoch=None if completed_epochs == config["epochs"] else epoch_index + 1,
                      next_batch=next_batch, processed_batches=processed, optimizer_updates=updates,
                      amp_skips=0, best_dev_epe=None if best_epoch is None else best_epe,
-                     best_epoch=best_epoch, elapsed_seconds=time.monotonic() - start)
+                     best_epoch=best_epoch, elapsed_seconds=time.monotonic() - start,
+                     runtime_gpu=hardware,**peak_memory(device))
         write_json(output / "status.json", value)
         return value
 

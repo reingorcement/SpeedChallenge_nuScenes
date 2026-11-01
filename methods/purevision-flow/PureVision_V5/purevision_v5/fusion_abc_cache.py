@@ -1,6 +1,7 @@
 """One FP32 feature cache shared by all three frozen-encoder pilot readers."""
 from pathlib import Path
 import math
+import time
 import torch
 from torch.utils.data import default_collate
 
@@ -57,6 +58,8 @@ def sample_indices(count, limit):
 
 def extract_cache(args):
     from .fusion_abc import FrozenFusionExtractor
+    from .fusion_abc_runtime import runtime_gpu, peak_memory
+    started=time.monotonic()
     fp32_policy(); torch.set_num_threads(args.threads)
     if args.scope == 'pilot' and not args.allow_pilot_cache:
         raise ValueError('Pilot cache requires explicit --allow-pilot-cache')
@@ -72,6 +75,17 @@ def extract_cache(args):
     if output.exists() and any(output.iterdir()): raise ValueError('Cache output must be new')
     output.mkdir(parents=True, exist_ok=True)
     code = code_version(require_pushed=args.scope == 'pilot')
+    hardware=runtime_gpu(args.device)
+    if torch.device(args.device).type=='cuda':torch.cuda.reset_peak_memory_stats(args.device)
+    total=sum(COUNTS.values()) if args.scope=='pilot' else args.train_samples+args.dev_samples
+    processed=0
+    def progress(state, phase):
+        value=dict(status=state,phase=phase,updated_at=now(),completed=processed,total=total,
+            processed_windows=processed,elapsed_seconds=time.monotonic()-started,runtime_gpu=hardware,
+            scope=args.scope,code=code,**peak_memory(args.device))
+        write_json(output/'status.json',value)
+        return value
+    progress('running','loading_source')
     data = datasets(args.manifest, args.selection, args.flow, args.rgb_frames)
     extractor = FrozenFusionExtractor(args.checkpoint).to(args.device)
     extractor.train()  # Deliberately exercise the permanent eval override.
@@ -96,6 +110,10 @@ def extract_cache(args):
             features = extractor(inputs)
             for k in chunks: chunks[k].append(features[k].detach().cpu().float().contiguous())
             targets.append(batch['target']); metadata.extend(row_metadata(dataset,i) for i in selected)
+            processed+=len(selected)
+            if start//args.batch_size%10==0:
+                report=progress('running',partition)
+                print(f"cache {processed}/{total} windows elapsed={report['elapsed_seconds']:.1f}s",flush=True)
         features = {k:torch.cat(v) for k,v in chunks.items()}
         annotations = dict(targets=torch.cat(targets), metadata=metadata)
         feature_file = output/f'{partition}_features.pt'; annotation_file=output/f'{partition}_annotations.pt'
@@ -110,8 +128,10 @@ def extract_cache(args):
     if before != after or any(m.training for m in extractor.modules()) or any(p.requires_grad for p in extractor.parameters()):
         raise RuntimeError('Frozen extractor state/mode changed')
     index['frozen_state_before_sha256']=before; index['frozen_state_after_sha256']=after
+    index.update(elapsed_seconds=time.monotonic()-started,runtime_gpu=hardware,**peak_memory(args.device))
     index['identity']=object_hash(index); write_json(output/'index.json', index)
     for part in COUNTS: load_cache(output,part,allow_preflight=args.scope=='preflight')
+    progress('completed','validated_complete')
     return index
 
 

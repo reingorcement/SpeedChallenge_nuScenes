@@ -259,6 +259,14 @@ def collect(root, plans):
             origin = dict(path=str(report), source_sha256=hashlib.sha256(blob).hexdigest(), bytes=len(blob), representation="original_markdown")
         files[f"comparisons/{report.parent.name}/{report.name}"] = blob
         sources.append(origin)
+    # Frozen-feature pilots have their own cache/evaluation contract. Reuse this
+    # isolated publisher and export only the adapter's bounded public allowlist.
+    from collect_fusion_abc import collect_public
+    abc_files, abc_rows, abc_sources = collect_public(root, plans)
+    files.update(abc_files)
+    abc_ids = {row['run_id'] for row in abc_rows}
+    rows = [row for row in rows if row['run_id'] not in abc_ids] + abc_rows
+    sources.extend(abc_sources)
     summary = dict(schema="v5_next_public_report_v1", rows=rows,
                    all_terminal=bool(rows) and all(r["status"] in TERMINAL for r in rows),
                    limits=["PLANAR_PROXY labels; dev selection and dev recomputation are not held-out testing.",

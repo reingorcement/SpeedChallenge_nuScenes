@@ -1,0 +1,66 @@
+{
+  "schema": "v5_scene_selection_v1",
+  "scope": "resolution_pilot",
+  "dataset_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+  "seed": 42,
+  "policy": "ascending_sha256_of_canonical_json_seed_partition_scene_v1",
+  "scenes": {
+    "train_core": [
+      "scene-0002",
+      "scene-0011",
+      "scene-0027",
+      "scene-0053",
+      "scene-0076",
+      "scene-0191",
+      "scene-0192",
+      "scene-0238",
+      "scene-0239",
+      "scene-0243",
+      "scene-0253",
+      "scene-0352",
+      "scene-0389",
+      "scene-0406",
+      "scene-0433",
+      "scene-0514",
+      "scene-0535",
+      "scene-0577",
+      "scene-0639",
+      "scene-0648",
+      "scene-0657",
+      "scene-0670",
+      "scene-0686",
+      "scene-0803",
+      "scene-0804",
+      "scene-0866",
+      "scene-0868",
+      "scene-0875",
+      "scene-0998",
+      "scene-1049",
+      "scene-1058",
+      "scene-1090"
+    ],
+    "dev": [
+      "scene-0048",
+      "scene-0072",
+      "scene-0195",
+      "scene-0236",
+      "scene-0402",
+      "scene-0566",
+      "scene-0584",
+      "scene-1013"
+    ]
+  },
+  "counts": {
+    "train_core": {
+      "scenes": 32,
+      "frames": 7484,
+      "windows": 7324
+    },
+    "dev": {
+      "scenes": 8,
+      "frames": 1866,
+      "windows": 1826
+    }
+  },
+  "identity": "83abcfc4565b80a06547aef4ad6bb3c0cd8b4d6a3156c5164653d47f91302b5f"
+}

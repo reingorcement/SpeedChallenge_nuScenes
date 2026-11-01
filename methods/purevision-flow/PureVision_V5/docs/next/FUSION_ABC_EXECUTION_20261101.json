@@ -1,0 +1,74 @@
+{
+  "schema": "v5_fusion_abc_execution_spec_v1",
+  "created_at": "2026-11-01T13:31:33.090948+00:00",
+  "prefix": "20261101_2129_fusion_abc_s42",
+  "jobs": {
+    "cache": "20261101_2129_fusion_abc_s42_cache",
+    "A": "20261101_2129_fusion_abc_s42_A",
+    "B": "20261101_2129_fusion_abc_s42_B",
+    "C": "20261101_2129_fusion_abc_s42_C",
+    "compare": "20261101_2129_fusion_abc_s42_compare"
+  },
+  "source_checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/best.pt",
+  "source_sha256": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+  "manifest": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+  "manifest_sha256": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+  "selection_path": "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+  "selection_sha256": "a2b85aed7f705978095cc8da8c8b92f357adc2c282eb36deb64ce1fe34119712",
+  "selection_identity": "83abcfc4565b80a06547aef4ad6bb3c0cd8b4d6a3156c5164653d47f91302b5f",
+  "flow_root": "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+  "rgb_frames": "/home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1",
+  "config_sha256": {
+    "A": "68621cee2a71cdaecd047a1b600d701d2d1ae9a9d246d0a6494a1e43f0a1781a",
+    "B": "0e0af98ff05f47f5b48b4d1785aec19de333a7924ffda50c47aa10f3401b26b1",
+    "C": "f72f18f460914425527b45ca1970415841b7ad76a84727107b43b55aecd9d18c"
+  },
+  "preflight_commit": "13fc4525dad7a2c0518666cf03c60ba98ca2ba33",
+  "training_version_policy": "Resolved to the pushed immutable commit containing this spec; runtime plan records exact SHA and detached code_root. Report commits are distinct.",
+  "expected": {
+    "train_scenes": 32,
+    "dev_scenes": 8,
+    "train_windows": 7324,
+    "dev_windows": 1826,
+    "epochs": 20,
+    "batch_size": 64,
+    "batches_per_epoch": 115,
+    "optimizer_updates": 2300,
+    "amp_skips": 0
+  },
+  "gpu": {
+    "0": {
+      "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+      "role": "cache then C",
+      "process_device": "cuda:0"
+    },
+    "1": {
+      "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+      "role": "B",
+      "process_device": "cuda:0"
+    },
+    "2": {
+      "uuid": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+      "role": "A",
+      "process_device": "cuda:0"
+    }
+  },
+  "schedule": {
+    "server_seconds": 300,
+    "astra_seconds": 1800,
+    "publisher_seconds": 3600,
+    "milestone_publish": true
+  },
+  "constraints": [
+    "Never restart old R03_FT",
+    "Busy target GPU stays queued; never migrate or stop other processes",
+    "No budget extension or extra seeds",
+    "Publish only public reports; server cache/weights retained"
+  ],
+  "numerical_changes_since_preflight": false,
+  "observability_changes": [
+    "cache progress and elapsed",
+    "physical GPU/UUID and peak memory",
+    "DAG and independent publishing/report completion"
+  ]
+}

@@ -194,7 +194,7 @@ def inspect_job(job, root):
         notes.append("pid_reused")
     if state in ACTIVE and process["alive"] and age_seconds(log) is not None and age_seconds(log) > 900:
         notes.append("log_unchanged_over_15min_inspect_before_action")
-    if state in ACTIVE and run_dir and (progress_status.get("global_step") or 0) > 0:
+    if state in ACTIVE and run_dir and (progress_status.get("global_step") or progress_status.get("processed_batches") or 0) > 0:
         ckpt_age = age_seconds(checkpoint)
         if ckpt_age is not None and ckpt_age > 900:
             notes.append("checkpoint_older_than_15min")
@@ -213,18 +213,20 @@ def inspect_job(job, root):
         notes.append(str(flow_progress["error"])[:500])
     # Worker polling can miss the brief epoch-end status and retain an older
     # validation. The last complete trainer metric is the authoritative value.
-    validation = metric.get("validation", {}).get("overall") or progress_status.get("validation", {})
+    validation = (metric.get("validation", {}).get("overall") or metric.get("dev", {}).get("overall")
+                  or progress_status.get("validation", {}))
     return {"job_id": job["job_id"], "kind": job.get("kind", "training"), "status": state,
         "run_dir": str(run_dir) if run_dir else None, "session": launch.get("session", job.get("session")),
         "device": launch.get("device", job.get("device")), "process": process, "child_process": child_process,
         "phase": status.get("phase"), "training_status": training_status.get("status"),
         "status_path": str(status_path) if status_path else None, "terminal_observation": confirmation,
         "commit": run.get("code", {}).get("commit", job.get("commit")),
-        "epoch": progress_status.get("epoch", metric.get("epoch")), "global_step": progress_status.get("global_step", metric.get("global_step")),
+        "epoch": progress_status.get("epoch", metric.get("epoch")), "completed_epochs":progress_status.get("completed_epochs"),
+        "global_step": progress_status.get("global_step",progress_status.get("processed_batches", metric.get("global_step"))),
         "processed_batches":progress_status.get("processed_batches"),"optimizer_updates":progress_status.get("optimizer_updates"),
-        "amp_skips":progress_status.get("amp_skips"),"best_epe":progress_status.get("best_epe"),"best_epoch":progress_status.get("best_epoch"),
-        "loss": progress_status.get("loss", metric.get("train_loss")), "validation": validation,
-        "validation_epoch_zero_based": metric.get("epoch") if metric.get("validation") else None,
+        "amp_skips":progress_status.get("amp_skips"),"best_epe":progress_status.get("best_epe",progress_status.get("best_dev_epe")),"best_epoch":progress_status.get("best_epoch"),
+        "loss": progress_status.get("loss", metric.get("train_loss",metric.get("training_loss"))), "validation": validation,
+        "validation_epoch_zero_based": metric.get("epoch") if metric.get("validation") else (metric['epoch']-1 if metric.get('dev') else None),
         "progress": {k: progress_status[k] for k in FLOW_PROGRESS_FIELDS if k in progress_status},
         "progress_path": str(progress_path) if progress_path else None,
         "progress_report_status": flow_progress.get("status"), "progress_age_s": age_seconds(progress_path) if progress_path else None,
