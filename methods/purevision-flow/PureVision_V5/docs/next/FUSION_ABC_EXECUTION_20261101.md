@@ -36,3 +36,9 @@
 结果分支公开运行标识/固定训练commit、manifest与缓存哈希、参数/更新数、最佳/最后dev、独立train/dev及vx/vy指标、曲线、配对逐样本/场景结果、三组差异、GPU与耗时/显存。未全部20轮完成不形成最终比较。
 
 仅单seed、少量场景的新读出筛选；编码器已在完整训练集训练且由既有dev选模。A/B同时改变融合与读出，B/C也不是仅注意力的严格消融；异构GPU时间不作等硬件效率比较。非零侧向不足100窗口/5场景仍为insufficient_data。不新增seed、全量训练或改编码器；旧FT保持中断。
+
+## 完成后的发布修复（不改变训练版本）
+
+三组均完成20轮/2300次更新及独立评价，实际训练SHA仍为 `8eac695a778ee7bedc40ffe23fc42214c854811b`。后台发布曾因网络超时重试；随后Matplotlib原生SVG路径中的合法行尾空格触发 `git diff --check`，保留了已暂存生成物，后续dirty-worktree保护拒绝盲目提交。
+
+恢复时持有publisher锁，核验全部72份暂存文件及182项export SHA，未发现用户文件或数据改变。结果目录增加 `.gitattributes`，仅为 `comparisons/**/*.svg` 关闭blank-at-eol检查，保留图的原始字节与hash及其他空白检查。完整差异检查通过后提交已核对报告，再由独立publisher推送及核验远端。本次仅发布策略修复，不重跑训练、不修改固定工作区。恢复证据在服务器 `evidence/20261101_2129_fusion_abc_s42_publication_recovery.json`，结果分支同步导出。
