@@ -1,18 +1,18 @@
-正常，无新增里程碑。指定命令成功，5 个目标文件均有读取成功收据。
+正常，无新增里程碑。指定命令成功，5 项目标均有读取成功收据。
 
-实际读取路径（均位于 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
 
-- `monitoring/astra/20261101T000001Z_72661.request.json`
-- `monitoring/astra/20261101T000001Z_72661.snapshot.json`
+- `monitoring/astra/20261101T010001Z_79910.request.json`
+- `monitoring/astra/20261101T010001Z_79910.snapshot.json`
 - `monitoring/publication.json`
 - `runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/status.json`
 - `pipeline/20261101_rgb_path_s42/jobs/R03_APPEAR_FT_s42_18ep.json`
 - `pipeline/20261101_rgb_path_s42/jobs/compare.json`
 
-**Host 确定性检查**（北京时间 08:00 快照）：目标训练父/子 PID 身份核验通过且存活；GPU0 利用率 96%，显存 49405/97887 MiB，85℃；工件盘剩余 960 GB，真实缓存所在盘剩余 17434 GB，均无低空间告警。
+宿主确定性检查：09:00 快照确认目标训练父/子 PID 存活且身份匹配；GPU0 利用率 100%，显存 49405/97887 MiB，85°C；工件盘剩余 960.37 GB，缓存所在盘剩余 17434.38 GB，均无低空间告警。checkpoint 距快照约 63 秒更新。
 
-**本次 AI 诊断**：run `20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep` 身份一致，epoch=11、step=24920，loss=0.0002236；最近验证 EPE=0.215841，最佳=0.205068。累计 AMP 跳过 5 次；目标日志异常摘要为空，日志/状态约 18 秒前更新，checkpoint 约 27 秒前更新，无停训证据。
+本次 AI 诊断：目标 `20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep` 身份一致，epoch 14，步数由快照 29160 推进至 29180；loss 0.000509，验证 EPE 0.213389，最佳 0.205068；累计 AMP skips 7，未增加。快照日志异常摘要为空，未追加读取大日志。`old_diff18_eval` 已完成；`compare` 仍排队，PID unknown 保留待核实，不判终止，整体尚未完成。
 
-同前缀 `old_diff18_eval` 已完成；`compare` 尚在排队，PID unknown 保留待核实，不判为终止，DAG 尚未全部结束。人工后续仅需关注训练推进及 compare 依赖释放；若停滞，定位上述状态文件和同 run 日志。本次未修改任何内容，未加载 checkpoint。
+人工定位建议：目前无需干预；后续若进度持续不更新，再核对同 run 日志及宿主 PID。全程只读，未修改或控制训练。
 
 ASTRA_PATROL_OK
