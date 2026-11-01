@@ -148,10 +148,24 @@
       "exit_code": 0,
       "report_commit": "63399494ab088ac00704a573d6c825156436ff95",
       "error": null
+    },
+    {
+      "time": "2026-11-01T03:09:05.798628+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "c267b6cf43fc883fcd95d064573ad1fdf9ab456b",
+      "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    },
+    {
+      "time": "2026-11-01T03:14:33.714733+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "c267b6cf43fc883fcd95d064573ad1fdf9ab456b",
+      "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
     }
   ],
   "cron_installed": true,
-  "status": "running",
+  "status": "publication_pending",
   "schedule": {
     "installed_at": "2026-10-31T18:18:11.973033+00:00",
     "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261101_rgb_path_s42_4cf83c5/methods/purevision-flow/PureVision_V5",
@@ -176,7 +190,7 @@
     "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_rgb_path_20261101.json",
     "status": "installed_pending_observed_trigger"
   },
-  "updated_at": "2026-11-01T02:13:29.855679+00:00",
+  "updated_at": "2026-11-01T03:14:05.813357+00:00",
   "pid": 31369,
   "all_startups_verified": true,
   "initial_wave_verified": true,
@@ -187,7 +201,7 @@
   "milestones": [
     [
       "R03_APPEAR_FT_s42_18ep",
-      "running",
+      "completed",
       true,
       1,
       1
@@ -201,13 +215,13 @@
     ],
     [
       "compare",
-      "queued",
+      "completed",
       false,
       0,
       0
     ]
   ],
-  "last_attempt_epoch": 1793499209.85575,
+  "last_attempt_epoch": 1793502845.8135018,
   "published_milestones": [
     [
       "R03_APPEAR_FT_s42_18ep",

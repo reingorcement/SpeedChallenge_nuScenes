@@ -1,7 +1,7 @@
 {
   "run_id": "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep",
   "experiment": "R03",
-  "status": "running",
+  "status": "completed",
   "started_at": "2026-10-31T18:21:35.520030+00:00",
   "code": {
     "commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
@@ -320,5 +320,6 @@
       "parameters": 2094977,
       "tensor_count": 55
     }
-  ]
+  ],
+  "finished_at": "2026-11-01T02:52:51.161533+00:00"
 }

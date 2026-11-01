@@ -4,9 +4,9 @@
 
 | run ID | 阶段作业 | 状态 | 代码 commit | 光流已处理/总数 | dev EPE |
 |---|---|---|---|---|---|
-| 20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep | R03_APPEAR_FT_s42_18ep | running | `4cf83c5cb19df8ada2e600f0c66a0905decbff83` | — | — |
+| 20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep | R03_APPEAR_FT_s42_18ep | completed | `4cf83c5cb19df8ada2e600f0c66a0905decbff83` | — | 0.2050679792447014 |
 | 20261101_rgb_path_s42_old_diff18_eval | old_diff18_eval | completed | `2922f8c4527b6c46eb664d02a4a041cd2c45f588` | —/— | — |
-| 20261101_rgb_path_s42_compare | compare | queued | `4cf83c5cb19df8ada2e600f0c66a0905decbff83` | —/— | — |
+| 20261101_rgb_path_s42_compare | compare | completed | `4cf83c5cb19df8ada2e600f0c66a0905decbff83` | —/— | — |
 
 训练作业目录包含实际配置、完整 epoch JSONL、状态与可用的 dev 评价；非训练作业包含 worker 状态及已生成的 progress_report.json。原始大日志、数据/光流和权重不上传。
 `source_index.json` 记录所读文件与摘要；`status.json` 记录 checkpoint 哈希和预测公开形式。

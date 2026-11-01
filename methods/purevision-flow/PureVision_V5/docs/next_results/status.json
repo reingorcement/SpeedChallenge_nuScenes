@@ -5,25 +5,44 @@
       "run_id": "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep",
       "name": "R03_APPEAR_FT_s42_18ep",
       "experiment": "R03",
-      "status": "running",
+      "status": "completed",
       "kind": "training",
       "training_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
       "plan": "20261101_rgb_path_s42",
       "device": "cuda:0",
       "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep.log",
-      "training_status": "running",
+      "training_status": "completed",
       "progress": {
-        "epoch": 16,
-        "global_step": 34920,
-        "optimizer_updates": 34911,
+        "epoch": 18,
+        "global_step": 37404,
+        "optimizer_updates": 37395,
         "amp_skips": 9,
         "best_epe": 0.2050679792447014,
         "best_epoch": 0
       },
+      "evaluation_status": "completed",
+      "dev_metrics": {
+        "count": 23480,
+        "epe": 0.2050679792447014,
+        "mae_vx": 0.20210505510337112,
+        "rmse_vx": 0.36822368606344297,
+        "bias_vx": -0.03887040576214104,
+        "p95_abs_vx": 0.6330761194229124,
+        "mae_vy": 0.01690164763291541,
+        "rmse_vy": 0.026110444304875507,
+        "bias_vy": 0.0016223358734686914,
+        "p95_abs_vy": 0.051843358110636464,
+        "zero_vy_mae": 0.035983646252559655
+      },
+      "predictions": {
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/evaluations/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/predictions.csv",
+        "sha256": "b29651c914cc2397e5bd7938df8f081ef779f46fd99e93a8855dbb213acc2e3b",
+        "representation": "full_csv"
+      },
       "checkpoint_hashes": {
         "last.pt": {
           "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/last.pt",
-          "sha256": "99e838748f5e1c422a516fa8cd533f792f4bf7a5c555c5e5284ba100567ca03a",
+          "sha256": "278fa2b5b7049123a6ebd0cbcaf13343c8a41786d72d93fe33c773abe4f4e93d",
           "size_bytes": 27117865,
           "representation": "hash_only"
         },
@@ -51,7 +70,7 @@
       "run_id": "20261101_rgb_path_s42_compare",
       "name": "compare",
       "experiment": "compare",
-      "status": "queued",
+      "status": "completed",
       "kind": "comparison",
       "training_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
       "plan": "20261101_rgb_path_s42",
@@ -60,7 +79,7 @@
       "progress": {}
     }
   ],
-  "all_terminal": false,
+  "all_terminal": true,
   "limits": [
     "PLANAR_PROXY labels; dev selection and dev recomputation are not held-out testing.",
     "Checkpoint hashes identify server files; weights are not uploaded.",
