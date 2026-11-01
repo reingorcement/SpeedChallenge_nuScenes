@@ -1,0 +1,563 @@
+{
+  "schema": "v5_pipeline_v1",
+  "stage": "frozen_fusion_grid_pilot",
+  "prefix": "20261102_0052_fusion_grid_s42",
+  "root": "/home/zhangyu/.local/share/speedest-v5-next",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5",
+  "python": "/home/zhangyu/.conda/envs/speedest/bin/python",
+  "code": {
+    "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+    "dirty": false,
+    "verified_remote_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d"
+  },
+  "jobs": [
+    {
+      "name": "cache46",
+      "job_id": "20261102_0052_fusion_grid_s42_cache46",
+      "kind": "cache",
+      "device": "cuda:0",
+      "physical_gpu": {
+        "index": 0,
+        "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+        "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+      },
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/usr/bin/env",
+          "CUDA_VISIBLE_DEVICES=GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/prepare_fusion_grid.py",
+          "--grid",
+          "4",
+          "6",
+          "--reference-cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--checkpoint",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/best.pt",
+          "--manifest",
+          "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json",
+          "--selection",
+          "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json",
+          "--flow",
+          "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+          "--rgb-frames",
+          "/home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1",
+          "--scope",
+          "pilot",
+          "--allow-pilot-cache",
+          "--batch-size",
+          "2",
+          "--device",
+          "cuda:0",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42"
+        ]
+      ],
+      "session": "v5grid_20261102_0052_fusion_grid_s42_cache46",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_cache46.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/jobs/cache46.json",
+      "run_dir": null,
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42/status.json",
+          "field": "status",
+          "equals": "completed"
+        }
+      ]
+    },
+    {
+      "name": "publish46",
+      "job_id": "20261102_0052_fusion_grid_s42_publish46",
+      "kind": "publication",
+      "device": null,
+      "physical_gpu": null,
+      "process_device": "cpu",
+      "requires": [
+        "cache46"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/fusion_grid_pipeline.py",
+          "--plan",
+          "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/plan.json",
+          "--publish-grid",
+          "46"
+        ]
+      ],
+      "session": "v5grid_20261102_0052_fusion_grid_s42_publish46",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_publish46.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/jobs/publish46.json",
+      "run_dir": null,
+      "progress_path": null,
+      "fresh_output": null,
+      "checks": []
+    },
+    {
+      "name": "J23",
+      "job_id": "20261102_0052_fusion_grid_s42_J23",
+      "kind": "training",
+      "device": "cuda:1",
+      "physical_gpu": {
+        "index": 1,
+        "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/usr/bin/env",
+          "CUDA_VISIBLE_DEVICES=GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J23.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J23",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "session": "v5grid_20261102_0052_fusion_grid_s42_J23",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_J23.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/jobs/J23.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J23",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J23/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J23",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J23/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J23/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J23/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ],
+      "variant": "J23",
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J23.json"
+    },
+    {
+      "name": "S23",
+      "job_id": "20261102_0052_fusion_grid_s42_S23",
+      "kind": "training",
+      "device": "cuda:2",
+      "physical_gpu": {
+        "index": 2,
+        "uuid": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/usr/bin/env",
+          "CUDA_VISIBLE_DEVICES=GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S23.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S23",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "session": "v5grid_20261102_0052_fusion_grid_s42_S23",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_S23.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/jobs/S23.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S23",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S23/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S23",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S23/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S23/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S23/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ],
+      "variant": "S23",
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S23.json"
+    },
+    {
+      "name": "S46",
+      "job_id": "20261102_0052_fusion_grid_s42_S46",
+      "kind": "training",
+      "device": "cuda:0",
+      "physical_gpu": {
+        "index": 0,
+        "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+        "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+      },
+      "process_device": "cuda:0",
+      "requires": [
+        "publish46"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/usr/bin/env",
+          "CUDA_VISIBLE_DEVICES=GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S46.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S46",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "session": "v5grid_20261102_0052_fusion_grid_s42_S46",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_S46.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/jobs/S46.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S46",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S46/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S46",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S46/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S46/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S46/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ],
+      "variant": "S46",
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S46.json"
+    },
+    {
+      "name": "J46",
+      "job_id": "20261102_0052_fusion_grid_s42_J46",
+      "kind": "training",
+      "device": "cuda:1",
+      "physical_gpu": {
+        "index": 1,
+        "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "process_device": "cuda:0",
+      "requires": [
+        "publish46"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/usr/bin/env",
+          "CUDA_VISIBLE_DEVICES=GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J46.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J46",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "session": "v5grid_20261102_0052_fusion_grid_s42_J46",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_J46.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/jobs/J46.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J46",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J46/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J46",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J46/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J46/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J46/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ],
+      "variant": "J46",
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J46.json"
+    },
+    {
+      "name": "F23",
+      "job_id": "20261102_0052_fusion_grid_s42_F23",
+      "kind": "training",
+      "device": "cuda:1",
+      "physical_gpu": {
+        "index": 1,
+        "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/usr/bin/env",
+          "CUDA_VISIBLE_DEVICES=GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_F23.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_F23",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "session": "v5grid_20261102_0052_fusion_grid_s42_F23",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_F23.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/jobs/F23.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_F23",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_F23/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_F23",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_F23/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_F23/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_F23/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ],
+      "variant": "F23",
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_F23.json"
+    },
+    {
+      "name": "R23",
+      "job_id": "20261102_0052_fusion_grid_s42_R23",
+      "kind": "training",
+      "device": "cuda:2",
+      "physical_gpu": {
+        "index": 2,
+        "uuid": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "process_device": "cuda:0",
+      "requires": [],
+      "after": [],
+      "commands": [
+        [
+          "/usr/bin/env",
+          "CUDA_VISIBLE_DEVICES=GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_R23.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_R23",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "session": "v5grid_20261102_0052_fusion_grid_s42_R23",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_R23.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/jobs/R23.json",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_R23",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_R23/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_R23",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_R23/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_R23/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_R23/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ],
+      "variant": "R23",
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_R23.json"
+    },
+    {
+      "name": "dual_summary",
+      "job_id": "20261102_0052_fusion_grid_s42_dual_summary",
+      "kind": "comparison",
+      "device": null,
+      "physical_gpu": null,
+      "process_device": "cpu",
+      "requires": [
+        "J23",
+        "S23",
+        "J46",
+        "S46"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/fusion_grid_comparison.py",
+          "--plan",
+          "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/plan.json",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_grid_20261102_0052_fusion_grid_s42",
+          "--dual-only"
+        ],
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/fusion_grid_pipeline.py",
+          "--plan",
+          "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/plan.json",
+          "--publish"
+        ]
+      ],
+      "session": "v5grid_20261102_0052_fusion_grid_s42_dual_summary",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_dual_summary.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/jobs/dual_summary.json",
+      "run_dir": null,
+      "progress_path": null,
+      "fresh_output": null,
+      "checks": []
+    },
+    {
+      "name": "compare",
+      "job_id": "20261102_0052_fusion_grid_s42_compare",
+      "kind": "comparison",
+      "device": null,
+      "physical_gpu": null,
+      "process_device": "cpu",
+      "requires": [
+        "J23",
+        "S23",
+        "S46",
+        "J46",
+        "F23",
+        "R23",
+        "dual_summary"
+      ],
+      "after": [],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/fusion_grid_comparison.py",
+          "--plan",
+          "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/plan.json",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_grid_20261102_0052_fusion_grid_s42"
+        ]
+      ],
+      "session": "v5grid_20261102_0052_fusion_grid_s42_compare",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_compare.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0052_fusion_grid_s42/jobs/compare.json",
+      "run_dir": null,
+      "progress_path": null,
+      "fresh_output": null,
+      "checks": []
+    }
+  ],
+  "features": null,
+  "features_status": null,
+  "cache23": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+  "cache46": "/home/zhangyu/.local/share/speedest-v5-next/fusion_grid_cache/20261102_0052_fusion_grid_s42",
+  "verification": "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_grid_20261102/receipt.json",
+  "locked_inputs": {
+    "docs/next/FUSION_GRID_EXECUTION_20261102.json": "2715c450942a9b63aba1f5420686a8bf71bb214ccc06c56f70453e1664f334de",
+    "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/best.pt": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+    "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json": "a74f7963f7c9e0b529fefef75f5be1c191a7a2fccbddd3678b82f825ee0de32a",
+    "/home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json": "a2b85aed7f705978095cc8da8c8b92f357adc2c282eb36deb64ce1fe34119712",
+    "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_grid_20261102/receipt.json": "7ad37c7a68f97e206b1a88bd094ec9c0f10d3ec66ea1c44a0a5c774759bbe159",
+    "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42/index.json": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J23.json": "c2d4bb2cf2a45f95f7c301c0e38bb617f136b74095f3e35480f1378c0c38c16b",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S23.json": "96aa7d4bd3e15d49a8a0b8a904759a68969e8ddd10d857f46b24a3b11b94875d",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_S46.json": "576e3fec0f96dfb5618fa80fc2747e5433e92f34cc2e740173e48da1c77b3641",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_J46.json": "ae4db2881e36090163b08eab159bfa77d8b3ea118413ef8395ec821ded6d0538",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_F23.json": "a7259cf917a95fcc932d6e391687542eb6ed35e226f5fce4c7b91c6af12d2224",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/configs/next/FUSION_GRID_R23.json": "c866ffd2fbaf6bf44a33471a6141c4fb7623bab90f3ee7e3e45ef613f58c7200"
+  },
+  "completion_report": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_grid_20261102_0052_fusion_grid_s42/summary.json",
+  "report_root": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_grid_20261102_0052_fusion_grid_s42",
+  "gpu_inventory": {
+    "0": {
+      "index": 0,
+      "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+    },
+    "1": {
+      "index": 1,
+      "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+      "name": "NVIDIA GeForce RTX 5090"
+    },
+    "2": {
+      "index": 2,
+      "uuid": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+      "name": "NVIDIA GeForce RTX 5090"
+    }
+  },
+  "worker_network_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/network.json",
+  "identity": "82601a1772919ae2a20d5e88b181e2f33cf8fc684904927a35487701716ff51b"
+}
