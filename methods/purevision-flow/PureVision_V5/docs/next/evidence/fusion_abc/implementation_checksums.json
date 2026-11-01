@@ -1,0 +1,26 @@
+{
+  "base_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+  "preflight_on_development_tree": true,
+  "files": {
+    "configs/next/FUSION_ABC_A.json": "68621cee2a71cdaecd047a1b600d701d2d1ae9a9d246d0a6494a1e43f0a1781a",
+    "configs/next/FUSION_ABC_B.json": "0e0af98ff05f47f5b48b4d1785aec19de333a7924ffda50c47aa10f3401b26b1",
+    "configs/next/FUSION_ABC_C.json": "f72f18f460914425527b45ca1970415841b7ad76a84727107b43b55aecd9d18c",
+    "fusion_abc_evaluate.py": "1cfc59aa42998019d15b1a1b808e7a3088781195d88666f5a30bebe298eac80e",
+    "fusion_abc_extract.py": "482f0037a24d8d2af3ada1efcd8c852031ca9cf06e305b113215cad2f4fa76f5",
+    "fusion_abc_launch.py": "dd03b2e26eed1db4b6605d9dbfbaaeda37fc0c21fdddb21ec5cc3362047bbaa0",
+    "fusion_abc_train.py": "1b974be445afdb2c04b1aa46ead4881b9afd248d14d4c6f10ec4eddc60a33da2",
+    "purevision_v5/fusion_abc.py": "f3af6004a7812d634df2503b9b3af0f7e62bab07ddbf2836b91c287fbd7af6d1",
+    "purevision_v5/fusion_abc_cache.py": "2568fea9046e1645ff4e0b5351dc2675aa88271abd2dbc50908dc585bf4c8064",
+    "purevision_v5/fusion_abc_training.py": "3f963dbde189a321e74467353b1318d981e259d2555930939a85406f59bcb75b",
+    "scripts/launch_fusion_abc.sh": "cfae76c666199838e9a509aea3bf282eea6d355c058e511fea2b5b069af487ee",
+    "tests/test_fusion_abc.py": "61483a64106777bb15ccb0a747cade8d2120257da2a998aa6d52bf8e1c424f76",
+    "tests/test_fusion_abc_training.py": "6a4177b89a6fc66ace6e52a2bc314448f8471b9a818a3659a49b39c2649d5cf9",
+    "verify_fusion_abc.py": "c49b8c0c6879828a21873d692dfc0c8a36a6d970240ced98ba556f4b6edfbf5d"
+  },
+  "focused_pytest": {
+    "passed": 27,
+    "seconds": 2.59
+  },
+  "bash_syntax": "passed",
+  "launch_dry_run": "passed; no tmux created"
+}

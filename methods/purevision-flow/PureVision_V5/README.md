@@ -1,5 +1,7 @@
 # PureVision V5: S2 image/flow feature fusion
 
+**2026-11-01 冻结编码器 A/B/C pilot：** 已实现公共 FP32 特征接入、三组新融合读出和独立训练/评价入口，仅通过12个真实窗口的短预检；**未启动正式20轮训练、未生成完整特征缓存、未改变巡视调度**。见[实施计划与精确入口](docs/next/FUSION_ABC_PILOT_PLAN.md)及[预检收据](docs/next/evidence/fusion_abc/)。来源固定为外观＋差分 R03 的已训练 best，保留学习后的外观旁路；本轮仅比较冻结特征的读出能力。
+
 **2026-11-01 RGB信息路径对照：** 旧R03_FT用户主动暂停，主对照锁定前18完整epoch内的best。新增一组原始外观＋CMA差分旁路，停止18轮、余弦周期40轮；见[设计与自审](docs/next/R03_RGB_PATH_DESIGN_20261101.md)。旧FT不恢复，Frozen/CONT的40轮结果不混入18轮主比较。
 
 

@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-11-01T12:24:04.514314+00:00",
+  "crontab_returncode": 0,
+  "crontab_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+  "v5_cron_lines": [],
+  "v5_python_processes": [],
+  "gpu_inventory": [
+    "0, GPU-cedbf5f4-647b-640c-1244-babecaef88e7, NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition, 37 MiB, 0 %",
+    "1, GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2, NVIDIA GeForce RTX 5090, 1238 MiB, 0 %",
+    "2, GPU-b2986926-3ad1-16bc-f86c-28aae0c46598, NVIDIA GeForce RTX 5090, 37 MiB, 0 %"
+  ],
+  "old_ft_status": "interrupted",
+  "formal_cache_exists": false,
+  "formal_training_started": false,
+  "scheduler_modified": false
+}

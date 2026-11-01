@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-01T12:23:37.383122+00:00",
+  "checks": {
+    "preflight_cache_rejected_by_formal_reader": "Preflight cache cannot be used for formal pilot training",
+    "source_substitution_rejected": "Cache encoder source or feature taps differ from the locked pilot",
+    "selection_substitution_rejected": "Cache must use the fixed original 32/8 selection and manifest",
+    "preflight_limit_0_rejected": "Preflight is bounded to 1..64 samples per partition; zero never means full cache",
+    "preflight_limit_65_rejected": "Preflight is bounded to 1..64 samples per partition; zero never means full cache"
+  }
+}
