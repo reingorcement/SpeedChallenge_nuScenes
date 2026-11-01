@@ -1,0 +1,42 @@
+{
+  "status": "completed",
+  "time": "2026-11-01T17:08:20.256789+00:00",
+  "plan_identity": "82601a1772919ae2a20d5e88b181e2f33cf8fc684904927a35487701716ff51b",
+  "code": {
+    "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+    "dirty": false,
+    "verified_remote_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d"
+  },
+  "core_report_commit": "b5c6e0c9e50eca5623f186a4213cac98688a002b",
+  "groups": [
+    "J23",
+    "S23",
+    "J46",
+    "S46",
+    "F23",
+    "R23"
+  ],
+  "effective_updates": 13800,
+  "formal_training_rerun": false,
+  "training_updates_discarded": 0,
+  "prior_reporting_failure_evidence_commit": "b5c6e0c9e50eca5623f186a4213cac98688a002b",
+  "manual_report_recovery": "Same fixed comparison implementation invoked after transport-only publication failure; all prediction/provenance checks passed and core report verified remotely before reporting jobs completed.",
+  "schedules_removed": true,
+  "unrelated_cron_preserved": true,
+  "project_network_restored": true,
+  "restored_network_sha256": "207f647612e8df976ecc53e808c7a4698304c8ade5f8182f09481e29dece830d",
+  "final_server_active_count": 0,
+  "astra_scheduled_result": {
+    "time_utc": "2026-11-01T17:00:21.665336+00:00",
+    "success": true,
+    "trigger": "scheduled",
+    "run_ids": [
+      "20261102_0052_fusion_grid_s42_J46",
+      "20261102_0052_fusion_grid_s42_S46",
+      "20261102_0052_fusion_grid_s42_cache46",
+      "20261102_0052_fusion_grid_s42_compare",
+      "20261102_0052_fusion_grid_s42_dual_summary",
+      "20261102_0052_fusion_grid_s42_publish46"
+    ]
+  }
+}
