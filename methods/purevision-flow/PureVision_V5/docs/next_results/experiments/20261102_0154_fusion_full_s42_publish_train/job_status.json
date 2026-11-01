@@ -1,6 +1,6 @@
 {
-  "status": "running",
-  "updated_at": "2026-11-01T18:46:59.471634+00:00",
+  "status": "completed",
+  "updated_at": "2026-11-01T18:47:14.474072+00:00",
   "launch_count": 1,
   "reason": null,
   "launched_at_epoch": 1793558818.239598,
@@ -20,5 +20,7 @@
     "train"
   ],
   "child_pid": 196007,
-  "child_pid_start_ticks": 107373496
+  "child_pid_start_ticks": 107373496,
+  "exit_code": 0,
+  "finished_at": "2026-11-01T18:47:14.474041+00:00"
 }

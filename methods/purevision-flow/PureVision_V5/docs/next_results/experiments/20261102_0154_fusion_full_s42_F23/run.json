@@ -1,0 +1,165 @@
+{
+  "schema": "v5_fusion_grid_run_v1",
+  "run_id": "20261102_0154_fusion_full_s42_F23",
+  "group": "F23",
+  "status": "completed",
+  "started_at": "2026-11-01T18:47:54.333076+00:00",
+  "code": {
+    "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+    "dirty": false,
+    "verified_remote_commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026"
+  },
+  "contract": {
+    "config": {
+      "schema": "v5_fusion_full_config_v1",
+      "seed": 42,
+      "epochs": 20,
+      "batch_size": 64,
+      "drop_last": false,
+      "amp": false,
+      "tf32": false,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "optimizer_eps": 1e-08,
+      "grad_clip": 2,
+      "scheduler_epochs": 20,
+      "eta_min": 0,
+      "loss_scales_m_s": [
+        5,
+        1
+      ],
+      "loss_beta": 1,
+      "early_stopping": false,
+      "group": "F23",
+      "scope": "full",
+      "expected_counts": {
+        "train_core": 132978,
+        "dev": 23480
+      },
+      "expected_scene_counts": {
+        "train_core": 582,
+        "dev": 103
+      }
+    },
+    "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+    "actual_sample_identity": {
+      "train_core": "fa316431393d7eb8761db63455ddf2dfa66fab7b913b847e90c4ef76f71ef584",
+      "dev": "e9aa3d9d32b75a83d49c3c34f470106d8963fa8456e3500b94c1d09abac8d9e2"
+    },
+    "scope": "frozen_fusion_full",
+    "preflight_samples": null,
+    "output_units": "m/s",
+    "task": "PLANAR_PROXY",
+    "encoder_training": false,
+    "epoch_order_policy": "torch.randperm(cpu_generator(seed+zero_based_epoch)); historical unchanged",
+    "data_scope": "full",
+    "cache_scope": "full",
+    "expected_counts": {
+      "train_core": 132978,
+      "dev": 23480
+    },
+    "expected_scene_counts": {
+      "train_core": 582,
+      "dev": 103
+    },
+    "partition_counts": {
+      "train_core": 132978,
+      "dev": 23480
+    },
+    "scene_counts": {
+      "train_core": 582,
+      "dev": 103
+    }
+  },
+  "contract_hash": "948cd3f99deae46ddc452d3177edc44c4ca213da2d851d541e6e51589940e294",
+  "environment": {
+    "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+    "executable": "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "hostname": "ps",
+    "cuda_visible_devices": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+    "gpu": [
+      "NVIDIA GeForce RTX 5090"
+    ]
+  },
+  "runtime_gpu": {
+    "process_device": "cuda:0",
+    "cuda_visible_devices": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+    "physical_index": 2,
+    "uuid": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+    "name": "NVIDIA GeForce RTX 5090"
+  },
+  "environment_difference": {},
+  "resume_trajectory_claim": "same protocol; cross-device/software restoration is not claimed bitwise identical",
+  "initialization": {
+    "policy": "historical_build_triplet_C_then_explicit_six_group_copy_v1",
+    "state_sha256": "0c4e3c87506f7a2eb875e757e8f776ad253ef9bb44ed0339812105b469e35aa5",
+    "common_modules_sha256": {
+      "layers": "04d7471594eb0cdf44ee47adb747c4360e499a0f33cef942016e0b395c7bc59a",
+      "head": "ed8d333dcf74e0789f843649144d1b7f26cfdcc5ffe07c2d1c3a5c3c4c20aa2a"
+    },
+    "seed": 42
+  },
+  "trainable_parameters": 84930,
+  "train_count": 132978,
+  "dev_count": 23480,
+  "arithmetic": {
+    "dtype": "float32",
+    "amp": false,
+    "tf32": false,
+    "gradient_accumulation": 1
+  },
+  "encoder_training": false,
+  "cache_placement": {
+    "train_core": {
+      "mode": "gpu_resident",
+      "bytes": 3747851952,
+      "available_gpu_bytes_at_load": 33101447168,
+      "reserved_workspace_bytes": 2147483648
+    },
+    "dev": {
+      "mode": "gpu_resident",
+      "bytes": 661760320,
+      "available_gpu_bytes_at_load": 29332865024,
+      "reserved_workspace_bytes": 2147483648
+    }
+  },
+  "command": {
+    "config": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0154_fusion_full_s42_bc9a3d8/methods/purevision-flow/PureVision_V5/configs/next/FUSION_FULL_F23.json",
+    "cache": "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+    "output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0154_fusion_full_s42_F23",
+    "device": "cuda:0",
+    "threads": 4,
+    "resume": null,
+    "preflight": false,
+    "preflight_samples": 64
+  },
+  "parent_run": null,
+  "discarded_attempts": [],
+  "recovery_boundary": "completed_epoch_only",
+  "updated_at": "2026-11-01T18:51:15.655575+00:00",
+  "completed_epochs": 20,
+  "epoch": null,
+  "next_batch": 0,
+  "optimizer_updates": 41560,
+  "processed_batches": 41560,
+  "attempted_optimizer_updates": 41560,
+  "amp_skips": 0,
+  "best_epoch": 19,
+  "best_dev_epe": 0.18744595331619757,
+  "elapsed_seconds": 235.6104631840717,
+  "training_elapsed_seconds": 201.3222959029954,
+  "effective_training_seconds": 196.01773688406684,
+  "cuda_peak_allocated_bytes": 4448894976,
+  "cuda_peak_reserved_bytes": 4456448000,
+  "best_checkpoint_sha256": "8ea8b69501a808889d143dc34b122ee3d2a89b3a507316da060eec2241761472",
+  "last_checkpoint_sha256": "59c9dfd6b5c5822efc1736d72ddd7980fc96ef5a18f21287370d6afa4c4b399b",
+  "finished_at": "2026-11-01T18:51:15.656063+00:00",
+  "stop_signal": null
+}
