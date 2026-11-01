@@ -584,8 +584,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/lifecycle.json",
-      "source_sha256": "3bbdab4d2fe8544fb1e9fcea6967be258208e58b87dbdcd1583ee0bb90bdd377",
-      "bytes": 11559,
+      "source_sha256": "b1e4110283915c2cb5558161703ad39403836500c59ff45a30c151aaea2ebf90",
+      "bytes": 11993,
       "representation": "parsed_json"
     },
     {
@@ -1958,8 +1958,8 @@
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/lifecycle.json",
-      "export_sha256": "3bbdab4d2fe8544fb1e9fcea6967be258208e58b87dbdcd1583ee0bb90bdd377",
-      "bytes": 11559
+      "export_sha256": "b1e4110283915c2cb5558161703ad39403836500c59ff45a30c151aaea2ebf90",
+      "bytes": 11993
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/schedule_install.json",

@@ -197,10 +197,17 @@
       "exit_code": 1,
       "report_commit": "2cb5616230f868eb3582ab3d08adc88ded84921e",
       "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    },
+    {
+      "time": "2026-11-01T14:41:10.513890+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "0784f5f45e5e06b931a16279b777d614795c5946",
+      "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
     }
   ],
   "last_attempt_epoch": 1793542415.5324736,
-  "updated_at": "2026-11-01T14:35:41.809209+00:00",
+  "updated_at": "2026-11-01T14:41:10.513958+00:00",
   "pid": 148102,
   "milestones": [
     [
@@ -282,10 +289,10 @@
   "actual_schedule_trigger_verified": true,
   "schedule_completion_note": "verified current-stage cron probe",
   "final_cleanup_publication": {
-    "time": "2026-11-01T14:35:41.809144+00:00",
+    "time": "2026-11-01T14:41:10.513890+00:00",
     "success": false,
     "exit_code": 1,
-    "report_commit": "2cb5616230f868eb3582ab3d08adc88ded84921e",
+    "report_commit": "0784f5f45e5e06b931a16279b777d614795c5946",
     "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
   }
 }
