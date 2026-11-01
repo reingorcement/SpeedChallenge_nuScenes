@@ -11,7 +11,7 @@
 | 20261102_0118_fusion_review_s43_s44_J23_s44 | J23_s44 | completed | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | 0.47674364724333085 |
 | 20261102_0118_fusion_review_s43_s44_F23_s44 | F23_s44 | completed | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | 0.4064790011809198 |
 | 20261102_0118_fusion_review_s43_s44_S46_s43 | S46_s43 | completed | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | 0.39484431481161847 |
-| 20261102_0118_fusion_review_s43_s44_S46_s44 | S46_s44 | running | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | — |
+| 20261102_0118_fusion_review_s43_s44_S46_s44 | S46_s44 | completed | `c8c2370271312c654200a169d10f55bd0a76cc54` | — | 0.4237439230230672 |
 
 训练作业目录包含实际配置、完整 epoch JSONL、状态与可用的 dev 评价；非训练作业包含 worker 状态及已生成的 progress_report.json。原始大日志、数据/光流和权重不上传。
 `source_index.json` 记录所读文件与摘要；`status.json` 记录 checkpoint 哈希和预测公开形式。

@@ -1,0 +1,13 @@
+{
+  "status": "completed",
+  "source_summary_sha256": "0a8b7bc97b2ce6ff015ec8857e5dbd5bc50fb552fca18838627ca0fba0826de4",
+  "preferred_dual_candidate": "S23",
+  "matched_baseline": "J23",
+  "retain_flow_only_diagnostic": true,
+  "retain_S46_for_full_data": false,
+  "planned_full_cache_grids": [
+    "2x3"
+  ],
+  "full_data_action_started": false,
+  "scope": "manual review of three-seed paired stability, scene sensitivity, speed bins, lateral sufficiency and train/dev gaps; corroborated by two independent read-only agent reviews"
+}

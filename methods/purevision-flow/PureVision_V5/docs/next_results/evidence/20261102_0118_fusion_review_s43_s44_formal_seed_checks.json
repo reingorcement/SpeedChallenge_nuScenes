@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "time": "2026-11-01T17:34:55.341953+00:00",
+  "plan_identity": "0e8f91578800d3cd5aaf14c3d49fe5f6191ea7d6aa234cfdc4632a1cd1195c6f",
+  "preflight_sha256": "db11ce11ffc26fdf17f104eb12b652ee80285d5d7b5b4bedb295f18d0e242a07",
+  "runs": [
+    {
+      "run_id": "20261102_0118_fusion_review_s43_s44_S23_s43",
+      "group": "S23",
+      "seed": 43,
+      "actual_20_epoch_batches_equal_seed_preflight": true,
+      "updates": 2300,
+      "code_commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+      "initialization_state_sha256": "bd5c3dfd53290f4db91c9dbff593475b376d38d7ab4704fefd39ed481e46cf15"
+    },
+    {
+      "run_id": "20261102_0118_fusion_review_s43_s44_J23_s43",
+      "group": "J23",
+      "seed": 43,
+      "actual_20_epoch_batches_equal_seed_preflight": true,
+      "updates": 2300,
+      "code_commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+      "initialization_state_sha256": "06a7d39044b4e81a51690ecf9c80b9514988a2900e32f41df23ba9801c76d77e"
+    },
+    {
+      "run_id": "20261102_0118_fusion_review_s43_s44_F23_s43",
+      "group": "F23",
+      "seed": 43,
+      "actual_20_epoch_batches_equal_seed_preflight": true,
+      "updates": 2300,
+      "code_commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+      "initialization_state_sha256": "ad8a8623b2ccff9863757ff5116e6d81914f57d8a91d43232d46074d6cfda43f"
+    },
+    {
+      "run_id": "20261102_0118_fusion_review_s43_s44_S23_s44",
+      "group": "S23",
+      "seed": 44,
+      "actual_20_epoch_batches_equal_seed_preflight": true,
+      "updates": 2300,
+      "code_commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+      "initialization_state_sha256": "7e04498a9fdbd65d2abf071693f08bf29dbdae0306c33931bc47c821d82dbd45"
+    },
+    {
+      "run_id": "20261102_0118_fusion_review_s43_s44_J23_s44",
+      "group": "J23",
+      "seed": 44,
+      "actual_20_epoch_batches_equal_seed_preflight": true,
+      "updates": 2300,
+      "code_commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+      "initialization_state_sha256": "1399f92b5ee6a570b19101190655ea9c67cfff14df0a556d6dda9dbc3f67efdc"
+    },
+    {
+      "run_id": "20261102_0118_fusion_review_s43_s44_F23_s44",
+      "group": "F23",
+      "seed": 44,
+      "actual_20_epoch_batches_equal_seed_preflight": true,
+      "updates": 2300,
+      "code_commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+      "initialization_state_sha256": "824b132cde354da4000b9c79c57193380e522017046870cc1a56d88d04a700f9"
+    },
+    {
+      "run_id": "20261102_0118_fusion_review_s43_s44_S46_s43",
+      "group": "S46",
+      "seed": 43,
+      "actual_20_epoch_batches_equal_seed_preflight": true,
+      "updates": 2300,
+      "code_commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+      "initialization_state_sha256": "87321a933ecd193eb3aaadc8e1119516dcca7d6c6ea0fb00bdebcbd6bec83c08"
+    },
+    {
+      "run_id": "20261102_0118_fusion_review_s43_s44_S46_s44",
+      "group": "S46",
+      "seed": 44,
+      "actual_20_epoch_batches_equal_seed_preflight": true,
+      "updates": 2300,
+      "code_commit": "c8c2370271312c654200a169d10f55bd0a76cc54",
+      "initialization_state_sha256": "e21d2488509be239de24003d4492ead15fe669d2d4767b056ce9a42d3d99e616"
+    }
+  ],
+  "all_cross_seed_initializations_differ": true,
+  "formal_run_count": 8
+}
