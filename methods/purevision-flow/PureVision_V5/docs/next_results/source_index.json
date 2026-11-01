@@ -578,8 +578,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/lifecycle.json",
-      "source_sha256": "0a612485f03bff0ab06e9640a1828a8a39453e106558f94f8fe2d55aae563c9d",
-      "bytes": 6604,
+      "source_sha256": "8201f3524e5888c876d4d7433d249499889bf58c3284f1a9d7d453fc9306a6de",
+      "bytes": 6801,
       "representation": "parsed_json"
     },
     {
@@ -590,8 +590,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/schedule_trigger.json",
-      "source_sha256": "8cd2b8252735700d0ed40e176a97abb047caf8d88efb77a14b43945989f5c3f7",
-      "bytes": 7241,
+      "source_sha256": "2c158f105cdbd2c4815d2d70c36f778475e511ab516725a3661212881f8e3c8d",
+      "bytes": 7400,
       "representation": "parsed_json"
     },
     {
@@ -614,13 +614,13 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/startup/cache.json",
-      "source_sha256": "d6409795d574627fc995517537c8dccc2c0265a988efe4f74c672df411ee7312",
+      "source_sha256": "3f3aa1be1e8c3817b4432947b206e2b246174f3f39f7ce332fa75fa77b89f692",
       "bytes": 1353,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/startup/compare.json",
-      "source_sha256": "f9c6270c75e86bb614d26e7888b4a690ef5d284f8e0aa9ab070ad483928bb88c",
+      "source_sha256": "a9f324dd397d9531561a555aaa076e6e7b0f24eb96203c4cbec6f0ced8b1a488",
       "bytes": 397,
       "representation": "parsed_json"
     },
@@ -632,8 +632,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "ddfe174a5d4aeea2b29be9dc2879785ebe9ca92828187eed1697a26d3a90c934",
-      "bytes": 91376,
+      "source_sha256": "ec80d79a56a31ca8b9792d919202e070c74a21b54583994727c2f464df74f445",
+      "bytes": 91375,
       "representation": "parsed_json"
     },
     {
@@ -1947,8 +1947,8 @@
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/lifecycle.json",
-      "export_sha256": "0a612485f03bff0ab06e9640a1828a8a39453e106558f94f8fe2d55aae563c9d",
-      "bytes": 6604
+      "export_sha256": "8201f3524e5888c876d4d7433d249499889bf58c3284f1a9d7d453fc9306a6de",
+      "bytes": 6801
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/schedule_install.json",
@@ -1957,8 +1957,8 @@
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/schedule_trigger.json",
-      "export_sha256": "8cd2b8252735700d0ed40e176a97abb047caf8d88efb77a14b43945989f5c3f7",
-      "bytes": 7241
+      "export_sha256": "2c158f105cdbd2c4815d2d70c36f778475e511ab516725a3661212881f8e3c8d",
+      "bytes": 7400
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/A.json",
@@ -1977,12 +1977,12 @@
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/cache.json",
-      "export_sha256": "d6409795d574627fc995517537c8dccc2c0265a988efe4f74c672df411ee7312",
+      "export_sha256": "3f3aa1be1e8c3817b4432947b206e2b246174f3f39f7ce332fa75fa77b89f692",
       "bytes": 1353
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/compare.json",
-      "export_sha256": "f9c6270c75e86bb614d26e7888b4a690ef5d284f8e0aa9ab070ad483928bb88c",
+      "export_sha256": "a9f324dd397d9531561a555aaa076e6e7b0f24eb96203c4cbec6f0ced8b1a488",
       "bytes": 397
     },
     {
@@ -2007,8 +2007,8 @@
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "ddfe174a5d4aeea2b29be9dc2879785ebe9ca92828187eed1697a26d3a90c934",
-      "bytes": 91376
+      "export_sha256": "ec80d79a56a31ca8b9792d919202e070c74a21b54583994727c2f464df74f445",
+      "bytes": 91375
     },
     {
       "path": "monitoring/patrols/20261101T140001Z_152050.txt",

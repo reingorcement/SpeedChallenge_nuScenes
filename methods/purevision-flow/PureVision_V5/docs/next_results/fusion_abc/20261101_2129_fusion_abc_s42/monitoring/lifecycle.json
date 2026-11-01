@@ -127,10 +127,17 @@
       "exit_code": 1,
       "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
       "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
+    },
+    {
+      "time": "2026-11-01T14:08:33.963930+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "9bd7708186fa144fc25a56cc687329c14fecb900",
+      "error": null
     }
   ],
-  "last_attempt_epoch": 1793542052.322215,
-  "updated_at": "2026-11-01T14:08:03.844702+00:00",
+  "last_attempt_epoch": 1793542113.8495765,
+  "updated_at": "2026-11-01T14:09:03.969876+00:00",
   "pid": 148102,
   "milestones": [
     [
