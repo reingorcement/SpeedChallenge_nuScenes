@@ -1,69 +1,13 @@
 {
-  "installed_at": "2026-11-01T13:49:58.355496+00:00",
-  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5",
-  "commit": "8eac695a778ee7bedc40ffe23fc42214c854811b",
+  "installed_at": "2026-11-01T16:57:58.992688+00:00",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5",
+  "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
   "probe": false,
-  "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261101T134958.351950Z.txt",
+  "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261101T165758.989148Z.txt",
   "lines": [
-    "*/5 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/scripts/server_check.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_SERVER",
-    "*/30 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ASTRA"
+    "*/5 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/scripts/server_check.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_SERVER",
+    "*/30 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ASTRA"
   ],
-  "status": "verified_trigger",
-  "model": "gpt-6-astra",
-  "last_result": {
-    "time_utc": "2026-11-01T14:00:35.604839+00:00",
-    "trigger": "scheduled",
-    "model": "gpt-6-astra",
-    "exit_code": 0,
-    "success": true,
-    "actual_shell_read_observed": true,
-    "read_evidence": {
-      "verified": true,
-      "request_id": "f12d4ed141ce66a4170391c8a691f180",
-      "required_targets": [
-        {
-          "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261101T140001Z_152050.snapshot.json",
-          "run_id": null,
-          "mode": "json_summary"
-        },
-        {
-          "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json",
-          "run_id": null,
-          "mode": "head"
-        }
-      ],
-      "code": {
-        "commit": "8eac695a778ee7bedc40ffe23fc42214c854811b",
-        "dirty": false,
-        "helper_sha256": "9cbd86a3250a1aba3f15a7c3cac150a9c00b874cffbeb0313bb9d57697cca959"
-      },
-      "reads": [
-        {
-          "request_id": "f12d4ed141ce66a4170391c8a691f180",
-          "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261101T140001Z_152050.snapshot.json",
-          "run_id": null,
-          "status": "read_success",
-          "bytes_read": 91384,
-          "source_size": 91384,
-          "read_scope": "full_json_summarized",
-          "sha256": "83c84ab5eed101181c2e94379d12dc2d63ff9ae894862de0aca4d9d6aecb1dce"
-        },
-        {
-          "request_id": "f12d4ed141ce66a4170391c8a691f180",
-          "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json",
-          "run_id": null,
-          "status": "read_success",
-          "bytes_read": 496,
-          "source_size": 496,
-          "read_scope": "head_at_most_24000_bytes",
-          "sha256": "24875a18d028a7e11094d4cd5d46d2ed42cf254c817001a182e91073f2556525"
-        }
-      ],
-      "missing": []
-    },
-    "run_ids": [],
-    "answer": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261101T140001Z_152050.txt",
-    "log": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261101T140001Z_152050.log",
-    "evidence_schema": "v5_patrol_read_evidence_v2"
-  }
+  "status": "installed_pending_observed_trigger",
+  "model": "gpt-6-astra"
 }

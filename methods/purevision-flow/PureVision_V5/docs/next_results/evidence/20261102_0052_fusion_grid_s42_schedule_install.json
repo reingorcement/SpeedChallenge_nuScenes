@@ -1,0 +1,29 @@
+{
+  "server_astra": {
+    "installed_at": "2026-11-01T16:57:58.992688+00:00",
+    "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5",
+    "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+    "probe": false,
+    "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261101T165758.989148Z.txt",
+    "lines": [
+      "*/5 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/scripts/server_check.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_SERVER",
+      "*/30 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/scripts/astra_patrol.sh /home/zhangyu/.local/share/speedest-v5-next scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_ASTRA"
+    ],
+    "status": "installed_pending_observed_trigger",
+    "model": "gpt-6-astra"
+  },
+  "publisher": {
+    "installed_at": "2026-11-01T16:57:59.014786+00:00",
+    "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5",
+    "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+    "lines": [
+      "17 * * * * /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261102_0052_fusion_grid_s42_6d8d6fe/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261102_0052_fusion_grid_s42.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER"
+    ],
+    "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261101T165759.009727Z.txt",
+    "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261102_0052_fusion_grid_s42.json",
+    "status": "installed_pending_observed_trigger"
+  },
+  "plan_identity": "82601a1772919ae2a20d5e88b181e2f33cf8fc684904927a35487701716ff51b",
+  "previous_crontab": "\n",
+  "time": "2026-11-01T16:57:59.020042+00:00"
+}

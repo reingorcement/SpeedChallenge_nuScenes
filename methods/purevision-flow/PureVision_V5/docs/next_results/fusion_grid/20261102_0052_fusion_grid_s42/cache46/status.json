@@ -1,0 +1,28 @@
+{
+  "status": "running",
+  "phase": "train_core",
+  "updated_at": "2026-11-01T16:58:27.954872+00:00",
+  "completed": 2,
+  "total": 9150,
+  "processed_windows": 2,
+  "elapsed_seconds": 23.343859756132588,
+  "runtime_gpu": {
+    "process_device": "cuda:0",
+    "cuda_visible_devices": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+    "physical_index": 0,
+    "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+    "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+  },
+  "scope": "pilot",
+  "grid": [
+    4,
+    6
+  ],
+  "code": {
+    "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+    "dirty": false,
+    "verified_remote_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d"
+  },
+  "cuda_peak_allocated_bytes": 792568832,
+  "cuda_peak_reserved_bytes": 1115684864
+}

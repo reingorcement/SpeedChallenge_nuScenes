@@ -1,0 +1,231 @@
+{
+  "time": "2026-11-01T16:58:27.355018+00:00",
+  "plan_identity": "82601a1772919ae2a20d5e88b181e2f33cf8fc684904927a35487701716ff51b",
+  "code": {
+    "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+    "dirty": false,
+    "verified_remote_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d"
+  },
+  "entries": [
+    {
+      "group": "cache46",
+      "status": "running",
+      "gpu": {
+        "index": 0,
+        "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+        "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+      },
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_cache46.log",
+      "log_bytes": 1269,
+      "child_process": {
+        "pid": 171754,
+        "alive": true,
+        "verdict": "alive",
+        "start_ticks": 106719890,
+        "identity_verified": true,
+        "pid_reused": false
+      }
+    },
+    {
+      "group": "publish46",
+      "status": "queued",
+      "gpu": null,
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_publish46.log",
+      "log_bytes": 0,
+      "child_process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      }
+    },
+    {
+      "group": "J23",
+      "status": "completed",
+      "gpu": {
+        "index": 1,
+        "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_J23.log",
+      "log_bytes": 137956,
+      "child_process": {
+        "pid": 171624,
+        "alive": false,
+        "verdict": "dead",
+        "identity_verified": true,
+        "reason": "proc stat absent"
+      },
+      "config_sha256": "c2d4bb2cf2a45f95f7c301c0e38bb617f136b74095f3e35480f1378c0c38c16b",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_J23",
+      "code": {
+        "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+        "dirty": false,
+        "verified_remote_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d"
+      },
+      "counts": [
+        7324,
+        1826
+      ],
+      "cache_placement": {
+        "train_core": {
+          "mode": "gpu_resident",
+          "bytes": 206419616,
+          "available_gpu_bytes_at_load": 31833522176,
+          "reserved_workspace_bytes": 2147483648
+        },
+        "dev": {
+          "mode": "gpu_resident",
+          "bytes": 51463984,
+          "available_gpu_bytes_at_load": 31607029760,
+          "reserved_workspace_bytes": 2147483648
+        }
+      }
+    },
+    {
+      "group": "S23",
+      "status": "completed",
+      "gpu": {
+        "index": 2,
+        "uuid": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_S23.log",
+      "log_bytes": 138126,
+      "child_process": {
+        "pid": 171625,
+        "alive": false,
+        "verdict": "dead",
+        "identity_verified": true,
+        "reason": "proc stat absent"
+      },
+      "config_sha256": "96aa7d4bd3e15d49a8a0b8a904759a68969e8ddd10d857f46b24a3b11b94875d",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0052_fusion_grid_s42_S23",
+      "code": {
+        "commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d",
+        "dirty": false,
+        "verified_remote_commit": "6d8d6feb2c47713d6fdacf98cf1b4ec3fe2d909d"
+      },
+      "counts": [
+        7324,
+        1826
+      ],
+      "cache_placement": {
+        "train_core": {
+          "mode": "gpu_resident",
+          "bytes": 206419616,
+          "available_gpu_bytes_at_load": 33101447168,
+          "reserved_workspace_bytes": 2147483648
+        },
+        "dev": {
+          "mode": "gpu_resident",
+          "bytes": 51463984,
+          "available_gpu_bytes_at_load": 32874954752,
+          "reserved_workspace_bytes": 2147483648
+        }
+      }
+    },
+    {
+      "group": "S46",
+      "status": "queued",
+      "gpu": {
+        "index": 0,
+        "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+        "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+      },
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_S46.log",
+      "log_bytes": 0,
+      "child_process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      }
+    },
+    {
+      "group": "J46",
+      "status": "queued",
+      "gpu": {
+        "index": 1,
+        "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_J46.log",
+      "log_bytes": 0,
+      "child_process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      }
+    },
+    {
+      "group": "F23",
+      "status": "launching",
+      "gpu": {
+        "index": 1,
+        "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_F23.log",
+      "log_bytes": 0,
+      "child_process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      }
+    },
+    {
+      "group": "R23",
+      "status": "launching",
+      "gpu": {
+        "index": 2,
+        "uuid": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+        "name": "NVIDIA GeForce RTX 5090"
+      },
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_R23.log",
+      "log_bytes": 0,
+      "child_process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      }
+    },
+    {
+      "group": "dual_summary",
+      "status": "queued",
+      "gpu": null,
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_dual_summary.log",
+      "log_bytes": 0,
+      "child_process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      }
+    },
+    {
+      "group": "compare",
+      "status": "queued",
+      "gpu": null,
+      "log": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261102_0052_fusion_grid_s42_compare.log",
+      "log_bytes": 0,
+      "child_process": {
+        "pid": null,
+        "alive": null,
+        "verdict": "unknown",
+        "identity_verified": false,
+        "reason": "pid unavailable"
+      }
+    }
+  ],
+  "transport_note": "Project GitHub bypass temporarily removed to use the existing proxy; original private network settings backed up for restoration after final publication."
+}
