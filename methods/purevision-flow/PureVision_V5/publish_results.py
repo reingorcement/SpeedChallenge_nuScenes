@@ -273,6 +273,12 @@ def collect(root, plans):
     grid_ids = {row['run_id'] for row in grid_rows}
     rows = [row for row in rows if row['run_id'] not in grid_ids] + grid_rows
     sources.extend(grid_sources)
+    from collect_fusion_full import collect_public as collect_full
+    full_files, full_rows, full_sources = collect_full(root, plans)
+    files.update(full_files)
+    full_ids = {row['run_id'] for row in full_rows}
+    rows = [row for row in rows if row['run_id'] not in full_ids] + full_rows
+    sources.extend(full_sources)
     summary = dict(schema="v5_next_public_report_v1", rows=rows,
                    all_terminal=bool(rows) and all(r["status"] in TERMINAL for r in rows),
                    limits=["PLANAR_PROXY labels; dev selection and dev recomputation are not held-out testing.",
@@ -295,6 +301,19 @@ def collect(root, plans):
 
 def git(repo, *args, check=True):
     from purevision_v5.common import proxy_ssh_command
+    # Query the actual public ref over HTTPS first; SSH pushes keep the existing
+    # authentication and host-key policy. This avoids repeated SSH banner waits.
+    if (len(args) >= 2 and args[0] == 'ls-remote'
+            and args[1] == 'git@github.com:reingorcement/SpeedChallenge_nuScenes.git'):
+        endpoint = 'https://github.com/reingorcement/SpeedChallenge_nuScenes'
+        try:
+            observed = subprocess.run(['git', '-c', f'safe.directory={repo}', '-C', str(repo),
+                '-c', 'http.lowSpeedLimit=1', '-c', 'http.lowSpeedTime=15',
+                'ls-remote', endpoint, *args[2:]], text=True, capture_output=True, timeout=25, check=False)
+        except subprocess.TimeoutExpired:
+            observed = None
+        if observed is not None and observed.returncode == 0:
+            return observed.stdout.strip()
     transport = ["-c", f"core.sshCommand={proxy_ssh_command()}"] if args and args[0] in {"ls-remote", "push", "fetch"} else []
     result = subprocess.run(["git", "-c", f"safe.directory={repo}", "-C", str(repo),
                              "-c", "user.name=Codex", "-c", "user.email=codex@openai.com", *transport, *args],

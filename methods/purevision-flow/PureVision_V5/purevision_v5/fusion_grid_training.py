@@ -31,20 +31,78 @@ SUPPORTED_SEEDS = (42, 43, 44)
 SCHEMA = 'v5_fusion_grid_epoch_state_v1'
 RECOVERY_SCHEMA = 'v5_fusion_grid_recovery_v1'
 COUNTS = dict(train_core=7324, dev=1826)
+FULL_COUNTS = dict(train_core=132978, dev=23480)
+FULL_SCENES = dict(train_core=582, dev=103)
+FULL_CONFIG_SCHEMA = 'v5_fusion_full_config_v1'
+FULL_CONTRACT_SCOPE = 'frozen_fusion_full'
+
+
+def full_scope(config):
+    return config.get('scope') == 'full'
 
 
 def validate_config(config):
     from .fusion_grid import GRID_VARIANTS
     if type(config.get('seed')) is not int or config['seed'] not in SUPPORTED_SEEDS:
         raise ValueError('Fixed screening/confirmation seeds are integers 42, 43 and 44')
-    for key, expected in PROTOCOL.items():
+    protocol = dict(PROTOCOL, schema=FULL_CONFIG_SCHEMA) if full_scope(config) else PROTOCOL
+    for key, expected in protocol.items():
         if key == 'seed':
             continue  # Each seed retains the historical factory and epoch-order policy.
         if config.get(key) != expected or (isinstance(expected, bool) and type(config.get(key)) is not bool):
             raise ValueError(f'Fixed training protocol differs: {key}')
     if config.get('group') not in GRID_VARIANTS:
         raise ValueError('Unknown six-group identifier')
+    if full_scope(config):
+        if (config['seed'] != 42 or config['group'] not in {'J23', 'S23', 'F23'}
+                or config.get('expected_counts') != FULL_COUNTS
+                or config.get('expected_scene_counts') != FULL_SCENES):
+            raise ValueError('Full scope requires the original complete split and J23/S23/F23 seed42')
     validate_lateral_rule(config.get('lateral_rule'))
+
+
+def load_training_partition(cache, partition, config, preflight=False, preflight_samples=64):
+    """Route complete-data and pilot caches through their separate validators."""
+    from .fusion_grid import GRID_VARIANTS
+    from .fusion_grid_cache import cache_grid, load_grid_cache
+    if full_scope(config):
+        from .fusion_full_cache import load_full_cache
+        packet, index = load_full_cache(cache, partition, allow_preflight=preflight)
+        allowed = {'full', 'full_preflight'} if preflight else {'full'}
+        if index.get('scope') not in allowed or tuple(index.get('grid', ())) != (2, 3):
+            raise ValueError('Full configurations require an explicitly full 2x3 cache')
+        if not preflight:
+            count = len(packet['targets'])
+            scenes = {m['scene'] for m in packet['metadata']}
+            keys = {(m['scene'], m['token']) for m in packet['metadata']}
+            if count != FULL_COUNTS[partition] or len(scenes) != FULL_SCENES[partition] or len(keys) != count:
+                raise ValueError('Full training requires complete original sample/scene coverage without duplicates')
+    else:
+        packet, index = load_grid_cache(cache, partition, allow_preflight=preflight)
+        if cache_grid(index) != tuple(GRID_VARIANTS[config['group']]['grid']):
+            raise ValueError('Group grid/cache grid differs')
+        if not preflight and (index['scope'] != 'pilot' or len(packet['targets']) != COUNTS[partition]):
+            raise ValueError('Formal run must consume complete fixed pilot cache')
+    if preflight:
+        n = min(preflight_samples, len(packet['targets']))
+        packet = dict(features={k: v[:n] for k, v in packet['features'].items()},
+                      targets=packet['targets'][:n], metadata=packet['metadata'][:n])
+    return packet, index
+
+
+def training_contract(config, index, packets, actual_identity, preflight, preflight_samples):
+    scope = ('full_preflight' if preflight else FULL_CONTRACT_SCOPE) if full_scope(config) else (
+        'preflight' if preflight else 'frozen_fusion_grid_pilot')
+    value = dict(config=config, cache_identity=index['identity'], actual_sample_identity=actual_identity,
+        scope=scope, preflight_samples=preflight_samples if preflight else None,
+        output_units='m/s', task='PLANAR_PROXY', encoder_training=False,
+        epoch_order_policy='torch.randperm(cpu_generator(seed+zero_based_epoch)); historical unchanged')
+    if full_scope(config):
+        value.update(data_scope='full', cache_scope=index['scope'], expected_counts=FULL_COUNTS,
+            expected_scene_counts=FULL_SCENES,
+            partition_counts={part: len(packet['targets']) for part, packet in packets.items()},
+            scene_counts={part: len({m['scene'] for m in packet['metadata']}) for part, packet in packets.items()})
+    return value
 
 
 def new_model(config):
@@ -139,6 +197,20 @@ def validate_checkpoint(value, contract_hash=None):
     validate_config(value['config'])
     if value['config'] != value['contract']['config'] or value['cache_identity'] != value['contract']['cache_identity']:
         raise ValueError('Checkpoint configuration/cache identity differs')
+    if full_scope(value['config']):
+        contract = value['contract']
+        formal = contract.get('scope') == FULL_CONTRACT_SCOPE
+        if (contract.get('scope') not in {FULL_CONTRACT_SCOPE, 'full_preflight'}
+                or contract.get('data_scope') != 'full' or contract.get('expected_counts') != FULL_COUNTS
+                or contract.get('expected_scene_counts') != FULL_SCENES
+                or value['train_count'] != contract['partition_counts']['train_core']
+                or value.get('dev_count') != contract['partition_counts']['dev']
+                or value['dev_prediction'].shape != (value['dev_count'], 2)
+                or value['dev_summary']['overall']['count'] != value['dev_count']
+                or any(row['dev']['overall']['count'] != value['dev_count'] for row in value['history'])
+                or (formal and (contract.get('cache_scope') != 'full'
+                    or contract['partition_counts'] != FULL_COUNTS or contract['scene_counts'] != FULL_SCENES))):
+            raise ValueError('Full checkpoint lost its complete split, evaluation coverage or scope contract')
     completed = value['completed_epochs']
     batches = math.ceil(value['train_count'] / value['config']['batch_size'])
     if (not 1 <= completed <= value['config']['epochs'] or value['epoch_index'] != completed
@@ -211,21 +283,29 @@ def export_recovery(output, current_path, best_path, checkpoint):
 
 
 def export_evaluation(output, partition, prediction, summary, packet, checkpoint, checkpoint_sha, reused):
+    if full_scope(checkpoint['config']):
+        expected = checkpoint['contract']['partition_counts'][partition]
+        if len(prediction) != expected or len(packet['targets']) != expected or summary['overall']['count'] != expected:
+            raise ValueError('Full evaluation coverage differs from its checkpoint contract')
     destination = output / f'eval_{partition}'
     destination.mkdir(parents=True, exist_ok=True)
     write_json(destination / 'metrics.json', summary)
     write_predictions(destination / 'predictions.csv', prediction_rows(prediction, packet))
-    write_json(destination / 'evaluation.json', dict(schema='v5_fusion_grid_evaluation_v1', status='completed',
+    receipt = dict(schema='v5_fusion_grid_evaluation_v1', status='completed',
         partition=partition, count=len(prediction), checkpoint_sha256=checkpoint_sha,
         training_run=output.name, training_code=checkpoint['code'], cache_identity=checkpoint['cache_identity'],
         contract_hash=checkpoint['contract_hash'], config=checkpoint['config'],
         reused_validation_predictions=reused, full_train_inference_passes=0 if reused else 1,
-        predictions_sha256=sha256(destination / 'predictions.csv'), completed_at=now()))
+        predictions_sha256=sha256(destination / 'predictions.csv'), completed_at=now())
+    if full_scope(checkpoint['config']):
+        receipt.update(data_scope='full', scope=checkpoint['contract']['scope'],
+                       expected_counts=FULL_COUNTS, expected_scene_counts=FULL_SCENES)
+    write_json(destination / 'evaluation.json', receipt)
 
 
 def train(args):
-    from .fusion_grid import EXPECTED_PARAMETERS, GRID_VARIANTS
-    from .fusion_grid_cache import cache_grid, load_grid_cache, ordered_sample_digest
+    from .fusion_grid import EXPECTED_PARAMETERS
+    from .fusion_grid_cache import ordered_sample_digest
     started = time.monotonic()
     config_path, cache, output = (Path(v).resolve() for v in (args.config, args.cache, args.output))
     config = read_json(config_path)
@@ -250,16 +330,7 @@ def train(args):
     env = environment()
     packets, indices = {}, {}
     for part in COUNTS:
-        packet, index = load_grid_cache(cache, part, allow_preflight=preflight)
-        if cache_grid(index) != tuple(GRID_VARIANTS[config['group']]['grid']):
-            raise ValueError('Group grid/cache grid differs')
-        if not preflight and (index['scope'] != 'pilot' or len(packet['targets']) != COUNTS[part]):
-            raise ValueError('Formal run must consume complete fixed pilot cache')
-        if preflight:
-            # A disposable bounded epoch exercises all complete-boundary paths.
-            n = min(args.preflight_samples, len(packet['targets']))
-            packet = dict(features={k: v[:n] for k, v in packet['features'].items()},
-                          targets=packet['targets'][:n], metadata=packet['metadata'][:n])
+        packet, index = load_training_partition(cache, part, config, preflight, args.preflight_samples)
         packets[part], indices[part] = packet, index
     index = indices['train_core']
     if index['identity'] != indices['dev']['identity']:
@@ -269,11 +340,7 @@ def train(args):
             raise ValueError('Train/dev sample leakage')
     identities = sample_identities(packets['train_core'])
     actual_identity = {part: ordered_sample_digest(packet) for part, packet in packets.items()}
-    contract = dict(config=config, cache_identity=index['identity'], actual_sample_identity=actual_identity,
-        scope='preflight' if preflight else 'frozen_fusion_grid_pilot',
-        preflight_samples=args.preflight_samples if preflight else None,
-        output_units='m/s', task='PLANAR_PROXY', encoder_training=False,
-        epoch_order_policy='torch.randperm(cpu_generator(seed+zero_based_epoch)); historical unchanged')
+    contract = training_contract(config, index, packets, actual_identity, preflight, args.preflight_samples)
     contract_hash = object_hash(contract)
     runtime, storage = {}, {}
     for part, packet in packets.items():
@@ -445,6 +512,8 @@ def train(args):
                 history=history, order_records=orders, dev_summary=dev_summary, dev_prediction=dev_prediction,
                 effective_training_seconds=effective_elapsed, discarded_attempts=discarded,
                 parent_run=parent_run, boundary='validation_then_scheduler_then_advance_epoch_next_batch_zero')
+            if full_scope(config):
+                checkpoint['dev_count'] = len(packets['dev']['targets'])
             validate_checkpoint(checkpoint, contract_hash)
             checkpoint_path = output / 'checkpoints' / f'epoch_{completed:03d}.pt'
             if checkpoint_path.exists():
@@ -471,23 +540,40 @@ def train(args):
             recovery, loaded = load_recovery(output / 'recovery.json', contract_hash)
             best = loaded['best'][1]
             model.load_state_dict(best['model'], strict=True)
-            train_summary, train_prediction = evaluate_packet(model, packets['train_core'], runtime['train_core'], device, config)
             best_summary = best['dev_summary']
             best_sha = recovery['best']['sha256']
-            export_evaluation(output, 'dev', best['dev_prediction'], best_summary, packets['dev'], best, best_sha, True)
-            export_evaluation(output, 'train_core', train_prediction, train_summary, packets['train_core'], best, best_sha, False)
-            final_state = 'preflight_completed' if preflight else 'completed'
-            result = dict(schema='v5_fusion_grid_result_v1', status=final_state, run_id=output.name, group=config['group'],
+            result = dict(schema='v5_fusion_grid_result_v1', run_id=output.name, group=config['group'],
                 best_epoch=best_epoch, best_dev_epe=best_epe, last_dev_epe=history[-1]['dev']['overall']['epe'],
-                best_train_epe=train_summary['overall']['epe'], dev=best_summary, train=train_summary,
+                best_train_epe=None, dev=best_summary, train=None,
                 trainable_parameters=parameter_count, optimizer_updates=updates, completed_epochs=completed,
                 gpu=hardware, elapsed_seconds=time.monotonic() - started, training_elapsed_seconds=effective_elapsed,
                 code=version, cache_identity=index['identity'], actual_sample_identity=actual_identity,
                 initialization=initialization, epoch_orders=orders, best_checkpoint_sha256=best_sha,
                 last_checkpoint_sha256=recovery['current']['sha256'], contract_hash=contract_hash,
-                generalization_gap_dev_minus_train_epe=best_epe - train_summary['overall']['epe'],
-                best_train_full_evaluation_count=1, best_dev_predictions_reused=True,
+                generalization_gap_dev_minus_train_epe=None,
+                best_train_full_evaluation_count=0, best_dev_predictions_reused=True,
                 discarded_attempts=discarded, **peak_memory(device))
+            if full_scope(config):
+                export_evaluation(output, 'dev', best['dev_prediction'], best_summary, packets['dev'], best, best_sha, True)
+                result.update(data_scope='full', scope=contract['scope'], train_count=len(packets['train_core']['targets']),
+                              dev_count=len(packets['dev']['targets']), expected_counts=FULL_COUNTS,
+                              expected_scene_counts=FULL_SCENES)
+                ready_state = 'preflight_dev_ready' if preflight else 'dev_ready'
+                write_json(output / 'dev_ready.json', dict(result, schema='v5_fusion_full_dev_ready_v1',
+                           status=ready_state, train_evaluation_status='pending', updated_at=now()))
+                receipt.update(status(ready_state), status=ready_state, best_checkpoint_sha256=best_sha,
+                               last_checkpoint_sha256=recovery['current']['sha256'])
+                write_json(output / 'run.json', receipt)
+                print(json.dumps(dict(event=ready_state, group=config['group'], run_id=output.name,
+                    best_epoch=best_epoch, best_dev_epe=best_epe, optimizer_updates=updates)), flush=True)
+            train_summary, train_prediction = evaluate_packet(model, packets['train_core'], runtime['train_core'], device, config)
+            if not full_scope(config):
+                export_evaluation(output, 'dev', best['dev_prediction'], best_summary, packets['dev'], best, best_sha, True)
+            export_evaluation(output, 'train_core', train_prediction, train_summary, packets['train_core'], best, best_sha, False)
+            final_state = 'preflight_completed' if preflight else 'completed'
+            result.update(status=final_state, best_train_epe=train_summary['overall']['epe'], train=train_summary,
+                generalization_gap_dev_minus_train_epe=best_epe-train_summary['overall']['epe'],
+                best_train_full_evaluation_count=1, elapsed_seconds=time.monotonic()-started, **peak_memory(device))
             write_json(output / 'result.json', result)
             status_value = status(final_state)
             receipt.update(best_checkpoint_sha256=best_sha, last_checkpoint_sha256=recovery['current']['sha256'])
