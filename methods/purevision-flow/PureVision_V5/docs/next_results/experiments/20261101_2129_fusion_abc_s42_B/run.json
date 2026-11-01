@@ -1,0 +1,110 @@
+{
+  "schema": "v5_fusion_abc_run_v1",
+  "run_id": "20261101_2129_fusion_abc_s42_B",
+  "status": "completed",
+  "started_at": "2026-11-01T13:52:46.302107+00:00",
+  "code": {
+    "commit": "8eac695a778ee7bedc40ffe23fc42214c854811b",
+    "dirty": false,
+    "verified_remote_commit": "8eac695a778ee7bedc40ffe23fc42214c854811b"
+  },
+  "contract": {
+    "config": {
+      "schema": "v5_fusion_abc_config_v1",
+      "seed": 42,
+      "epochs": 20,
+      "batch_size": 64,
+      "drop_last": false,
+      "amp": false,
+      "tf32": false,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "optimizer_eps": 1e-08,
+      "grad_clip": 2,
+      "scheduler_epochs": 20,
+      "eta_min": 0,
+      "loss_scales_m_s": [
+        5,
+        1
+      ],
+      "loss_beta": 1,
+      "early_stopping": false,
+      "variant": "B"
+    },
+    "cache_identity": "209418d597b2065146ddf7bc9c718e296bdeedab98645b7470448c2d238ee4b9",
+    "scope": "frozen_fusion_pilot",
+    "smoke_steps": 0,
+    "output_units": "m/s",
+    "task": "PLANAR_PROXY"
+  },
+  "contract_hash": "4d3fdb0ebcea6367a33e2d39d493596924acebc640e44de38d8040752233c7ff",
+  "initialization": {
+    "policy": "build_triplet_explicit_BC_shared_copy_v1",
+    "state_sha256": "4f71ed20440f8f1f7ecef291cfe1a8d6379619a89b895f4be1c490cd89f24e02",
+    "seed": 42,
+    "common_modules_sha256": {
+      "input_projection": "42a0703702d7083192835aca6c3659827cc7e967338c5f31eb499026f80678ee",
+      "input_norm": "371460a108c94e24a0ba36844c183cf3d504cc7e7826b25f6abec677021dfa97",
+      "head": "ed8d333dcf74e0789f843649144d1b7f26cfdcc5ffe07c2d1c3a5c3c4c20aa2a"
+    }
+  },
+  "train_count": 7324,
+  "dev_count": 1826,
+  "parent_run": null,
+  "trainable_parameters": 100738,
+  "environment": {
+    "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+    "executable": "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "hostname": "ps",
+    "cuda_visible_devices": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "gpu": [
+      "NVIDIA GeForce RTX 5090"
+    ]
+  },
+  "command": {
+    "config": "/home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/configs/next/FUSION_ABC_B.json",
+    "cache": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+    "output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_2129_fusion_abc_s42_B",
+    "device": "cuda:0",
+    "threads": 4,
+    "smoke_steps": 0,
+    "resume": null
+  },
+  "arithmetic": {
+    "dtype": "float32",
+    "amp": false,
+    "tf32": false,
+    "gradient_accumulation": 1
+  },
+  "encoder_training": false,
+  "runtime_gpu": {
+    "process_device": "cuda:0",
+    "cuda_visible_devices": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "physical_index": 1,
+    "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "name": "NVIDIA GeForce RTX 5090"
+  },
+  "finished_at": "2026-11-01T13:52:55.553047+00:00",
+  "stop_signal": null,
+  "updated_at": "2026-11-01T13:52:55.553074+00:00",
+  "completed_epochs": 20,
+  "epoch": null,
+  "next_batch": 0,
+  "processed_batches": 2300,
+  "optimizer_updates": 2300,
+  "amp_skips": 0,
+  "best_dev_epe": 0.5263149476735968,
+  "best_epoch": 15,
+  "elapsed_seconds": 9.24808673420921,
+  "cuda_peak_allocated_bytes": 34110464,
+  "cuda_peak_reserved_bytes": 52428800,
+  "last_checkpoint_sha256": "4917a7296d7064b991ec7783a99e2d4de68cfc3036953347130929afd629ddd9",
+  "best_checkpoint_sha256": "ccdb7b80c6c803777d23788faefba8e5a488827c3f151d7f35d826b1518a126c"
+}

@@ -1,0 +1,92 @@
+{
+  "plan_identity": "086250f065229a29989d9b5a3f561780129e28f01145485e452cb44a700d92ce",
+  "started_at": "2026-11-01T13:50:15.226953+00:00",
+  "publications": [
+    {
+      "time": "2026-11-01T13:50:15.342599+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": null
+    },
+    {
+      "time": "2026-11-01T13:51:15.463937+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "RuntimeError: git push failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    },
+    {
+      "time": "2026-11-01T13:52:15.584708+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "RuntimeError: git push failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    },
+    {
+      "time": "2026-11-01T13:53:15.755796+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    },
+    {
+      "time": "2026-11-01T13:54:15.879671+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "RuntimeError: git push failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    },
+    {
+      "time": "2026-11-01T13:55:16.005604+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    }
+  ],
+  "last_attempt_epoch": 1793541315.8912194,
+  "updated_at": "2026-11-01T13:55:16.005648+00:00",
+  "pid": 148102,
+  "milestones": [
+    [
+      "cache",
+      "completed",
+      false,
+      0
+    ],
+    [
+      "A",
+      "completed",
+      true,
+      4
+    ],
+    [
+      "B",
+      "completed",
+      true,
+      4
+    ],
+    [
+      "C",
+      "completed",
+      true,
+      4
+    ],
+    [
+      "compare",
+      "completed",
+      false,
+      0
+    ]
+  ],
+  "startup_proofs": {
+    "20261101_2129_fusion_abc_s42_cache": false,
+    "20261101_2129_fusion_abc_s42_A": true,
+    "20261101_2129_fusion_abc_s42_B": true,
+    "20261101_2129_fusion_abc_s42_C": true,
+    "20261101_2129_fusion_abc_s42_compare": false
+  },
+  "anomalies": [],
+  "status": "publication_or_completion_pending"
+}

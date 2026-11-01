@@ -1,0 +1,70 @@
+{
+  "status": "completed",
+  "started_at": "2026-11-01T13:53:04.252893+00:00",
+  "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_2129_fusion_abc_s42_A/best.pt",
+  "checkpoint_sha256": "4f3153cd916f3cedfb4b711133ce4acb8692428f04bc6ac250181a698f428e62",
+  "training_run": "20261101_2129_fusion_abc_s42_A",
+  "training_code": {
+    "commit": "8eac695a778ee7bedc40ffe23fc42214c854811b",
+    "dirty": false,
+    "verified_remote_commit": "8eac695a778ee7bedc40ffe23fc42214c854811b"
+  },
+  "evaluation_code": {
+    "commit": "8eac695a778ee7bedc40ffe23fc42214c854811b",
+    "dirty": false,
+    "verified_remote_commit": null
+  },
+  "cache_identity": "209418d597b2065146ddf7bc9c718e296bdeedab98645b7470448c2d238ee4b9",
+  "contract_hash": "d44427e2cc42f3aa3cf55e2d06cbd1fd626d901603766ffb78aeef55ac9e0326",
+  "scope": "frozen_fusion_pilot",
+  "partition": "train_core",
+  "config": {
+    "schema": "v5_fusion_abc_config_v1",
+    "seed": 42,
+    "epochs": 20,
+    "batch_size": 64,
+    "drop_last": false,
+    "amp": false,
+    "tf32": false,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "optimizer_eps": 1e-08,
+    "grad_clip": 2,
+    "scheduler_epochs": 20,
+    "eta_min": 0,
+    "loss_scales_m_s": [
+      5,
+      1
+    ],
+    "loss_beta": 1,
+    "early_stopping": false,
+    "variant": "A"
+  },
+  "environment": {
+    "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+    "executable": "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "hostname": "ps",
+    "cuda_visible_devices": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+    "gpu": [
+      "NVIDIA GeForce RTX 5090"
+    ]
+  },
+  "command": {
+    "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_2129_fusion_abc_s42_A/best.pt",
+    "cache": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+    "output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_2129_fusion_abc_s42_A/eval_train_core",
+    "partition": "train_core",
+    "device": "cuda:0",
+    "threads": 4,
+    "require_completed_run": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_2129_fusion_abc_s42_A"
+  },
+  "finished_at": "2026-11-01T13:53:04.743077+00:00",
+  "count": 7324
+}

@@ -1,0 +1,63 @@
+{
+  "checked_at": "2026-11-01T13:52:05.122609+00:00",
+  "experiment_id": "20261101_2129_fusion_abc_s42",
+  "training_commit": "8eac695a778ee7bedc40ffe23fc42214c854811b",
+  "plan_identity": "086250f065229a29989d9b5a3f561780129e28f01145485e452cb44a700d92ce",
+  "cache_child_pid": 148335,
+  "cache_process_alive": true,
+  "cache_command": "/home/zhangyu/.conda/envs/speedest/bin/python -B /home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/fusion_abc_extract.py --checkpoint /home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/best.pt --manifest /mnt/sdb2/Workspace/zhangyu/01_speedest_vision_artifacts/v5/data/nuscenes_proxy_v1/dataset.json --selection /home/zhangyu/.local/share/speedest-v5-next/plans/resolution_pilot_s42_32t8v.json --flow /mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev --rgb-frames /home/zhangyu/.local/share/speedest-v5-next/rgb_frames/v3_uint8_train_dev_v1 --scope pilot --allow-pilot-cache --batch-size 2 --device cuda:0 --output /home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42 ",
+  "cache_progress": {
+    "status": "running",
+    "phase": "train_core",
+    "updated_at": "2026-11-01T13:52:05.018186+00:00",
+    "completed": 7262,
+    "total": 9150,
+    "processed_windows": 7262,
+    "elapsed_seconds": 105.0497866901569,
+    "runtime_gpu": {
+      "process_device": "cuda:0",
+      "cuda_visible_devices": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+      "physical_index": 0,
+      "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+    },
+    "scope": "pilot",
+    "code": {
+      "commit": "8eac695a778ee7bedc40ffe23fc42214c854811b",
+      "dirty": false,
+      "verified_remote_commit": "8eac695a778ee7bedc40ffe23fc42214c854811b"
+    },
+    "cuda_peak_allocated_bytes": 792625664,
+    "cuda_peak_reserved_bytes": 1117782016
+  },
+  "job_statuses": {
+    "cache": "running",
+    "A": "queued",
+    "B": "queued",
+    "C": "queued",
+    "compare": "queued"
+  },
+  "real_server_trigger": {
+    "success": true,
+    "exit_code": 0,
+    "snapshot_time": "2026-11-01T13:51:03.163265+00:00",
+    "observed_run_ids": [
+      "20261101_2129_fusion_abc_s42_A",
+      "20261101_2129_fusion_abc_s42_B",
+      "20261101_2129_fusion_abc_s42_C",
+      "20261101_2129_fusion_abc_s42_cache",
+      "20261101_2129_fusion_abc_s42_compare"
+    ]
+  },
+  "real_astra_trigger_success": true,
+  "actual_astra_scope_verified": true,
+  "schedule_trigger_status": "retry_pending",
+  "publication": {
+    "status": "pending",
+    "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+    "verified_remote_commit": null,
+    "error": "RuntimeError: git push failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+  },
+  "old_FT_status": "interrupted",
+  "foreground_policy": "End after this startup confirmation; first validation/checkpoint and completion handled by background lifecycle."
+}

@@ -1,6 +1,26 @@
 {
-  "status": "queued",
-  "updated_at": "2026-11-01T13:49:20.704019+00:00",
-  "launch_count": 0,
-  "reason": null
+  "status": "completed",
+  "updated_at": "2026-11-01T13:53:25.958006+00:00",
+  "launch_count": 1,
+  "reason": null,
+  "launched_at_epoch": 1793541199.6050963,
+  "pid": 150256,
+  "pid_start_ticks": 105611510,
+  "started_at": "2026-11-01T13:53:20.849808+00:00",
+  "commit": "8eac695a778ee7bedc40ffe23fc42214c854811b",
+  "phase": "comparison",
+  "command_index": 0,
+  "command": [
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261101_2129_fusion_abc_s42_8eac695/methods/purevision-flow/PureVision_V5/fusion_abc_comparison.py",
+    "--plan",
+    "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261101_2129_fusion_abc_s42/plan.json",
+    "--output",
+    "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_abc_20261101_2129_fusion_abc_s42"
+  ],
+  "child_pid": 150324,
+  "child_pid_start_ticks": 105611644,
+  "exit_code": 0,
+  "finished_at": "2026-11-01T13:53:25.957987+00:00"
 }

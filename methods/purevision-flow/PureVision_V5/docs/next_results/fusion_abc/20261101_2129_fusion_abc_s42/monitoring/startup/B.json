@@ -1,0 +1,226 @@
+{
+  "run_id": "20261101_2129_fusion_abc_s42_B",
+  "time": "2026-11-01T13:53:15.617695+00:00",
+  "phase": "evaluation",
+  "worker_status": "completed",
+  "process": {
+    "alive": false,
+    "verdict": "dead",
+    "reason": "proc stat absent"
+  },
+  "log_exists": true,
+  "log_bytes": 501838,
+  "physical_gpu": {
+    "index": 1,
+    "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "name": "NVIDIA GeForce RTX 5090"
+  },
+  "process_device": "cuda:0",
+  "progress": {
+    "status": "completed",
+    "updated_at": "2026-11-01T13:52:55.553074+00:00",
+    "run_id": "20261101_2129_fusion_abc_s42_B",
+    "scope": "frozen_fusion_pilot",
+    "completed_epochs": 20,
+    "epoch": null,
+    "next_batch": 0,
+    "processed_batches": 2300,
+    "optimizer_updates": 2300,
+    "amp_skips": 0,
+    "best_dev_epe": 0.5263149476735968,
+    "best_epoch": 15,
+    "elapsed_seconds": 9.24808673420921,
+    "runtime_gpu": {
+      "process_device": "cuda:0",
+      "cuda_visible_devices": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+      "physical_index": 1,
+      "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+      "name": "NVIDIA GeForce RTX 5090"
+    },
+    "cuda_peak_allocated_bytes": 34110464,
+    "cuda_peak_reserved_bytes": 52428800
+  },
+  "checkpoint_verified": true,
+  "checkpoint_sha256": "4917a7296d7064b991ec7783a99e2d4de68cfc3036953347130929afd629ddd9",
+  "checkpoint_keys": [
+    "amp_skips",
+    "completed_epochs",
+    "epoch_index",
+    "initialization",
+    "model",
+    "next_batch",
+    "optimizer",
+    "optimizer_updates",
+    "processed_batches",
+    "rng",
+    "scaler",
+    "scheduler"
+  ],
+  "first_validation": {
+    "epoch": 1,
+    "training_loss": 0.052597131299852905,
+    "dev": {
+      "overall": {
+        "count": 1826,
+        "epe": 0.8494913651197777,
+        "mae_vx": 0.8477642400447589,
+        "rmse_vx": 1.1597350832175675,
+        "bias_vx": -0.21917760500515127,
+        "p95_abs_vx": 2.4972668886184692,
+        "mae_vy": 0.02567424561352226,
+        "rmse_vy": 0.03438980822891322,
+        "bias_vy": -0.011645119712472986,
+        "p95_abs_vy": 0.0647078468464315,
+        "zero_vy_mae": 0.042481431586388715
+      },
+      "scene_count": 8,
+      "per_scene": {
+        "scene-0048": {
+          "count": 221,
+          "epe": 0.9642388667477269,
+          "mae_vx": 0.9618100407975831,
+          "rmse_vx": 1.192711335265943,
+          "bias_vx": -0.002891374389510349,
+          "p95_abs_vx": 2.3782711029052734,
+          "mae_vy": 0.034486964365917284,
+          "rmse_vy": 0.04426686949468048,
+          "bias_vy": -0.026062835079414468,
+          "p95_abs_vy": 0.08599645365029573,
+          "zero_vy_mae": 0.03961102989393211
+        },
+        "scene-0072": {
+          "count": 226,
+          "epe": 0.4907291448633339,
+          "mae_vx": 0.48920870044795484,
+          "rmse_vx": 0.6802574524938624,
+          "bias_vx": 0.35780282053387036,
+          "p95_abs_vx": 1.3917583301663399,
+          "mae_vy": 0.016032217607593404,
+          "rmse_vy": 0.020292701032264306,
+          "bias_vy": -0.014650118219294272,
+          "p95_abs_vy": 0.03794564073905349,
+          "zero_vy_mae": 0.010821662598420387
+        },
+        "scene-0195": {
+          "count": 226,
+          "epe": 0.6068968762218377,
+          "mae_vx": 0.6049073354332848,
+          "rmse_vx": 0.7420854980465753,
+          "bias_vx": 0.5303555463267638,
+          "p95_abs_vx": 1.3237448632717133,
+          "mae_vy": 0.02393521870602596,
+          "rmse_vy": 0.027834753855299838,
+          "bias_vy": -0.016583424862729183,
+          "p95_abs_vy": 0.04993811994791031,
+          "zero_vy_mae": 0.03933285902424528
+        },
+        "scene-0236": {
+          "count": 229,
+          "epe": 0.47532625626403224,
+          "mae_vx": 0.47370609445863415,
+          "rmse_vx": 0.5728350303937038,
+          "bias_vx": 0.2139185755533943,
+          "p95_abs_vx": 1.0828953742980956,
+          "mae_vy": 0.021387796117476793,
+          "rmse_vy": 0.02515670675985564,
+          "bias_vy": -0.012087623886133679,
+          "p95_abs_vy": 0.04238448261748999,
+          "zero_vy_mae": 0.03939067195200129
+        },
+        "scene-0402": {
+          "count": 233,
+          "epe": 0.9573041607182008,
+          "mae_vx": 0.9568336675095456,
+          "rmse_vx": 1.0269356763458435,
+          "bias_vx": -0.9568336675095456,
+          "p95_abs_vx": 1.5503623962402338,
+          "mae_vy": 0.020234178344003633,
+          "rmse_vy": 0.026720526878241984,
+          "bias_vy": 0.004232449824781889,
+          "p95_abs_vy": 0.052553005889058084,
+          "zero_vy_mae": 0.06933421552852756
+        },
+        "scene-0566": {
+          "count": 235,
+          "epe": 1.226792078671461,
+          "mae_vx": 1.223778013397563,
+          "rmse_vx": 1.545182315145238,
+          "bias_vx": -0.8257929204111086,
+          "p95_abs_vx": 2.978279018402099,
+          "mae_vy": 0.04493030043829114,
+          "rmse_vy": 0.05733150248597782,
+          "bias_vy": -0.004801915067575,
+          "p95_abs_vy": 0.13869200423359865,
+          "zero_vy_mae": 0.059882898836525436
+        },
+        "scene-0584": {
+          "count": 231,
+          "epe": 0.4061160020126362,
+          "mae_vx": 0.4043014752093977,
+          "rmse_vx": 0.5244271158153201,
+          "bias_vx": 0.13489208606704747,
+          "p95_abs_vx": 1.0000641345977783,
+          "mae_vy": 0.020982038592178884,
+          "rmse_vy": 0.028437741478884913,
+          "bias_vy": -0.0048817139824709225,
+          "p95_abs_vy": 0.056454875972121954,
+          "zero_vy_mae": 0.03623776630893071
+        },
+        "scene-1013": {
+          "count": 225,
+          "epe": 1.6711130902564502,
+          "mae_vx": 1.6701548671722413,
+          "rmse_vx": 2.0731522333368497,
+          "bias_vx": -1.1708753278520372,
+          "p95_abs_vx": 4.085483598709105,
+          "mae_vy": 0.02315143278088524,
+          "rmse_vy": 0.02889003741332694,
+          "bias_vy": -0.01958795677469526,
+          "p95_abs_vy": 0.0545710407197474,
+          "zero_vy_mae": 0.04383730330827853
+        }
+      },
+      "effective_lateral_rule": {
+        "max_relative_mae_increase": 0.05,
+        "max_absolute_mae_increase_m_s": 0.01,
+        "nonzero_threshold_m_s": 0.2,
+        "min_subset_windows": 100,
+        "min_subset_scenes": 5
+      },
+      "nonzero_vy": {
+        "threshold_m_s": 0.2,
+        "count": 13,
+        "scene_count": 1,
+        "metrics": {
+          "count": 13,
+          "epe": 1.9184307477062685,
+          "mae_vx": 1.9095324186178355,
+          "rmse_vx": 2.1003740321222026,
+          "bias_vx": -1.9095324186178355,
+          "p95_abs_vx": 3.038421916961669,
+          "mae_vy": 0.15727395449693388,
+          "rmse_vy": 0.15787049189267793,
+          "bias_vy": 0.15727395449693388,
+          "p95_abs_vy": 0.18068149983882903,
+          "zero_vy_mae": 0.2307658103796152
+        },
+        "adequate": false,
+        "status": "insufficient_data"
+      },
+      "task": "PLANAR_PROXY"
+    },
+    "learning_rates": [
+      0.001
+    ],
+    "next_learning_rates": [
+      0.0009938441702975688
+    ],
+    "sample_order_sha256": "293b48b3467137fa7736d8865d563d8eb856ca795af539c2a97aac00257e2713",
+    "processed_batches": 115,
+    "optimizer_updates": 115,
+    "amp_skips": 0,
+    "best_epoch": 1,
+    "best_dev_epe": 0.8494913651197777,
+    "updated_at": "2026-11-01T13:52:47.175209+00:00"
+  }
+}

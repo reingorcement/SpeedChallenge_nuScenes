@@ -1,14 +1,13 @@
-指定命令成功，5 个目标工件均有读取成功收据。实际读取路径（均相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+已原样执行命令，退出码 0；指定工件读取收据全部成功。以下路径均相对 `/home/zhangyu/.local/share/speedest-v5-next/`：
 
-- `monitoring/astra/20261101T030001Z_94155.{request,snapshot}.json`
+- `monitoring/astra/20261101T135003Z_147684.snapshot.json`
 - `monitoring/publication.json`
-- `runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/status.json`
-- `pipeline/20261101_rgb_path_s42/jobs/{R03_APPEAR_FT_s42_18ep,compare}.json`
+- `pipeline/20261101_2129_fusion_abc_s42/jobs/` 下的 `cache.json、A.json、B.json、C.json、compare.json`
 
-宿主确定性检查（11:00 快照）：目标 R03 主/子进程身份核验存活，处于评估阶段；GPU0 利用率 95%、85°C；工件盘剩余 960 GB，真实缓存盘 `/mnt/sdb2` 剩余 17.43 TB，无低空间告警。
+**Host 确定性检查**：21:50:03 快照显示，目标 `20261101_2129_fusion_abc_s42` 的五个作业均为 queued、launch_count=0，尚未终态。PID 为 unknown，保留待核实。三张 GPU 利用率均为 0%；工件盘剩余约 961 GB，真实缓存所在 `/mnt/sdb2` 剩余约 17,434 GB，均无低空间告警。
 
-本次 AI 诊断：目标 run `20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep` 已完成18轮、37404步，优化器更新37395次、AMP跳过9次；loss 0.000188，末轮验证 EPE 0.217996，最佳0.205068。状态与 last.pt 约10:52:51更新；目标日志摘要无异常。训练完成不等于流水线完成：评估仍运行，old_diff18_eval 已完成，compare 排队，其 PID unknown 保留待核实。
+**本次 AI 诊断**：暂无新增里程碑。训练步数、验证指标、checkpoint 更新时间及缓存处理量/计划总数、分类计数、吞吐、字节数和进度更新时间均无可用数据，不能判定完成或停止。已读摘要未显示异常原因，未追加读取大日志；发布 pending 不代表训练停止。
 
-待人工定位：作业文件验证 EPE 0.221359 与快照末轮指标不同，需核对评估口径；发布因 SSH 超时仍 pending，可检查发布网络。发布延迟不代表训练停止。全程只读，未修改或启停任何作业。
+若排队持续，建议人工定位该 DAG 的调度条件、依赖与 worker 接单记录。本次仅诊断，未作任何修改。
 
 ASTRA_PATROL_OK

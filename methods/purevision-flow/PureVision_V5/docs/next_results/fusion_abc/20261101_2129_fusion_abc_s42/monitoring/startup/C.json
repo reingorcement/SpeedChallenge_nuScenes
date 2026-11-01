@@ -1,0 +1,227 @@
+{
+  "run_id": "20261101_2129_fusion_abc_s42_C",
+  "time": "2026-11-01T13:53:15.628305+00:00",
+  "phase": "evaluation",
+  "worker_status": "running",
+  "process": {
+    "alive": false,
+    "verdict": "dead",
+    "start_ticks": 105610693,
+    "reason": "zombie or reused process identity"
+  },
+  "log_exists": true,
+  "log_bytes": 502360,
+  "physical_gpu": {
+    "index": 0,
+    "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+    "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+  },
+  "process_device": "cuda:0",
+  "progress": {
+    "status": "completed",
+    "updated_at": "2026-11-01T13:53:01.585339+00:00",
+    "run_id": "20261101_2129_fusion_abc_s42_C",
+    "scope": "frozen_fusion_pilot",
+    "completed_epochs": 20,
+    "epoch": null,
+    "next_batch": 0,
+    "processed_batches": 2300,
+    "optimizer_updates": 2300,
+    "amp_skips": 0,
+    "best_dev_epe": 0.4730789881462918,
+    "best_epoch": 13,
+    "elapsed_seconds": 15.311367288930342,
+    "runtime_gpu": {
+      "process_device": "cuda:0",
+      "cuda_visible_devices": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+      "physical_index": 0,
+      "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+    },
+    "cuda_peak_allocated_bytes": 38175744,
+    "cuda_peak_reserved_bytes": 56623104
+  },
+  "checkpoint_verified": true,
+  "checkpoint_sha256": "02ceae134b4444293901c9df4b09525016118e1dd4e6720e598cce5f0d7c1339",
+  "checkpoint_keys": [
+    "amp_skips",
+    "completed_epochs",
+    "epoch_index",
+    "initialization",
+    "model",
+    "next_batch",
+    "optimizer",
+    "optimizer_updates",
+    "processed_batches",
+    "rng",
+    "scaler",
+    "scheduler"
+  ],
+  "first_validation": {
+    "epoch": 1,
+    "training_loss": 0.05627338251186477,
+    "dev": {
+      "overall": {
+        "count": 1826,
+        "epe": 0.870519043375471,
+        "mae_vx": 0.8683002182124201,
+        "rmse_vx": 1.2827978053572067,
+        "bias_vx": -0.5467528849802226,
+        "p95_abs_vx": 3.0458098649978638,
+        "mae_vy": 0.02844214683149421,
+        "rmse_vy": 0.038369417513750455,
+        "bias_vy": -0.015982970503290648,
+        "p95_abs_vy": 0.07567960023880005,
+        "zero_vy_mae": 0.042481431586388715
+      },
+      "scene_count": 8,
+      "per_scene": {
+        "scene-0048": {
+          "count": 221,
+          "epe": 0.9266715777837321,
+          "mae_vx": 0.92208910851457,
+          "rmse_vx": 1.1652132582845622,
+          "bias_vx": -0.15386190673344816,
+          "p95_abs_vx": 1.9724063873291016,
+          "mae_vy": 0.04252863350433373,
+          "rmse_vy": 0.052977251791450616,
+          "bias_vy": -0.03903363195415987,
+          "p95_abs_vy": 0.10624652681872249,
+          "zero_vy_mae": 0.03961102989393211
+        },
+        "scene-0072": {
+          "count": 226,
+          "epe": 0.41504847852215787,
+          "mae_vx": 0.41322201924151913,
+          "rmse_vx": 0.5782707537332872,
+          "bias_vx": 0.03916984330219273,
+          "p95_abs_vx": 1.4504179605282843,
+          "mae_vy": 0.015744699200638982,
+          "rmse_vy": 0.02280458871264374,
+          "bias_vy": -0.009617670574529402,
+          "p95_abs_vy": 0.05132425529882312,
+          "zero_vy_mae": 0.010821662598420387
+        },
+        "scene-0195": {
+          "count": 226,
+          "epe": 0.3718888572125295,
+          "mae_vx": 0.36829003718047015,
+          "rmse_vx": 0.4524944827750534,
+          "bias_vx": 0.21485813423595598,
+          "p95_abs_vx": 0.8459573984146118,
+          "mae_vy": 0.02779938863451022,
+          "rmse_vy": 0.032829646051588376,
+          "bias_vy": -0.023913537467038157,
+          "p95_abs_vy": 0.0628950772807002,
+          "zero_vy_mae": 0.03933285902424528
+        },
+        "scene-0236": {
+          "count": 229,
+          "epe": 0.45838372516478965,
+          "mae_vx": 0.4567258698971511,
+          "rmse_vx": 0.5533269742263629,
+          "bias_vx": -0.39289493826278954,
+          "p95_abs_vx": 0.9832810878753662,
+          "mae_vy": 0.02174336265611938,
+          "rmse_vy": 0.02535120759902376,
+          "bias_vy": -0.013999682920781579,
+          "p95_abs_vy": 0.04377219974994659,
+          "zero_vy_mae": 0.03939067195200129
+        },
+        "scene-0402": {
+          "count": 233,
+          "epe": 0.6573920182704571,
+          "mae_vx": 0.6559875021676649,
+          "rmse_vx": 0.7369711532895638,
+          "bias_vx": -0.6515439201322236,
+          "p95_abs_vx": 1.2511085510253905,
+          "mae_vy": 0.02451597962352595,
+          "rmse_vy": 0.029869566963334242,
+          "bias_vy": -0.01584298847155254,
+          "p95_abs_vy": 0.054378024488687476,
+          "zero_vy_mae": 0.06933421552852756
+        },
+        "scene-0566": {
+          "count": 235,
+          "epe": 1.5109065783937317,
+          "mae_vx": 1.5083058269456664,
+          "rmse_vx": 1.9085728199731917,
+          "bias_vx": -1.3656997760678542,
+          "p95_abs_vx": 3.6317053079605093,
+          "mae_vy": 0.048472509070230214,
+          "rmse_vy": 0.06276133040582087,
+          "bias_vy": -0.001985813832613937,
+          "p95_abs_vy": 0.1469403356313705,
+          "zero_vy_mae": 0.059882898836525436
+        },
+        "scene-0584": {
+          "count": 231,
+          "epe": 0.4254540465209307,
+          "mae_vx": 0.42375526236152494,
+          "rmse_vx": 0.50883242333111,
+          "bias_vx": -0.23030003019128786,
+          "p95_abs_vx": 1.0263185501098633,
+          "mae_vy": 0.02429942851969307,
+          "rmse_vy": 0.03299974825058961,
+          "bias_vy": -0.007341580956925344,
+          "p95_abs_vy": 0.0643917927518487,
+          "zero_vy_mae": 0.03623776630893071
+        },
+        "scene-1013": {
+          "count": 225,
+          "epe": 2.2019572117722253,
+          "mae_vx": 2.201502815882365,
+          "rmse_vx": 2.55639890330919,
+          "bias_vx": -1.8038052484724256,
+          "p95_abs_vx": 4.712825870513911,
+          "mae_vy": 0.02222181039564829,
+          "rmse_vy": 0.027858447322233793,
+          "bias_vy": -0.017424459134668318,
+          "p95_abs_vy": 0.055905161798000265,
+          "zero_vy_mae": 0.04383730330827853
+        }
+      },
+      "effective_lateral_rule": {
+        "max_relative_mae_increase": 0.05,
+        "max_absolute_mae_increase_m_s": 0.01,
+        "nonzero_threshold_m_s": 0.2,
+        "min_subset_windows": 100,
+        "min_subset_scenes": 5
+      },
+      "nonzero_vy": {
+        "threshold_m_s": 0.2,
+        "count": 13,
+        "scene_count": 1,
+        "metrics": {
+          "count": 13,
+          "epe": 2.615915112659443,
+          "mae_vx": 2.609839751170232,
+          "rmse_vx": 2.7185402947165604,
+          "bias_vx": -2.609839751170232,
+          "p95_abs_vx": 3.5210037708282464,
+          "mae_vy": 0.1683014608346499,
+          "rmse_vy": 0.16891208299015126,
+          "bias_vy": 0.1683014608346499,
+          "p95_abs_vy": 0.19067094027996062,
+          "zero_vy_mae": 0.2307658103796152
+        },
+        "adequate": false,
+        "status": "insufficient_data"
+      },
+      "task": "PLANAR_PROXY"
+    },
+    "learning_rates": [
+      0.001
+    ],
+    "next_learning_rates": [
+      0.0009938441702975688
+    ],
+    "sample_order_sha256": "293b48b3467137fa7736d8865d563d8eb856ca795af539c2a97aac00257e2713",
+    "processed_batches": 115,
+    "optimizer_updates": 115,
+    "amp_skips": 0,
+    "best_epoch": 1,
+    "best_dev_epe": 0.870519043375471,
+    "updated_at": "2026-11-01T13:52:47.471756+00:00"
+  }
+}

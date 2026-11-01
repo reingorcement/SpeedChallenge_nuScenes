@@ -1,0 +1,17 @@
+{
+  "run_id": "20261101_2129_fusion_abc_s42_compare",
+  "time": "2026-11-01T13:55:15.890941+00:00",
+  "phase": "comparison",
+  "worker_status": "completed",
+  "process": {
+    "alive": false,
+    "verdict": "dead",
+    "reason": "proc stat absent"
+  },
+  "log_exists": true,
+  "log_bytes": 624,
+  "physical_gpu": null,
+  "process_device": "cpu",
+  "progress": {},
+  "checkpoint_verified": false
+}
