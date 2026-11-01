@@ -31,6 +31,12 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/20261101_2129_fusion_abc_s42_publication_recovery.json",
+      "source_sha256": "5c426e0d47b2ae147fef1592db8939a189c022ca90558f960d223c7811167567",
+      "bytes": 17339,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/completion_watcher_fix_20261030_full_nuscenes_front1024.json",
       "source_sha256": "67842ee917ca35f44c9122cb062dd5e0f8026991dc35834c2f0f828a9a6843cc",
       "bytes": 4229,
@@ -572,8 +578,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/lifecycle.json",
-      "source_sha256": "c05a1fe12ee567af795f62ef332d182d6c0c2a7b8c700beb68cbe97a20ebc16f",
-      "bytes": 3305,
+      "source_sha256": "0a612485f03bff0ab06e9640a1828a8a39453e106558f94f8fe2d55aae563c9d",
+      "bytes": 6604,
       "representation": "parsed_json"
     },
     {
@@ -584,8 +590,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/schedule_trigger.json",
-      "source_sha256": "a6dce55b49d9b488fb5c8d9f6978352459dfbdc89b3b84b073bdc620dffd36d6",
-      "bytes": 7400,
+      "source_sha256": "8cd2b8252735700d0ed40e176a97abb047caf8d88efb77a14b43945989f5c3f7",
+      "bytes": 7241,
       "representation": "parsed_json"
     },
     {
@@ -608,26 +614,26 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/startup/cache.json",
-      "source_sha256": "894d071b9a477fa46b8e8e36e76988e3e306235fc3ccb6fcc748337c479489b9",
+      "source_sha256": "d6409795d574627fc995517537c8dccc2c0265a988efe4f74c672df411ee7312",
       "bytes": 1353,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/fusion_abc_20261101_2129_fusion_abc_s42/startup/compare.json",
-      "source_sha256": "6c87e297d6d94c8619d7fe52383cc3371fceb1137e01aeb96f52191e896645f2",
+      "source_sha256": "f9c6270c75e86bb614d26e7888b4a690ef5d284f8e0aa9ab070ad483928bb88c",
       "bytes": 397,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/last_astra.json",
-      "source_sha256": "62539a3f34bf3b46c194518d539ad7d29dcb26cc97996f69455ee338b15d9712",
-      "bytes": 5607,
+      "source_sha256": "63e0d63241239b5199c9df8f8329d1fbe6664a9e87434d3f0b423bf5d724b8fa",
+      "bytes": 2019,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "b4fefa6ea63a9927ed6acda28b2340ac34e8f1e9b8c385f976938df488f0c6aa",
-      "bytes": 91387,
+      "source_sha256": "ddfe174a5d4aeea2b29be9dc2879785ebe9ca92828187eed1697a26d3a90c934",
+      "bytes": 91376,
       "representation": "parsed_json"
     },
     {
@@ -644,8 +650,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/schedule.json",
-      "source_sha256": "7d09f41f6dda2fcb72fc7c33f5b88353ccbab326a67ac1feacf1d02d4e469570",
-      "bytes": 1366,
+      "source_sha256": "639c5048c26607335c659bf8a35d5655f74443da17b27b0511e8703660f8b564",
+      "bytes": 3495,
       "representation": "parsed_json"
     },
     {
@@ -1263,6 +1269,11 @@
       "path": "evidence/20261101_2129_fusion_abc_s42_lightweight_startup.json",
       "export_sha256": "39b6a0e08494f949d490f41fdcc2999c79c9cd8cf534e9ac9d0b642ee8dbb165",
       "bytes": 3275
+    },
+    {
+      "path": "evidence/20261101_2129_fusion_abc_s42_publication_recovery.json",
+      "export_sha256": "5c426e0d47b2ae147fef1592db8939a189c022ca90558f960d223c7811167567",
+      "bytes": 17339
     },
     {
       "path": "evidence/completion_watcher_fix_20261030_full_nuscenes_front1024.json",
@@ -1936,8 +1947,8 @@
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/lifecycle.json",
-      "export_sha256": "c05a1fe12ee567af795f62ef332d182d6c0c2a7b8c700beb68cbe97a20ebc16f",
-      "bytes": 3305
+      "export_sha256": "0a612485f03bff0ab06e9640a1828a8a39453e106558f94f8fe2d55aae563c9d",
+      "bytes": 6604
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/schedule_install.json",
@@ -1946,8 +1957,8 @@
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/schedule_trigger.json",
-      "export_sha256": "a6dce55b49d9b488fb5c8d9f6978352459dfbdc89b3b84b073bdc620dffd36d6",
-      "bytes": 7400
+      "export_sha256": "8cd2b8252735700d0ed40e176a97abb047caf8d88efb77a14b43945989f5c3f7",
+      "bytes": 7241
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/A.json",
@@ -1966,12 +1977,12 @@
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/cache.json",
-      "export_sha256": "894d071b9a477fa46b8e8e36e76988e3e306235fc3ccb6fcc748337c479489b9",
+      "export_sha256": "d6409795d574627fc995517537c8dccc2c0265a988efe4f74c672df411ee7312",
       "bytes": 1353
     },
     {
       "path": "fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/compare.json",
-      "export_sha256": "6c87e297d6d94c8619d7fe52383cc3371fceb1137e01aeb96f52191e896645f2",
+      "export_sha256": "f9c6270c75e86bb614d26e7888b4a690ef5d284f8e0aa9ab070ad483928bb88c",
       "bytes": 397
     },
     {
@@ -1986,23 +1997,23 @@
     },
     {
       "path": "monitoring/last_astra.json",
-      "export_sha256": "62539a3f34bf3b46c194518d539ad7d29dcb26cc97996f69455ee338b15d9712",
-      "bytes": 5607
+      "export_sha256": "63e0d63241239b5199c9df8f8329d1fbe6664a9e87434d3f0b423bf5d724b8fa",
+      "bytes": 2019
     },
     {
       "path": "monitoring/last_astra.txt",
-      "export_sha256": "b94004dd30e43990c3e6eab0b89f7000c77d8fa1d521485df136c6b0a821c445",
-      "bytes": 1172
+      "export_sha256": "7a433d00462e1be8edac124476624ae65abbed755b600b0dc6a0fec45ce6e4dc",
+      "bytes": 888
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "b4fefa6ea63a9927ed6acda28b2340ac34e8f1e9b8c385f976938df488f0c6aa",
-      "bytes": 91387
+      "export_sha256": "ddfe174a5d4aeea2b29be9dc2879785ebe9ca92828187eed1697a26d3a90c934",
+      "bytes": 91376
     },
     {
-      "path": "monitoring/patrols/20261101T135003Z_147684.txt",
-      "export_sha256": "b94004dd30e43990c3e6eab0b89f7000c77d8fa1d521485df136c6b0a821c445",
-      "bytes": 1172
+      "path": "monitoring/patrols/20261101T140001Z_152050.txt",
+      "export_sha256": "7a433d00462e1be8edac124476624ae65abbed755b600b0dc6a0fec45ce6e4dc",
+      "bytes": 888
     },
     {
       "path": "monitoring/probe_schedule.json",
@@ -2016,8 +2027,8 @@
     },
     {
       "path": "monitoring/schedule.json",
-      "export_sha256": "7d09f41f6dda2fcb72fc7c33f5b88353ccbab326a67ac1feacf1d02d4e469570",
-      "bytes": 1366
+      "export_sha256": "639c5048c26607335c659bf8a35d5655f74443da17b27b0511e8703660f8b564",
+      "bytes": 3495
     },
     {
       "path": "plans/20261101_2129_fusion_abc_s42.json",

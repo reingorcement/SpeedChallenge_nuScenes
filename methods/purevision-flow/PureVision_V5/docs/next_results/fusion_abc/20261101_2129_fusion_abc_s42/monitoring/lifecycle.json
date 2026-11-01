@@ -43,10 +43,94 @@
       "exit_code": 1,
       "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
       "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    },
+    {
+      "time": "2026-11-01T13:56:17.433231+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
+    },
+    {
+      "time": "2026-11-01T13:57:18.910924+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
+    },
+    {
+      "time": "2026-11-01T13:58:20.388986+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
+    },
+    {
+      "time": "2026-11-01T13:59:21.917207+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
+    },
+    {
+      "time": "2026-11-01T14:00:23.445724+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
+    },
+    {
+      "time": "2026-11-01T14:01:24.923028+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
+    },
+    {
+      "time": "2026-11-01T14:02:26.400171+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
+    },
+    {
+      "time": "2026-11-01T14:03:27.878229+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
+    },
+    {
+      "time": "2026-11-01T14:04:29.305626+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
+    },
+    {
+      "time": "2026-11-01T14:05:30.833563+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
+    },
+    {
+      "time": "2026-11-01T14:06:32.310892+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
+    },
+    {
+      "time": "2026-11-01T14:07:33.838789+00:00",
+      "success": false,
+      "exit_code": 1,
+      "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+      "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
     }
   ],
-  "last_attempt_epoch": 1793541315.8912194,
-  "updated_at": "2026-11-01T13:55:16.005648+00:00",
+  "last_attempt_epoch": 1793542052.322215,
+  "updated_at": "2026-11-01T14:08:03.844702+00:00",
   "pid": 148102,
   "milestones": [
     [

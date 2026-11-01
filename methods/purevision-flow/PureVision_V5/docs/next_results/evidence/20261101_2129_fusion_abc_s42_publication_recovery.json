@@ -1,0 +1,304 @@
+{
+  "status": "committed_pending_remote",
+  "checked_at": "2026-11-01T14:07:35.397549+00:00",
+  "reason": "Generated Matplotlib SVG path trailing spaces rejected by whitespace gate; subsequent dirty-worktree guard correctly refused blind retry",
+  "training_commit": "8eac695a778ee7bedc40ffe23fc42214c854811b",
+  "model_or_metrics_changed": false,
+  "original_svg_preserved": true,
+  "generated_staged_files_checked": 72,
+  "all_export_hashes_verified": 182,
+  "files": [
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/README.md",
+      "sha256": "a860215e45ef413ab60a2ae5e42999d66d7cf5b80dff7992759dde10dd1c8bd0"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/comparisons/fusion_abc_20261101_2129_fusion_abc_s42/learning_curves.csv",
+      "sha256": "e771f92c03769a1a59ed9dd5d9cf847f191230b41f04f8fad357b169bb769931"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/comparisons/fusion_abc_20261101_2129_fusion_abc_s42/learning_curves.svg",
+      "sha256": "5954d100cbc2ad3999e1b5b6d8afa9e7ce9ecd9f2b32955cfea7366388f3f68f"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/comparisons/fusion_abc_20261101_2129_fusion_abc_s42/paired_dev_predictions.csv",
+      "sha256": "3c613d93f0afdf61f80ef517f61423c81b8b02874e6bc64cf06da7ef5b9b980b"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/comparisons/fusion_abc_20261101_2129_fusion_abc_s42/paired_dev_scenes.csv",
+      "sha256": "d7f3aad9a3700a9ef8805433a48ee6b1e4ccd6c24de7938c29bdb6c60bda4aa5"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/comparisons/fusion_abc_20261101_2129_fusion_abc_s42/paired_train_core_predictions.csv",
+      "sha256": "902f8decfc20c9a06479403c1f048fc8f3fb89d5fdd1234dcba79ea64beb8eab"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/comparisons/fusion_abc_20261101_2129_fusion_abc_s42/summary.json",
+      "sha256": "cc05d6beb4e17b2113da29b22bf9b5d30e85d4297ee5993ade842421bd161c3a"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/comparisons/fusion_abc_20261101_2129_fusion_abc_s42/summary.md",
+      "sha256": "ca9579b15a5ab8e482489c0ec05f577d5d782598fb3d464118a9b01e2b56e59d"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/evidence/20261101_2129_fusion_abc_s42_lightweight_startup.json",
+      "sha256": "39b6a0e08494f949d490f41fdcc2999c79c9cd8cf534e9ac9d0b642ee8dbb165"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_A/cache_identity.json",
+      "sha256": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_A/config.json",
+      "sha256": "68621cee2a71cdaecd047a1b600d701d2d1ae9a9d246d0a6494a1e43f0a1781a"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_A/epoch_orders.json",
+      "sha256": "e4c76f6b65871a4607d41fe2634c26427a224bbd9dd24c8da2b78ed46c9e6674"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_A/job_status.json",
+      "sha256": "561aff8e7cface0f653cd5f0924a5e9661348aa0b1b6f6a68aab10d46739ebc8"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_A/log_summary.json",
+      "sha256": "1900659557246485d8da3ec01a3170eb755f3b3e5bdad486539cd2b8a41a0b1f"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_A/metrics.jsonl",
+      "sha256": "b871d3d2ae95429e4a93f8f284a38dcc5848bbf67e31588c86beb82a23679ae1"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_A/run.json",
+      "sha256": "25502bb8af8bc7c4fc076c274bc5879b564178e6fc4c8c66e8211832f75c0527"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_A/status.json",
+      "sha256": "2fd55d4a38b2707cc04858f6cfe5552816e71da51584c988630fb0a82d734d42"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_B/cache_identity.json",
+      "sha256": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_B/config.json",
+      "sha256": "0e0af98ff05f47f5b48b4d1785aec19de333a7924ffda50c47aa10f3401b26b1"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_B/epoch_orders.json",
+      "sha256": "e4c76f6b65871a4607d41fe2634c26427a224bbd9dd24c8da2b78ed46c9e6674"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_B/job_status.json",
+      "sha256": "e8cc9b6f7408a17b5737c5fb97c85804c0da6e7fbbc545bf7b1b876f45bd4057"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_B/log_summary.json",
+      "sha256": "0647057e12b18c52fbf583f7e7f184ef5e1ebfc2f862a3c03b78f5d560470c4d"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_B/metrics.jsonl",
+      "sha256": "dcbeb70a9791d1733af55c1027adb71d6368448442ee465ce40390f1cab54ea7"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_B/run.json",
+      "sha256": "f57e0f9589dafd6d72472925770cdf680be0f67e5a04b11e28a79c33bcf21353"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_B/status.json",
+      "sha256": "590eb7848aec2902cc51009a23983514fedd91ef4f3aeedbf78e2315173b1c65"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_C/cache_identity.json",
+      "sha256": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_C/config.json",
+      "sha256": "f72f18f460914425527b45ca1970415841b7ad76a84727107b43b55aecd9d18c"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_C/epoch_orders.json",
+      "sha256": "e4c76f6b65871a4607d41fe2634c26427a224bbd9dd24c8da2b78ed46c9e6674"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_C/job_status.json",
+      "sha256": "3558e93ea286eb97839ee276847d074521e474227963ed91203a9a79f50a1f35"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_C/log_summary.json",
+      "sha256": "0e5d92473512528adf7bdd914226ef733687fe4dd2c445342f3b4a230fc43114"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_C/metrics.jsonl",
+      "sha256": "e289bcec6bea641def05b116fcee08a69de811ae59e2cf081814232b80d990db"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_C/run.json",
+      "sha256": "2ab7f6d826dcfa4208856e414e2c9e05df19364973c99b3e7bde9b9a7ecab8c1"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_C/status.json",
+      "sha256": "76539f9d218e824d2a83f9ed36bec8a6283c0ada4b1d9a3bdbf394d802550f68"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_cache/job_status.json",
+      "sha256": "f52f8a2f4100212e560777336873c3b2a1017be23041121f569563fff47a883f"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_cache/progress_report.json",
+      "sha256": "3beb3d8ff4d312fd7df9f4ea10859338839293051789025b4f975cb08c1f20c1"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/experiments/20261101_2129_fusion_abc_s42_compare/job_status.json",
+      "sha256": "6b4b582b944921a69da11d2fb58b55d5e135cc342645a22776f63a5d5beea014"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/cache/index.json",
+      "sha256": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/cache/status.json",
+      "sha256": "3beb3d8ff4d312fd7df9f4ea10859338839293051789025b4f975cb08c1f20c1"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/A/dev/evaluation.json",
+      "sha256": "e2f9d4c2d82c1eadd4ea31c683fa47860d452181aab7e6c1cd6ae742dfa2e8ad"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/A/dev/metrics.json",
+      "sha256": "1485003389f95ce2c0142f7ebb52dafbec58d023f39cdf66bff00fb1efb0d993"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/A/dev/predictions.csv",
+      "sha256": "b4a52134de49d2473dfcbc2ed1365d8cc3edd85415d91bbe6068a6d1cd605429"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/A/train_core/evaluation.json",
+      "sha256": "f2a20ce491c28fd0e7ff7ae22d3c65f7d8e8b3af67cb74d6a4117322bb74570d"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/A/train_core/metrics.json",
+      "sha256": "744b5e1c299e80a21256609f172538c1fadbdfe40e7d942f5ca1caec3a702d9c"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/A/train_core/predictions.csv",
+      "sha256": "58ad362a2fdbbd64f5e034c278bf31de0dbf1c7f48b54e988e81037326ce875d"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/B/dev/evaluation.json",
+      "sha256": "916356b1311f0b2fb2a7fad5665f67a2517708fb9229dc21b254989261c7b2d5"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/B/dev/metrics.json",
+      "sha256": "c820735274cc7af399ec5c132b9be171ddbec101e025da13d6ca7b2d04cb922c"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/B/dev/predictions.csv",
+      "sha256": "fa48aa7e787549162a517dd9169e77e0e048fe98cb6a5b9e34705e373ec1e958"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/B/train_core/evaluation.json",
+      "sha256": "7f9b53d24dfeef54a2a347a188e9b6bc47670f52e2b7c34d86f147cf43362e76"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/B/train_core/metrics.json",
+      "sha256": "5303f1a4438693e83959e00f94c7d92e7f75f215f6f4c56585dfb16052f8be78"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/B/train_core/predictions.csv",
+      "sha256": "9316f6bda4106f3815031cb4f51b734109b2c64a874fcf4a84dc18ee99bcdf2b"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/C/dev/evaluation.json",
+      "sha256": "9803dc535b668f9043ff1df3743c978b29a8ce1e40c095fe41ebf754f95e9f97"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/C/dev/metrics.json",
+      "sha256": "159d90543f9939ad1ff87a8407b120abdfc52a09e07fbf8b45f0a5bef5708e9c"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/C/dev/predictions.csv",
+      "sha256": "2591f99960ed3f05df91bd485eb0874f2af8bbe5bcca88afaecd8cded67f9a60"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/C/train_core/evaluation.json",
+      "sha256": "ee1b47eb57ad8c0f1fb16019f5fa611cb91eebdcfde5d45d657fdc649c97d707"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/C/train_core/metrics.json",
+      "sha256": "a66be66ac0acbb3aa19653cc301c6c44b3b8a49c46650bd9eddacdf3f27e6b88"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/evaluations/C/train_core/predictions.csv",
+      "sha256": "17e8bdf0a3d795f10326f5140caae09cad8c3187a46cd2387b946a88476a4dfd"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/monitoring/lifecycle.json",
+      "sha256": "c05a1fe12ee567af795f62ef332d182d6c0c2a7b8c700beb68cbe97a20ebc16f"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/monitoring/schedule_trigger.json",
+      "sha256": "a6dce55b49d9b488fb5c8d9f6978352459dfbdc89b3b84b073bdc620dffd36d6"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/A.json",
+      "sha256": "22a3dbd4a839561fe235f7b5294f43d0ae4810c17f5342b86686cc811da9b968"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/B.json",
+      "sha256": "c4693fa0d19454c75a13830f19621b6ac4113d41a4e1668d41c8cb54ad4ddbd2"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/C.json",
+      "sha256": "11971fe8e10eb17ce447d40d961c00fb711642478f086c2f458c6611736451b5"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/cache.json",
+      "sha256": "894d071b9a477fa46b8e8e36e76988e3e306235fc3ccb6fcc748337c479489b9"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/monitoring/startup/compare.json",
+      "sha256": "6c87e297d6d94c8619d7fe52383cc3371fceb1137e01aeb96f52191e896645f2"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/fusion_abc/20261101_2129_fusion_abc_s42/receipts/lightweight_startup.json",
+      "sha256": "39b6a0e08494f949d490f41fdcc2999c79c9cd8cf534e9ac9d0b642ee8dbb165"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/monitoring/last_astra.json",
+      "sha256": "62539a3f34bf3b46c194518d539ad7d29dcb26cc97996f69455ee338b15d9712"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/monitoring/last_astra.txt",
+      "sha256": "b94004dd30e43990c3e6eab0b89f7000c77d8fa1d521485df136c6b0a821c445"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/monitoring/latest.json",
+      "sha256": "b4fefa6ea63a9927ed6acda28b2340ac34e8f1e9b8c385f976938df488f0c6aa"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/monitoring/patrols/20261101T135003Z_147684.txt",
+      "sha256": "b94004dd30e43990c3e6eab0b89f7000c77d8fa1d521485df136c6b0a821c445"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/monitoring/probe_schedule.json",
+      "sha256": "8ce794e868574ffe515b68ef331b536411a9d1ec0dbcc14232d2df3690f2f449"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/plans/20261101_2129_fusion_abc_s42_coordinator.json",
+      "sha256": "630891dbddd56fd34db2612bff7f693405fc00e72c1d27668d2f697716d82969"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/source_index.json",
+      "sha256": "7035451555ad8393ed6e983ca8ad31c342b8418021c8369b286673f59855d193"
+    },
+    {
+      "path": "methods/purevision-flow/PureVision_V5/docs/next_results/status.json",
+      "sha256": "2895d927d84a861e74b106f7c0397b4338d5f23dfea27ad56aee4ef975c51e88"
+    }
+  ],
+  "policy_file": "methods/purevision-flow/PureVision_V5/docs/next_results/.gitattributes",
+  "whitespace_check_exit": 0,
+  "previous_head": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
+  "report_commit": "a112b653915d86e4e735da136fbb85c75bb2f6d3"
+}

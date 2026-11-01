@@ -1,0 +1,11 @@
+本次为无作业连接/读取探针，无登记的活跃 run；不代表任何训练 run 已巡视或通过启动检查。
+
+指定命令成功（退出码 0），读取收据确认实际读取：
+- `/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261101T140001Z_152050.snapshot.json`
+- `/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json`
+
+Host 确定性检查（22:00:01 快照）：active=0、unknown=0；三张 GPU 利用率均为 0%；工件盘剩余约 960.55 GB，缓存所在盘剩余约 17434.36 GB，均无低空间告警。
+
+本次 AI 诊断：无新增作业里程碑。发现报告发布为 pending，错误为结果工作树存在未知改动，自动暂存被拒绝；这不表示训练停止。建议人工只读检查 `report-worktree` 的状态及差异，定位改动来源。未修改任何内容或作业状态。
+
+ASTRA_PATROL_OK

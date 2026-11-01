@@ -1,7 +1,7 @@
 {
   "status": "retry_pending",
-  "triggered_at": "2026-11-01T13:54:02.630782+00:00",
-  "finished_at": "2026-11-01T13:54:19.320728+00:00",
+  "triggered_at": "2026-11-01T14:07:02.312144+00:00",
+  "finished_at": "2026-11-01T14:07:04.014160+00:00",
   "plan_identity": "086250f065229a29989d9b5a3f561780129e28f01145485e452cb44a700d92ce",
   "trigger": "actual_crontab_execution",
   "expected_run_ids": [
@@ -14,7 +14,7 @@
   "server": {
     "success": true,
     "exit_code": 0,
-    "snapshot_time": "2026-11-01T13:54:02.858824+00:00",
+    "snapshot_time": "2026-11-01T14:07:02.569306+00:00",
     "observed_run_ids": [
       "20261101_2129_fusion_abc_s42_A",
       "20261101_2129_fusion_abc_s42_B",
@@ -24,11 +24,11 @@
     ]
   },
   "publisher": {
-    "time": "2026-11-01T13:54:19.319204+00:00",
+    "time": "2026-11-01T14:07:04.012640+00:00",
     "success": false,
     "exit_code": 1,
     "report_commit": "2fcbe26e3f43a5c1545905ecdd0ab5254417cb4d",
-    "error": "RuntimeError: git ls-remote failed (exit 128): ssh: connect to host github.com port 22: Connection timed out\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+    "error": "ValueError: Results worktree contains unknown changes; refusing automatic staging"
   },
   "astra": {
     "time_utc": "2026-11-01T13:50:26.381398+00:00",
