@@ -1,15 +1,14 @@
-指定命令成功，4 项目标工件均取得读取收据。实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
-
-- `monitoring/astra/20261102T103001Z_294190.request.json`
-- `monitoring/astra/20261102T103001Z_294190.snapshot.json`
+指定命令成功（退出码 0），完成目标读取。实际路径均位于 `/home/zhangyu/.local/share/speedest-v5-next/`：
+- `monitoring/astra/20261102T130001Z_323698.snapshot.json`
 - `monitoring/publication.json`
-- `runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/status.json`
+- `runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/{run,status}.json`
 - `pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_TAIL_FT.json`
+- `logs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT.log`（尾部）
 
-宿主确定性检查（18:30:02 快照）：目标 `20261102_1545_fusion_confirm_tail_S23_TAIL_FT` 主/子进程身份核验存活；第3轮，已完成2轮，记录步数4156，loss 0.00033839，最近验证 EPE 0.179246，AMP skips=0。状态及日志约10秒前更新，checkpoint约388秒前更新；日志异常摘要为空。同批其余7项均报告完成20轮、41560步；unknown=0，整批尚未结束。
+宿主确定性检查：21:00 快照确认目标父/子 PID 身份匹配且存活；GPU0 利用率 100%、显存 36893/97887 MiB、85℃。工件盘剩余 946 GB，实际缓存所在 `/mnt/sdb2` 盘剩余 17434 GB，无低空间告警。其余七个 run 已完成；全组尚未终态，unknown=0。
 
-GPU0 利用率100%，显存36893/97887 MiB，86°C；工件盘剩余946.5GB，缓存所在 `/mnt/sdb2` 剩余17434.3GB，均无低空间告警。
+本次 AI 诊断：目标完成 4/20 轮，正在第 5 轮；状态累计字段为 8312 步，日志已到 9194 步，随后状态 attempted 更新至 9212，存在统计口径差异，但训练持续推进。最近验证 EPE=0.179310，最佳=0.178985；所读日志尾部未见异常，loss 波动无须干预。
 
-本次AI诊断：训练未见停止证据。发布记录为 pending，原因是推送连接超时，不能据此判断训练停止。人工可依据 `publication.json` 定位发布连接问题；GPU温度可继续观察。本次未修改任何内容、未访问外网或凭据、未加载checkpoint。
+checkpoint 距快照约 26 分钟，结合持续更新不能判定停训；建议人工核对保存周期及累计步数字段口径。发布记录仍因连接超时 pending，与训练状态分开处理。本次仅诊断，未修改任何内容。
 
 ASTRA_PATROL_OK

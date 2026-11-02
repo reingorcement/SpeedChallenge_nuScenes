@@ -1,0 +1,14 @@
+指定命令成功（退出码 0），完成目标读取。实际路径均位于 `/home/zhangyu/.local/share/speedest-v5-next/`：
+- `monitoring/astra/20261102T130001Z_323698.snapshot.json`
+- `monitoring/publication.json`
+- `runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/{run,status}.json`
+- `pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_TAIL_FT.json`
+- `logs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT.log`（尾部）
+
+宿主确定性检查：21:00 快照确认目标父/子 PID 身份匹配且存活；GPU0 利用率 100%、显存 36893/97887 MiB、85℃。工件盘剩余 946 GB，实际缓存所在 `/mnt/sdb2` 盘剩余 17434 GB，无低空间告警。其余七个 run 已完成；全组尚未终态，unknown=0。
+
+本次 AI 诊断：目标完成 4/20 轮，正在第 5 轮；状态累计字段为 8312 步，日志已到 9194 步，随后状态 attempted 更新至 9212，存在统计口径差异，但训练持续推进。最近验证 EPE=0.179310，最佳=0.178985；所读日志尾部未见异常，loss 波动无须干预。
+
+checkpoint 距快照约 26 分钟，结合持续更新不能判定停训；建议人工核对保存周期及累计步数字段口径。发布记录仍因连接超时 pending，与训练状态分开处理。本次仅诊断，未修改任何内容。
+
+ASTRA_PATROL_OK
