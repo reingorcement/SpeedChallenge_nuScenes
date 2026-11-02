@@ -1,0 +1,14 @@
+指定命令成功，4 个目标工件均取得读取收据。实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+
+- `monitoring/astra/20261102T093001Z_282579.snapshot.json`
+- `monitoring/publication.json`
+- `runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/status.json`
+- `pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_TAIL_FT.json`
+
+**Host 确定性检查**（17:30 快照）：目标父/子 PID 身份核验通过且存活；GPU0 利用率 100%、显存 36893/97887 MiB、86℃；工件盘剩余 946.6 GB，缓存盘剩余 17434.3 GB，无低空间告警。范围内另 7 个作业已完成，unknown=0，整体尚未终止。
+
+**本次 AI 诊断**：目标 run ID 与 commit `f1fb540` 一致。已完成第 1 轮，当前第 2 轮、next_batch=396；已报告训练步数 2078，attempted updates=2474，AMP 跳过为 0。loss=0.000344，首次验证 EPE=0.179894（23480 样本）。状态及日志约 12.5 秒前更新，`last.pt` 约 11.8 分钟前更新；快照异常日志列表为空。训练正常，无新增里程碑。
+
+发布记录仍为 pending，原因是 SSH 推送超时，不代表训练停止。人工可按 `monitoring/publication.json` 定位发布链路；本次未访问外网、未修改任何内容。
+
+ASTRA_PATROL_OK

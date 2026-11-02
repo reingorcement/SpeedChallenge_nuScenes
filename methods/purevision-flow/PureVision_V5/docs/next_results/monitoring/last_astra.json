@@ -1,5 +1,5 @@
 {
-  "time_utc": "2026-11-02T09:00:55.477582+00:00",
+  "time_utc": "2026-11-02T09:30:41.284753+00:00",
   "trigger": "scheduled",
   "model": "gpt-6-astra",
   "exit_code": 0,
@@ -7,10 +7,10 @@
   "actual_shell_read_observed": true,
   "read_evidence": {
     "verified": true,
-    "request_id": "f7d579a223a08435f9d0d8508f009be6",
+    "request_id": "1f673b8318906a070cf8d65734f2070e",
     "required_targets": [
       {
-        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261102T090001Z_276982.snapshot.json",
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261102T093001Z_282579.snapshot.json",
         "run_id": null,
         "mode": "json_summary"
       },
@@ -37,44 +37,44 @@
     },
     "reads": [
       {
-        "request_id": "f7d579a223a08435f9d0d8508f009be6",
-        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261102T090001Z_276982.snapshot.json",
+        "request_id": "1f673b8318906a070cf8d65734f2070e",
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261102T093001Z_282579.snapshot.json",
         "run_id": null,
         "status": "read_success",
-        "bytes_read": 168457,
-        "source_size": 168457,
+        "bytes_read": 169030,
+        "source_size": 169030,
         "read_scope": "full_json_summarized",
-        "sha256": "8b6ae1914f254c71dd4747ad3bc5a8d22ced7ebdcf7b97a7f02d047eeb7a51cd"
+        "sha256": "36d2db8cec7c45b7f0473b6c4585151154370e817b136018d567b9ea4900b9d1"
       },
       {
-        "request_id": "f7d579a223a08435f9d0d8508f009be6",
+        "request_id": "1f673b8318906a070cf8d65734f2070e",
         "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json",
         "run_id": null,
         "status": "read_success",
-        "bytes_read": 690,
-        "source_size": 690,
+        "bytes_read": 844,
+        "source_size": 844,
         "read_scope": "head_at_most_24000_bytes",
-        "sha256": "8d841fe6fc2479b350e340ae5c0bcb5b00760c6ee775844948deeacb531ac8ed"
+        "sha256": "ce84ed6c18709e4397e74ccf6316b870997d3a1c839cea098e7ddee3b3258cc8"
       },
       {
-        "request_id": "f7d579a223a08435f9d0d8508f009be6",
+        "request_id": "1f673b8318906a070cf8d65734f2070e",
         "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/status.json",
         "run_id": "20261102_1545_fusion_confirm_tail_S23_TAIL_FT",
         "status": "read_success",
-        "bytes_read": 957,
-        "source_size": 957,
+        "bytes_read": 988,
+        "source_size": 988,
         "read_scope": "head_at_most_24000_bytes",
-        "sha256": "000b1358ac514f83beb4ad87fcb9827fd0a6c43fa7d011fa12cc54bc61ee623e"
+        "sha256": "a542432ffd07b6f64aaeb11c96d5644a37147ea70a666f13029abd9a50c7736b"
       },
       {
-        "request_id": "f7d579a223a08435f9d0d8508f009be6",
+        "request_id": "1f673b8318906a070cf8d65734f2070e",
         "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_TAIL_FT.json",
         "run_id": "20261102_1545_fusion_confirm_tail_S23_TAIL_FT",
         "status": "read_success",
-        "bytes_read": 2213,
-        "source_size": 2213,
+        "bytes_read": 2216,
+        "source_size": 2216,
         "read_scope": "head_at_most_24000_bytes",
-        "sha256": "7ff47ef795474bde74a55e3c3c96cad54012b0fa352406c31f37266fdcbd15d9"
+        "sha256": "240322a1e16904a998ef256fd98f187cc5ff82022d5b04934218b154f7411928"
       }
     ],
     "missing": []
@@ -82,7 +82,7 @@
   "run_ids": [
     "20261102_1545_fusion_confirm_tail_S23_TAIL_FT"
   ],
-  "answer": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261102T090001Z_276982.txt",
-  "log": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261102T090001Z_276982.log",
+  "answer": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261102T093001Z_282579.txt",
+  "log": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261102T093001Z_282579.log",
   "evidence_schema": "v5_patrol_read_evidence_v2"
 }
