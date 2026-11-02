@@ -1,0 +1,518 @@
+{
+  "status": "passed",
+  "full_scope": {
+    "train_core": {
+      "count": 132978,
+      "scenes": 582,
+      "identity_mapping": "scene,token",
+      "all_metadata_frames_pairs_timestamps_labels_dt_equal": true
+    },
+    "dev": {
+      "count": 23480,
+      "scenes": 103,
+      "identity_mapping": "scene,token",
+      "all_metadata_frames_pairs_timestamps_labels_dt_equal": true
+    }
+  },
+  "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+  "initial_online_comparison": {
+    "train_core": {
+      "sample_metadata": [
+        {
+          "scene": "scene-1110",
+          "token": "ec8d6f17b0e8449288b284d587404b4a",
+          "time_s": 1542801733.36246,
+          "dataset_index": 132977,
+          "image_tokens": [
+            "9a5f0ce727a6475195c97b93f7f8019f",
+            "e2e32fb7f1504776936dcee1877f5b7b",
+            "0bfa7408554f4422ba0d07bdc311d06b",
+            "2cc8dc01cf714153897ca2af2069c197",
+            "ec8d6f17b0e8449288b284d587404b4a"
+          ],
+          "pairs": [
+            [
+              "9a5f0ce727a6475195c97b93f7f8019f",
+              "e2e32fb7f1504776936dcee1877f5b7b",
+              1542801733.01246,
+              1542801733.11246
+            ],
+            [
+              "e2e32fb7f1504776936dcee1877f5b7b",
+              "0bfa7408554f4422ba0d07bdc311d06b",
+              1542801733.11246,
+              1542801733.162468
+            ],
+            [
+              "0bfa7408554f4422ba0d07bdc311d06b",
+              "2cc8dc01cf714153897ca2af2069c197",
+              1542801733.162468,
+              1542801733.26246
+            ],
+            [
+              "2cc8dc01cf714153897ca2af2069c197",
+              "ec8d6f17b0e8449288b284d587404b4a",
+              1542801733.26246,
+              1542801733.36246
+            ]
+          ]
+        },
+        {
+          "scene": "scene-0001",
+          "token": "050322aacb9047f4bc2a734e800c0192",
+          "time_s": 1531883530.76246,
+          "dataset_index": 0,
+          "image_tokens": [
+            "020d7b4f858147558106c504f7f31bef",
+            "caa2bfad0b8a4a8090cb0b803352cbc8",
+            "b0e02e1641cc49919a21a3f0ac6e48f1",
+            "f0c48a4f1d9f435e8d7b18a04d4d621b",
+            "050322aacb9047f4bc2a734e800c0192"
+          ],
+          "pairs": [
+            [
+              "020d7b4f858147558106c504f7f31bef",
+              "caa2bfad0b8a4a8090cb0b803352cbc8",
+              1531883530.41247,
+              1531883530.512462
+            ],
+            [
+              "caa2bfad0b8a4a8090cb0b803352cbc8",
+              "b0e02e1641cc49919a21a3f0ac6e48f1",
+              1531883530.512462,
+              1531883530.612463
+            ],
+            [
+              "b0e02e1641cc49919a21a3f0ac6e48f1",
+              "f0c48a4f1d9f435e8d7b18a04d4d621b",
+              1531883530.612463,
+              1531883530.66246
+            ],
+            [
+              "f0c48a4f1d9f435e8d7b18a04d4d621b",
+              "050322aacb9047f4bc2a734e800c0192",
+              1531883530.66246,
+              1531883530.76246
+            ]
+          ]
+        },
+        {
+          "scene": "scene-0533",
+          "token": "3ffd4846343c48e6a775d424fbceac31",
+          "time_s": 1535659112.362404,
+          "dataset_index": 66489,
+          "image_tokens": [
+            "2c047c2eefc44de3b1f9e628de46ab4c",
+            "435ee907ff634262a7d1a214f2f9ea5e",
+            "52df6311662f4582a975a9af72bbdfb3",
+            "43977ec7edb6444f949476b1a5df9a8b",
+            "3ffd4846343c48e6a775d424fbceac31"
+          ],
+          "pairs": [
+            [
+              "2c047c2eefc44de3b1f9e628de46ab4c",
+              "435ee907ff634262a7d1a214f2f9ea5e",
+              1535659112.012404,
+              1535659112.112404
+            ],
+            [
+              "435ee907ff634262a7d1a214f2f9ea5e",
+              "52df6311662f4582a975a9af72bbdfb3",
+              1535659112.112404,
+              1535659112.162404
+            ],
+            [
+              "52df6311662f4582a975a9af72bbdfb3",
+              "43977ec7edb6444f949476b1a5df9a8b",
+              1535659112.162404,
+              1535659112.262404
+            ],
+            [
+              "43977ec7edb6444f949476b1a5df9a8b",
+              "3ffd4846343c48e6a775d424fbceac31",
+              1535659112.262404,
+              1535659112.362404
+            ]
+          ]
+        },
+        {
+          "scene": "scene-0001",
+          "token": "70834eebeda045389c7804b04caeadd6",
+          "time_s": 1531883532.36246,
+          "dataset_index": 19,
+          "image_tokens": [
+            "5d30572b5f4c44218b96d3bd85c26cc4",
+            "a335a4cba32746d981e6439ef59e09c1",
+            "45e2a6dc140d494096e8cf3ca32747c7",
+            "1b5b012278ad40fcb2bc34f8febd4f88",
+            "70834eebeda045389c7804b04caeadd6"
+          ],
+          "pairs": [
+            [
+              "5d30572b5f4c44218b96d3bd85c26cc4",
+              "a335a4cba32746d981e6439ef59e09c1",
+              1531883532.012465,
+              1531883532.112465
+            ],
+            [
+              "a335a4cba32746d981e6439ef59e09c1",
+              "45e2a6dc140d494096e8cf3ca32747c7",
+              1531883532.112465,
+              1531883532.16246
+            ],
+            [
+              "45e2a6dc140d494096e8cf3ca32747c7",
+              "1b5b012278ad40fcb2bc34f8febd4f88",
+              1531883532.16246,
+              1531883532.26246
+            ],
+            [
+              "1b5b012278ad40fcb2bc34f8febd4f88",
+              "70834eebeda045389c7804b04caeadd6",
+              1531883532.26246,
+              1531883532.36246
+            ]
+          ]
+        },
+        {
+          "scene": "scene-0383",
+          "token": "d093262b00874b9182994198d67fa905",
+          "time_s": 1533281522.91246,
+          "dataset_index": 44326,
+          "image_tokens": [
+            "f0b871ebcb0b4ba5b3c1062feff9c495",
+            "1c5f962ac3fe4902a38cf25dae1f377b",
+            "a2722b776b7e46559053c896f5ca5f59",
+            "d05eeb9f32c343fd8515058c469f131b",
+            "d093262b00874b9182994198d67fa905"
+          ],
+          "pairs": [
+            [
+              "f0b871ebcb0b4ba5b3c1062feff9c495",
+              "1c5f962ac3fe4902a38cf25dae1f377b",
+              1533281522.61246,
+              1533281522.66246
+            ],
+            [
+              "1c5f962ac3fe4902a38cf25dae1f377b",
+              "a2722b776b7e46559053c896f5ca5f59",
+              1533281522.66246,
+              1533281522.76246
+            ],
+            [
+              "a2722b776b7e46559053c896f5ca5f59",
+              "d05eeb9f32c343fd8515058c469f131b",
+              1533281522.76246,
+              1533281522.86246
+            ],
+            [
+              "d05eeb9f32c343fd8515058c469f131b",
+              "d093262b00874b9182994198d67fa905",
+              1533281522.86246,
+              1533281522.91246
+            ]
+          ]
+        },
+        {
+          "scene": "scene-0001",
+          "token": "9c123f996bf94565bca3ffce83297bf6",
+          "time_s": 1531883539.412462,
+          "dataset_index": 103,
+          "image_tokens": [
+            "36cab524f4a54a1a911549a5890608bd",
+            "3f472f401a414930a1ab610fba9e4589",
+            "f2032110669f4f5bb0595cf05f241f65",
+            "889d5b9f8fc548329719384e39faeeb3",
+            "9c123f996bf94565bca3ffce83297bf6"
+          ],
+          "pairs": [
+            [
+              "36cab524f4a54a1a911549a5890608bd",
+              "3f472f401a414930a1ab610fba9e4589",
+              1531883539.11246,
+              1531883539.16246
+            ],
+            [
+              "3f472f401a414930a1ab610fba9e4589",
+              "f2032110669f4f5bb0595cf05f241f65",
+              1531883539.16246,
+              1531883539.26246
+            ],
+            [
+              "f2032110669f4f5bb0595cf05f241f65",
+              "889d5b9f8fc548329719384e39faeeb3",
+              1531883539.26246,
+              1531883539.36246
+            ],
+            [
+              "889d5b9f8fc548329719384e39faeeb3",
+              "9c123f996bf94565bca3ffce83297bf6",
+              1531883539.36246,
+              1531883539.412462
+            ]
+          ]
+        }
+      ],
+      "feature_max_abs_error": {
+        "F_sp": 0.0,
+        "F_tm": 0.0,
+        "R": 0.0,
+        "dt": 0.0
+      },
+      "online_vs_frozen_cached_prediction_max_abs_error": 0.0,
+      "online_both_groups_prediction_max_abs_error": 0.0
+    },
+    "dev": {
+      "sample_metadata": [
+        {
+          "scene": "scene-1109",
+          "token": "71143f072d92433fa9a8d0fadceaa17b",
+          "time_s": 1542801713.41246,
+          "dataset_index": 23479,
+          "image_tokens": [
+            "ae2028205f364430b62db6876d97b790",
+            "35e0df8fc3534bb6878703a641185a89",
+            "9ab71a3fb8e04d57bcebf09f55fd1271",
+            "46a0ea2ecb134e5da5240119b92cc04e",
+            "71143f072d92433fa9a8d0fadceaa17b"
+          ],
+          "pairs": [
+            [
+              "ae2028205f364430b62db6876d97b790",
+              "35e0df8fc3534bb6878703a641185a89",
+              1542801713.11246,
+              1542801713.16246
+            ],
+            [
+              "35e0df8fc3534bb6878703a641185a89",
+              "9ab71a3fb8e04d57bcebf09f55fd1271",
+              1542801713.16246,
+              1542801713.26246
+            ],
+            [
+              "9ab71a3fb8e04d57bcebf09f55fd1271",
+              "46a0ea2ecb134e5da5240119b92cc04e",
+              1542801713.26246,
+              1542801713.36246
+            ],
+            [
+              "46a0ea2ecb134e5da5240119b92cc04e",
+              "71143f072d92433fa9a8d0fadceaa17b",
+              1542801713.36246,
+              1542801713.41246
+            ]
+          ]
+        },
+        {
+          "scene": "scene-0005",
+          "token": "0e3ef1b1ba9e4fdcbb3866e7db971ae2",
+          "time_s": 1531884104.412466,
+          "dataset_index": 0,
+          "image_tokens": [
+            "bdf062f77bbe4f07b6332df1d1acb190",
+            "2da4dba79fc94ccd8a630b866eb01b47",
+            "82d409cfb47d4fdbbe7b028d6a89a251",
+            "f23a335fee464397b1eb15920579e851",
+            "0e3ef1b1ba9e4fdcbb3866e7db971ae2"
+          ],
+          "pairs": [
+            [
+              "bdf062f77bbe4f07b6332df1d1acb190",
+              "2da4dba79fc94ccd8a630b866eb01b47",
+              1531884104.112478,
+              1531884104.16246
+            ],
+            [
+              "2da4dba79fc94ccd8a630b866eb01b47",
+              "82d409cfb47d4fdbbe7b028d6a89a251",
+              1531884104.16246,
+              1531884104.26246
+            ],
+            [
+              "82d409cfb47d4fdbbe7b028d6a89a251",
+              "f23a335fee464397b1eb15920579e851",
+              1531884104.26246,
+              1531884104.36246
+            ],
+            [
+              "f23a335fee464397b1eb15920579e851",
+              "0e3ef1b1ba9e4fdcbb3866e7db971ae2",
+              1531884104.36246,
+              1531884104.412466
+            ]
+          ]
+        },
+        {
+          "scene": "scene-0455",
+          "token": "f480624c34834899b0cf2eb894aef1c4",
+          "time_s": 1537287341.862404,
+          "dataset_index": 11740,
+          "image_tokens": [
+            "d71b5acacdc943288296c094d2f05e7e",
+            "16a0ee7bab4f4bf3b1299dbbaeb8e543",
+            "680ebd269ff5441fa64a391d26f506ed",
+            "b95ed75ba01e443e883bcfd83d64fc6a",
+            "f480624c34834899b0cf2eb894aef1c4"
+          ],
+          "pairs": [
+            [
+              "d71b5acacdc943288296c094d2f05e7e",
+              "16a0ee7bab4f4bf3b1299dbbaeb8e543",
+              1537287341.512404,
+              1537287341.612418
+            ],
+            [
+              "16a0ee7bab4f4bf3b1299dbbaeb8e543",
+              "680ebd269ff5441fa64a391d26f506ed",
+              1537287341.612418,
+              1537287341.662404
+            ],
+            [
+              "680ebd269ff5441fa64a391d26f506ed",
+              "b95ed75ba01e443e883bcfd83d64fc6a",
+              1537287341.662404,
+              1537287341.762404
+            ],
+            [
+              "b95ed75ba01e443e883bcfd83d64fc6a",
+              "f480624c34834899b0cf2eb894aef1c4",
+              1537287341.762404,
+              1537287341.862404
+            ]
+          ]
+        },
+        {
+          "scene": "scene-0005",
+          "token": "3f465f2c600d436daf6aff0e7638fe80",
+          "time_s": 1531884106.01247,
+          "dataset_index": 19,
+          "image_tokens": [
+            "ec039770ca0349918cde6509b580d92e",
+            "1ec467204f6e4eaa8b948d0e7d27f346",
+            "fe74958a7dd74a098382b418fe7344e4",
+            "afa083088a184449bacec2f67347ceae",
+            "3f465f2c600d436daf6aff0e7638fe80"
+          ],
+          "pairs": [
+            [
+              "ec039770ca0349918cde6509b580d92e",
+              "1ec467204f6e4eaa8b948d0e7d27f346",
+              1531884105.66246,
+              1531884105.76246
+            ],
+            [
+              "1ec467204f6e4eaa8b948d0e7d27f346",
+              "fe74958a7dd74a098382b418fe7344e4",
+              1531884105.76246,
+              1531884105.86246
+            ],
+            [
+              "fe74958a7dd74a098382b418fe7344e4",
+              "afa083088a184449bacec2f67347ceae",
+              1531884105.86246,
+              1531884105.912465
+            ],
+            [
+              "afa083088a184449bacec2f67347ceae",
+              "3f465f2c600d436daf6aff0e7638fe80",
+              1531884105.912465,
+              1531884106.01247
+            ]
+          ]
+        },
+        {
+          "scene": "scene-0347",
+          "token": "9b11e9abd6054499be488e6c9925ad96",
+          "time_s": 1533202217.51246,
+          "dataset_index": 7826,
+          "image_tokens": [
+            "9947c46bd9aa4abc8de28d6c5cbca63e",
+            "fc3d3c60526a4e05ab81e675547474ba",
+            "920561b4f7e643448f41818290c7a362",
+            "a20d332e7a184d108ff5929d3ac79668",
+            "9b11e9abd6054499be488e6c9925ad96"
+          ],
+          "pairs": [
+            [
+              "9947c46bd9aa4abc8de28d6c5cbca63e",
+              "fc3d3c60526a4e05ab81e675547474ba",
+              1533202217.16246,
+              1533202217.26246
+            ],
+            [
+              "fc3d3c60526a4e05ab81e675547474ba",
+              "920561b4f7e643448f41818290c7a362",
+              1533202217.26246,
+              1533202217.36246
+            ],
+            [
+              "920561b4f7e643448f41818290c7a362",
+              "a20d332e7a184d108ff5929d3ac79668",
+              1533202217.36246,
+              1533202217.41246
+            ],
+            [
+              "a20d332e7a184d108ff5929d3ac79668",
+              "9b11e9abd6054499be488e6c9925ad96",
+              1533202217.41246,
+              1533202217.51246
+            ]
+          ]
+        },
+        {
+          "scene": "scene-0005",
+          "token": "1e406c8995ff473ab564445c3ecae241",
+          "time_s": 1531884113.112462,
+          "dataset_index": 103,
+          "image_tokens": [
+            "50aa5de2c65e4b35834d1478606d5452",
+            "b2705a1c8b264bd989bac9ea783de63c",
+            "0918df06e3304876bd35471dccae3ce5",
+            "e011eac0a1ae45d1b97f3ca11f2b1916",
+            "1e406c8995ff473ab564445c3ecae241"
+          ],
+          "pairs": [
+            [
+              "50aa5de2c65e4b35834d1478606d5452",
+              "b2705a1c8b264bd989bac9ea783de63c",
+              1531884112.76246,
+              1531884112.86246
+            ],
+            [
+              "b2705a1c8b264bd989bac9ea783de63c",
+              "0918df06e3304876bd35471dccae3ce5",
+              1531884112.86246,
+              1531884112.912463
+            ],
+            [
+              "0918df06e3304876bd35471dccae3ce5",
+              "e011eac0a1ae45d1b97f3ca11f2b1916",
+              1531884112.912463,
+              1531884113.012474
+            ],
+            [
+              "e011eac0a1ae45d1b97f3ca11f2b1916",
+              "1e406c8995ff473ab564445c3ecae241",
+              1531884113.012474,
+              1531884113.112462
+            ]
+          ]
+        }
+      ],
+      "feature_max_abs_error": {
+        "F_sp": 0.0,
+        "F_tm": 0.0,
+        "R": 0.0,
+        "dt": 0.0
+      },
+      "online_vs_frozen_cached_prediction_max_abs_error": 0.0,
+      "online_both_groups_prediction_max_abs_error": 0.0,
+      "parent_published_prediction_max_abs_error": 9.5367431640625e-07
+    }
+  },
+  "comparison_tolerance": {
+    "atol": 1e-06,
+    "rtol": 1e-05
+  },
+  "source_sha256": "3fa4fc84ce9ebbd820b194985408e369f52a1b31220d8b1d0d963f34ee58730b"
+}

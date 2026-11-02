@@ -1,0 +1,236 @@
+{
+  "schema": "v5_confirmation_stage20_launch_contract_v1",
+  "created_at": "2026-11-02T08:04:48.256611+00:00",
+  "formal_runs_started_when_revision_received": false,
+  "scope": {
+    "train_scenes": 582,
+    "dev_scenes": 103,
+    "train_windows": 132978,
+    "dev_windows": 23480
+  },
+  "jobs": [
+    {
+      "run_id": "20261102_1545_fusion_confirm_tail_S23_TAIL_FT",
+      "group": "S23_TAIL_FT",
+      "seed": 42,
+      "epochs": 20,
+      "effective_batch": 64,
+      "updates_per_epoch": 2078,
+      "final_batch_size": 50,
+      "total_updates": 41560,
+      "scheduler": "fresh cosine20 eta_min0",
+      "readout_initial_lr": 0.0001,
+      "encoder_tail_initial_lr": 1e-05,
+      "initialization": "fixed S23 epoch19 best and R03 encoders, fresh optimizer",
+      "physical_microbatch": 32,
+      "allowed_physical_gpus": [
+        0
+      ]
+    },
+    {
+      "run_id": "20261102_1545_fusion_confirm_tail_S23_FROZEN_CONT",
+      "group": "S23_FROZEN_CONT",
+      "seed": 42,
+      "epochs": 20,
+      "effective_batch": 64,
+      "updates_per_epoch": 2078,
+      "final_batch_size": 50,
+      "total_updates": 41560,
+      "scheduler": "fresh cosine20 eta_min0",
+      "readout_initial_lr": 0.0001,
+      "encoder_tail_initial_lr": null,
+      "initialization": "fixed S23 epoch19 best and R03 encoders, fresh optimizer",
+      "physical_microbatch": 64,
+      "allowed_physical_gpus": [
+        1,
+        2
+      ]
+    },
+    {
+      "run_id": "20261102_1545_fusion_confirm_tail_S23_s43",
+      "group": "S23",
+      "seed": 43,
+      "epochs": 20,
+      "effective_batch": 64,
+      "updates_per_epoch": 2078,
+      "final_batch_size": 50,
+      "total_updates": 41560,
+      "scheduler": "fresh cosine20 eta_min0",
+      "readout_initial_lr": 0.001,
+      "encoder_tail_initial_lr": null,
+      "initialization": "historical matched factory from this seed",
+      "physical_microbatch": 64,
+      "allowed_physical_gpus": [
+        1,
+        2
+      ]
+    },
+    {
+      "run_id": "20261102_1545_fusion_confirm_tail_J23_s43",
+      "group": "J23",
+      "seed": 43,
+      "epochs": 20,
+      "effective_batch": 64,
+      "updates_per_epoch": 2078,
+      "final_batch_size": 50,
+      "total_updates": 41560,
+      "scheduler": "fresh cosine20 eta_min0",
+      "readout_initial_lr": 0.001,
+      "encoder_tail_initial_lr": null,
+      "initialization": "historical matched factory from this seed",
+      "physical_microbatch": 64,
+      "allowed_physical_gpus": [
+        1,
+        2
+      ]
+    },
+    {
+      "run_id": "20261102_1545_fusion_confirm_tail_F23_s43",
+      "group": "F23",
+      "seed": 43,
+      "epochs": 20,
+      "effective_batch": 64,
+      "updates_per_epoch": 2078,
+      "final_batch_size": 50,
+      "total_updates": 41560,
+      "scheduler": "fresh cosine20 eta_min0",
+      "readout_initial_lr": 0.001,
+      "encoder_tail_initial_lr": null,
+      "initialization": "historical matched factory from this seed",
+      "physical_microbatch": 64,
+      "allowed_physical_gpus": [
+        1,
+        2
+      ]
+    },
+    {
+      "run_id": "20261102_1545_fusion_confirm_tail_S23_s44",
+      "group": "S23",
+      "seed": 44,
+      "epochs": 20,
+      "effective_batch": 64,
+      "updates_per_epoch": 2078,
+      "final_batch_size": 50,
+      "total_updates": 41560,
+      "scheduler": "fresh cosine20 eta_min0",
+      "readout_initial_lr": 0.001,
+      "encoder_tail_initial_lr": null,
+      "initialization": "historical matched factory from this seed",
+      "physical_microbatch": 64,
+      "allowed_physical_gpus": [
+        1,
+        2
+      ]
+    },
+    {
+      "run_id": "20261102_1545_fusion_confirm_tail_J23_s44",
+      "group": "J23",
+      "seed": 44,
+      "epochs": 20,
+      "effective_batch": 64,
+      "updates_per_epoch": 2078,
+      "final_batch_size": 50,
+      "total_updates": 41560,
+      "scheduler": "fresh cosine20 eta_min0",
+      "readout_initial_lr": 0.001,
+      "encoder_tail_initial_lr": null,
+      "initialization": "historical matched factory from this seed",
+      "physical_microbatch": 64,
+      "allowed_physical_gpus": [
+        1,
+        2
+      ]
+    },
+    {
+      "run_id": "20261102_1545_fusion_confirm_tail_F23_s44",
+      "group": "F23",
+      "seed": 44,
+      "epochs": 20,
+      "effective_batch": 64,
+      "updates_per_epoch": 2078,
+      "final_batch_size": 50,
+      "total_updates": 41560,
+      "scheduler": "fresh cosine20 eta_min0",
+      "readout_initial_lr": 0.001,
+      "encoder_tail_initial_lr": null,
+      "initialization": "historical matched factory from this seed",
+      "physical_microbatch": 64,
+      "allowed_physical_gpus": [
+        1,
+        2
+      ]
+    }
+  ],
+  "tail_throughput_and_eta": {
+    "trials": [
+      {
+        "microbatch": 8,
+        "measured_steps": 3,
+        "warmup_steps": 1,
+        "train_samples_per_second": 34.41926497232197,
+        "measured_seconds": [
+          0.232004689052701,
+          0.2330837119370699,
+          0.23219551891088486
+        ],
+        "timing": "pinned H2D, online forward/backward, clip and AdamW; DataLoader prefetch outside step timer",
+        "cuda_peak_allocated_bytes": 7956160512,
+        "cuda_peak_reserved_bytes": 9581887488
+      },
+      {
+        "microbatch": 16,
+        "measured_steps": 3,
+        "warmup_steps": 1,
+        "train_samples_per_second": 37.354894974820475,
+        "measured_seconds": [
+          0.4270259728655219,
+          0.42914208490401506,
+          0.4288041000254452
+        ],
+        "timing": "pinned H2D, online forward/backward, clip and AdamW; DataLoader prefetch outside step timer",
+        "cuda_peak_allocated_bytes": 15811964928,
+        "cuda_peak_reserved_bytes": 19077791744
+      },
+      {
+        "microbatch": 32,
+        "measured_steps": 3,
+        "warmup_steps": 1,
+        "train_samples_per_second": 38.36960061045502,
+        "measured_seconds": [
+          0.8317142280284315,
+          0.8358256460633129,
+          0.8344408208504319
+        ],
+        "timing": "pinned H2D, online forward/backward, clip and AdamW; DataLoader prefetch outside step timer",
+        "cuda_peak_allocated_bytes": 31520886784,
+        "cuda_peak_reserved_bytes": 37987811328
+      }
+    ],
+    "selected_train_samples_per_second": 38.36960061045502,
+    "online_eval_samples_per_second": 86.5349153976401,
+    "estimated_epoch_seconds": 3737.0479470072314,
+    "stage_epochs": 20,
+    "stage_updates": 41560,
+    "estimated_20_epoch_seconds": 74740.95894014463,
+    "estimated_20_epoch_range_seconds": [
+      59792.7671521157,
+      104637.34251620248
+    ],
+    "final_best_full_train_eval_seconds": 1536.6976368896576,
+    "caveat": "bounded warm measurements; full filesystem loading/checkpoint/publication overhead adds time"
+  },
+  "frozen_cached_historical_runtime_seconds": {
+    "S23": 266.51,
+    "J23": 235.46,
+    "F23": 235.57
+  },
+  "frozen_cached_eta_note": "historical seed42 walltime reference, hardware and complete-model checkpoint overhead can differ; rolling seven cache jobs on GPUs1/2",
+  "monitoring": {
+    "server_minutes": 5,
+    "astra_minutes": 30,
+    "github": "hourly and completion events"
+  },
+  "selection": "new stages best epochs1..20 with earliest ties; compare epoch0 separately and retain parent on tie/non-improvement",
+  "reporting": "original frozen three-seed statistics and new S23 stages kept separate",
+  "authorized_scope": "latest user revision: both S23 stages20, six original seed runs unchanged20; exactly8"
+}

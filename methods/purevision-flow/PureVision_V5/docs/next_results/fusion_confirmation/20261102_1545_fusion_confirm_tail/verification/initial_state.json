@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "code": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+  "results": "e6a63dc50eb15bc81240741cbb909647c46cb10e",
+  "sources": {
+    "readout": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0154_fusion_full_s42_S23/best.pt",
+      "sha256": "39d517001824414da1a49b6660a4cf5fdb9545c484cc87da0203032b068a5171"
+    },
+    "encoders": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/best.pt",
+      "sha256": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8"
+    }
+  },
+  "cache": "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+  "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+  "scope": "full",
+  "counts": {
+    "train_core": 132978,
+    "dev": 23480
+  },
+  "same_protocol_existing_runs": [],
+  "active_training_processes": [],
+  "existing_cron_empty": true,
+  "old_failed_pipeline_preserved": "20261031_r02_base_flex_s43_s44"
+}

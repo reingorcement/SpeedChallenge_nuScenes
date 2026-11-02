@@ -1,0 +1,79 @@
+{
+  "stage": "fusion_confirmation_tail_v1",
+  "prefix": "20261102_1545_fusion_confirm_tail_report_preflight",
+  "code": {
+    "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+    "dirty": false,
+    "verified_remote_commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026"
+  },
+  "baseline_plan": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_0154_fusion_full_s42/plan.json",
+  "cache_full": "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+  "history_manifest": "/home/zhangyu/.local/share/speedest-v5-next/verification/fusion_full_20261102/history_manifest.json",
+  "jobs": [
+    {
+      "kind": "training",
+      "seed": 43,
+      "group": "J23",
+      "protocol": "full_confirmation",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/verification/20261102_1545_fusion_confirm_tail/not_started/J23_43",
+      "config_path": "not_started"
+    },
+    {
+      "kind": "training",
+      "seed": 43,
+      "group": "S23",
+      "protocol": "full_confirmation",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/verification/20261102_1545_fusion_confirm_tail/not_started/S23_43",
+      "config_path": "not_started"
+    },
+    {
+      "kind": "training",
+      "seed": 43,
+      "group": "F23",
+      "protocol": "full_confirmation",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/verification/20261102_1545_fusion_confirm_tail/not_started/F23_43",
+      "config_path": "not_started"
+    },
+    {
+      "kind": "training",
+      "seed": 44,
+      "group": "J23",
+      "protocol": "full_confirmation",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/verification/20261102_1545_fusion_confirm_tail/not_started/J23_44",
+      "config_path": "not_started"
+    },
+    {
+      "kind": "training",
+      "seed": 44,
+      "group": "S23",
+      "protocol": "full_confirmation",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/verification/20261102_1545_fusion_confirm_tail/not_started/S23_44",
+      "config_path": "not_started"
+    },
+    {
+      "kind": "training",
+      "seed": 44,
+      "group": "F23",
+      "protocol": "full_confirmation",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/verification/20261102_1545_fusion_confirm_tail/not_started/F23_44",
+      "config_path": "not_started"
+    },
+    {
+      "kind": "training",
+      "seed": 42,
+      "group": "S23_FROZEN_CONT",
+      "protocol": "s23_stage20",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/verification/20261102_1545_fusion_confirm_tail/not_started/S23_FROZEN_CONT",
+      "config_path": "not_started"
+    },
+    {
+      "kind": "training",
+      "seed": 42,
+      "group": "S23_TAIL_FT",
+      "protocol": "s23_stage20",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/verification/20261102_1545_fusion_confirm_tail/not_started/S23_TAIL_FT",
+      "config_path": "not_started"
+    }
+  ],
+  "identity": "ad34d261f8e902d63e67ad3307689404583882e9e9e30eeba6890e0ff18216a9"
+}

@@ -1,0 +1,3895 @@
+{
+  "status": "passed",
+  "groups": {
+    "S23_TAIL_FT": {
+      "schema": "v5_s23_tail_freeze_manifest_v1",
+      "group": "S23_TAIL_FT",
+      "requested_tail_modules": [
+        "flow_encoder.sfe",
+        "flow_encoder.temporal",
+        "rgb_encoder.backbone.sfe_module",
+        "rgb_encoder.backbone.mfe_module",
+        "rgb_encoder.backbone.dig"
+      ],
+      "actual_tail_modules": [
+        "flow_encoder.sfe",
+        "flow_encoder.temporal",
+        "rgb_encoder.backbone.sfe_module",
+        "rgb_encoder.backbone.mfe_module",
+        "rgb_encoder.backbone.dig"
+      ],
+      "module_name_mapping": "exact; no expanded scope",
+      "modules": {
+        "flow_encoder.sfe": {
+          "total": 11872,
+          "trainable": 11680,
+          "frozen": 192
+        },
+        "flow_encoder.temporal": {
+          "total": 16320,
+          "trainable": 16192,
+          "frozen": 128
+        },
+        "rgb_encoder.backbone.sfe_module": {
+          "total": 658944,
+          "trainable": 657408,
+          "frozen": 1536
+        },
+        "rgb_encoder.backbone.mfe_module": {
+          "total": 923520,
+          "trainable": 922240,
+          "frozen": 1280
+        },
+        "rgb_encoder.backbone.dig": {
+          "total": 197632,
+          "trainable": 197120,
+          "frozen": 512
+        },
+        "readout": {
+          "total": 101570,
+          "trainable": 101570,
+          "frozen": 0
+        }
+      },
+      "parameters": [
+        {
+          "name": "flow_encoder.spatial.0.weight",
+          "shape": [
+            16,
+            4,
+            3,
+            3
+          ],
+          "count": 576,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "flow_encoder.spatial.0.bias",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "flow_encoder.spatial.2.weight",
+          "shape": [
+            32,
+            16,
+            3,
+            3
+          ],
+          "count": 4608,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "flow_encoder.spatial.2.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "flow_encoder.spatial.4.weight",
+          "shape": [
+            32,
+            32,
+            3,
+            3
+          ],
+          "count": 9216,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "flow_encoder.spatial.4.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "flow_encoder.sfe.depthwise.weight",
+          "shape": [
+            32,
+            1,
+            1,
+            3,
+            3
+          ],
+          "count": 288,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.depthwise.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.pointwise.weight",
+          "shape": [
+            32,
+            32,
+            1,
+            1,
+            1
+          ],
+          "count": 1024,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.pointwise.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.dilated_conv.weight",
+          "shape": [
+            32,
+            32,
+            1,
+            3,
+            3
+          ],
+          "count": 9216,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.dilated_conv.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.bn1.weight",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn1.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn2.weight",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn2.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.residual.weight",
+          "shape": [
+            32,
+            32,
+            1,
+            1,
+            1
+          ],
+          "count": 1024,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.residual.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.res_bn.weight",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.res_bn.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.0.weight",
+          "shape": [
+            16,
+            32,
+            3,
+            3,
+            3
+          ],
+          "count": 13824,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.0.bias",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.1.weight",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.1.bias",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.0.weight",
+          "shape": [
+            16,
+            16,
+            3,
+            1,
+            1
+          ],
+          "count": 768,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.0.bias",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.1.weight",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.1.bias",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.0.weight",
+          "shape": [
+            32,
+            16,
+            3,
+            1,
+            1
+          ],
+          "count": 1536,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.0.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.1.weight",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.1.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.projection.0.weight",
+          "shape": [
+            64,
+            320
+          ],
+          "count": 20480,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "flow_encoder.projection.0.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "rgb_encoder.backbone.appearance_alpha",
+          "shape": [],
+          "count": 1,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.conv1.weight",
+          "shape": [
+            32,
+            3,
+            3,
+            3,
+            3
+          ],
+          "count": 2592,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.conv1.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.conv2.weight",
+          "shape": [
+            64,
+            32,
+            3,
+            3,
+            3
+          ],
+          "count": 55296,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.conv2.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn1.weight",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn1.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn2.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn2.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_conv.weight",
+          "shape": [
+            128,
+            64,
+            1,
+            1,
+            1
+          ],
+          "count": 8192,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_conv.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_bn.weight",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_bn.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_transform.weight",
+          "shape": [
+            128,
+            64,
+            3,
+            3,
+            3
+          ],
+          "count": 221184,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_transform.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_bn.weight",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_bn.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.residual.weight",
+          "shape": [
+            128,
+            64,
+            1,
+            1,
+            1
+          ],
+          "count": 8192,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.residual.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.depthwise.weight",
+          "shape": [
+            128,
+            1,
+            1,
+            3,
+            3
+          ],
+          "count": 1152,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.depthwise.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.pointwise.weight",
+          "shape": [
+            256,
+            128,
+            1,
+            1,
+            1
+          ],
+          "count": 32768,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.pointwise.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.dilated_conv.weight",
+          "shape": [
+            256,
+            256,
+            1,
+            3,
+            3
+          ],
+          "count": 589824,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.dilated_conv.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn1.weight",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn1.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn2.weight",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn2.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.residual.weight",
+          "shape": [
+            256,
+            128,
+            1,
+            1,
+            1
+          ],
+          "count": 32768,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.residual.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.res_bn.weight",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.res_bn.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.0.weight",
+          "shape": [
+            192,
+            128,
+            3,
+            3,
+            3
+          ],
+          "count": 663552,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.0.bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.1.weight",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.1.bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.0.weight",
+          "shape": [
+            192,
+            192,
+            3,
+            1,
+            1
+          ],
+          "count": 110592,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.0.bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.1.weight",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.1.bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.0.weight",
+          "shape": [
+            256,
+            192,
+            3,
+            1,
+            1
+          ],
+          "count": 147456,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.0.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.1.weight",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.1.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.0.weight",
+          "shape": [
+            256,
+            512,
+            1,
+            1,
+            1
+          ],
+          "count": 131072,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.0.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.1.weight",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.1.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.4.weight",
+          "shape": [
+            256,
+            256,
+            1,
+            1,
+            1
+          ],
+          "count": 65536,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.4.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": true,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.appearance_stem.0.weight",
+          "shape": [
+            64,
+            3,
+            1,
+            3,
+            3
+          ],
+          "count": 1728,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.appearance_stem.0.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.region_projection.0.weight",
+          "shape": [
+            64,
+            256
+          ],
+          "count": 16384,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "rgb_encoder.region_projection.0.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "legacy_head.0.weight",
+          "shape": [
+            192,
+            452
+          ],
+          "count": 86784,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "legacy_head.0.bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "legacy_head.2.weight",
+          "shape": [
+            2,
+            192
+          ],
+          "count": 384,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "legacy_head.2.bias",
+          "shape": [
+            2
+          ],
+          "count": 2,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "readout.flow_modality",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.rgb_modality",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.flow_projection.weight",
+          "shape": [
+            64,
+            64
+          ],
+          "count": 4096,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.flow_projection.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.flow_norm.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.flow_norm.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.rgb_projection.weight",
+          "shape": [
+            64,
+            256
+          ],
+          "count": 16384,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.rgb_projection.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.rgb_norm.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.rgb_norm.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.head.0.weight",
+          "shape": [
+            192,
+            68
+          ],
+          "count": 13056,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.head.0.bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.head.2.weight",
+          "shape": [
+            2,
+            192
+          ],
+          "count": 384,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.head.2.bias",
+          "shape": [
+            2
+          ],
+          "count": 2,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.self_attn.in_proj_weight",
+          "shape": [
+            192,
+            64
+          ],
+          "count": 12288,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.self_attn.in_proj_bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.self_attn.out_proj.weight",
+          "shape": [
+            64,
+            64
+          ],
+          "count": 4096,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.self_attn.out_proj.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.linear1.weight",
+          "shape": [
+            128,
+            64
+          ],
+          "count": 8192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.linear1.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.linear2.weight",
+          "shape": [
+            64,
+            128
+          ],
+          "count": 8192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.linear2.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.norm1.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.norm1.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.norm2.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.norm2.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.self_attn.in_proj_weight",
+          "shape": [
+            192,
+            64
+          ],
+          "count": 12288,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.self_attn.in_proj_bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.self_attn.out_proj.weight",
+          "shape": [
+            64,
+            64
+          ],
+          "count": 4096,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.self_attn.out_proj.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.linear1.weight",
+          "shape": [
+            128,
+            64
+          ],
+          "count": 8192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.linear1.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.linear2.weight",
+          "shape": [
+            64,
+            128
+          ],
+          "count": 8192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.linear2.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.norm1.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.norm1.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.norm2.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.norm2.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        }
+      ],
+      "buffers": [
+        {
+          "name": "flow_encoder.sfe.bn1.running_mean",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn1.running_var",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn2.running_mean",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn2.running_var",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn2.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.res_bn.running_mean",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.res_bn.running_var",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.res_bn.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.1.running_mean",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.1.running_var",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.1.running_mean",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.1.running_var",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.1.running_mean",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.1.running_var",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn1.running_mean",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn1.running_var",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn2.running_mean",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn2.running_var",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn2.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_bn.running_mean",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_bn.running_var",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_bn.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_bn.running_mean",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_bn.running_var",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_bn.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn1.running_mean",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn1.running_var",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn2.running_mean",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn2.running_var",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn2.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.res_bn.running_mean",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.res_bn.running_var",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.res_bn.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.1.running_mean",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.1.running_var",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.1.running_mean",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.1.running_var",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.1.running_mean",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.1.running_var",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.1.running_mean",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.1.running_var",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "readout.position_encoding",
+          "shape": [
+            24,
+            64
+          ],
+          "count": 1536,
+          "mutable": false,
+          "role": "S23_readout"
+        }
+      ],
+      "batchnorm_modules": [
+        "flow_encoder.sfe.bn1",
+        "flow_encoder.sfe.bn2",
+        "flow_encoder.sfe.res_bn",
+        "flow_encoder.temporal.initial_conv.1",
+        "flow_encoder.temporal.temporal_conv1.1",
+        "flow_encoder.temporal.temporal_conv2.1",
+        "rgb_encoder.backbone.aft_block.attention_bn",
+        "rgb_encoder.backbone.aft_block.feature_bn",
+        "rgb_encoder.backbone.cma_block.bn1",
+        "rgb_encoder.backbone.cma_block.bn2",
+        "rgb_encoder.backbone.dig.gate_network.1",
+        "rgb_encoder.backbone.mfe_module.initial_conv.1",
+        "rgb_encoder.backbone.mfe_module.temporal_conv1.1",
+        "rgb_encoder.backbone.mfe_module.temporal_conv2.1",
+        "rgb_encoder.backbone.sfe_module.bn1",
+        "rgb_encoder.backbone.sfe_module.bn2",
+        "rgb_encoder.backbone.sfe_module.res_bn"
+      ],
+      "parameter_count": 2347125,
+      "trainable_parameter_count": 1906210,
+      "frozen_parameter_count": 440915,
+      "encoder_BN": "affine and buffers frozen; eval persists under outer train()",
+      "LayerNorm": "all existing S23 LayerNorm affine parameters trainable",
+      "identity": "a7914b9bcc8bc89d306f86bf3bdf09dfe75ed567cab741a3b98f70d75ba7c34e"
+    },
+    "S23_FROZEN_CONT": {
+      "schema": "v5_s23_tail_freeze_manifest_v1",
+      "group": "S23_FROZEN_CONT",
+      "requested_tail_modules": [
+        "flow_encoder.sfe",
+        "flow_encoder.temporal",
+        "rgb_encoder.backbone.sfe_module",
+        "rgb_encoder.backbone.mfe_module",
+        "rgb_encoder.backbone.dig"
+      ],
+      "actual_tail_modules": [
+        "flow_encoder.sfe",
+        "flow_encoder.temporal",
+        "rgb_encoder.backbone.sfe_module",
+        "rgb_encoder.backbone.mfe_module",
+        "rgb_encoder.backbone.dig"
+      ],
+      "module_name_mapping": "exact; no expanded scope",
+      "modules": {
+        "flow_encoder.sfe": {
+          "total": 11872,
+          "trainable": 0,
+          "frozen": 11872
+        },
+        "flow_encoder.temporal": {
+          "total": 16320,
+          "trainable": 0,
+          "frozen": 16320
+        },
+        "rgb_encoder.backbone.sfe_module": {
+          "total": 658944,
+          "trainable": 0,
+          "frozen": 658944
+        },
+        "rgb_encoder.backbone.mfe_module": {
+          "total": 923520,
+          "trainable": 0,
+          "frozen": 923520
+        },
+        "rgb_encoder.backbone.dig": {
+          "total": 197632,
+          "trainable": 0,
+          "frozen": 197632
+        },
+        "readout": {
+          "total": 101570,
+          "trainable": 101570,
+          "frozen": 0
+        }
+      },
+      "parameters": [
+        {
+          "name": "flow_encoder.spatial.0.weight",
+          "shape": [
+            16,
+            4,
+            3,
+            3
+          ],
+          "count": 576,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "flow_encoder.spatial.0.bias",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "flow_encoder.spatial.2.weight",
+          "shape": [
+            32,
+            16,
+            3,
+            3
+          ],
+          "count": 4608,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "flow_encoder.spatial.2.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "flow_encoder.spatial.4.weight",
+          "shape": [
+            32,
+            32,
+            3,
+            3
+          ],
+          "count": 9216,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "flow_encoder.spatial.4.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "flow_encoder.sfe.depthwise.weight",
+          "shape": [
+            32,
+            1,
+            1,
+            3,
+            3
+          ],
+          "count": 288,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.depthwise.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.pointwise.weight",
+          "shape": [
+            32,
+            32,
+            1,
+            1,
+            1
+          ],
+          "count": 1024,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.pointwise.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.dilated_conv.weight",
+          "shape": [
+            32,
+            32,
+            1,
+            3,
+            3
+          ],
+          "count": 9216,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.dilated_conv.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.bn1.weight",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn1.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn2.weight",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn2.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.residual.weight",
+          "shape": [
+            32,
+            32,
+            1,
+            1,
+            1
+          ],
+          "count": 1024,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.residual.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.sfe.res_bn.weight",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.res_bn.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.0.weight",
+          "shape": [
+            16,
+            32,
+            3,
+            3,
+            3
+          ],
+          "count": 13824,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.0.bias",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.1.weight",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.1.bias",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.0.weight",
+          "shape": [
+            16,
+            16,
+            3,
+            1,
+            1
+          ],
+          "count": 768,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.0.bias",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.1.weight",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.1.bias",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.0.weight",
+          "shape": [
+            32,
+            16,
+            3,
+            1,
+            1
+          ],
+          "count": 1536,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.0.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.1.weight",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.1.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.projection.0.weight",
+          "shape": [
+            64,
+            320
+          ],
+          "count": 20480,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "flow_encoder.projection.0.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "rgb_encoder.backbone.appearance_alpha",
+          "shape": [],
+          "count": 1,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.conv1.weight",
+          "shape": [
+            32,
+            3,
+            3,
+            3,
+            3
+          ],
+          "count": 2592,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.conv1.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.conv2.weight",
+          "shape": [
+            64,
+            32,
+            3,
+            3,
+            3
+          ],
+          "count": 55296,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.conv2.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn1.weight",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn1.bias",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn2.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn2.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_conv.weight",
+          "shape": [
+            128,
+            64,
+            1,
+            1,
+            1
+          ],
+          "count": 8192,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_conv.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_bn.weight",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_bn.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_transform.weight",
+          "shape": [
+            128,
+            64,
+            3,
+            3,
+            3
+          ],
+          "count": 221184,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_transform.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_bn.weight",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_bn.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.residual.weight",
+          "shape": [
+            128,
+            64,
+            1,
+            1,
+            1
+          ],
+          "count": 8192,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.residual.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.depthwise.weight",
+          "shape": [
+            128,
+            1,
+            1,
+            3,
+            3
+          ],
+          "count": 1152,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.depthwise.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.pointwise.weight",
+          "shape": [
+            256,
+            128,
+            1,
+            1,
+            1
+          ],
+          "count": 32768,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.pointwise.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.dilated_conv.weight",
+          "shape": [
+            256,
+            256,
+            1,
+            3,
+            3
+          ],
+          "count": 589824,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.dilated_conv.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn1.weight",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn1.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn2.weight",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn2.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.residual.weight",
+          "shape": [
+            256,
+            128,
+            1,
+            1,
+            1
+          ],
+          "count": 32768,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.residual.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.res_bn.weight",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.res_bn.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.0.weight",
+          "shape": [
+            192,
+            128,
+            3,
+            3,
+            3
+          ],
+          "count": 663552,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.0.bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.1.weight",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.1.bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.0.weight",
+          "shape": [
+            192,
+            192,
+            3,
+            1,
+            1
+          ],
+          "count": 110592,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.0.bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.1.weight",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.1.bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.0.weight",
+          "shape": [
+            256,
+            192,
+            3,
+            1,
+            1
+          ],
+          "count": 147456,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.0.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.1.weight",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.1.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.0.weight",
+          "shape": [
+            256,
+            512,
+            1,
+            1,
+            1
+          ],
+          "count": 131072,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.0.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.1.weight",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.1.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.4.weight",
+          "shape": [
+            256,
+            256,
+            1,
+            1,
+            1
+          ],
+          "count": 65536,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.4.bias",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "trainable": false,
+          "role": "encoder_tail_non_BN"
+        },
+        {
+          "name": "rgb_encoder.backbone.appearance_stem.0.weight",
+          "shape": [
+            64,
+            3,
+            1,
+            3,
+            3
+          ],
+          "count": 1728,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.backbone.appearance_stem.0.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": false,
+          "role": "frozen_encoder_frontend_or_appearance"
+        },
+        {
+          "name": "rgb_encoder.region_projection.0.weight",
+          "shape": [
+            64,
+            256
+          ],
+          "count": 16384,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "rgb_encoder.region_projection.0.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "legacy_head.0.weight",
+          "shape": [
+            192,
+            452
+          ],
+          "count": 86784,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "legacy_head.0.bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "legacy_head.2.weight",
+          "shape": [
+            2,
+            192
+          ],
+          "count": 384,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "legacy_head.2.bias",
+          "shape": [
+            2
+          ],
+          "count": 2,
+          "trainable": false,
+          "role": "unused_source_descriptor_or_head"
+        },
+        {
+          "name": "readout.flow_modality",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.rgb_modality",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.flow_projection.weight",
+          "shape": [
+            64,
+            64
+          ],
+          "count": 4096,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.flow_projection.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.flow_norm.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.flow_norm.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.rgb_projection.weight",
+          "shape": [
+            64,
+            256
+          ],
+          "count": 16384,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.rgb_projection.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.rgb_norm.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.rgb_norm.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.head.0.weight",
+          "shape": [
+            192,
+            68
+          ],
+          "count": 13056,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.head.0.bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.head.2.weight",
+          "shape": [
+            2,
+            192
+          ],
+          "count": 384,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.head.2.bias",
+          "shape": [
+            2
+          ],
+          "count": 2,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.self_attn.in_proj_weight",
+          "shape": [
+            192,
+            64
+          ],
+          "count": 12288,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.self_attn.in_proj_bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.self_attn.out_proj.weight",
+          "shape": [
+            64,
+            64
+          ],
+          "count": 4096,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.self_attn.out_proj.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.linear1.weight",
+          "shape": [
+            128,
+            64
+          ],
+          "count": 8192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.linear1.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.linear2.weight",
+          "shape": [
+            64,
+            128
+          ],
+          "count": 8192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.linear2.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.norm1.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.norm1.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.norm2.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.0.norm2.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.self_attn.in_proj_weight",
+          "shape": [
+            192,
+            64
+          ],
+          "count": 12288,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.self_attn.in_proj_bias",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.self_attn.out_proj.weight",
+          "shape": [
+            64,
+            64
+          ],
+          "count": 4096,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.self_attn.out_proj.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.linear1.weight",
+          "shape": [
+            128,
+            64
+          ],
+          "count": 8192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.linear1.bias",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.linear2.weight",
+          "shape": [
+            64,
+            128
+          ],
+          "count": 8192,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.linear2.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.norm1.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.norm1.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.norm2.weight",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        },
+        {
+          "name": "readout.layers.1.norm2.bias",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "trainable": true,
+          "role": "S23_readout"
+        }
+      ],
+      "buffers": [
+        {
+          "name": "flow_encoder.sfe.bn1.running_mean",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn1.running_var",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn2.running_mean",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn2.running_var",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.bn2.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.res_bn.running_mean",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.res_bn.running_var",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.sfe.res_bn.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.1.running_mean",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.1.running_var",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.initial_conv.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.1.running_mean",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.1.running_var",
+          "shape": [
+            16
+          ],
+          "count": 16,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv1.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.1.running_mean",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.1.running_var",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "flow_encoder.temporal.temporal_conv2.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn1.running_mean",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn1.running_var",
+          "shape": [
+            32
+          ],
+          "count": 32,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn2.running_mean",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn2.running_var",
+          "shape": [
+            64
+          ],
+          "count": 64,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.cma_block.bn2.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_bn.running_mean",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_bn.running_var",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.attention_bn.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_bn.running_mean",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_bn.running_var",
+          "shape": [
+            128
+          ],
+          "count": 128,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.aft_block.feature_bn.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn1.running_mean",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn1.running_var",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn2.running_mean",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn2.running_var",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.bn2.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.res_bn.running_mean",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.res_bn.running_var",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.sfe_module.res_bn.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.1.running_mean",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.1.running_var",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.initial_conv.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.1.running_mean",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.1.running_var",
+          "shape": [
+            192
+          ],
+          "count": 192,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv1.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.1.running_mean",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.1.running_var",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.mfe_module.temporal_conv2.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.1.running_mean",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.1.running_var",
+          "shape": [
+            256
+          ],
+          "count": 256,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "rgb_encoder.backbone.dig.gate_network.1.num_batches_tracked",
+          "shape": [],
+          "count": 1,
+          "mutable": false,
+          "role": "encoder_batchnorm_frozen"
+        },
+        {
+          "name": "readout.position_encoding",
+          "shape": [
+            24,
+            64
+          ],
+          "count": 1536,
+          "mutable": false,
+          "role": "S23_readout"
+        }
+      ],
+      "batchnorm_modules": [
+        "flow_encoder.sfe.bn1",
+        "flow_encoder.sfe.bn2",
+        "flow_encoder.sfe.res_bn",
+        "flow_encoder.temporal.initial_conv.1",
+        "flow_encoder.temporal.temporal_conv1.1",
+        "flow_encoder.temporal.temporal_conv2.1",
+        "rgb_encoder.backbone.aft_block.attention_bn",
+        "rgb_encoder.backbone.aft_block.feature_bn",
+        "rgb_encoder.backbone.cma_block.bn1",
+        "rgb_encoder.backbone.cma_block.bn2",
+        "rgb_encoder.backbone.dig.gate_network.1",
+        "rgb_encoder.backbone.mfe_module.initial_conv.1",
+        "rgb_encoder.backbone.mfe_module.temporal_conv1.1",
+        "rgb_encoder.backbone.mfe_module.temporal_conv2.1",
+        "rgb_encoder.backbone.sfe_module.bn1",
+        "rgb_encoder.backbone.sfe_module.bn2",
+        "rgb_encoder.backbone.sfe_module.res_bn"
+      ],
+      "parameter_count": 2347125,
+      "trainable_parameter_count": 101570,
+      "frozen_parameter_count": 2245555,
+      "encoder_BN": "affine and buffers frozen; eval persists under outer train()",
+      "LayerNorm": "all existing S23 LayerNorm affine parameters trainable",
+      "identity": "3cbc3eb368a1be734be37d9a1e3c1e3c9efdce5e3f40a9b46b70d04c2b545899"
+    }
+  },
+  "provenance": {
+    "schema": "v5_s23_tail_parent_provenance_v1",
+    "encoder": {
+      "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep/best.pt",
+      "checkpoint_sha256": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+      "source_run_id": "20261101_rgb_path_s42_R03_APPEAR_FT_s42_18ep",
+      "source_code": {
+        "commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83",
+        "dirty": false,
+        "verified_remote_commit": "4cf83c5cb19df8ada2e600f0c66a0905decbff83"
+      },
+      "source_config": {
+        "experiment": "R03",
+        "seed": 42,
+        "epochs": 18,
+        "batch_size": 64,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "loss_scales_m_s": [
+          5.0,
+          1.0
+        ],
+        "loss_beta": 1.0,
+        "amp": true,
+        "grad_clip": 2.0,
+        "patience": 5,
+        "min_delta": 0.0,
+        "log_steps": 20,
+        "checkpoint_steps": 250,
+        "rgb_policy": "finetune",
+        "selection_metric": "dev_epe",
+        "lateral_rule": {
+          "max_relative_mae_increase": 0.05,
+          "max_absolute_mae_increase_m_s": 0.01,
+          "nonzero_threshold_m_s": 0.2,
+          "min_subset_windows": 100,
+          "min_subset_scenes": 5
+        },
+        "early_stopping": false,
+        "expected_flow": {
+          "raft_size_hw": [
+            576,
+            1024
+          ],
+          "model_size_hw": [
+            72,
+            128
+          ]
+        },
+        "head_seed": 42,
+        "encoder_variant": "flex",
+        "run_variant": "R03_APPEAR_FT_s42_18ep",
+        "micro_batch_size": 64,
+        "evaluation_batch_size": 8,
+        "flow_initialization": {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261031_r02_base_flex_s42_R02_FLEX/best.pt",
+          "sha256": "4d24688a71935d135a9b153ce568f31b4f2fd9845197c89bdf5accbec43ec823"
+        },
+        "scheduler_policy": "cosine_each_group_to_0.1",
+        "rgb_initialization": {
+          "path": "../PureVision_V3/checkpoints/pretrained/direct_seed_42/best.pth",
+          "sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82"
+        },
+        "rgb_learning_rate": 0.0001,
+        "rgb_input": "images",
+        "scheduler_epochs": 40,
+        "rgb_variant": "appearance_difference"
+      },
+      "source_epoch": 1,
+      "source_initialization": {
+        "policy": "seed42_flex_weight_only_continuation_v1",
+        "flow_checkpoint_sha256": "4d24688a71935d135a9b153ce568f31b4f2fd9845197c89bdf5accbec43ec823",
+        "source_run": "20261031_r02_base_flex_s42_R02_FLEX",
+        "source_training_commit": "a847938681d60ae86e0e293e24ffa7d2e74e20a9",
+        "source_best_epoch_one_based": 37,
+        "optimizer_inherited": false,
+        "head_mapping_exact": true,
+        "encoder_state_sha256": "b7062079c32b8255d9cf4014529e6dc5ef6281a8bcd8b1d26b92a25f0c164873",
+        "head_state_sha256": "cf2ccc0c4985e0b36a15c4e85da4a8597523872a0389df94b93b2b69a42dee1b",
+        "mapping": "RGB columns 0:384 zero; source flow/dt columns -> 384:452",
+        "rgb_checkpoint_sha256": "1d24368adb86643e68e28b0f69ea4ec658e008ff52b5fb7fc09d7bad06ac0e82",
+        "rgb_state_sha256": "b130b588539d4ccc278675385198707d490c49506513a5a0e178bdf94767abc2",
+        "common_rgb_state_sha256": "bacc988b3263ca058f3c6d02c48290baf7ec46557b50680c82aa10e12910ec3e",
+        "appearance_initialization": {
+          "policy": "isolated_seed42_torch_conv_default",
+          "stem": "Conv3d 3->64 kernel(1,3,3) padding(0,1,1), ReLU",
+          "seed": 42,
+          "alpha": 0.0,
+          "stem_state_sha256": "1961f2f86b22aea359d370c53e20715fec22b58000f013f45b49518255cd687a",
+          "shared_rgb_load": "exact V3 keys; only stem weight/bias and alpha are new"
+        },
+        "model_state_sha256": "be911d77b53a8e7143c14d2f58f70a2249750c1f7321a0a763b1be3473f13788"
+      },
+      "source_contract_hash": "f65cb11ab9a0a1694938f41a872f25001bf4f9a93789a847bdddd8d94598b95e",
+      "source_model_state_sha256": "0ea639695bca8079965340e0df9b1364f579c85bc83d4dca7b7ef7607a4e7996",
+      "strict_load": {
+        "missing_keys": [],
+        "unexpected_keys": []
+      },
+      "feature_tap_version": "frozen_r03_appearance_flex_spatial2x3_rgb_t0to3_fp32_v1",
+      "tap_source_sha256": "f3af6004a7812d634df2503b9b3af0f7e62bab07ddbf2836b91c287fbd7af6d1",
+      "preprocessing": {
+        "rgb": "v3_pil_bilinear_rgb_72x128_minus1_plus1_v1",
+        "flow": "existing_signed_model_view_pixels_uv_valid_hint_valid",
+        "dt": "raw_seconds"
+      },
+      "shapes": {
+        "F_sp": [
+          "N",
+          4,
+          6,
+          32
+        ],
+        "F_tm": [
+          "N",
+          4,
+          32
+        ],
+        "R": [
+          "N",
+          4,
+          6,
+          256
+        ],
+        "dt": [
+          "N",
+          4
+        ]
+      },
+      "dtype": "float32",
+      "region_order": "row_then_col_top_to_bottom_left_to_right",
+      "token_order": "t_then_row_then_col",
+      "rgb_time_positions": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "rgb_backbone_input_steps": 5,
+      "flow_to_rgb_output": [
+        "F01->0",
+        "F12->1",
+        "F23->2",
+        "F34->3"
+      ],
+      "rgb_outputs_have_temporal_context": true,
+      "spatial_alignment": "coarse_logical_2x3_grid_not_pixel_alignment",
+      "pooling": {
+        "implementation": "adaptive_avg_pool2d_per_temporal_slice",
+        "bounds": "zero_based_end_exclusive; uneven sizes can overlap",
+        "flow_sfe_input_hw": [
+          9,
+          16
+        ],
+        "flow_rows": [
+          [
+            0,
+            5
+          ],
+          [
+            4,
+            9
+          ]
+        ],
+        "flow_cols": [
+          [
+            0,
+            6
+          ],
+          [
+            5,
+            11
+          ],
+          [
+            10,
+            16
+          ]
+        ],
+        "rgb_input_hw": [
+          72,
+          128
+        ],
+        "rgb_rows": [
+          [
+            0,
+            36
+          ],
+          [
+            36,
+            72
+          ]
+        ],
+        "rgb_cols": [
+          [
+            0,
+            43
+          ],
+          [
+            42,
+            86
+          ],
+          [
+            85,
+            128
+          ]
+        ],
+        "flow_temporal": "existing_MFE_spatial_mean_preserves_four_time_positions",
+        "rgb_temporal": "preserve_all_five_then_take_positions_0_1_2_3_no_time_pool",
+        "rgb_legacy_row_flip": false
+      },
+      "taps": {
+        "F_sp": "flow_encoder.sfe(flow_stem)",
+        "F_tm": "flow_encoder.temporal(flow_stem)",
+        "R": "rgb_encoder.backbone.forward_feature_map(images) after DIG before projection"
+      },
+      "appearance_alpha": 0.007355934474617243
+    },
+    "readout": {
+      "checkpoint": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_0154_fusion_full_s42_S23/best.pt",
+      "checkpoint_sha256": "39d517001824414da1a49b6660a4cf5fdb9545c484cc87da0203032b068a5171",
+      "source_run_id": "20261102_0154_fusion_full_s42_S23",
+      "source_code": {
+        "commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026",
+        "dirty": false,
+        "verified_remote_commit": "bc9a3d8addbdb5413589e0b2121d87ee85e5b026"
+      },
+      "source_contract_hash": "b14425e37b5343b6aa91062520ac0d0a97da5a4255b9f3ff14f156e0cc290f75",
+      "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+      "source_config": {
+        "schema": "v5_fusion_full_config_v1",
+        "seed": 42,
+        "epochs": 20,
+        "batch_size": 64,
+        "drop_last": false,
+        "amp": false,
+        "tf32": false,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "optimizer_eps": 1e-08,
+        "grad_clip": 2,
+        "scheduler_epochs": 20,
+        "eta_min": 0,
+        "loss_scales_m_s": [
+          5,
+          1
+        ],
+        "loss_beta": 1,
+        "early_stopping": false,
+        "group": "S23",
+        "scope": "full",
+        "expected_counts": {
+          "train_core": 132978,
+          "dev": 23480
+        },
+        "expected_scene_counts": {
+          "train_core": 582,
+          "dev": 103
+        }
+      },
+      "selected_epoch": 19,
+      "parent_budget_epochs": 20,
+      "parent_budget_optimizer_updates": 41560,
+      "selected_checkpoint_optimizer_updates": 39482,
+      "dev_epe": 0.17847165237392404
+    },
+    "architecture": {
+      "experiment": "R03",
+      "encoder_variant": "flex",
+      "rgb_policy": "finetune",
+      "rgb_variant": "appearance_difference"
+    },
+    "stage_budget_epochs": 20,
+    "stage_optimizer_updates": 41560,
+    "stage_initialization": "new stage from best; reset optimizer/scheduler/RNG",
+    "unused_source_head": "legacy_head is checkpointed and frozen, never called"
+  }
+}

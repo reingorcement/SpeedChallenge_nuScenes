@@ -1,0 +1,75 @@
+{
+  "schema": "v5_s23_tail_trainer_preflight_v1",
+  "status": "passed",
+  "device": "cpu",
+  "production_stage": {
+    "epochs": 20,
+    "scheduler_T_max": 20,
+    "effective_batch": 64,
+    "updates_per_epoch": 2078,
+    "final_effective_batch": 50,
+    "total_updates": 41560
+  },
+  "bounded_execution": {
+    "train_count": 114,
+    "dev_count": 4,
+    "completed_epochs_per_attempt": 1,
+    "optimizer_updates_per_attempt": 2,
+    "formal_training": false
+  },
+  "last_batch": {
+    "count": 50,
+    "microbatch_sizes": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      2
+    ],
+    "normalization_denominator": 50,
+    "production_helper": "fusion_tail_training.effective_update",
+    "max_abs_gradient_error": 1.4901161193847656e-08,
+    "clip_calls_per_effective_batch": 1,
+    "optimizer_steps_per_effective_batch": 1,
+    "full_vs_accumulated_loss_gradient_update_close": true
+  },
+  "complete_model_independent_restore": true,
+  "complete_state_prefixes": [
+    "flow_encoder.",
+    "rgb_encoder.",
+    "legacy_head.",
+    "readout."
+  ],
+  "complete_epoch_boundary_restores_optimizer_scheduler_rng": true,
+  "resumed_next_complete_epoch_matches_cpu_reference_exactly": true,
+  "frozen_and_BN_digest_preserved": "3ffa95879878cf51753757b168f549eb012e05a731e144954f5f267d4a5a7d3c",
+  "rejected_invalid_recovery": [
+    "next_batch",
+    "optimizer_updates",
+    "readout_only"
+  ],
+  "superseded_budget_rejected": true,
+  "dev_ready_precedes_selected_train": true,
+  "best_dev_prediction_reused": true,
+  "selected_best_train_evaluations": 1,
+  "canonical_effective_batch_sizes": [
+    64,
+    50
+  ],
+  "online_microbatch_sampler_preserves_effective_boundaries": true,
+  "recovery_manifest_sha256": "61724d001ef1b9c00901f486606c105218ea6a632214fa27061b98e6d56e4072",
+  "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+  "source_sha256": {
+    "fusion_tail.py": "3fa4fc84ce9ebbd820b194985408e369f52a1b31220d8b1d0d963f34ee58730b",
+    "fusion_tail_training.py": "cd6d272c81d2631227632dfd49635f835d5bbe3c286ac884a93a25c00938ea63",
+    "fusion_grid.py": "9b5f6a36a1e99467eac0088ba882d0a41ada15890d9692933fb22e1f1e35bbab",
+    "datasets.py": "239eda940cce075c37937454722c8f69c4a345f7f075b8ec5df31d35ae8dfc21",
+    "model.py": "2f8993ef65e4facd4f35064bdc76697b7afe3f417b6e26ed1ff8dc9839a83f47",
+    "rgb.py": "2833e8c262b15e7606d8831bbc0f95aad1b5edef789b078add5e64ddc508f319"
+  },
+  "verification_script_sha256": "27a5e8734cac7b558efb4fc0e442d253e844c96a15c99226268171a2d1b1c6a8",
+  "evidence_root": "/home/zhangyu/.local/share/speedest-v5-next/verification/20261102_1545_fusion_confirm_tail/trainer_cpu_check",
+  "identity": "8d254ee2b4478b3dcf4ca173544d341eca824fcabdf064fed4e902f7582a2dd6"
+}

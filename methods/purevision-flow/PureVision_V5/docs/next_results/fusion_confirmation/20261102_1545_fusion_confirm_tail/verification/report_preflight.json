@@ -1,0 +1,43 @@
+{
+  "schema": "v5_fusion_confirmation_report_preflight_v1",
+  "status": "passed",
+  "verified_at": "2026-11-02T08:07:21.397153+00:00",
+  "source_sha256": {
+    "fusion_confirmation_comparison.py": "ff23bd32271e7dc83aaa963210e99ac460f7b3d5e9330b6a56c34fe9776ef3f2",
+    "fusion_full_comparison.py": "fc493309501a8fad3a285e981a14d616ea15db2319ac773b88951ae93d0b51d1",
+    "tests/test_fusion_confirmation_comparison.py": "bda9b35f1ce829fb9614c0fb26351525cb2746437a727619bb3721ad13191636"
+  },
+  "tests": {
+    "passed": 7,
+    "command": "python -m pytest -q tests/test_fusion_confirmation_comparison.py tests/test_fusion_full_comparison.py"
+  },
+  "saved_prediction_smoke": {
+    "status": "partial",
+    "baseline_seed42_best": {
+      "S23": 0.17847165237392404,
+      "J23": 0.18402909965442985,
+      "F23": 0.18744595331619757
+    },
+    "summary": "/home/zhangyu/.local/share/speedest-v5-next/verification/20261102_1545_fusion_confirm_tail/report_smoke/summary.json",
+    "summary_sha256": "0c430a8c36265c51bb384a7c6eafa08657422de003c68da7ee833c7d5382309f",
+    "summary_bytes": 1540823,
+    "new_runs_ready": 0,
+    "model_inference_calls": 0
+  },
+  "stage_contract": {
+    "epochs": 20,
+    "updates": 41560,
+    "protocol": "s23_stage20",
+    "parent_selected_epoch": 19,
+    "epoch0_replacement_separate": true
+  },
+  "limitations": [
+    "New stage20 full results do not yet exist; stage inspector is aligned to actual trainer fields and reuses strict checkpoint validators, but has not consumed a completed formal stage result.",
+    "Preflight is a partial read-only saved-prediction report, not a training run or evidence of new model accuracy."
+  ],
+  "post_preflight_format_only_change": {
+    "file": "fusion_confirmation_comparison.py",
+    "change": "removed extra trailing blank line; executable source unchanged",
+    "final_sha256": "44e4d4162158d78f350b4f7184013a862a12edf863b6a395d7f926491cc4f3a3"
+  }
+}

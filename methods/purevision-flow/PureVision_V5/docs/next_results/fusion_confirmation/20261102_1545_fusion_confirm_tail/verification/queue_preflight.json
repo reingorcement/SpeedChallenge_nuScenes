@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "initial_assignment": [
+    [
+      "S23_TAIL_FT",
+      0
+    ],
+    [
+      "S23_FROZEN_CONT",
+      1
+    ],
+    [
+      "S23_s43",
+      2
+    ]
+  ],
+  "busy_gpu_preserved": [
+    [
+      "S23_FROZEN_CONT",
+      2
+    ]
+  ],
+  "rolling_queue": [
+    "S23_s43",
+    "J23_s43"
+  ],
+  "canonical_plan_not_mutated": true,
+  "no_jobs_launched": true
+}

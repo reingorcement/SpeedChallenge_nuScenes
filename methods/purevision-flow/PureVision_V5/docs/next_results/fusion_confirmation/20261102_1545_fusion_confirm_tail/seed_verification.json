@@ -1,0 +1,377 @@
+{
+  "schema": "v5_fusion_full_seed_preflight_v1",
+  "status": "passed",
+  "time": "2026-11-02T07:48:13.521151+00:00",
+  "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+  "cache_index_sha256": "31bfa87b5ebe5b8b744c294a9c448592c215a18144c7e7ededa1880bfece02de",
+  "counts": {
+    "train_core": 132978,
+    "dev": 23480
+  },
+  "scene_counts": {
+    "train_core": 582,
+    "dev": 103
+  },
+  "formal_training": false,
+  "seed42_initialization_and_first_last_epoch_regression_exact": true,
+  "unchanged_factory_and_order_sources": {
+    "purevision_v5/fusion_abc.py": "f3af6004a7812d634df2503b9b3af0f7e62bab07ddbf2836b91c287fbd7af6d1",
+    "purevision_v5/fusion_grid.py": "9b5f6a36a1e99467eac0088ba882d0a41ada15890d9692933fb22e1f1e35bbab",
+    "purevision_v5/training.py": "fffbe9e076df57689052e9c516db1f3305a6e6ad57805493e92b6c4c05adea28"
+  },
+  "seeds": {
+    "43": {
+      "groups": {
+        "J23": {
+          "config_sha256": "075410d14017293b9c1ec0d449d3038537cafbcb6018069a96dc33fd26481f2b",
+          "initial_state_sha256": "06a7d39044b4e81a51690ecf9c80b9514988a2900e32f41df23ba9801c76d77e",
+          "finite_output_loss_gradients": true,
+          "two_real_windows": true,
+          "loss": 0.33685314655303955
+        },
+        "S23": {
+          "config_sha256": "9322d155d35e2d5890faff9a7aa5deb2f4b01cb60dafced3105b4a34864f6538",
+          "initial_state_sha256": "bd5c3dfd53290f4db91c9dbff593475b376d38d7ab4704fefd39ed481e46cf15",
+          "finite_output_loss_gradients": true,
+          "two_real_windows": true,
+          "loss": 0.34815457463264465
+        },
+        "F23": {
+          "config_sha256": "857cb36351a1b867e6ff2453168e29da25447f43231500c3fb437a0a1bf1fade",
+          "initial_state_sha256": "ad8a8623b2ccff9863757ff5116e6d81914f57d8a91d43232d46074d6cfda43f",
+          "finite_output_loss_gradients": true,
+          "two_real_windows": true,
+          "loss": 0.3368667662143707
+        }
+      },
+      "independent_parameter_storage": true,
+      "common_transformer_head_exact": true,
+      "s23_f23_flow_processing_exact": true,
+      "model_order_rng_separated": true,
+      "formal_updates": 41560
+    },
+    "44": {
+      "groups": {
+        "J23": {
+          "config_sha256": "79f734205e0f7f3f99e82d6b3cbf3d3c3f652e7143046190ac6ca9c8fd01f9f4",
+          "initial_state_sha256": "1399f92b5ee6a570b19101190655ea9c67cfff14df0a556d6dda9dbc3f67efdc",
+          "finite_output_loss_gradients": true,
+          "two_real_windows": true,
+          "loss": 0.37951183319091797
+        },
+        "S23": {
+          "config_sha256": "22ed064a49d60140226969d3c1d333f19d356370a232a675caad0eef00ba437f",
+          "initial_state_sha256": "7e04498a9fdbd65d2abf071693f08bf29dbdae0306c33931bc47c821d82dbd45",
+          "finite_output_loss_gradients": true,
+          "two_real_windows": true,
+          "loss": 0.3670535385608673
+        },
+        "F23": {
+          "config_sha256": "b95849c7007e6b53c8504cf58eff5f6f4e4d2ffada94e5864f723b47ce9d3664",
+          "initial_state_sha256": "824b132cde354da4000b9c79c57193380e522017046870cc1a56d88d04a700f9",
+          "finite_output_loss_gradients": true,
+          "two_real_windows": true,
+          "loss": 0.3878154456615448
+        }
+      },
+      "independent_parameter_storage": true,
+      "common_transformer_head_exact": true,
+      "s23_f23_flow_processing_exact": true,
+      "model_order_rng_separated": true,
+      "formal_updates": 41560
+    }
+  },
+  "epoch_orders": {
+    "43": [
+      {
+        "epoch": 1,
+        "actual_sample_order_sha256": "7260fb2e43c4ff2021cb0a044961db04c4216c020a5abaa6f27b195327f36c7d",
+        "actual_batches_sha256": "2fa89ae9fbcb52ac148f32152ba851c2af2f2698862698a4e8c6bdb50f0bad0c",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 2,
+        "actual_sample_order_sha256": "a4c2c6f381fabb922b9d76cdc426c5b308a039eaca058f329f0b266aa3777f9f",
+        "actual_batches_sha256": "7ff81426daed8593015b72fbb1f4a836b60bd0850a75929bcdfea90ddf5c4a5c",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 3,
+        "actual_sample_order_sha256": "98aef676951a05a74e044ee2f74a211bca6b411964a7cdaf973808da62eda70a",
+        "actual_batches_sha256": "b520422f97ad34109b865bcca12db69c4f378d051900669b977ee147a2d1b0fc",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 4,
+        "actual_sample_order_sha256": "bf1c139e0bd58fa5f15b1dd820ec2ff8dfcb9d3f62b88429514f2e98f7e36508",
+        "actual_batches_sha256": "6b26c1ae48f6f9aa2b9ab23320745f78f0eb6b66d45be3fe22ba45447f99033f",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 5,
+        "actual_sample_order_sha256": "10b52f85b85b07cda347d24ae3ded8d3c15b3687e3b08e4fe329fee7e5058097",
+        "actual_batches_sha256": "c134da98d052926d65c6a38e27077f30fbc401976156dbd98ff5b3a82ab85baa",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 6,
+        "actual_sample_order_sha256": "acddc0df6b2eb3831c476035cc3f3fa6e715c8c7add6de2410c1a1010da91cdb",
+        "actual_batches_sha256": "a953ef66b71f0c6533646b8a13c4948a4b5607f88bff6e775ac31ad490036730",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 7,
+        "actual_sample_order_sha256": "963a234ec2efdc315c8183f2b87dfe8dc197bf7c41e3616ebf5d447ba0384ca7",
+        "actual_batches_sha256": "add410f869a354ef991bbafe93d5e189807ec0987bed22f1e49f86effe373364",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 8,
+        "actual_sample_order_sha256": "723544054c9a04ba16066b217eeff228aa9c2c66a8d9b65d1a5176b189280d1c",
+        "actual_batches_sha256": "7bea89cdc1419d300a1c40a0d7dcc361a9311e9f7e9bec3bdba9b1a6932e068f",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 9,
+        "actual_sample_order_sha256": "cf87d4e0af8a6d0b0ca457f1a9f6e4a3a874070020b3f298d02e92640ee84c6c",
+        "actual_batches_sha256": "a40b29a1a51b410d6139c51ad4f94fd4caaec0f19a222aacddde649457cc56e5",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 10,
+        "actual_sample_order_sha256": "64f99e120cba3ee1263ec373a479a65ca27c3749ff064e74b1d848d4dd0c5e44",
+        "actual_batches_sha256": "9f10fd2c0724ef1a03084ea1218166cc72c88942cc2e5c75eec5eb713ea4f751",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 11,
+        "actual_sample_order_sha256": "e6c8e5ea199133be3058cadee6765655e33fe866fb3b66f1861bdaa05720ddd0",
+        "actual_batches_sha256": "40bf726b122e8605d82053857525b61f3d01d3969b65fd97616ddb2b36c6f5fc",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 12,
+        "actual_sample_order_sha256": "d07a9635e69b1900205a49773005c21cc422abb9f89ad210ec3aa51e838ef3d2",
+        "actual_batches_sha256": "069ba9b664d4bfd690c0b320f5fdb2fb3852597696f19598efa3b763094e2e42",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 13,
+        "actual_sample_order_sha256": "937c3de9166d7d2bcac2d6ef85e7df9e7cab77c0621fc6847a5eed5c3dc6ddcc",
+        "actual_batches_sha256": "a15cc9cbdea63adc6a2a3f9119a5f5ef9082f53ea8a82183886b431612955277",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 14,
+        "actual_sample_order_sha256": "c914babcf91734df3e3fca97d4b5ed44eed47e29d4cf85d3884268d9f39d3cd6",
+        "actual_batches_sha256": "14d9074f8b701d062a82dae805cf9a770f0ab6bb783a5c69fe991a7927bda96f",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 15,
+        "actual_sample_order_sha256": "f45d5d078e8e6ecd76bd69c882dfbfc0cdd841062831d50c03ab2a7657f2992a",
+        "actual_batches_sha256": "d0d2ce3acd573948339b2b10b34d3eee69746a9d61a2d05371c3abc82a299f3b",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 16,
+        "actual_sample_order_sha256": "95e81f8ac44eb06f26e91cbb82fc96a4f055f89ddceb218819385d3ed864e899",
+        "actual_batches_sha256": "b07c3a8de9c3418a7566a08d8e17c3163da0b6d5ff5e78456fd1128db37542b7",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 17,
+        "actual_sample_order_sha256": "550cfc59f21ae42da9df285661461e2c2193b23788324096a7ed4090dcfdbd1b",
+        "actual_batches_sha256": "c2382cbac40e5fc7a9f02b1256525547b70bf7968f97888068132a056d3c74ce",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 18,
+        "actual_sample_order_sha256": "831f5e1d13b76ccb45fafa3dd8cbe64e486728b40cac6a11de23b9d22e22175e",
+        "actual_batches_sha256": "352339a0634a68f24305a6db02edad759bb303e153ed4cec7a0aa345094af9a2",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 19,
+        "actual_sample_order_sha256": "cae076f0fb555af6ae5ff4a5f6a141a0f96e0b74cac58d637b178e51af80501a",
+        "actual_batches_sha256": "2d7cef8c043025592c9948e640ca0ad43a3ccf819049c3e4999797fdea82f0d8",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 20,
+        "actual_sample_order_sha256": "77d2f1ba58bb1bc0b9fb96fc470f1e2d5b2ff5a1069d6d1c0cdd1940509f9a8e",
+        "actual_batches_sha256": "1b5c30fcf147cec0565c232c1c7878b8032b43a25c5c4947d640ca49d68d9b79",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      }
+    ],
+    "44": [
+      {
+        "epoch": 1,
+        "actual_sample_order_sha256": "a4c2c6f381fabb922b9d76cdc426c5b308a039eaca058f329f0b266aa3777f9f",
+        "actual_batches_sha256": "7ff81426daed8593015b72fbb1f4a836b60bd0850a75929bcdfea90ddf5c4a5c",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 2,
+        "actual_sample_order_sha256": "98aef676951a05a74e044ee2f74a211bca6b411964a7cdaf973808da62eda70a",
+        "actual_batches_sha256": "b520422f97ad34109b865bcca12db69c4f378d051900669b977ee147a2d1b0fc",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 3,
+        "actual_sample_order_sha256": "bf1c139e0bd58fa5f15b1dd820ec2ff8dfcb9d3f62b88429514f2e98f7e36508",
+        "actual_batches_sha256": "6b26c1ae48f6f9aa2b9ab23320745f78f0eb6b66d45be3fe22ba45447f99033f",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 4,
+        "actual_sample_order_sha256": "10b52f85b85b07cda347d24ae3ded8d3c15b3687e3b08e4fe329fee7e5058097",
+        "actual_batches_sha256": "c134da98d052926d65c6a38e27077f30fbc401976156dbd98ff5b3a82ab85baa",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 5,
+        "actual_sample_order_sha256": "acddc0df6b2eb3831c476035cc3f3fa6e715c8c7add6de2410c1a1010da91cdb",
+        "actual_batches_sha256": "a953ef66b71f0c6533646b8a13c4948a4b5607f88bff6e775ac31ad490036730",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 6,
+        "actual_sample_order_sha256": "963a234ec2efdc315c8183f2b87dfe8dc197bf7c41e3616ebf5d447ba0384ca7",
+        "actual_batches_sha256": "add410f869a354ef991bbafe93d5e189807ec0987bed22f1e49f86effe373364",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 7,
+        "actual_sample_order_sha256": "723544054c9a04ba16066b217eeff228aa9c2c66a8d9b65d1a5176b189280d1c",
+        "actual_batches_sha256": "7bea89cdc1419d300a1c40a0d7dcc361a9311e9f7e9bec3bdba9b1a6932e068f",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 8,
+        "actual_sample_order_sha256": "cf87d4e0af8a6d0b0ca457f1a9f6e4a3a874070020b3f298d02e92640ee84c6c",
+        "actual_batches_sha256": "a40b29a1a51b410d6139c51ad4f94fd4caaec0f19a222aacddde649457cc56e5",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 9,
+        "actual_sample_order_sha256": "64f99e120cba3ee1263ec373a479a65ca27c3749ff064e74b1d848d4dd0c5e44",
+        "actual_batches_sha256": "9f10fd2c0724ef1a03084ea1218166cc72c88942cc2e5c75eec5eb713ea4f751",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 10,
+        "actual_sample_order_sha256": "e6c8e5ea199133be3058cadee6765655e33fe866fb3b66f1861bdaa05720ddd0",
+        "actual_batches_sha256": "40bf726b122e8605d82053857525b61f3d01d3969b65fd97616ddb2b36c6f5fc",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 11,
+        "actual_sample_order_sha256": "d07a9635e69b1900205a49773005c21cc422abb9f89ad210ec3aa51e838ef3d2",
+        "actual_batches_sha256": "069ba9b664d4bfd690c0b320f5fdb2fb3852597696f19598efa3b763094e2e42",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 12,
+        "actual_sample_order_sha256": "937c3de9166d7d2bcac2d6ef85e7df9e7cab77c0621fc6847a5eed5c3dc6ddcc",
+        "actual_batches_sha256": "a15cc9cbdea63adc6a2a3f9119a5f5ef9082f53ea8a82183886b431612955277",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 13,
+        "actual_sample_order_sha256": "c914babcf91734df3e3fca97d4b5ed44eed47e29d4cf85d3884268d9f39d3cd6",
+        "actual_batches_sha256": "14d9074f8b701d062a82dae805cf9a770f0ab6bb783a5c69fe991a7927bda96f",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 14,
+        "actual_sample_order_sha256": "f45d5d078e8e6ecd76bd69c882dfbfc0cdd841062831d50c03ab2a7657f2992a",
+        "actual_batches_sha256": "d0d2ce3acd573948339b2b10b34d3eee69746a9d61a2d05371c3abc82a299f3b",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 15,
+        "actual_sample_order_sha256": "95e81f8ac44eb06f26e91cbb82fc96a4f055f89ddceb218819385d3ed864e899",
+        "actual_batches_sha256": "b07c3a8de9c3418a7566a08d8e17c3163da0b6d5ff5e78456fd1128db37542b7",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 16,
+        "actual_sample_order_sha256": "550cfc59f21ae42da9df285661461e2c2193b23788324096a7ed4090dcfdbd1b",
+        "actual_batches_sha256": "c2382cbac40e5fc7a9f02b1256525547b70bf7968f97888068132a056d3c74ce",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 17,
+        "actual_sample_order_sha256": "831f5e1d13b76ccb45fafa3dd8cbe64e486728b40cac6a11de23b9d22e22175e",
+        "actual_batches_sha256": "352339a0634a68f24305a6db02edad759bb303e153ed4cec7a0aa345094af9a2",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 18,
+        "actual_sample_order_sha256": "cae076f0fb555af6ae5ff4a5f6a141a0f96e0b74cac58d637b178e51af80501a",
+        "actual_batches_sha256": "2d7cef8c043025592c9948e640ca0ad43a3ccf819049c3e4999797fdea82f0d8",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 19,
+        "actual_sample_order_sha256": "77d2f1ba58bb1bc0b9fb96fc470f1e2d5b2ff5a1069d6d1c0cdd1940509f9a8e",
+        "actual_batches_sha256": "1b5c30fcf147cec0565c232c1c7878b8032b43a25c5c4947d640ca49d68d9b79",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      },
+      {
+        "epoch": 20,
+        "actual_sample_order_sha256": "c2eb03f6a0386a164b195018112d845b9a576a99363e3a2b8148300604f3c09d",
+        "actual_batches_sha256": "455d719963636031e21eadd8feb0042fb083c1e845cc8939ed79791a3643bb87",
+        "effective_batches": 2078,
+        "last_batch_size": 50
+      }
+    ]
+  },
+  "expected_formal_updates": 41560,
+  "same_seed_groups_actual_batches_equal": true,
+  "order_policy": "isolated CPU generator(seed+zero_based_epoch); cross-seed sequences have historical shifted overlap",
+  "source_sha256": {
+    "verify_fusion_full_seeds.py": "0b458d00f3d0bf7364a78e32f5cf570f9c7eebba06a24e7414c7217863b93570",
+    "purevision_v5/fusion_grid_training.py": "a5e50cce57fc37d857c98b55e495122d0c0ea8aaedf1bd1ea75583dfbf74fe98"
+  }
+}

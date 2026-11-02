@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "observed_at": "2026-11-02T07:51:58.695421+00:00",
+  "revision": "User supersedes stage10 with stage20 before formal launch",
+  "formal_jobs_launched": 0,
+  "groups": [
+    "S23_FROZEN_CONT",
+    "S23_TAIL_FT"
+  ],
+  "stage_epochs": 20,
+  "updates": 41560,
+  "batch_size": 64,
+  "steps_per_epoch": 2078,
+  "last_batch_size": 50,
+  "scheduler_T_max": 20,
+  "eta_min": 0,
+  "readout_learning_rate": 0.0001,
+  "tail_learning_rate": 1e-05,
+  "six_confirmation_runs_unchanged": true
+}

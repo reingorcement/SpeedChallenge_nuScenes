@@ -4,12 +4,14 @@
 
 | run ID | 阶段作业 | 状态 | 代码 commit | 光流已处理/总数 | dev EPE |
 |---|---|---|---|---|---|
-| 20261102_0154_fusion_full_s42_cache | cache | completed | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | 156458/156458 | — |
-| 20261102_0154_fusion_full_s42_full_cache_check | full_cache_check | completed | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | —/— | — |
-| 20261102_0154_fusion_full_s42_publish_train | publish_train | completed | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | —/— | — |
-| 20261102_0154_fusion_full_s42_S23 | S23 | completed | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | — | 0.17847165237392404 |
-| 20261102_0154_fusion_full_s42_J23 | J23 | completed | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | — | 0.18402909965442985 |
-| 20261102_0154_fusion_full_s42_F23 | F23 | completed | `bc9a3d8addbdb5413589e0b2121d87ee85e5b026` | — | 0.18744595331619757 |
+| 20261102_1545_fusion_confirm_tail_S23_TAIL_FT | S23_TAIL_FT | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
+| 20261102_1545_fusion_confirm_tail_S23_FROZEN_CONT | S23_FROZEN_CONT | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
+| 20261102_1545_fusion_confirm_tail_S23_s43 | S23_s43 | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
+| 20261102_1545_fusion_confirm_tail_J23_s43 | J23_s43 | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
+| 20261102_1545_fusion_confirm_tail_F23_s43 | F23_s43 | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
+| 20261102_1545_fusion_confirm_tail_S23_s44 | S23_s44 | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
+| 20261102_1545_fusion_confirm_tail_J23_s44 | J23_s44 | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
+| 20261102_1545_fusion_confirm_tail_F23_s44 | F23_s44 | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
 
 训练作业目录包含实际配置、完整 epoch JSONL、状态与可用的 dev 评价；非训练作业包含 worker 状态及已生成的 progress_report.json。原始大日志、数据/光流和权重不上传。
 `source_index.json` 记录所读文件与摘要；`status.json` 记录 checkpoint 哈希和预测公开形式。
