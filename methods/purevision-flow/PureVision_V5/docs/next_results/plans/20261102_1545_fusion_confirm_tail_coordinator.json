@@ -1,6 +1,6 @@
 {
   "status": "running",
-  "updated_at": "2026-11-02T08:31:58.251070+00:00",
+  "updated_at": "2026-11-02T09:17:02.275087+00:00",
   "plan_identity": "066efe6b79709d02c1880947c723b8443241a74a246048bf1aecea0b9090a8a6",
   "code": {
     "commit": "f1fb5402e559847eb4ea51554a69daf50b6bc7dd",
@@ -10,7 +10,7 @@
   "jobs": {
     "S23_TAIL_FT": {
       "status": "running",
-      "updated_at": "2026-11-02T08:31:56.399135+00:00",
+      "updated_at": "2026-11-02T09:16:57.343674+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793607114.0753067,
@@ -52,7 +52,7 @@
       "child_pid": 264663,
       "child_pid_start_ticks": 112203152,
       "epoch": 1,
-      "elapsed_seconds": 1195.8035473539494,
+      "elapsed_seconds": 3878.04900673707,
       "cuda_peak_allocated_bytes": 31471961600,
       "processed_batches": 0,
       "optimizer_updates": 0,
