@@ -1,17 +1,15 @@
-正常，无新增里程碑。指定命令成功，4 项目标工件均有读取成功收据。
+指定命令成功退出，已读取本次目标工件。以下路径均相对 `/home/zhangyu/.local/share/speedest-v5-next/`：
 
-实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
-
-- `monitoring/astra/20261102T170001Z_368321.request.json`
-- `monitoring/astra/20261102T170001Z_368321.snapshot.json`
+- `monitoring/astra/20261102T180001Z_379470.snapshot.json`
 - `monitoring/publication.json`
-- `runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/status.json`
+- `runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/{run,status}.json`
 - `pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_TAIL_FT.json`
+- `logs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT.log`（尾部）
 
-宿主确定性检查（北京时间 11月3日 01:00 快照）：目标主/子进程身份匹配且存活；GPU 0 利用率 100%，显存 36893/97887 MiB，85°C；工件盘剩余 946 GB，缓存盘剩余 17434 GB，均无低空间标记。
+宿主确定性检查（北京时间 11月3日02:00）：目标父/子进程身份匹配且存活；GPU 0 利用率99%，温度85℃；工件盘剩余946GB、缓存盘剩余17.43TB，无低空间告警。范围内7项已完成，目标仍运行，unknown=0，整体未终止。
 
-本次 AI 诊断：目标 run `20261102_1545_fusion_confirm_tail_S23_TAIL_FT` 身份一致，正在第9轮，已完成8轮、16624步；loss 0.0003107，最近验证 EPE 0.181150，最佳 0.178985，AMP 跳步0。状态及日志约2.9秒前更新，checkpoint 约287秒前更新；目标范围日志异常摘要为空。另7项训练已完成20轮、41560步；整体尚未终态，unknown=0。
+本次AI诊断：目标完成8/20轮，第9轮正在验证。已提交计数16624步，attempted计数18702，日志推进至18694；计数口径差异不能当作停训。最近已记录验证EPE为0.181150，最佳0.178985，AMP跳步0；所读日志尾部及快照未见异常。
 
-未发现需干预异常。人工后续可对照同 run 的状态、日志及 checkpoint 时间确认推进；本次未改动任何内容，未访问外网或加载大 checkpoint。
+待核实：`last.pt`距快照约64.8分钟，触发旧检查点提示；状态仅滞后3.3秒，仍有活动证据。建议人工在本轮验证结束后核对检查点时间及步数是否同步更新，确认保存周期；目前不据此判定停训。全程只读，未修改或操作训练。
 
 ASTRA_PATROL_OK

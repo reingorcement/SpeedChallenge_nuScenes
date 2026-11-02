@@ -1,18 +1,18 @@
 {
   "schema": "v5_fusion_tail_recovery_v1",
-  "updated_at": "2026-11-02T16:55:14.745640+00:00",
+  "updated_at": "2026-11-02T18:00:37.433907+00:00",
   "run_id": "20261102_1545_fusion_confirm_tail_S23_TAIL_FT",
   "contract_hash": "374367f031d5d3b0c08d1dd42aaf19c01a69912e8627e210187e1ec89c2911df",
   "code_commit": "f1fb5402e559847eb4ea51554a69daf50b6bc7dd",
-  "completed_epochs": 8,
+  "completed_epochs": 9,
   "boundary": "validation_then_scheduler_then_advance_epoch_next_batch_zero",
   "current": {
-    "path": "checkpoints/epoch_008.pt",
-    "sha256": "56f3d1225a0c4cda1a1a00d40fdd1bd64f98fcb33c151ca877af482ce27bed33"
+    "path": "checkpoints/epoch_009.pt",
+    "sha256": "a4bdb0aa59302afa3c5881aec3eb35bbc313c87062dd76676920d39f7dadb60c"
   },
   "best": {
-    "path": "checkpoints/epoch_003.pt",
-    "sha256": "d38cae792a0b7c9b73ff61f7205b835b292450ad1e9bc1bc1b8a1077610f4850"
+    "path": "checkpoints/epoch_009.pt",
+    "sha256": "a4bdb0aa59302afa3c5881aec3eb35bbc313c87062dd76676920d39f7dadb60c"
   },
-  "identity": "95f52525f61aa83c6504d6acb6b0ea30c5548c53fcd35b9ae80073c2e340e477"
+  "identity": "ef72b6a7d7a4a894df676ad213f32c3fe6de717df8274097cea930f3047b5958"
 }
