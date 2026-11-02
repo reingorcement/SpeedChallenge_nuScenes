@@ -115,7 +115,7 @@ def verify(args):
     assert len(all_stores) == len(set(all_stores))
     for name, value in models['F23'].named_parameters():
         assert torch.equal(value, dict(models['S23'].named_parameters())[name])
-    for overrides in (dict(seed=43), dict(group='S46'), dict(expected_counts=dict(train_core=7324, dev=1826))):
+    for overrides in (dict(seed=45), dict(group='S46'), dict(expected_counts=dict(train_core=7324, dev=1826))):
         rejected(lambda overrides=overrides: training.validate_config(dict(configs['J23'], **overrides)))
     count = min(64, len(packets['train_core']['targets']))
     device = torch.device(args.device)

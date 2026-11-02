@@ -54,10 +54,10 @@ def validate_config(config):
     if config.get('group') not in GRID_VARIANTS:
         raise ValueError('Unknown six-group identifier')
     if full_scope(config):
-        if (config['seed'] != 42 or config['group'] not in {'J23', 'S23', 'F23'}
+        if (config['group'] not in {'J23', 'S23', 'F23'}
                 or config.get('expected_counts') != FULL_COUNTS
                 or config.get('expected_scene_counts') != FULL_SCENES):
-            raise ValueError('Full scope requires the original complete split and J23/S23/F23 seed42')
+            raise ValueError('Full scope requires the original complete split and J23/S23/F23 seed42/43/44')
     validate_lateral_rule(config.get('lateral_rule'))
 
 

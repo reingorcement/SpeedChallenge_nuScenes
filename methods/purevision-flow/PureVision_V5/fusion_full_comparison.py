@@ -67,7 +67,7 @@ def inspect_full(plan, group, job, cache_index, expected, history_manifest):
         return None, None, None
     config, contract = run['contract']['config'], run['contract']
     validate_config(config)
-    require(config['group'] == group and config['seed'] == 42 and config['scope'] == 'full', 'Wrong full model/config')
+    require(config['group'] == group and config['seed'] == job.get('seed', 42) and config['scope'] == 'full', 'Wrong full model/config')
     require(contract['scope'] == FULL_CONTRACT_SCOPE and contract['data_scope'] == 'full' and
             contract['partition_counts'] == COUNTS and contract['scene_counts'] == SCENES, 'Full scope/counts lost')
     require(result['data_scope'] == 'full' and result['train_count'] == 132978 and result['dev_count'] == 23480,
@@ -138,7 +138,7 @@ def inspect_full(plan, group, job, cache_index, expected, history_manifest):
             'best_checkpoint_sha256', 'last_checkpoint_sha256', 'contract_hash', 'generalization_gap_dev_minus_train_epe',
             'best_train_full_evaluation_count', 'best_dev_predictions_reused', 'discarded_attempts')
     row = {key: result.get(key) for key in kept}
-    row.update(seed=42, run_dir=str(directory), source_checkpoint_sha256=SOURCE_SHA,
+    row.update(seed=config['seed'], run_dir=str(directory), source_checkpoint_sha256=SOURCE_SHA,
         order_records_sha256=object_hash(orders), order_receipt_path=str(directory / 'epoch_orders.json'),
         order_receipt_file_sha256=sha256(directory / 'epoch_orders.json'), result_path=str(result_path),
         result_sha256=sha256(result_path), config_sha256=sha256(job['config_path']),
