@@ -12,9 +12,9 @@
   "connection": "existing approved SSH443 proxy route, scoped only to this publisher cron",
   "repair_crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261102T093637.780719Z.txt",
   "last_result": {
-    "report_commit": "5e726380db1c71259851cd8ce65e374dddfedd85",
-    "remote_base": "21646e8253208b83234a017496e580a3f676de87",
-    "started_at": "2026-11-02T20:17:01.248978+00:00",
+    "report_commit": "c6c23e058696d4b6b6ddef9366c2705a32471b1a",
+    "remote_base": "5e726380db1c71259851cd8ce65e374dddfedd85",
+    "started_at": "2026-11-02T21:17:01.098901+00:00",
     "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
     "branch": "results/purevision-v5-next",
     "status": "published",
@@ -26,8 +26,8 @@
     "training_commits": [
       "f1fb5402e559847eb4ea51554a69daf50b6bc7dd"
     ],
-    "verified_remote_commit": "5e726380db1c71259851cd8ce65e374dddfedd85",
-    "finished_at": "2026-11-02T20:17:15.972373+00:00",
+    "verified_remote_commit": "c6c23e058696d4b6b6ddef9366c2705a32471b1a",
+    "finished_at": "2026-11-02T21:18:00.207773+00:00",
     "all_terminal": false
   }
 }
