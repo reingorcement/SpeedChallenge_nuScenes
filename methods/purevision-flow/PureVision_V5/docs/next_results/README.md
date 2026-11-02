@@ -9,9 +9,9 @@
 | 20261102_1545_fusion_confirm_tail_S23_s43 | S23_s43 | completed | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | 0.17954429471416472 |
 | 20261102_1545_fusion_confirm_tail_J23_s43 | J23_s43 | completed | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | 0.1829134282790561 |
 | 20261102_1545_fusion_confirm_tail_F23_s43 | F23_s43 | completed | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | 0.18546163554131753 |
-| 20261102_1545_fusion_confirm_tail_S23_s44 | S23_s44 | running | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
-| 20261102_1545_fusion_confirm_tail_J23_s44 | J23_s44 | running | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
-| 20261102_1545_fusion_confirm_tail_F23_s44 | F23_s44 | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
+| 20261102_1545_fusion_confirm_tail_S23_s44 | S23_s44 | completed | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | 0.17711785516890327 |
+| 20261102_1545_fusion_confirm_tail_J23_s44 | J23_s44 | completed | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | 0.18717913557766294 |
+| 20261102_1545_fusion_confirm_tail_F23_s44 | F23_s44 | running | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
 
 训练作业目录包含实际配置、完整 epoch JSONL、状态与可用的 dev 评价；非训练作业包含 worker 状态及已生成的 progress_report.json。原始大日志、数据/光流和权重不上传。
 `source_index.json` 记录所读文件与摘要；`status.json` 记录 checkpoint 哈希和预测公开形式。

@@ -1,6 +1,6 @@
 {
   "status": "running",
-  "updated_at": "2026-11-02T08:22:25.840354+00:00",
+  "updated_at": "2026-11-02T08:26:12.212498+00:00",
   "plan_identity": "066efe6b79709d02c1880947c723b8443241a74a246048bf1aecea0b9090a8a6",
   "code": {
     "commit": "f1fb5402e559847eb4ea51554a69daf50b6bc7dd",
@@ -10,7 +10,7 @@
   "jobs": {
     "S23_TAIL_FT": {
       "status": "running",
-      "updated_at": "2026-11-02T08:22:21.230330+00:00",
+      "updated_at": "2026-11-02T08:26:11.293963+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793607114.0753067,
@@ -52,7 +52,7 @@
       "child_pid": 264663,
       "child_pid_start_ticks": 112203152,
       "epoch": 1,
-      "elapsed_seconds": 596.5600034839008,
+      "elapsed_seconds": 849.0327115159016,
       "cuda_peak_allocated_bytes": 31471961600,
       "processed_batches": 0,
       "optimizer_updates": 0,
@@ -231,7 +231,7 @@
     },
     "S23_s44": {
       "status": "running",
-      "updated_at": "2026-11-02T08:22:25.049815+00:00",
+      "updated_at": "2026-11-02T08:26:10.113106+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793607693.176122,
@@ -258,17 +258,17 @@
       ],
       "child_pid": 268517,
       "child_pid_start_ticks": 112261052,
-      "epoch": 2,
-      "elapsed_seconds": 45.489701793994755,
-      "cuda_peak_allocated_bytes": 4458727936,
-      "processed_batches": 2078,
-      "optimizer_updates": 2078,
+      "epoch": null,
+      "elapsed_seconds": 269.84221054892987,
+      "cuda_peak_allocated_bytes": 4459031040,
+      "processed_batches": 41560,
+      "optimizer_updates": 41560,
       "amp_skips": 0,
-      "best_epoch": 1
+      "best_epoch": 18
     },
     "J23_s44": {
-      "status": "running",
-      "updated_at": "2026-11-02T08:22:24.937639+00:00",
+      "status": "completed",
+      "updated_at": "2026-11-02T08:25:34.993937+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793607693.2224438,
@@ -295,19 +295,22 @@
       ],
       "child_pid": 268451,
       "child_pid_start_ticks": 112261041,
-      "epoch": 2,
-      "elapsed_seconds": 45.650690553942695,
-      "cuda_peak_allocated_bytes": 4449753600,
-      "processed_batches": 2078,
-      "optimizer_updates": 2078,
+      "epoch": null,
+      "elapsed_seconds": 233.3999216670636,
+      "cuda_peak_allocated_bytes": 4451320320,
+      "processed_batches": 41560,
+      "optimizer_updates": 41560,
       "amp_skips": 0,
-      "best_epoch": 1
+      "best_epoch": 17,
+      "exit_code": 0,
+      "finished_at": "2026-11-02T08:25:34.993917+00:00"
     },
     "F23_s44": {
-      "status": "queued",
-      "updated_at": "2026-11-02T08:09:13.291787+00:00",
-      "launch_count": 0,
-      "reason": null
+      "status": "launching",
+      "updated_at": "2026-11-02T08:26:12.162503+00:00",
+      "launch_count": 1,
+      "reason": null,
+      "launched_at_epoch": 1793607972.1625016
     },
     "features": {
       "status": "not_required"

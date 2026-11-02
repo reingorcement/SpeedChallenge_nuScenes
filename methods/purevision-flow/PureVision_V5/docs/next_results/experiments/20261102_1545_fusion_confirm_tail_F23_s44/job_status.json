@@ -1,6 +1,30 @@
 {
-  "status": "queued",
-  "updated_at": "2026-11-02T08:09:13.291787+00:00",
-  "launch_count": 0,
-  "reason": null
+  "status": "running",
+  "updated_at": "2026-11-02T08:26:13.749838+00:00",
+  "launch_count": 1,
+  "reason": null,
+  "launched_at_epoch": 1793607972.1625016,
+  "pid": 269890,
+  "pid_start_ticks": 112288770,
+  "started_at": "2026-11-02T08:26:13.706823+00:00",
+  "commit": "f1fb5402e559847eb4ea51554a69daf50b6bc7dd",
+  "phase": "training",
+  "command_index": 0,
+  "command": [
+    "/usr/bin/env",
+    "CUDA_VISIBLE_DEVICES=GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_1545_fusion_confirm_tail_f1fb540/methods/purevision-flow/PureVision_V5/train_fusion_grid.py",
+    "--config",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_1545_fusion_confirm_tail_f1fb540/methods/purevision-flow/PureVision_V5/configs/next/FUSION_FULL_F23_s44.json",
+    "--cache",
+    "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+    "--output",
+    "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_1545_fusion_confirm_tail_F23_s44",
+    "--device",
+    "cuda:0"
+  ],
+  "child_pid": 270031,
+  "child_pid_start_ticks": 112288924
 }
