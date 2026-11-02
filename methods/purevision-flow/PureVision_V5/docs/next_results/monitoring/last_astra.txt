@@ -1,15 +1,16 @@
-指定命令成功退出，已读取本次目标工件。以下路径均相对 `/home/zhangyu/.local/share/speedest-v5-next/`：
+指定命令成功，6 个目标工件均有 `read_success` 收据。实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
 
-- `monitoring/astra/20261102T180001Z_379470.snapshot.json`
+- `monitoring/astra/20261102T190001Z_390302.snapshot.json`
 - `monitoring/publication.json`
-- `runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/{run,status}.json`
+- `runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/run.json`
+- 同目录 `status.json`
 - `pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_TAIL_FT.json`
-- `logs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT.log`（尾部）
+- `logs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT.log`（末尾 24KB）
 
-宿主确定性检查（北京时间 11月3日02:00）：目标父/子进程身份匹配且存活；GPU 0 利用率99%，温度85℃；工件盘剩余946GB、缓存盘剩余17.43TB，无低空间告警。范围内7项已完成，目标仍运行，unknown=0，整体未终止。
+**宿主确定性检查**：北京时间 11月3日 03:00 快照确认目标父/子 PID 身份匹配且存活；GPU0 利用率 97%，显存 36893/97887 MiB，84℃；工件盘剩余 946GB、缓存所在 `/mnt/sdb2` 剩余 17434GB，无低空间告警。范围内另7项已完成，unknown=0，整体尚未终止。
 
-本次AI诊断：目标完成8/20轮，第9轮正在验证。已提交计数16624步，attempted计数18702，日志推进至18694；计数口径差异不能当作停训。最近已记录验证EPE为0.181150，最佳0.178985，AMP跳步0；所读日志尾部及快照未见异常。
+**本次 AI 诊断**：目标运行第10/20轮，已完成9轮；汇总步数18702，日志及 attempted 计数已到20736，差值恰为本轮2034批，不能据汇总值判停。最佳验证 EPE=0.178169（第9轮）；最新 loss=0.00026534，约36.57样本/秒，所读日志尾部未见异常。checkpoint 距快照约59.4分钟，状态更新时间仅落后约4秒，暂不支持停训判断。
 
-待核实：`last.pt`距快照约64.8分钟，触发旧检查点提示；状态仅滞后3.3秒，仍有活动证据。建议人工在本轮验证结束后核对检查点时间及步数是否同步更新，确认保存周期；目前不据此判定停训。全程只读，未修改或操作训练。
+正常，无新增里程碑。人工定位建议：下一轮完成后核对 checkpoint 与汇总计数是否同步更新；当前无需干预。全程只读，未修改任何内容。
 
 ASTRA_PATROL_OK
