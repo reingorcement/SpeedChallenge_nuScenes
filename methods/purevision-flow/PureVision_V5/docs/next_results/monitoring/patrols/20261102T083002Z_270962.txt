@@ -1,0 +1,17 @@
+指定命令成功，6 个目标工件均有读取成功收据。全程只读，无修改、训练控制或外网访问。
+
+实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+- `monitoring/astra/20261102T083002Z_270962.{request,snapshot}.json`
+- `monitoring/publication.json`
+- `runs/20261102_1545_fusion_confirm_tail_{S23_TAIL_FT,F23_s44}/status.json`
+- `pipeline/20261102_1545_fusion_confirm_tail/jobs/{S23_TAIL_FT,F23_s44}.json`
+- 异常追查：`logs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT.log` 末12行。
+
+**Host确定性检查**：16:30:02快照确认两个目标父子进程身份及存活，unknown=0。GPU0利用率100%、显存36893 MiB、温度86℃；工件盘剩余946.7 GB，缓存盘剩余17434.3 GB，均无低空间告警。
+
+**本次AI诊断**：
+- `S23_TAIL_FT`仍在首轮：日志已到594次更新，loss约0.000326、吞吐36.56样本/秒；但状态报告更新数仍为0，与日志不一致，不能据此判停。首次验证和checkpoint尚无可用记录，保留待核实。建议人工定位状态计数写出逻辑；摘要及所读日志未见异常报错。
+- `F23_s44`新增完成里程碑：20轮、41560步；状态与作业均completed，退出码0。最佳验证EPE为0.184623；快照中最近loss约0.000358、验证EPE为0.187051，checkpoint距快照约7.9秒。
+- 发布记录为pending并有推送连接超时；属于发布异常，不代表训练停止。建议人工检查发布连接。未确认或修复任何bug。
+
+ASTRA_PATROL_OK
