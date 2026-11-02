@@ -211,6 +211,18 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/20261102_1545_fusion_confirm_tail_ready.json",
+      "source_sha256": "22efc12f771d3ac6a462cc156514fbfb2a5ab6736f8a20e89dc2a26e628dbe8e",
+      "bytes": 477,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/20261102_1545_fusion_confirm_tail_schedule_install.json",
+      "source_sha256": "de7aede9872468771ec03200b995659b8020d443cafcc8833551b7df012968cb",
+      "bytes": 2662,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/evidence/completion_watcher_fix_20261030_full_nuscenes_front1024.json",
       "source_sha256": "67842ee917ca35f44c9122cb062dd5e0f8026991dc35834c2f0f828a9a6843cc",
       "bytes": 4229,
@@ -752,8 +764,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "a9b62133e54a9f387a5ea261831f04b86b52ed6fc381ee29b63cc6920cc9358a",
-      "bytes": 148001,
+      "source_sha256": "6db4c1dc069dc11ff475f7a323bfe65b378a56368a1da875739b70d3dbbf93e1",
+      "bytes": 162209,
       "representation": "parsed_json"
     },
     {
@@ -764,14 +776,14 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_schedule.json",
-      "source_sha256": "08d971b4110448519e0a0c43df7bc836a41573c48ec61f6e180f010cfa552fb6",
-      "bytes": 1866,
+      "source_sha256": "0a63a0992d11651baf9e9d167f591b17d930b8c0586e272cd9d68947b9003a25",
+      "bytes": 1153,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/schedule.json",
-      "source_sha256": "1e2b759a43ab0d8ab8f33d075655aec985b011e0e2b0eeb04e0855b96ba0706f",
-      "bytes": 8884,
+      "source_sha256": "e7198a100ff76baef5ab189284ae7b71ed358ff41de58adecb7fb4964b1a50b9",
+      "bytes": 1381,
       "representation": "parsed_json"
     },
     {
@@ -800,20 +812,20 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_FROZEN_CONT.json",
-      "source_sha256": "baaac6f732c68993db07623ee3333a71dd43b80e19b12fe6ccd4cc5c2da91172",
-      "bytes": 116,
+      "source_sha256": "4a2d183fad22020836b2448279faa542152ea4dd256f46226552ca9bd7924d7f",
+      "bytes": 2030,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_TAIL_FT.json",
-      "source_sha256": "e2865e629e9ab1784921751446b19b06d6b4553093e69836e6b404e974784e5a",
-      "bytes": 116,
+      "source_sha256": "bf2ac6892d26e55563b33ff6849fb0a16725393fc155c2c55f3181280547e77c",
+      "bytes": 2023,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_s43.json",
-      "source_sha256": "72d5348658263ab16767f5aeae0cafa311b8b6f950cd9d28618af9d2b586f5dd",
-      "bytes": 116,
+      "source_sha256": "be1851e0f5dce5fec7f53e17d1338d30be343dd1e2e1b0b0bd5e34a9d4a67dc1",
+      "bytes": 1199,
       "representation": "parsed_json"
     },
     {
@@ -826,6 +838,12 @@
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_1545_fusion_confirm_tail/plan.json",
       "source_sha256": "35474e7a4465fd2c834afb037d94fff925fc71cad3be95f569e5803769734437",
       "bytes": 32356,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_1545_fusion_confirm_tail/status.json",
+      "source_sha256": "2b2c22e4e14038ff6274d582f613fe46d6b771a11130673eaf8b9fe5b4cad560",
+      "bytes": 6964,
       "representation": "parsed_json"
     },
     {
@@ -1030,8 +1048,8 @@
   "exports": [
     {
       "path": "README.md",
-      "export_sha256": "cf745b78198e507954ed9224e8133183c6e1b30e6a733800f93697d5dde2af41",
-      "bytes": 1676
+      "export_sha256": "62ec55b0d71cd9a31759bed91d9ca04980643abc1b6d7c34be0be6d500d6d749",
+      "bytes": 1679
     },
     {
       "path": "comparisons/encoder_comparison_20261031_r02_base_flex_s42/summary.json",
@@ -1247,6 +1265,16 @@
       "path": "evidence/20261102_0154_fusion_full_s42_train_ready.json",
       "export_sha256": "c9e228c3cb409590f812e5d1dfe1fa2c7be4d01a765222f3b4c7e173971f12c4",
       "bytes": 529
+    },
+    {
+      "path": "evidence/20261102_1545_fusion_confirm_tail_ready.json",
+      "export_sha256": "22efc12f771d3ac6a462cc156514fbfb2a5ab6736f8a20e89dc2a26e628dbe8e",
+      "bytes": 477
+    },
+    {
+      "path": "evidence/20261102_1545_fusion_confirm_tail_schedule_install.json",
+      "export_sha256": "de7aede9872468771ec03200b995659b8020d443cafcc8833551b7df012968cb",
+      "bytes": 2662
     },
     {
       "path": "evidence/completion_watcher_fix_20261030_full_nuscenes_front1024.json",
@@ -1725,8 +1753,8 @@
     },
     {
       "path": "experiments/20261102_1545_fusion_confirm_tail_S23_FROZEN_CONT/job_status.json",
-      "export_sha256": "baaac6f732c68993db07623ee3333a71dd43b80e19b12fe6ccd4cc5c2da91172",
-      "bytes": 116
+      "export_sha256": "4a2d183fad22020836b2448279faa542152ea4dd256f46226552ca9bd7924d7f",
+      "bytes": 2030
     },
     {
       "path": "experiments/20261102_1545_fusion_confirm_tail_S23_FROZEN_CONT/planned_config.json",
@@ -1735,8 +1763,8 @@
     },
     {
       "path": "experiments/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/job_status.json",
-      "export_sha256": "e2865e629e9ab1784921751446b19b06d6b4553093e69836e6b404e974784e5a",
-      "bytes": 116
+      "export_sha256": "bf2ac6892d26e55563b33ff6849fb0a16725393fc155c2c55f3181280547e77c",
+      "bytes": 2023
     },
     {
       "path": "experiments/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/planned_config.json",
@@ -1745,8 +1773,8 @@
     },
     {
       "path": "experiments/20261102_1545_fusion_confirm_tail_S23_s43/job_status.json",
-      "export_sha256": "72d5348658263ab16767f5aeae0cafa311b8b6f950cd9d28618af9d2b586f5dd",
-      "bytes": 116
+      "export_sha256": "be1851e0f5dce5fec7f53e17d1338d30be343dd1e2e1b0b0bd5e34a9d4a67dc1",
+      "bytes": 1199
     },
     {
       "path": "experiments/20261102_1545_fusion_confirm_tail_S23_s43/planned_config.json",
@@ -1870,8 +1898,8 @@
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "a9b62133e54a9f387a5ea261831f04b86b52ed6fc381ee29b63cc6920cc9358a",
-      "bytes": 148001
+      "export_sha256": "6db4c1dc069dc11ff475f7a323bfe65b378a56368a1da875739b70d3dbbf93e1",
+      "bytes": 162209
     },
     {
       "path": "monitoring/patrols/20261101T183001Z_192322.txt",
@@ -1885,13 +1913,13 @@
     },
     {
       "path": "monitoring/publisher_schedule.json",
-      "export_sha256": "08d971b4110448519e0a0c43df7bc836a41573c48ec61f6e180f010cfa552fb6",
-      "bytes": 1866
+      "export_sha256": "0a63a0992d11651baf9e9d167f591b17d930b8c0586e272cd9d68947b9003a25",
+      "bytes": 1153
     },
     {
       "path": "monitoring/schedule.json",
-      "export_sha256": "1e2b759a43ab0d8ab8f33d075655aec985b011e0e2b0eeb04e0855b96ba0706f",
-      "bytes": 8884
+      "export_sha256": "e7198a100ff76baef5ab189284ae7b71ed358ff41de58adecb7fb4964b1a50b9",
+      "bytes": 1381
     },
     {
       "path": "plans/20261102_1545_fusion_confirm_tail.json",
@@ -1899,9 +1927,14 @@
       "bytes": 32356
     },
     {
+      "path": "plans/20261102_1545_fusion_confirm_tail_coordinator.json",
+      "export_sha256": "2b2c22e4e14038ff6274d582f613fe46d6b771a11130673eaf8b9fe5b4cad560",
+      "bytes": 6964
+    },
+    {
       "path": "status.json",
-      "export_sha256": "8ca56c51799e3db9886bfee909f880d10cff18b8150d5916adb3bfe49ad114cb",
-      "bytes": 6076
+      "export_sha256": "052b9f51d7283e223650a1c0bbfebe7f604ce574029d60baa881f7c753e7709b",
+      "bytes": 6079
     }
   ],
   "note": "source_sha256 hashes source bytes (JSONL complete prefix); export_sha256 hashes the published representation. JSON may be reformatted; index excludes itself."

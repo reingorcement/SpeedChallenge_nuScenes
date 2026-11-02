@@ -4,9 +4,9 @@
 
 | run ID | 阶段作业 | 状态 | 代码 commit | 光流已处理/总数 | dev EPE |
 |---|---|---|---|---|---|
-| 20261102_1545_fusion_confirm_tail_S23_TAIL_FT | S23_TAIL_FT | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
-| 20261102_1545_fusion_confirm_tail_S23_FROZEN_CONT | S23_FROZEN_CONT | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
-| 20261102_1545_fusion_confirm_tail_S23_s43 | S23_s43 | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
+| 20261102_1545_fusion_confirm_tail_S23_TAIL_FT | S23_TAIL_FT | running | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
+| 20261102_1545_fusion_confirm_tail_S23_FROZEN_CONT | S23_FROZEN_CONT | running | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
+| 20261102_1545_fusion_confirm_tail_S23_s43 | S23_s43 | running | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
 | 20261102_1545_fusion_confirm_tail_J23_s43 | J23_s43 | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
 | 20261102_1545_fusion_confirm_tail_F23_s43 | F23_s43 | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
 | 20261102_1545_fusion_confirm_tail_S23_s44 | S23_s44 | queued | `f1fb5402e559847eb4ea51554a69daf50b6bc7dd` | — | — |
