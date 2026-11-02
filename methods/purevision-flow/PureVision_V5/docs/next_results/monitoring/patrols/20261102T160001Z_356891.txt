@@ -1,0 +1,15 @@
+指定命令成功，4 个目标工件均有读取成功收据。
+
+实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+
+- `monitoring/astra/20261102T160001Z_356891.request.json`
+- `monitoring/astra/20261102T160001Z_356891.snapshot.json`
+- `monitoring/publication.json`
+- `runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/status.json`
+- `pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_TAIL_FT.json`
+
+**Host 确定性检查**（北京时间 11 月 3 日 00:00:02）：目标 `20261102_1545_fusion_confirm_tail_S23_TAIL_FT` 父子进程身份核验存活；第 8 epoch，已完成 7，步数 14546，AMP 跳步 0。loss 0.0003151；最近验证 EPE 0.181772，最佳 0.178985。状态及日志约 7 秒前更新，`last.pt` 约 606 秒前更新；快照日志异常列表为空。GPU0 利用率 100%，显存 36893/97887 MiB，86°C；工件盘剩余 946 GB，缓存盘剩余 17434 GB。其余 7 个范围内 run 均记录完成 20 epoch、41560 步；全组尚未终止，unknown 为 0。
+
+**本次 AI 诊断**：训练正常，无新增里程碑；未见停训证据。发布状态 pending，记录远端连接超时，与训练运行状态分开判断。人工可沿 `monitoring/publication.json` 定位发布链路；本次未访问外网、未修改任何内容，也未加载大 checkpoint。
+
+ASTRA_PATROL_OK
