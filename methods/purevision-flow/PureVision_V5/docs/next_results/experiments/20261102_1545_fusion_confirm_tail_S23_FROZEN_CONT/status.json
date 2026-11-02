@@ -1,0 +1,30 @@
+{
+  "status": "completed",
+  "updated_at": "2026-11-02T08:16:37.195428+00:00",
+  "run_id": "20261102_1545_fusion_confirm_tail_S23_FROZEN_CONT",
+  "group": "S23_FROZEN_CONT",
+  "seed": 42,
+  "completed_epochs": 20,
+  "epoch": null,
+  "next_batch": 0,
+  "optimizer_updates": 41560,
+  "processed_batches": 41560,
+  "attempted_optimizer_updates": 41560,
+  "amp_skips": 0,
+  "best_epoch": 3,
+  "best_dev_epe": 0.17910151192635815,
+  "elapsed_seconds": 279.87241005990654,
+  "training_elapsed_seconds": 243.67402250296436,
+  "effective_training_seconds": 238.0431315950118,
+  "phase": "selected_best_full_train_evaluation",
+  "phase_elapsed_seconds": 4.70339427003637,
+  "runtime_gpu": {
+    "process_device": "cuda:0",
+    "cuda_visible_devices": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "physical_index": 1,
+    "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "name": "NVIDIA GeForce RTX 5090"
+  },
+  "cuda_peak_allocated_bytes": 4467767808,
+  "cuda_peak_reserved_bytes": 4490002432
+}

@@ -1,6 +1,6 @@
 {
   "status": "running",
-  "updated_at": "2026-11-02T08:12:22.275960+00:00",
+  "updated_at": "2026-11-02T08:16:34.246523+00:00",
   "plan_identity": "066efe6b79709d02c1880947c723b8443241a74a246048bf1aecea0b9090a8a6",
   "code": {
     "commit": "f1fb5402e559847eb4ea51554a69daf50b6bc7dd",
@@ -10,7 +10,7 @@
   "jobs": {
     "S23_TAIL_FT": {
       "status": "running",
-      "updated_at": "2026-11-02T08:12:21.043559+00:00",
+      "updated_at": "2026-11-02T08:16:31.121876+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793607114.0753067,
@@ -50,11 +50,18 @@
         "cuda:0"
       ],
       "child_pid": 264663,
-      "child_pid_start_ticks": 112203152
+      "child_pid_start_ticks": 112203152,
+      "epoch": 1,
+      "elapsed_seconds": 249.2382887629792,
+      "cuda_peak_allocated_bytes": 31471961600,
+      "processed_batches": 0,
+      "optimizer_updates": 0,
+      "amp_skips": 0,
+      "best_epoch": null
     },
     "S23_FROZEN_CONT": {
       "status": "running",
-      "updated_at": "2026-11-02T08:12:21.148086+00:00",
+      "updated_at": "2026-11-02T08:16:31.221060+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793607114.128886,
@@ -94,11 +101,18 @@
         "cuda:0"
       ],
       "child_pid": 264665,
-      "child_pid_start_ticks": 112203163
+      "child_pid_start_ticks": 112203163,
+      "epoch": 20,
+      "elapsed_seconds": 262.45030390191823,
+      "cuda_peak_allocated_bytes": 4467767808,
+      "processed_batches": 39482,
+      "optimizer_updates": 39482,
+      "amp_skips": 0,
+      "best_epoch": 3
     },
     "S23_s43": {
       "status": "running",
-      "updated_at": "2026-11-02T08:12:21.139953+00:00",
+      "updated_at": "2026-11-02T08:16:31.201249+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793607114.1784766,
@@ -124,7 +138,14 @@
         "cuda:0"
       ],
       "child_pid": 264664,
-      "child_pid_start_ticks": 112203162
+      "child_pid_start_ticks": 112203162,
+      "epoch": 20,
+      "elapsed_seconds": 264.187542994041,
+      "cuda_peak_allocated_bytes": 4459031040,
+      "processed_batches": 39482,
+      "optimizer_updates": 39482,
+      "amp_skips": 0,
+      "best_epoch": 19
     },
     "J23_s43": {
       "status": "queued",
