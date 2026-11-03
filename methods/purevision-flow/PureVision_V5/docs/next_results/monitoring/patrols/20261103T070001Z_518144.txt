@@ -1,0 +1,11 @@
+指定命令成功（退出码 0），两份工件读取收据均为 `read_success`：
+- `/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261103T070001Z_518144.snapshot.json`
+- `/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json`
+
+宿主确定性检查：15:00:01 快照显示活跃作业 0、unknown 0；三张 GPU 利用率均为 0%，工件盘剩余约 945.55 GB，缓存盘剩余约 17434.22 GB，无低空间告警。
+
+本次 AI 诊断：这是无作业连接/读取探针，没有目标 run；不代表任何训练 run 已巡视或通过启动检查。无新增训练里程碑，未追加读取历史日志或 checkpoint。
+
+发现发布异常：`publication.json` 为 `pending`，记录 git push 连接超时。建议人工定位发布链路及网络连通性；该异常不等于训练停止。本次未修改任何代码、配置或作业状态。
+
+ASTRA_PATROL_OK

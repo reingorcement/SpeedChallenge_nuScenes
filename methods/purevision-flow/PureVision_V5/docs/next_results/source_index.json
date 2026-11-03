@@ -770,14 +770,14 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/last_astra.json",
-      "source_sha256": "e9e2c902d5a657c93237ad3f2157f6ed6c8fb0f5b18adb8e6a502f5aead7afec",
-      "bytes": 3534,
+      "source_sha256": "50814de111583a54b6f866a9adf9f3a9ffebb33c54210f74ab4a66b2f208ea5b",
+      "bytes": 2021,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "4808978296af645d9bb78c233aaa65f2fbb8380a42cc1ce12f957f2c3cf58e64",
-      "bytes": 169175,
+      "source_sha256": "e7422530fbbfd0c4c1a64a3737b17b4c481b4ffbc0b326c7528f4b3c39b947dc",
+      "bytes": 168981,
       "representation": "parsed_json"
     },
     {
@@ -794,8 +794,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/schedule.json",
-      "source_sha256": "7dda7a04b38d511183a3f90866a6566f837a413dadf1c88ddaf37019479b8549",
-      "bytes": 5089,
+      "source_sha256": "a8ee6dc990f00c02c90a0d2d3436f23361a9dfb58a9667262a60072a23f8f324",
+      "bytes": 3512,
       "representation": "parsed_json"
     },
     {
@@ -3572,23 +3572,23 @@
     },
     {
       "path": "monitoring/last_astra.json",
-      "export_sha256": "e9e2c902d5a657c93237ad3f2157f6ed6c8fb0f5b18adb8e6a502f5aead7afec",
-      "bytes": 3534
+      "export_sha256": "50814de111583a54b6f866a9adf9f3a9ffebb33c54210f74ab4a66b2f208ea5b",
+      "bytes": 2021
     },
     {
       "path": "monitoring/last_astra.txt",
-      "export_sha256": "170f391cb40932f89846086e8e77b8890baf667bdb237103c67c07e87c087c33",
-      "bytes": 1284
+      "export_sha256": "a67268a04e36d5b69fdeba0663915b7e0b54d131182dd21b6295f485b3966bda",
+      "bytes": 909
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "4808978296af645d9bb78c233aaa65f2fbb8380a42cc1ce12f957f2c3cf58e64",
-      "bytes": 169175
+      "export_sha256": "e7422530fbbfd0c4c1a64a3737b17b4c481b4ffbc0b326c7528f4b3c39b947dc",
+      "bytes": 168981
     },
     {
-      "path": "monitoring/patrols/20261103T060001Z_510107.txt",
-      "export_sha256": "170f391cb40932f89846086e8e77b8890baf667bdb237103c67c07e87c087c33",
-      "bytes": 1284
+      "path": "monitoring/patrols/20261103T070001Z_518144.txt",
+      "export_sha256": "a67268a04e36d5b69fdeba0663915b7e0b54d131182dd21b6295f485b3966bda",
+      "bytes": 909
     },
     {
       "path": "monitoring/probe_schedule.json",
@@ -3602,8 +3602,8 @@
     },
     {
       "path": "monitoring/schedule.json",
-      "export_sha256": "7dda7a04b38d511183a3f90866a6566f837a413dadf1c88ddaf37019479b8549",
-      "bytes": 5089
+      "export_sha256": "a8ee6dc990f00c02c90a0d2d3436f23361a9dfb58a9667262a60072a23f8f324",
+      "bytes": 3512
     },
     {
       "path": "plans/20261102_1545_fusion_confirm_tail.json",
