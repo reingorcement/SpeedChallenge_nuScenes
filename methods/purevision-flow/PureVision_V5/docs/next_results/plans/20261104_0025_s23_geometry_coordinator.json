@@ -1,6 +1,6 @@
 {
   "status": "running",
-  "updated_at": "2026-11-03T17:02:25.094713+00:00",
+  "updated_at": "2026-11-03T17:12:10.698556+00:00",
   "plan_identity": "44ca79ec3efbf2909bee5ca9280b4ca249f7651aa21992f575cc8914b146e79a",
   "code": {
     "commit": "c09c602f1296994336c8d079435f835a7ccaa462",
@@ -142,8 +142,8 @@
     "GEOMETRY_FULL": {
       "status": "running",
       "phase": "train_geometry_preparation",
-      "last_progress": "road_frames 68616 / 133560",
-      "updated_at": "2026-11-03T17:02:24.940328+00:00",
+      "last_progress": "road_frames 93960 / 133560",
+      "updated_at": "2026-11-03T17:12:10.543741+00:00",
       "pid": 563053,
       "pid_start_ticks": 123835896
     },

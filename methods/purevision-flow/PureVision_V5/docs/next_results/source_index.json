@@ -830,8 +830,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "9af58d9f904aacf4ef022f1c8f83e55f173b7a2988128efe10d769647d6e0675",
-      "bytes": 180202,
+      "source_sha256": "88a204ae077a9e020d53716a3c61f8e1d3e98d988167dda6bb7c88c90afee624",
+      "bytes": 180129,
       "representation": "parsed_json"
     },
     {
@@ -866,7 +866,7 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/GEOMETRY_FULL.json",
-      "source_sha256": "3013b63b271528490e1b1090bbf76a6ba46603ccaaa8b239c105c46c92000e09",
+      "source_sha256": "a37d2a2a518ec7dadace6d73bb045f7a950f0a9c50f853ef68c55de8f9684d14",
       "bytes": 217,
       "representation": "parsed_json"
     },
@@ -896,7 +896,7 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/status.json",
-      "source_sha256": "bb60bb899fa512e1d4cd9a53efc872169c28c3f47205d39d000c21ef9504a739",
+      "source_sha256": "3812048167bf63dda7d6360c2f5bec89d95e07761a4a1901b863cb3d0c23c7bb",
       "bytes": 6209,
       "representation": "parsed_json"
     },
@@ -2315,7 +2315,7 @@
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/events/GEOMETRY_FULL.json",
-      "export_sha256": "3013b63b271528490e1b1090bbf76a6ba46603ccaaa8b239c105c46c92000e09",
+      "export_sha256": "a37d2a2a518ec7dadace6d73bb045f7a950f0a9c50f853ef68c55de8f9684d14",
       "bytes": 217
     },
     {
@@ -2425,8 +2425,8 @@
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "9af58d9f904aacf4ef022f1c8f83e55f173b7a2988128efe10d769647d6e0675",
-      "bytes": 180202
+      "export_sha256": "88a204ae077a9e020d53716a3c61f8e1d3e98d988167dda6bb7c88c90afee624",
+      "bytes": 180129
     },
     {
       "path": "monitoring/patrols/20261103T170001Z_569610.txt",
@@ -2455,12 +2455,12 @@
     },
     {
       "path": "plans/20261104_0025_s23_geometry_coordinator.json",
-      "export_sha256": "bb60bb899fa512e1d4cd9a53efc872169c28c3f47205d39d000c21ef9504a739",
+      "export_sha256": "3812048167bf63dda7d6360c2f5bec89d95e07761a4a1901b863cb3d0c23c7bb",
       "bytes": 6209
     },
     {
       "path": "status.json",
-      "export_sha256": "7224ba1b5514ef54309c42520a6c9cab71e682d846ddf4fd0c06e208d715d323",
+      "export_sha256": "1cd78448af8327f3c0a5f818fc3f174a66a51a341545161cbb6f2bbe6572c652",
       "bytes": 8116
     }
   ],
