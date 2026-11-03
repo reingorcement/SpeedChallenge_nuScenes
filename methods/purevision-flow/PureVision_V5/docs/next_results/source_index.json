@@ -866,7 +866,7 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/GEOMETRY_FULL.json",
-      "source_sha256": "10c4421bf4d7f5b449c53068964816a475bf96c29449147572b30ed455cc83f7",
+      "source_sha256": "3013b63b271528490e1b1090bbf76a6ba46603ccaaa8b239c105c46c92000e09",
       "bytes": 217,
       "representation": "parsed_json"
     },
@@ -896,7 +896,7 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/status.json",
-      "source_sha256": "19a9c6eda8e937cabf696b313a9a4e3e53bf30be7d17d097600ac6650aee31a2",
+      "source_sha256": "bb60bb899fa512e1d4cd9a53efc872169c28c3f47205d39d000c21ef9504a739",
       "bytes": 6209,
       "representation": "parsed_json"
     },
@@ -2315,7 +2315,7 @@
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/events/GEOMETRY_FULL.json",
-      "export_sha256": "10c4421bf4d7f5b449c53068964816a475bf96c29449147572b30ed455cc83f7",
+      "export_sha256": "3013b63b271528490e1b1090bbf76a6ba46603ccaaa8b239c105c46c92000e09",
       "bytes": 217
     },
     {
@@ -2455,12 +2455,12 @@
     },
     {
       "path": "plans/20261104_0025_s23_geometry_coordinator.json",
-      "export_sha256": "19a9c6eda8e937cabf696b313a9a4e3e53bf30be7d17d097600ac6650aee31a2",
+      "export_sha256": "bb60bb899fa512e1d4cd9a53efc872169c28c3f47205d39d000c21ef9504a739",
       "bytes": 6209
     },
     {
       "path": "status.json",
-      "export_sha256": "06f8003cd90149c20cfa759ad4994482a65e377aece07d46c5344836743d6ef2",
+      "export_sha256": "7224ba1b5514ef54309c42520a6c9cab71e682d846ddf4fd0c06e208d715d323",
       "bytes": 8116
     }
   ],
