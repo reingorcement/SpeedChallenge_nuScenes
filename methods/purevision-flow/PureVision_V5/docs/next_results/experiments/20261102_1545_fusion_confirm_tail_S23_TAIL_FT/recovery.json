@@ -1,18 +1,18 @@
 {
   "schema": "v5_fusion_tail_recovery_v1",
-  "updated_at": "2026-11-03T02:43:32.207557+00:00",
+  "updated_at": "2026-11-03T03:48:54.507299+00:00",
   "run_id": "20261102_1545_fusion_confirm_tail_S23_TAIL_FT",
   "contract_hash": "374367f031d5d3b0c08d1dd42aaf19c01a69912e8627e210187e1ec89c2911df",
   "code_commit": "f1fb5402e559847eb4ea51554a69daf50b6bc7dd",
-  "completed_epochs": 17,
+  "completed_epochs": 18,
   "boundary": "validation_then_scheduler_then_advance_epoch_next_batch_zero",
   "current": {
-    "path": "checkpoints/epoch_017.pt",
-    "sha256": "03728f25d24c0dd9dfa4456681d6f4f71885aa4badeb07879b450d2722f2b1b1"
+    "path": "checkpoints/epoch_018.pt",
+    "sha256": "6ee6e9ab6f9511ada2683998056f752d5f061fc8bd697f9859f13cb5f50668ad"
   },
   "best": {
     "path": "checkpoints/epoch_009.pt",
     "sha256": "a4bdb0aa59302afa3c5881aec3eb35bbc313c87062dd76676920d39f7dadb60c"
   },
-  "identity": "7a568399b66f307b6789615e89f5fed5ebe34415d3bad376e7b28b25ddfd0a22"
+  "identity": "1c8525b463e9f904539734b9fc962f68495e1667586bdfe344f8462d23b688b6"
 }
