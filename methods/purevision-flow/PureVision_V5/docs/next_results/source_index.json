@@ -776,8 +776,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "e7422530fbbfd0c4c1a64a3737b17b4c481b4ffbc0b326c7528f4b3c39b947dc",
-      "bytes": 168981,
+      "source_sha256": "949abeeb173c2936a76ff3b16bb8c41395399e67a27fe7433c116e585e2412de",
+      "bytes": 168983,
       "representation": "parsed_json"
     },
     {
@@ -788,8 +788,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_schedule.json",
-      "source_sha256": "5d1a1b83589308f483abb753aea05280fa6564d6573ca19ca0f8422813b0c925",
-      "bytes": 2411,
+      "source_sha256": "f8e440d3a2452df0f844ecde31547d51492308b534cdbdba59b1ef268251878b",
+      "bytes": 2410,
       "representation": "parsed_json"
     },
     {
@@ -3582,8 +3582,8 @@
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "e7422530fbbfd0c4c1a64a3737b17b4c481b4ffbc0b326c7528f4b3c39b947dc",
-      "bytes": 168981
+      "export_sha256": "949abeeb173c2936a76ff3b16bb8c41395399e67a27fe7433c116e585e2412de",
+      "bytes": 168983
     },
     {
       "path": "monitoring/patrols/20261103T070001Z_518144.txt",
@@ -3597,8 +3597,8 @@
     },
     {
       "path": "monitoring/publisher_schedule.json",
-      "export_sha256": "5d1a1b83589308f483abb753aea05280fa6564d6573ca19ca0f8422813b0c925",
-      "bytes": 2411
+      "export_sha256": "f8e440d3a2452df0f844ecde31547d51492308b534cdbdba59b1ef268251878b",
+      "bytes": 2410
     },
     {
       "path": "monitoring/schedule.json",
