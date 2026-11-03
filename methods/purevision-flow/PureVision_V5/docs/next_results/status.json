@@ -13,8 +13,8 @@
       "progress": {
         "status": "running",
         "phase": "train_geometry_preparation",
-        "last_progress": "road_frames 49928 / 133560",
-        "updated_at": "2026-11-03T16:55:05.603729+00:00",
+        "last_progress": "road_frames 54024 / 133560",
+        "updated_at": "2026-11-03T16:56:41.234635+00:00",
         "pid": 563053,
         "pid_start_ticks": 123835896
       }
@@ -24,7 +24,7 @@
       "name": "PILOT_A",
       "experiment": "S23_GEOMETRY_pilot_A",
       "kind": "training",
-      "status": "queued",
+      "status": "running",
       "training_status": "not_started",
       "training_commit": "c09c602f1296994336c8d079435f835a7ccaa462",
       "plan": "20261104_0025_s23_geometry",
@@ -45,7 +45,7 @@
       "name": "PILOT_B",
       "experiment": "S23_GEOMETRY_pilot_B",
       "kind": "training",
-      "status": "queued",
+      "status": "running",
       "training_status": "not_started",
       "training_commit": "c09c602f1296994336c8d079435f835a7ccaa462",
       "plan": "20261104_0025_s23_geometry",

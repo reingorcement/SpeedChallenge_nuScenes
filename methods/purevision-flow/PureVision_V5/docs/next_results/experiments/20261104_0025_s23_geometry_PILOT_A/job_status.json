@@ -1,6 +1,32 @@
 {
-  "status": "queued",
-  "updated_at": "2026-11-03T16:55:05.590163+00:00",
-  "launch_count": 0,
-  "reason": null
+  "status": "running",
+  "updated_at": "2026-11-03T16:56:43.378101+00:00",
+  "launch_count": 1,
+  "reason": null,
+  "launched_at_epoch": 1793725001.3575556,
+  "pid": 567666,
+  "pid_start_ticks": 123991689,
+  "started_at": "2026-11-03T16:56:43.337820+00:00",
+  "commit": "c09c602f1296994336c8d079435f835a7ccaa462",
+  "phase": "training",
+  "command_index": 0,
+  "command": [
+    "/usr/bin/env",
+    "CUDA_VISIBLE_DEVICES=GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/train_fusion_geometry.py",
+    "--config",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_PILOT_A.json",
+    "--cache",
+    "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+    "--lambda-proof",
+    "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/lambda.json",
+    "--output",
+    "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A",
+    "--device",
+    "cuda:0"
+  ],
+  "child_pid": 568084,
+  "child_pid_start_ticks": 123991887
 }

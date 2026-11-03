@@ -1,0 +1,171 @@
+{
+  "schema": "v5_s23_geometry_comparison_v1",
+  "status": "partial",
+  "observed_at": "2026-11-03T16:56:41.237813+00:00",
+  "experiment_id": "20261104_0025_s23_geometry",
+  "plan_identity": "44ca79ec3efbf2909bee5ca9280b4ca249f7651aa21992f575cc8914b146e79a",
+  "training_commit": "c09c602f1296994336c8d079435f835a7ccaa462",
+  "progress": {
+    "PILOT_A": {
+      "status": "queued",
+      "updated_at": "2026-11-03T16:55:05.590163+00:00",
+      "launch_count": 0,
+      "reason": null
+    },
+    "PILOT_B": {
+      "status": "queued",
+      "updated_at": "2026-11-03T16:55:05.593858+00:00",
+      "launch_count": 0,
+      "reason": null
+    },
+    "FULL_A": {
+      "status": "queued",
+      "updated_at": "2026-11-03T16:55:05.597238+00:00",
+      "launch_count": 0,
+      "reason": null
+    },
+    "FULL_B": {
+      "status": "queued",
+      "updated_at": "2026-11-03T16:55:05.600341+00:00",
+      "launch_count": 0,
+      "reason": null
+    }
+  },
+  "runs": {},
+  "comparisons": {},
+  "pilot_gate": null,
+  "lambda_geo": 0.4452454566121366,
+  "geometry_preflight": {
+    "schema": "v5_s23_geometry_preflight_v1",
+    "status": "passed",
+    "observed_at": "2026-11-03T16:28:05.336872+00:00",
+    "formal_training": false,
+    "policy": {
+      "version": "v5_geometry_support_v1",
+      "max_points": 256,
+      "min_points": 32,
+      "segmentation_input_hw": [
+        576,
+        1024
+      ],
+      "road_class": 0,
+      "road_probability": 0.9,
+      "erosion_pixels": 1,
+      "homography_ransac_pixels": 0.5,
+      "min_homography_points": 60,
+      "max_homography_rotation_error_deg": 0.5,
+      "max_normal_tilt_deg": 10.0,
+      "min_translation_signal_px": 0.25,
+      "min_depth_m": 3.0,
+      "max_depth_m": 40.0,
+      "max_endpoint_interval_velocity_difference_m_s": 0.2,
+      "max_roll_pitch_change_deg": 0.5,
+      "min_pair_dt_s": 0.04,
+      "max_pair_dt_s": 0.15,
+      "spatial_strata_hw": [
+        16,
+        16
+      ],
+      "support": "source+warped-target frozen road probability, eroded boundaries; finite valid RAFT and independent planar coherence",
+      "plane": "visual homography decomposition selected by offline rotation and nominal upward sign; passes source ego ground projection",
+      "scale": "actual calibrated_sensor translation; ego origin ground projection per official devkit issue161",
+      "no_prediction_based_selection": true,
+      "missing_geometry": "invalid reason; all windows retained; padded points always masked"
+    },
+    "selection_sha256": "8e0337bc85cdebbf29c7cfb4167d193aca989976eb7192d5354eabfb8cdcd76f",
+    "valid_windows": 70,
+    "total_windows": 128,
+    "coverage": 0.546875,
+    "failure_reasons": {
+      "valid": 70,
+      "endpoint_interval_approximation": 18,
+      "plane_normal_outside_local_road_range": 6,
+      "normal_unobservable_near_pure_rotation": 19,
+      "insufficient_reliable_metric_plane_points": 3,
+      "interval_out_of_range": 1,
+      "plane_rotation_disagrees_with_pose": 7,
+      "nonplanar_orientation_change": 4
+    },
+    "geometry_loss_at_endpoint_target": 0.009738221764564514,
+    "geometry_loss_at_interval_velocity": 0.009640390984714031,
+    "endpoint_prediction_gradient_l2": 0.002898923587054014,
+    "gradient_finite": true,
+    "perturbations": [
+      {
+        "name": "vx_plus1",
+        "loss": 0.021003317087888718
+      },
+      {
+        "name": "vx_minus1",
+        "loss": 0.019340896978974342
+      },
+      {
+        "name": "vy_plus1",
+        "loss": 0.04099342226982117
+      },
+      {
+        "name": "vy_minus1",
+        "loss": 0.039994627237319946
+      },
+      {
+        "name": "depth_minus5percent",
+        "loss": 0.011506164446473122
+      },
+      {
+        "name": "depth_plus5percent",
+        "loss": 0.010029925964772701
+      },
+      {
+        "name": "interval_plus10percent",
+        "loss": 0.012790190987288952
+      }
+    ],
+    "elapsed_seconds": 38.86020547780208,
+    "source_sha256": {
+      "prepare_fusion_geometry.py": "803860fa1b92d6376c8c7581de8e235692a5931982293efd522943fe23f5d83b",
+      "purevision_v5/fusion_geometry_prepare.py": "ac7324954f0a2c83eddcc38fd6eca83f5b6f35df9685b1240168a2c6b598f7bd",
+      "purevision_v5/fusion_geometry.py": "e6010b05d676340ad0801eb72fbf3952cb2789dd55df01ec5899077b49301c2c"
+    },
+    "caveat": "Offline orientations/semantic model/geometric priors are extra training supervision and uncertain, never inference inputs",
+    "finalized_at": "2026-11-03T16:29:41.487750+00:00",
+    "synthetic_tests": {
+      "passed": 10,
+      "source_sha256": "b243ca30c77206904ba5f5ee7560a4f920f1fbeeb755eb80aa15a15d6e70004b"
+    },
+    "visual_review": {
+      "contact_sheet_sha256": "7cd0f07372d2fa065000a95824f0b05dcaffce68de18ebedf0d02e4903e9bbde",
+      "views": 16,
+      "observation": "points lie on road interiors in representative day/rain scenes; cars/pedestrians largely excluded; low-observability/night/temporal failures retained invalid",
+      "limitation": "pretrained semantics and homography are imperfect priors, not certified static-road ground truth"
+    },
+    "real_S23_gradient": {
+      "initial_state_sha256": "248db31faa66680b17a8f250e50067219981f07d59f2f04b8435497813306c3a",
+      "output_gradient_l2": 0.002205653116106987,
+      "module_gradient_l2": {
+        "flow_proj": 0.02305258258714954,
+        "rgb_proj": 0.04771803432993564,
+        "layers": 0.0347624326713543,
+        "head": 0.06832696831267
+      },
+      "all_finite": true,
+      "model_updated": false
+    },
+    "rotation_perturbation": {
+      "camera_y_degrees": 0.2,
+      "loss": 0.019419411197304726
+    },
+    "supported_scope": "fixed v1 thresholds only; valid geometry optional per training window, velocity supervision always retained",
+    "reference_sources": [
+      "https://github.com/nutonomy/nuscenes-devkit/issues/161#issuecomment-508015958",
+      "https://huggingface.co/nvidia/segformer-b0-finetuned-cityscapes-1024-1024/tree/21b3847fae21ddee674abd31129307b6a1235bd9"
+    ],
+    "finalizer_source_sha256": "b71a4bda21a5f96532b8af9de54aa9706ef577c715d2bdf2398f3a1dcf1fe41d"
+  },
+  "limitations": [
+    "Single seed42; no cross-seed stability claim.",
+    "Offline orientations, frozen pretrained semantics and geometric priors are extra uncertain training supervision.",
+    "PLANAR_PROXY is ground-projected rear-axle yaw-plane velocity, not CG or certified true sideslip.",
+    "All dev windows are the primary metric; only training has a geometric cache. Dev geometry-valid-region attribution is unavailable.",
+    "Above15m/s dev count remains11; repeated predictions are not independent labels."
+  ]
+}

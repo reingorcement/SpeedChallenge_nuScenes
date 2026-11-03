@@ -1,33 +1,12 @@
 {
-  "installed_at": "2026-11-02T08:11:39.708430+00:00",
-  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261102_1545_fusion_confirm_tail_f1fb540/methods/purevision-flow/PureVision_V5",
-  "commit": "f1fb5402e559847eb4ea51554a69daf50b6bc7dd",
+  "installed_at": "2026-11-03T16:56:04.940913+00:00",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5",
+  "commit": "c09c602f1296994336c8d079435f835a7ccaa462",
   "lines": [
-    "17 * * * * /usr/bin/env GIT_SSH_COMMAND='ssh -o BatchMode=yes -o ConnectTimeout=15 -o ConnectionAttempts=1 -o StrictHostKeyChecking=yes -o HostName=ssh.github.com -p 443 -o HostKeyAlias=github.com -o '\"'\"'ProxyCommand=nc -X connect -x 127.0.0.1:7900 \\%h \\%p'\"'\"'' PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261102_1545_fusion_confirm_tail_f1fb540/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261102_1545_fusion_confirm_tail.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER"
+    "17 * * * * /usr/bin/env GIT_SSH_COMMAND='ssh -o BatchMode=yes -o ConnectTimeout=15 -o ConnectionAttempts=1 -o StrictHostKeyChecking=yes -o HostName=ssh.github.com -p 443 -o HostKeyAlias=github.com -o '\"'\"'ProxyCommand=nc -X connect -x 127.0.0.1:7900 \\%h \\%p'\"'\"'' PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin TZ=Asia/Shanghai /usr/bin/bash /home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/scripts/publish_results.sh /home/zhangyu/.local/share/speedest-v5-next /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261104_0025_s23_geometry.json scheduled >> /home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_cron.log 2>&1 # PUREVISION_V5_8b3fd99553b6_PUBLISHER"
   ],
-  "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261102T081139.704014Z.txt",
-  "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261102_1545_fusion_confirm_tail.json",
-  "status": "verified_trigger",
-  "connection_repair_at": "2026-11-02T09:36:37.784136+00:00",
-  "connection": "existing approved SSH443 proxy route, scoped only to this publisher cron",
-  "repair_crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261102T093637.780719Z.txt",
-  "last_result": {
-    "report_commit": "8ae8ce682119f96f935ae44de0e24c58b0d9b02f",
-    "remote_base": "44e08b3729b53ccd702d663c2a1a426002df3b69",
-    "started_at": "2026-11-03T08:17:01.956150+00:00",
-    "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
-    "branch": "results/purevision-v5-next",
-    "status": "published",
-    "trigger": "scheduled",
-    "plan_identities": [
-      "066efe6b79709d02c1880947c723b8443241a74a246048bf1aecea0b9090a8a6"
-    ],
-    "changed": true,
-    "training_commits": [
-      "f1fb5402e559847eb4ea51554a69daf50b6bc7dd"
-    ],
-    "verified_remote_commit": "8ae8ce682119f96f935ae44de0e24c58b0d9b02f",
-    "finished_at": "2026-11-03T08:17:26.736874+00:00",
-    "all_terminal": true
-  }
+  "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261103T165604.936393Z.txt",
+  "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261104_0025_s23_geometry.json",
+  "status": "installed_pending_observed_trigger",
+  "connection": "scoped verified SSH443 proxy route"
 }
