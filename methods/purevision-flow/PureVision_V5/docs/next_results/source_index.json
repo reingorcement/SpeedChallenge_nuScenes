@@ -830,8 +830,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "88a204ae077a9e020d53716a3c61f8e1d3e98d988167dda6bb7c88c90afee624",
-      "bytes": 180129,
+      "source_sha256": "6b97f26aab2d0437d1750b8c3875d75d030bd57a2f69075bb85704fe06fc59b5",
+      "bytes": 180112,
       "representation": "parsed_json"
     },
     {
@@ -866,8 +866,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/GEOMETRY_FULL.json",
-      "source_sha256": "a37d2a2a518ec7dadace6d73bb045f7a950f0a9c50f853ef68c55de8f9684d14",
-      "bytes": 217,
+      "source_sha256": "9fe5f78a6ce60b7c0de3bf03a891608cde73ffc273ae2bb68da8f1a52be84dc7",
+      "bytes": 218,
       "representation": "parsed_json"
     },
     {
@@ -896,8 +896,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/status.json",
-      "source_sha256": "3812048167bf63dda7d6360c2f5bec89d95e07761a4a1901b863cb3d0c23c7bb",
-      "bytes": 6209,
+      "source_sha256": "15b5e44947d37bd9ea553623e546bb1bae92754d8dc9b3f58526c5c43183ff12",
+      "bytes": 6210,
       "representation": "parsed_json"
     },
     {
@@ -2315,8 +2315,8 @@
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/events/GEOMETRY_FULL.json",
-      "export_sha256": "a37d2a2a518ec7dadace6d73bb045f7a950f0a9c50f853ef68c55de8f9684d14",
-      "bytes": 217
+      "export_sha256": "9fe5f78a6ce60b7c0de3bf03a891608cde73ffc273ae2bb68da8f1a52be84dc7",
+      "bytes": 218
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/events/pilot_gate.json",
@@ -2425,8 +2425,8 @@
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "88a204ae077a9e020d53716a3c61f8e1d3e98d988167dda6bb7c88c90afee624",
-      "bytes": 180129
+      "export_sha256": "6b97f26aab2d0437d1750b8c3875d75d030bd57a2f69075bb85704fe06fc59b5",
+      "bytes": 180112
     },
     {
       "path": "monitoring/patrols/20261103T170001Z_569610.txt",
@@ -2455,13 +2455,13 @@
     },
     {
       "path": "plans/20261104_0025_s23_geometry_coordinator.json",
-      "export_sha256": "3812048167bf63dda7d6360c2f5bec89d95e07761a4a1901b863cb3d0c23c7bb",
-      "bytes": 6209
+      "export_sha256": "15b5e44947d37bd9ea553623e546bb1bae92754d8dc9b3f58526c5c43183ff12",
+      "bytes": 6210
     },
     {
       "path": "status.json",
-      "export_sha256": "1cd78448af8327f3c0a5f818fc3f174a66a51a341545161cbb6f2bbe6572c652",
-      "bytes": 8116
+      "export_sha256": "9b2a4a28c7dfa3fa1bb7b26ae8f10dbf8069141faebf9e02bf00248946e9477e",
+      "bytes": 8117
     }
   ],
   "note": "source_sha256 hashes source bytes (JSONL complete prefix); export_sha256 hashes the published representation. JSON may be reformatted; index excludes itself."
