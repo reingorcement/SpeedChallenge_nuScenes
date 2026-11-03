@@ -6,17 +6,20 @@
       "name": "GEOMETRY_FULL",
       "experiment": "S23_GEOMETRY_CACHE",
       "kind": "geometry_cache",
-      "status": "running",
+      "status": "completed",
       "training_commit": "c09c602f1296994336c8d079435f835a7ccaa462",
       "plan": "20261104_0025_s23_geometry",
       "device": "cuda:0",
       "progress": {
-        "status": "running",
+        "status": "completed",
         "phase": "train_geometry_preparation",
-        "last_progress": "road_frames 105480 / 133560",
-        "updated_at": "2026-11-03T17:17:03.181948+00:00",
+        "last_progress": "road_frames 133384 / 133560",
+        "updated_at": "2026-11-03T17:38:41.224691+00:00",
         "pid": 563053,
-        "pid_start_ticks": 123835896
+        "pid_start_ticks": 123835896,
+        "reason": "Immutable train geometry index committed",
+        "total": 132978,
+        "valid": 91593
       }
     },
     {

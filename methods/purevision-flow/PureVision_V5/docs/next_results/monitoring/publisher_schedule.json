@@ -7,6 +7,25 @@
   ],
   "crontab_backup": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261103T165604.936393Z.txt",
   "command_file": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_command_20261104_0025_s23_geometry.json",
-  "status": "installed_pending_observed_trigger",
-  "connection": "scoped verified SSH443 proxy route"
+  "status": "verified_trigger",
+  "connection": "scoped verified SSH443 proxy route",
+  "last_result": {
+    "report_commit": "98c0d873430611e690bb26bb90179fd3e35dacbe",
+    "remote_base": "16a119eeb24645f5c929e54a00c6bad07be5eb6f",
+    "started_at": "2026-11-03T17:17:01.726002+00:00",
+    "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
+    "branch": "results/purevision-v5-next",
+    "status": "published",
+    "trigger": "scheduled",
+    "plan_identities": [
+      "44ca79ec3efbf2909bee5ca9280b4ca249f7651aa21992f575cc8914b146e79a"
+    ],
+    "changed": true,
+    "training_commits": [
+      "c09c602f1296994336c8d079435f835a7ccaa462"
+    ],
+    "verified_remote_commit": "98c0d873430611e690bb26bb90179fd3e35dacbe",
+    "finished_at": "2026-11-03T17:17:10.651789+00:00",
+    "all_terminal": false
+  }
 }

@@ -775,6 +775,12 @@
       "representation": "parsed_json"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/full_summary.json",
+      "source_sha256": "9c1a3c1885e7ed8f6be600219dad1276fa2f1c876841584e09f2c6941450b954",
+      "bytes": 3216,
+      "representation": "parsed_json"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/geometry_contract.json",
       "source_sha256": "e61c6e01636072ac2914c3771feeba0bf84072e9aa6a908d9dc5251a95cd1ad9",
       "bytes": 4787,
@@ -824,14 +830,14 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/last_astra.json",
-      "source_sha256": "aa334f60f36ab716b3096575446c0752bcc796e9bb8d5ebc3087d29d0da5b6cb",
-      "bytes": 4146,
+      "source_sha256": "30b7ec2baa25ef126f62605ad3de3577027a190446d64ef208198d73391369b3",
+      "bytes": 2745,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "6b97f26aab2d0437d1750b8c3875d75d030bd57a2f69075bb85704fe06fc59b5",
-      "bytes": 180112,
+      "source_sha256": "80e6dd76db311a32abc8f0b64f81b35932271d3cd0e3cab5086413960ee61788",
+      "bytes": 180111,
       "representation": "parsed_json"
     },
     {
@@ -842,14 +848,20 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publisher_schedule.json",
-      "source_sha256": "6e84075f5eb45e67112d8868f470f976438c1b79d4cbad1c8da87b35eada8cf7",
-      "bytes": 1425,
+      "source_sha256": "2ef6d948bc064a1354d3e71a67703cc3fad3bee5e92a184b18730078b0331b88",
+      "bytes": 2154,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/schedule.json",
-      "source_sha256": "c7628a84c36434fecd7dff3d1e99dfe70233d81a14d14f329d51ff181fef9580",
-      "bytes": 5712,
+      "source_sha256": "c7613f60e5f80127d88ec221522f5f4c60e0bea435d7b3ac8241ff4fae4f3531",
+      "bytes": 4249,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/full_geometry_ready.json",
+      "source_sha256": "32cb4ce2c664c5e105a0b3a2b67da6d5f43dd1c29511f3d6f484e60ca2f564f4",
+      "bytes": 3539,
       "representation": "parsed_json"
     },
     {
@@ -866,8 +878,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/GEOMETRY_FULL.json",
-      "source_sha256": "9fe5f78a6ce60b7c0de3bf03a891608cde73ffc273ae2bb68da8f1a52be84dc7",
-      "bytes": 218,
+      "source_sha256": "2f822d7935a6d3ad8d860ba7f758b3880de6e0c138808aba92af854171d5559a",
+      "bytes": 313,
       "representation": "parsed_json"
     },
     {
@@ -896,8 +908,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/status.json",
-      "source_sha256": "15b5e44947d37bd9ea553623e546bb1bae92754d8dc9b3f58526c5c43183ff12",
-      "bytes": 6210,
+      "source_sha256": "1c8dc76374c37588408bf7409981601352db36c585a405f6fa1f9d7cac7587f6",
+      "bytes": 6317,
       "representation": "parsed_json"
     },
     {
@@ -974,7 +986,7 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_geometry_20261104_0025_s23_geometry/summary.json",
-      "source_sha256": "0c1e1de18d30d981ea468423456e2b0ae26ab68377385f247494230e94a56eb2",
+      "source_sha256": "2502d9af7c9d4a2174361592a8c7c7b053382c8c4da1e23e2957d19e26028185",
       "bytes": 463976,
       "representation": "parsed_json"
     },
@@ -1360,8 +1372,8 @@
   "exports": [
     {
       "path": "README.md",
-      "export_sha256": "8b76550a571ed2f93882222e12fc31cd25620fbe7a4ea0ee661916053097501c",
-      "bytes": 1320
+      "export_sha256": "2efea546afe112350d1194aff9d0c5f00581f54ce994c64a7cc72dd8b7331b6f",
+      "bytes": 1325
     },
     {
       "path": "comparisons/encoder_comparison_20261031_r02_base_flex_s42/summary.json",
@@ -2315,8 +2327,13 @@
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/events/GEOMETRY_FULL.json",
-      "export_sha256": "9fe5f78a6ce60b7c0de3bf03a891608cde73ffc273ae2bb68da8f1a52be84dc7",
-      "bytes": 218
+      "export_sha256": "2f822d7935a6d3ad8d860ba7f758b3880de6e0c138808aba92af854171d5559a",
+      "bytes": 313
+    },
+    {
+      "path": "fusion_geometry/20261104_0025_s23_geometry/events/full_geometry_ready.json",
+      "export_sha256": "32cb4ce2c664c5e105a0b3a2b67da6d5f43dd1c29511f3d6f484e60ca2f564f4",
+      "bytes": 3539
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/events/pilot_gate.json",
@@ -2332,6 +2349,11 @@
       "path": "fusion_geometry/20261104_0025_s23_geometry/frozen_features/pilot_index.json",
       "export_sha256": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117",
       "bytes": 22162
+    },
+    {
+      "path": "fusion_geometry/20261104_0025_s23_geometry/full_summary.json",
+      "export_sha256": "9c1a3c1885e7ed8f6be600219dad1276fa2f1c876841584e09f2c6941450b954",
+      "bytes": 3216
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/geometry_contract.json",
@@ -2400,7 +2422,7 @@
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/reports/summary.json",
-      "export_sha256": "0c1e1de18d30d981ea468423456e2b0ae26ab68377385f247494230e94a56eb2",
+      "export_sha256": "2502d9af7c9d4a2174361592a8c7c7b053382c8c4da1e23e2957d19e26028185",
       "bytes": 463976
     },
     {
@@ -2415,23 +2437,23 @@
     },
     {
       "path": "monitoring/last_astra.json",
-      "export_sha256": "aa334f60f36ab716b3096575446c0752bcc796e9bb8d5ebc3087d29d0da5b6cb",
-      "bytes": 4146
+      "export_sha256": "30b7ec2baa25ef126f62605ad3de3577027a190446d64ef208198d73391369b3",
+      "bytes": 2745
     },
     {
       "path": "monitoring/last_astra.txt",
-      "export_sha256": "4c240ccd84b0ef55a935030508ac1e020936342811585d051775de9f8af817d2",
-      "bytes": 1416
+      "export_sha256": "79b97d95757adfcf142e7e9f7f3b7961f5628f48f264b31800c774aebd98e185",
+      "bytes": 1448
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "6b97f26aab2d0437d1750b8c3875d75d030bd57a2f69075bb85704fe06fc59b5",
-      "bytes": 180112
+      "export_sha256": "80e6dd76db311a32abc8f0b64f81b35932271d3cd0e3cab5086413960ee61788",
+      "bytes": 180111
     },
     {
-      "path": "monitoring/patrols/20261103T170001Z_569610.txt",
-      "export_sha256": "4c240ccd84b0ef55a935030508ac1e020936342811585d051775de9f8af817d2",
-      "bytes": 1416
+      "path": "monitoring/patrols/20261103T173001Z_575742.txt",
+      "export_sha256": "79b97d95757adfcf142e7e9f7f3b7961f5628f48f264b31800c774aebd98e185",
+      "bytes": 1448
     },
     {
       "path": "monitoring/probe_schedule.json",
@@ -2440,13 +2462,13 @@
     },
     {
       "path": "monitoring/publisher_schedule.json",
-      "export_sha256": "6e84075f5eb45e67112d8868f470f976438c1b79d4cbad1c8da87b35eada8cf7",
-      "bytes": 1425
+      "export_sha256": "2ef6d948bc064a1354d3e71a67703cc3fad3bee5e92a184b18730078b0331b88",
+      "bytes": 2154
     },
     {
       "path": "monitoring/schedule.json",
-      "export_sha256": "c7628a84c36434fecd7dff3d1e99dfe70233d81a14d14f329d51ff181fef9580",
-      "bytes": 5712
+      "export_sha256": "c7613f60e5f80127d88ec221522f5f4c60e0bea435d7b3ac8241ff4fae4f3531",
+      "bytes": 4249
     },
     {
       "path": "plans/20261104_0025_s23_geometry.json",
@@ -2455,13 +2477,13 @@
     },
     {
       "path": "plans/20261104_0025_s23_geometry_coordinator.json",
-      "export_sha256": "15b5e44947d37bd9ea553623e546bb1bae92754d8dc9b3f58526c5c43183ff12",
-      "bytes": 6210
+      "export_sha256": "1c8dc76374c37588408bf7409981601352db36c585a405f6fa1f9d7cac7587f6",
+      "bytes": 6317
     },
     {
       "path": "status.json",
-      "export_sha256": "9b2a4a28c7dfa3fa1bb7b26ae8f10dbf8069141faebf9e02bf00248946e9477e",
-      "bytes": 8117
+      "export_sha256": "1e86cafe5e6ff28b6ac9c10aee9aeb5e4fcdbed689a533893ce664107e0c620e",
+      "bytes": 8232
     }
   ],
   "note": "source_sha256 hashes source bytes (JSONL complete prefix); export_sha256 hashes the published representation. JSON may be reformatted; index excludes itself."

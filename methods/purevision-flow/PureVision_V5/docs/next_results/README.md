@@ -4,7 +4,7 @@
 
 | run ID | 阶段作业 | 状态 | 代码 commit | 光流已处理/总数 | dev EPE |
 |---|---|---|---|---|---|
-| 20261104_0025_s23_geometry_GEOMETRY_FULL | GEOMETRY_FULL | running | `c09c602f1296994336c8d079435f835a7ccaa462` | —/— | — |
+| 20261104_0025_s23_geometry_GEOMETRY_FULL | GEOMETRY_FULL | completed | `c09c602f1296994336c8d079435f835a7ccaa462` | —/132978 | — |
 | 20261104_0025_s23_geometry_PILOT_A | PILOT_A | completed | `c09c602f1296994336c8d079435f835a7ccaa462` | — | 0.3939757528186787 |
 | 20261104_0025_s23_geometry_PILOT_B | PILOT_B | completed | `c09c602f1296994336c8d079435f835a7ccaa462` | — | 0.39293955935015573 |
 | 20261104_0025_s23_geometry_FULL_A | FULL_A | completed | `c09c602f1296994336c8d079435f835a7ccaa462` | — | 0.17847165237392404 |

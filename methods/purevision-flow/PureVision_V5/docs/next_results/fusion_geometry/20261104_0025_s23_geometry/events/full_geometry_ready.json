@@ -1,0 +1,83 @@
+{
+  "status": "ready",
+  "plan_identity": "44ca79ec3efbf2909bee5ca9280b4ca249f7651aa21992f575cc8914b146e79a",
+  "cache": {
+    "scope": "full",
+    "index_sha256": "0ce4efae24288a5057e93341022182440cbdf597b246419627d60b35e6cf257d",
+    "identity": "9805c38b58a819787170b095029bc5b4da522645d2ad8c93db4e1063475a5b85",
+    "geometry_sha256": "e12b9c9e252aa8338c397c235ea72b0db1a926b93539a2af753bfe306e653f48",
+    "total": 132978,
+    "valid": 91593,
+    "coverage": 0.6887831069801019,
+    "reasons": {
+      "valid": 91593,
+      "endpoint_interval_approximation": 929,
+      "interval_out_of_range": 367,
+      "nonplanar_orientation_change": 1769,
+      "plane_normal_outside_local_road_range": 5963,
+      "normal_unobservable_near_pure_rotation": 28053,
+      "insufficient_reliable_metric_plane_points": 333,
+      "insufficient_joint_semantic_road": 114,
+      "plane_rotation_disagrees_with_pose": 3857
+    },
+    "feature_cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+    "source_flow_identity": "4b90d2df76987bc1cfcd37270546ffc8e76b3e1862392a75f6eb71959ed5d43e",
+    "source_model": {
+      "repository": "nvidia/segformer-b0-finetuned-cityscapes-1024-1024",
+      "revision": "21b3847fae21ddee674abd31129307b6a1235bd9",
+      "files": {
+        "config.json": {
+          "sha256": "649ba4afbaa11ee730b14ad5e31bd50f2e2d5be661a291e31a91512510dba8d9",
+          "bytes": 1680
+        },
+        "preprocessor_config.json": {
+          "sha256": "d96ab2cb112985c19d5ea32f1d1f2369104fc78b1379f5ce26e33ca8646202a7",
+          "bytes": 272
+        },
+        "pytorch_model.bin": {
+          "sha256": "027ed78d8ff9c535df5a66361c92b9673cca3cb923cbeb8c5802385b6b93194c",
+          "bytes": 14957601
+        }
+      }
+    },
+    "policy": {
+      "version": "v5_geometry_support_v1",
+      "max_points": 256,
+      "min_points": 32,
+      "segmentation_input_hw": [
+        576,
+        1024
+      ],
+      "road_class": 0,
+      "road_probability": 0.9,
+      "erosion_pixels": 1,
+      "homography_ransac_pixels": 0.5,
+      "min_homography_points": 60,
+      "max_homography_rotation_error_deg": 0.5,
+      "max_normal_tilt_deg": 10.0,
+      "min_translation_signal_px": 0.25,
+      "min_depth_m": 3.0,
+      "max_depth_m": 40.0,
+      "max_endpoint_interval_velocity_difference_m_s": 0.2,
+      "max_roll_pitch_change_deg": 0.5,
+      "min_pair_dt_s": 0.04,
+      "max_pair_dt_s": 0.15,
+      "spatial_strata_hw": [
+        16,
+        16
+      ],
+      "support": "source+warped-target frozen road probability, eroded boundaries; finite valid RAFT and independent planar coherence",
+      "plane": "visual homography decomposition selected by offline rotation and nominal upward sign; passes source ego ground projection",
+      "scale": "actual calibrated_sensor translation; ego origin ground projection per official devkit issue161",
+      "no_prediction_based_selection": true,
+      "missing_geometry": "invalid reason; all windows retained; padded points always masked"
+    },
+    "sample_keys_sha256": "f9f914786e8e0508b1644b40ca6f8647c806bf743e81af7250dd01eba35cb566",
+    "source_file_sha256": {
+      "prepare_fusion_geometry.py": "803860fa1b92d6376c8c7581de8e235692a5931982293efd522943fe23f5d83b",
+      "purevision_v5/fusion_geometry_prepare.py": "ac7324954f0a2c83eddcc38fd6eca83f5b6f35df9685b1240168a2c6b598f7bd",
+      "purevision_v5/fusion_geometry.py": "e6010b05d676340ad0801eb72fbf3952cb2789dd55df01ec5899077b49301c2c"
+    }
+  },
+  "time": "2026-11-03T17:38:46.687772+00:00"
+}
