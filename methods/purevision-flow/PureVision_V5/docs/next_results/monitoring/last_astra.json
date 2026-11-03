@@ -1,5 +1,5 @@
 {
-  "time_utc": "2026-11-03T04:00:33.371446+00:00",
+  "time_utc": "2026-11-03T05:00:42.497529+00:00",
   "trigger": "scheduled",
   "model": "gpt-6-astra",
   "exit_code": 0,
@@ -7,10 +7,10 @@
   "actual_shell_read_observed": true,
   "read_evidence": {
     "verified": true,
-    "request_id": "1ed0c4a06cb7d93413afd449c19f14b6",
+    "request_id": "f28b745c86bcb39b5594c0d5ee5c04eb",
     "required_targets": [
       {
-        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261103T040001Z_488605.snapshot.json",
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261103T050001Z_499353.snapshot.json",
         "run_id": null,
         "mode": "json_summary"
       },
@@ -37,44 +37,44 @@
     },
     "reads": [
       {
-        "request_id": "1ed0c4a06cb7d93413afd449c19f14b6",
-        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261103T040001Z_488605.snapshot.json",
+        "request_id": "f28b745c86bcb39b5594c0d5ee5c04eb",
+        "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261103T050001Z_499353.snapshot.json",
         "run_id": null,
         "status": "read_success",
-        "bytes_read": 169075,
-        "source_size": 169075,
+        "bytes_read": 169087,
+        "source_size": 169087,
         "read_scope": "full_json_summarized",
-        "sha256": "6b11c732da97fc91af2e69aad66d813152c550c5929295573df90824fdb18c42"
+        "sha256": "cd42181b647252cb3edce14d96979646909e43aaed4edb08320b0153528f831f"
       },
       {
-        "request_id": "1ed0c4a06cb7d93413afd449c19f14b6",
+        "request_id": "f28b745c86bcb39b5594c0d5ee5c04eb",
         "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json",
         "run_id": null,
         "status": "read_success",
         "bytes_read": 693,
         "source_size": 693,
         "read_scope": "head_at_most_24000_bytes",
-        "sha256": "72e66bd76eeeb2d0a6a5eb54fc16751f01aa0717ce22430ae6847aa8585b7e00"
+        "sha256": "ab34a4f83f941ef98ddd2179baf9da51485fe7553e287f74262b031d0c8f14a1"
       },
       {
-        "request_id": "1ed0c4a06cb7d93413afd449c19f14b6",
+        "request_id": "f28b745c86bcb39b5594c0d5ee5c04eb",
         "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/status.json",
         "run_id": "20261102_1545_fusion_confirm_tail_S23_TAIL_FT",
         "status": "read_success",
         "bytes_read": 992,
         "source_size": 992,
         "read_scope": "head_at_most_24000_bytes",
-        "sha256": "aed1195815679893c687fd26b322c737738563b1b82bdfffbe12549667b32039"
+        "sha256": "78110d2f0f6eeec1516be668bb90b822761624dd14c9cefa202f6c1368732c9c"
       },
       {
-        "request_id": "1ed0c4a06cb7d93413afd449c19f14b6",
+        "request_id": "f28b745c86bcb39b5594c0d5ee5c04eb",
         "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_TAIL_FT.json",
         "run_id": "20261102_1545_fusion_confirm_tail_S23_TAIL_FT",
         "status": "read_success",
         "bytes_read": 2219,
         "source_size": 2219,
         "read_scope": "head_at_most_24000_bytes",
-        "sha256": "5b2dbe7193c69071d5a4b0caa089729e7ea0c1125f33dd277822d9e6fc3e464c"
+        "sha256": "a83a945804b4cda835fd234dd229d7acabb7a485d9075f311c5c45152a9374e5"
       }
     ],
     "missing": []
@@ -82,7 +82,7 @@
   "run_ids": [
     "20261102_1545_fusion_confirm_tail_S23_TAIL_FT"
   ],
-  "answer": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261103T040001Z_488605.txt",
-  "log": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261103T040001Z_488605.log",
+  "answer": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261103T050001Z_499353.txt",
+  "log": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261103T050001Z_499353.log",
   "evidence_schema": "v5_patrol_read_evidence_v2"
 }
