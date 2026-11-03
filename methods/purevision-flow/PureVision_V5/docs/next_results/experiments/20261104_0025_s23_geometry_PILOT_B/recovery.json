@@ -1,0 +1,18 @@
+{
+  "schema": "v5_s23_geometry_recovery_v1",
+  "updated_at": "2026-11-03T16:57:16.143779+00:00",
+  "run_id": "20261104_0025_s23_geometry_PILOT_B",
+  "contract_hash": "886f6fc7c1e91692dc8c238190e9bbbba0a54028630600ddf46d90b16618ac4e",
+  "code_commit": "c09c602f1296994336c8d079435f835a7ccaa462",
+  "completed_epochs": 20,
+  "current": {
+    "path": "checkpoints/epoch_020.pt",
+    "sha256": "5a22b9f9d54bf9e0ba47daf44672237a03796a42880eac0234f3d3c4704e6f74"
+  },
+  "best": {
+    "path": "checkpoints/epoch_011.pt",
+    "sha256": "f5da0c5ec6e205b87cf11dd091d77403de6d375e432350cb9f031b8357c535d9"
+  },
+  "boundary": "validation_then_scheduler_then_advance_epoch_next_batch_zero",
+  "identity": "1f39102214ae81e753a58eb7f451f76ec34b2f807638ab07aa85d26512f8b034"
+}

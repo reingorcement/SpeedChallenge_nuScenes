@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "checks": {
+    "geometric_preflight": true,
+    "same_initialization": true,
+    "finite_training": true,
+    "actual_geometric_coverage": true,
+    "no_invalid_projected_depth": true,
+    "within_tolerance": true
+  },
+  "pilot_A_best": 0.3939757528186787,
+  "pilot_B_best": 0.39293955935015573,
+  "limit": 0.3979155103468655,
+  "rule": "B best all-dev EPE <= A best all-dev EPE *1.01; one pilot only; tolerance is not evidence of benefit",
+  "plan_identity": "44ca79ec3efbf2909bee5ca9280b4ca249f7651aa21992f575cc8914b146e79a",
+  "observed_at": "2026-11-03T16:57:18.143203+00:00"
+}

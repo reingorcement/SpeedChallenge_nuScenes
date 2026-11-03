@@ -1,6 +1,6 @@
 {
-  "status": "running",
-  "updated_at": "2026-11-03T16:56:43.283441+00:00",
+  "status": "completed",
+  "updated_at": "2026-11-03T16:57:18.295088+00:00",
   "launch_count": 1,
   "reason": null,
   "launched_at_epoch": 1793725001.4115915,
@@ -30,5 +30,14 @@
     "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/pilot"
   ],
   "child_pid": 568020,
-  "child_pid_start_ticks": 123991877
+  "child_pid_start_ticks": 123991877,
+  "epoch": null,
+  "elapsed_seconds": 31.732989074196666,
+  "cuda_peak_allocated_bytes": 346831360,
+  "processed_batches": 2300,
+  "optimizer_updates": 2300,
+  "amp_skips": 0,
+  "best_epoch": 11,
+  "exit_code": 0,
+  "finished_at": "2026-11-03T16:57:18.295068+00:00"
 }

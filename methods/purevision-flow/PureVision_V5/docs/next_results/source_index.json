@@ -848,8 +848,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/FULL_A.json",
-      "source_sha256": "32b86f22e9f8fceddfe5e00dc29edfea0f8942875f7c50f3c6aa3f4596e6a411",
-      "bytes": 116,
+      "source_sha256": "1c1cad28d5ddb16fb7d08a7a8e87e24665916a6d5b9d3b729466df2e7c0b4047",
+      "bytes": 1301,
       "representation": "parsed_json"
     },
     {
@@ -860,20 +860,26 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/GEOMETRY_FULL.json",
-      "source_sha256": "0a97b80c9aeaf51c75d2f440c91b79b0f608d9a18d0eaf6b6db5a2809284e446",
+      "source_sha256": "b7dbd073a5da4f4c69544f746472b94fb81d995e0ec16e8e2d7598ecd736d157",
       "bytes": 217,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/PILOT_A.json",
-      "source_sha256": "3c6706966cc811e51985520002648f5daa594a248e7c33b3269dca9b154a5445",
-      "bytes": 1302,
+      "source_sha256": "2194ed76e6541f2359020cc4dfaed5a232493ec9f10f86bcd77faee3cf766283",
+      "bytes": 1570,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/PILOT_B.json",
-      "source_sha256": "bae87909147f7eb48159db58c8afe0e9f613fd661f70b4f132ab4e20e9cf018c",
-      "bytes": 1413,
+      "source_sha256": "f7279564f750e8e610e8ea6d5a502742c191d71696fdaa51288fc4db78007a5b",
+      "bytes": 1682,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/pilot_gate.json",
+      "source_sha256": "772f7daf4231af7f78bb33435cac908f58700168bfdcdde8c133351a54a9b306",
+      "bytes": 609,
       "representation": "parsed_json"
     },
     {
@@ -884,8 +890,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/status.json",
-      "source_sha256": "917153be6c3750dbbc6f9fdb09a97e1af72c567cb09e97fc1b833b4fc5822766",
-      "bytes": 1405,
+      "source_sha256": "7b0b8f404b88cb178f01f236d07eb3560bee1641304ec3b91165dee46b18fe6c",
+      "bytes": 5902,
       "representation": "parsed_json"
     },
     {
@@ -925,15 +931,51 @@
       "representation": "original_markdown"
     },
     {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_geometry_20261104_0025_s23_geometry/axis_errors.csv",
+      "source_sha256": "ee90da7dfb59eb753cba5090f220f7d21b7b78957bf97fb71a345954ce53a668",
+      "bytes": 524,
+      "representation": "original_text"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_geometry_20261104_0025_s23_geometry/core_results.csv",
+      "source_sha256": "a977eb62e56c0f569c793595dfdc9f7a4a58afe07f16a2cd1979d1f712476bf6",
+      "bytes": 416,
+      "representation": "original_text"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_geometry_20261104_0025_s23_geometry/lateral.csv",
+      "source_sha256": "3437d34a87030708516caf3c945bf292a883b2f63362e6b54f3f8f66e6caf9c9",
+      "bytes": 1927,
+      "representation": "original_text"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_geometry_20261104_0025_s23_geometry/learning_curves.csv",
+      "source_sha256": "51eb34e3ba0b36454eedfbc8055766acec01fa8aaf64fe6656388106acf69411",
+      "bytes": 3129,
+      "representation": "original_text"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_geometry_20261104_0025_s23_geometry/per_scene.csv",
+      "source_sha256": "a0cf4231998fda6e8336ec78a47b68f4b79e874ba9e4763a2c069100962d8dcb",
+      "bytes": 3676,
+      "representation": "original_text"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_geometry_20261104_0025_s23_geometry/speed_bins.csv",
+      "source_sha256": "061643d6296f7a988a66e98dad971a0c4119f54e8aeee5121e283b0149a1b2a6",
+      "bytes": 1910,
+      "representation": "original_text"
+    },
+    {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_geometry_20261104_0025_s23_geometry/summary.json",
-      "source_sha256": "edb54dc384f11f32f867c56c53870e6c3943962045909c2b36d50ab19f576029",
-      "bytes": 6620,
+      "source_sha256": "fbb4dcfa6f427470b21c9e9abbd7ae7d46a884418a5037b28f30a13a22b31544",
+      "bytes": 97108,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_geometry_20261104_0025_s23_geometry/summary.md",
-      "source_sha256": "b8e2a402ec51a98862ed9af4a7735a47aba36c0800c4f12c9bcbdd76aada5e27",
-      "bytes": 1139,
+      "source_sha256": "6f780c678310db7ec42be5e3ada2b0bb9e5da07bb3c42cac814b2b7ce807c6e6",
+      "bytes": 2489,
       "representation": "original_text"
     },
     {
@@ -995,13 +1037,217 @@
       "source_sha256": "eaac74a784c528535e8d90a64f5af71a44d0b9dec64ecd0f352500d5fa2cebba",
       "bytes": 1069,
       "representation": "original_markdown"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/cache_identity.json",
+      "source_sha256": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117",
+      "bytes": 22162,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/config.json",
+      "source_sha256": "c821af69dc1af0314dbb89c660556a250188c606da5609eb9d3f366fde256005",
+      "bytes": 714,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/epoch_orders.json",
+      "source_sha256": "ce7ea7148e8fdc35de4c00fff13edb553d5a7727aa1871998c73163bb5e6547e",
+      "bytes": 199984,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/eval_dev/evaluation.json",
+      "source_sha256": "d81715eef9ed3fc1a6038894d8dae4f5e6b5a18bb9f1268ddf79eeb72e94a359",
+      "bytes": 1637,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/eval_dev/metrics.json",
+      "source_sha256": "6097ffc391f9cf0a6ea0eedcb00c522786e11cf7ed2b616f01e87483d10d160c",
+      "bytes": 7173,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/eval_dev/predictions.csv",
+      "source_sha256": "3d4f86438a949b0009887265e2104fb36d86d967669cb67154ffc63f040256ac",
+      "bytes": 259363,
+      "representation": "original_text"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/eval_train_core/evaluation.json",
+      "source_sha256": "27a5e1ae894afed16d053e8c58efd4b70135d328654e5c59cb9d729f367857f6",
+      "bytes": 1645,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/eval_train_core/metrics.json",
+      "source_sha256": "bbc3240ed39d65683753bb536f2cc9ce4d09dae1a1c70c0fe09815530528de17",
+      "bytes": 17146,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/eval_train_core/predictions.csv",
+      "source_sha256": "63b444fd7c400157f0dc5aa568c4971e01a33012894c8188f96a18e900a70b8d",
+      "bytes": 1050840,
+      "representation": "original_text"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/metrics.jsonl",
+      "source_sha256": "8fdbb04ade33271a314b65c28acaf2c6bd4474ebfa6bea3c3ffc383b69218cb5",
+      "bytes": 135604,
+      "representation": "complete_jsonl_records"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/metrics.jsonl",
+      "source_sha256": "8fdbb04ade33271a314b65c28acaf2c6bd4474ebfa6bea3c3ffc383b69218cb5",
+      "bytes": 135604,
+      "representation": "complete_jsonl_records"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/recovery.json",
+      "source_sha256": "4d43618f6260b5d585f1fca177d426caeac64ce1942c42d86d3c4dbe58d5d989",
+      "bytes": 761,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/result.json",
+      "source_sha256": "8137b69417a0f3c69c789b2e1db25f42246f712010767ee71cb76774d041fb13",
+      "bytes": 237683,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/run.json",
+      "source_sha256": "1b74bdfe2fa24276c854d683337f0997b140018dba99df2e8330e15b7d13c8c3",
+      "bytes": 36740,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/run.json",
+      "source_sha256": "1b74bdfe2fa24276c854d683337f0997b140018dba99df2e8330e15b7d13c8c3",
+      "bytes": 36740,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/status.json",
+      "source_sha256": "f5f1de762ef2105df0e059ca4110e546eecf9c20f51ab74bd4f7a78df27f5c96",
+      "bytes": 855,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/status.json",
+      "source_sha256": "f5f1de762ef2105df0e059ca4110e546eecf9c20f51ab74bd4f7a78df27f5c96",
+      "bytes": 855,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/cache_identity.json",
+      "source_sha256": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117",
+      "bytes": 22162,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/config.json",
+      "source_sha256": "f1ccf32967ca9e36c3b11535dd47ef2449854a0fad5b97b4c4aa1fe7f43bd649",
+      "bytes": 729,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/epoch_orders.json",
+      "source_sha256": "ce7ea7148e8fdc35de4c00fff13edb553d5a7727aa1871998c73163bb5e6547e",
+      "bytes": 199984,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/eval_dev/evaluation.json",
+      "source_sha256": "c10f3a0ad8fa64d71ff6e95ad2b8f2198516a8e12924eb61494fcf9c97def3d6",
+      "bytes": 1652,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/eval_dev/metrics.json",
+      "source_sha256": "0da06bb6b95b8805f0ec87f0d94cf379f0db6e9fea5ea485b6484eabb1676153",
+      "bytes": 7166,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/eval_dev/predictions.csv",
+      "source_sha256": "75931fa30c4bfa08e4e90f4677e03eead1ae383b5a2b5eb14b28fb070928aae0",
+      "bytes": 259916,
+      "representation": "original_text"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/eval_train_core/evaluation.json",
+      "source_sha256": "5b5d66064304a863156ce5541fbe373e43f4526a5f06fddf781cd3770962470c",
+      "bytes": 1660,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/eval_train_core/metrics.json",
+      "source_sha256": "41a283c7febb63068cd8a7a346ef0d3eb2cf72ad6f64a52e56dd5d4ec77ad5cd",
+      "bytes": 17111,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/eval_train_core/predictions.csv",
+      "source_sha256": "ad1cc905a06e7be4fae4633f84379e93f60d2d696c73c5b52582b0d8521c9b0d",
+      "bytes": 1052413,
+      "representation": "original_text"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/metrics.jsonl",
+      "source_sha256": "8ce89431b330df86136484c474d00b25993ef528b828ced1f4cbac8eab30e108",
+      "bytes": 136582,
+      "representation": "complete_jsonl_records"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/metrics.jsonl",
+      "source_sha256": "8ce89431b330df86136484c474d00b25993ef528b828ced1f4cbac8eab30e108",
+      "bytes": 136582,
+      "representation": "complete_jsonl_records"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/recovery.json",
+      "source_sha256": "1608337d06f9a8e04bd0e2a5aa0c9221fdd9bcac84414b7876b54980eb84fe88",
+      "bytes": 761,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/result.json",
+      "source_sha256": "00dedb20b7cc70590b8fa55ac57e9c87b42e7f00fd0161b4edcbad816daa7d17",
+      "bytes": 240691,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/run.json",
+      "source_sha256": "ce6816f43d13ff089bca9935a915ca020b886295eea17d60ec7a34216ba1a273",
+      "bytes": 43088,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/run.json",
+      "source_sha256": "ce6816f43d13ff089bca9935a915ca020b886295eea17d60ec7a34216ba1a273",
+      "bytes": 43088,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/status.json",
+      "source_sha256": "dea1dcd9b8c76777511c467a092d8bce2ae7c859714b2e44663ecc1d03eee4e5",
+      "bytes": 857,
+      "representation": "parsed_json"
+    },
+    {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/status.json",
+      "source_sha256": "dea1dcd9b8c76777511c467a092d8bce2ae7c859714b2e44663ecc1d03eee4e5",
+      "bytes": 857,
+      "representation": "parsed_json"
     }
   ],
   "exports": [
     {
       "path": "README.md",
-      "export_sha256": "27cf8b4a455b6edaab9619e41ba9b5179ddd726133ecc0870552d29924f414f4",
-      "bytes": 1266
+      "export_sha256": "d18a550cd2445edebf4ffe5ca1edd31ac0b02d7724978f0362fac33f8688e33c",
+      "bytes": 1302
     },
     {
       "path": "comparisons/encoder_comparison_20261031_r02_base_flex_s42/summary.json",
@@ -1690,8 +1936,8 @@
     },
     {
       "path": "experiments/20261104_0025_s23_geometry_FULL_A/job_status.json",
-      "export_sha256": "32b86f22e9f8fceddfe5e00dc29edfea0f8942875f7c50f3c6aa3f4596e6a411",
-      "bytes": 116
+      "export_sha256": "1c1cad28d5ddb16fb7d08a7a8e87e24665916a6d5b9d3b729466df2e7c0b4047",
+      "bytes": 1301
     },
     {
       "path": "experiments/20261104_0025_s23_geometry_FULL_A/planned_config.json",
@@ -1709,9 +1955,59 @@
       "bytes": 734
     },
     {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/cache_identity.json",
+      "export_sha256": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117",
+      "bytes": 22162
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/config.json",
+      "export_sha256": "c821af69dc1af0314dbb89c660556a250188c606da5609eb9d3f366fde256005",
+      "bytes": 714
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/epoch_orders.json",
+      "export_sha256": "ce7ea7148e8fdc35de4c00fff13edb553d5a7727aa1871998c73163bb5e6547e",
+      "bytes": 199984
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/eval_dev/evaluation.json",
+      "export_sha256": "d81715eef9ed3fc1a6038894d8dae4f5e6b5a18bb9f1268ddf79eeb72e94a359",
+      "bytes": 1637
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/eval_dev/metrics.json",
+      "export_sha256": "6097ffc391f9cf0a6ea0eedcb00c522786e11cf7ed2b616f01e87483d10d160c",
+      "bytes": 7173
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/eval_dev/predictions.csv",
+      "export_sha256": "3d4f86438a949b0009887265e2104fb36d86d967669cb67154ffc63f040256ac",
+      "bytes": 259363
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/eval_train_core/evaluation.json",
+      "export_sha256": "27a5e1ae894afed16d053e8c58efd4b70135d328654e5c59cb9d729f367857f6",
+      "bytes": 1645
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/eval_train_core/metrics.json",
+      "export_sha256": "bbc3240ed39d65683753bb536f2cc9ce4d09dae1a1c70c0fe09815530528de17",
+      "bytes": 17146
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/eval_train_core/predictions.csv",
+      "export_sha256": "63b444fd7c400157f0dc5aa568c4971e01a33012894c8188f96a18e900a70b8d",
+      "bytes": 1050840
+    },
+    {
       "path": "experiments/20261104_0025_s23_geometry_PILOT_A/job_status.json",
-      "export_sha256": "3c6706966cc811e51985520002648f5daa594a248e7c33b3269dca9b154a5445",
-      "bytes": 1302
+      "export_sha256": "2194ed76e6541f2359020cc4dfaed5a232493ec9f10f86bcd77faee3cf766283",
+      "bytes": 1570
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/metrics.jsonl",
+      "export_sha256": "8fdbb04ade33271a314b65c28acaf2c6bd4474ebfa6bea3c3ffc383b69218cb5",
+      "bytes": 135604
     },
     {
       "path": "experiments/20261104_0025_s23_geometry_PILOT_A/planned_config.json",
@@ -1719,14 +2015,104 @@
       "bytes": 714
     },
     {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/recovery.json",
+      "export_sha256": "4d43618f6260b5d585f1fca177d426caeac64ce1942c42d86d3c4dbe58d5d989",
+      "bytes": 761
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/result.json",
+      "export_sha256": "8137b69417a0f3c69c789b2e1db25f42246f712010767ee71cb76774d041fb13",
+      "bytes": 237683
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/run.json",
+      "export_sha256": "1b74bdfe2fa24276c854d683337f0997b140018dba99df2e8330e15b7d13c8c3",
+      "bytes": 36740
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_A/status.json",
+      "export_sha256": "f5f1de762ef2105df0e059ca4110e546eecf9c20f51ab74bd4f7a78df27f5c96",
+      "bytes": 855
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/cache_identity.json",
+      "export_sha256": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117",
+      "bytes": 22162
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/config.json",
+      "export_sha256": "f1ccf32967ca9e36c3b11535dd47ef2449854a0fad5b97b4c4aa1fe7f43bd649",
+      "bytes": 729
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/epoch_orders.json",
+      "export_sha256": "ce7ea7148e8fdc35de4c00fff13edb553d5a7727aa1871998c73163bb5e6547e",
+      "bytes": 199984
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/eval_dev/evaluation.json",
+      "export_sha256": "c10f3a0ad8fa64d71ff6e95ad2b8f2198516a8e12924eb61494fcf9c97def3d6",
+      "bytes": 1652
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/eval_dev/metrics.json",
+      "export_sha256": "0da06bb6b95b8805f0ec87f0d94cf379f0db6e9fea5ea485b6484eabb1676153",
+      "bytes": 7166
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/eval_dev/predictions.csv",
+      "export_sha256": "75931fa30c4bfa08e4e90f4677e03eead1ae383b5a2b5eb14b28fb070928aae0",
+      "bytes": 259916
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/eval_train_core/evaluation.json",
+      "export_sha256": "5b5d66064304a863156ce5541fbe373e43f4526a5f06fddf781cd3770962470c",
+      "bytes": 1660
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/eval_train_core/metrics.json",
+      "export_sha256": "41a283c7febb63068cd8a7a346ef0d3eb2cf72ad6f64a52e56dd5d4ec77ad5cd",
+      "bytes": 17111
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/eval_train_core/predictions.csv",
+      "export_sha256": "ad1cc905a06e7be4fae4633f84379e93f60d2d696c73c5b52582b0d8521c9b0d",
+      "bytes": 1052413
+    },
+    {
       "path": "experiments/20261104_0025_s23_geometry_PILOT_B/job_status.json",
-      "export_sha256": "bae87909147f7eb48159db58c8afe0e9f613fd661f70b4f132ab4e20e9cf018c",
-      "bytes": 1413
+      "export_sha256": "f7279564f750e8e610e8ea6d5a502742c191d71696fdaa51288fc4db78007a5b",
+      "bytes": 1682
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/metrics.jsonl",
+      "export_sha256": "8ce89431b330df86136484c474d00b25993ef528b828ced1f4cbac8eab30e108",
+      "bytes": 136582
     },
     {
       "path": "experiments/20261104_0025_s23_geometry_PILOT_B/planned_config.json",
       "export_sha256": "f1ccf32967ca9e36c3b11535dd47ef2449854a0fad5b97b4c4aa1fe7f43bd649",
       "bytes": 729
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/recovery.json",
+      "export_sha256": "1608337d06f9a8e04bd0e2a5aa0c9221fdd9bcac84414b7876b54980eb84fe88",
+      "bytes": 761
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/result.json",
+      "export_sha256": "00dedb20b7cc70590b8fa55ac57e9c87b42e7f00fd0161b4edcbad816daa7d17",
+      "bytes": 240691
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/run.json",
+      "export_sha256": "ce6816f43d13ff089bca9935a915ca020b886295eea17d60ec7a34216ba1a273",
+      "bytes": 43088
+    },
+    {
+      "path": "experiments/20261104_0025_s23_geometry_PILOT_B/status.json",
+      "export_sha256": "dea1dcd9b8c76777511c467a092d8bce2ae7c859714b2e44663ecc1d03eee4e5",
+      "bytes": 857
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/control_preflight.json",
@@ -1735,8 +2121,13 @@
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/events/GEOMETRY_FULL.json",
-      "export_sha256": "0a97b80c9aeaf51c75d2f440c91b79b0f608d9a18d0eaf6b6db5a2809284e446",
+      "export_sha256": "b7dbd073a5da4f4c69544f746472b94fb81d995e0ec16e8e2d7598ecd736d157",
       "bytes": 217
+    },
+    {
+      "path": "fusion_geometry/20261104_0025_s23_geometry/events/pilot_gate.json",
+      "export_sha256": "772f7daf4231af7f78bb33435cac908f58700168bfdcdde8c133351a54a9b306",
+      "bytes": 609
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/frozen_features/full_index.json",
@@ -1784,14 +2175,44 @@
       "bytes": 1515
     },
     {
+      "path": "fusion_geometry/20261104_0025_s23_geometry/reports/axis_errors.csv",
+      "export_sha256": "ee90da7dfb59eb753cba5090f220f7d21b7b78957bf97fb71a345954ce53a668",
+      "bytes": 524
+    },
+    {
+      "path": "fusion_geometry/20261104_0025_s23_geometry/reports/core_results.csv",
+      "export_sha256": "a977eb62e56c0f569c793595dfdc9f7a4a58afe07f16a2cd1979d1f712476bf6",
+      "bytes": 416
+    },
+    {
+      "path": "fusion_geometry/20261104_0025_s23_geometry/reports/lateral.csv",
+      "export_sha256": "3437d34a87030708516caf3c945bf292a883b2f63362e6b54f3f8f66e6caf9c9",
+      "bytes": 1927
+    },
+    {
+      "path": "fusion_geometry/20261104_0025_s23_geometry/reports/learning_curves.csv",
+      "export_sha256": "51eb34e3ba0b36454eedfbc8055766acec01fa8aaf64fe6656388106acf69411",
+      "bytes": 3129
+    },
+    {
+      "path": "fusion_geometry/20261104_0025_s23_geometry/reports/per_scene.csv",
+      "export_sha256": "a0cf4231998fda6e8336ec78a47b68f4b79e874ba9e4763a2c069100962d8dcb",
+      "bytes": 3676
+    },
+    {
+      "path": "fusion_geometry/20261104_0025_s23_geometry/reports/speed_bins.csv",
+      "export_sha256": "061643d6296f7a988a66e98dad971a0c4119f54e8aeee5121e283b0149a1b2a6",
+      "bytes": 1910
+    },
+    {
       "path": "fusion_geometry/20261104_0025_s23_geometry/reports/summary.json",
-      "export_sha256": "edb54dc384f11f32f867c56c53870e6c3943962045909c2b36d50ab19f576029",
-      "bytes": 6620
+      "export_sha256": "fbb4dcfa6f427470b21c9e9abbd7ae7d46a884418a5037b28f30a13a22b31544",
+      "bytes": 97108
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/reports/summary.md",
-      "export_sha256": "b8e2a402ec51a98862ed9af4a7735a47aba36c0800c4f12c9bcbdd76aada5e27",
-      "bytes": 1139
+      "export_sha256": "6f780c678310db7ec42be5e3ada2b0bb9e5da07bb3c42cac814b2b7ce807c6e6",
+      "bytes": 2489
     },
     {
       "path": "fusion_geometry/20261104_0025_s23_geometry/trainer_preflight.json",
@@ -1840,13 +2261,13 @@
     },
     {
       "path": "plans/20261104_0025_s23_geometry_coordinator.json",
-      "export_sha256": "917153be6c3750dbbc6f9fdb09a97e1af72c567cb09e97fc1b833b4fc5822766",
-      "bytes": 1405
+      "export_sha256": "7b0b8f404b88cb178f01f236d07eb3560bee1641304ec3b91165dee46b18fe6c",
+      "bytes": 5902
     },
     {
       "path": "status.json",
-      "export_sha256": "3b164a3d5b3499d2df7b3af7f528033bfef82ff77527cfa32c9ea372740fc43b",
-      "bytes": 3741
+      "export_sha256": "77f553e796d3a97e2b0870ed44d3c9adf66ed532419bd05f1926503a76094c3d",
+      "bytes": 6651
     }
   ],
   "note": "source_sha256 hashes source bytes (JSONL complete prefix); export_sha256 hashes the published representation. JSON may be reformatted; index excludes itself."
