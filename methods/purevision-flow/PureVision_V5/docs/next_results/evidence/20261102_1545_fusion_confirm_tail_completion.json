@@ -1,0 +1,14 @@
+{
+  "status": "completed",
+  "time": "2026-11-03T09:09:52.025035+00:00",
+  "plan_identity": "066efe6b79709d02c1880947c723b8443241a74a246048bf1aecea0b9090a8a6",
+  "schedules_removed": true,
+  "remaining_task_runs": 0,
+  "verified_report_commit": "8ae8ce682119f96f935ae44de0e24c58b0d9b02f",
+  "training_completed_at": "2026-11-03T06:26:17.278967+00:00",
+  "cleanup_reason": "Coordinator final publication retry failed; scheduled publisher subsequently completed and verified final report; root verified and removed remaining task schedules",
+  "crontab_backups": [
+    "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261103T090952.009329Z.txt",
+    "/home/zhangyu/.local/share/speedest-v5-next/monitoring/crontab_backups/20261103T090952.019170Z.txt"
+  ]
+}

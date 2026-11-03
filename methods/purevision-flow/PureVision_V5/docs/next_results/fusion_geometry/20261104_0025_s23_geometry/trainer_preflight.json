@@ -1,0 +1,26 @@
+{
+  "schema": "v5_s23_geometry_trainer_preflight_v1",
+  "status": "passed",
+  "time": "2026-11-03T16:44:31.906805+00:00",
+  "formal_training": false,
+  "actual_cached_train_windows": 64,
+  "actual_updates_per_attempt": 1,
+  "A_first_update_exact_historical_velocity_step": true,
+  "B_finite_nonzero_geometry_changes_update": true,
+  "same_initialization_and_actual_batches": true,
+  "initialization_sha256": "248db31faa66680b17a8f250e50067219981f07d59f2f04b8435497813306c3a",
+  "full_optimizer_scheduler_rng_boundary_restored": true,
+  "resumed_completed_epochs": 2,
+  "resumed_optimizer_updates": 2,
+  "partial_boundaries_rejected": true,
+  "stage_epochs": 20,
+  "pilot_updates": 2300,
+  "full_updates": 41560,
+  "source_sha256": {
+    "train_fusion_geometry.py": "acb6598b5657c5ecd69b07fa157970176d11a4d40e83c7ffaae13f53a3b815d8",
+    "purevision_v5/fusion_geometry_training.py": "fd3d478292d3cc43f5eb193b38f75d727d02be3824c7de3c9d91dfaca81c920e",
+    "purevision_v5/fusion_geometry_cache.py": "b70e306839320ba270fad6564efae6b424161f4b55b85eca1bd0dde2536eaa95",
+    "purevision_v5/fusion_geometry.py": "e6010b05d676340ad0801eb72fbf3952cb2789dd55df01ec5899077b49301c2c"
+  },
+  "script_sha256": "a82af7c3db0d2d517b0d63393663ce70358cd491b565159b2e3db26b6177b634"
+}

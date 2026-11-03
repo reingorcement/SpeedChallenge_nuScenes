@@ -1,0 +1,336 @@
+{
+  "schema": "v5_pipeline_v1",
+  "stage": "s23_geometry_ab_v1",
+  "prefix": "20261104_0025_s23_geometry",
+  "root": "/home/zhangyu/.local/share/speedest-v5-next",
+  "code_root": "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5",
+  "python": "/home/zhangyu/.conda/envs/speedest/bin/python",
+  "code": {
+    "commit": "c09c602f1296994336c8d079435f835a7ccaa462",
+    "dirty": false,
+    "verified_remote_commit": "c09c602f1296994336c8d079435f835a7ccaa462"
+  },
+  "code_commit": "c09c602f1296994336c8d079435f835a7ccaa462",
+  "jobs": [
+    {
+      "name": "PILOT_A",
+      "job_id": "20261104_0025_s23_geometry_PILOT_A",
+      "kind": "training",
+      "group": "S23",
+      "seed": 42,
+      "scope": "pilot",
+      "variant": "A",
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_PILOT_A.json",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A",
+      "device": null,
+      "physical_gpu": null,
+      "process_device": "cuda:0",
+      "allowed_gpu_indices": [
+        0,
+        1,
+        2
+      ],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/train_fusion_geometry.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_PILOT_A.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--lambda-proof",
+          "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/lambda.json",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "requires": [],
+      "after": [],
+      "session": "v5geo_20261104_0025_s23_geometry_PILOT_A",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261104_0025_s23_geometry_PILOT_A.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/PILOT_A.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_A/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ]
+    },
+    {
+      "name": "PILOT_B",
+      "job_id": "20261104_0025_s23_geometry_PILOT_B",
+      "kind": "training",
+      "group": "S23",
+      "seed": 42,
+      "scope": "pilot",
+      "variant": "B",
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_PILOT_B.json",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B",
+      "device": null,
+      "physical_gpu": null,
+      "process_device": "cuda:0",
+      "allowed_gpu_indices": [
+        0,
+        1,
+        2
+      ],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/train_fusion_geometry.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_PILOT_B.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42",
+          "--lambda-proof",
+          "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/lambda.json",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B",
+          "--device",
+          "cuda:0",
+          "--geometry",
+          "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/pilot"
+        ]
+      ],
+      "requires": [],
+      "after": [],
+      "session": "v5geo_20261104_0025_s23_geometry_PILOT_B",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261104_0025_s23_geometry_PILOT_B.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/PILOT_B.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_PILOT_B/status.json",
+          "field": "optimizer_updates",
+          "equals": 2300
+        }
+      ]
+    },
+    {
+      "name": "FULL_A",
+      "job_id": "20261104_0025_s23_geometry_FULL_A",
+      "kind": "training",
+      "group": "S23",
+      "seed": 42,
+      "scope": "full",
+      "variant": "A",
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_FULL_A.json",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_A",
+      "device": null,
+      "physical_gpu": null,
+      "process_device": "cuda:0",
+      "allowed_gpu_indices": [
+        0,
+        1,
+        2
+      ],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/train_fusion_geometry.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_FULL_A.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+          "--lambda-proof",
+          "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/lambda.json",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_A",
+          "--device",
+          "cuda:0"
+        ]
+      ],
+      "requires": [],
+      "after": [],
+      "session": "v5geo_20261104_0025_s23_geometry_FULL_A",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261104_0025_s23_geometry_FULL_A.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/FULL_A.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_A/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_A",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_A/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_A/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_A/status.json",
+          "field": "optimizer_updates",
+          "equals": 41560
+        }
+      ]
+    },
+    {
+      "name": "FULL_B",
+      "job_id": "20261104_0025_s23_geometry_FULL_B",
+      "kind": "training",
+      "group": "S23",
+      "seed": 42,
+      "scope": "full",
+      "variant": "B",
+      "config_path": "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_FULL_B.json",
+      "cache_root": "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+      "run_dir": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_B",
+      "device": null,
+      "physical_gpu": null,
+      "process_device": "cuda:0",
+      "allowed_gpu_indices": [
+        0,
+        1,
+        2
+      ],
+      "commands": [
+        [
+          "/home/zhangyu/.conda/envs/speedest/bin/python",
+          "-B",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/train_fusion_geometry.py",
+          "--config",
+          "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_FULL_B.json",
+          "--cache",
+          "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+          "--lambda-proof",
+          "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/lambda.json",
+          "--output",
+          "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_B",
+          "--device",
+          "cuda:0",
+          "--geometry",
+          "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/full"
+        ]
+      ],
+      "requires": [
+        "PILOT_A",
+        "PILOT_B",
+        "GEOMETRY_FULL"
+      ],
+      "after": [],
+      "session": "v5geo_20261104_0025_s23_geometry_FULL_B",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261104_0025_s23_geometry_FULL_B.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/FULL_B.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_B/status.json",
+      "fresh_output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_B",
+      "checks": [
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_B/status.json",
+          "field": "status",
+          "equals": "completed"
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_B/status.json",
+          "field": "completed_epochs",
+          "equals": 20
+        },
+        {
+          "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_B/status.json",
+          "field": "optimizer_updates",
+          "equals": 41560
+        }
+      ]
+    }
+  ],
+  "external_preparation": [
+    {
+      "name": "GEOMETRY_FULL",
+      "job_id": "20261104_0025_s23_geometry_GEOMETRY_FULL",
+      "kind": "geometry_cache",
+      "device": "cuda:0",
+      "run_dir": null,
+      "session": "geo_cache_external_20261104_0025_s23_geometry",
+      "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261104_0025_geometry_full_cache.log",
+      "status_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/GEOMETRY_FULL.json",
+      "progress_path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/jobs/GEOMETRY_FULL.json",
+      "commands": [],
+      "requires": [],
+      "after": [],
+      "checks": [],
+      "fresh_output": null
+    }
+  ],
+  "gpu_inventory": {
+    "0": {
+      "index": 0,
+      "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
+    },
+    "1": {
+      "index": 1,
+      "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+      "name": "NVIDIA GeForce RTX 5090"
+    },
+    "2": {
+      "index": 2,
+      "uuid": "GPU-b2986926-3ad1-16bc-f86c-28aae0c46598",
+      "name": "NVIDIA GeForce RTX 5090"
+    }
+  },
+  "features": null,
+  "features_status": null,
+  "geometry_root": "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry",
+  "geometry_preflight": "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/preflight/preflight.json",
+  "trainer_preflight": "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/trainer_preflight.json",
+  "control_preflight": "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/control_preflight.json",
+  "lambda_proof": "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/lambda.json",
+  "pilot_gate": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/pilot_gate.json",
+  "full_geometry_ready": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/full_geometry_ready.json",
+  "full_B_ready": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/full_B_ready.json",
+  "preparation": "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/preparation.json",
+  "report_root": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_geometry_20261104_0025_s23_geometry",
+  "completion_report": "/home/zhangyu/.local/share/speedest-v5-next/reports/fusion_geometry_20261104_0025_s23_geometry/summary.json",
+  "automation": "FULL_B requires completed pilotA/B, inclusive1% gate, nonzero valid geometry, full geometry cache and verified GitHub stage publication",
+  "stopping_rule": "No extra seed, lambda, epoch, structure or encoder training",
+  "locked_inputs": {
+    "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261104_0025_s23_geometry/spec.json": "7caee7c91374f667fed4f2f9b5770cc99dd0a010f5af55f0498e8951f288260e",
+    "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/preflight/preflight.json": "b87c7747e6e6aabac3e65ac16e6dd468e542aab385a418c4a67987810ca1745d",
+    "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/trainer_preflight.json": "240e3acf2ef14ae8671378ef446728d88459a95f10e6b12c599a87c157fa7d88",
+    "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/lambda.json": "1b4016fdd570b6464674d8b267449cfbc589b6db1f122a60c90378a7d3108476",
+    "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/preparation.json": "117c6c973669d497c353f3f76dd4737821d7278a3650e64269a1976f3c1528e8",
+    "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/control_preflight.json": "562d841759f315f78cf69825dc16520299a96a4e3fc6b0c65c02993eab9324d1",
+    "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/pilot/index.json": "bc35df2dae7f9f0387a227668e76d9b03c70358ce07851846d7972bfdf6da888",
+    "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/pilot/geometry.pt": "ebe0c1af621b21d4db39c20c40890fcfc4952f87961be0c055af5dc17498cff5",
+    "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/geometry_contract.json": "e61c6e01636072ac2914c3771feeba0bf84072e9aa6a908d9dc5251a95cd1ad9",
+    "/home/zhangyu/.local/share/speedest-v5-next/fusion_abc_cache/20261101_2129_fusion_abc_s42/index.json": "a22e6304a3b229f85615cd68b1b7903206f2fed530f4bb941673361492dec117",
+    "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42/index.json": "31bfa87b5ebe5b8b744c294a9c448592c215a18144c7e7ededa1880bfece02de",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_PILOT_A.json": "c821af69dc1af0314dbb89c660556a250188c606da5609eb9d3f366fde256005",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_PILOT_B.json": "f1ccf32967ca9e36c3b11535dd47ef2449854a0fad5b97b4c4aa1fe7f43bd649",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_FULL_A.json": "bea1d38517bf4355346f2a4d3d5762c4ef89c0fda8bbd6a52b2bc081b59328e2",
+    "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_FULL_B.json": "0a18389aefd1e5586a2236e5f9f4e48766607991559baee0c114cb0dba373b84"
+  },
+  "identity": "44ca79ec3efbf2909bee5ca9280b4ca249f7651aa21992f575cc8914b146e79a"
+}

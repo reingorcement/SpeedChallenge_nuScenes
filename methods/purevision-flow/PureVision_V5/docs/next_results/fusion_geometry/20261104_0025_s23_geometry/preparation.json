@@ -1,0 +1,32 @@
+{
+  "schema": "v5_geometry_preparation_receipt_v1",
+  "pid": 563053,
+  "pid_start_ticks": 123835896,
+  "command": [
+    "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "-B",
+    "prepare_fusion_geometry.py",
+    "--mode",
+    "full",
+    "--cache",
+    "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+    "--dataroot",
+    "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes",
+    "--flow",
+    "/mnt/sdb2/Workspace/zhangyu/dataset/nuscenes/derived/optical_flow/raft_large_C_T_SKHT_V2_1024x576_fwd_v1_20261030/packed_train_core_dev",
+    "--model",
+    "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/segformer_b0",
+    "--verification",
+    "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/preflight/preflight.json",
+    "--output",
+    "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/full",
+    "--device",
+    "cuda:0"
+  ],
+  "log_path": "/home/zhangyu/.local/share/speedest-v5-next/logs/20261104_0025_geometry_full_cache.log",
+  "source_checkout": "/mnt/sdb2/Workspace/zhangyu/01_speedest_vision_v5_next_dev/methods/purevision-flow/PureVision_V5",
+  "source_commit_when_preparation_started": "f1fb5402e559847eb4ea51554a69daf50b6bc7dd",
+  "source_state": "new geometry implementation before fixed publication; exact numerical files fingerprinted by preparation index and passed preflight",
+  "own_task_only": true,
+  "created_at": "2026-11-03T16:49:09.347237+00:00"
+}

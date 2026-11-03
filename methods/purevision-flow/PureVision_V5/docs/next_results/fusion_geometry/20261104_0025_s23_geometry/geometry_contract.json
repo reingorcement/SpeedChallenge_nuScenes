@@ -1,0 +1,97 @@
+{
+  "schema": "v5_s23_geometry_experiment_contract_v1",
+  "scope": "seed42 only; one pilot A/B then conditional full B and independent full A",
+  "frozen_encoder_sha256": "ab25fd6c4a7cd14a99a189f56e6b47913ed0f946a60cff2d0c9102479bc30ff8",
+  "initialization": "build_six(42)[S23], independent identical values/storage, no pilot or parent trained weights",
+  "sources": {
+    "K": "per-source calibrated_sensor camera_intrinsic, composed half-pixel resize1600x900 ->1024x576 ->128x72",
+    "dt": "actual source/target integer microseconds; historical feature dt unchanged and separately exactly validated",
+    "rotation": "source/target nuScenes ego_pose orientations; constant extra uncertain supervision, not model input",
+    "extrinsics": "per-source and per-target calibrated_sensor rotations and camera lever arms",
+    "plane": "source-frame road homography decomposition with independently observed ego rotation; no speed-prediction residual support selection",
+    "metric_scale": "plane through source ego ground projection, actual calibrated_sensor lever translation; local planar approximation",
+    "static_support": "fixed pretrained Cityscapes road class, source and warped-target erosion/probability plus flow-plane coherence",
+    "reliability": "finite existing RAFT valid and source/warped-target semantic consistency plus independent homography residual; valid is not semantic support",
+    "model": {
+      "repository": "nvidia/segformer-b0-finetuned-cityscapes-1024-1024",
+      "revision": "21b3847fae21ddee674abd31129307b6a1235bd9",
+      "weights_sha256": "027ed78d8ff9c535df5a66361c92b9673cca3cb923cbeb8c5802385b6b93194c"
+    },
+    "reference": "https://github.com/nutonomy/nuscenes-devkit/issues/161#issuecomment-508015958"
+  },
+  "finite_model": "Xct=R21*Xcs + Ct.T*(Rt.T*Rs*lever_source-lever_target) - dt*Ct.T*Rt.T*Yaw(target)[:,0:2]*predicted_vxy",
+  "units": {
+    "velocities": "m/s target yaw-plane ego ground-projection reference",
+    "flow": "pixels at128x72",
+    "residual": "flow_uv/(fx_dt,fy_dt), normalized image motion rate s^-1"
+  },
+  "loss": {
+    "velocity": "SmoothL1(pred/[5,1],target/[5,1],beta1,mean)",
+    "geometry": "SmoothL1(normalized flow residual,beta0.01); mean point+axis per valid window, zero invalid, mean ALL batch windows",
+    "lambda_rule": "one median initial output-gradient ratio, target10%, four fixed epoch0 pilot train batches",
+    "lambda_geo": 0.4452454566121366
+  },
+  "policy": {
+    "version": "v5_geometry_support_v1",
+    "max_points": 256,
+    "min_points": 32,
+    "segmentation_input_hw": [
+      576,
+      1024
+    ],
+    "road_class": 0,
+    "road_probability": 0.9,
+    "erosion_pixels": 1,
+    "homography_ransac_pixels": 0.5,
+    "min_homography_points": 60,
+    "max_homography_rotation_error_deg": 0.5,
+    "max_normal_tilt_deg": 10.0,
+    "min_translation_signal_px": 0.25,
+    "min_depth_m": 3.0,
+    "max_depth_m": 40.0,
+    "max_endpoint_interval_velocity_difference_m_s": 0.2,
+    "max_roll_pitch_change_deg": 0.5,
+    "min_pair_dt_s": 0.04,
+    "max_pair_dt_s": 0.15,
+    "spatial_strata_hw": [
+      16,
+      16
+    ],
+    "support": "source+warped-target frozen road probability, eroded boundaries; finite valid RAFT and independent planar coherence",
+    "plane": "visual homography decomposition selected by offline rotation and nominal upward sign; passes source ego ground projection",
+    "scale": "actual calibrated_sensor translation; ego origin ground projection per official devkit issue161",
+    "no_prediction_based_selection": true,
+    "missing_geometry": "invalid reason; all windows retained; padded points always masked"
+  },
+  "gradient": "only predicted vx/vy and existing S23 readout; all geometry masks/observations/calibration/depth/rotation detached",
+  "budget": {
+    "pilot_counts": [
+      7324,
+      1826
+    ],
+    "pilot_scenes": [
+      32,
+      8
+    ],
+    "full_counts": [
+      132978,
+      23480
+    ],
+    "full_scenes": [
+      582,
+      103
+    ],
+    "epochs": 20,
+    "batch64": true,
+    "pilot_updates": 2300,
+    "full_updates": 41560
+  },
+  "auto_gate": "passed short checks + finite nonzero constraint + no source/time errors + pilot B best all-dev EPE <= A best *1.01; real queued FULL_B waits full cache and remote stage publication",
+  "caveats": [
+    "Extra offline pose/geometric/semantic supervision is not excluded as a cause of improvement.",
+    "Pose is uncertain; plane and static semantics are approximations.",
+    "Endpoint instantaneous speed explains only last pair as short-interval approximation.",
+    "No CG offset is known; no label change or CG/true sideslip claim."
+  ],
+  "dependencies": "task-local transformers4.46.3/huggingface-hub0.26.5/safetensors0.4.5/tokenizers0.20.3, no base environment replacement"
+}
