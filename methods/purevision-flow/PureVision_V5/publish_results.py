@@ -285,6 +285,12 @@ def collect(root, plans):
     confirmation_ids = {row['run_id'] for row in confirmation_rows}
     rows = [row for row in rows if row['run_id'] not in confirmation_ids] + confirmation_rows
     sources.extend(confirmation_sources)
+    from collect_fusion_geometry import collect_public as collect_geometry
+    geometry_files,geometry_rows,geometry_sources=collect_geometry(root,plans)
+    files.update(geometry_files)
+    geometry_ids={row['run_id'] for row in geometry_rows}
+    rows=[row for row in rows if row['run_id'] not in geometry_ids]+geometry_rows
+    sources.extend(geometry_sources)
     summary = dict(schema="v5_next_public_report_v1", rows=rows,
                    all_terminal=bool(rows) and all(r["status"] in TERMINAL for r in rows),
                    limits=["PLANAR_PROXY labels; dev selection and dev recomputation are not held-out testing.",

@@ -1,0 +1,39 @@
+{
+  "schema": "v5_s23_geometry_config_v1",
+  "seed": 42,
+  "epochs": 20,
+  "batch_size": 64,
+  "drop_last": false,
+  "amp": false,
+  "tf32": false,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "betas": [
+    0.9,
+    0.999
+  ],
+  "optimizer_eps": 1e-08,
+  "grad_clip": 2,
+  "scheduler_epochs": 20,
+  "eta_min": 0,
+  "loss_scales_m_s": [
+    5,
+    1
+  ],
+  "loss_beta": 1,
+  "early_stopping": false,
+  "group": "S23",
+  "scope": "pilot",
+  "expected_counts": {
+    "train_core": 7324,
+    "dev": 1826
+  },
+  "expected_scene_counts": {
+    "train_core": 32,
+    "dev": 8
+  },
+  "variant": "A",
+  "lambda_geo": 0.4452454566121366,
+  "geometry_weight": 0.0,
+  "geometry_contract": "v5_geometry_support_v1"
+}
