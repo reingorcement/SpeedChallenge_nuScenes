@@ -1,6 +1,6 @@
 # S23几何训练约束 A/B
 
-状态：partial；固定提交 `c09c602f1296994336c8d079435f835a7ccaa462`。
+状态：completed；固定提交 `c09c602f1296994336c8d079435f835a7ccaa462`。
 
 
 
@@ -20,6 +20,8 @@
 
 | FULL_A | 19 | 0.178472 | 0.178734 | 0.09900051019431391 | 0.07947114217961013 |
 
+| FULL_B | 18 | 0.204955 | 0.207333 | 0.15013963684694462 | 0.05481492172571184 |
+
 
 
 pilot B−A：ΔEPE=-0.001036 m/s（-0.263%）；改善/退化场景=3/5。
@@ -30,7 +32,19 @@ pilot B−A：ΔEPE=-0.001036 m/s（-0.263%）；改善/退化场景=3/5。
 
 
 
+full B−A：ΔEPE=0.026483 m/s（14.839%）；改善/退化场景=12/91。
+
+10–15m/s：{'count': 1708, 'metrics': {'epe': {'delta': 0.04965949067458825, 'relative_percent': 14.260028965024214}, 'mae_vx': {'delta': 0.04989419943834078, 'relative_percent': 14.51787661943468}, 'mae_vy': {'delta': -0.00011284250997233708, 'relative_percent': -0.42140391359741286}, 'rmse_vx': {'delta': 0.10105482492003348, 'relative_percent': 16.90594640150795}, 'rmse_vy': {'delta': -2.6780890808354718e-05, 'relative_percent': -0.07789502512149199}, 'bias_vx': {'delta': -0.030003971461669082, 'relative_percent': 16.065164921265445}, 'bias_vy': {'delta': -0.006821049657591403, 'relative_percent': -97.20914093077023}}}。
+
+前三正贡献场景：[('scene-0504', 0.00019833426563348143), ('scene-0369', 0.00019353753488328748), ('scene-0713', 0.00016830641430816466)]；占净收益比例=-0.021152444925087038（其他场景退化抵消时可超过100%）。
+
+
+
 pilot自动扩大判断：passed；{'geometric_preflight': True, 'same_initialization': True, 'finite_training': True, 'actual_geometric_coverage': True, 'no_invalid_projected_depth': True, 'within_tolerance': True}。1%是筛选容忍度。
+
+
+
+完整集seed42：几何B未优于匹配A。不建议直接扩展seed，先审阅具体退化及几何近似。
 
 
 

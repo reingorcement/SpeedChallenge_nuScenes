@@ -8,7 +8,7 @@
 | 20261104_0025_s23_geometry_PILOT_A | PILOT_A | completed | `c09c602f1296994336c8d079435f835a7ccaa462` | — | 0.3939757528186787 |
 | 20261104_0025_s23_geometry_PILOT_B | PILOT_B | completed | `c09c602f1296994336c8d079435f835a7ccaa462` | — | 0.39293955935015573 |
 | 20261104_0025_s23_geometry_FULL_A | FULL_A | completed | `c09c602f1296994336c8d079435f835a7ccaa462` | — | 0.17847165237392404 |
-| 20261104_0025_s23_geometry_FULL_B | FULL_B | queued | `c09c602f1296994336c8d079435f835a7ccaa462` | — | — |
+| 20261104_0025_s23_geometry_FULL_B | FULL_B | completed | `c09c602f1296994336c8d079435f835a7ccaa462` | — | 0.20495455857265646 |
 
 训练作业目录包含实际配置、完整 epoch JSONL、状态与可用的 dev 评价；非训练作业包含 worker 状态及已生成的 progress_report.json。原始大日志、数据/光流和权重不上传。
 `source_index.json` 记录所读文件与摘要；`status.json` 记录 checkpoint 哈希和预测公开形式。

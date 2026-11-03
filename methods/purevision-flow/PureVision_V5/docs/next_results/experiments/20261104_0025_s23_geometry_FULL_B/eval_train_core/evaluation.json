@@ -1,0 +1,68 @@
+{
+  "schema": "v5_s23_geometry_evaluation_v1",
+  "status": "completed",
+  "partition": "train_core",
+  "count": 132978,
+  "checkpoint_sha256": "a787ba9ce676defb4d3e0b3419118f1485a05c25da66962030c50a2ffeeb0fed",
+  "training_run": "20261104_0025_s23_geometry_FULL_B",
+  "training_code": {
+    "commit": "c09c602f1296994336c8d079435f835a7ccaa462",
+    "dirty": false,
+    "verified_remote_commit": "c09c602f1296994336c8d079435f835a7ccaa462"
+  },
+  "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+  "contract_hash": "ffaf8bc2808838d99a7ebd4716764412c95bc83fad601d4edf870b7056933d6f",
+  "config": {
+    "schema": "v5_s23_geometry_config_v1",
+    "seed": 42,
+    "epochs": 20,
+    "batch_size": 64,
+    "drop_last": false,
+    "amp": false,
+    "tf32": false,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "optimizer_eps": 1e-08,
+    "grad_clip": 2,
+    "scheduler_epochs": 20,
+    "eta_min": 0,
+    "loss_scales_m_s": [
+      5,
+      1
+    ],
+    "loss_beta": 1,
+    "early_stopping": false,
+    "group": "S23",
+    "scope": "full",
+    "expected_counts": {
+      "train_core": 132978,
+      "dev": 23480
+    },
+    "expected_scene_counts": {
+      "train_core": 582,
+      "dev": 103
+    },
+    "variant": "B",
+    "lambda_geo": 0.4452454566121366,
+    "geometry_weight": 0.4452454566121366,
+    "geometry_contract": "v5_geometry_support_v1"
+  },
+  "reused_validation_predictions": false,
+  "full_train_inference_passes": 1,
+  "predictions_sha256": "82875222d9dd4f379f39970f9b3a02ab64a0a13dd3ba3357b07081d45d8100f3",
+  "completed_at": "2026-11-03T17:45:10.219611+00:00",
+  "data_scope": "full",
+  "scope": "frozen_s23_geometry_full",
+  "expected_counts": {
+    "train_core": 132978,
+    "dev": 23480
+  },
+  "expected_scene_counts": {
+    "train_core": 582,
+    "dev": 103
+  }
+}
