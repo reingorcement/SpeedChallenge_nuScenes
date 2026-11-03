@@ -1,0 +1,17 @@
+目标 `20261102_1545_fusion_confirm_tail_S23_TAIL_FT` 正常，无新增里程碑。指定命令成功退出，完成6项指定工件读取。
+
+实际读取路径（相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
+
+- `monitoring/astra/20261103T000001Z_444662.snapshot.json`
+- `monitoring/publication.json`
+- `runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/{run,status}.json`
+- `pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_TAIL_FT.json`
+- `logs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT.log`（指定尾部）
+
+host确定性检查：08:00快照确认父/子PID身份匹配且存活；GPU0利用率100%，显存36893/97887 MiB、86℃；工件盘剩余946 GB，缓存所在盘剩余17.43 TB，无低空间告警。范围内另7项已完成，unknown=0。
+
+本次AI诊断：已完成14轮，正在第15轮；状态累计步数29092，当前轮日志更新至30208，与attempted计数一致，不能据累计字段判断停训。最新验证EPE 0.178366，最佳0.178169；AMP跳步0，所读日志尾部未见异常。checkpoint距快照约32.6分钟，虽触发年龄提示，但训练仍在推进；损失波动不构成修改依据。
+
+人工定位建议：后续轮次结束时核对同run累计计数及checkpoint是否刷新；若仍不刷新，再检查保存日志。此次仅诊断，未修改任何内容或作业状态。
+
+ASTRA_PATROL_OK
