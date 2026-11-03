@@ -1,6 +1,6 @@
 # 完整数据三种子复核与 S23 新阶段20轮
 
-状态：**partial**；实验 `20261102_1545_fusion_confirm_tail`；新代码 `f1fb5402e559847eb4ea51554a69daf50b6bc7dd`。
+状态：**dev_ready**；实验 `20261102_1545_fusion_confirm_tail`；新代码 `f1fb5402e559847eb4ea51554a69daf50b6bc7dd`。
 
 A 仅统计原完整数据协议 seed42/43/44；B 是从 seed42 父 best19 开始的新20轮阶段，二者分别报告。
 
@@ -49,13 +49,27 @@ F23_minus_J23 在 50/103 个场景中三个seed均改善。净收益场景贡献
 | 组别 | 阶段best轮 | 阶段best dev | 阶段last dev | best train | 是否替换父模型 | epoch0含入后的选中轮 |
 |---|---:|---:|---:|---:|---|---:|
 | S23_FROZEN_CONT | 3 | 0.179102 | 0.179261 | 0.099592 | parent_epoch0 | 0 |
-| S23_TAIL_FT | pending | pending | pending | pending | pending | pending |
+| S23_TAIL_FT | 9 | 0.178169 | 0.178455 | pending | stage_best | 9 |
 
 | 对照（前者−后者） | Δdev EPE | 相对% | Δbest train EPE | 改善/退化场景 |
 |---|---:|---:|---:|---:|
 | S23_FROZEN_CONT_minus_parent_epoch0 | 0.000630 | 0.352919 | 0.000591 | 40/63 |
 
 S23_FROZEN_CONT_minus_parent_epoch0：10–15m/s 共 1708 个窗口，ΔEPE=0.005411，Δvx偏差=-0.017252。偏差变化需与绝对偏差共同查看，正变化本身不等于精度提升。
+
+| S23_TAIL_FT_minus_parent_epoch0 | -0.000303 | -0.169740 | pending | 47/56 |
+
+S23_TAIL_FT_minus_parent_epoch0 的前三贡献场景 scene-1014, scene-1095, scene-1024 占净收益 194.1%；占比受其他场景退化抵消影响，可能超过100%。
+
+
+S23_TAIL_FT_minus_parent_epoch0：10–15m/s 共 1708 个窗口，ΔEPE=-0.008607，Δvx偏差=0.017270。偏差变化需与绝对偏差共同查看，正变化本身不等于精度提升。
+
+| S23_TAIL_FT_minus_S23_FROZEN_CONT | -0.000933 | -0.520821 | pending | 58/45 |
+
+S23_TAIL_FT_minus_S23_FROZEN_CONT 的前三贡献场景 scene-0792, scene-0048, scene-0455 占净收益 57.9%；占比受其他场景退化抵消影响，可能超过100%。
+
+
+S23_TAIL_FT_minus_S23_FROZEN_CONT：10–15m/s 共 1708 个窗口，ΔEPE=-0.014018，Δvx偏差=0.034521。偏差变化需与绝对偏差共同查看，正变化本身不等于精度提升。
 
 
 ## 两轴、侧向与完整证据
@@ -72,6 +86,7 @@ S23_FROZEN_CONT_minus_parent_epoch0：10–15m/s 共 1708 个窗口，ΔEPE=0.00
 | J23_s44 | 0.184044/0.331866 | 0.016850/0.026558 | -0.018668/0.003003 | 0.235531/0.267421 | 0.000000 |
 | F23_s44 | 0.181459/0.340712 | 0.016638/0.026142 | -0.012796/0.001194 | 0.229518/0.262199 | 0.000000 |
 | S23_FROZEN_CONT_s42 | 0.175835/0.315150 | 0.017043/0.026244 | -0.017669/0.000981 | 0.230431/0.261085 | 0.000000 |
+| S23_TAIL_FT_s42 | 0.174990/0.314355 | 0.016773/0.026250 | -0.022094/-0.000369 | 0.231615/0.262459 | 0.000000 |
 
 侧向正/负方向偏差、恒零vy参照及各子集独立样本数见 lateral_diagnostics.csv。dev非零侧向仍为31窗口/5场景，**insufficient_data**。
 曲线数据见 learning_curves.csv；online train loss不是best-checkpoint完整train EPE。逐场景、速度段绝对值与配对差异均已导出；原始预测与checkpoint只引用路径及SHA，不重复推理。
