@@ -1,11 +1,18 @@
-指定命令成功（退出码 0），两份工件读取收据均为 `read_success`：
-- `/home/zhangyu/.local/share/speedest-v5-next/monitoring/astra/20261103T070001Z_518144.snapshot.json`
-- `/home/zhangyu/.local/share/speedest-v5-next/monitoring/publication.json`
+指定命令成功，5 个目标工件均有读取成功收据。全程只读，无修改或训练操作。
 
-宿主确定性检查：15:00:01 快照显示活跃作业 0、unknown 0；三张 GPU 利用率均为 0%，工件盘剩余约 945.55 GB，缓存盘剩余约 17434.22 GB，无低空间告警。
+实际读取路径（均相对 `/home/zhangyu/.local/share/speedest-v5-next/`）：
 
-本次 AI 诊断：这是无作业连接/读取探针，没有目标 run；不代表任何训练 run 已巡视或通过启动检查。无新增训练里程碑，未追加读取历史日志或 checkpoint。
+- `monitoring/astra/20261103T170001Z_569610.request.json`
+- `monitoring/astra/20261103T170001Z_569610.snapshot.json`
+- `monitoring/publication.json`
+- `runs/20261104_0025_s23_geometry_FULL_A/status.json`
+- `pipeline/20261104_0025_s23_geometry/jobs/FULL_A.json`
+- `pipeline/20261104_0025_s23_geometry/jobs/FULL_B.json`
 
-发现发布异常：`publication.json` 为 `pending`，记录 git push 连接超时。建议人工定位发布链路及网络连通性；该异常不等于训练停止。本次未修改任何代码、配置或作业状态。
+宿主确定性检查（北京时间 01:00:01）：FULL_A 父子 PID 身份核验且存活；checkpoint 距快照约 6.65 秒。GPU 1 利用率 15%、显存 6158 MiB、47℃；主盘剩余 944.49 GB，缓存所在另一磁盘剩余 17434.22 GB，无低空间告警。
+
+本次 AI 诊断：目标前缀 `20261104_0025_s23_geometry_` 下，FULL_A 从快照 24936 步推进至 27014 步，完成 13 轮、进入第 14 轮；快照 loss 0.00044067，最近验证及最佳 EPE 0.1856225，AMP 跳步 0。PILOT_A/B 均完成 20 轮、2300 步，最终 EPE 分别 0.418796、0.430024。目标日志异常摘要为空，commit 与请求一致。
+
+FULL_B 仍 queued、启动次数 0；PID unknown 保留待核实，不判终止，整体尚未完成。正常，无新增里程碑。暂无人工干预需要；若后续排队持续不推进，优先核对 FULL_B 作业文件及 DAG 依赖终态。
 
 ASTRA_PATROL_OK

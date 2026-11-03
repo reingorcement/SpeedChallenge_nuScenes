@@ -1,0 +1,1342 @@
+{
+  "schema": "v5_s23_geometry_run_v1",
+  "run_id": "20261104_0025_s23_geometry_FULL_A",
+  "group": "S23",
+  "status": "completed",
+  "started_at": "2026-11-03T16:57:44.333010+00:00",
+  "code": {
+    "commit": "c09c602f1296994336c8d079435f835a7ccaa462",
+    "dirty": false,
+    "verified_remote_commit": "c09c602f1296994336c8d079435f835a7ccaa462"
+  },
+  "contract": {
+    "config": {
+      "schema": "v5_s23_geometry_config_v1",
+      "seed": 42,
+      "epochs": 20,
+      "batch_size": 64,
+      "drop_last": false,
+      "amp": false,
+      "tf32": false,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "optimizer_eps": 1e-08,
+      "grad_clip": 2,
+      "scheduler_epochs": 20,
+      "eta_min": 0,
+      "loss_scales_m_s": [
+        5,
+        1
+      ],
+      "loss_beta": 1,
+      "early_stopping": false,
+      "group": "S23",
+      "scope": "full",
+      "expected_counts": {
+        "train_core": 132978,
+        "dev": 23480
+      },
+      "expected_scene_counts": {
+        "train_core": 582,
+        "dev": 103
+      },
+      "variant": "A",
+      "lambda_geo": 0.4452454566121366,
+      "geometry_weight": 0.0,
+      "geometry_contract": "v5_geometry_support_v1"
+    },
+    "cache_identity": "91c59d67deb83fe1be5370eacf49157e49bf2e938ab0c8e93be31f7a7a4c16ee",
+    "actual_sample_identity": {
+      "train_core": "fa316431393d7eb8761db63455ddf2dfa66fab7b913b847e90c4ef76f71ef584",
+      "dev": "e9aa3d9d32b75a83d49c3c34f470106d8963fa8456e3500b94c1d09abac8d9e2"
+    },
+    "scope": "frozen_s23_geometry_full",
+    "preflight_samples": null,
+    "output_units": "m/s",
+    "task": "PLANAR_PROXY",
+    "encoder_training": false,
+    "epoch_order_policy": "torch.randperm(cpu_generator(seed+zero_based_epoch)); historical unchanged",
+    "geometry_loss": "SmoothL1((forward_pixel_error)/(focal_pixels*actual_dt_s),beta=.01); valid-point/component mean per window then ALL window mean",
+    "geometry_training_only": true,
+    "geometry_supervision": "offline ego orientation, frozen pretrained semantics and calibrated geometric priors; imperfect extra supervision",
+    "endpoint_approximation": "last pair only; endpoint velocity times actual_dt; labels unchanged",
+    "data_scope": "full",
+    "cache_scope": "full",
+    "expected_counts": {
+      "train_core": 132978,
+      "dev": 23480
+    },
+    "expected_scene_counts": {
+      "train_core": 582,
+      "dev": 103
+    },
+    "partition_counts": {
+      "train_core": 132978,
+      "dev": 23480
+    },
+    "scene_counts": {
+      "train_core": 582,
+      "dev": 103
+    },
+    "lambda_proof_sha256": "1b4016fdd570b6464674d8b267449cfbc589b6db1f122a60c90378a7d3108476",
+    "geometry": null,
+    "lambda_calibration_initialization": "248db31faa66680b17a8f250e50067219981f07d59f2f04b8435497813306c3a"
+  },
+  "contract_hash": "309a8a3e02b9124895e852747d30f0701782a428e3a84ca4eaf526669a81acc1",
+  "environment": {
+    "python": "3.11.17 (main, Oct  1 2026, 20:17:42) [GCC 14.3.0]",
+    "executable": "/home/zhangyu/.conda/envs/speedest/bin/python",
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "hostname": "ps",
+    "cuda_visible_devices": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "gpu": [
+      "NVIDIA GeForce RTX 5090"
+    ]
+  },
+  "runtime_gpu": {
+    "process_device": "cuda:0",
+    "cuda_visible_devices": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "physical_index": 1,
+    "uuid": "GPU-5dbd27d5-0ae2-0ddc-ec5b-2077e99643e2",
+    "name": "NVIDIA GeForce RTX 5090"
+  },
+  "environment_difference": {},
+  "resume_trajectory_claim": "same protocol; cross-device/software restoration is not claimed bitwise identical",
+  "initialization": {
+    "policy": "historical_build_triplet_C_then_explicit_six_group_copy_v1",
+    "state_sha256": "248db31faa66680b17a8f250e50067219981f07d59f2f04b8435497813306c3a",
+    "common_modules_sha256": {
+      "layers": "04d7471594eb0cdf44ee47adb747c4360e499a0f33cef942016e0b395c7bc59a",
+      "head": "ed8d333dcf74e0789f843649144d1b7f26cfdcc5ffe07c2d1c3a5c3c4c20aa2a"
+    },
+    "seed": 42
+  },
+  "trainable_parameters": 101570,
+  "train_count": 132978,
+  "dev_count": 23480,
+  "arithmetic": {
+    "dtype": "float32",
+    "amp": false,
+    "tf32": false,
+    "gradient_accumulation": 1
+  },
+  "encoder_training": false,
+  "cache_placement": {
+    "train_core": {
+      "mode": "gpu_resident",
+      "bytes": 3747851952,
+      "available_gpu_bytes_at_load": 31829917696,
+      "reserved_workspace_bytes": 2147483648
+    },
+    "dev": {
+      "mode": "gpu_resident",
+      "bytes": 661760320,
+      "available_gpu_bytes_at_load": 28061335552,
+      "reserved_workspace_bytes": 2147483648
+    }
+  },
+  "command": {
+    "config": "/home/zhangyu/.local/share/speedest-v5-next/code/20261104_0025_s23_geometry_c09c602/methods/purevision-flow/PureVision_V5/configs/next/S23_GEOMETRY_FULL_A.json",
+    "cache": "/home/zhangyu/.local/share/speedest-v5-next/fusion_full_cache/20261102_0154_fusion_full_s42",
+    "output": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261104_0025_s23_geometry_FULL_A",
+    "geometry": null,
+    "lambda_proof": "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/lambda.json",
+    "device": "cuda:0",
+    "threads": 4,
+    "resume": null,
+    "preflight": false,
+    "preflight_samples": 64
+  },
+  "parent_run": null,
+  "discarded_attempts": [],
+  "recovery_boundary": "completed_epoch_only",
+  "variant": "A",
+  "geometry": null,
+  "lambda_proof": {
+    "schema": "v5_s23_geometry_lambda_v1",
+    "status": "passed",
+    "created_at": "2026-11-03T16:38:35.882356+00:00",
+    "scope": "pilot_train_only",
+    "seed": 42,
+    "target_gradient_ratio": 0.1,
+    "lambda_geo": 0.4452454566121366,
+    "rule": "median(0.1*L2(dL_vel/dprediction)/L2(dL_geo/dprediction)) of fixed first4 epoch0 batches",
+    "calibration_batches": [
+      {
+        "batch": 0,
+        "keys": [
+          [
+            "scene-0192",
+            "f7c1240888024d89bbad4508bf7b6f37"
+          ],
+          [
+            "scene-0514",
+            "417f87a453204f15869be3705cbad90e"
+          ],
+          [
+            "scene-0686",
+            "f9af8514dcba48ec9d411e471e371809"
+          ],
+          [
+            "scene-0639",
+            "e2381150d5b245c28338584edf9a75c0"
+          ],
+          [
+            "scene-0191",
+            "a8e310ac26e942c89b04b5f9d7c4cad9"
+          ],
+          [
+            "scene-0657",
+            "d53b65c689164db598f87b91f0b5cac8"
+          ],
+          [
+            "scene-0389",
+            "47bd3b2dca244b10b5cef01e04fc61fd"
+          ],
+          [
+            "scene-1049",
+            "f2d3f4f5efa3478aa442c63005f10fe5"
+          ],
+          [
+            "scene-0027",
+            "d7e3693ef7f542b694981c35e7b50b41"
+          ],
+          [
+            "scene-0639",
+            "a19196e20f1742c097082c8b762c60cb"
+          ],
+          [
+            "scene-1058",
+            "c0d3efdddfad470bbc12ab48dd0d9e72"
+          ],
+          [
+            "scene-0875",
+            "fdd0ae9fb15e4cc49c646a9294e98268"
+          ],
+          [
+            "scene-0535",
+            "6a139fedf8f34e28b99dc860a3e754e3"
+          ],
+          [
+            "scene-0253",
+            "27bd312e7dc547a6a3e58af5b00f3783"
+          ],
+          [
+            "scene-0011",
+            "bd3b5a16a3574bd48cc12506cdc3ad36"
+          ],
+          [
+            "scene-0239",
+            "24d4e5fbf3a24b3ab0e617cea2d971bb"
+          ],
+          [
+            "scene-0875",
+            "3abcba9c573641e0bdc5f69d6be4fae2"
+          ],
+          [
+            "scene-0406",
+            "23235ca1fbf24b4b8b8b1e662de9c095"
+          ],
+          [
+            "scene-0639",
+            "376b188e2cfe4389a19a0d118525b5a3"
+          ],
+          [
+            "scene-0192",
+            "4b4dbe2977624ce6b8f9b2f992aeed6d"
+          ],
+          [
+            "scene-0243",
+            "fca0d67404834d66a57c0b3d33b005ad"
+          ],
+          [
+            "scene-0192",
+            "2560b1948767405bb798e7fc0e0e8866"
+          ],
+          [
+            "scene-0866",
+            "777120ec36344bcebec3719c6459e639"
+          ],
+          [
+            "scene-0002",
+            "ad867d9f2f3741388c1419760a92db15"
+          ],
+          [
+            "scene-0002",
+            "4c41edaef2ce45d2b0d47caaddb40a46"
+          ],
+          [
+            "scene-0803",
+            "058a443fa6be40a992ab6ffc72c22c64"
+          ],
+          [
+            "scene-0253",
+            "109fa7a511724206b6626d0ef1c65db4"
+          ],
+          [
+            "scene-0389",
+            "47b3fccaeb694ade80aa61dcecb38ef1"
+          ],
+          [
+            "scene-0670",
+            "a82764884af840169462ad72b0643fdc"
+          ],
+          [
+            "scene-0433",
+            "a37b8d7cd15d4860b4d4ab8a15100238"
+          ],
+          [
+            "scene-0053",
+            "64453c85fa7f44d497688bb0d6250e67"
+          ],
+          [
+            "scene-1090",
+            "948056d9e70a4e459814d2cadab2ad18"
+          ],
+          [
+            "scene-0868",
+            "3fc70c186dcf4be79ffdfdac2b2a718a"
+          ],
+          [
+            "scene-0389",
+            "4f064d4c7dbb4bd8941d71cee0d95a43"
+          ],
+          [
+            "scene-0875",
+            "6d826f536be74ef3a511c989c06d053e"
+          ],
+          [
+            "scene-0804",
+            "662374c7827c423f97f83a8d508b0447"
+          ],
+          [
+            "scene-0002",
+            "42da6a3503094c07b4ac8866e254ec3e"
+          ],
+          [
+            "scene-0002",
+            "73a6d12088e94f60ae26dd883e23bec7"
+          ],
+          [
+            "scene-0389",
+            "33e6259d87994862bf2a0b84b4f1e004"
+          ],
+          [
+            "scene-0866",
+            "13167d6ad7df4d9c80651ee3894d6da4"
+          ],
+          [
+            "scene-0406",
+            "5f9f78f610b046b2a0baf2b65d136d6c"
+          ],
+          [
+            "scene-0002",
+            "29d365b63a97407486fd166f705f2e4d"
+          ],
+          [
+            "scene-0253",
+            "67e251afff4049749d5617f0b7747203"
+          ],
+          [
+            "scene-0514",
+            "398583be969b46bd846e32c23ead9b93"
+          ],
+          [
+            "scene-0002",
+            "f89d52d52ac34efab769906e60fda64c"
+          ],
+          [
+            "scene-0577",
+            "f9a034e8d67a4a819a4aaabc4b7a0049"
+          ],
+          [
+            "scene-0191",
+            "8fbaf7636d0041c6ad310ceb98ee29d9"
+          ],
+          [
+            "scene-0239",
+            "1ba6c91b342440789307e1d4231ce2b8"
+          ],
+          [
+            "scene-0657",
+            "77036ae2d5ea40f083de82ccc42e2db7"
+          ],
+          [
+            "scene-0657",
+            "b8971b5b44ed4d7488475dfd06f1016c"
+          ],
+          [
+            "scene-0868",
+            "cb86d7e36b014d66914c5a2ebacc55f4"
+          ],
+          [
+            "scene-0053",
+            "7cf584834d46414dbde630759e75ab22"
+          ],
+          [
+            "scene-0803",
+            "3ea98d6d5c0c4f3f94da97508b36a697"
+          ],
+          [
+            "scene-0657",
+            "1146770399c34718bfdc7125577a2764"
+          ],
+          [
+            "scene-0192",
+            "cf9657d9ce3748338ec2f1e36beb6f9c"
+          ],
+          [
+            "scene-0648",
+            "4bb4189f44954345ac47fd7cfe11c809"
+          ],
+          [
+            "scene-0803",
+            "55ea93dc0c9a4ad4bedbf2f2420767af"
+          ],
+          [
+            "scene-0868",
+            "6ebfe9f669ff44a98790a67ed90aa879"
+          ],
+          [
+            "scene-0027",
+            "38ddc7d4f0bc4d5a8548af91d8f121c7"
+          ],
+          [
+            "scene-0002",
+            "51e268c222b442b1b4151a2b3300d186"
+          ],
+          [
+            "scene-0577",
+            "183fd7df659d4f83973c04881f53bcab"
+          ],
+          [
+            "scene-0076",
+            "2c0672f84c6744f5a56647cbb79870c4"
+          ],
+          [
+            "scene-0076",
+            "121a1529a61445278193083bc15a8d69"
+          ],
+          [
+            "scene-0657",
+            "28200a00c4a44de4a6e377d2002a0677"
+          ]
+        ],
+        "velocity_gradient_l2": 0.01451463345438242,
+        "geometry_gradient_l2": 0.003186786314472556,
+        "lambda_candidate": 0.4554630283325016,
+        "velocity_loss": 0.30748528242111206,
+        "geometry_loss": 0.12798252701759338,
+        "valid_windows": 42
+      },
+      {
+        "batch": 1,
+        "keys": [
+          [
+            "scene-0053",
+            "3f20a0312e0b41c980321c9e1dddcfde"
+          ],
+          [
+            "scene-0577",
+            "1628f716750b44b580bb542e1f59c00f"
+          ],
+          [
+            "scene-0002",
+            "3aec48fc5950467ebcb40517c0421395"
+          ],
+          [
+            "scene-0670",
+            "7c76e641d2b74facb22b34f1d1e77bef"
+          ],
+          [
+            "scene-0352",
+            "5288b1d66ce04814bea412fb617d2eeb"
+          ],
+          [
+            "scene-0192",
+            "f002aee9a55f40448864f44544d9abf7"
+          ],
+          [
+            "scene-0002",
+            "e93f9c176a454b1c949b605203b0193b"
+          ],
+          [
+            "scene-0998",
+            "6d6cf132c90e4266bf569624a804e4be"
+          ],
+          [
+            "scene-0239",
+            "82039d2b402d482d9e09437c4428cbae"
+          ],
+          [
+            "scene-0239",
+            "9451ed0134c44222842df209904ecc45"
+          ],
+          [
+            "scene-0875",
+            "1db74673acf341d3a2165a776845f143"
+          ],
+          [
+            "scene-0535",
+            "3eb091d41bc8407da27c8847f1d4e071"
+          ],
+          [
+            "scene-0875",
+            "fd7b447baf9845c3ba00cbe99b0bf7e8"
+          ],
+          [
+            "scene-0868",
+            "419becb09d234badafcc4d5a03b25407"
+          ],
+          [
+            "scene-0389",
+            "ca4f878b20f347aba33e5438d6ec87c9"
+          ],
+          [
+            "scene-1090",
+            "88094575322e4fbeb00e3c15049825c5"
+          ],
+          [
+            "scene-0514",
+            "9c3c530ec3fd4470a6a80208254f3dd7"
+          ],
+          [
+            "scene-1049",
+            "3b9beb8dd1584779a52a10e170937569"
+          ],
+          [
+            "scene-0433",
+            "82c1bae9aa594692a6ed45575634854c"
+          ],
+          [
+            "scene-0998",
+            "8a3de597ad5b48e98a2b602bb8f15a46"
+          ],
+          [
+            "scene-0238",
+            "ea36738e9a894d57a79bba6afcc7c96a"
+          ],
+          [
+            "scene-0998",
+            "5f4c38c9627f44c68fdbbd4a3e2fa7cd"
+          ],
+          [
+            "scene-1058",
+            "d88af4d61e4c4d92a588ee848f777ffc"
+          ],
+          [
+            "scene-0053",
+            "c0163a5a5159489993f2af3b608dcba1"
+          ],
+          [
+            "scene-0243",
+            "75e3e0b7bc664dd3b14763cbfad84a37"
+          ],
+          [
+            "scene-0191",
+            "2131f4613b0a41b0b0a02b7083169760"
+          ],
+          [
+            "scene-0433",
+            "7beaca3f23de49aa8b155b850a900068"
+          ],
+          [
+            "scene-0875",
+            "cf69e4d4fb1a41fca707a91b59d1ae1a"
+          ],
+          [
+            "scene-0076",
+            "8cb95f8bfa014a6e82463743590be16b"
+          ],
+          [
+            "scene-0053",
+            "385dd7a22af54c709e535aed205c3981"
+          ],
+          [
+            "scene-0389",
+            "75c773b09b1845a1b5d8f80971e667fd"
+          ],
+          [
+            "scene-0406",
+            "0ccb8d4ed1db4ddb9eafaafe6aa18c06"
+          ],
+          [
+            "scene-0011",
+            "bdb6a11ad6a245e3b891fdcfcf34a724"
+          ],
+          [
+            "scene-0239",
+            "6d04b596404246dc95d270640739a6ea"
+          ],
+          [
+            "scene-0238",
+            "3053b29ea8c84a36afa0f3189a11890d"
+          ],
+          [
+            "scene-0514",
+            "8be197500c924ce19aae57e6fd38ec8d"
+          ],
+          [
+            "scene-0238",
+            "9c0d44d8d802485493df11d8e5ea707e"
+          ],
+          [
+            "scene-0577",
+            "5704f96eaea74457a6c2a3cf25456e8a"
+          ],
+          [
+            "scene-0192",
+            "ed153293f8c14c3084528a6ab30e287a"
+          ],
+          [
+            "scene-0639",
+            "383215add1b14d62a5a6ee37964d39d2"
+          ],
+          [
+            "scene-0535",
+            "6539aab4fac341f1ab7acb7a6fc4e306"
+          ],
+          [
+            "scene-0998",
+            "1d0297fee3014966940c005eeb8a4ad2"
+          ],
+          [
+            "scene-0191",
+            "9ba258be132344a8b0308c59c0eeb984"
+          ],
+          [
+            "scene-0514",
+            "8211c916645b4848b5b681e6c7006550"
+          ],
+          [
+            "scene-0406",
+            "1e50b0112ad841179c53a539b700ebfe"
+          ],
+          [
+            "scene-0686",
+            "df34c25520ef44fa95efce0e27d81aaf"
+          ],
+          [
+            "scene-0192",
+            "dc69952600164c4892762035163a84a6"
+          ],
+          [
+            "scene-0053",
+            "fdc4384442454b7995fb35ed8dc3f20d"
+          ],
+          [
+            "scene-1090",
+            "28bce6a94a5d4f0fbefac5b4223f2e2a"
+          ],
+          [
+            "scene-0002",
+            "d3bf826ec5f745799f913774594e889d"
+          ],
+          [
+            "scene-0192",
+            "e3e708e76c1c4ce397626eecee115b8d"
+          ],
+          [
+            "scene-0875",
+            "bae0a12e444a44d3981a05623e738975"
+          ],
+          [
+            "scene-0002",
+            "e346498c5f034aed87ed52adad107ce5"
+          ],
+          [
+            "scene-0639",
+            "2061fd3a315b40f3a9650b5598fac8e7"
+          ],
+          [
+            "scene-0535",
+            "eaccab8adc6f4b39b04b7367a52f56ed"
+          ],
+          [
+            "scene-0514",
+            "327a45903324483091628bb2ebe1025e"
+          ],
+          [
+            "scene-0243",
+            "1f6ae36d5b134b2b8c857d83dbc6ca19"
+          ],
+          [
+            "scene-0191",
+            "8b1aedfad2b546c99e662c4b44871910"
+          ],
+          [
+            "scene-0027",
+            "f236e876d9654aeaa70f436857a00d36"
+          ],
+          [
+            "scene-0192",
+            "d04660e9f5fd492e80d72f33b2731883"
+          ],
+          [
+            "scene-0192",
+            "0cbb0e8190d5452e99a242ad368bd3ae"
+          ],
+          [
+            "scene-0253",
+            "2157ea2cbc8443bfa8f91865636dfe16"
+          ],
+          [
+            "scene-0866",
+            "48c84b4663644ebfba32fdd9fa25770d"
+          ],
+          [
+            "scene-0239",
+            "519bb07aa8894fce87ad8ba077cad51f"
+          ]
+        ],
+        "velocity_gradient_l2": 0.01509671937674284,
+        "geometry_gradient_l2": 0.0032699217554181814,
+        "lambda_candidate": 0.46168442262350595,
+        "velocity_loss": 0.2733646035194397,
+        "geometry_loss": 0.10678138583898544,
+        "valid_windows": 38
+      },
+      {
+        "batch": 2,
+        "keys": [
+          [
+            "scene-0076",
+            "cfc7116a0bb9483a9bc99c97f290c8a0"
+          ],
+          [
+            "scene-0670",
+            "319ceda4f954446881402d6d8524bb48"
+          ],
+          [
+            "scene-0868",
+            "7a588efd46bc45a59d06025b4ada9525"
+          ],
+          [
+            "scene-0191",
+            "75dfa94a91144e7293dbc7b987f6003c"
+          ],
+          [
+            "scene-0053",
+            "ab699a9fe94c4fb28a6040d851c3077e"
+          ],
+          [
+            "scene-0238",
+            "8bd93761b1994c2ba7abe1b2f11fc698"
+          ],
+          [
+            "scene-0686",
+            "613ea299eb294fc7a29fc5e372549d9f"
+          ],
+          [
+            "scene-0406",
+            "2ab4baf7b6af4db6a247d2e1c5556256"
+          ],
+          [
+            "scene-0433",
+            "600ebee1a64649bc943fdc203a9eb24d"
+          ],
+          [
+            "scene-0352",
+            "289df893d1e947c6aa43063ee7941fa7"
+          ],
+          [
+            "scene-1049",
+            "405b48b078094a3cbfdb4cdbdb02ddd8"
+          ],
+          [
+            "scene-0053",
+            "5afb3ff0b6314593941c58964a4424bc"
+          ],
+          [
+            "scene-1049",
+            "ee3f757ca7dd4dbb8764d84db8e952a5"
+          ],
+          [
+            "scene-0535",
+            "92a6bb8f48dd41bfa7445b631c79be17"
+          ],
+          [
+            "scene-0648",
+            "7a7e14c8660348cb92c9941ddea4b0af"
+          ],
+          [
+            "scene-0803",
+            "0d64bb49cc144a6288393e7874f1aacf"
+          ],
+          [
+            "scene-0239",
+            "2a0e6d7c968642e99277a5d8a55fbd0c"
+          ],
+          [
+            "scene-0535",
+            "59f1e3e94fb444058761343e626ee52b"
+          ],
+          [
+            "scene-0648",
+            "4e15db8d9e1f493eb46f5f7810b0b9dd"
+          ],
+          [
+            "scene-0239",
+            "88caed9f5af144dea66462fc01c024f3"
+          ],
+          [
+            "scene-0027",
+            "316daf7f54ad4679a708b0ca330c0bcd"
+          ],
+          [
+            "scene-0535",
+            "b97faa5dcf9945ea955ae770d0336daa"
+          ],
+          [
+            "scene-0804",
+            "829b3d297cc147ae997585b0020a525b"
+          ],
+          [
+            "scene-0253",
+            "40efeba7da214c6ba87d05dddac10ac0"
+          ],
+          [
+            "scene-0875",
+            "96e25fe4544145f98801ce7ba9861a48"
+          ],
+          [
+            "scene-0011",
+            "c51de0fadd7e4d91a9bfa505b19fbb49"
+          ],
+          [
+            "scene-0191",
+            "2e923686144d440b9630c3851ea81f42"
+          ],
+          [
+            "scene-0389",
+            "5c983a2b861b465db11da5b37b64b20a"
+          ],
+          [
+            "scene-0804",
+            "b99d216a6600462d81cb4f243ad5c4b6"
+          ],
+          [
+            "scene-0875",
+            "61f03e9c8a5e458fa0d28383e64d285a"
+          ],
+          [
+            "scene-0577",
+            "b4a62369b0a7486ea930a77f5a988c09"
+          ],
+          [
+            "scene-0868",
+            "9fddc7511d7e45debcb8d61d7a2f3fc7"
+          ],
+          [
+            "scene-0535",
+            "cb0c6891b801456daa303871e87e47e3"
+          ],
+          [
+            "scene-1090",
+            "f9e392056cfd4d6dbfc1ce7b295f7167"
+          ],
+          [
+            "scene-0639",
+            "ec7769adbbc444adb4bb7e98c596978a"
+          ],
+          [
+            "scene-1049",
+            "7cc95508642d4f98a8bd22ac2c5f1364"
+          ],
+          [
+            "scene-0053",
+            "61ac4c698216454db87d6259f43b86e9"
+          ],
+          [
+            "scene-0253",
+            "7caa2d63618a4f38acf76d6909df986e"
+          ],
+          [
+            "scene-0535",
+            "88c3db807f5c48c0a0101ca529fee940"
+          ],
+          [
+            "scene-0686",
+            "1f17cb436f124e3399e5f3da9001ce02"
+          ],
+          [
+            "scene-0868",
+            "722c153a504d4ef6ad305ddb8a9272d8"
+          ],
+          [
+            "scene-0670",
+            "110724feee1645ee911289389f8b4539"
+          ],
+          [
+            "scene-0686",
+            "bb44d46af1614e0d8b490dbaf5e11a2b"
+          ],
+          [
+            "scene-0243",
+            "17cf4c2eefcd4d0eb3a80cb490a13432"
+          ],
+          [
+            "scene-0011",
+            "f4058a4e7d0f45f1bd66e8efa037809a"
+          ],
+          [
+            "scene-0866",
+            "60a07ea7d76340e4869d549f8e1453fc"
+          ],
+          [
+            "scene-0406",
+            "34bbbebb15d8432f96549c452b576de8"
+          ],
+          [
+            "scene-0011",
+            "ed530682b68e421d92ee58f4e0f9c331"
+          ],
+          [
+            "scene-0191",
+            "dfa8ec26ecab43c49a1a42dcafee994f"
+          ],
+          [
+            "scene-0514",
+            "b2b91583e8954b729196fcf98bb12788"
+          ],
+          [
+            "scene-0866",
+            "32c0e96b33b9425f983d18f12bfb0928"
+          ],
+          [
+            "scene-0076",
+            "ba17899faa80497590c997f589335f74"
+          ],
+          [
+            "scene-1058",
+            "2e81389debf34e5a8f846c84aa03a240"
+          ],
+          [
+            "scene-0352",
+            "a3565c5dd44d4ccca86ed7622c5f15e9"
+          ],
+          [
+            "scene-0253",
+            "fb3b642627a44257b559b90cf1f14377"
+          ],
+          [
+            "scene-0804",
+            "326c158204f742f3ad4a8fd0551ca9ed"
+          ],
+          [
+            "scene-0657",
+            "71257949312a4996850f818231ff9201"
+          ],
+          [
+            "scene-0076",
+            "4826833780ab47f68e48eb518165874e"
+          ],
+          [
+            "scene-0027",
+            "62b90a48506f4f4387391564cc31c7db"
+          ],
+          [
+            "scene-0076",
+            "b0752999a0f0495e9499bfe5416fc8d4"
+          ],
+          [
+            "scene-0535",
+            "0e14856e5deb4fc4bdb8fea5c54c3c33"
+          ],
+          [
+            "scene-0243",
+            "10c8d8c27d874cd9b66de83b7ad731a7"
+          ],
+          [
+            "scene-0670",
+            "ec04d46f60c24333b2e593fad293bd2d"
+          ],
+          [
+            "scene-0191",
+            "07a08b78eabb4a8e9895d89375478f21"
+          ]
+        ],
+        "velocity_gradient_l2": 0.015004168264567852,
+        "geometry_gradient_l2": 0.003449012991040945,
+        "lambda_candidate": 0.43502788489177163,
+        "velocity_loss": 0.35497307777404785,
+        "geometry_loss": 0.1353697031736374,
+        "valid_windows": 45
+      },
+      {
+        "batch": 3,
+        "keys": [
+          [
+            "scene-0352",
+            "14348e60f6b648fcbec1f1f7cab64d09"
+          ],
+          [
+            "scene-0875",
+            "7de4adcf55664e43877d8599730e9c39"
+          ],
+          [
+            "scene-0011",
+            "4bdeb8404b584ab4a329c584368bc649"
+          ],
+          [
+            "scene-0804",
+            "d856f20c82ea49d7af840f6d1e44288e"
+          ],
+          [
+            "scene-0243",
+            "a482646997cf4791a708c71ddf48c9f1"
+          ],
+          [
+            "scene-0866",
+            "090267330fd241b2ac114f6685f313c1"
+          ],
+          [
+            "scene-0053",
+            "0d190f6f22514ca49b8024a17860c333"
+          ],
+          [
+            "scene-0868",
+            "98dbf26962bd4fad9159335784147c2d"
+          ],
+          [
+            "scene-0239",
+            "d5cc253ee2ac418fba0e2cce44f3171a"
+          ],
+          [
+            "scene-0053",
+            "d3865aae02074c36b74320f236bc5c0b"
+          ],
+          [
+            "scene-0352",
+            "a660340d5f2c4bc6a8428297a6f917a8"
+          ],
+          [
+            "scene-0243",
+            "21e44894d3054726999626d9912f0019"
+          ],
+          [
+            "scene-0657",
+            "72945c326b47446baecef82ea85d0eef"
+          ],
+          [
+            "scene-0027",
+            "3ac653a97e534dbe8834dc35f9bcd9e6"
+          ],
+          [
+            "scene-0191",
+            "155ad2b51e004efdaba1435e2e220cd1"
+          ],
+          [
+            "scene-0027",
+            "99cabfb9e32a442d9547aeb541661631"
+          ],
+          [
+            "scene-0238",
+            "e48fb69602df48e6b3cc0b03c0ad88e2"
+          ],
+          [
+            "scene-0406",
+            "33255676d44242f59a3c0080845031a3"
+          ],
+          [
+            "scene-0352",
+            "00eb6f8203e04ac78b88aba0c5333991"
+          ],
+          [
+            "scene-1049",
+            "010f39ade3624377a62041591eae25cb"
+          ],
+          [
+            "scene-0011",
+            "9f811c73e2ff4bc2ba08cc29a252b598"
+          ],
+          [
+            "scene-0238",
+            "d46dfbcfb17c40b9bc7a8e3c11d8b8d0"
+          ],
+          [
+            "scene-1049",
+            "6b90d4c29f1e4fcebd09c7b8d8d038a4"
+          ],
+          [
+            "scene-0253",
+            "7e6271bc4ec44ec3afb654e40e6f172e"
+          ],
+          [
+            "scene-1058",
+            "84611a8982e347aca5445e43c5c09e52"
+          ],
+          [
+            "scene-0998",
+            "f1c4ac6e65d34194b89973c3faebfe8f"
+          ],
+          [
+            "scene-0804",
+            "57a2f99f803a4f91819b4e384fc8a16d"
+          ],
+          [
+            "scene-0803",
+            "c2d0656495674ae89485868c6547c36f"
+          ],
+          [
+            "scene-0238",
+            "946ca11f86bf404eb8fb47cf3c65abac"
+          ],
+          [
+            "scene-0239",
+            "70129935ca5c4267a5b3b855dd2bf86b"
+          ],
+          [
+            "scene-0253",
+            "a41f0db51aae4d1e9ea85dbea11909ab"
+          ],
+          [
+            "scene-1090",
+            "ed74fddf6cd44750bfcf03fc91f2c54b"
+          ],
+          [
+            "scene-0352",
+            "7afdf6c1e1cf4233b4546a3932841332"
+          ],
+          [
+            "scene-0639",
+            "f5081d60da6b47fb82f42b54495bef43"
+          ],
+          [
+            "scene-1058",
+            "57582e1e44894a84bb8b8d25baa0f711"
+          ],
+          [
+            "scene-0866",
+            "3027bff59da14f5283caef79ac05bdf2"
+          ],
+          [
+            "scene-0803",
+            "fc3bc294fcbb4163b8521f4f0dc10db0"
+          ],
+          [
+            "scene-0053",
+            "d3658360167a4033969115d7b16e627a"
+          ],
+          [
+            "scene-0191",
+            "bddf34bed2e84f4ab71d35ed5e2848b9"
+          ],
+          [
+            "scene-0803",
+            "aadf289d4b5c4cad9ef46d8424499c7c"
+          ],
+          [
+            "scene-0803",
+            "d40108f57eed4b2e8d827353e998d7af"
+          ],
+          [
+            "scene-0002",
+            "7da59f5fcfda40548b5103db6476ba44"
+          ],
+          [
+            "scene-0053",
+            "ce05478cd99443ddb9d2dc5a066ce25e"
+          ],
+          [
+            "scene-0239",
+            "556aa717b6b84eb78c9cfb0f78e3a50d"
+          ],
+          [
+            "scene-0352",
+            "8b75242bb7474fd49024b68268e56656"
+          ],
+          [
+            "scene-0406",
+            "4e5d396281fe46a092c849649015f43d"
+          ],
+          [
+            "scene-0238",
+            "686533f5e8fe42deba9da17eabb122fb"
+          ],
+          [
+            "scene-0866",
+            "a26acaf5a69148bfbc0b069717965000"
+          ],
+          [
+            "scene-1049",
+            "87e0c1c19c3349929638907c2bc98df9"
+          ],
+          [
+            "scene-0253",
+            "8b70acd7133e44798cc4093b48da7944"
+          ],
+          [
+            "scene-0804",
+            "02afe20b57234048a99d7b649f261710"
+          ],
+          [
+            "scene-0866",
+            "15021e56be454fa79c958e7d93035569"
+          ],
+          [
+            "scene-0670",
+            "25dbd696e7fd4a909cf8b04ac0305358"
+          ],
+          [
+            "scene-0535",
+            "679add0e994d4fc1b0da2341d79b0df3"
+          ],
+          [
+            "scene-0053",
+            "57b3e46a1ad44948b7ed807ab1b38029"
+          ],
+          [
+            "scene-0648",
+            "17818245ee934fd6801e03598fae415b"
+          ],
+          [
+            "scene-0002",
+            "31b149883f194ad8983a7ef18ae5a759"
+          ],
+          [
+            "scene-0406",
+            "de5a619c4a84432f88f10b9783db41c1"
+          ],
+          [
+            "scene-0866",
+            "078c457ba48949d29f6688f24f9ab959"
+          ],
+          [
+            "scene-1090",
+            "26262ea89a9d4828aad4b38b2767fbc1"
+          ],
+          [
+            "scene-0804",
+            "f2a3280192474f12a92ebc9b324ac936"
+          ],
+          [
+            "scene-0406",
+            "153c4549f92843a3aa0579f86b225ae7"
+          ],
+          [
+            "scene-0866",
+            "2f39b47b501a49adaffaec6d04225bc8"
+          ],
+          [
+            "scene-0352",
+            "9d646b48a64f42a48261a4d0e67ea9d8"
+          ]
+        ],
+        "velocity_gradient_l2": 0.01483982801437378,
+        "geometry_gradient_l2": 0.0037784110754728317,
+        "lambda_candidate": 0.39275313664796835,
+        "velocity_loss": 0.3601497411727905,
+        "geometry_loss": 0.13931059837341309,
+        "valid_windows": 47
+      }
+    ],
+    "initialization_sha256": "248db31faa66680b17a8f250e50067219981f07d59f2f04b8435497813306c3a",
+    "epoch_order_sha256": "293b48b3467137fa7736d8865d563d8eb856ca795af539c2a97aac00257e2713",
+    "feature_cache_identity": "209418d597b2065146ddf7bc9c718e296bdeedab98645b7470448c2d238ee4b9",
+    "geometry": {
+      "path": "/home/zhangyu/.local/share/speedest-v5-next/geometry/20261104_0025_s23_geometry/pilot",
+      "identity": "e21a10bc9ab76434d02885eff9f77e1428efe2ab7830895fe614d56114ed2b11",
+      "index_sha256": "bc35df2dae7f9f0387a227668e76d9b03c70358ce07851846d7972bfdf6da888",
+      "geometry_sha256": "ebe0c1af621b21d4db39c20c40890fcfc4952f87961be0c055af5dc17498cff5",
+      "source_feature_cache_identity": "209418d597b2065146ddf7bc9c718e296bdeedab98645b7470448c2d238ee4b9",
+      "sample_mapping": "scene,token",
+      "total": 7324,
+      "valid": 4496,
+      "reasons": {
+        "valid": 4496,
+        "interval_out_of_range": 19,
+        "nonplanar_orientation_change": 117,
+        "endpoint_interval_approximation": 37,
+        "plane_normal_outside_local_road_range": 482,
+        "normal_unobservable_near_pure_rotation": 1761,
+        "insufficient_reliable_metric_plane_points": 20,
+        "plane_rotation_disagrees_with_pose": 392
+      },
+      "policy": {
+        "version": "v5_geometry_support_v1",
+        "max_points": 256,
+        "min_points": 32,
+        "segmentation_input_hw": [
+          576,
+          1024
+        ],
+        "road_class": 0,
+        "road_probability": 0.9,
+        "erosion_pixels": 1,
+        "homography_ransac_pixels": 0.5,
+        "min_homography_points": 60,
+        "max_homography_rotation_error_deg": 0.5,
+        "max_normal_tilt_deg": 10.0,
+        "min_translation_signal_px": 0.25,
+        "min_depth_m": 3.0,
+        "max_depth_m": 40.0,
+        "max_endpoint_interval_velocity_difference_m_s": 0.2,
+        "max_roll_pitch_change_deg": 0.5,
+        "min_pair_dt_s": 0.04,
+        "max_pair_dt_s": 0.15,
+        "spatial_strata_hw": [
+          16,
+          16
+        ],
+        "support": "source+warped-target frozen road probability, eroded boundaries; finite valid RAFT and independent planar coherence",
+        "plane": "visual homography decomposition selected by offline rotation and nominal upward sign; passes source ego ground projection",
+        "scale": "actual calibrated_sensor translation; ego origin ground projection per official devkit issue161",
+        "no_prediction_based_selection": true,
+        "missing_geometry": "invalid reason; all windows retained; padded points always masked"
+      },
+      "source_model": {
+        "repository": "nvidia/segformer-b0-finetuned-cityscapes-1024-1024",
+        "revision": "21b3847fae21ddee674abd31129307b6a1235bd9",
+        "files": {
+          "config.json": {
+            "sha256": "649ba4afbaa11ee730b14ad5e31bd50f2e2d5be661a291e31a91512510dba8d9",
+            "bytes": 1680
+          },
+          "preprocessor_config.json": {
+            "sha256": "d96ab2cb112985c19d5ea32f1d1f2369104fc78b1379f5ce26e33ca8646202a7",
+            "bytes": 272
+          },
+          "pytorch_model.bin": {
+            "sha256": "027ed78d8ff9c535df5a66361c92b9673cca3cb923cbeb8c5802385b6b93194c",
+            "bytes": 14957601
+          }
+        }
+      },
+      "stop_gradient": true,
+      "dt_validation": "exact historical float-seconds subtraction for S23; exact integer-microsecond delta for geometry",
+      "historical_vs_actual_dt_max_abs_s": 2.2724270820617676e-07
+    },
+    "short_verification_sha256": "b87c7747e6e6aabac3e65ac16e6dd468e542aab385a418c4a67987810ca1745d",
+    "source_sha256": "b409273c4afb5ddd97b590dac2a8e1ed7c2b51becc034fdbcc4cfdfb4b7207b2",
+    "model_updated": false,
+    "dev_used": false,
+    "reset": "Formal processes independently rebuild build_six(42)[S23], new optimizer/cosine20/RNG",
+    "identity": "4fd01483867d4b813412aaa7a66a489c8395b31ad7e7695dc853b655fef36308"
+  },
+  "updated_at": "2026-11-03T17:01:36.592588+00:00",
+  "completed_epochs": 20,
+  "epoch": null,
+  "next_batch": 0,
+  "optimizer_updates": 41560,
+  "processed_batches": 41560,
+  "attempted_optimizer_updates": 41560,
+  "amp_skips": 0,
+  "best_epoch": 19,
+  "best_dev_epe": 0.17847165237392404,
+  "elapsed_seconds": 260.0405788279604,
+  "training_elapsed_seconds": 232.25871117203496,
+  "effective_training_seconds": 226.90091176121496,
+  "cuda_peak_allocated_bytes": 4459032576,
+  "cuda_peak_reserved_bytes": 4485808128,
+  "best_checkpoint_sha256": "ea2d2cda407f800f5ccdb84dcd90f9678602c18335a0cc7a628fcd12cd1f1129",
+  "last_checkpoint_sha256": "8923292966f2d8abcbde948b937976761d64ec699b1e33c8411dc65cbabb9a20",
+  "finished_at": "2026-11-03T17:01:36.593042+00:00",
+  "stop_signal": null
+}

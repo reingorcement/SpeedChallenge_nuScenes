@@ -1,0 +1,88 @@
+{
+  "status": "launched",
+  "time": "2026-11-03T16:59:00.392607+00:00",
+  "plan_identity": "44ca79ec3efbf2909bee5ca9280b4ca249f7651aa21992f575cc8914b146e79a",
+  "code_commit": "c09c602f1296994336c8d079435f835a7ccaa462",
+  "jobs": [
+    {
+      "name": "PILOT_A",
+      "status": "completed",
+      "pid": 568084,
+      "epoch": null,
+      "completed_epochs": 20,
+      "attempted_updates": 2300
+    },
+    {
+      "name": "PILOT_B",
+      "status": "completed",
+      "pid": 568020,
+      "epoch": null,
+      "completed_epochs": 20,
+      "attempted_updates": 2300
+    },
+    {
+      "name": "FULL_A",
+      "status": "running",
+      "pid": 568685,
+      "epoch": 7,
+      "completed_epochs": 6,
+      "attempted_updates": 12468
+    },
+    {
+      "name": "FULL_B",
+      "status": "queued",
+      "pid": null,
+      "epoch": null,
+      "completed_epochs": null,
+      "attempted_updates": null
+    }
+  ],
+  "pilot_gate": {
+    "status": "passed",
+    "checks": {
+      "geometric_preflight": true,
+      "same_initialization": true,
+      "finite_training": true,
+      "actual_geometric_coverage": true,
+      "no_invalid_projected_depth": true,
+      "within_tolerance": true
+    },
+    "pilot_A_best": 0.3939757528186787,
+    "pilot_B_best": 0.39293955935015573,
+    "limit": 0.3979155103468655,
+    "rule": "B best all-dev EPE <= A best all-dev EPE *1.01; one pilot only; tolerance is not evidence of benefit",
+    "plan_identity": "44ca79ec3efbf2909bee5ca9280b4ca249f7651aa21992f575cc8914b146e79a",
+    "observed_at": "2026-11-03T16:57:18.143203+00:00"
+  },
+  "publication": {
+    "report_commit": "1289a77c3752191f5136d9d48d1df77688d8bce4",
+    "remote_base": "b867570ba752d3387327feaa68a5999925de08f3",
+    "started_at": "2026-11-03T16:57:32.032193+00:00",
+    "worktree": "/home/zhangyu/.local/share/speedest-v5-next/report-worktree",
+    "branch": "results/purevision-v5-next",
+    "status": "published",
+    "trigger": "manual",
+    "plan_identities": [
+      "44ca79ec3efbf2909bee5ca9280b4ca249f7651aa21992f575cc8914b146e79a"
+    ],
+    "changed": true,
+    "training_commits": [
+      "c09c602f1296994336c8d079435f835a7ccaa462"
+    ],
+    "verified_remote_commit": "1289a77c3752191f5136d9d48d1df77688d8bce4",
+    "finished_at": "2026-11-03T16:57:49.812900+00:00",
+    "all_terminal": false
+  },
+  "full_geometry": {
+    "last_progress": "road_frames 59912 / 133560",
+    "observed_frames_per_second": 36.338809666291006,
+    "estimated_segmentation_remaining_minutes": 33.778394998042614,
+    "caveat": "additional source-plane projection and verification remain after semantic masks; estimate is not a training accuracy gate"
+  },
+  "monitoring": {
+    "server_minutes": 5,
+    "astra_minutes": 30,
+    "publisher": "hourly+stage events",
+    "installed": true
+  }
+}

@@ -1,6 +1,6 @@
 {
   "status": "running",
-  "updated_at": "2026-11-03T16:57:32.095587+00:00",
+  "updated_at": "2026-11-03T17:01:59.919273+00:00",
   "plan_identity": "44ca79ec3efbf2909bee5ca9280b4ca249f7651aa21992f575cc8914b146e79a",
   "code": {
     "commit": "c09c602f1296994336c8d079435f835a7ccaa462",
@@ -93,8 +93,8 @@
       "finished_at": "2026-11-03T16:57:18.295068+00:00"
     },
     "FULL_A": {
-      "status": "running",
-      "updated_at": "2026-11-03T16:57:30.274704+00:00",
+      "status": "completed",
+      "updated_at": "2026-11-03T17:01:40.348026+00:00",
       "launch_count": 1,
       "reason": null,
       "launched_at_epoch": 1793725033.572359,
@@ -122,7 +122,16 @@
         "cuda:0"
       ],
       "child_pid": 568685,
-      "child_pid_start_ticks": 123995076
+      "child_pid_start_ticks": 123995076,
+      "epoch": null,
+      "elapsed_seconds": 260.0405788279604,
+      "cuda_peak_allocated_bytes": 4459032576,
+      "processed_batches": 41560,
+      "optimizer_updates": 41560,
+      "amp_skips": 0,
+      "best_epoch": 19,
+      "exit_code": 0,
+      "finished_at": "2026-11-03T17:01:40.348006+00:00"
     },
     "FULL_B": {
       "status": "queued",
@@ -133,8 +142,8 @@
     "GEOMETRY_FULL": {
       "status": "running",
       "phase": "train_geometry_preparation",
-      "last_progress": "road_frames 56072 / 133560",
-      "updated_at": "2026-11-03T16:57:31.984017+00:00",
+      "last_progress": "road_frames 67592 / 133560",
+      "updated_at": "2026-11-03T17:01:59.766721+00:00",
       "pid": 563053,
       "pid_start_ticks": 123835896
     },
