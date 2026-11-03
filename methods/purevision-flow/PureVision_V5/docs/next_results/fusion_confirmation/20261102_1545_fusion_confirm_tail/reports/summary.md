@@ -1,6 +1,6 @@
 # 完整数据三种子复核与 S23 新阶段20轮
 
-状态：**dev_ready**；实验 `20261102_1545_fusion_confirm_tail`；新代码 `f1fb5402e559847eb4ea51554a69daf50b6bc7dd`。
+状态：**completed**；实验 `20261102_1545_fusion_confirm_tail`；新代码 `f1fb5402e559847eb4ea51554a69daf50b6bc7dd`。
 
 A 仅统计原完整数据协议 seed42/43/44；B 是从 seed42 父 best19 开始的新20轮阶段，二者分别报告。
 
@@ -49,7 +49,7 @@ F23_minus_J23 在 50/103 个场景中三个seed均改善。净收益场景贡献
 | 组别 | 阶段best轮 | 阶段best dev | 阶段last dev | best train | 是否替换父模型 | epoch0含入后的选中轮 |
 |---|---:|---:|---:|---:|---|---:|
 | S23_FROZEN_CONT | 3 | 0.179102 | 0.179261 | 0.099592 | parent_epoch0 | 0 |
-| S23_TAIL_FT | 9 | 0.178169 | 0.178455 | pending | stage_best | 9 |
+| S23_TAIL_FT | 9 | 0.178169 | 0.178455 | 0.093391 | stage_best | 9 |
 
 | 对照（前者−后者） | Δdev EPE | 相对% | Δbest train EPE | 改善/退化场景 |
 |---|---:|---:|---:|---:|
@@ -57,14 +57,14 @@ F23_minus_J23 在 50/103 个场景中三个seed均改善。净收益场景贡献
 
 S23_FROZEN_CONT_minus_parent_epoch0：10–15m/s 共 1708 个窗口，ΔEPE=0.005411，Δvx偏差=-0.017252。偏差变化需与绝对偏差共同查看，正变化本身不等于精度提升。
 
-| S23_TAIL_FT_minus_parent_epoch0 | -0.000303 | -0.169740 | pending | 47/56 |
+| S23_TAIL_FT_minus_parent_epoch0 | -0.000303 | -0.169740 | -0.005610 | 47/56 |
 
 S23_TAIL_FT_minus_parent_epoch0 的前三贡献场景 scene-1014, scene-1095, scene-1024 占净收益 194.1%；占比受其他场景退化抵消影响，可能超过100%。
 
 
 S23_TAIL_FT_minus_parent_epoch0：10–15m/s 共 1708 个窗口，ΔEPE=-0.008607，Δvx偏差=0.017270。偏差变化需与绝对偏差共同查看，正变化本身不等于精度提升。
 
-| S23_TAIL_FT_minus_S23_FROZEN_CONT | -0.000933 | -0.520821 | pending | 58/45 |
+| S23_TAIL_FT_minus_S23_FROZEN_CONT | -0.000933 | -0.520821 | -0.006201 | 58/45 |
 
 S23_TAIL_FT_minus_S23_FROZEN_CONT 的前三贡献场景 scene-0792, scene-0048, scene-0455 占净收益 57.9%；占比受其他场景退化抵消影响，可能超过100%。
 

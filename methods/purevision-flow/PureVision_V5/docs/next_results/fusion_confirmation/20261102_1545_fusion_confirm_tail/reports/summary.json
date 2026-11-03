@@ -1,7 +1,7 @@
 {
   "schema": "v5_fusion_confirmation_comparison_v1",
-  "status": "dev_ready",
-  "observed_at": "2026-11-03T06:00:27.433064+00:00",
+  "status": "completed",
+  "observed_at": "2026-11-03T06:27:09.942746+00:00",
   "experiment_id": "20261102_1545_fusion_confirm_tail",
   "plan_identity": "066efe6b79709d02c1880947c723b8443241a74a246048bf1aecea0b9090a8a6",
   "training_commit": "f1fb5402e559847eb4ea51554a69daf50b6bc7dd",
@@ -27,7 +27,7 @@
       "optimizer_updates": 41560
     },
     "S23_TAIL_FT_s42": {
-      "status": "dev_ready",
+      "status": "completed",
       "completed_epochs": 20,
       "optimizer_updates": 41560
     },
@@ -18292,14 +18292,14 @@
       "selected_best_train_evaluation_seconds": 4.65421577799134
     },
     "S23_TAIL_FT": {
-      "schema": "v5_fusion_tail_dev_ready_v1",
-      "status": "dev_ready",
+      "schema": "v5_fusion_tail_result_v1",
+      "status": "completed",
       "run_id": "20261102_1545_fusion_confirm_tail_S23_TAIL_FT",
       "group": "S23_TAIL_FT",
       "best_epoch": 9,
       "best_dev_epe": 0.17816871379767155,
       "last_dev_epe": 0.1784546394370666,
-      "best_train_epe": null,
+      "best_train_epe": 0.09339067461848388,
       "dev": {
         "overall": {
           "count": 23480,
@@ -19781,7 +19781,146 @@
         },
         "speed_definition": "sqrt(target_vx**2 + target_vy**2), half-open bins in m/s"
       },
-      "train": null,
+      "train": {
+        "overall": {
+          "count": 132978,
+          "epe": 0.09339067461848388,
+          "mae_vx": 0.08957131941541732,
+          "rmse_vx": 0.12574706698034338,
+          "bias_vx": -0.0026977224163307048,
+          "p95_abs_vx": 0.26170463562011703,
+          "mae_vy": 0.015450964949741684,
+          "rmse_vy": 0.023567333766501313,
+          "bias_vy": -0.0012281917754514344,
+          "p95_abs_vy": 0.048528526350855826,
+          "zero_vy_mae": 0.03562563031898175
+        },
+        "scene_count": 582,
+        "effective_lateral_rule": {
+          "max_relative_mae_increase": 0.05,
+          "max_absolute_mae_increase_m_s": 0.01,
+          "nonzero_threshold_m_s": 0.2,
+          "min_subset_windows": 100,
+          "min_subset_scenes": 5
+        },
+        "nonzero_vy": {
+          "threshold_m_s": 0.2,
+          "count": 136,
+          "scene_count": 30,
+          "metrics": {
+            "count": 136,
+            "epe": 0.2516788168297764,
+            "mae_vx": 0.15931827531141393,
+            "rmse_vx": 0.21181557971847717,
+            "bias_vx": 0.010118011166067684,
+            "p95_abs_vx": 0.44143569469451904,
+            "mae_vy": 0.16181768827578602,
+            "rmse_vy": 0.20112128816156685,
+            "bias_vy": 0.0419057551497484,
+            "p95_abs_vy": 0.441793495323509,
+            "zero_vy_mae": 0.2587804789928829
+          },
+          "adequate": true,
+          "status": "sufficient_data"
+        },
+        "task": "PLANAR_PROXY",
+        "loss": 0.0002969780471175909,
+        "loss_x": 0.000316246529109776,
+        "loss_y": 0.00027770959422923625,
+        "speed_bins": {
+          "0..2": {
+            "lower_m_s": 0.0,
+            "upper_m_s": 2.0,
+            "count": 34442,
+            "metrics": {
+              "count": 34442,
+              "epe": 0.028782447442060898,
+              "mae_vx": 0.027891627474411596,
+              "rmse_vx": 0.054472302479886735,
+              "bias_vx": 0.002689864402098374,
+              "p95_abs_vx": 0.12844318151473996,
+              "mae_vy": 0.003724054631163723,
+              "rmse_vy": 0.006596813296853392,
+              "bias_vy": -0.0004229907126599185,
+              "p95_abs_vy": 0.01382241504034027,
+              "zero_vy_mae": 0.004509295288870229
+            }
+          },
+          "2..5": {
+            "lower_m_s": 2.0,
+            "upper_m_s": 5.0,
+            "count": 27929,
+            "metrics": {
+              "count": 27929,
+              "epe": 0.10456273305655861,
+              "mae_vx": 0.10134111151086933,
+              "rmse_vx": 0.12944467057494022,
+              "bias_vx": -0.007301011442852147,
+              "p95_abs_vx": 0.2548225402832031,
+              "mae_vy": 0.01444354106289379,
+              "rmse_vy": 0.022090508401815093,
+              "bias_vy": 0.00023638721142463196,
+              "p95_abs_vy": 0.038396818190813066,
+              "zero_vy_mae": 0.02705968281761723
+            }
+          },
+          "5..10": {
+            "lower_m_s": 5.0,
+            "upper_m_s": 10.0,
+            "count": 60686,
+            "metrics": {
+              "count": 60686,
+              "epe": 0.1194796097980349,
+              "mae_vx": 0.1144218633402998,
+              "rmse_vx": 0.14655210946100156,
+              "bias_vx": -0.0009051626454556904,
+              "p95_abs_vx": 0.29065513610839844,
+              "mae_vy": 0.02053211788055776,
+              "rmse_vy": 0.02747245480287338,
+              "bias_vy": -0.0010809415912262194,
+              "p95_abs_vy": 0.05417986476095393,
+              "zero_vy_mae": 0.05085765905885732
+            }
+          },
+          "10..15": {
+            "lower_m_s": 10.0,
+            "upper_m_s": 15.0,
+            "count": 8770,
+            "metrics": {
+              "count": 8770,
+              "epe": 0.1247480881526981,
+              "mae_vx": 0.1169045586406573,
+              "rmse_vx": 0.15015576550308907,
+              "bias_vx": -0.022425661772115746,
+              "p95_abs_vx": 0.28911499977111815,
+              "mae_vy": 0.02728733397920977,
+              "rmse_vy": 0.035298878180979355,
+              "bias_vy": -0.007967751921311736,
+              "p95_abs_vy": 0.0713884011376649,
+              "zero_vy_mae": 0.07103173676625074
+            }
+          },
+          "15..inf": {
+            "lower_m_s": 15.0,
+            "upper_m_s": null,
+            "count": 1151,
+            "metrics": {
+              "count": 1151,
+              "epe": 0.14115305801733252,
+              "mae_vx": 0.13115325665908933,
+              "rmse_vx": 0.16516299089621136,
+              "bias_vx": 0.003589627641268547,
+              "p95_abs_vx": 0.32309627532958984,
+              "mae_vy": 0.03271837049300623,
+              "rmse_vy": 0.04169720230558182,
+              "bias_vy": -0.017272539064611795,
+              "p95_abs_vy": 0.0791992787271738,
+              "zero_vy_mae": 0.10171138985162612
+            }
+          }
+        },
+        "speed_definition": "sqrt(target_vx**2 + target_vy**2), half-open bins in m/s"
+      },
       "trainable_parameters": 1906210,
       "optimizer_updates": 41560,
       "completed_epochs": 20,
@@ -19792,7 +19931,7 @@
         "uuid": "GPU-cedbf5f4-647b-640c-1244-babecaef88e7",
         "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition"
       },
-      "elapsed_seconds": 78459.1305913399,
+      "elapsed_seconds": 80060.02584804292,
       "training_elapsed_seconds": 78397.10274034995,
       "code": {
         "commit": "f1fb5402e559847eb4ea51554a69daf50b6bc7dd",
@@ -19816,8 +19955,8 @@
       "best_checkpoint_sha256": "a4bdb0aa59302afa3c5881aec3eb35bbc313c87062dd76676920d39f7dadb60c",
       "last_checkpoint_sha256": "c232e68d10ff6e59b999a39f52544a36d8837d4e2e4fd678c237fa34eaa6ad16",
       "contract_hash": "374367f031d5d3b0c08d1dd42aaf19c01a69912e8627e210187e1ec89c2911df",
-      "generalization_gap_dev_minus_train_epe": null,
-      "best_train_full_evaluation_count": 0,
+      "generalization_gap_dev_minus_train_epe": 0.08477803917918766,
+      "best_train_full_evaluation_count": 1,
       "best_dev_predictions_reused": true,
       "parents": {
         "schema": "v5_s23_tail_parent_provenance_v1",
@@ -20106,8 +20245,8 @@
       "order_records_sha256": "f9af290f95cfee56f909ab53b9b43ad13720bc385202b2e5fb63d4485024b18c",
       "order_receipt_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/epoch_orders.json",
       "order_receipt_file_sha256": "45fa7f2c907ae59826805f7cfd0e9ae094e4bab2a30b4e8b9583acca6fe8650d",
-      "result_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/dev_ready.json",
-      "result_sha256": "3d3eb3bbe5c5b1e462c60c1881b9f794942dd711a0757fb232c6346a2542ac5c",
+      "result_path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/result.json",
+      "result_sha256": "601763752e7ac8bb4deebed51f4f2d101c22bc95014a2b5f8d85165567020092",
       "config_sha256": "f9d74e38406d6dcb334e6ee348acd8a8d6c7caa398033f0ee9d95e4b2ade8d25",
       "recovery_manifest_sha256": "7bacb874c77cbeab12fab189fa1a3993f38bf3434ca1edf9ce1a3b5f67d33eb6",
       "freeze_manifest_identity": "a7914b9bcc8bc89d306f86bf3bdf09dfe75ed567cab741a3b98f70d75ba7c34e",
@@ -20209,7 +20348,8 @@
       },
       "numerical_or_provenance_anomaly": false,
       "cuda_peak_allocated_bytes": 31471961600,
-      "cuda_peak_reserved_bytes": 37893439488
+      "cuda_peak_reserved_bytes": 37893439488,
+      "selected_best_train_evaluation_seconds": 1600.5324969319627
     }
   },
   "A_confirmation": {
@@ -85190,9 +85330,9 @@
         },
         "fitting": {
           "dev_delta_epe": -0.00030293857625249276,
-          "train_delta_epe": null,
-          "train_evaluation_pending": true,
-          "gap_delta_epe": null
+          "train_delta_epe": -0.00560983557583003,
+          "train_evaluation_pending": false,
+          "gap_delta_epe": 0.005306896999577537
         }
       },
       "S23_TAIL_FT_minus_S23_FROZEN_CONT": {
@@ -88663,9 +88803,9 @@
         },
         "fitting": {
           "dev_delta_epe": -0.0009327981286866016,
-          "train_delta_epe": null,
-          "train_evaluation_pending": true,
-          "gap_delta_epe": null
+          "train_delta_epe": -0.006200826012746255,
+          "train_evaluation_pending": false,
+          "gap_delta_epe": 0.005268027884059653
         }
       }
     },
@@ -88697,7 +88837,7 @@
     "initialization": "parent best19; new AdamW and cosine20; not old-last exact resume"
   },
   "dev_core_complete": true,
-  "train_evaluation_complete": false,
+  "train_evaluation_complete": true,
   "confirmation_dev_complete": true,
   "frozen_dev_ready": true,
   "tail_dev_ready": true,

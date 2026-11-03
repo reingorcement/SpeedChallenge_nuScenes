@@ -3,7 +3,7 @@
   "run_id": "20261102_1545_fusion_confirm_tail_S23_TAIL_FT",
   "group": "S23_TAIL_FT",
   "seed": 42,
-  "status": "dev_ready",
+  "status": "completed",
   "started_at": "2026-11-02T08:12:58.620568+00:00",
   "code": {
     "commit": "f1fb5402e559847eb4ea51554a69daf50b6bc7dd",
@@ -11682,7 +11682,7 @@
   "parent_run": null,
   "discarded_attempts": [],
   "recovery_boundary": "completed_epoch_only",
-  "updated_at": "2026-11-03T05:59:36.696117+00:00",
+  "updated_at": "2026-11-03T06:26:17.278967+00:00",
   "completed_epochs": 20,
   "epoch": null,
   "next_batch": 0,
@@ -11692,13 +11692,15 @@
   "amp_skips": 0,
   "best_epoch": 9,
   "best_dev_epe": 0.17816871379767155,
-  "elapsed_seconds": 78459.49336951994,
-  "training_elapsed_seconds": 78398.06352419197,
+  "elapsed_seconds": 80060.07622599299,
+  "training_elapsed_seconds": 79998.64638080611,
   "effective_training_seconds": 78397.10274034995,
   "phase": "selected_best_full_train_evaluation",
-  "phase_elapsed_seconds": 1.9412953406572342e-05,
+  "phase_elapsed_seconds": 1600.5828763600439,
   "cuda_peak_allocated_bytes": 31471961600,
   "cuda_peak_reserved_bytes": 37893439488,
   "best_checkpoint_sha256": "a4bdb0aa59302afa3c5881aec3eb35bbc313c87062dd76676920d39f7dadb60c",
-  "last_checkpoint_sha256": "c232e68d10ff6e59b999a39f52544a36d8837d4e2e4fd678c237fa34eaa6ad16"
+  "last_checkpoint_sha256": "c232e68d10ff6e59b999a39f52544a36d8837d4e2e4fd678c237fa34eaa6ad16",
+  "finished_at": "2026-11-03T06:26:17.279471+00:00",
+  "stop_signal": null
 }
