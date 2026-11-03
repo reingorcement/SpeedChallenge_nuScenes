@@ -770,14 +770,14 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/last_astra.json",
-      "source_sha256": "4ea70b6ca3b7cad15b90bc3568f628c0c0ec870525c8d4e4289b8f04eae7d704",
-      "bytes": 4970,
+      "source_sha256": "e9e2c902d5a657c93237ad3f2157f6ed6c8fb0f5b18adb8e6a502f5aead7afec",
+      "bytes": 3534,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/latest.json",
-      "source_sha256": "c117baacc4ff7cad83ae672b4eba083b2cf7e086c3201f8fa2822026dee5be79",
-      "bytes": 169069,
+      "source_sha256": "6f14f1bf215746e5fee6509a2387f566b6a11d0b75741af7c2be7b9cd9406014",
+      "bytes": 169173,
       "representation": "parsed_json"
     },
     {
@@ -794,8 +794,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/monitoring/schedule.json",
-      "source_sha256": "31ba4c0274cf2db604b66cddab09139ba8807e6b7bc705849080406f4244990f",
-      "bytes": 6585,
+      "source_sha256": "7dda7a04b38d511183a3f90866a6566f837a413dadf1c88ddaf37019479b8549",
+      "bytes": 5089,
       "representation": "parsed_json"
     },
     {
@@ -830,7 +830,7 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_1545_fusion_confirm_tail/jobs/S23_TAIL_FT.json",
-      "source_sha256": "addfcc43f7ed97bb8df7ba26820b482af7f85791c5db8958bf9020acb876e37b",
+      "source_sha256": "f3d0d979f99adcbb430a39f4d1bea81871777b6461401323ec2f1791051d752c",
       "bytes": 2221,
       "representation": "parsed_json"
     },
@@ -854,8 +854,8 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/pipeline/20261102_1545_fusion_confirm_tail/status.json",
-      "source_sha256": "01dc96f333112bc42fadf9e72ccd94b59584f5e09ab65f1b8fd14b780bce80b4",
-      "bytes": 15233,
+      "source_sha256": "f2ee644d5e0c127f951c5944c8a3e1eb15f6ad9916c23e77586049cca811c4ab",
+      "bytes": 15235,
       "representation": "parsed_json"
     },
     {
@@ -1676,14 +1676,14 @@
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/status.json",
-      "source_sha256": "90a42cad91405299da393f482513b632c695240224e1a3f1b6620522089aa696",
-      "bytes": 1021,
+      "source_sha256": "bc36cd8de545b0ccb0f5fffd38cc842a2aef1b05163d59a46b71f82e9ca91cb3",
+      "bytes": 1022,
       "representation": "parsed_json"
     },
     {
       "path": "/home/zhangyu/.local/share/speedest-v5-next/runs/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/status.json",
-      "source_sha256": "90a42cad91405299da393f482513b632c695240224e1a3f1b6620522089aa696",
-      "bytes": 1021,
+      "source_sha256": "bc36cd8de545b0ccb0f5fffd38cc842a2aef1b05163d59a46b71f82e9ca91cb3",
+      "bytes": 1022,
       "representation": "parsed_json"
     },
     {
@@ -3158,7 +3158,7 @@
     },
     {
       "path": "experiments/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/job_status.json",
-      "export_sha256": "addfcc43f7ed97bb8df7ba26820b482af7f85791c5db8958bf9020acb876e37b",
+      "export_sha256": "f3d0d979f99adcbb430a39f4d1bea81871777b6461401323ec2f1791051d752c",
       "bytes": 2221
     },
     {
@@ -3188,8 +3188,8 @@
     },
     {
       "path": "experiments/20261102_1545_fusion_confirm_tail_S23_TAIL_FT/status.json",
-      "export_sha256": "90a42cad91405299da393f482513b632c695240224e1a3f1b6620522089aa696",
-      "bytes": 1021
+      "export_sha256": "bc36cd8de545b0ccb0f5fffd38cc842a2aef1b05163d59a46b71f82e9ca91cb3",
+      "bytes": 1022
     },
     {
       "path": "experiments/20261102_1545_fusion_confirm_tail_S23_s43/cache_identity.json",
@@ -3528,23 +3528,23 @@
     },
     {
       "path": "monitoring/last_astra.json",
-      "export_sha256": "4ea70b6ca3b7cad15b90bc3568f628c0c0ec870525c8d4e4289b8f04eae7d704",
-      "bytes": 4970
+      "export_sha256": "e9e2c902d5a657c93237ad3f2157f6ed6c8fb0f5b18adb8e6a502f5aead7afec",
+      "bytes": 3534
     },
     {
       "path": "monitoring/last_astra.txt",
-      "export_sha256": "bea152f790b60b959ec463618c15a7a94bc6ac74e3781a59575eabd55872bb0e",
-      "bytes": 1343
+      "export_sha256": "170f391cb40932f89846086e8e77b8890baf667bdb237103c67c07e87c087c33",
+      "bytes": 1284
     },
     {
       "path": "monitoring/latest.json",
-      "export_sha256": "c117baacc4ff7cad83ae672b4eba083b2cf7e086c3201f8fa2822026dee5be79",
-      "bytes": 169069
+      "export_sha256": "6f14f1bf215746e5fee6509a2387f566b6a11d0b75741af7c2be7b9cd9406014",
+      "bytes": 169173
     },
     {
-      "path": "monitoring/patrols/20261103T053001Z_504792.txt",
-      "export_sha256": "bea152f790b60b959ec463618c15a7a94bc6ac74e3781a59575eabd55872bb0e",
-      "bytes": 1343
+      "path": "monitoring/patrols/20261103T060001Z_510107.txt",
+      "export_sha256": "170f391cb40932f89846086e8e77b8890baf667bdb237103c67c07e87c087c33",
+      "bytes": 1284
     },
     {
       "path": "monitoring/probe_schedule.json",
@@ -3558,8 +3558,8 @@
     },
     {
       "path": "monitoring/schedule.json",
-      "export_sha256": "31ba4c0274cf2db604b66cddab09139ba8807e6b7bc705849080406f4244990f",
-      "bytes": 6585
+      "export_sha256": "7dda7a04b38d511183a3f90866a6566f837a413dadf1c88ddaf37019479b8549",
+      "bytes": 5089
     },
     {
       "path": "plans/20261102_1545_fusion_confirm_tail.json",
@@ -3568,13 +3568,13 @@
     },
     {
       "path": "plans/20261102_1545_fusion_confirm_tail_coordinator.json",
-      "export_sha256": "01dc96f333112bc42fadf9e72ccd94b59584f5e09ab65f1b8fd14b780bce80b4",
-      "bytes": 15233
+      "export_sha256": "f2ee644d5e0c127f951c5944c8a3e1eb15f6ad9916c23e77586049cca811c4ab",
+      "bytes": 15235
     },
     {
       "path": "status.json",
-      "export_sha256": "8365ec3a4d5313144a429acb0fb823931fee3fb3ce82bfac77132ac02383236e",
-      "bytes": 18167
+      "export_sha256": "2874ee5ca47c3bae5190143bc08126778f39b60903c29fbaf19697718a4d5e92",
+      "bytes": 18168
     }
   ],
   "note": "source_sha256 hashes source bytes (JSONL complete prefix); export_sha256 hashes the published representation. JSON may be reformatted; index excludes itself."
